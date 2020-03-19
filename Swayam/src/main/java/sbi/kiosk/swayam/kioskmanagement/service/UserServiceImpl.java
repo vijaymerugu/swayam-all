@@ -69,7 +69,10 @@ public class UserServiceImpl implements UserService {
 	public boolean updateUserById(UserDto userDto) {
 		boolean result = false;
 		try {
-			User userEntity=new User(userDto);			
+			User userEntity=new User(userDto);	
+			User userEntityObj= userRepo.findByUsername(userDto.getUsername());
+			userEntity.setCreatedBy(userEntityObj.getCreatedBy());
+			userEntity.setCreatedDate(userEntityObj.getCreatedDate());
 			userEntity.setEnabled("1");
 			userRepo.save(userEntity);
 		} catch (Exception e) {
@@ -87,7 +90,8 @@ public class UserServiceImpl implements UserService {
 		
 		boolean result = false;
 		try {
-			User userEntity=new User(usersBean);
+			User userEntity= userRepo.findByUsername(usersBean.getUsername());
+			//User userEntity=new User(usersBean);
 			userEntity.setUserId(usersBean.getUserId());
 			userEntity.setEnabled("0");
 			/*userEntity.setUserName(usersBean.getUserName());

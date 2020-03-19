@@ -1,10 +1,20 @@
 package sbi.kiosk.swayam.common.dto;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import lombok.Data;
 import sbi.kiosk.swayam.common.entity.User;
 
 @Data
 public class UserManagementDto  {
+	
+	public static String formatTimestampToString(String dateString) throws ParseException {
+		Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(dateString);
+		String formattedDate = new SimpleDateFormat("dd-MMM-yyyy HH:mm").format(date);
+		return formattedDate;
+	}
 	UserManagementDto(){
 		
 	}
@@ -24,9 +34,19 @@ public class UserManagementDto  {
 		this.city = user.getCity();
 		this.state = user.getState();
 		this.mailId = user.getMailId();
-		this.createdDate = user.getCreatedDate();
+		try {
+			this.createdDate = user.getCreatedDate() !=null ?formatTimestampToString(user.getCreatedDate().toString()):"";
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.createdBy = user.getCreatedBy();
-		this.modifiedDate = user.getModifiedDate();
+		try {
+			this.modifiedDate = user.getModifiedDate() !=null ?formatTimestampToString(user.getModifiedDate().toString()):"" ;
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.modifiedBy = user.getModifiedBy();;
 		this.mobileNo = user.getMobileNo();	
 		this.circle = user.getCircle();
@@ -92,6 +112,8 @@ public class UserManagementDto  {
 	
 	
 	private String circle;
+	
+
 
 	
 

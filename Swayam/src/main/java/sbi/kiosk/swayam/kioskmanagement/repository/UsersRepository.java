@@ -40,4 +40,6 @@ public interface UsersRepository extends CrudRepository<User, String> {
 	@Query(value = "UPDATE TBL_USER e set ENABLED=?1 where e.USER_ID=?2 ", nativeQuery = true)
 	boolean deActivateUserById(String enabled ,Integer userId);
 	
+	User findByUsername(String username);
+	
 }

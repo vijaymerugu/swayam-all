@@ -76,6 +76,8 @@ table, td {
                          <%-- <form:hidden path="userId"  id="userId"/> --%>
                          
                           <form:hidden  class="form-control"  id="userId" path="userId" value="${usersBean.userId}"/>
+                          <form:hidden  class="form-control"  id="createdBy" path="createdBy" value="${usersBean.createdBy}"/>
+                          <form:hidden  class="form-control"  id="modifiedBy" path="modifiedBy" value="${usersBean.modifiedBy}"/>            
                              <form:hidden  class="form-control"  id="enabled" path="enabled" value="${usersBean.enabled}"/>
             
               <div class="form-group required">

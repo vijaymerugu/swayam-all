@@ -14,7 +14,7 @@ import sbi.kiosk.swayam.common.dto.UserDto;
 @Data
 @Entity
 @Table(name="TBL_USER")
-public class User {
+public class User extends Common {
 	
 	public User() {
 		
@@ -87,19 +87,7 @@ public class User {
 	private String state;
 	
 	@Column(name="MAIL_ID")
-	private String mailId;
-	
-	@Column(name="CREATED_DATE")
-	private String createdDate;
-	
-	@Column(name="CREATED_BY")
-	private String createdBy;
-	
-	@Column(name="MODIFIED_DATE")
-	private String modifiedDate;
-	
-	@Column(name="MODIFIED_BY")
-	private String modifiedBy;
+	private String mailId;	
 	
 	@Column(name="MOBILENO")
 	private String mobileNo;	

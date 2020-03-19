@@ -84,9 +84,9 @@ public class UserManagementController {
 			userBean.setMailId(request.getParameter("mailId"));
 			userBean.setMobileNo(request.getParameter("mobileNo"));
 			userBean.setCircle(request.getParameter("circle"));
-			userBean.setCreatedDate(date);// request.getParameter("creationDate")
+			//userBean.setCreatedDate(request.getParameter("createdBy"));// request.getParameter("creationDate")
 			userBean.setCreatedBy(request.getParameter("createdBy"));
-			userBean.setModifiedDate(date);// request.getParameter("modifiedDate")
+			//userBean.setModifiedDate(request.getParameter("circle"));// request.getParameter("modifiedDate")
 			userBean.setModifiedBy(request.getParameter("modifiedBy"));
 			userBean.setCheckAction("Edit");
 			// System.out.println("Enable=111=="+request.getParameter("enabled"));
@@ -133,9 +133,9 @@ public class UserManagementController {
 			userBean.setMailId(request.getParameter("mailId"));
 			userBean.setMobileNo(request.getParameter("mobileNo"));
 			userBean.setCircle(request.getParameter("circle"));
-			userBean.setCreatedDate(date);// request.getParameter("creationDate")
+			//userBean.setCreatedDate(date);// request.getParameter("creationDate")
 			userBean.setCreatedBy(request.getParameter("createdBy"));
-			userBean.setModifiedDate(date);// request.getParameter("modifiedDate")
+			//userBean.setModifiedDate(date);// request.getParameter("modifiedDate")
 			userBean.setModifiedBy(request.getParameter("modifiedBy"));
 			userBean.setPincode(request.getParameter("pincode"));
 			// System.out.println("Enable==="+request.getParameter("enabled"));
@@ -187,9 +187,9 @@ public class UserManagementController {
 			userBean.setMailId(request.getParameter("mailId"));
 			userBean.setMobileNo(request.getParameter("mobileNo"));
 			userBean.setCircle(request.getParameter("circle"));
-			userBean.setCreatedDate(date);// request.getParameter("creationDate")
+			//userBean.setCreatedDate(date);// request.getParameter("creationDate")
 			userBean.setCreatedBy(request.getParameter("createdBy"));
-			userBean.setModifiedDate(date);// request.getParameter("modifiedDate")
+			//userBean.setModifiedDate(date);// request.getParameter("modifiedDate")
 			userBean.setModifiedBy(request.getParameter("modifiedBy"));
 			userBean.setCheckAction("Edit");
 			// System.out.println("Enable=111=="+request.getParameter("enabled"));

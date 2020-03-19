@@ -1,10 +1,19 @@
 package sbi.kiosk.swayam.common.dto;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import lombok.Data;
 import sbi.kiosk.swayam.common.entity.User;
 
 @Data
 public class UserDto {
+	
+	public static Date formatStringToDate(String dateString) throws ParseException {		
+		Date date=new SimpleDateFormat("dd-MMM-yyyy HH:mm").parse(dateString);  
+		return date;
+	}
 	
 	public UserDto() {
 		
@@ -23,6 +32,10 @@ public class UserDto {
 		this.gender = user.getGender();
 		this.pincode = user.getPincode();
 		this.circle = user.getCircle();
+		this.createdBy = user.getCreatedBy();
+		this.createdDate = user.getCreatedDate();
+		this.modifiedBy = user.getModifiedBy();
+		this.modifiedDate = user.getModifiedDate();
 	}
 	
 	
@@ -71,13 +84,13 @@ public class UserDto {
 	private String mailId;
 	
 	
-	private String createdDate;
+	private Date createdDate;
 	
 	
 	private String createdBy;
 	
 	
-	private String modifiedDate;
+	private Date modifiedDate;
 	
 	
 	private String modifiedBy;

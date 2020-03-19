@@ -165,9 +165,9 @@
 							<td>${user.mailId}</td>
 							<td>${user.mobileNo}</td>
 							<td>${user.circle}</td>
-							<td>${user.createdDate}</td>
+							<td width="200px">${user.createdDate}</td>
 							<td>${user.createdBy}</td>
-							<td>${user.modifiedDate}</td>
+							<td width="200px">${user.modifiedDate}</td>
 							<td>${user.modifiedBy}</td>
 						</tr>
 					</c:forEach>
