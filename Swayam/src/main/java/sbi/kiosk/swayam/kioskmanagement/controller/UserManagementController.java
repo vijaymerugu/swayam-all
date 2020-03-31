@@ -8,8 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -38,7 +41,10 @@ public class UserManagementController {
 			model.addObject("usersList", userList);
 			if (user.getRole().equals("CC")) {
 				model.setViewName("userlistView");
-			} else {
+			} else if (user.getRole().equals("LA")) {
+				model.setViewName("userlistLA");
+			}			
+			else {
 				model.setViewName("userlist");
 			}
 		} catch (Exception e) {
@@ -46,6 +52,21 @@ public class UserManagementController {
 		}
 		return model;
 	}
+	
+	
+	@RequestMapping(value = "/users/get", params = { "page", "size" }, method = RequestMethod.GET, produces = "application/json")
+	public Page<UserManagementDto> findPaginated(
+		      @RequestParam("page") int page, @RequestParam("size") int size) {
+		 
+		        Page<UserManagementDto> resultPage = userService.findPaginated(page, size);
+		        if (page > resultPage.getTotalPages()) {
+		            //throw new MyResourceNotFoundException();
+		        }
+		 
+		        return resultPage;
+		    }
+	
+	
 
 	@RequestMapping(value = { "/km/addUser" })
 	public ModelAndView addUser(ModelAndView model, @ModelAttribute("usersBean") UserDto usersBean) {
@@ -61,7 +82,7 @@ public class UserManagementController {
 	}
 
 	@RequestMapping(value = "/km/editUserMaster")
-	public ModelAndView editUserMaster(ModelAndView model, HttpServletRequest request) {
+	public ModelAndView editUserMaster(ModelAndView model, HttpServletRequest request,@RequestParam("userId") String userId) {
 		System.out.println("editUserMaster(-,-) :: START");
 		try {
 			String pattern = "MM-dd-yyyy";

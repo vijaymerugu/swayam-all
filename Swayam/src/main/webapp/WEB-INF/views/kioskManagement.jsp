@@ -7,7 +7,7 @@
 	src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 <script
 	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
-<script src="/resources/js/users-app.js"></script>
+<script src="/resources/js/kiosks-km-app.js"></script>
 <link rel="stylesheet" href="/resources/css/grid-style.css"/>
 <style>
 .main{
@@ -100,6 +100,7 @@ vertical-align:top;
 </style>
 </head>
 <body>
+
 <div class="main">
 <table class="table1">
 
@@ -116,10 +117,10 @@ vertical-align:top;
 	<td id="count1">12</td>  	
   </tr>
   <tr>
-    <td id="count2">CMF</td> 
+    <td id="count2">Installed Kiosks</td> 
 	<td id="count2">CMS</td>   
-	<td id="count2">Circle</td>   
-	<td id="count2">LA</td>   
+	<td id="count2">Assigned</td>   
+	<td id="count2">To be Assigned</td>   
 	<td id="count2">CC</td> 
 	<td id="count2">SA</td>  	
   </tr>
@@ -129,7 +130,7 @@ vertical-align:top;
 	<div ng-controller="UserManagementCtrl as vm">
 	<br/>
 	<br/>
-	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Username, First Name, Last Name, Mail Id, Circle etc." style="font-size: 12px" size="150" height="80">
+	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle Name,Branch Code,CMF Name,Kiosk ID.." style="font-size: 12px" size="150" height="80">
 		
 		<br/>
 		<br/>

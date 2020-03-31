@@ -4,16 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import sbi.kiosk.swayam.common.dto.CmsCmfMappingDto;
+import sbi.kiosk.swayam.common.dto.KioskBranchMasterUserDto;
+import sbi.kiosk.swayam.common.dto.UserKioskMappingDeMapperDto;
 import sbi.kiosk.swayam.common.dto.UserKioskMappingDto;
+import sbi.kiosk.swayam.common.entity.BranchMaster;
 import sbi.kiosk.swayam.common.entity.CmsCmfMapping;
+import sbi.kiosk.swayam.common.entity.KioskBranchMaster;
 import sbi.kiosk.swayam.common.entity.User;
 import sbi.kiosk.swayam.common.entity.UserKioskMapping;
 import sbi.kiosk.swayam.common.repository.CmsCmfMappingRepository;
+import sbi.kiosk.swayam.common.repository.KioskBranchMasterRepositoryPaging;
 import sbi.kiosk.swayam.common.repository.KioskMasterRepository;
 import sbi.kiosk.swayam.common.repository.UserRepository;
+import sbi.kiosk.swayam.kioskmanagement.repository.BranchMasterRepository;
 import sbi.kiosk.swayam.kioskmanagement.repository.UserKioskMappingRepository;
 
 @Service
@@ -30,6 +39,12 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 	
 	@Autowired
 	CmsCmfMappingRepository cmsCmfMappingRepository;
+	
+	@Autowired
+	KioskBranchMasterRepositoryPaging kioskBranchMasterRepositoryPaging;
+	
+	@Autowired
+	BranchMasterRepository branchMasterRepository;
 
 	@Override
 	public List<User> fetchAllUsersByCircleAdmin(String username, String circle) {
@@ -101,5 +116,67 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 		cmsCmfMappingRepository.saveAll(CmsCmfMappingList);
 
 	}
+	
+	@Override
+	public List<UserKioskMappingDeMapperDto> getKiosksForUser(String username){
+		List<UserKioskMappingDeMapperDto> dtoList = new ArrayList<UserKioskMappingDeMapperDto>();
+		List<UserKioskMapping> userKioskMappingList = userKioskMappingRepository.findByUsername(username);
+		int i =0;
+		for(UserKioskMapping mapping:userKioskMappingList){
+			UserKioskMappingDeMapperDto userKioskMappingDeMapperDto = new UserKioskMappingDeMapperDto();
+			
+			KioskBranchMaster kioskBranchMasterEntity = kioskMasterRepository.findKioskByKioskId(Integer.parseInt(mapping.getKioskId()));
+			userKioskMappingDeMapperDto.setUsername(mapping.getUsername());
+			userKioskMappingDeMapperDto.setKioskId(kioskBranchMasterEntity.getKioskId().toString());
+			userKioskMappingDeMapperDto.setVendor(kioskBranchMasterEntity.getVendor());
+			userKioskMappingDeMapperDto.setInstallationStatus(kioskBranchMasterEntity.getInstallationStatus());
+			userKioskMappingDeMapperDto.setNo(String.valueOf(++i));
+			dtoList.add(userKioskMappingDeMapperDto);
+		}
+		return dtoList;
+	}
+	
+	@Override
+	@Transactional
+	public List<UserKioskMappingDeMapperDto> deleteUserKioskMapping(List<UserKioskMappingDeMapperDto> dtoList){
+		
+		for(UserKioskMappingDeMapperDto dto:dtoList){			
+			userKioskMappingRepository.deleteByKioskId(dto.getKioskId());
+			KioskBranchMaster kioskBranchMasterEntity = kioskMasterRepository.findKioskByKioskId(Integer.parseInt(dto.getKioskId()));
+			//dto.setUsername(username);
+			//userKioskMappingDeMapperDto.setKioskId(kioskBranchMasterEntity.getKioskId().toString());
+			dto.setVendor(kioskBranchMasterEntity.getVendor());
+			dto.setInstallationStatus(kioskBranchMasterEntity.getInstallationStatus());
+			//userKioskMappingDeMapperDto.setNo(String.valueOf(++i));			
+		}
+		return dtoList;
+	}
+	
+	@Override
+    public Page<KioskBranchMasterUserDto> findPaginated(int page, int size) {	 	 
+	 
+	 Page<KioskBranchMasterUserDto> entities = 
+			 kioskBranchMasterRepositoryPaging.findAll(PageRequest.of(page, size))
+			 .map(KioskBranchMasterUserDto::new);
+	 
+	 for(KioskBranchMasterUserDto dto:entities){
+		 UserKioskMapping us = userKioskMappingRepository.findByKioskId(String.valueOf(dto.getKioskId()));
+		 if(us !=null && us.getUsername() !=null && us.getUsername() !=""){
+			 dto.setUsername(us.getUsername());
+		 }
+		 if(dto.getBranchCode() !=null){
+			 BranchMaster branchMaster	 = branchMasterRepository.findByBranchCode(dto.getBranchCode());
+			 if(branchMaster !=null && branchMaster.getCircle() !=null && branchMaster.getCircle() !=""){
+				 dto.setCircle(branchMaster.getCircle());
+			 }
+		 }
+	 }
+	 
+	 
+		
+	 //Page<UserManagementDto> pageDto = new PageImpl<UserManagementDto>(userList, PageRequest.of(page, size), userList.getSize());
+	 	return entities;
+    }
+
 
 }

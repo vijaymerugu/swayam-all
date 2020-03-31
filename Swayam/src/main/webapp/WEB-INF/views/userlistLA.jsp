@@ -1,5 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html lang="en" ng-app="app">
+<html lang="en">
 <head>
 <link rel="stylesheet"
 	href="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css">
@@ -7,9 +10,14 @@
 	src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 <script
 	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
-<script src="/resources/js/users-app.js"></script>
+<script src="/resources/js/users-la-app.js"></script>
 <link rel="stylesheet" href="/resources/css/grid-style.css"/>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style>
+
 .main{
 top: 102px;
 left: 0px;
@@ -95,12 +103,14 @@ margin:0px;
 border: 0px solid black;
 vertical-align:top;
 }
+/* The Modal (background) */
 
 
 </style>
 </head>
 <body>
-<div class="main">
+
+<div class="main" ng-app="app" id="appId">
 <table class="table1">
 
 <tr>
@@ -141,7 +151,43 @@ vertical-align:top;
     
 	</div>
 </div>	
+
+
 	
 </div>	
+<!-- The Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+<div class="modal-dialog">`
+  <!-- Modal content -->
+  <div class="modal-content">    
+  		<div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"></h4>
+        </div>
+        <div class="modal-body">
+          <%-- <jsp:include page="kioskAssignedLA.jsp" /> --%> 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal"></button>
+        </div>
+	</div>
+</div>
+</div>
+
+<script>
+
+$(document).ready(function(){
+    $('.openPopup').on('click',function(){
+        var dataURL = $(this).attr('data-href');
+        var dataVal = $(this).attr('data-val');
+        alert(dataURL);
+        alert(dataVal);
+        $('.modal-body').load(dataURL+dataVal,function(){
+            $('#myModal').modal({show:true});
+        });
+    }); 
+});
+
+</script>
 </body>
 </html>

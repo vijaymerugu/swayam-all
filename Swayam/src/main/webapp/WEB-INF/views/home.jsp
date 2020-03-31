@@ -4,14 +4,16 @@
 		
 <!Doctype html>
 <html>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script> -->
+<script
+	src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 <head>
 
 </head>
 
 <body>
 
-<div ng-app="HomeApp">
+<div ng-app="HomeApp" id="HomeAppId">
     <div ng-controller="menuController">
       <!--    @* Here first of all we will create a ng-template *@-->
         <script type="text/ng-template" id="menu">
@@ -33,6 +35,7 @@
 <link href="<c:url value="/resources/css/mainMenu.css" />" rel="stylesheet" type="text/css">
 
 <script>
+
 var app = angular.module('HomeApp', []);
 app.controller('menuController', ['$scope', '$http', function ($scope, $http) {
     $scope.SiteMenu = [];

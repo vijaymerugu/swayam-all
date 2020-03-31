@@ -28,6 +28,13 @@ public class ViewResolverController {
 		return mav;
 	}
 	
+	@RequestMapping("/km/kioskManagement")
+	public ModelAndView kioskManagement() {		
+		
+		ModelAndView mav = new ModelAndView("kioskManagement");
+		return mav;
+	}
+	
 	/*
 	 * @RequestMapping(value = "/km/userList") public ModelAndView welcomePage() {
 	 * ModelAndView model = new ModelAndView(); model.setViewName("userlist");
