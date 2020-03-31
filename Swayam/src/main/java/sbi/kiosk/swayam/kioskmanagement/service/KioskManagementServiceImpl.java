@@ -177,6 +177,35 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 	 //Page<UserManagementDto> pageDto = new PageImpl<UserManagementDto>(userList, PageRequest.of(page, size), userList.getSize());
 	 	return entities;
     }
+	
+	@Override
+	public KioskBranchMasterUserDto getKiosksFromKioskBranchMasterByKioskId(String kioskId){		
+		
+		KioskBranchMaster entity = 
+				kioskMasterRepository.findKioskByKioskId(Integer.parseInt(kioskId));
+		KioskBranchMasterUserDto dto = new KioskBranchMasterUserDto(entity);
+		if(entity.getBranchCode() !=null){
+		 BranchMaster branchMaster	 = branchMasterRepository.findByBranchCode(entity.getBranchCode());
+		 if(branchMaster !=null && branchMaster.getCircle() !=null && branchMaster.getCircle() !=""){
+			 dto.setCircle(branchMaster.getCircle());
+		 }
+		}
+		
+		return dto;
+	}
+	
+	@Override
+	public void saveSingleUserKioskMapping(String username, String kioskId) {
+		
+			UserKioskMappingDto userKioskMappingDto = new UserKioskMappingDto();
+			userKioskMappingDto.setUsername(username);
+			userKioskMappingDto.setKioskId(kioskId);			
+		
+			UserKioskMapping mapping = new UserKioskMapping(userKioskMappingDto);
+		
+			userKioskMappingRepository.save(mapping);
+
+	}
 
 
 }

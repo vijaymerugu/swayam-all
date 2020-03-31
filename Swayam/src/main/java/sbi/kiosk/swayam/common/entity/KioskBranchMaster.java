@@ -9,11 +9,30 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import lombok.Data;
+import sbi.kiosk.swayam.common.dto.KioskBranchMasterUserDto;
 
 @Data
 @Entity
 @Table(name="TBL_KIOSK_MASTER")
 public class KioskBranchMaster {
+	public KioskBranchMaster(){
+		
+	}
+	
+	public KioskBranchMaster(KioskBranchMasterUserDto dto){
+		this.kioskId = dto.getKioskId();
+		this.vendor = dto.getVendor();
+		this.installationDate = dto.getInstallationDate();
+		this.kioskIp = dto.getKioskIp();
+		this.kioskMacAddress = dto.getKioskMacAddress();
+		this.siteType = dto.getSiteType();
+		this.location = dto.getLocation();
+		this.address = dto.getAddress();
+		this.branchCode = dto.getBranchCode();
+		this.kioskSerialNo = dto.getKioskSerialNo();
+		this.installationStatus = dto.getInstallationStatus();
+	}
+
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_TBL_KIOSK_MASTER")

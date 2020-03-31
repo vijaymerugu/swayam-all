@@ -35,8 +35,8 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
       { name: 'vendor', displayName: 'Vendor'  },
       { name: 'installationStatus', displayName: 'Installation Status'  },      
       { name: 'username',
-    	  displayName: 'Assigned CMF' 	  
-          //cellTemplate: '{{row.entity.username !=null && row.entity.username !=undefined && row.entity.username !=""? row.entity.username : "its false"}}'
+    	  displayName: 'Assigned CMF', 	  
+          cellTemplate: '<div ng-if="row.entity.username != undefined">{{ row.entity.username }}</div><div ng-if="row.entity.username == undefined"><a href="/km/assignCmfForKiosk?kioskId={{ row.entity.kioskId }}">Assign CMF</a></div>'
       }
     ],
     onRegisterApi: function(gridApi) {

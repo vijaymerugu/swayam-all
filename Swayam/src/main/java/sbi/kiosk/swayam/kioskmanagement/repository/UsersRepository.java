@@ -50,4 +50,9 @@ public interface UsersRepository extends CrudRepository<User, Long> {
 	
 	User findByUsername(String username);
 	
+	@Query(value ="select * FROM TBL_USER where ENABLED='1' AND Role ='CMF' and circle =:circle", nativeQuery = true)
+	List<User> findCmfUserByCircle(@Param("circle") String circle);
+	
+	User findUserByUsername(String username);
+	
 }

@@ -105,7 +105,7 @@ vertical-align:top;
 <table class="table1">
 
 <tr>
-    <td id="noOfUsers" colspan="6">No of users</td>
+    <td id="noOfUsers" colspan="6">Summary</td>
     
   </tr>
   <tr>
@@ -121,8 +121,8 @@ vertical-align:top;
 	<td id="count2">CMS</td>   
 	<td id="count2">Assigned</td>   
 	<td id="count2">To be Assigned</td>   
-	<td id="count2">CC</td> 
-	<td id="count2">SA</td>  	
+	<td id="count2">Vendor 1</td> 
+	<td id="count2">Vendor 2</td>  	
   </tr>
 </table>
 <br/><br/>

@@ -1,18 +1,12 @@
 package sbi.kiosk.swayam.kioskmanagement.service;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Converter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import sbi.kiosk.swayam.common.dto.UserDto;
@@ -159,4 +153,13 @@ public class UserServiceImpl implements UserService {
 		
 	}
 	
+	@Override
+	public List<User> fetchAllCmfUserByCircle(String circle){
+		return userRepo.findCmfUserByCircle(circle);
+	}
+	
+	@Override
+	public User getUserByUsername(String username){
+		return userRepo.findUserByUsername(username);
+	}
 }

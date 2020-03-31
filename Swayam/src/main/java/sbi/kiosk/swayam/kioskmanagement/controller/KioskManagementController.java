@@ -18,12 +18,16 @@ import sbi.kiosk.swayam.common.dto.UserDto;
 import sbi.kiosk.swayam.common.dto.UserKioskMappingDeMapperDto;
 import sbi.kiosk.swayam.common.entity.User;
 import sbi.kiosk.swayam.kioskmanagement.service.KioskManagementService;
+import sbi.kiosk.swayam.kioskmanagement.service.UserService;
 
 @RestController
 public class KioskManagementController {	
 	
 	@Autowired
 	KioskManagementService kioskManagementService;
+	
+	@Autowired
+	UserService userService;
 	
 	@RequestMapping("/km/userkioskmapping/usersbyca")
 	public List<User> fetchAllUsersByCircleAdmin(HttpSession session) {
@@ -159,6 +163,29 @@ public class KioskManagementController {
 		    }
 	
 	
+	@RequestMapping(value ="/km/assignCmfForKiosk")
+	public ModelAndView getAssignCmfForKiosk( @RequestParam(value="kioskId") String kioskId,ModelAndView model) {	
+		
+		
+		KioskBranchMasterUserDto kioskDto = kioskManagementService.getKiosksFromKioskBranchMasterByKioskId(kioskId);
+		List<User> usersList = userService.fetchAllCmfUserByCircle(kioskDto.getCircle());
+		//return kioskManagementService.fetchAllKiosksByCircleAndNotInUserKioskMapping(user.getCircle());
+		model.setViewName("assignCmfForKiosk");
+		model.addObject("kioskDto", kioskDto);
+		model.addObject("usersList", usersList);
+		
+		return model;
+		
+		
+	}
 	
-	
+	@RequestMapping(value ="/km/saveSingleCmfKioskMapping")
+	public ModelAndView saveSingleUserKioskMapping( @RequestParam(value="username") String username, @RequestParam(value="kioskId") String kioskId) {
+				
+		kioskManagementService.saveSingleUserKioskMapping(username, kioskId);		
+		
+		ModelAndView mav = new ModelAndView("successCmfForKiosk");
+		return mav;
+		
+	}
 }

@@ -27,4 +27,8 @@ public interface KioskManagementService {
 	List<UserKioskMappingDeMapperDto> deleteUserKioskMapping(List<UserKioskMappingDeMapperDto> dto);
 	
 	Page<KioskBranchMasterUserDto> findPaginated(int page, int size);
+	
+	KioskBranchMasterUserDto getKiosksFromKioskBranchMasterByKioskId(String kioskId);
+	
+	void saveSingleUserKioskMapping(String username, String kioskId);
 }

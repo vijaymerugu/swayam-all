@@ -4,6 +4,7 @@ import java.util.List;
 
 import sbi.kiosk.swayam.common.dto.UserDto;
 import sbi.kiosk.swayam.common.dto.UserManagementDto;
+import sbi.kiosk.swayam.common.entity.User;
 
 public interface UserService extends IOperations<UserManagementDto>{
 
@@ -12,7 +13,8 @@ public interface UserService extends IOperations<UserManagementDto>{
 	public void saveUserMaster(UserDto user);
 	List<UserManagementDto> findAllUsers(UserDto userDto);
 	List<UserManagementDto> findByUserName(String UserName);
-	
+	List<User> fetchAllCmfUserByCircle(String circle);
+	public User getUserByUsername(String username);
 	
 	
 

@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sbi.kiosk.swayam.common.dto.RolesDto;
 import sbi.kiosk.swayam.common.dto.UserDto;
 import sbi.kiosk.swayam.common.dto.UserManagementDto;
+import sbi.kiosk.swayam.common.entity.User;
 import sbi.kiosk.swayam.kioskmanagement.service.RoleService;
 import sbi.kiosk.swayam.kioskmanagement.service.UserService;
 
@@ -267,6 +268,11 @@ public class UserManagementController {
 			e.printStackTrace();
 		}
 		return model;
+	}
+	
+	@RequestMapping(value ="/km/getUserByUsername")
+	public User getUserByUsername(@RequestParam("username") String username){
+		return userService.getUserByUsername(username);		
 	}
 
 }

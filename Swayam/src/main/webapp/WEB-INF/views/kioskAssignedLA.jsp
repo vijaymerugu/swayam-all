@@ -83,17 +83,17 @@ Kiosk Assigned to : <c:out value="${kiosksList[0].username}" />
 
 $(document).ready(function(){
     $('.openFinalPopup').on('click',function(){
-        alert(1);
+        
         var i=0;
         var array = [];
-        alert($('input[name=uname]').val());
+        
         var list = $("input[name='check_list[]']:checked").map(function () {
-        	alert(this.value);
+        	
         	array.push(this.value);
         	//array[i+1] = this.value;
             return this.value;
         }).get();
-        alert("AAAA"+array);
+        
         //var url= "/km/userkioskmappingpopupselected?check_list[]="+ $("input[name='check_list[]']:checked").val();
         var url= "/km/userkioskmappingpopupselected?uname="+$('input[name=uname]').val()+"&array="+ array;
         $('.modal-body').load(url,function(){
