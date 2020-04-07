@@ -6,7 +6,11 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	 pageSize: 5,
 	 sort: null
    };
-   
+   var counttype = "";
+   $scope.getCountType = function(type){
+	   UserManagementService.getUsers(paginationOptions.pageNumber,
+			   paginationOptions.pageSize,counttype);
+	}
    $scope.refresh = function()
    {  		if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
 	
@@ -18,7 +22,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    };
 
    UserManagementService.getUsers(paginationOptions.pageNumber,
-		   paginationOptions.pageSize).success(function(data){
+		   paginationOptions.pageSize,counttype).success(function(data){
 	  $scope.gridOptions.data = data.content;
  	  $scope.gridOptions.totalItems = data.totalElements;
    });
@@ -53,7 +57,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
           paginationOptions.pageNumber = newPage;
           paginationOptions.pageSize = pageSize;
-          UserManagementService.getUsers(newPage,pageSize).success(function(data){
+          UserManagementService.getUsers(newPage,pageSize,counttype).success(function(data){
         	  $scope.gridOptions.data = data.content;
          	  $scope.gridOptions.totalItems = data.totalElements;
           });
@@ -66,7 +70,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 
 app.service('UserManagementService',['$http', function ($http) {
 	
-	function getUsers(pageNumber,size) {
+	function getUsers(pageNumber,size,counttype) {		
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({
           method: 'GET',

@@ -1,3 +1,4 @@
+<%@include file="home.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -7,110 +8,20 @@
 <link rel="stylesheet"
 	href="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css">
 <script
-	src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-<script
 	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
+<script	src="/resources/js/angular.1.5.6.min.js"></script>
 <script src="/resources/js/users-la-app.js"></script>
 <link rel="stylesheet" href="/resources/css/grid-style.css"/>
+<link rel="stylesheet" href="/resources/css/body-page.css"/>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<style>
-
-.main{
-top: 102px;
-left: 0px;
-width: 1367px;
-height: 860px;
-background: #EFF3F6 0% 0% no-repeat padding-box;
-opacity: 1;
-}
-.submain{
-
-top: 1000px;
-left: 15px;
-width: 1336px;
-height: 519px;
-background: #FFFFFF 0% 0% no-repeat padding-box;
-box-shadow: 0px 3px 6px #8D8D8D29;
-opacity: 1;
-border: 1px solid black;
-}
-table.table1 {
-  top: 152px;
-left: 15px;
-width: 1336px;
-height: 156px;
-background: #FFFFFF 0% 0% no-repeat padding-box;
-box-shadow: 0px 3px 6px #8D8D8D29;
-opacity: 1;
-border: 1px solid black;
-border-collapse: separate;
-    border-spacing: 0em;
-	border-spacing: 0;
-}
-#noOfUsers{
-top: 163px;
-left: 70px;
-width: 84px;
-height: 20px;
-text-align: left;
-letter-spacing: 0;
-color: #000000;
-opacity: 1;
-font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-font-size: 15px;
-font-weight: bold;
-border: 0px solid black;
-}
-
-#count1{
-top: 213px;
-
-width: 46px;
-
-text-align: center;
-font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-font-size: 20px;
-font-weight: bold;
-letter-spacing: 0;
-color: #13A8E0;
-opacity: 1;
-border: 1px solid black;
-padding:0px; 
-border-width:0px; 
-margin:0px; 
-bottom: 0;
-border: 0px solid black;
-vertical-align:bottom;
-}
-#count2{
-top: 246px;
-
-width: 30px;
-
-text-align: center;
-font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-font-size: 13px;
-letter-spacing: 0;
-color: #000000;
-opacity: 0.75;
-border: 1px solid black;
-padding:0px; 
-border-width:0px; 
-margin:0px; 
-border: 0px solid black;
-vertical-align:top;
-}
-/* The Modal (background) */
-
-
-</style>
 </head>
 <body>
 
 <div class="main" ng-app="app" id="appId">
+<div ng-controller="UserManagementCtrl as vm">
 <table class="table1">
 
 <tr>
@@ -118,7 +29,7 @@ vertical-align:top;
     
   </tr>
   <tr>
-    <td id="count1" style="">200</td> 
+    <td id="count1" style=""><a ng-click="getCountType('CMF')">200</a></td> 
 	<td id="count1">500</td>   
 	<td id="count1">30</td>   
 	<td id="count1">60</td>   
@@ -136,7 +47,7 @@ vertical-align:top;
 </table>
 <br/><br/>
 		<div class="submain">
-	<div ng-controller="UserManagementCtrl as vm">
+	
 	<br/>
 	<br/>
 	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Username, First Name, Last Name, Mail Id, Circle etc." style="font-size: 12px" size="150" height="80">
@@ -154,7 +65,7 @@ vertical-align:top;
 
 
 	
-</div>	
+	
 <!-- The Modal -->
 <div class="modal fade" id="myModal" role="dialog">
 <div class="modal-dialog">`
@@ -175,7 +86,7 @@ vertical-align:top;
 </div>
 
 <script>
-
+angular.bootstrap(document.getElementById("appId"), ['app']);
 $(document).ready(function(){
     $('.openPopup').on('click',function(){
         var dataURL = $(this).attr('data-href');
