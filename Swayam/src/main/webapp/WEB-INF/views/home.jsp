@@ -5,13 +5,19 @@
 
 <!Doctype html>
 <html>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script> -->
-
 <head>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script	src="/resources/js/angular.1.5.6.min.js"></script>
+<script src="/resources/js/jquery.3.4.1.min.js"></script>
+<script src="/resources/js/bootstrap.3.4.1.min.js"></script>
+<link rel="stylesheet" href="/resources/css/ui-grid.4.8.3.min.css">
+
+
+<link rel="stylesheet" href="/resources/css/grid-style.css"/>
+<link rel="stylesheet" href="/resources/css/body-page.css"/>
+<script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script>
+<script	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  	
 <link href="/resources/css/menu.css" rel="stylesheet" type="text/css">	
 </head>
 <body style="background: #EFF3F6; margin: 0px; padding: 0px">
@@ -52,9 +58,9 @@
 			</tr>
 			<tr>
 				<td>
-					<!--    @* Here first of all we will create a ng-template *@--> <script
-						type="text/ng-template" id="menu">
-            <a href="{{menu.url}}">{{menu.name}}</a>
+					<!--    @* Here first of all we will create a ng-template *@--> 
+				<script	type="text/ng-template" id="menu">
+            <a ng-click="loadHomeBodyPage(menu.url)">{{menu.name}}</a>
            
             <ul ng-if="(SiteMenu | filter:{parentId : menu.id}).length > 0" class="submenu">
                 <li ng-repeat="menu in SiteMenu | filter:{parentId : menu.id}" ng-include="'menu'"></li>
@@ -74,22 +80,30 @@
 	</div>
 
 
-
 	<c:set var="base" value="${pageContext.request.contextPath}" />
 	
 
 	<script>
+	//angular.bootstrap(document.getElementById("appId"), ['app']);
 		var appHome = angular.module('HomeApp', []);
 		appHome.controller('menuController', [ '$scope', '$http',
 				function($scope, $http) {
 					$scope.SiteMenu = [];
+					
+					$scope.loadHomeBodyPage = function(url){
+						if(url != undefined){							
+							$("#contentHomeApp").load(url);
+						}						
+					}
+					
 					$http.get('/common/menu').then(function(data) {
 						$scope.SiteMenu = data.data;
 					}, function(error) {
 						alert('Error');
 					})
-				} ]);
-
+				} ]);		
+		
+		
 		var ddmenuitem = 0;
 		function jsddm_open() {
 			jsddm_close();
@@ -100,17 +114,11 @@
 			if (ddmenuitem)
 				ddmenuitem.css('display', 'none');
 		}
-		$(document)
-				.ready(
-						function() {
+		$(document).ready(function() {
 							//$('#topnav > ul > li').bind('click', jsddm_open)   
 							$('#topnav > ul').on('click', 'li', jsddm_open)
 							//$('#topnav > ul > li > a').click(function(ev){
-							$('#topnav > ul')
-									.on(
-											'click',
-											'li > a',
-											function(ev) {
+							$('#topnav > ul').on('click','li > a',function(ev) {
 												if ($(this).hasClass('current')) {
 													ev.preventDefault();
 												}
@@ -137,10 +145,19 @@
 																'active');
 													}
 												}
-											});
-						});
+											});						
+														
+							});
+							
 	</script>
 
 </body>
 </html>
 
+
+
+<html lang="en">
+<body>
+<div id="contentHomeApp">
+</div>
+</html>

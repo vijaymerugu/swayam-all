@@ -1,3 +1,4 @@
+angular.element(document).ready(function() {	
 var app = angular.module('app', ['ui.grid','ui.grid.pagination']);
 
 app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService', function ($scope, $filter,UserManagementService) {
@@ -49,7 +50,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
       { name: 'Assign',
     	  displayName: 'Assign Kiosk',
     	  headerCellTemplate: '<div></div>',
-          cellTemplate: '<div class="ui-grid-cell-contents" id="myBtn"><a href="#myModal" data-href="/km/userkioskmappingpopup?username="+{{ row.entity.userId }} data-val="{{ row.entity.username }}" class="openPopup">Assign Kiosk</a></div>'
+          cellTemplate: '<div class="ui-grid-cell-contents" id="myBtn"><a data-href="/km/userkioskmappingpopup?username="+{{ row.entity.userId }} data-val="{{ row.entity.username }}" class="openPopup">Assign Kiosk</a></div>'
       }
     ],
     onRegisterApi: function(gridApi) {
@@ -83,3 +84,6 @@ app.service('UserManagementService',['$http', function ($http) {
     };
 	
 }]);
+
+angular.bootstrap(document.getElementById("appId"), ['app']);
+});

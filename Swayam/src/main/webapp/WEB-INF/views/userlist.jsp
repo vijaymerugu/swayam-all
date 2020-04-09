@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="app">
+<html lang="en">
 <head>
-<link rel="stylesheet"
-	href="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css">
-<script
-	src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<script	src="/resources/js/angular.1.5.6.min.js"></script>
+<script src="/resources/js/jquery.3.4.1.min.js"></script>
+<script src="/resources/js/bootstrap.3.4.1.min.js"></script>
+<link rel="stylesheet" href="/resources/css/ui-grid.4.8.3.min.css">
+
 <script
 	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
 <script src="/resources/js/users-app.js"></script>
@@ -14,7 +15,8 @@
 
 </head>
 <body>
-<div class="main">
+<div class="main" ng-app="app" id="appId">
+<div ng-controller="UserManagementCtrl as vm">
 <table class="table1">
 
 <tr>
@@ -40,7 +42,7 @@
 </table>
 <br/><br/>
 		<div class="submain">
-	<div ng-controller="UserManagementCtrl as vm">
+	
 	<br/>
 	<br/>
 	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Username, First Name, Last Name, Mail Id, Circle etc." style="font-size: 12px" size="150" height="80">
@@ -57,5 +59,8 @@
 </div>	
 	
 </div>	
+<script>
+angular.bootstrap(document.getElementById("appId"), ['app']);
+</script>
 </body>
 </html>

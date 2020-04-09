@@ -1,22 +1,20 @@
-<%@include file="home.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="stylesheet"
-	href="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css">
-<script
-	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
 <script	src="/resources/js/angular.1.5.6.min.js"></script>
-<script src="/resources/js/users-la-app.js"></script>
+<script src="/resources/js/jquery.3.4.1.min.js"></script>
+<script src="/resources/js/bootstrap.3.4.1.min.js"></script>
+<link rel="stylesheet" href="/resources/css/ui-grid.4.8.3.min.css">
+
+<script	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
+
 <link rel="stylesheet" href="/resources/css/grid-style.css"/>
 <link rel="stylesheet" href="/resources/css/body-page.css"/>
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">  
+   
 </head>
 <body>
 
@@ -63,10 +61,7 @@
 	</div>
 </div>	
 
-
-	
-	
-<!-- The Modal -->
+	<!-- The Modal -->
 <div class="modal fade" id="myModal" role="dialog">
 <div class="modal-dialog">`
   <!-- Modal content -->
@@ -85,19 +80,21 @@
 </div>
 </div>
 
-<script>
-angular.bootstrap(document.getElementById("appId"), ['app']);
-$(document).ready(function(){
-    $('.openPopup').on('click',function(){
+	
+	
+
+
+<script src="/resources/js/users-la-app.js"></script>
+<script> 
+ $(document).ready(function(){	
+    $('.openPopup').on('click',function(){    	
         var dataURL = $(this).attr('data-href');
-        var dataVal = $(this).attr('data-val');
-        alert(dataURL);
-        alert(dataVal);
+        var dataVal = $(this).attr('data-val');        
         $('.modal-body').load(dataURL+dataVal,function(){
             $('#myModal').modal({show:true});
         });
     }); 
-});
+}); 
 
 </script>
 </body>
