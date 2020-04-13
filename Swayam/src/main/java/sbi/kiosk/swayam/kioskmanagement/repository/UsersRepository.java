@@ -55,4 +55,7 @@ public interface UsersRepository extends CrudRepository<User, Long> {
 	
 	User findUserByUsername(String username);
 	
+	User findUserByPfId(String pfId);
+	
+	
 }

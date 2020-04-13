@@ -99,12 +99,12 @@ public class KioskManagementController {
 	}
 	
 	@RequestMapping(value ="/km/userkioskmappingpopup")
-	public ModelAndView getKiosksForUser( @RequestParam(value="username") String username) {
+	public ModelAndView getKiosksForUser( @RequestParam(value="username") String pfId) {
 		
 		System.out.println("444444444444444");
 		//UserDto user = (UserDto) session.getAttribute("userObj");
 		//kioskManagementService.saveCmsCmfUserMapping(cmsusername, cmfUserIdIdList);
-		List<UserKioskMappingDeMapperDto> kiosksList = kioskManagementService.getKiosksForUser(username);
+		List<UserKioskMappingDeMapperDto> kiosksList = kioskManagementService.getKiosksForUser(pfId);
 		
 		//return kioskManagementService.fetchAllKiosksByCircleAndNotInUserKioskMapping(user.getCircle());
 		ModelAndView model = new ModelAndView("kioskAssignedLA");
@@ -180,9 +180,9 @@ public class KioskManagementController {
 	}
 	
 	@RequestMapping(value ="/km/saveSingleCmfKioskMapping")
-	public ModelAndView saveSingleUserKioskMapping( @RequestParam(value="username") String username, @RequestParam(value="kioskId") String kioskId) {
+	public ModelAndView saveSingleUserKioskMapping( @RequestParam(value="username") String pfId, @RequestParam(value="kioskId") String kioskId) {
 				
-		kioskManagementService.saveSingleUserKioskMapping(username, kioskId);		
+		kioskManagementService.saveSingleUserKioskMapping(pfId, kioskId);		
 		
 		ModelAndView mav = new ModelAndView("successCmfForKiosk");
 		return mav;

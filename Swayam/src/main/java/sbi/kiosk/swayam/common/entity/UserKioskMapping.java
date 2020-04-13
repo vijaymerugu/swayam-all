@@ -17,7 +17,7 @@ import sbi.kiosk.swayam.common.dto.UserKioskMappingDto;
 public class UserKioskMapping {
 	
 	public UserKioskMapping(UserKioskMappingDto userKioskMappingDto) {
-		this.username = userKioskMappingDto.getUsername();
+		this.pfId = userKioskMappingDto.getPfId();
 		this.kioskId = userKioskMappingDto.getKioskId();
 	}	
 	
@@ -27,8 +27,8 @@ public class UserKioskMapping {
 	@Column(name="USER_ID")
 	private Integer userId;
 	
-	@Column(name="USERNAME")
-	private String username;
+	@Column(name="PF_ID")
+	private String pfId;
 	
 	@Column(name="KIOSK_ID")
 	private String kioskId;	

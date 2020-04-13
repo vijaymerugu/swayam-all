@@ -14,7 +14,7 @@ public interface UserService extends IOperations<UserManagementDto>{
 	List<UserManagementDto> findAllUsers(UserDto userDto);
 	List<UserManagementDto> findByUserName(String UserName);
 	List<User> fetchAllCmfUserByCircle(String circle);
-	public User getUserByUsername(String username);
+	public User getUserByPfId(String pfId);
 	
 	
 

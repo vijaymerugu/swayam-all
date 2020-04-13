@@ -271,8 +271,8 @@ public class UserManagementController {
 	}
 	
 	@RequestMapping(value ="/km/getUserByUsername")
-	public User getUserByUsername(@RequestParam("username") String username){
-		return userService.getUserByUsername(username);		
+	public User getUserByPfId(@RequestParam("username") String pfId){
+		return userService.getUserByPfId(pfId);		
 	}
 
 }

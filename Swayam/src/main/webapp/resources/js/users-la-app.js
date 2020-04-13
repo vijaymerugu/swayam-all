@@ -46,7 +46,8 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
       },
 
     columnDefs: [
-      { name: 'userId', displayName: 'PF ID'  },
+      { name: 'userId', displayName: 'SrNo'  },
+      { name: 'pfId', displayName: 'PF ID'  },
       { name: 'username', displayName: 'Username'  },
       { name: 'firstName', displayName: 'First Name'  },
       { name: 'lastName', displayName: 'Last Name'  },
@@ -65,7 +66,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
     	  exporterSuppressExport: true,
     	  displayName: 'Assign Kiosk',
     	  headerCellTemplate: '<div></div>',
-          cellTemplate: '<div class="ui-grid-cell-contents" id="myBtn"><a data-href="/km/userkioskmappingpopup?username="+{{ row.entity.userId }} data-val="{{ row.entity.username }}" class="openPopup">Assign Kiosk</a></div>'
+          cellTemplate: '<div class="ui-grid-cell-contents" id="myBtn"><a data-href="/km/userkioskmappingpopup?username="+{{ row.entity.userId }} data-val="{{ row.entity.pfId }}" class="openPopup">Assign Kiosk</a></div>'
       }
     ],
     onRegisterApi: function(gridApi) {

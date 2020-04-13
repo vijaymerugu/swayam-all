@@ -8,6 +8,7 @@ import sbi.kiosk.swayam.common.entity.KioskBranchMaster;
 public class KioskBranchMasterUserDto {
 	
 	public KioskBranchMasterUserDto(KioskBranchMaster master){
+		this.id = master.getId();
 		this.kioskId = master.getKioskId();
 		this.vendor = master.getVendor();
 		this.installationDate = master.getInstallationDate();
@@ -20,8 +21,10 @@ public class KioskBranchMasterUserDto {
 		this.kioskSerialNo = master.getKioskSerialNo();
 		this.installationStatus = master.getInstallationStatus();
 	}
+	
+	private Integer id;
 
-	private Integer kioskId;
+	private String kioskId;
 	
 	
 	private String vendor;
@@ -51,6 +54,8 @@ public class KioskBranchMasterUserDto {
 	private String kioskSerialNo;	
 	
 	private String installationStatus;
+	
+	private String pfId;
 	
 	private String username;
 	

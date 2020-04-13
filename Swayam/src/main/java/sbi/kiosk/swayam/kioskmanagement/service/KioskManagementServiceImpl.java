@@ -66,7 +66,7 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 
 		for (String kioskId : kioskIdList) {
 			UserKioskMappingDto userKioskMappingDto = new UserKioskMappingDto();
-			userKioskMappingDto.setUsername(username);
+			userKioskMappingDto.setPfId(username);
 			userKioskMappingDto.setKioskId(kioskId);
 			userKioskMappingDtoList.add(userKioskMappingDto);
 		}
@@ -118,15 +118,17 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 	}
 	
 	@Override
-	public List<UserKioskMappingDeMapperDto> getKiosksForUser(String username){
+	public List<UserKioskMappingDeMapperDto> getKiosksForUser(String pfId){
 		List<UserKioskMappingDeMapperDto> dtoList = new ArrayList<UserKioskMappingDeMapperDto>();
-		List<UserKioskMapping> userKioskMappingList = userKioskMappingRepository.findByUsername(username);
+		List<UserKioskMapping> userKioskMappingList = userKioskMappingRepository.findByPfId(pfId);
+		User usr = userRepository.findByPfId(pfId);
 		int i =0;
 		for(UserKioskMapping mapping:userKioskMappingList){
 			UserKioskMappingDeMapperDto userKioskMappingDeMapperDto = new UserKioskMappingDeMapperDto();
 			
-			KioskBranchMaster kioskBranchMasterEntity = kioskMasterRepository.findKioskByKioskId(Integer.parseInt(mapping.getKioskId()));
-			userKioskMappingDeMapperDto.setUsername(mapping.getUsername());
+			KioskBranchMaster kioskBranchMasterEntity = kioskMasterRepository.findKioskByKioskId(mapping.getKioskId());
+			userKioskMappingDeMapperDto.setUsername(usr.getUsername());
+			userKioskMappingDeMapperDto.setPfId(mapping.getPfId());
 			userKioskMappingDeMapperDto.setKioskId(kioskBranchMasterEntity.getKioskId().toString());
 			userKioskMappingDeMapperDto.setVendor(kioskBranchMasterEntity.getVendor());
 			userKioskMappingDeMapperDto.setInstallationStatus(kioskBranchMasterEntity.getInstallationStatus());
@@ -142,7 +144,7 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 		
 		for(UserKioskMappingDeMapperDto dto:dtoList){			
 			userKioskMappingRepository.deleteByKioskId(dto.getKioskId());
-			KioskBranchMaster kioskBranchMasterEntity = kioskMasterRepository.findKioskByKioskId(Integer.parseInt(dto.getKioskId()));
+			KioskBranchMaster kioskBranchMasterEntity = kioskMasterRepository.findKioskByKioskId(dto.getKioskId());
 			//dto.setUsername(username);
 			//userKioskMappingDeMapperDto.setKioskId(kioskBranchMasterEntity.getKioskId().toString());
 			dto.setVendor(kioskBranchMasterEntity.getVendor());
@@ -161,9 +163,15 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 	 
 	 for(KioskBranchMasterUserDto dto:entities){
 		 UserKioskMapping us = userKioskMappingRepository.findByKioskId(String.valueOf(dto.getKioskId()));
-		 if(us !=null && us.getUsername() !=null && us.getUsername() !=""){
-			 dto.setUsername(us.getUsername());
+		 
+		 if(us !=null && us.getPfId() !=null && us.getPfId() !=""){
+			 dto.setPfId(us.getPfId());
+			 User usr = userRepository.findByPfId(us.getPfId());
+			 if(usr !=null && usr.getUsername() !=null && usr.getUsername() !=""){
+				 dto.setUsername(usr.getUsername());
+			 }
 		 }
+		 
 		 if(dto.getBranchCode() !=null){
 			 BranchMaster branchMaster	 = branchMasterRepository.findByBranchCode(dto.getBranchCode());
 			 if(branchMaster !=null && branchMaster.getCircle() !=null && branchMaster.getCircle() !=""){
@@ -182,7 +190,7 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 	public KioskBranchMasterUserDto getKiosksFromKioskBranchMasterByKioskId(String kioskId){		
 		
 		KioskBranchMaster entity = 
-				kioskMasterRepository.findKioskByKioskId(Integer.parseInt(kioskId));
+				kioskMasterRepository.findKioskByKioskId(kioskId);
 		KioskBranchMasterUserDto dto = new KioskBranchMasterUserDto(entity);
 		if(entity.getBranchCode() !=null){
 		 BranchMaster branchMaster	 = branchMasterRepository.findByBranchCode(entity.getBranchCode());
@@ -195,10 +203,10 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 	}
 	
 	@Override
-	public void saveSingleUserKioskMapping(String username, String kioskId) {
+	public void saveSingleUserKioskMapping(String pfId, String kioskId) {
 		
 			UserKioskMappingDto userKioskMappingDto = new UserKioskMappingDto();
-			userKioskMappingDto.setUsername(username);
+			userKioskMappingDto.setPfId(pfId);
 			userKioskMappingDto.setKioskId(kioskId);			
 		
 			UserKioskMapping mapping = new UserKioskMapping(userKioskMappingDto);

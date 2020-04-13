@@ -8,7 +8,7 @@ public class UserKioskMappingDto {
 	private String userId;
 	
 	
-	private String username;
+	private String pfId;
 	
 	
 	private String kioskId;	

@@ -128,11 +128,11 @@ vertical-align:top;
 <tr>
 <td>Installation Status :${kioskDto.installationStatus}</td>
 
-<td colspan="">Username  :</td><td colspan="2">
+<td colspan="">PF ID  :</td><td colspan="2">
 								<select id="username" name="username" class="form-control select2" style="width: 100%;" >
                                 <option value="0">Select</option>
                                   <c:forEach items="${usersList}" var="usr">
-                                    <option value="${usr.username}">${usr.username}</option>
+                                    <option value="${usr.pfId}">${usr.pfId}</option>
                                  </c:forEach>
                                 </select></td>
 </tr>
@@ -190,7 +190,7 @@ $("#username").bind("change", function(e){
 	  $.getJSON("/km/getUserByUsername?username="+$("#username option:selected").val(),
 			  function(data) {
 		  
-		             $("#pfId").val(data.userId);
+		             $("#pfId").val(data.pfId);
 		             $("#uname").val(data.username);
 		             $("#phone").val(data.mobileNo);
 		             $("#email").val(data.mailId);

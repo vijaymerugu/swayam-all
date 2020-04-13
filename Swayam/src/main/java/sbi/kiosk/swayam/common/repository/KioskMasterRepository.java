@@ -16,5 +16,5 @@ public interface KioskMasterRepository extends CrudRepository<KioskBranchMaster,
 			nativeQuery=true)
 	List<String> fetchAllKiosksByCircleAndNotInUserKioskMapping(@Param("circle") String circle);	
 	
-	KioskBranchMaster findKioskByKioskId(int kioskId);	
+	KioskBranchMaster findKioskByKioskId(String kioskId);	
 }

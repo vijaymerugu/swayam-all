@@ -20,6 +20,7 @@ public class KioskBranchMaster {
 	}
 	
 	public KioskBranchMaster(KioskBranchMasterUserDto dto){
+		this.id = dto.getId();
 		this.kioskId = dto.getKioskId();
 		this.vendor = dto.getVendor();
 		this.installationDate = dto.getInstallationDate();
@@ -37,8 +38,11 @@ public class KioskBranchMaster {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_TBL_KIOSK_MASTER")
 	@SequenceGenerator(sequenceName = "SEQ_TBL_KIOSK_MASTER", allocationSize = 1, name = "SEQ_TBL_KIOSK_MASTER")
+	@Column(name="ID")
+	private Integer id;
+	
 	@Column(name="KIOSK_ID")
-	private Integer kioskId;
+	private String kioskId;
 	
 	@Column(name="VENDOR")
 	private String vendor;

@@ -12,7 +12,7 @@ import sbi.kiosk.swayam.common.entity.UserKioskMapping;
 public interface UserKioskMappingRepository extends CrudRepository<UserKioskMapping, String>{
 
 	
-	List<UserKioskMapping> findByUsername(String username);
+	List<UserKioskMapping> findByPfId(String username);
 	
 	void deleteByKioskId(String kioskId);
 	

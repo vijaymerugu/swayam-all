@@ -14,6 +14,8 @@ public interface UserRepository extends CrudRepository<User, String>{
 
 	User findByUsername(String username);
 	
+	User findByPfId(String pfId);
+	
 	@Query(value ="select * from TBL_USER WHERE CIRCLE= :circle AND USERNAME != :username AND ROLE NOT IN ('SA','LA','CC','C','CMS')",
 			nativeQuery=true)
 	public List<User> fetchAllUsersByCircleAdmin(@Param("username") String username, @Param("circle") String circle);

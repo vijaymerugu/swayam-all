@@ -21,6 +21,7 @@ public class UserDto {
 	
 	public UserDto(User user) {	
 		this.userId = user.getUserId();
+		this.pfId = user.getPfId();
 		this.username =  user.getUsername();
 		this.enabled = user.getEnabled();
 		this.role = user.getRole();
@@ -41,6 +42,7 @@ public class UserDto {
 	
 	private Integer userId;
 	
+	private String pfId;	
 	
 	private String username;
 	

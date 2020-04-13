@@ -22,6 +22,7 @@ public class User extends Common {
 	
 	public User(UserDto userDto) {	
 		this.userId = userDto.getUserId();
+		this.pfId = userDto.getPfId();
 		this.username =  userDto.getUsername();
 		this.enabled = userDto.getEnabled();
 		this.role = userDto.getRole();
@@ -48,6 +49,9 @@ public class User extends Common {
 	@SequenceGenerator(sequenceName = "USER_ID_SEQ", allocationSize = 1, name = "USER_ID_SEQ")	
 	@Column(name = "USER_ID", nullable = false)
 	private Integer userId;
+	
+	@Column(name="PF_ID")
+	private String pfId;
 	
 	@Column(name="USERNAME")
 	private String username;

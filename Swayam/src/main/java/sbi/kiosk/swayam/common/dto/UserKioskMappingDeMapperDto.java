@@ -9,6 +9,8 @@ public class UserKioskMappingDeMapperDto {
 	
 	private String username;
 	
+	private String pfId;
+	
 	
 	private String kioskId;	
 	
