@@ -13,6 +13,21 @@
 <link rel="stylesheet" href="/resources/css/grid-style.css"/>
 <link rel="stylesheet" href="/resources/css/body-page.css"/>
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
+<script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script> 
+<link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css" type="text/css"/>
+
+<script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/lodash.min.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/jszip.min.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/excel-builder.dist.js"></script>  
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-touch.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-animate.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-aria.js"></script>
+
 </head>
 <body>
 <div class="main" ng-app="app" id="appId">
@@ -49,7 +64,7 @@
 		
 		<br/>
 		<br/>
-		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination id="test"></div>
+		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter id="test"></div>
 		
         
     </div>

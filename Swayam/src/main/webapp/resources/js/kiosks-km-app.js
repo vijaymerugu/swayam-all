@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.grid','ui.grid.pagination']);
+var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter']);
 
 app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService', function ($scope, $filter,UserManagementService) {
    var paginationOptions = {
@@ -28,13 +28,25 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
     paginationPageSize: paginationOptions.pageSize,
     enableColumnMenus:false,
 	useExternalPagination: true,
+	enableGridMenu: true,
+	exporterMenuCsv: false,
+	exporterPdfDefaultStyle: {fontSize: 9},   
+    exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, color: 'black'},      
+    exporterPdfFooter: function ( currentPage, pageCount ) {
+      return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
+    },    
+    exporterPdfCustomFormatter: function ( docDefinition ) {        
+        docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
+        return docDefinition;
+      },
+
     columnDefs: [
       { name: 'kioskId', displayName: 'Kiosk Id'  },
       { name: 'circle', displayName: 'Circle'  },
       { name: 'branchCode', displayName: 'Branch Code'  },
       { name: 'vendor', displayName: 'Vendor'  },
       { name: 'installationStatus', displayName: 'Installation Status'  },      
-      { name: 'username',
+      { name: 'username',    	  
     	  displayName: 'Assigned CMF', 	  
           cellTemplate: '<div ng-if="row.entity.username != undefined">{{ row.entity.username }}</div><div ng-if="row.entity.username == undefined"><a href="/km/assignCmfForKiosk?kioskId={{ row.entity.kioskId }}">Assign CMF</a></div>'
       }
