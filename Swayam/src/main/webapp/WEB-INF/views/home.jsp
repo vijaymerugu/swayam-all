@@ -46,7 +46,7 @@
 				lastName = userObj.getLastName();
 			}
 			if(userObj.getMobileNo() !=null){
-				phone = userObj.getMobileNo();
+				phone = userObj.getPfId();
 			}
 			
 		%>
