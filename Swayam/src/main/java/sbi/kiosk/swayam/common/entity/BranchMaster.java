@@ -24,10 +24,10 @@ public class BranchMaster {
 	@Column(name="CIRCLE")
 	private String circle;
 	
-	@Column(name="CIRCLE_NAME")
+	@Column(name="CRCL_NAME")
 	private String circleName;
 	
-	@Column(name="NW")
+	@Column(name="NETWORK")
 	private String network;
 	
 	@Column(name="MODULE")

@@ -48,7 +48,7 @@ public class User extends Common {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_ID_SEQ")
 	@SequenceGenerator(sequenceName = "USER_ID_SEQ", allocationSize = 1, name = "USER_ID_SEQ")	
 	@Column(name = "USER_ID", nullable = false)
-	private Integer userId;
+	private String userId;
 	
 	@Column(name="PF_ID")
 	private String pfId;

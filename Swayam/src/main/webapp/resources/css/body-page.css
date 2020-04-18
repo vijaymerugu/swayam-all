@@ -86,3 +86,19 @@ margin:0px;
 border: 0px solid black;
 vertical-align:top;
 }
+
+#input {
+	top: 382px;
+	left: 31px;
+	width: 464px;
+	height: 42px;
+	background: #F5F5F5 0% 0% no-repeat padding-box;
+	border: 1px solid #EFEFEF;
+	border-radius: 26px;
+	opacity: 1;
+}
+
+.Column-VerticalLine {
+	border-right: thin solid #A9A9A9;
+}
+	

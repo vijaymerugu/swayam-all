@@ -43,9 +43,39 @@ public class UserManagementController {
 			if (user.getRole().equals("CC")) {
 				model.setViewName("userlistView");
 			} else if (user.getRole().equals("LA")) {
+				System.out.println("Users========Yogesh=============================="+user.getCircle());
+				int cmsCount=userService.findCMSCount();
+				int circleCountByRole=userService.findCircleCountByRole(user.getCircle());
+				int ccCount=userService.findCCCount();
+				int cmfCount= userService.findCMFCount();
+				int laCount= userService.findLACount();
+				int saCount= userService.findSACount();
+				
+				model.addObject("cmfCount",cmfCount);
+				model.addObject("cmsCount", cmsCount);
+				model.addObject("circleCountByRole", circleCountByRole);
+				model.addObject("laCount",laCount);
+				model.addObject("ccCount",ccCount);
+				model.addObject("saCount",saCount);
+				
 				model.setViewName("userlistLA");
 			}			
 			else {
+				// Vijay Login
+				System.out.println("Users========Vijay=============================="+user.getCircle());
+				int cmsCount=userService.findCMSCount();
+				int circleCount=userService.findCircleCount();
+				int ccCount=userService.findCCCount();
+				int cmfCount= userService.findCMFCount();
+				int laCount= userService.findLACount();
+				int saCount= userService.findSACount();
+				
+				model.addObject("cmfCount",cmfCount);
+				model.addObject("cmsCount", cmsCount);
+				model.addObject("circleCount", circleCount);
+				model.addObject("laCount",laCount);
+				model.addObject("ccCount",ccCount);
+				model.addObject("saCount",saCount);
 				model.setViewName("userlist");
 			}
 		} catch (Exception e) {
@@ -55,16 +85,31 @@ public class UserManagementController {
 	}
 	
 	
-	@RequestMapping(value = "/users/get", params = { "page", "size" }, method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/users/get", params = { "page", "size" ,"type"}, method = RequestMethod.GET, produces = "application/json")
 	public Page<UserManagementDto> findPaginated(
-		      @RequestParam("page") int page, @RequestParam("size") int size) {
+		      @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("type") String type) {
 		 
-		        Page<UserManagementDto> resultPage = userService.findPaginated(page, size);
-		        if (page > resultPage.getTotalPages()) {
+		System.out.println("type=========Yogesh========="+type);
+		 Page<UserManagementDto> resultPage = null;
+		if(type.equals("CMF")){
+			resultPage= userService.findPaginatedCount(page, size, type);
+		}else if(type.equals("CMS")){
+			resultPage= userService.findPaginatedCount(page, size, type);
+		}else if(type.equalsIgnoreCase("MUMBAI")){
+			resultPage= userService.findPaginatedCount(page, size, type);
+		}else if(type.equals("LA")){
+			resultPage= userService.findPaginatedCount(page, size, type);
+		}else if(type.equals("SA")){
+			resultPage= userService.findPaginatedCount(page, size, type);
+		}else if(type.equals("CC")){
+		   resultPage= userService.findPaginatedCount(page, size, type);
+	    }else{
+	      resultPage = userService.findPaginated(page, size);
+		    if (page > resultPage.getTotalPages()){
 		            //throw new MyResourceNotFoundException();
 		        }
-		 
-		        return resultPage;
+		}
+		 return resultPage;
 		    }
 	
 	
@@ -90,7 +135,7 @@ public class UserManagementController {
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 			String date = simpleDateFormat.format(new Date());
 			UserDto userBean = new UserDto();
-			userBean.setUserId(Integer.parseInt(request.getParameter("userId")));
+			userBean.setUserId(request.getParameter("userId"));
 			userBean.setUsername(request.getParameter("username"));
 			userBean.setRole(request.getParameter("role"));
 			userBean.setKioskId(request.getParameter("kioskId"));
@@ -165,7 +210,7 @@ public class UserManagementController {
 
 			if ((request.getParameter("checkAction") != null) && !request.getParameter("checkAction").isEmpty()
 					&& (request.getParameter("checkAction").equalsIgnoreCase("Edit"))) {
-				userBean.setUserId(Integer.parseInt(request.getParameter("userId")));
+				userBean.setUserId(request.getParameter("userId"));
 				userService.updateUserById(userBean);
 				String roleVal = request.getParameter("role");
 				message = roleVal + " " + " Updated Successfully!";
@@ -193,7 +238,7 @@ public class UserManagementController {
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 			String date = simpleDateFormat.format(new Date());
 			UserDto userBean = new UserDto();
-			userBean.setUserId(Integer.parseInt(request.getParameter("userId")));
+			userBean.setUserId(request.getParameter("userId"));
 			userBean.setUsername(request.getParameter("username"));
 			userBean.setRole(request.getParameter("role"));
 			userBean.setKioskId(request.getParameter("kioskId"));

@@ -28,40 +28,63 @@
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-touch.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-animate.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-aria.js"></script>
+
+<!--  lll-->
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+<link rel="stylesheet"
+	href="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css">
+	
+	<link rel="stylesheet"
+	href="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css">
+<script
+	src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
+	
+	
+
 </head>
 <body>
 
 <div class="main" ng-app="app" id="appId">
 <div ng-controller="UserManagementCtrl as vm">
-<table class="table1">
+
+<div>
+<table class="table1" style="border: 1px solid #eee;">
 
 <tr>
     <td id="noOfUsers" colspan="6">No of users</td>
-    
+  </tr>
+    <tr>
+    <td id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"><a ng-click="getCountType('CMF')">${cmfCount}</a></td> 
+    <td id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"> <a ng-click="getCountType('CMS')"> ${cmsCount}</a>  </td> 
+	<td id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"> <a ng-click="getCountType('MUMBAI')">${circleCountByRole}</a></td>   
+    <td id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"> <a ng-click="getCountType('LA')">${laCount}</a></td>   
+	<td id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"><a ng-click="getCountType('CC')">${ccCount}</a></td>
+	<td id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"><a ng-click="getCountType('SA')">${saCount}</a></td>
   </tr>
   <tr>
-    <td id="count1" style=""><a ng-click="getCountType('CMF')">200</a></td> 
-	<td id="count1">500</td>   
-	<td id="count1">30</td>   
-	<td id="count1">60</td>   
-	<td id="count1">100</td> 
-	<td id="count1">12</td>  	
-  </tr>
-  <tr>
-    <td id="count2">CMF</td> 
-	<td id="count2">CMS</td>   
-	<td id="count2">Circle</td>   
-	<td id="count2">LA</td>   
-	<td id="count2">CC</td> 
-	<td id="count2">SA</td>  	
+  <!-- Yogesh User Circle Wise -->
+    <td id="count2" style="color: black; border-right: solid 2px #faf5f6;">CMF</td> 
+	<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">CMS</td>   
+	<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">Circle</td>   
+	<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">LA</td>   
+	<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">CC</td> 
+	<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">SA</td>  	
   </tr>
 </table>
+</div>
 <br/><br/>
 		<div class="submain">
 	
 	<br/>
 	<br/>
-	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Username, First Name, Last Name, Mail Id, Circle etc." style="font-size: 12px" size="150" height="80">
+	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Username, First Name, Last Name, Mail Id, Circle etc." style="font-size: 12px" size="150" height="80" id="input" class="form-group has-search">
 		
 	
 		

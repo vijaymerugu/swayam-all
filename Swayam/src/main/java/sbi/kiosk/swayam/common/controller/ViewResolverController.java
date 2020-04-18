@@ -1,12 +1,28 @@
 package sbi.kiosk.swayam.common.controller;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import sbi.kiosk.swayam.healthmonitoring.service.TicketCentorFilterService;
+import sbi.kiosk.swayam.healthmonitoring.service.TicketCentorService;
+import sbi.kiosk.swayam.kioskmanagement.service.KioskManagementService;
+
 @RestController
 public class ViewResolverController {
+	@Autowired
+	KioskManagementService kioskManagementService;
+	@Autowired
+	TicketCentorService ticketCentorService;
+	
+	@Autowired
+	TicketCentorFilterService ticketCentorFilterService;
+	
 	
 	@RequestMapping("/")
 	public ModelAndView home() {
@@ -29,16 +45,60 @@ public class ViewResolverController {
 	}
 	
 	@RequestMapping("/km/kioskManagement")
-	public ModelAndView kioskManagement() {		
-		
-		ModelAndView mav = new ModelAndView("kioskManagement");
+	public ModelAndView kioskManagement(ModelAndView mav) {
+		Map<String, Integer> mapDataCount = null;
+		mapDataCount = kioskManagementService.findAllKioskMasterCount();
+		if (mapDataCount != null && !mapDataCount.isEmpty()) {
+			mav.addObject("mapDataCount", mapDataCount);
+		}
+
+		mav.setViewName("kioskManagement");
 		return mav;
 	}
+
 	
-	/*
-	 * @RequestMapping(value = "/km/userList") public ModelAndView welcomePage() {
-	 * ModelAndView model = new ModelAndView(); model.setViewName("userlist");
-	 * return model; }
-	 */
+	@RequestMapping("/km/ticketcentor")
+	public ModelAndView ticketCentor(ModelAndView mav) {
+
+		Map<String, Integer> mapDataList = null;
+		mapDataList = ticketCentorService.findAllSeverityOfTicketsCount();
+		if (mapDataList != null && !mapDataList.isEmpty()) {
+			mav.addObject("mapDataList", mapDataList);
+		}
+		
+		Map<String, Integer> ageingMapDataList = null;
+		ageingMapDataList = ticketCentorService.findAllAgeingOfTicketsCount();
+		if (ageingMapDataList != null && !ageingMapDataList.isEmpty()) {
+			mav.addObject("ageingMapDataList", ageingMapDataList);
+		}
+		mav.setViewName("ticketCentor");
+		return mav;
+	}
+
+	
+	
+	
+	@RequestMapping("/km/ticketcentorCallCategory")
+	public ModelAndView ticketcentorCallCategory(ModelAndView mav,HttpServletRequest request) {
+
+		Map<String, Integer> mapDataList = null;
+		mapDataList = ticketCentorFilterService.findAllSeverityOfTicketsCount();
+		if (mapDataList != null && !mapDataList.isEmpty()) {
+			mav.addObject("mapDataList", mapDataList);
+		}
+		
+		Map<String, Integer> ageingMapDataList = null;
+		ageingMapDataList = ticketCentorFilterService.findAllAgeingOfTicketsCount();
+		if (ageingMapDataList != null && !ageingMapDataList.isEmpty()) {
+			mav.addObject("ageingMapDataList", ageingMapDataList);
+		}
+
+		Map<String, Object> categoryMapDataList  =ticketCentorFilterService.findAllCategory();
+		if (categoryMapDataList != null && !categoryMapDataList.isEmpty()) {
+			mav.addObject("categoryMapDataList", categoryMapDataList);
+		}
+		mav.setViewName("ticketCentorSA");
+		return mav;
+	}
 
 }

@@ -40,7 +40,7 @@ public class UserDto {
 	}
 	
 	
-	private Integer userId;
+	private String userId;
 	
 	private String pfId;	
 	
