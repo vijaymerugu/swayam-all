@@ -31,22 +31,21 @@
 </style>
 </head>
 
-<body>
-<table>
-<tr>
-<td style="color:#000000;font-size:15px;" align="right"><b>
+<body class="modal-dialog modal-lg">
+
+<div   style="font-weight: 400;">
+
+<p style="color:#000000;font-size:15px;text-align: center;"><span style="color:#000000;text-align: center;font-weight: bold;">
 Kiosk Assigned to : <c:out value="${kiosksList[0].username}" />
 <input type="hidden" name="uname" value="${kiosksList[0].username}"/>
-</b>
-</td>
-</tr>
-<tr><td style="color:#808080;font-size:10px;" align="right">Select Kiosks to De-Map</td></tr>
-</table>
+</span></p>
+<p style="color:#000000;font-size:10px;text-align: center;"><span style="text-align: center;color:#808080">Select Kiosks to De-Map</span></p>
 
-<table id="myTable">  
-        <thead>  
-          <tr>  
-            <th>Select ALL</th>  
+<div style="margin-left: 40px;margin-right: 40px">
+        <table id="myTable">  
+        <thead >  
+          <tr style="top: 244px;left: 282px;width: 801px;height: 42px;background: #13A8E0 0% 0% no-repeat padding-box;opacity: 1;">  
+        <th><input type="checkbox" id="selectAll" />Select ALL</th>  
             <th>Sr No.</th>  
             <th>Kiosk Id</th>  
             <th>Vendor</th>
@@ -54,6 +53,7 @@ Kiosk Assigned to : <c:out value="${kiosksList[0].username}" />
           </tr>  
         </thead>  
         <tbody>  
+        
         <c:forEach items="${kiosksList}" var="user" varStatus="status">
           <tr>  
             <td><input type="checkbox" name="check_list[]" value="${user.kioskId}"></td>  
@@ -63,18 +63,16 @@ Kiosk Assigned to : <c:out value="${kiosksList[0].username}" />
             <td>${user.installationStatus}</td>  
           </tr>  
           </c:forEach>
-          
-         
-          
         </tbody>  
-        
       </table>  
+      
       <table>
       <tr>
       <td><input type="submit" value="Submit" class="openFinalPopup"></td>
       </tr>
       </table>
-
+</div>
+</div>
 
 
 
@@ -83,17 +81,17 @@ Kiosk Assigned to : <c:out value="${kiosksList[0].username}" />
 
 $(document).ready(function(){
     $('.openFinalPopup').on('click',function(){
-        
+        alert(1);
         var i=0;
         var array = [];
-        
+        alert($('input[name=uname]').val());
         var list = $("input[name='check_list[]']:checked").map(function () {
-        	
+        	alert(this.value);
         	array.push(this.value);
         	//array[i+1] = this.value;
             return this.value;
         }).get();
-        
+        alert("AAAA"+array);
         //var url= "/km/userkioskmappingpopupselected?check_list[]="+ $("input[name='check_list[]']:checked").val();
         var url= "/km/userkioskmappingpopupselected?uname="+$('input[name=uname]').val()+"&array="+ array;
         $('.modal-body').load(url,function(){
@@ -102,5 +100,14 @@ $(document).ready(function(){
     }); 
 });
 </script>
+
+
+<script type="text/javascript">
+$('#selectAll').click(function(e){
+	var table= $(e.target).closest('table');
+	$('td input:checkbox',table).attr('checked',e.target.checked);
+});
+</script>
+
 </body>
 </html>

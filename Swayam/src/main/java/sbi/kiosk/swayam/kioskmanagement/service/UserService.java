@@ -17,5 +17,14 @@ public interface UserService extends IOperations<UserManagementDto>{
 	public User getUserByPfId(String pfId);
 	
 	
+	int findSACount();
+	int findCCCount();
+	int findLACount();
+	int findCircleCount();
+	int findCMSCount();
+	int findCMFCount();
+    int findCircleCountByRole(String circle);
+	
+	
 
 }

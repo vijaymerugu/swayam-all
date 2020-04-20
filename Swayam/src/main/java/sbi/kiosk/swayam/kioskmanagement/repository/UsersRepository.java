@@ -58,4 +58,29 @@ public interface UsersRepository extends CrudRepository<User, Long> {
 	User findUserByPfId(String pfId);
 	
 	
+	@Query(value=" SELECT COUNT(*) FROM TBL_USER WHERE ROLE IN ('CMF') ",nativeQuery=true)
+	public int findCMFCount();
+	
+	@Query(value=" SELECT COUNT(*) FROM TBL_USER WHERE ROLE IN ('CMS') ",nativeQuery=true)
+	public int findCMSCount();
+	
+	//@Query(value=" SELECT COUNT(*) FROM TBL_USER WHERE ROLE IN ('CIRCLE') ",nativeQuery=true)
+	@Query(value=" SELECT COUNT(*) FROM TBL_USER",nativeQuery=true)
+	public int findCircleCount();
+	
+	@Query(value=" SELECT COUNT(*) FROM TBL_USER WHERE ROLE IN ('LA')  and ENABLED in('1') ",nativeQuery=true)
+	public int findLACount();
+	
+	@Query(value=" SELECT COUNT(*) FROM TBL_USER WHERE ROLE IN ('CC') and ENABLED in('1') ",nativeQuery=true)
+	public int findCCCount();
+	
+	@Query(value=" SELECT COUNT(*) FROM TBL_USER WHERE ROLE IN ('SA') and ENABLED in('1') ",nativeQuery=true)
+	public int findSACount();
+
+	@Query(value=" SELECT COUNT(*) FROM TBL_USER WHERE CIRCLE=?1 and ENABLED in('1') ",nativeQuery=true)
+	/*@Query(value=" SELECT COUNT(*),ROLE FROM TBL_USER WHERE ROLE=?1 GROUP BY ROLE; ",nativeQuery=true)*/
+	int findCircleCountByRole(String circle);
+
+	
+	
 }

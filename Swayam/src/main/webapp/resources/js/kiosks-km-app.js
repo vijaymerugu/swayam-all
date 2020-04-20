@@ -7,6 +7,21 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	 sort: null
    };
    
+   var counttype = "";
+   $scope.getCountType = function(type){
+alert(1);
+alert("1=="+type);
+counttype=type;
+	   UserManagementService.getUsers(paginationOptions.pageNumber,
+			   paginationOptions.pageSize,counttype).success(function(data){
+				   alert("succ");
+					  $scope.gridOptions.data = data.content;
+				 	  $scope.gridOptions.totalItems = data.totalElements;
+				   });
+	}
+   
+   
+   
    $scope.refresh = function()
    {  		if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
 	
@@ -18,7 +33,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    };
 
    UserManagementService.getUsers(paginationOptions.pageNumber,
-		   paginationOptions.pageSize).success(function(data){
+		   paginationOptions.pageSize,counttype).success(function(data){
 	  $scope.gridOptions.data = data.content;
  	  $scope.gridOptions.totalItems = data.totalElements;
    });
@@ -53,10 +68,10 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
     ],
     onRegisterApi: function(gridApi) {
         $scope.gridApi = gridApi;
-        gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
+        gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
           paginationOptions.pageNumber = newPage;
           paginationOptions.pageSize = pageSize;
-          UserManagementService.getUsers(newPage,pageSize).success(function(data){
+          UserManagementService.getUsers(newPage,pageSize,counttype).success(function(data){
         	  $scope.gridOptions.data = data.content;
          	  $scope.gridOptions.totalItems = data.totalElements;
           });
@@ -69,11 +84,12 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 
 app.service('UserManagementService',['$http', function ($http) {
 	
-	function getUsers(pageNumber,size) {
+	function getUsers(pageNumber,size,counttype) {
+		alert(44);
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({
           method: 'GET',
-          url: '/kiosks/get?page='+pageNumber+'&size='+size
+          url: '/kiosks/get?page='+pageNumber+'&size='+size+'&type='+counttype
         });
     }
 	

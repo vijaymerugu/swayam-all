@@ -1,6 +1,7 @@
 package sbi.kiosk.swayam.kioskmanagement.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Page;
 
@@ -31,4 +32,8 @@ public interface KioskManagementService {
 	KioskBranchMasterUserDto getKiosksFromKioskBranchMasterByKioskId(String kioskId);
 	
 	void saveSingleUserKioskMapping(String username, String kioskId);
+
+	Page<KioskBranchMasterUserDto> findPaginatedCount(int page, int size, String type);
+
+	Map<String, Integer> findAllKioskMasterCount();
 }

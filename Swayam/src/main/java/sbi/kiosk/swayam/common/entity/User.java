@@ -42,6 +42,8 @@ public class User extends Common {
 		this.createdDate = userDto.getCreatedDate();
 		this.modifiedBy = userDto.getModifiedBy();
 		this.modifiedDate = userDto.getModifiedDate();
+		this.reportingAuthorityName=userDto.getReportingAuthorityName();
+		this.reportingAuthorityEmail=userDto.getReportingAuthorityEmail();
 	}
 	
 	@Id
@@ -63,6 +65,8 @@ public class User extends Common {
 	private String role;	
 	
 	
+	@Column(name="KIOSK_ID")	
+	private String kioskId;
 	@Column(name="FIRSTNAME")
 	private String firstName;
 	
@@ -98,6 +102,12 @@ public class User extends Common {
 	
 	@Column(name="CIRCLE")
 	private String circle;
+	
+	@Column(name="REPORTING_AUTHORITY_NAME ")
+	private String reportingAuthorityName;
+	
+	@Column(name="REPORTING_AUTHORITY_EMAIL")
+	private String reportingAuthorityEmail;
 	
 
 }

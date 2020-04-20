@@ -79,6 +79,20 @@ public class UserServiceImpl implements UserService {
 		 	return entities;
 	    }
 	 
+	 @SuppressWarnings("deprecation")
+	    @Override
+	    public Page<UserManagementDto> findPaginatedCount(int page, int size,String type) {
+		System.out.println("type=============findPaginatedCount=================================="+type); 
+		Page<UserManagementDto> entities =null;
+		if(!type.equals("MUMBAI")){
+	       entities =userRepositoryPagingRepo.findByRoleAndEnabled(type,"1",PageRequest.of(page, size)).map(UserManagementDto::new);
+	    }else{
+	    	 entities =userRepositoryPagingRepo.findByCircleAndEnabled(type,"1",PageRequest.of(page, size)).map(UserManagementDto::new);
+	    }
+		 return entities;
+	    }
+	 
+	 
 	 @Override
 		public List<UserManagementDto> findByUserName(String userName) {
 			  List<UserManagementDto> userManaDTOList=new ArrayList<UserManagementDto>();
@@ -162,4 +176,54 @@ public class UserServiceImpl implements UserService {
 	public User getUserByPfId(String username){
 		return userRepo.findUserByPfId(username);
 	}
+	
+	
+	 @Override
+		public int findCMFCount() {
+	    	int cmfCount=userRepo.findCMFCount();
+	    	System.out.println("cmfCount:: "+cmfCount);
+			return cmfCount;
+		}
+	    
+	    @Override
+		public int findCMSCount() {
+	    	int cmsCount=userRepo.findCMSCount();
+	    	System.out.println("cmsCount:: "+cmsCount);
+			return cmsCount;
+		}
+	    
+	    @Override
+		public int findCircleCount() {
+	    	int circleCount=userRepo.findCircleCount();
+	    	System.out.println("circleCount:: "+circleCount);
+			return circleCount;
+		}
+	    
+	    @Override
+		public int findLACount() {
+	    	int laCount=userRepo.findLACount();
+			return laCount;
+		}
+	    
+	    @Override
+		public int findCCCount() {
+	    	int ccCount=userRepo.findCCCount();
+			return ccCount;
+		}
+	    
+	    @Override
+		public int findSACount() {
+	    	int saCount=userRepo.findSACount();
+			return saCount;
+		}
+	    
+	    @Override
+	    public int findCircleCountByRole(String circle){
+	    	System.err.println("circle=========================sa===="+circle);
+	    	int circleCountByRole=userRepo.findCircleCountByRole(circle);
+	    	System.out.println("circleCountByRole:: "+circleCountByRole);
+			return circleCountByRole;
+	    }
+	
+	
 }

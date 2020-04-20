@@ -150,17 +150,38 @@ public class KioskManagementController {
 		
 	}
 	
-	@RequestMapping(value = "/kiosks/get", params = { "page", "size" }, method = RequestMethod.GET, produces = "application/json")
-	public Page<KioskBranchMasterUserDto> findPaginated(
-		      @RequestParam("page") int page, @RequestParam("size") int size) {
+	@RequestMapping(value = "/kiosks/get", params = { "page", "size" ,"type"}, method = RequestMethod.GET, produces = "application/json")
+	public Page<KioskBranchMasterUserDto> findPaginated( 
+		      @RequestParam("page") int page, @RequestParam("size") int size,@RequestParam("type") String type) {
 		 
-		        Page<KioskBranchMasterUserDto> resultPage = kioskManagementService.findPaginated(page, size);
+		
+		System.out.println("type===11==============="+type);
+
+			 Page<KioskBranchMasterUserDto> resultPage;
+			if(type.equals("InstalledKiosks")){
+			    resultPage= kioskManagementService.findPaginated(page, size);
+			}else if(type.equals("CMS")){
+				resultPage= kioskManagementService.findPaginatedCount(page, size, type);
+			}else if(type.equals("LIPI")){
+				resultPage= kioskManagementService.findPaginatedCount(page, size, type);
+			}else if(type.equalsIgnoreCase("InstalledCMSVendor")){
+				resultPage= kioskManagementService.findPaginatedCount(page, size, type);
+			}else if(type.equals("DeleviredCMSVendor")){
+				resultPage= kioskManagementService.findPaginatedCount(page, size, type);
+			}else if(type.equals("InstalledLIPIVendor")){
+				resultPage= kioskManagementService.findPaginatedCount(page, size, type);
+			}else if(type.equals("DeleviredLIPIVendor")){
+			   resultPage= kioskManagementService.findPaginatedCount(page, size, type);
+		    }else{
+		         resultPage = kioskManagementService.findPaginated(page, size);
 		        if (page > resultPage.getTotalPages()) {
 		            //throw new MyResourceNotFoundException();
 		        }
-		 
 		        return resultPage;
 		    }
+		        return resultPage;
+		    }
+	
 	
 	
 	@RequestMapping(value ="/km/assignCmfForKiosk")
@@ -188,4 +209,5 @@ public class KioskManagementController {
 		return mav;
 		
 	}
+	
 }
