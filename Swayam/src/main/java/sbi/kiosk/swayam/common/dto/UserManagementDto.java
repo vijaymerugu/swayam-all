@@ -27,13 +27,13 @@ public class UserManagementDto  {
 		this.role = user.getRole();		
 		this.firstName = user.getFirstName();
 		this.lastName = user.getLastName();
-		this.address = user.getAddress();
+		/*this.address = user.getAddress();
 		this.addressline1 = user.getAddressline1();
 		this.addressline2 = user.getAddressline2();
 		this.gender = user.getGender();
 		this.pincode = user.getPincode();
 		this.city = user.getCity();
-		this.state = user.getState();
+		this.state = user.getState();*/
 		this.mailId = user.getMailId();
 		try {
 			this.createdDate = user.getCreatedDate() !=null ?formatTimestampToString(user.getCreatedDate().toString()):"";
@@ -49,7 +49,7 @@ public class UserManagementDto  {
 			e.printStackTrace();
 		}
 		this.modifiedBy = user.getModifiedBy();;
-		this.mobileNo = user.getMobileNo();	
+		this.mobileNo = user.getPhoneNo();	
 		this.circle = user.getCircle();
 		
 	}
@@ -74,7 +74,7 @@ public class UserManagementDto  {
 	private String lastName;
 	
 	
-	private String address;
+	/*private String address;
 	
 	
 	private String addressline1;
@@ -93,7 +93,7 @@ public class UserManagementDto  {
 	
 	
 	private String state;
-	
+	*/
 	
 	private String mailId;
 	

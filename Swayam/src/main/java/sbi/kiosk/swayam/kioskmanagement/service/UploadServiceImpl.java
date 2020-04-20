@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import sbi.kiosk.swayam.common.dto.CbsBrhmDto;
 import sbi.kiosk.swayam.common.dto.KioskDto;
 import sbi.kiosk.swayam.common.entity.BranchMaster;
-import sbi.kiosk.swayam.common.entity.KioskMaster;
+import sbi.kiosk.swayam.common.entity.KioskBranchMaster;
 import sbi.kiosk.swayam.kioskmanagement.repository.BranchMasterRepository;
 import sbi.kiosk.swayam.kioskmanagement.repository.kioskMasterManagementRepository;
 
@@ -101,13 +101,13 @@ public class UploadServiceImpl implements UploadService {
 				lidtDto.add(dto);
 			} // 2nd close while loop
 
-			KioskMaster entity = null;
-			List<KioskMaster> listEntity = new ArrayList<KioskMaster>();
+			KioskBranchMaster entity = null;
+			List<KioskBranchMaster> listEntity = new ArrayList<KioskBranchMaster>();
 			int count = 0;
 
 			for (KioskDto lidtDto1 : lidtDto) {
 				if (count != 0) {
-					entity = new KioskMaster();
+					entity = new KioskBranchMaster();
 					entity.setSrNo(Long.parseLong(lidtDto1.getSrNo().substring(0, lidtDto1.getSrNo().length() - 2)));
 					System.out.println(entity.getSrNo());
 					entity.setCircle(lidtDto1.getCircle());
@@ -115,14 +115,14 @@ public class UploadServiceImpl implements UploadService {
 					entity.setBranchCode(lidtDto1.getBranchCode());
 					entity.setKioskId(lidtDto1.getKioskID());
 					entity.setKioskSerialNo(lidtDto1.getKioskSerialNumber());
-					entity.setKioskIP(lidtDto1.getKioskIPAddress());
+					entity.setKioskIp(lidtDto1.getKioskIPAddress());
 					entity.setOs(lidtDto1.getoS());
 					entity.setMake(lidtDto1.getMake());
 					listEntity.add(entity);
 				}
 				count++;
 			}
-			Iterable<KioskMaster> result = kioskMasterManagementRepository.saveAll(listEntity);
+			Iterable<KioskBranchMaster> result = kioskMasterManagementRepository.saveAll(listEntity);
 			if (result != null)
 				return "data uploaded";
 		} catch (Exception e) {

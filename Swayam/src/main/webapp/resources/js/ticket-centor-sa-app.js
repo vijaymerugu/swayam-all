@@ -12,7 +12,7 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 	   
 	   $scope.create = function(typecat){
 		   
-		   alert("sate=="+typecat);
+		   
 		   
 	   }
 	   
@@ -20,12 +20,11 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 	   
 	   var counttype = "";
 	   $scope.getCountType = function(type){
-	alert(1);
-	alert("1=="+type);
+	
 	counttype=type;
 		   UserManagementService.getUsers(paginationOptions.pageNumber,
 				   paginationOptions.pageSize,counttype).success(function(data){
-					   alert("succ");
+					   
 						  $scope.gridOptions.data = data.content;
 					 	  $scope.gridOptions.totalItems = data.totalElements;
 					   });
@@ -103,7 +102,7 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 
 app.service('UserManagementService',['$http', function ($http) {
 	function getUsers(pageNumber,size,counttype) {
-		alert("2=="+counttype);
+		
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({
           method: 'GET',

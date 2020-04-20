@@ -29,11 +29,12 @@ public class UserDto {
 		this.role = user.getRole();
 		this.firstName = user.getFirstName();
 		this.lastName = user.getLastName();
-		this.address = user.getAddress();
+		/*this.address = user.getAddress();
 		this.addressline1 = user.getAddressline1();
 		this.addressline2 = user.getAddressline2();
 		this.gender = user.getGender();
-		this.pincode = user.getPincode();
+		this.pincode = user.getPincode();*/
+		this.phoneNo = user.getPhoneNo();
 		this.circle = user.getCircle();
 		this.createdBy = user.getCreatedBy();
 		this.createdDate = user.getCreatedDate();
@@ -67,7 +68,7 @@ public class UserDto {
 	private String lastName;
 	
 	
-	private String address;
+	/*private String address;
 	
 	
 	private String addressline1;
@@ -86,7 +87,7 @@ public class UserDto {
 	
 	
 	private String state;
-	
+	*/
 	
 	private String mailId;
 	
@@ -103,7 +104,7 @@ public class UserDto {
 	private String modifiedBy;
 	
 	
-	private String mobileNo;
+	private String phoneNo;
 	
 	
 	private String circle;

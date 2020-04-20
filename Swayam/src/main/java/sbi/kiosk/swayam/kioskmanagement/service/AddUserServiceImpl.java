@@ -27,7 +27,7 @@ public class AddUserServiceImpl implements AddUserService{
 		User user=new User();
 		user.setPfId(dto.getPfId());
 		user.setUsername(dto.getUserName());
-		user.setMobileNo(dto.getPhoneNumber());
+		user.setPhoneNo(dto.getPhoneNumber());
 		user.setMailId(dto.getEmailId());
 		for(Role role1:role) {
 			if(role1.getRoleDesc().equalsIgnoreCase(dto.getRole()));

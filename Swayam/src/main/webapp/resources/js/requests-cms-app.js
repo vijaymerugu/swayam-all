@@ -1,5 +1,5 @@
 angular.element(document).ready(function() {	
-var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter']);
+var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter','ui.grid.selection']);
 
 app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService', function ($scope, $filter,UserManagementService) {
    var paginationOptions = {
@@ -9,16 +9,9 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    };
    var counttype = "";
    $scope.getCountType = function(type){
-      
-       counttype=type;
 	   UserManagementService.getUsers(paginationOptions.pageNumber,
-			   paginationOptions.pageSize,counttype).success(function(data){
-				   
-					  $scope.gridOptions.data = data.content;
-				 	  $scope.gridOptions.totalItems = data.totalElements;
-				   });
+			   paginationOptions.pageSize,counttype);
 	}
-   
    $scope.refresh = function()
    {  		if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
 	
@@ -34,6 +27,11 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	  $scope.gridOptions.data = data.content;
  	  $scope.gridOptions.totalItems = data.totalElements;
    });
+   
+   $scope.showDate = function(value)
+   {
+     return new Date(value);
+   }
    
    $scope.gridOptions = {
     paginationPageSizes: [5, 10, 20],
@@ -53,32 +51,24 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
       },
 
     columnDefs: [
-      { name: 'userId', displayName: 'SrNo'  },
-      { name: 'pfId', displayName: 'PF ID'  },
-      { name: 'username', displayName: 'Username'  },
-      { name: 'firstName', displayName: 'First Name'  },
-      { name: 'lastName', displayName: 'Last Name'  },
-      { name: 'role', displayName: 'Role'  },
-      { name: 'Edit',
-    	  exporterSuppressExport: true,
-    	  headerCellTemplate: '<div></div>',
-    	  cellTemplate: '<div class="ui-grid-cell-contents"><a href="/km/editUserMaster?userId={{ row.entity.userId }}">Edit</a></div>'
-      },
-      { name: 'Delete',
-    	  exporterSuppressExport: true,
-    	  headerCellTemplate: '<div></div>',
-          cellTemplate: '<div class="ui-grid-cell-contents"><a href="/km/deleteUserMaster?userId={{ row.entity.userId }}">Delete</a></div>'
-      },
-      { name: 'Assign',
-    	  exporterSuppressExport: true,
-    	  displayName: 'Assign Kiosk',
-    	  headerCellTemplate: '<div></div>',
-          cellTemplate: '<div class="ui-grid-cell-contents" id="myBtn"><a data-href="/km/userkioskmappingpopup?username="+{{ row.entity.userId }} data-val="{{ row.entity.pfId }}" class="openPopup">Assign Kiosk</a></div>'
+      { name: 'id', displayName: 'Case Id', width:100  },
+      { name: 'category', displayName: 'Category', width:150  },
+      { name: 'subCategory', displayName: 'Sub Category', width:200  },
+      { name: 'kioskId', displayName: 'ATM Id', width:100  },
+      { name: 'modifiedDate', width:200, displayName: 'Request Date Time     ',type: 'date',cellFilter: 'date:"dd-MM-yyyy hh:mm:ss a"'
+    	  //cellTemplate:'<div class="ui-grid-cell-contents">{{grid.appScope.showDate(row.entity.modifiedDate)}}</div>'
+    		  },
+      { name: 'modifiedBy', displayName: 'Request By', width:100  },
+      { name: 'comments', headerCellTemplate: '<div>Comments By <br/> Requestor</div>', width:200  },
+      { name: 'remarks',
+    	  exporterSuppressExport: true, width:250,
+    	  headerCellTemplate: '<div>Remarks By <br/> Checker</div>',
+    	  cellTemplate: '<div class="addedRows"><input type="text" name="remarks[{{row.entity.id}}]" id="remarks"/></div>'
       }
     ],
     onRegisterApi: function(gridApi) {
         $scope.gridApi = gridApi;
-        gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
+        gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
           paginationOptions.pageNumber = newPage;
           paginationOptions.pageSize = pageSize;
           UserManagementService.getUsers(newPage,pageSize,counttype).success(function(data){
@@ -98,7 +88,7 @@ app.service('UserManagementService',['$http', function ($http) {
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({
           method: 'GET',
-          url: '/users/get?page='+pageNumber+'&size='+size+'&type='+counttype
+          url: '/hm/requestsCms/get?page='+pageNumber+'&size='+size
         });
     }
 	

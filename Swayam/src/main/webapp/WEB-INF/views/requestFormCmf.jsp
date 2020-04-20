@@ -32,12 +32,12 @@
 <body>
 <div class="main" ng-app="app" id="appId">
 
-
+<form action="/hm/addRequest">
 <table class="table1">
 <tr><td>Branch Code:<input type="text" name="branchCode" id="branchCode"/></td>
 	<td>Kiosk Id:<input type="text" name="kioskId" id="kioskId"/></td>
 </tr>
-<tr><td>Vendor:<input type="text" name="branchCode" id="branchCode"/></td>
+<tr><td>Vendor:<input type="text" name="vendor" id="vendor"/></td>
 	<td>Type Of Request:
 	<select id="typeOfRequest" name="typeOfRequest" class="form-control select2" style="width: 100%;" >
                                 <option value="0">Select</option>                                  
@@ -46,20 +46,20 @@
                                 </select>
                                 </td>
 </tr>
-<tr><td>Category:
-	<select id="category" name="category" class="form-control select2" style="width: 100%;" >
+<tr><td>Category:<input type="text" name="category" id="category"/>
+	<%-- <select id="category" name="category" class="form-control select2" style="width: 100%;" >
                                 <option value="0">Select</option>
                                   <c:forEach items="${usersList}" var="usr">
                                     <option value="${usr.pfId}">${usr.pfId}</option>
                                  </c:forEach>
-                                </select></td>
-	<td>Sub-Category:
-	<select id="subCategory" name="subCategory" class="form-control select2" style="width: 100%;" >
+                                </select> --%></td>
+	<td>Sub-Category:<input type="text" name="subCategory" id="subCategory"/>
+	<%-- <select id="subCategory" name="subCategory" class="form-control select2" style="width: 100%;" >
                                 <option value="0">Select</option>
                                   <c:forEach items="${usersList}" var="usr">
                                     <option value="${usr.pfId}">${usr.pfId}</option>
                                  </c:forEach>
-                                </select>
+                                </select> --%>
                                 </td>
 </tr>
 <tr><td>Subject:<input type="text" name="subject" id="subject"/></td>
@@ -76,6 +76,7 @@
 </tr>
 
 </table>
+</form>
 </div>
 </body>
 </html>

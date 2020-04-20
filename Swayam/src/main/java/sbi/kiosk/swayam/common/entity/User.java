@@ -28,15 +28,15 @@ public class User extends Common {
 		this.role = userDto.getRole();
 		this.firstName = userDto.getFirstName();
 		this.lastName = userDto.getLastName();
-		this.address = userDto.getAddress();
+		/*this.address = userDto.getAddress();
 		this.addressline1 = userDto.getAddressline1();
 		this.addressline2 = userDto.getAddressline2();
 		this.gender = userDto.getGender();
 		this.pincode = userDto.getPincode();
 		this.city = userDto.getCity();
 		this.state = userDto.getState();
-		this.mailId =  userDto.getMailId();
-		this.mobileNo = userDto.getMobileNo();
+		this.mailId =  userDto.getMailId();*/
+		this.phoneNo = userDto.getPhoneNo();
 		this.circle = userDto.getCircle();
 		this.createdBy = userDto.getCreatedBy();
 		this.createdDate = userDto.getCreatedDate();
@@ -62,18 +62,15 @@ public class User extends Common {
 	private String enabled;
 	
 	@Column(name="ROLE")	
-	private String role;	
+	private String role;		
 	
-	
-	@Column(name="KIOSK_ID")	
-	private String kioskId;
 	@Column(name="FIRSTNAME")
 	private String firstName;
 	
 	@Column(name="LASTNAME")
 	private String lastName;
 	
-	@Column(name="ADDRESS")
+	/*@Column(name="ADDRESS")
 	private String address;
 	
 	@Column(name="ADDRESSLINE1")
@@ -94,16 +91,16 @@ public class User extends Common {
 	@Column(name="STATE")
 	private String state;
 	
-	@Column(name="MAIL_ID")
+*/	@Column(name="MAIL_ID")
 	private String mailId;	
 	
-	@Column(name="MOBILENO")
-	private String mobileNo;	
+	@Column(name="PHONENO")
+	private String phoneNo;	
 	
 	@Column(name="CIRCLE")
 	private String circle;
 	
-	@Column(name="REPORTING_AUTHORITY_NAME ")
+	@Column(name="REPORTING_AUTHORITY_NAME")
 	private String reportingAuthorityName;
 	
 	@Column(name="REPORTING_AUTHORITY_EMAIL")

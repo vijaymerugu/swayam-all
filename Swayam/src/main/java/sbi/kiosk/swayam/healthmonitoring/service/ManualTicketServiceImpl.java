@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import sbi.kiosk.swayam.common.dto.CallTypeDto;
 import sbi.kiosk.swayam.common.dto.ManualTicketCallLogDto;
-import sbi.kiosk.swayam.common.entity.KioskMaster;
+import sbi.kiosk.swayam.common.entity.KioskBranchMaster;
 import sbi.kiosk.swayam.common.entity.ManualTicketCallLog;
 import sbi.kiosk.swayam.common.entity.User;
 import sbi.kiosk.swayam.common.exception.ManualTicketNotFoudException;
@@ -156,12 +156,13 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 	public List<ManualTicketCallLogDto> getByKioskId(String kioskId) {
 		ManualTicketCallLogDto dto = null;
 		List<ManualTicketCallLogDto> dtoList = new ArrayList<ManualTicketCallLogDto>();
-		User user = userRepo.findByKioskId(kioskId);
+		//User user = userRepo.findByKioskId(kioskId);
+		User user = new User();
 		if (user!=null) {
 			dto = new ManualTicketCallLogDto();
-			dto.setCircle(user.getCity());
+			dto.setCircle(user.getCircle());
 			dto.setContactPerson(user.getUsername());
-			dto.setContactNo(user.getMobileNo());
+			dto.setContactNo(user.getPhoneNo());
 			dto.setKioskError("Printer Error");
 			dtoList.add(dto);
 			System.out.println("kiosk id:" + dto.getKioskId());
@@ -194,10 +195,10 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 
 	@Override
 	public List<ManualTicketCallLogDto> getByVendor(String vendor,String branchcode) {
-		List<KioskMaster> kioskMasterList = kioskMasterRepo.findByVendor(vendor,branchcode);
+		List<KioskBranchMaster> kioskMasterList = kioskMasterRepo.findByVendor(vendor,branchcode);
 		List<ManualTicketCallLogDto> manualTicketCallLogDtoList=new ArrayList<ManualTicketCallLogDto>();
 		ManualTicketCallLogDto dto=null;
-		for(KioskMaster kioskMaster:kioskMasterList) {
+		for(KioskBranchMaster kioskMaster:kioskMasterList) {
 			dto=new ManualTicketCallLogDto();
 			dto.setKioskId(kioskMaster.getKioskId());
 			dto.setVendor(kioskMaster.getVendor());

@@ -25,7 +25,8 @@ import sbi.kiosk.swayam.common.entity.Common;
 @Component
 public class EntityStamper {
 
-	@Before("execution(public * sbi.kiosk.swayam.kioskmanagement.repository.* .*(..))")
+	@Before("execution(public * sbi.kiosk.swayam.kioskmanagement.repository.* .*(..)) "
+			+ "|| execution(public * sbi.kiosk.swayam.healthmonitoring.repository.* .*(..))")
     public void setTimestampsOnEntities(JoinPoint joinPoint) throws NoSuchMethodException {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 
@@ -69,10 +70,10 @@ public class EntityStamper {
 
         // don't override creation date once it's been set
         if (StringUtils.isEmpty(withCreatedAt.getCreatedBy())) {
-        	withCreatedAt.setCreatedBy(user.getUsername());
+        	withCreatedAt.setCreatedBy(user.getPfId());
             withCreatedAt.setCreatedDate(new Date());
         }
         withCreatedAt.setModifiedDate(new Date());
-        withCreatedAt.setModifiedBy(user.getUsername());
+        withCreatedAt.setModifiedBy(user.getPfId());
     }
 }

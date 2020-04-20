@@ -41,6 +41,9 @@ public class KioskBranchMaster {
 	@Column(name="ID")
 	private Integer id;
 	
+	@Column(name="SR_NO")
+	private Long srNo;
+	
 	@Column(name="KIOSK_ID")
 	private String kioskId;
 	
@@ -70,6 +73,18 @@ public class KioskBranchMaster {
 	
 	@Column(name="KIOSK_SERIAL_NO")
 	private String kioskSerialNo;	
+	
+	@Column(name="CIRCLE")
+    private String circle;
+	
+	@Column(name="BRANCH_NAME")	
+	private String branchName;
+	
+	@Column(name="OS")		
+	private String os;
+
+	@Column(name="MAKE")	
+	private String make;
 	
 	@Column(name="INSTALLATION_STATUS")
 	private String installationStatus;

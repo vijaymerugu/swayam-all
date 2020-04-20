@@ -36,10 +36,7 @@ public class UserKioskMapping {
 	private String pfId;
 	
 	@Column(name="KIOSK_ID")
-	private String kioskId;	
-	
-	//@Column(name="USERNAME")
-	//private String username;	
+	private String kioskId;		
 	
 
 }

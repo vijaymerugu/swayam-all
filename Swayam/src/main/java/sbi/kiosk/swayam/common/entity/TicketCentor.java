@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "TBL_TICKET_CENTRE")
-public class TicketCentor {
+public class TicketCentor extends Common {
 	@Id
 	@Column(name = "TICKET_ID")
 	private String ticketId;

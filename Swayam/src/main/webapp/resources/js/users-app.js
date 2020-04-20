@@ -9,12 +9,11 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    
    var counttype = "";
    $scope.getCountType = function(type){
-      alert(1);
-        alert("1=="+type);
+      
        counttype=type;
 	   UserManagementService.getUsers(paginationOptions.pageNumber,
 			   paginationOptions.pageSize,counttype).success(function(data){
-				   alert("succ");
+				   
 					  $scope.gridOptions.data = data.content;
 				 	  $scope.gridOptions.totalItems = data.totalElements;
 				   });
@@ -88,7 +87,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 
 
 app.service('UserManagementService',['$http', function ($http) {
-	alert(11);
+	
 	function getUsers(pageNumber,size,counttype) {
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({

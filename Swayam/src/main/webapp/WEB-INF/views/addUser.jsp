@@ -305,15 +305,15 @@ $(document).ready(function(){
 			UserDto userObj = (UserDto) session.getAttribute("userObj");
 			String firstName = "";
 			String lastName="";
-			String phone="";
+			String pfId="";
 			if(userObj.getFirstName() !=null){
 				firstName = userObj.getFirstName();
 			}
 			if(userObj.getLastName() !=null){
 				lastName = userObj.getLastName();
 			}
-			if(userObj.getMobileNo() !=null){
-				phone = userObj.getMobileNo();
+			if(userObj.getPfId() !=null){
+				pfId = userObj.getPfId();
 			}
 			
 		%>
@@ -333,7 +333,7 @@ $(document).ready(function(){
 						<td
 							style="width: 269px; background: #FDD209; color: #000000; align: center"
 							align="center"><b>Welcome <%=firstName%> &nbsp;<%=lastName%></b> 
-							<br /> <b> <%=phone%> </b></td>
+							<br /> <b> <%=pfId%> </b></td>
 					</tr>
 				</table>
 			</tr>

@@ -164,15 +164,15 @@ public class UserManagementController {
 			userBean.setKioskId(request.getParameter("kioskId"));
 			userBean.setFirstName(request.getParameter("firstName"));
 			userBean.setLastName(request.getParameter("lastName"));
-			userBean.setAddress(request.getParameter("address"));
+			/*userBean.setAddress(request.getParameter("address"));
 			userBean.setAddressline1(request.getParameter("addressline1"));
 			userBean.setAddressline2(request.getParameter("addressline2"));
 			userBean.setGender(request.getParameter("gender"));
 			userBean.setPincode(request.getParameter("pincode"));
 			userBean.setCity(request.getParameter("city"));
-			userBean.setState(request.getParameter("state"));
+			userBean.setState(request.getParameter("state"));*/
 			userBean.setMailId(request.getParameter("mailId"));
-			userBean.setMobileNo(request.getParameter("mobileNo"));
+			userBean.setPhoneNo(request.getParameter("mobileNo"));
 			userBean.setCircle(request.getParameter("circle"));
 			//userBean.setCreatedDate(request.getParameter("createdBy"));// request.getParameter("creationDate")
 			userBean.setCreatedBy(request.getParameter("createdBy"));
@@ -214,20 +214,19 @@ public class UserManagementController {
 			userBean.setKioskId(request.getParameter("kioskId"));
 			userBean.setFirstName(request.getParameter("firstName"));
 			userBean.setLastName(request.getParameter("lastName"));
-			userBean.setAddress(request.getParameter("address"));
+			/*userBean.setAddress(request.getParameter("address"));
 			userBean.setAddressline1(request.getParameter("addressline1"));
 			userBean.setAddressline2(request.getParameter("addressline2"));
 			userBean.setGender(request.getParameter("gender"));
 			userBean.setCity(request.getParameter("city"));
-			userBean.setState(request.getParameter("state"));
+			userBean.setState(request.getParameter("state"));*/
 			userBean.setMailId(request.getParameter("mailId"));
-			userBean.setMobileNo(request.getParameter("mobileNo"));
+			userBean.setPhoneNo(request.getParameter("mobileNo"));
 			userBean.setCircle(request.getParameter("circle"));
 			//userBean.setCreatedDate(date);// request.getParameter("creationDate")
 			userBean.setCreatedBy(request.getParameter("createdBy"));
 			//userBean.setModifiedDate(date);// request.getParameter("modifiedDate")
-			userBean.setModifiedBy(request.getParameter("modifiedBy"));
-			userBean.setPincode(request.getParameter("pincode"));
+			userBean.setModifiedBy(request.getParameter("modifiedBy"));			
 			// System.out.println("Enable==="+request.getParameter("enabled"));
 			// userBean.setEnabled(request.getParameter("enabled"));
 
@@ -266,16 +265,9 @@ public class UserManagementController {
 			userBean.setRole(request.getParameter("role"));
 			userBean.setKioskId(request.getParameter("kioskId"));
 			userBean.setFirstName(request.getParameter("firstName"));
-			userBean.setLastName(request.getParameter("lastName"));
-			userBean.setAddress(request.getParameter("address"));
-			userBean.setAddressline1(request.getParameter("addressline1"));
-			userBean.setAddressline2(request.getParameter("addressline2"));
-			userBean.setGender(request.getParameter("gender"));
-			userBean.setPincode(request.getParameter("pincode"));
-			userBean.setCity(request.getParameter("city"));
-			userBean.setState(request.getParameter("state"));
+			userBean.setLastName(request.getParameter("lastName"));			
 			userBean.setMailId(request.getParameter("mailId"));
-			userBean.setMobileNo(request.getParameter("mobileNo"));
+			userBean.setPhoneNo(request.getParameter("mobileNo"));
 			userBean.setCircle(request.getParameter("circle"));
 			//userBean.setCreatedDate(date);// request.getParameter("creationDate")
 			userBean.setCreatedBy(request.getParameter("createdBy"));
