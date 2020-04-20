@@ -1,6 +1,7 @@
 package sbi.kiosk.swayam.kioskmanagement.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import sbi.kiosk.swayam.common.dto.AddUserDto;
 import sbi.kiosk.swayam.common.dto.RolesDto;
 import sbi.kiosk.swayam.common.dto.UserDto;
 import sbi.kiosk.swayam.common.dto.UserManagementDto;
@@ -114,7 +116,7 @@ public class UserManagementController {
 	
 	
 
-	@RequestMapping(value = { "/km/addUser" })
+	/*@RequestMapping(value = { "/km/addUser" })
 	public ModelAndView addUser(ModelAndView model, @ModelAttribute("usersBean") UserDto usersBean) {
 
 		try {
@@ -125,8 +127,29 @@ public class UserManagementController {
 			e.printStackTrace();
 		}
 		return model;
+	}*/
+
+	
+	@RequestMapping(value = { "/km/addUser" })
+	public ModelAndView addUser(ModelAndView model, @ModelAttribute("addUser") AddUserDto dto,@ModelAttribute("usersBean") UserDto usersBean) {
+
+		try {
+			      System.out.println("inside addUser jsp call..");
+	              List<RolesDto> rolList = roleService.findAllRole();
+	              List<String> role=new ArrayList<String>();
+	              for(RolesDto roleDto:rolList) {
+	            	  role.add(roleDto.getRoleDescription());
+	              }
+		           model.addObject("userRoleList", rolList);
+		           model.setViewName("addUser");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return model;
 	}
 
+	
+	
 	@RequestMapping(value = "/km/editUserMaster")
 	public ModelAndView editUserMaster(ModelAndView model, HttpServletRequest request,@RequestParam("userId") String userId) {
 		System.out.println("editUserMaster(-,-) :: START");
@@ -135,7 +158,7 @@ public class UserManagementController {
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 			String date = simpleDateFormat.format(new Date());
 			UserDto userBean = new UserDto();
-			userBean.setUserId(request.getParameter("userId"));
+			userBean.setUserId(Integer.parseInt(request.getParameter("userId")));
 			userBean.setUsername(request.getParameter("username"));
 			userBean.setRole(request.getParameter("role"));
 			userBean.setKioskId(request.getParameter("kioskId"));
@@ -210,7 +233,7 @@ public class UserManagementController {
 
 			if ((request.getParameter("checkAction") != null) && !request.getParameter("checkAction").isEmpty()
 					&& (request.getParameter("checkAction").equalsIgnoreCase("Edit"))) {
-				userBean.setUserId(request.getParameter("userId"));
+				userBean.setUserId(Integer.parseInt(request.getParameter("userId")));
 				userService.updateUserById(userBean);
 				String roleVal = request.getParameter("role");
 				message = roleVal + " " + " Updated Successfully!";
@@ -238,7 +261,7 @@ public class UserManagementController {
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 			String date = simpleDateFormat.format(new Date());
 			UserDto userBean = new UserDto();
-			userBean.setUserId(request.getParameter("userId"));
+			userBean.setUserId(Integer.parseInt(request.getParameter("userId")));
 			userBean.setUsername(request.getParameter("username"));
 			userBean.setRole(request.getParameter("role"));
 			userBean.setKioskId(request.getParameter("kioskId"));

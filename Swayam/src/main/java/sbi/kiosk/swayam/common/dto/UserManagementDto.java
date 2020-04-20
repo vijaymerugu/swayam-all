@@ -55,7 +55,7 @@ public class UserManagementDto  {
 	}
 
 
-	private String userId;
+	private Integer userId;
 	
 	private String pfId;	
 	

@@ -42,13 +42,15 @@ public class User extends Common {
 		this.createdDate = userDto.getCreatedDate();
 		this.modifiedBy = userDto.getModifiedBy();
 		this.modifiedDate = userDto.getModifiedDate();
+		this.reportingAuthorityName=userDto.getReportingAuthorityName();
+		this.reportingAuthorityEmail=userDto.getReportingAuthorityEmail();
 	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_ID_SEQ")
 	@SequenceGenerator(sequenceName = "USER_ID_SEQ", allocationSize = 1, name = "USER_ID_SEQ")	
 	@Column(name = "USER_ID", nullable = false)
-	private String userId;
+	private Integer userId;
 	
 	@Column(name="PF_ID")
 	private String pfId;
@@ -63,6 +65,8 @@ public class User extends Common {
 	private String role;	
 	
 	
+	@Column(name="KIOSK_ID")	
+	private String kioskId;
 	@Column(name="FIRSTNAME")
 	private String firstName;
 	
@@ -98,6 +102,12 @@ public class User extends Common {
 	
 	@Column(name="CIRCLE")
 	private String circle;
+	
+	@Column(name="REPORTING_AUTHORITY_NAME ")
+	private String reportingAuthorityName;
+	
+	@Column(name="REPORTING_AUTHORITY_EMAIL")
+	private String reportingAuthorityEmail;
 	
 
 }

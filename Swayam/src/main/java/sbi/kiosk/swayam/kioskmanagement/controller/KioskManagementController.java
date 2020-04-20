@@ -3,27 +3,20 @@ package sbi.kiosk.swayam.kioskmanagement.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import sbi.kiosk.swayam.common.dto.CallTypeDto;
 import sbi.kiosk.swayam.common.dto.KioskBranchMasterUserDto;
-import sbi.kiosk.swayam.common.dto.TicketCentorDto;
 import sbi.kiosk.swayam.common.dto.UserDto;
 import sbi.kiosk.swayam.common.dto.UserKioskMappingDeMapperDto;
 import sbi.kiosk.swayam.common.entity.User;
-import sbi.kiosk.swayam.healthmonitoring.service.TicketCentorFilterService;
-import sbi.kiosk.swayam.healthmonitoring.service.TicketCentorService;
 import sbi.kiosk.swayam.kioskmanagement.service.KioskManagementService;
 import sbi.kiosk.swayam.kioskmanagement.service.UserService;
 
@@ -35,11 +28,6 @@ public class KioskManagementController {
 	
 	@Autowired
 	UserService userService;
-	
-	@Autowired
-	TicketCentorService ticketCentorService;
-	@Autowired
-	TicketCentorFilterService ticketCentorFilterService;
 	
 	@RequestMapping("/km/userkioskmapping/usersbyca")
 	public List<User> fetchAllUsersByCircleAdmin(HttpSession session) {
@@ -222,114 +210,4 @@ public class KioskManagementController {
 		
 	}
 	
-	
-	
-	
-	@RequestMapping(value = "/ticketCentor/get", params = { "page", "size","type"}, method = RequestMethod.GET, produces = "application/json")
-	public Page<TicketCentorDto> findPaginated( @RequestParam("type") String type,
-		      @RequestParam("page") int page, @RequestParam("size") int size) {
-		 
-		System.out.println("type==findPaginated===========ticketCentorService====="+type);
-		 Page<TicketCentorDto> resultPage = null;
-		 
-	     
-		    
-			if(type.equals("High")){
-				resultPage= ticketCentorService.findPaginatedCount(page, size, type);
-			}else if(type.equals("Medium")){
-				resultPage= ticketCentorService.findPaginatedCount(page, size, type);
-			}else if(type.equalsIgnoreCase("Low")){
-				resultPage= ticketCentorService.findPaginatedCount(page, size, type);
-			}else if(type.equals("Total")){
-				resultPage= ticketCentorService.findPaginatedCount(page, size, type);
-				System.out.println("Total Size:::: "+resultPage.getContent().size());
-			}else if(type.equals("TwoToFourHrsCount")){
-				resultPage= ticketCentorService.findPaginatedCount(page, size, type);
-			}else if(type.equals("OneDaysCount")){
-			   resultPage= ticketCentorService.findPaginatedCount(page, size, type);
-			}else if(type.equals("ThreeDaysLessCount")){
-				   resultPage= ticketCentorService.findPaginatedCount(page, size, type);
-		    }else if(type.equals("ThreeDayGreaterCount")){
-		    	resultPage= ticketCentorService.findPaginatedCount(page, size, type);
-		         
-		    }else{
-		    	//resultPage= ticketCentorService.findPaginatedCount(page, size, type);
-		    
-			
-			 resultPage = ticketCentorService.findPaginated(page, size);
-		      System.out.println("resultPage=="+resultPage.getContent());
-			    if (resultPage !=null && resultPage.getSize()>0){
-			    	//return resultPage;
-			        }
-		    }
-		        return resultPage;
-		    }
-
-	
-	@RequestMapping(value = "/ticketCentorFilter/get", params = { "page", "size","type"}, method = RequestMethod.GET, produces = "application/json")
-	public Page<TicketCentorDto> findPaginatedByCategory( @RequestParam("type") String type,
-		      @RequestParam("page") int page, @RequestParam("size") int size) {
-		 
-		System.out.println("type==findPaginated===========findPaginatedByCategory====="+type);
-		 Page<TicketCentorDto> resultPage = null;
-		    
-			if(type.equals("High")){
-				resultPage= ticketCentorFilterService.findPaginatedCount(page, size, type);
-			}else if(type.equals("Medium")){
-				resultPage= ticketCentorFilterService.findPaginatedCount(page, size, type);
-			}else if(type.equalsIgnoreCase("Low")){
-				resultPage= ticketCentorFilterService.findPaginatedCount(page, size, type);
-			}else if(type.equals("Total")){
-				resultPage= ticketCentorFilterService.findPaginatedCount(page, size, type);
-				System.out.println("Total Size:::: "+resultPage.getContent().size());
-			}else if(type.equals("TwoToFourHrsCount")){
-				resultPage= ticketCentorFilterService.findPaginatedCount(page, size, type);
-			}else if(type.equals("OneDaysCount")){
-			   resultPage= ticketCentorFilterService.findPaginatedCount(page, size, type);
-			}else if(type.equals("ThreeDaysLessCount")){
-				   resultPage= ticketCentorFilterService.findPaginatedCount(page, size, type);
-		    }else if(type.equals("ThreeDayGreaterCount")){
-		    	resultPage= ticketCentorFilterService.findPaginatedCount(page, size, type);
-		         
-		    }else{
-		    	//resultPage= ticketCentorFilterService.findPaginatedCount(page, size, type);
-			 resultPage = ticketCentorFilterService.findPaginated(page, size);
-		      System.out.println("resultPage=="+resultPage.getContent());
-			    if (resultPage !=null && resultPage.getSize()>0){
-			    	//return resultPage;
-			        }
-		    }
-		        return resultPage;
-		    }
-
-
-	
-	
-	
-	@RequestMapping(value = "/km/categoryCall/{category}")
-	public ResponseEntity<List<CallTypeDto>> callLogCategory(ModelAndView model,
-			@PathVariable("category") String category, HttpServletRequest request) {
-		
-		System.out.println("category===12345=="+category);
-		
-		       List<CallTypeDto> subCategoryList = ticketCentorFilterService.findSubCategoryByCategory(category.trim());
-		       System.out.println("callLogCategory==entiry.getBody():::category:::::::"+subCategoryList);
-		       model.addObject("subCategoryList", subCategoryList);
-		       ResponseEntity<List<CallTypeDto>> entiry = ResponseEntity.ok(subCategoryList);
-		       System.out.println("entiry.getBody():::category:::::::");
-		       model.setViewName("ticketCentorSA");
-		return entiry;
-	}
-	
-	
-	@RequestMapping(value = "/km/subCategoryCall/{category}/{subCategory}")
-	public ResponseEntity<List<TicketCentorDto>> subCategoryCall(ModelAndView model,@PathVariable("category") String category, @PathVariable("subCategory") String subCategory,
-			HttpServletRequest request) {
-		
-		List<TicketCentorDto> ticketCategoryAndSubCatList = ticketCentorFilterService.findByCategoryAndSubCategory(category,subCategory);
-		ResponseEntity<List<TicketCentorDto>> respEntity = ResponseEntity.ok(ticketCategoryAndSubCatList);
-		model.addObject("ticketCategoryAndSubCatList", ticketCategoryAndSubCatList);
-		model.setViewName("ticketCentorSA");
-		return respEntity;
-	}
 }

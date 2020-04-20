@@ -29,5 +29,7 @@ public interface CallTypeRepository extends CrudRepository<CallType, String> {
 	@Query(value = " select * from TBL_CALL_TYPE where CATEGORY=?1", nativeQuery = true)
 	List<CallType> findCallTypeByCategory(String category);
 	
+	@Query(value=" select SUB_CATEGORY from TBL_CALL_TYPE",nativeQuery=true)
+	List<String> findAllSubCategory();
 
 }

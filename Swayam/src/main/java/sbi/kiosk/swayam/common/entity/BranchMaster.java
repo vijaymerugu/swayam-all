@@ -41,5 +41,92 @@ public class BranchMaster {
 	
 	@Column(name="BRANCH_NAME")
 	private String branchName;
+	
+	
+
+	
+
+	
+	
+	
+	@Column(name="MOD_CODE")
+	private String modCode;
+	
+	
+	@Column(name="CRCL_CODE")
+	private String cRCLCode;	
+	
+	@Column(name="POP_GROUP")
+	private String popGroup;
+	
+	@Column(name="POP_DESC")
+	private String popDesc;
+	
+	
+
+	@Column(name="OPEN_CLOSE_STATUS")
+	private String  openCloseStatus;
+	
+	@Column(name="OPENDT")
+	private String opendt; 
+	
+	@Column(name="STAT_CODE")
+	private String statCode;
+	
+	@Column(name="STAT_DESC")
+	private String statDesc;
+	
+	@Column(name="DIST_CODE")
+	private String distCode;
+	
+	@Column(name="DIST_DESC")
+	private String distDesc;
+	
+	
+	@Column(name="ADDRESS1")
+	private String address1;
+	
+	@Column(name="ADDRESS2")
+	private String address2;
+	
+	@Column(name="ADDRESS3")
+	private String address3;	
+	
+	@Column(name="ADDRESS4")
+	private String address4;
+	
+	@Column(name="PINCODE")
+	private String pinCode;
+	
+	@Column(name="STD_CODE")
+	private String stdCode;
+	
+	@Column(name="PHONE")
+	private String phone;
+	
+	@Column(name="MICR_CODE")
+	private String micrCode;
+	
+	@Column(name="IFSC")
+	private String ifsc;
+	
+	@Column(name="EMAIL")
+	private String email;
+	
+	@Column(name="BRANCHMGR_NAME")
+	private String branchMgrName;
+	
+	@Column(name="BRANCHMGR_MOBILE")
+	private String BranchMgrMobileNo;
+	
+	
+	@Column(name="BUSINESSHRS")
+	private String businessHrs;
+	
+	@Column(name="OFFICE_TYPE")
+	private String officeType;
+	
+	@Column(name="OFFICE_DESC")
+	private String officeDesc;
 
 }

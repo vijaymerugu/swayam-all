@@ -57,7 +57,7 @@ public class ViewResolverController {
 	}
 
 	
-	@RequestMapping("/km/ticketcentor")
+	@RequestMapping("/hm/ticketcentor")
 	public ModelAndView ticketCentor(ModelAndView mav) {
 
 		Map<String, Integer> mapDataList = null;
@@ -78,7 +78,7 @@ public class ViewResolverController {
 	
 	
 	
-	@RequestMapping("/km/ticketcentorCallCategory")
+	@RequestMapping("/hm/ticketcentorCallCategory")
 	public ModelAndView ticketcentorCallCategory(ModelAndView mav,HttpServletRequest request) {
 
 		Map<String, Integer> mapDataList = null;

@@ -32,7 +32,7 @@ public interface TicketCentorAgeingRepository extends CrudRepository<TicketCento
 
 
 	//all ticket list
-	@Query(value = " SELECT count(*)  from TBL_TICKET_CENTRE where  AGEING between to_date(trunc(sysdate-2/24), 'DD-MM-YY HH24:MI:SS' ) "
+	@Query(value = " SELECT *  from TBL_TICKET_CENTRE where  AGEING between to_date(trunc(sysdate-2/24), 'DD-MM-YY HH24:MI:SS' ) "
 			+ "  and  to_date(to_char(trunc(sysdate-4/24),'DD-MM-YY')||' 23:59:59',  'DD-MM-YY HH24:MI:SS')  ", nativeQuery = true)
 
 	public Page<TicketCentor> findAllTicketCentor4Hour(Pageable pageable);

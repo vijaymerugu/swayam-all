@@ -38,5 +38,8 @@ public class UserKioskMapping {
 	@Column(name="KIOSK_ID")
 	private String kioskId;	
 	
+	//@Column(name="USERNAME")
+	//private String username;	
+	
 
 }

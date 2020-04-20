@@ -164,7 +164,7 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 			 .map(KioskBranchMasterUserDto::new);
 	 
 	 for(KioskBranchMasterUserDto dto:entities){
-		 UserKioskMapping us = userKioskMappingRepository.findByKioskId(dto.getKioskId());
+		 UserKioskMapping us = userKioskMappingRepository.findByKioskId(String.valueOf(dto.getKioskId()));
 		 
 		 if(us !=null && us.getPfId() !=null && us.getPfId() !=""){
 			 dto.setPfId(us.getPfId());

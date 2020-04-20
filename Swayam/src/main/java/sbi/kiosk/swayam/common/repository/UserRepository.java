@@ -27,4 +27,9 @@ public interface UserRepository extends CrudRepository<User, String>{
 	@Query(value ="SELECT * FROM TBL_USER WHERE USERNAME IN (SELECT USERNAME FROM TBL_USER_KIOSK_MAPPING WHERE USERNAME NOT IN (SELECT CMF_USERNAME FROM TBL_CMS_CMF_MAPPING) AND KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_KIOSK_MASTER WHERE BRANCH_CODE IN (SELECT BRANCH_CODE FROM TBL_BRANCH_MASTER WHERE CIRCLE =:circle)))",
 			nativeQuery=true)
 	public List<User> fetchAllCmfUsersByCircleAndInUserKioskMapping(@Param("circle") String circle);
+
+    User findByKioskId(String kioskId);
+    @Query(value="SELECT COUNT(*) FROM TBL_USER WHERE PF_ID=:pfid",nativeQuery=true)
+    int geByPfId(String pfId);
+
 }

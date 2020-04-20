@@ -53,7 +53,7 @@
 
 <div class="main" ng-app="app" id="appId">
 <div ng-controller="UserManagementCtrl as vm">
-
+<a  href="${pageContext.request.contextPath}/km/addUser" align="right">AddUser</a>
 <div>
 <table class="table1" style="border: 1px solid #eee;">
 

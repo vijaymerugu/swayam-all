@@ -154,7 +154,7 @@ public class UserServiceImpl implements UserService {
 			userEntity.setModifiedDate(usersBean.getModifiedDate());
 			userEntity.setModifiedBy(usersBean.getModifiedBy());*/
 			//userEntity.setEnabled("0");
-			String uid=userEntity.getUserId();
+			Integer uid=userEntity.getUserId();
 			String enabled=userEntity.getEnabled();
 			User user=userRepo.save(userEntity);
 			user.getEnabled().equals("0");

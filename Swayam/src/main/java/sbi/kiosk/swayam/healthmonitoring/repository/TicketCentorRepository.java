@@ -38,7 +38,13 @@ public Page<TicketCentor> findAllByRisk(@Param("high") String high,@Param("mediu
 	List<TicketCentor> findByCategoryAndSubCate(String category,String subCategory);
    
 	
+	// used  by gajanan 
 	
+	 @Query(value="select kiosk_id from tbl_ticket_centre tc where tc.kiosk_id=:kiosk_id",nativeQuery=true)
+		public String findByKisokId(@Param("kiosk_id")String kisokid);
+	    
+	    @Query(value="select ticket_id from tbl_ticket_centre tc where tc.kiosk_id=:kiosk_id",nativeQuery=true)
+	   	public String findByTicketId(@Param("kiosk_id")String kisokid);
 	
 	
 }

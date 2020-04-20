@@ -6,11 +6,9 @@ import lombok.Data;
 public class UserKioskMappingDto {
 	
 	private String userId;
-	
-	
 	private String pfId;
-	
-	
 	private String kioskId;	
+	
+	//private String username;	
 
 }

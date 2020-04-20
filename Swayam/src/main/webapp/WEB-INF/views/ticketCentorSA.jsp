@@ -62,7 +62,7 @@
         		 console.log("inside category function...."+category);
                 $.ajax({
                     type: "GET",
-                    url: "/km/categoryCall/"+category, //this is my servlet
+                    url: "/hm/categoryCall/"+category, //this is my servlet
                    
                     success: function(data){
                     
