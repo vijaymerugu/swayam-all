@@ -29,6 +29,6 @@ public interface UserRepository extends CrudRepository<User, String>{
 	public List<User> fetchAllCmfUsersByCircleAndInUserKioskMapping(@Param("circle") String circle);
     
     @Query(value="SELECT COUNT(*) FROM TBL_USER WHERE PF_ID=:pfid",nativeQuery=true)
-    int geByPfId(String pfId);
+    int geByPfId(@Param("pfid") String pfId);
 
 }

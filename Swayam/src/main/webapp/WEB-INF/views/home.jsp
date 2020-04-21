@@ -64,7 +64,7 @@
 						<td
 							style="width: 269px; background: #FDD209; color: #000000; align: center"
 							align="center"><b>Welcome <%=firstName%> &nbsp;<%=lastName%></b> 
-							<br /> <b> <%=pfId%> </b></td>
+							<br /> <b> <%=pfId%> </b>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://adfs.sbi.co.in/adfs/ls/?wa=wsignout1.0">Log Out</a></td>
 					</tr>
 				</table>
 			</tr>
