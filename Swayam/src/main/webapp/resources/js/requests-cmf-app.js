@@ -63,7 +63,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
       { name: 'reqCategory',
     	  exporterSuppressExport: true, width:250,
     	  headerCellTemplate: '<div>Status</div>',
-    	  cellTemplate: '<div ng-if="row.entity.reqCategory == APRD">APPROVED</div><div ng-if="row.entity.reqCategory == REJ">REJECTED</div>'
+    	  cellTemplate: '<div ng-if="row.entity.reqCategory == \'APRD\'">APPROVED</div><div ng-if="row.entity.reqCategory == \'REJ\'">REJECTED</div>'
       }
     ],
     onRegisterApi: function(gridApi) {

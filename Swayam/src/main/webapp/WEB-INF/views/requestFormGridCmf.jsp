@@ -35,10 +35,10 @@
 
 <br/><br/>
 		<div class="submain">
-	<a href="/hm/requestFormCmf">Add Request</a>
+	<a href="/hm/requestFormCmf"><img src="/resources/img/plus.png">  Add Request</a>
 	<br/>
 	<br/>
-	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Ticket Id, Kiosk Id, Branch Code, Circle etc." style="font-size: 12px" size="150" height="80">
+	<input class="form-group has-search" ng-model="searchText" ng-change="refresh()" placeholder="Enter Ticket Id, Kiosk Id, Branch Code, Circle etc." style="font-size: 12px" size="150" height="80">
 		
 		<br/>
 		<br/>
@@ -46,58 +46,10 @@
 		
         
     </div>
-    <div>
-      
-      <input type="submit" value="SEND TO APPROVER" class="openFinalPopup">
-      </div>
+    
     
 	</div>
 </div>	
 	
-<script>
-
-$(document).ready(function(){
-    $('.openFinalPopup').on('click',function(){        
-         
-        var all_rows = [];
-
-        $('.addedRows').each(function() {
-                var this_row={};                
-                $(this).find("input").each(function(){                
-                var keyvalue;
-                mystring = $(this).attr('name');
-                var matches = mystring.match(/\[(.*?)\]/);
-                if (matches) {
-                    keyvalue = matches[1];
-                }                
-                namevalue = $(this).val();                
-                if(namevalue !=undefined && namevalue != ''){
-                	this_row[keyvalue] = namevalue;
-                	all_rows.push(this_row);
-                }
-            });          
-
-        });
-        console.log(all_rows);               
-        
-        $.ajax({
-            type: "POST",
-            //url: "/hm/saveCheckerComments?array="+all_rows,
-            url: "/hm/saveCheckerCommentsCms",
-            //data: '{array: "' + all_rows + '"}',
-            data: JSON.stringify(all_rows),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-            	console.log('Success');
-            },
-            failure: function (response) {
-            	console.log('Failed');
-            }
-        });
-    }); 
-    
-});
-</script>
 </body>
 </html>

@@ -46,22 +46,22 @@
                                 </select>
                                 </td>
 </tr>
-<tr><td>Category:<input type="text" name="category" id="category"/>
-	<%-- <select id="category" name="category" class="form-control select2" style="width: 100%;" >
+<%-- <tr><td>Category:<input type="text" name="category" id="category"/>
+	<select id="category" name="category" class="form-control select2" style="width: 100%;" >
                                 <option value="0">Select</option>
                                   <c:forEach items="${usersList}" var="usr">
                                     <option value="${usr.pfId}">${usr.pfId}</option>
                                  </c:forEach>
-                                </select> --%></td>
+                                </select></td>
 	<td>Sub-Category:<input type="text" name="subCategory" id="subCategory"/>
-	<%-- <select id="subCategory" name="subCategory" class="form-control select2" style="width: 100%;" >
+	<select id="subCategory" name="subCategory" class="form-control select2" style="width: 100%;" >
                                 <option value="0">Select</option>
                                   <c:forEach items="${usersList}" var="usr">
                                     <option value="${usr.pfId}">${usr.pfId}</option>
                                  </c:forEach>
-                                </select> --%>
+                                </select>
                                 </td>
-</tr>
+</tr> --%>
 <tr><td>Subject:<input type="text" name="subject" id="subject"/></td>
 	<td>Comments:<textarea name="comments" id="comments"></textarea>
 </td>
