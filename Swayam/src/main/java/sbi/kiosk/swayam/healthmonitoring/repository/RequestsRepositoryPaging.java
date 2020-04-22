@@ -15,4 +15,9 @@ public interface RequestsRepositoryPaging extends PagingAndSortingRepository<Req
 
 	Page<Requests> findByUserTypeAndModifiedByIn(@Param("userType") String userType,@Param("modifiedBy") Set<String> modifiedBy,Pageable pageable);
 	
+	Page<Requests> findByUserTypeAndReqCategory(@Param("userType") String userType,@Param("reqCategory") String reqCategory,Pageable pageable);
+	
+	Page<Requests> findByCreatedByAndReqCategoryIn(@Param("createdBy") String createdBy,@Param("reqCategory") Set<String> reqCategory,Pageable pageable);
+	
+	
 }

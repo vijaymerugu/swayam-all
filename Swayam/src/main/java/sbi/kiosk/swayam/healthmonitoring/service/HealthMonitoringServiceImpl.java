@@ -1,6 +1,11 @@
 package sbi.kiosk.swayam.healthmonitoring.service;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
@@ -14,10 +19,8 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import sbi.kiosk.swayam.common.constants.Constants;
-import sbi.kiosk.swayam.common.dto.KioskBranchMasterUserDto;
 import sbi.kiosk.swayam.common.dto.RequestsDto;
 import sbi.kiosk.swayam.common.dto.UserDto;
-import sbi.kiosk.swayam.common.dto.UserManagementDto;
 import sbi.kiosk.swayam.common.entity.Requests;
 import sbi.kiosk.swayam.common.repository.SupervisorRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.RequestsRepository;
@@ -44,8 +47,8 @@ public class HealthMonitoringServiceImpl implements HealthMonitoringService {
 	@Override
 	public void saveRequestForCmf(RequestsDto dto){
 		UserDto user = (UserDto) session().getAttribute("userObj");
-		dto.setReqCategory("C");
-		dto.setUserType("M");
+		dto.setReqCategory(Constants.CREATED.getCode());
+		dto.setUserType(Constants.MAKER.getCode());
 		dto.setCreatedBy(user.getPfId());
 		dto.setCreatedDate(new Date());
 		dto.setModifiedBy(user.getPfId());
@@ -65,13 +68,163 @@ public class HealthMonitoringServiceImpl implements HealthMonitoringService {
 			.map(RequestsDto::new);
 	    return entities;
 	  }
+	
+	@Override
+    public Page<RequestsDto> findPaginatedCC(int page, int size) {
+		
+		Page<RequestsDto> entities = 
+			 requestsRepositoryPaging.findByUserTypeAndReqCategory(Constants.CHECKER.getCode(),Constants.RECOMMENDED.getCode(),PageRequest.of(page, size,Sort.by("id").descending()))
+			.map(RequestsDto::new);
+	    return entities;
+	  }
+	
+	@Override
+    public Page<RequestsDto> findPaginatedCmf(int page, int size) {
+		
+		UserDto user = (UserDto) session().getAttribute("userObj");
+		String pfId = user.getPfId();
+		
+		Set<String> set = new HashSet<String>();
+		set.add(Constants.APPROVED.getCode());
+		set.add(Constants.REJECTED.getCode());
+		
+		Page<RequestsDto> entities = 
+			 requestsRepositoryPaging.findByCreatedByAndReqCategoryIn(pfId, set, PageRequest.of(page, size,Sort.by("id").descending()))
+			.map(RequestsDto::new);
+	    return entities;
+	  }
+	
+	@Override
+	public void saveCheckerCommentsCms(String array){
+		UserDto user = (UserDto) session().getAttribute("userObj");
+		Map<String, String> map = new HashMap<>();
+		String str = array.substring(1,array.length()-1);
+		
+		List<String> pairs = Arrays.asList(str.split(","));
+		if(pairs !=null && pairs.size() > 0){
+			for(String pa :pairs){
+				String val = pa.substring(1,pa.length()-1);			
+				String arrayVal[] = val.split(":"); 
+				String id = arrayVal[0].substring(1,arrayVal[0].length()-1);; 
+				String comment = arrayVal[1].substring(1,arrayVal[1].length()-1);;
+				map.put(id,comment);
+			}
+		}
+		if(map !=null && map.size() > 0){
+			for (Map.Entry<String, String> entry : map.entrySet()) {    
+			    
+			    Requests entity = requestsRepository.findById(Integer.parseInt(entry.getKey()));
+			    entity.setComments(entry.getValue());
+			    entity.setReqCategory(Constants.RECOMMENDED.getCode());
+			    entity.setUserType(Constants.CHECKER.getCode());		    
+			    entity.setModifiedBy(user.getPfId());
+			    entity.setModifiedDate(new Date());
+			    requestsRepository.save(entity);
+			}
+		}	
+		
+	}
+	
+	@Override
+	public void rejectCheckerCommentsCms(String array){
+		UserDto user = (UserDto) session().getAttribute("userObj");
+		Map<String, String> map = new HashMap<>();
+		String str = array.substring(1,array.length()-1);
+		
+		List<String> pairs = Arrays.asList(str.split(","));
+		if(pairs !=null && pairs.size() > 0){
+			for(String pa :pairs){
+				String val = pa.substring(1,pa.length()-1);			
+				String arrayVal[] = val.split(":"); 
+				String id = arrayVal[0].substring(1,arrayVal[0].length()-1);; 
+				String comment = arrayVal[1].substring(1,arrayVal[1].length()-1);;
+				map.put(id,comment);
+			}
+		}
+		if(map !=null && map.size() > 0){
+			for (Map.Entry<String, String> entry : map.entrySet()) {    
+			    
+			    Requests entity = requestsRepository.findById(Integer.parseInt(entry.getKey()));
+			    entity.setComments(entry.getValue());
+			    entity.setReqCategory(Constants.REJECTED.getCode());
+			    entity.setUserType(Constants.CHECKER.getCode());		    
+			    entity.setModifiedBy(user.getPfId());
+			    entity.setModifiedDate(new Date());
+			    requestsRepository.save(entity);
+			}
+		}	
+		
+	}
+	
+	
+	
+	@Override
+	public void saveApproverCommentsCC(String array){
+		UserDto user = (UserDto) session().getAttribute("userObj");
+		Map<String, String> map = new HashMap<>();
+		String str = array.substring(1,array.length()-1);
+		
+		List<String> pairs = Arrays.asList(str.split(","));
+		if(pairs !=null && pairs.size() > 0){
+			for(String pa :pairs){
+				String val = pa.substring(1,pa.length()-1);			
+				String arrayVal[] = val.split(":"); 
+				String id = arrayVal[0].substring(1,arrayVal[0].length()-1);; 
+				String comment = arrayVal[1].substring(1,arrayVal[1].length()-1);;
+				map.put(id,comment);
+			}
+		}
+		if(map !=null && map.size() > 0){
+			for (Map.Entry<String, String> entry : map.entrySet()) {    
+			    
+			    Requests entity = requestsRepository.findById(Integer.parseInt(entry.getKey()));
+			    entity.setComments(entry.getValue());
+			    entity.setReqCategory(Constants.APPROVED.getCode());
+			    entity.setUserType(Constants.APPROVER.getCode());		    
+			    entity.setModifiedBy(user.getPfId());
+			    entity.setModifiedDate(new Date());
+			    requestsRepository.save(entity);
+			}
+		}	
+		
+	}
+	
+	@Override
+	public void rejectApproverCommentsCC(String array){
+		UserDto user = (UserDto) session().getAttribute("userObj");
+		Map<String, String> map = new HashMap<>();
+		String str = array.substring(1,array.length()-1);
+		
+		List<String> pairs = Arrays.asList(str.split(","));
+		if(pairs !=null && pairs.size() > 0){
+			for(String pa :pairs){
+				String val = pa.substring(1,pa.length()-1);			
+				String arrayVal[] = val.split(":"); 
+				String id = arrayVal[0].substring(1,arrayVal[0].length()-1);; 
+				String comment = arrayVal[1].substring(1,arrayVal[1].length()-1);;
+				map.put(id,comment);
+			}
+		}
+		if(map !=null && map.size() > 0){
+			for (Map.Entry<String, String> entry : map.entrySet()) {    
+			    
+			    Requests entity = requestsRepository.findById(Integer.parseInt(entry.getKey()));
+			    entity.setComments(entry.getValue());
+			    entity.setReqCategory(Constants.REJECTED.getCode());
+			    entity.setUserType(Constants.APPROVER.getCode());		    
+			    entity.setModifiedBy(user.getPfId());
+			    entity.setModifiedDate(new Date());
+			    requestsRepository.save(entity);
+			}
+		}	
+		
+	}
 
 
 	@Override
-	public Page<UserManagementDto> findPaginatedCount(int page, int size,
-			String type) {
+	public Page<RequestsDto> findPaginatedCount(int page, int size, String type) {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}	
 	
 }

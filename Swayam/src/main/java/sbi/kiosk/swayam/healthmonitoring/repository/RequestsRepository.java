@@ -7,5 +7,6 @@ import sbi.kiosk.swayam.common.entity.Requests;
 
 @Repository
 public interface RequestsRepository extends CrudRepository<Requests, Integer>{
-
+	
+	Requests findById(int id);
 }

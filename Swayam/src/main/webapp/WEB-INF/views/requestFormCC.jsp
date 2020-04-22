@@ -8,7 +8,7 @@
 
 <script
 	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
-<script src="/resources/js/requests-cms-app.js"></script>
+<script src="/resources/js/requests-cc-app.js"></script>
 <script	src="/resources/js/angular.1.5.6.min.js"></script>
 <link rel="stylesheet" href="/resources/css/grid-style.css"/>
 <link rel="stylesheet" href="/resources/css/body-page.css"/>
@@ -48,7 +48,7 @@
     </div>
     <div>
       <input type="submit" value="REJECT" class="openRejectPopup">
-      <input type="submit" value="SEND TO APPROVER" class="openFinalPopup">
+      <input type="submit" value="APPROVE" class="openFinalPopup">
       </div>
     
 	</div>
@@ -83,7 +83,7 @@ $(document).ready(function(){
         $.ajax({
             type: "POST",
             //url: "/hm/saveCheckerComments?array="+all_rows,
-            url: "/hm/saveCheckerCommentsCms",
+            url: "/hm/saveApproverCommentsCC",
             //data: '{array: "' + all_rows + '"}',
             data: JSON.stringify(all_rows),
             contentType: "application/json; charset=utf-8",
@@ -97,7 +97,7 @@ $(document).ready(function(){
         });
     }); 
     
-    $('.openRejectPopup').on('click',function(){        
+$('.openRejectPopup').on('click',function(){        
         
         var all_rows = [];
 
@@ -123,7 +123,7 @@ $(document).ready(function(){
         $.ajax({
             type: "POST",
             //url: "/hm/saveCheckerComments?array="+all_rows,
-            url: "/hm/rejectCheckerCommentsCms",
+            url: "/hm/rejectApproverCommentsCC",
             //data: '{array: "' + all_rows + '"}',
             data: JSON.stringify(all_rows),
             contentType: "application/json; charset=utf-8",
