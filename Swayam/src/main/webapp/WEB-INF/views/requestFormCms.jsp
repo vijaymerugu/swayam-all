@@ -46,7 +46,7 @@
 		
         
     </div>
-    <div>
+    <div align="center">
       <input type="submit" value="REJECT" class="openRejectPopup">
       <input type="submit" value="SEND TO APPROVER" class="openFinalPopup">
       </div>
@@ -90,6 +90,7 @@ $(document).ready(function(){
             dataType: "json",
             success: function (response) {
             	console.log('Success');
+            	location.reload(true);
             },
             failure: function (response) {
             	console.log('Failed');

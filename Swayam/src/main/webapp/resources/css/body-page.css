@@ -33,6 +33,17 @@ border-spacing: 0em;
 border-spacing: 0;
 padding:7px;
 }
+.submainForm{
+top: 165px;
+left: 15px;
+width: 1336px;
+height: 519px;
+background: #FFFFFF 0% 0% no-repeat padding-box;
+box-shadow: 0px 3px 6px #8D8D8D29;
+opacity: 1;
+padding:7px;
+position:absolute;
+}
 #noOfUsers{
 top: 163px;
 left: 70px;

@@ -8,6 +8,12 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	 sort: null
    };
    var counttype = "";
+   $scope.loadHomeBodyPageForms = function(url){	   
+		if(url != undefined){	
+			var str ='/hm/viewCmfCaseId?caseId=' + url;
+			$("#contentHomeApp").load(str);
+		}						
+	}
    $scope.getCountType = function(type){
 	   UserManagementService.getUsers(paginationOptions.pageNumber,
 			   paginationOptions.pageSize,counttype);
@@ -51,7 +57,10 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
       },
 
     columnDefs: [
-      { name: 'id', displayName: 'Case Id', width:100  },
+      { name: 'id', displayName: 'Case Id', width:100,
+    	  //cellTemplate: '<div class="ui-grid-cell-contents"><a href="/hm/viewCaseId?caseId={{ row.entity.id }}">{{ row.entity.id }}</a></div>'
+    	  cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.id)">{{ row.entity.id }}</a></div>'  
+      },
       { name: 'category', displayName: 'Category', width:150  },
       { name: 'subCategory', displayName: 'Sub Category', width:200  },
       { name: 'kioskId', displayName: 'ATM Id', width:100  },

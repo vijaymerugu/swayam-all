@@ -20,9 +20,15 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import sbi.kiosk.swayam.common.constants.Constants;
 import sbi.kiosk.swayam.common.dto.RequestsDto;
+import sbi.kiosk.swayam.common.dto.RequestsManagementDto;
 import sbi.kiosk.swayam.common.dto.UserDto;
+import sbi.kiosk.swayam.common.entity.KioskBranchMaster;
 import sbi.kiosk.swayam.common.entity.Requests;
+import sbi.kiosk.swayam.common.entity.Supervisor;
+import sbi.kiosk.swayam.common.entity.User;
+import sbi.kiosk.swayam.common.repository.KioskMasterRepository;
 import sbi.kiosk.swayam.common.repository.SupervisorRepository;
+import sbi.kiosk.swayam.common.repository.UserRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.RequestsRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.RequestsRepositoryPaging;
 
@@ -37,6 +43,12 @@ public class HealthMonitoringServiceImpl implements HealthMonitoringService {
 	
 	@Autowired
 	SupervisorRepository supervisorRepository;
+	
+	@Autowired
+	UserRepository userRepository;
+	
+	@Autowired
+	KioskMasterRepository kioskMasterRepository;
 	
 	public static HttpSession session() {
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
@@ -219,7 +231,47 @@ public class HealthMonitoringServiceImpl implements HealthMonitoringService {
 		}	
 		
 	}
-
+	
+	@Override
+	public RequestsManagementDto viewCaseId(int caseId){
+		
+		
+		Requests entity = requestsRepository.findById(caseId);
+		RequestsManagementDto dto = new RequestsManagementDto(entity);
+		dto.setMakerPfId(entity.getCreatedBy());
+		User usrMaker = userRepository.findByPfId(entity.getCreatedBy());
+		dto.setMakerContact(usrMaker.getPhoneNo());
+		dto.setMakerCircle(usrMaker.getCircle());
+		dto.setMakerEmail(usrMaker.getMailId());
+		
+		Supervisor supervisor =supervisorRepository.findByPfId(entity.getCreatedBy());
+		if(supervisor !=null){
+			User usrChecker = userRepository.findByPfId(supervisor.getPfIdSupervisor());
+			dto.setCheckerPfId(supervisor.getPfIdSupervisor());
+			dto.setCheckerContact(usrChecker.getPhoneNo());
+			dto.setCheckerCircle(usrChecker.getCircle());
+			dto.setCheckerEmail(usrChecker.getMailId());
+		}
+		
+		if(entity.getReqCategory().equals((Constants.APPROVED.getCode()))
+				&& entity.getUserType().equals(Constants.APPROVER.getCode())){
+			User usrApprover = userRepository.findByPfId(entity.getModifiedBy());
+			dto.setApproverPfId(entity.getModifiedBy());
+			dto.setApproverContact(usrApprover.getPhoneNo());
+			dto.setApproverCircle(usrApprover.getCircle());
+			dto.setApproverEmail(usrApprover.getMailId());			
+		}
+		
+		KioskBranchMaster km = kioskMasterRepository.findByKioskId(entity.getKioskId());
+		if(km !=null){
+			dto.setKioskIp(km.getKioskId());
+			dto.setKioskOs(km.getOs());
+			dto.setKioskVendor(km.getVendor());
+			dto.setKioskMacaddress(km.getKioskMacAddress());
+		}
+		
+		return dto;
+	}
 
 	@Override
 	public Page<RequestsDto> findPaginatedCount(int page, int size, String type) {

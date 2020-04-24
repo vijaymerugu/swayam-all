@@ -1,9 +1,7 @@
 package sbi.kiosk.swayam.healthmonitoring.service;
 
-import org.springframework.web.servlet.ModelAndView;
-
 import sbi.kiosk.swayam.common.dto.RequestsDto;
-import sbi.kiosk.swayam.healthmonitoring.service.IOperations;
+import sbi.kiosk.swayam.common.dto.RequestsManagementDto;
 
 public interface HealthMonitoringService extends IOperations<RequestsDto>{
 
@@ -16,4 +14,6 @@ public interface HealthMonitoringService extends IOperations<RequestsDto>{
 	public void saveApproverCommentsCC(String array);
 	
 	public void rejectApproverCommentsCC(String array);
+	
+	public RequestsManagementDto viewCaseId(int caseId);
 }

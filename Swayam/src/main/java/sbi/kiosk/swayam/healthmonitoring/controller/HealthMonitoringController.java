@@ -1,7 +1,5 @@
 package sbi.kiosk.swayam.healthmonitoring.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sbi.kiosk.swayam.common.dto.RequestsDto;
-import sbi.kiosk.swayam.healthmonitoring.model.CheckerComments;
+import sbi.kiosk.swayam.common.dto.RequestsManagementDto;
 import sbi.kiosk.swayam.healthmonitoring.service.HealthMonitoringService;
 
 @RestController
@@ -141,6 +139,36 @@ public class HealthMonitoringController {
 		healthMonitoringService.rejectApproverCommentsCC(array);
 		
 		ModelAndView mav = new ModelAndView("requestFormCC");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/hm/viewCmfCaseId")	
+	public ModelAndView viewCmfCaseId(@RequestParam("caseId") int caseId) {
+		
+		RequestsManagementDto dto = healthMonitoringService.viewCaseId(caseId);
+		
+		ModelAndView mav = new ModelAndView("requestFormCmfCaseId");
+		mav.addObject("dto", dto);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/hm/viewCmsCaseId")	
+	public ModelAndView viewCmsCaseId(@RequestParam("caseId") int caseId) {
+		
+		RequestsManagementDto dto = healthMonitoringService.viewCaseId(caseId);
+		
+		ModelAndView mav = new ModelAndView("requestFormCmsCaseId");
+		mav.addObject("dto", dto);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/hm/viewCCCaseId")	
+	public ModelAndView viewCCCaseId(@RequestParam("caseId") int caseId) {
+		
+		RequestsManagementDto dto = healthMonitoringService.viewCaseId(caseId);
+		
+		ModelAndView mav = new ModelAndView("requestFormCCCaseId");
+		mav.addObject("dto", dto);
 		return mav;
 	}
 }

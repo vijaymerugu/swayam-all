@@ -8,6 +8,12 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    };
    
    var counttype = "";
+   $scope.loadHomeBodyPageForms = function(url){	   
+		if(url != undefined){	
+			var str ='/km/assignCmfForKiosk?kioskId=' + url;
+			$("#contentHomeApp").load(str);
+		}						
+	}
    $scope.getCountType = function(type){
 
 	counttype=type;
@@ -61,7 +67,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
       { name: 'installationStatus', displayName: 'Installation Status'  },      
       { name: 'username',    	  
     	  displayName: 'Assigned CMF', 	  
-          cellTemplate: '<div ng-if="row.entity.pfId != undefined">{{ row.entity.username }}</div><div ng-if="row.entity.pfId == undefined"><a href="/km/assignCmfForKiosk?kioskId={{ row.entity.kioskId }}">Assign CMF</a></div>'
+    	  cellTemplate: '<div ng-if="row.entity.pfId != undefined">{{ row.entity.username }}</div><div ng-if="row.entity.pfId == undefined"><a ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.kioskId)">Assign CMF</a></div>'
       }
     ],
     onRegisterApi: function(gridApi) {

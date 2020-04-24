@@ -51,5 +51,7 @@ public interface KioskMasterRepository extends CrudRepository<KioskBranchMaster,
 	@Query(value ="select count(KIOSK_ID) from TBL_KIOSK_MASTER where  KIOSK_ID  not in ( SELECT KIOSK_ID FROM  TBL_USER_KIOSK_MAPPING) ",nativeQuery=true)
 	int findToBeAssignedCount();
 	
+	KioskBranchMaster findByKioskId(String kiosId);
+	
 	
 }

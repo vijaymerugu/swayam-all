@@ -46,7 +46,7 @@
 		
         
     </div>
-    <div>
+    <div align="center">
       <input type="submit" value="REJECT" class="openRejectPopup">
       <input type="submit" value="APPROVE" class="openFinalPopup">
       </div>
