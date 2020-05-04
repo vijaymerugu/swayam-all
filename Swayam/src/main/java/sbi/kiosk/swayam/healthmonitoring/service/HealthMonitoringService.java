@@ -5,7 +5,7 @@ import sbi.kiosk.swayam.common.dto.RequestsManagementDto;
 
 public interface HealthMonitoringService extends IOperations<RequestsDto>{
 
-	public void saveRequestForCmf(RequestsDto dto);
+	public String saveRequestForCmf(RequestsDto dto);
 	
 	public void saveCheckerCommentsCms(String array);
 	
@@ -16,4 +16,6 @@ public interface HealthMonitoringService extends IOperations<RequestsDto>{
 	public void rejectApproverCommentsCC(String array);
 	
 	public RequestsManagementDto viewCaseId(int caseId);
+	String checkDuplicateKiosAppr(String kioskId);
+
 }

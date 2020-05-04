@@ -13,12 +13,12 @@ import sbi.kiosk.swayam.common.entity.ManualTicketCallLog;
 @Repository
 public interface ManualTicketCallLogRepository  extends CrudRepository<ManualTicketCallLog,String>{
    
-	@Query(value = "select MANUAL_CALL_LOG_ID_SEQ.nextval from dual", nativeQuery = true)
+	@Query(value = "SELECT MANUAL_CALL_LOG_ID_SEQ.NEXTVAL FROM DUAL", nativeQuery = true)
 	String findSeq();
 	
 	   @Modifying
-	   @Query(value="update tbl_manual_call_log cl set cl.CREATEDDATE=:createdDate, cl.COMPLAINTID=:complaintId where cl.KIOSK_ID=:kioskId" , nativeQuery=true)
-	   public void updateComplaintId(@Param("createdDate")String createdDate,@Param("complaintId")String complaintId,@Param("kioskId") String kioskId);
+	   @Query(value="UPDATE TBL_MANUAL_CALL_LOG CL SET CL.CREATED_DATE=:createdDate, cl.COMPLAINTID=:complaintId WHERE CL.KIOSK_ID=:kioskId" , nativeQuery=true)
+	   public void updateComplaintId(@Param("createdDate") String createdDate,@Param("complaintId")String complaintId,@Param("kioskId") String kioskId);
 		
 	
 	List<ManualTicketCallLog> findByKioskId(String kioskId);

@@ -102,6 +102,7 @@ public class KioskManagementController {
 	public ModelAndView getKiosksForUser( @RequestParam(value="username") String pfId) {
 		
 		System.out.println("444444444444444");
+		System.out.println("Display cont");
 		//UserDto user = (UserDto) session.getAttribute("userObj");
 		//kioskManagementService.saveCmsCmfUserMapping(cmsusername, cmfUserIdIdList);
 		List<UserKioskMappingDeMapperDto> kiosksList = kioskManagementService.getKiosksForUser(pfId);
@@ -187,6 +188,7 @@ public class KioskManagementController {
 	@RequestMapping(value ="/km/assignCmfForKiosk")
 	public ModelAndView getAssignCmfForKiosk( @RequestParam(value="kioskId") String kioskId,ModelAndView model) {	
 		
+		System.out.println("Assign CMF KISK=======kioskId===="+kioskId);
 		
 		KioskBranchMasterUserDto kioskDto = kioskManagementService.getKiosksFromKioskBranchMasterByKioskId(kioskId);
 		List<User> usersList = userService.fetchAllCmfUserByCircle(kioskDto.getCircle());

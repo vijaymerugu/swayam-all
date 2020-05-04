@@ -12,8 +12,8 @@ overflow-x: scroll;
 }
 .submain{
 top: 1000px;
-left: 15px;
-width: 1336px;
+left: 8px;
+width: 1352px;
 height: 519px;
 background: #FFFFFF 0% 0% no-repeat padding-box;
 box-shadow: 0px 3px 6px #8D8D8D29;
@@ -35,7 +35,7 @@ padding:7px;
 }
 .submainForm{
 top: 165px;
-left: 15px;
+left: 8px;
 width: 1336px;
 height: 519px;
 background: #FFFFFF 0% 0% no-repeat padding-box;
@@ -46,7 +46,8 @@ position:absolute;
 }
 #noOfUsers{
 top: 163px;
-left: 70px;
+/* left: 70px; */
+left: 150px;
 width: 84px;
 height: 20px;
 text-align: left;

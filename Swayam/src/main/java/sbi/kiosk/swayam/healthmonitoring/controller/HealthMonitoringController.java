@@ -4,6 +4,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,9 +28,10 @@ public class HealthMonitoringController {
 	HealthMonitoringService healthMonitoringService;
 	
 	@RequestMapping("/hm/requestFormCmf")
-	public ModelAndView requestFormCmf() {
-		
-		ModelAndView mav = new ModelAndView("requestFormCmf");
+	public ModelAndView requestFormCmf(ModelAndView mav,@ModelAttribute("requestDto") RequestsManagementDto requestDto) {
+		System.out.println("========1====="+requestDto.getComments());
+		//ModelAndView mav = new ModelAndView("requestFormCmf");
+		mav.setViewName("requestFormCmf");
 		return mav;
 	}
 	
@@ -51,10 +57,21 @@ public class HealthMonitoringController {
 	}
 	
 	
-	@RequestMapping(value = "/hm/addRequest")
-	public ModelAndView saveRequestForCmf(ModelAndView model, HttpServletRequest request,
-			RedirectAttributes redirectAttributes) {
-		
+	
+	@GetMapping("/hm/checkDuplicateKiosk/{kioskId}")
+	public ResponseEntity<String>  checkDuplicateKiosk(@PathVariable("kioskId") String kioskId) {
+		String result=healthMonitoringService.checkDuplicateKiosAppr(kioskId);
+		System.out.println("result====="+result);
+		ResponseEntity<String> entity=ResponseEntity.ok(result);
+		return entity;
+	}
+	
+	
+	@PostMapping(value = "/hm/addRequest")
+	public ResponseEntity<String>  saveRequestForCmf(ModelAndView model, HttpServletRequest request,
+			RedirectAttributes redirectAttributes,@ModelAttribute("requestDto") RequestsManagementDto requestDto) {
+		System.err.println("saveRequestForCmf==="+requestDto.getBranchCode());
+		ResponseEntity<String> entity=null;
 		RequestsDto dto = new RequestsDto();		
 		dto.setBranchCode(request.getParameter("branchCode"));
 		dto.setKioskId(request.getParameter("kioskId"));
@@ -64,9 +81,13 @@ public class HealthMonitoringController {
 		dto.setSubCategory(request.getParameter("subCategory"));
 		dto.setSubject(request.getParameter("subject"));
 		dto.setComments(request.getParameter("comments"));		
-		healthMonitoringService.saveRequestForCmf(dto);
-		return model;
+		String result=healthMonitoringService.saveRequestForCmf(dto);
+		entity=ResponseEntity.ok(result);
+		
+		return entity;
 	}
+	
+	
 	
 	@RequestMapping(value = "/hm/requestsCmf/get", params = { "page", "size" }, method = RequestMethod.GET, produces = "application/json")
 	public Page<RequestsDto> findPaginatedCmf(
