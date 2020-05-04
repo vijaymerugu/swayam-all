@@ -12,38 +12,62 @@ import sbi.kiosk.swayam.common.repository.UserRepository;
 
 @Service
 public class AddUserServiceImpl implements AddUserService{
-
 	@Autowired
 	private UserRepository userRepository;
-	@Autowired
-	private RoleRepository roleRepository;
 	
+	@Override
+	public String addUser(AddUserDto dto,String role) {
+		System.out.println("saving adduser form.....");
+		System.out.println("Role==================");
+		System.out.println(role);
+		User user=new User();
+		user.setPfId(dto.getPfId());
+		user.setUsername(dto.getUsername());
+		user.setPhoneNo(dto.getPhoneNo());
+		user.setMailId(dto.getEmailId());
+		user.setRole(role);
+		user.setReportingAuthorityEmail(dto.getReportingAuthorityEmail());
+		user.setReportingAuthorityName(dto.getReportingAuthorityName());
+		user.setEnabled("1");
+		String userPfId=userRepository.findIdByPfId(dto.getPfId());
+		if(userPfId!=null  && !userPfId.isEmpty()){
+			return "User is Allready Exist";
+		}else{
+	
+			  User resultSave = userRepository.save(user);
+			  String userName=resultSave.getUsername();
+		  return userName;
+		}
+		
+    }
 
 	
 	@Override
-	public String addUser(AddUserDto dto) {
+	public String updateUser(AddUserDto dto,String role) {
 		System.out.println("saving adduser form.....");
-		Iterable<Role> role = roleRepository.findAll();
+		System.out.println("Role==================");
+		System.out.println(role);
 		User user=new User();
+		user.setUserId(dto.getUserId());
 		user.setPfId(dto.getPfId());
-		user.setUsername(dto.getUserName());
-		user.setPhoneNo(dto.getPhoneNumber());
+		user.setUsername(dto.getUsername());
+		user.setPhoneNo(dto.getPhoneNo());
 		user.setMailId(dto.getEmailId());
-		for(Role role1:role) {
-			if(role1.getRoleDesc().equalsIgnoreCase(dto.getRole()));
-		    user.setRole(role1.getRole());
-		}
-		System.out.println(user.getRole());
+		user.setRole(role);
 		user.setReportingAuthorityEmail(dto.getReportingAuthorityEmail());
 		user.setReportingAuthorityName(dto.getReportingAuthorityName());
-          
-		User resultSave = userRepository.save(user);
-		if(resultSave!=null)
-		return "user addd";
-		return "user is not add";
+		user.setEnabled("1"); 
+		
+			  User resultSave = userRepository.save(user);
+			  String userName=resultSave.getUsername();
+		  return userName;
+		
+		
     }
-	
 
+	
+	
+	
 	@Override
 	public String getByPfId(String pfId) {
 		System.out.println("inside addservice class::"+pfId);
@@ -52,13 +76,6 @@ public class AddUserServiceImpl implements AddUserService{
 			if(result==0)
 				return "";
 			return "This User Pf Id Is Exist";
-	}
-
-
-	@Override
-	public String saveRole(String role) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

@@ -9,6 +9,5 @@ public interface IOperations<T> {
     public Page<T> findPaginatedCount(final int page, final int size,String type);
     public Page<T> findPaginatedCC(final int page, final int size);
     public Page<T> findPaginatedCmf(final int page, final int size);
-   
 
 }

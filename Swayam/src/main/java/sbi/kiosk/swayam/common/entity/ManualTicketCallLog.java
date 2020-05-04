@@ -30,20 +30,14 @@ public class ManualTicketCallLog extends Common {
 	private String contactNo;
 	@Column(name = "ERROR")
 	private String kioskError;
-	@Column(name="AGENT_STATUS")
-	private String agenetStatus;
+	@Column(name="COMMENTS")
+	private String comments;
 	@Column(name="COMPLAINTID")
 	private String complaintId;
 	
 	@Column(name="STATUS")
 	private String status;
 	
-		@Override
-	public String toString() {
-		return "ManualTicketCallLogModel [manual_call_log_id=" + manual_call_log_id + ", branchCode=" + branchCode
-				+ ", kioskId=" + kioskId + ", vendor=" + vendor + ", circle=" + circle + ", contactPerson="
-				+ contactPerson + ", contactNo=" + contactNo + ", kioskError=" + kioskError + ", agenetStatus="
-				+ agenetStatus + "]";
-	}
+		
 	
 }

@@ -10,7 +10,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    var counttype = "";
    $scope.loadHomeBodyPageForms = function(url){	   
 		if(url != undefined){	
-			var str ='/km/editUserMaster?userId=' + url;
+			var str ='/km/editUserMasterLA?userId=' + url;
 			$("#contentHomeApp").load(str);
 		}						
 	}

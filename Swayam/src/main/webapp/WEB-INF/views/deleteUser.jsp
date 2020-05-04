@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Add User</title>
+<title>Delete User</title>
 
 
 <script src="/resources/js/angular.1.5.6.min.js"></script>
@@ -539,12 +539,11 @@ $(document).ready(function(){
 		
 		 $.ajax({
 	        	type:"POST",
-	        	url:"/km/addUsers",
+	        	url:"/km/deleteUser",
 	        	data:formData,
 	         success: function(data){
 	        	 resp=data;       	 	        	 
-	        	/*  $("#para").html("User: "+resp+ " has been successfully Created"); */
-	        	 $("#para").html(resp);
+	        	 $("#para").html("User: "+resp+ " has been successfully Deleted");
 	     		 modal.style.display = "block";
 	        	 
 	         }
@@ -571,9 +570,9 @@ $(document).ready(function(){
 	<div  class="submainForm">
 
 
-	<!-- 	<h4 align="left">
-			<b>Add User</b>
-		</h4> -->
+		<h4 align="left">
+			<b>Delete User</b>
+		</h4>
 		<br></br>
 		<br></br>
 		
@@ -582,19 +581,6 @@ $(document).ready(function(){
 		<div class="col-md-12">
 			<!-- <div align="center" class="mytable"> -->
 			<form:form action="addUsers" modelAttribute="addUser" name="addUser" id="form">
-				<c:if test="${empty  addUser.checkAction}">
-				<h4 align="left">
-			     <b>Add User</b>
-		          </h4>
-		          </c:if>
-		          
-		          <c:if test="${addUser.checkAction == 'Edit'}">
-		          <b class="mess"></b>
-				<h4 align="left">
-			     <b>Edit User</b>
-		          </h4>
-		          </c:if>
-		          
 				<table align="center">
 					<tr>
 					<%-- <c:out value="${addUser.userId}">okk</c:out> --%>
@@ -685,23 +671,7 @@ $(document).ready(function(){
 				<br>
 				<table align="center">
 					<tr>
-						<!-- <td><input type="reset"  value="CANCEL"/></td>
-						<td><input type="button" onclick="saveform()" value="ADD" /></td> -->
-					<c:if test="${addUser.checkAction == 'Edit'}">	
-					 <form:hidden path="checkAction" />
-					  <form:hidden path="userId" />
-					<td><input type="reset" class="button" value="CANCEL"></td>
-                   <td><input type="button" onclick="saveform()"   class="button" value="UPDATE"></td>
-					</c:if>	
-					
-					<c:if test="${addUser.checkAction != 'Edit'}">	
-					 <form:hidden path="checkAction" />
-					  <form:hidden path="userId" />
-					<td><input type="reset" class="button" value="CANCEL"></td>
-                   <td><input type="button" onclick="saveform()"   class="button" value="ADD"></td>
-					</c:if>	
-					
-						
+                   <td><input type="button" onclick="saveform()"   class="button" value="Delete"></td>
 					</tr>
 				</table>
 

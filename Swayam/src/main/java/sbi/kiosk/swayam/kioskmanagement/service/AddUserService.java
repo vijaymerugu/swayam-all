@@ -4,9 +4,8 @@ import sbi.kiosk.swayam.common.dto.AddUserDto;
 
 public interface AddUserService {
 
-	public String addUser(AddUserDto dto);
 
 	public String getByPfId(String pfId);
-
-	public String saveRole(String role);
+	String addUser(AddUserDto dto, String role);
+	String updateUser(AddUserDto dto, String role);
 }

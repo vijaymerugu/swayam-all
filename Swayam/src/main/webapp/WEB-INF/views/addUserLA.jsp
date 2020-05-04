@@ -403,7 +403,7 @@ $(document).ready(function(){
 		 console.log("inside bluer function...."+pfId);
 	         	        $.ajax({
 	        	type:"GET",
-	        	url:"/km/getByPfIdSA/"+pfId,
+	        	url:"/km/getByPfId/"+pfId,
 	            success: function(data){
 	            	console.log("inside data");
 	        	    respos=data;
@@ -435,9 +435,9 @@ $(document).ready(function(){
 	 window.location = '/km/userList';
 	} */
 	
-	/* function openWin(){
+ function openWin(){
 	      window.location.href = "/km/userList";
-	}; */
+	}; 
 	
 	
 	
@@ -539,11 +539,11 @@ $(document).ready(function(){
 		
 		 $.ajax({
 	        	type:"POST",
-	        	url:"/km/addUsers",
+	        	url:"/km/addUsersLA",
 	        	data:formData,
 	         success: function(data){
 	        	 resp=data;       	 	        	 
-	        	/*  $("#para").html("User: "+resp+ " has been successfully Created"); */
+	        	// $("#para").html("User: "+resp+ " has been successfully created");
 	        	 $("#para").html(resp);
 	     		 modal.style.display = "block";
 	        	 
@@ -571,7 +571,7 @@ $(document).ready(function(){
 	<div  class="submainForm">
 
 
-	<!-- 	<h4 align="left">
+		<!-- <h4 align="left">
 			<b>Add User</b>
 		</h4> -->
 		<br></br>
@@ -581,15 +581,14 @@ $(document).ready(function(){
 		
 		<div class="col-md-12">
 			<!-- <div align="center" class="mytable"> -->
-			<form:form action="addUsers" modelAttribute="addUser" name="addUser" id="form">
-				<c:if test="${empty  addUser.checkAction}">
+			<form:form action="addUsersLA" modelAttribute="addUserDto" name="addUserDto" id="form">
+				<c:if test="${empty  addUserDto.checkAction}">
 				<h4 align="left">
 			     <b>Add User</b>
 		          </h4>
 		          </c:if>
 		          
-		          <c:if test="${addUser.checkAction == 'Edit'}">
-		          <b class="mess"></b>
+		          <c:if test="${addUserDto.checkAction == 'Edit'}">
 				<h4 align="left">
 			     <b>Edit User</b>
 		          </h4>
@@ -597,17 +596,17 @@ $(document).ready(function(){
 		          
 				<table align="center">
 					<tr>
-					<%-- <c:out value="${addUser.userId}">okk</c:out> --%>
+					<%-- <c:out value="${addUserDto.userId}">okk</c:out> --%>
 					<form:hidden path="userId"/>
 						<td><b style="color: purple">PF ID</b><b><span
 								style="color: red">*</span></b></td>
 						<td style="top: 352px; width: 190px; height: 75px;opacity: 1;">
-						<form:input path="pfId" id="pfId" required="required" /></td>
+						<form:input path="pfId" id="pfId" value="${addUserDto.pfId}" required="required" /></td>
 						<td></td>
 						<td></td>
 						<td><b style="color: purple">Username</b><b><span
 								style="color: red">*</span></b></td>
-						<td><form:input path="username" value="${addUser.username}"  />
+						<td><form:input path="username" value="${addUserDto.username}" />
 					</tr>
 					
 					<tr>
@@ -619,14 +618,15 @@ $(document).ready(function(){
 						<td><span id="userName12" style="color: red"></span></td>
 					</tr>
 					<tr>
-						<td style="top: 352px; width: 190px; height: 75px;opacity: 1;"><b style="color: purple">Phone Number</b><b><span
+						<td style="top: 352px; width: 190px; height: 75px;opacity: 1;">
+						<b style="color: purple">Phone Number</b><b><span
 								style="color: red">*</span></b></td>
 						<td><form:input path="phoneNo" /></td>
 						<td></td>
 						<td></td>
 						<td><b style="color: purple">EmailId</b><b><span
 								style="color: red">*</span></b></td>
-						<td><form:input path="emailId" value=""/>
+						<td><form:input path="emailId"  value="${addUserDto.emailId}"/>
 					</tr>
 					<tr>
 						<td></td>
@@ -644,7 +644,7 @@ $(document).ready(function(){
 						<td></td>
 						<td style="top: 352px; width: 190px; height: 75px;opacity: 1;"><b style="color: purple">Role</b><b><span
 							 	style="color: red">*</span></b></td>
-						<td><form:select path="role" id="role" value="${addUser.role}" style="color:blue">
+						<td><form:select path="role" id="role"   value="${addUserDto.role}" style="color:blue">
 								<form:option value="Select" label="Select"></form:option>
 								<c:forEach var="list" items="${roleList}">
 									<form:option value="${list.role}">${list.roleDescription}</form:option>
@@ -662,12 +662,12 @@ $(document).ready(function(){
 					<tr>
 						<td><b style="color: purple">Reporting Authority Name</b><b><span
 								style="color: red">*</span></b></td>
-						<td><form:input path="reportingAuthorityName" /></td>
+						<td><form:input path="reportingAuthorityName" value="${addUserDto.reportingAuthorityName}"/></td>
 						<td></td>
 						<td></td>
 						<td><b style="color: purple">Reporting Authority Email</b><b><span
 								style="color: red">*</span></b></td>
-						<td><form:input path="reportingAuthorityEmail" value="${addUser.reportingAuthorityEmail}"/></td>
+						<td><form:input path="reportingAuthorityEmail" value="${addUserDto.reportingAuthorityEmail}"/></td>
 					</tr>
 					<tr>
 					</tr>
@@ -685,23 +685,20 @@ $(document).ready(function(){
 				<br>
 				<table align="center">
 					<tr>
-						<!-- <td><input type="reset"  value="CANCEL"/></td>
-						<td><input type="button" onclick="saveform()" value="ADD" /></td> -->
-					<c:if test="${addUser.checkAction == 'Edit'}">	
+						<c:if test="${addUserDto.checkAction == 'Edit'}">	
 					 <form:hidden path="checkAction" />
 					  <form:hidden path="userId" />
 					<td><input type="reset" class="button" value="CANCEL"></td>
                    <td><input type="button" onclick="saveform()"   class="button" value="UPDATE"></td>
 					</c:if>	
 					
-					<c:if test="${addUser.checkAction != 'Edit'}">	
+					<c:if test="${addUserDto.checkAction != 'Edit'}">	
 					 <form:hidden path="checkAction" />
 					  <form:hidden path="userId" />
 					<td><input type="reset" class="button" value="CANCEL"></td>
                    <td><input type="button" onclick="saveform()"   class="button" value="ADD"></td>
 					</c:if>	
 					
-						
 					</tr>
 				</table>
 
