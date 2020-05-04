@@ -11,10 +11,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import antlr.StringUtils;
 import sbi.kiosk.swayam.common.dto.MenuMasterDto;
+import sbi.kiosk.swayam.common.dto.RequestResponseLogDto;
 import sbi.kiosk.swayam.common.dto.UserDto;
 import sbi.kiosk.swayam.common.entity.MenuMaster;
+import sbi.kiosk.swayam.common.entity.RequestResponse;
 import sbi.kiosk.swayam.common.entity.User;
 import sbi.kiosk.swayam.common.repository.MenuMasterRepository;
+import sbi.kiosk.swayam.common.repository.ReqRespAuditLogRepository;
 import sbi.kiosk.swayam.common.repository.UserRepository;
 
 @Service
@@ -25,6 +28,9 @@ public class LoginService {
 	
 	@Autowired
 	MenuMasterRepository menuMasterRepository;
+	
+	@Autowired
+	ReqRespAuditLogRepository reqRespAuditLogRepo;
 	
 	public UserDto getRoleByUsername(String username) {
 		
@@ -44,5 +50,37 @@ public class LoginService {
 		}
 		return menuMasterDtoList;
 	}
+	
+	
+	public void saveReqAndResponse(RequestResponseLogDto reqRespLogDto){
+		try {
+			System.out.println("saveReqAndResponse Call()...."+reqRespLogDto);
+			
+			int srIdSeq=reqRespAuditLogRepo.findSeq();
+			System.err.println("reqRespAuditLogRepo.findSeq()  "+srIdSeq);
+			RequestResponse	requestResponse=new RequestResponse();
+			
+			requestResponse.setId(srIdSeq);
+			requestResponse.setUserId(reqRespLogDto.getUserId());
+			requestResponse.setToken(reqRespLogDto.getToken());
+			requestResponse.setRequest(reqRespLogDto.getRequest());
+			requestResponse.setUrl(reqRespLogDto.getUrl());
+			requestResponse.setResponse(reqRespLogDto.getResponse());
+			requestResponse.setSuccess(reqRespLogDto.getSuccess());
+			requestResponse.setError(reqRespLogDto.getError());
+			//requestResponse.setModifiedDate(new Date());
+			System.out.println("requestResponse=="+requestResponse);
+			reqRespAuditLogRepo.save(requestResponse);
+			
+		} catch (Exception e) {
+               e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+	}
+	
 
 }

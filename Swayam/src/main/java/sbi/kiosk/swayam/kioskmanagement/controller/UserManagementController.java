@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import oracle.net.aso.b;
 import sbi.kiosk.swayam.common.dto.AddUserDto;
 import sbi.kiosk.swayam.common.dto.RolesDto;
 import sbi.kiosk.swayam.common.dto.UserDto;
@@ -116,32 +118,32 @@ public class UserManagementController {
 	
 	
 
-	/*@RequestMapping(value = { "/km/addUser" })
-	public ModelAndView addUser(ModelAndView model, @ModelAttribute("usersBean") UserDto usersBean) {
+	
+
+	
+	@RequestMapping(value = { "/km/addUser" })
+	public ModelAndView addUser(ModelAndView model, @ModelAttribute("addUser") AddUserDto addUser,HttpServletRequest request) {
 
 		try {
-			List<RolesDto> userRoleList = roleService.findAllRole();
-			model.addObject("userRoleList", userRoleList);
-			model.setViewName("userRegister");
+			      System.out.println("inside addUser jsp call.."+request.getParameter("userName"));
+	              List<RolesDto> roleList = roleService.findAllRole();
+		           model.addObject("roleList", roleList);
+		           model.setViewName("addUser");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return model;
-	}*/
-
+	}
 	
-	@RequestMapping(value = { "/km/addUser" })
-	public ModelAndView addUser(ModelAndView model, @ModelAttribute("addUser") AddUserDto dto,@ModelAttribute("usersBean") UserDto usersBean) {
+	
+	@RequestMapping(value = { "/km/addUserLA" })
+	public ModelAndView addUserLa(ModelAndView model, @ModelAttribute("addUserDto") AddUserDto addUserDto) {
 
 		try {
-			      System.out.println("inside addUser jsp call..");
-	              List<RolesDto> rolList = roleService.findAllRole();
-	              List<String> role=new ArrayList<String>();
-	              for(RolesDto roleDto:rolList) {
-	            	  role.add(roleDto.getRoleDescription());
-	              }
-		           model.addObject("userRoleList", rolList);
-		           model.setViewName("addUser");
+			      System.out.println("inside addUserLA jsp call..");
+	              List<RolesDto> roleList = roleService.findAllRole();
+		           model.addObject("roleList", roleList);
+		           model.setViewName("addUserLA");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -151,40 +153,21 @@ public class UserManagementController {
 	
 	
 	@RequestMapping(value = "/km/editUserMaster")
-	public ModelAndView editUserMaster(ModelAndView model, HttpServletRequest request,@RequestParam("userId") String userId) {
-		System.out.println("editUserMaster(-,-) :: START");
+	public ModelAndView editUserMaster(ModelAndView model, HttpServletRequest request,@RequestParam("userId") String userId,@ModelAttribute("addUser") AddUserDto addUser) {
+		System.out.println("editUserMaster(-,-) :: START "+userId);
 		try {
-			String pattern = "MM-dd-yyyy";
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-			String date = simpleDateFormat.format(new Date());
-			UserDto userBean = new UserDto();
-			userBean.setUserId(Integer.parseInt(request.getParameter("userId")));
-			userBean.setUsername(request.getParameter("username"));
-			userBean.setRole(request.getParameter("role"));
-			userBean.setKioskId(request.getParameter("kioskId"));
-			userBean.setFirstName(request.getParameter("firstName"));
-			userBean.setLastName(request.getParameter("lastName"));
-			/*userBean.setAddress(request.getParameter("address"));
-			userBean.setAddressline1(request.getParameter("addressline1"));
-			userBean.setAddressline2(request.getParameter("addressline2"));
-			userBean.setGender(request.getParameter("gender"));
-			userBean.setPincode(request.getParameter("pincode"));
-			userBean.setCity(request.getParameter("city"));
-			userBean.setState(request.getParameter("state"));*/
-			userBean.setMailId(request.getParameter("mailId"));
-			userBean.setPhoneNo(request.getParameter("mobileNo"));
-			userBean.setCircle(request.getParameter("circle"));
-			//userBean.setCreatedDate(request.getParameter("createdBy"));// request.getParameter("creationDate")
-			userBean.setCreatedBy(request.getParameter("createdBy"));
-			//userBean.setModifiedDate(request.getParameter("circle"));// request.getParameter("modifiedDate")
-			userBean.setModifiedBy(request.getParameter("modifiedBy"));
-			userBean.setCheckAction("Edit");
-			// System.out.println("Enable=111=="+request.getParameter("enabled"));
-			// userBean.setEnabled(request.getParameter("enabled"));
-			model.addObject("usersBean", userBean);
+			
+			System.out.println("createdBy=======1==========="+request.getParameter("createdBy"));
+			
+			addUser= userService.findUserByUserId(userId);
+			addUser.setCheckAction("Edit");
+			System.out.println("get == userId====="+addUser.getUserId());
+			
+			
+			model.addObject("addUser", addUser);
 			List<RolesDto> roleList = roleService.findAllRole();
-			model.addObject("userRoleList", roleList);
-			model.setViewName("userRegister");
+			model.addObject("roleList", roleList);
+			model.setViewName("addUser");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -194,8 +177,37 @@ public class UserManagementController {
 		}
 		return model;
 	}
+	
+	
+	
+	@RequestMapping(value = "/km/editUserMasterLA")
+	public ModelAndView editUserMasterLA(ModelAndView model, HttpServletRequest request,@RequestParam("userId") String userId,@ModelAttribute("addUserDto") AddUserDto addUserDto) {
+		System.out.println("editUserMasterLA(-,-) :: START "+userId);
+		try {
+			
+			System.out.println("createdBy=======2==========="+request.getParameter("createdBy"));
+			
+			addUserDto= userService.findUserByUserId(userId);
+			addUserDto.setCheckAction("Edit");
+			System.out.println("get == userId====="+addUserDto.getUserId());
+			
+			
+			model.addObject("addUserDto", addUserDto);
+			List<RolesDto> roleList = roleService.findAllRole();
+			model.addObject("roleList", roleList);
+			model.setViewName("addUserLA");
 
-	@RequestMapping(value = "/km/saveEditUserMaster")
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("An error occured while editUserMasterLA :Exception " + e.getMessage());
+		} finally {
+			System.out.println("editUserMasterLA(-,-) :: END");
+		}
+		return model;
+	}
+	
+
+	/*@RequestMapping(value = "/km/saveEditUserMaster")
 	public ModelAndView saveEditUserMaster(ModelAndView model, HttpServletRequest request,
 			RedirectAttributes redirectAttributes) {
 		System.out.println("saveEditUserMaster(-,-) :: START");
@@ -214,12 +226,12 @@ public class UserManagementController {
 			userBean.setKioskId(request.getParameter("kioskId"));
 			userBean.setFirstName(request.getParameter("firstName"));
 			userBean.setLastName(request.getParameter("lastName"));
-			/*userBean.setAddress(request.getParameter("address"));
+			userBean.setAddress(request.getParameter("address"));
 			userBean.setAddressline1(request.getParameter("addressline1"));
 			userBean.setAddressline2(request.getParameter("addressline2"));
 			userBean.setGender(request.getParameter("gender"));
 			userBean.setCity(request.getParameter("city"));
-			userBean.setState(request.getParameter("state"));*/
+			userBean.setState(request.getParameter("state"));
 			userBean.setMailId(request.getParameter("mailId"));
 			userBean.setPhoneNo(request.getParameter("mobileNo"));
 			userBean.setCircle(request.getParameter("circle"));
@@ -250,37 +262,18 @@ public class UserManagementController {
 			System.out.println("saveUserr(-,-) :: END");
 		}
 		return model;
-	}
+	}*/
 	
 	@RequestMapping(value = "/km/deleteUserMaster")
-	public ModelAndView deleteUserMaster(ModelAndView model, HttpServletRequest request) {
+	public ModelAndView deleteUserMaster(ModelAndView model,@RequestParam("userId") String userId, @ModelAttribute("addUser") AddUserDto addUser,HttpServletRequest request) {
 		System.out.println("deleteUserMaster(-,-) :: START");
 		try {
-			String pattern = "MM-dd-yyyy";
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-			String date = simpleDateFormat.format(new Date());
-			UserDto userBean = new UserDto();
-			userBean.setUserId(Integer.parseInt(request.getParameter("userId")));
-			userBean.setUsername(request.getParameter("username"));
-			userBean.setRole(request.getParameter("role"));
-			userBean.setKioskId(request.getParameter("kioskId"));
-			userBean.setFirstName(request.getParameter("firstName"));
-			userBean.setLastName(request.getParameter("lastName"));			
-			userBean.setMailId(request.getParameter("mailId"));
-			userBean.setPhoneNo(request.getParameter("mobileNo"));
-			userBean.setCircle(request.getParameter("circle"));
-			//userBean.setCreatedDate(date);// request.getParameter("creationDate")
-			userBean.setCreatedBy(request.getParameter("createdBy"));
-			//userBean.setModifiedDate(date);// request.getParameter("modifiedDate")
-			userBean.setModifiedBy(request.getParameter("modifiedBy"));
-			userBean.setCheckAction("Edit");
-			// System.out.println("Enable=111=="+request.getParameter("enabled"));
-			// userBean.setEnabled(request.getParameter("enabled"));
-			model.addObject("usersBean", userBean);
+			addUser= userService.findUserByUserId(userId);
+			System.out.println("get == userId====="+addUser.getUserId());
+			model.addObject("addUser", addUser);
 			List<RolesDto> roleList = roleService.findAllRole();
-			model.addObject("userRoleList", roleList);
-			model.setViewName("userDelete");
-
+			model.addObject("roleList", roleList);
+			model.setViewName("deleteUser");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("An error occured while editUserMaster :Exception " + e.getMessage());
@@ -291,16 +284,21 @@ public class UserManagementController {
 	}
 
 	@RequestMapping(value = { "/km/deleteUser" })
-	public ModelAndView activeAndInActiveUser(ModelAndView model, @ModelAttribute("usersBean") UserDto usersBean) {
-
+	public ResponseEntity<String>activeAndInActiveUser(ModelAndView model,@RequestParam("userId") String userId,@ModelAttribute("usersBean") UserDto usersBean) {
+		ResponseEntity<String> entity=null;
 		try {
-			System.out.println("activeAndInActiveUser() --Start");
-			userService.deActivateUserById(usersBean);
-			model.setViewName("redirect:/km/userList");
+			System.out.println("activeAndInActiveUser() --Start"+userId);
+			Boolean result= userService.deActivateUserById(usersBean);
+			if(result){
+				entity=ResponseEntity.ok(userId);	
+			}else{
+				entity=ResponseEntity.ok("Cancel User");
+			}
+			//model.setViewName("redirect:/km/userList");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return model;
+		return entity;
 	}
 
 	@RequestMapping(value = { "/km/searchUser" })

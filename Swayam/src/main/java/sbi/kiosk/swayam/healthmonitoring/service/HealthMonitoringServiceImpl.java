@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -55,9 +56,25 @@ public class HealthMonitoringServiceImpl implements HealthMonitoringService {
         return attr.getRequest().getSession(true); // true == allow create
     }
 
+	@Override
+	 public String checkDuplicateKiosAppr(String kioskId){
+	   // String result=null;
+	  int  result=requestsRepository.findByKioskId(kioskId);
+	    System.out.println("result==="+result);
+	     if(result>0){
+	    	 System.out.println("result=1=="+result);
+		      return "This Kiosk Id Is Allready Exist";
+	     }else {
+	    	 System.out.println("result=2=="+result);
+	    	 return "";
+	     }
+	 }
+	 
 	
 	@Override
-	public void saveRequestForCmf(RequestsDto dto){
+	@Transactional
+	public String saveRequestForCmf(RequestsDto dto){
+		//int reqSeq=requestsRepository.findRequSeq();
 		UserDto user = (UserDto) session().getAttribute("userObj");
 		dto.setReqCategory(Constants.CREATED.getCode());
 		dto.setUserType(Constants.MAKER.getCode());
@@ -66,7 +83,16 @@ public class HealthMonitoringServiceImpl implements HealthMonitoringService {
 		dto.setModifiedBy(user.getPfId());
 		dto.setModifiedDate(new Date());
 		Requests requests = new Requests(dto);
-		requestsRepository.save(requests);
+		Requests request= requestsRepository.save(requests);
+		
+		String result="REQ"+request.getId();
+		if(result!=null && !result.isEmpty()){
+			System.out.println("result update=="+result);
+			System.out.println("requests.getId()=="+request.getId());
+		 requestsRepository.update(result,request.getId());
+		}
+		
+		return result;
 	}
 	
 	@Override

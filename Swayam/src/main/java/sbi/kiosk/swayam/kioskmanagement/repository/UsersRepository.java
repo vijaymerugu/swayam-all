@@ -56,6 +56,7 @@ public interface UsersRepository extends CrudRepository<User, Long> {
 	User findUserByUsername(String username);
 	
 	User findUserByPfId(String pfId);
+	User findUserByUserId(int userId);
 	
 	
 	@Query(value=" SELECT COUNT(*) FROM TBL_USER WHERE ROLE IN ('CMF') ",nativeQuery=true)

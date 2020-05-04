@@ -53,7 +53,8 @@
 
 <div class="main" ng-app="app" id="appId">
 <div ng-controller="UserManagementCtrl as vm">
-<a  href="${pageContext.request.contextPath}/km/addUser" align="right">AddUser</a>
+<%-- <a  href="${pageContext.request.contextPath}/km/addUser" align="right">AddUser</a> --%>
+<a class="openFinalPopup"><img src="/resources/img/plus.png">AddUser</a>
 <div>
 <table class="table1" style="border: 1px solid #eee;">
 
@@ -133,7 +134,20 @@
         });
     }); 
 }); 
-
+ 
 </script>
+
+<script type="text/javascript">
+
+
+
+$(document).ready(function(){
+	    $('.openFinalPopup').on('click',function(){      
+	        
+	    	$("#contentHomeApp").load('/km/addUserLA');    	
+	      	    }); 
+	});
+</script>
+
 </body>
 </html>

@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import sbi.kiosk.swayam.common.dto.AddUserDto;
 import sbi.kiosk.swayam.common.dto.UserDto;
 import sbi.kiosk.swayam.common.dto.UserManagementDto;
 import sbi.kiosk.swayam.common.entity.User;
@@ -50,14 +51,14 @@ public class UserServiceImpl implements UserService {
 	 @SuppressWarnings("deprecation")
 	@Override
 	    public Page<UserManagementDto> findPaginated(int page, int size) {
-		 List<UserManagementDto> userManaDTOList=new ArrayList<UserManagementDto>();
-		 Page<User> userList = userRepositoryPagingRepo.findAll(PageRequest.of(page, size));
+		// List<UserManagementDto> userManaDTOList=new ArrayList<UserManagementDto>();
+		// Page<User> userList = userRepositoryPagingRepo.findAll(PageRequest.of(page, size));
 		 
 		 
 		 Page<UserManagementDto> entities = 
-				 userRepositoryPagingRepo.findAll(PageRequest.of(page, size))
+				 userRepositoryPagingRepo.findByEnabled("1",PageRequest.of(page, size))
 				 .map(UserManagementDto::new);
-		 Page<UserManagementDto> entitiesNew  = new PageImpl<UserManagementDto>(userManaDTOList);
+		 //Page<UserManagementDto> entitiesNew  = new PageImpl<UserManagementDto>(userManaDTOList);
 		 /*for(User user:userList){
 			 if(user.getEnabled().equals("1")){
 				 entitiesNew.add(new UserManagementDto(user));
@@ -117,6 +118,25 @@ public class UserServiceImpl implements UserService {
 		userRepo.save(userEntity);
 	}
 
+	 @Override
+     public AddUserDto	findUserByUserId(String userId){
+		 System.out.println("userId========"+userId);
+		 User user=userRepo.findUserByUserId(Integer.parseInt(userId));
+		 AddUserDto userDto=new AddUserDto();
+		 userDto.setPfId(user.getPfId());
+		 userDto.setUserId(user.getUserId());
+		 userDto.setRole(user.getRole());
+		 userDto.setUsername(user.getUsername());
+		 userDto.setPhoneNo(user.getPhoneNo());
+		 userDto.setEmailId(user.getMailId());
+		 userDto.setReportingAuthorityName(user.getReportingAuthorityName());
+		 userDto.setReportingAuthorityEmail(user.getReportingAuthorityEmail());
+	  return userDto;
+		
+	}
+	 
+	 
+	
 	
 	@Override
 	public boolean updateUserById(UserDto userDto) {
@@ -143,9 +163,12 @@ public class UserServiceImpl implements UserService {
 		
 		boolean result = false;
 		try {
-			User userEntity= userRepo.findByUsername(usersBean.getUsername());
-			//User userEntity=new User(usersBean);
-			userEntity.setUserId(usersBean.getUserId());
+			System.out.println("userid====="+usersBean.getUserId());
+			Integer userId=usersBean.getUserId();
+			System.out.println("=====id======="+userId);
+		    User userEntity= userRepo.findUserByUserId(usersBean.getUserId());
+			//User userEntity=new User();
+			//userEntity.setUserId(userId);
 			userEntity.setEnabled("0");
 			/*userEntity.setUserName(usersBean.getUserName());
 			userEntity.setRole(usersBean.getRole());
@@ -154,8 +177,8 @@ public class UserServiceImpl implements UserService {
 			userEntity.setModifiedDate(usersBean.getModifiedDate());
 			userEntity.setModifiedBy(usersBean.getModifiedBy());*/
 			//userEntity.setEnabled("0");
-			Integer uid=userEntity.getUserId();
-			String enabled=userEntity.getEnabled();
+			//Integer uid=userEntity.getUserId();
+			//String enabled=userEntity.getEnabled();
 			User user=userRepo.save(userEntity);
 			user.getEnabled().equals("0");
 			return true;

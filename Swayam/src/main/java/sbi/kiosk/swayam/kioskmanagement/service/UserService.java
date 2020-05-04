@@ -2,6 +2,7 @@ package sbi.kiosk.swayam.kioskmanagement.service;
 
 import java.util.List;
 
+import sbi.kiosk.swayam.common.dto.AddUserDto;
 import sbi.kiosk.swayam.common.dto.UserDto;
 import sbi.kiosk.swayam.common.dto.UserManagementDto;
 import sbi.kiosk.swayam.common.entity.User;
@@ -24,6 +25,7 @@ public interface UserService extends IOperations<UserManagementDto>{
 	int findCMSCount();
 	int findCMFCount();
     int findCircleCountByRole(String circle);
+	AddUserDto findUserByUserId(String userId);
 	
 	
 

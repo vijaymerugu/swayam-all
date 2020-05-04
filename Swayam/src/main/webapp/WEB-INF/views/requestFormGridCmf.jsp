@@ -35,10 +35,11 @@
 
 <br/><br/>
 		<div class="submain">
-	<a href="/hm/requestFormCmf"><img src="/resources/img/plus.png">  Add Request</a>
+	<!-- <a href="/hm/requestFormCmf"><img src="/resources/img/plus.png">  Add Request</a> -->
+	<a class="openFinalPopup"><img src="/resources/img/plus.png">Add Request</a>
 	<br/>
 	<br/>
-	<input class="form-group has-search" ng-model="searchText" ng-change="refresh()" placeholder="Enter Ticket Id, Kiosk Id, Branch Code, Circle etc." style="font-size: 12px" size="150" height="80">
+	<input class="form-group has-search" ng-model="searchText" ng-change="refresh()" placeholder="Enter Ticket Id, Kiosk Id, Branch Code, Circle etc." style="font-size: 12px" size="150" height="80" id="input">
 		
 		<br/>
 		<br/>
@@ -50,6 +51,19 @@
     
 	</div>
 </div>	
+	
+	
+	<script type="text/javascript">
+
+
+
+$(document).ready(function(){
+	    $('.openFinalPopup').on('click',function(){      
+	        
+	    	$("#contentHomeApp").load('/hm/requestFormCmf');    	
+	      	    }); 
+	});
+</script>
 	
 </body>
 </html>

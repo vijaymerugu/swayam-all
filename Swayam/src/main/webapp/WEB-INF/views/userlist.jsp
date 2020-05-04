@@ -36,6 +36,7 @@
 <body>
 <div class="main" ng-app="app" id="appId">
 <div ng-controller="UserManagementCtrl as vm">
+<a class="openFinalPopup"><img src="/resources/img/plus.png">AddUser</a>
 <div>
 			<table class="table1" style="border: 1px solid #eee;">
 				
@@ -86,6 +87,18 @@
 	
 <script>
 angular.bootstrap(document.getElementById("appId"), ['app']);
+
+
+</script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+	    $('.openFinalPopup').on('click',function(){      
+	        
+	    	$("#contentHomeApp").load('/km/addUser');    	
+	      	    }); 
+	    
+	});
 </script>
 </body>
 </html>
