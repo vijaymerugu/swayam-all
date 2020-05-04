@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import sbi.kiosk.swayam.common.dto.CallTypeDto;
@@ -77,7 +78,9 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 				 entities=ticketCentorAgeingRepo.findAllTicketCentor3DaysLess(PageRequest.of(page, size)).map(TicketCentorDto::new);
 		    }else if(type!=null && type.equals("ThreeDayGreaterCount")){
 		    	entities=ticketCentorAgeingRepo.findAllTicketCentor3DaysGreater(PageRequest.of(page, size)).map(TicketCentorDto::new);
-		    } else{
+		    } else if(type !=null && type !="" && type !="undefined"){	    	
+		    	entities= ticketCentorRepo.findByCallSubCategory(type, PageRequest.of(page, size,Sort.by("ticketId").descending())).map(TicketCentorDto::new);	         
+		    }else{
 				  entities =  ticketCentorRepo.findAll(PageRequest.of(page, size)).map(TicketCentorDto::new);
 			      }
 			 }

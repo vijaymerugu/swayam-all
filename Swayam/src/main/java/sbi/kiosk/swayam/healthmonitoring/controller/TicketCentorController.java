@@ -73,7 +73,11 @@ public class TicketCentorController {
 	public Page<TicketCentorDto> findPaginatedByCategory( @RequestParam("type") String type,
 		      @RequestParam("page") int page, @RequestParam("size") int size) {
 		 
-		System.out.println("type==findPaginated===========findPaginatedByCategory====="+type);
+		System.out.println("type==findPaginated===========findPaginatedByCategory=====+++"+type);
+		if(type !=null && type.trim().equals("undefined")){
+			type = "";
+		}
+		
 		 Page<TicketCentorDto> resultPage = null;
 		    
 			if(type.equals("High")){
@@ -92,6 +96,9 @@ public class TicketCentorController {
 			}else if(type.equals("ThreeDaysLessCount")){
 				   resultPage= ticketCentorFilterService.findPaginatedCount(page, size, type);
 		    }else if(type.equals("ThreeDayGreaterCount")){
+		    	resultPage= ticketCentorFilterService.findPaginatedCount(page, size, type);
+		         
+		    }else if(type !=null && type !=""){
 		    	resultPage= ticketCentorFilterService.findPaginatedCount(page, size, type);
 		         
 		    }else{

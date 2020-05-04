@@ -9,6 +9,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import sbi.kiosk.swayam.common.entity.Requests;
 import sbi.kiosk.swayam.common.entity.TicketCentor;
 
 @Repository("ticketCentorRepository")
@@ -44,7 +45,7 @@ public Page<TicketCentor> findAllByRisk(@Param("high") String high,@Param("mediu
 		public String findByKisokId(@Param("kiosk_id")String kisokid);
 	    
 	    @Query(value="select ticket_id from tbl_ticket_centre tc where tc.kiosk_id=:kiosk_id",nativeQuery=true)
-	   	public String findByTicketId(@Param("kiosk_id")String kisokid);
-	
-	
+	   	public String findByTicketId(@Param("kiosk_id")String kisokid);	
+	    
+	    Page<TicketCentor> findByCallSubCategory(@Param("callSubCategory") String callSubCategory, Pageable pageable);
 }

@@ -11,7 +11,7 @@
 	crossorigin="anonymous">
 	
 
-<script src="/resources/js/ticket-centor-sa-app.js"></script>
+<!-- <script src="/resources/js/ticket-centor-sa-app.js"></script> -->
  <link rel="stylesheet" href="/resources/css/grid-style.css" /> 
  
  
@@ -19,17 +19,20 @@
  
  
  <script	src="/resources/js/angular.1.5.6.min.js"></script>
-<script src="/resources/js/jquery.3.4.1.min.js"></script>
-<script src="/resources/js/bootstrap.3.4.1.min.js"></script>
-<link rel="stylesheet" href="/resources/css/ui-grid.4.8.3.min.css">
 
+<link rel="stylesheet" href="/resources/css/ui-grid.4.8.3.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+    
 <script
 	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
 <script	src="/resources/js/angular.1.5.6.min.js"></script>
 <link rel="stylesheet" href="/resources/css/grid-style.css"/>
 <link rel="stylesheet" href="/resources/css/body-page.css"/>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
+
 <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script> 
 <link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css" type="text/css"/>
 
@@ -57,7 +60,9 @@
         	 $("#maintable").on('click','.fa',function(){
                   var currentRow=$(this).closest("tr"); 
              
-             var category=currentRow.find("td:eq(0)").text();
+             var cat=currentRow.find("td:eq(0)").text();
+             var category = cat.trim();  
+             var catId = category.replace(/ /g, "");
             	// var category=document.getElementById("category").value;
         		 console.log("inside category function...."+category);
                 $.ajax({
@@ -68,7 +73,7 @@
                     
                     	console.log(data);
                            // $('#output').append(msg);
-                    	debugger;
+                    	//debugger;
         				$("#demo12").show();
         				  var toAppend = '';
         	        	  var toAppendVen = '';
@@ -76,7 +81,7 @@
         	            	  
         	            	  
         	            	 
-        	            	   toAppend += '<tr><td  ><span class="clientID" id="demo2"><a onclick="angular.element(this).scope().create();"   ng-click="getCountType()">'+o.subCategory+'</a></span></td><td style="display:none;">'+o.category+'</td><td><span class="btnSelect" style="background-color:#280071;color:white;border-radius: 25px;padding-left:7px;padding-right:7px" >'+o.count+'</span></td></tr>';
+        	            	   toAppend += '<tr><td  ><span class="clientID" id="demo2"><a onclick="angular.element(document.getElementById(\'appId\')).scope().getCountType(\''+o.subCategory+'\')">'+o.subCategory+'</a></span></td><td style="display:none;">'+o.category+'</td><td><span class="btnSelect" style="background-color:#280071;color:white;border-radius: 25px;padding-left:7px;padding-right:7px" >'+o.count+'</span></td></tr>';
         	            	    '<input type="hidden" id="catlo" name="catlo" value="'+o.category+'"/>'
         	            	//$('#catlo').val(o.category);
         	            
@@ -87,19 +92,26 @@
         	 	 
         	              console.log(toAppend);
         	             });
-        	             
-                $("#subCategory").html( toAppend);
+        	       var sub= 'sub'+catId;
+        	               	       
+                $('#'+sub).html(toAppend);
         	         }
         	        });
                
             });
+        
+        	 
 
         });
     </script>
     <script type="text/javascript">
-   $(document).ready(function() {
-	    $("#category_table").hide();
-	});
+   
+   function javaScriptCall(){
+		 alert(5);
+			var scope = angular.element(document.getElementById('appId')).scope();
+			scope.create();        					
+		}  
+   
 </script>
   
     <script type="text/javascript">
@@ -121,9 +133,9 @@
 
 
 
-	<div class="main" ng-app="app" id="appId">
+	<div class="main" ng-app="app" id="appId" ng-controller="UserManagementCtrlSA">
 
-		<div ng-controller="UserManagementCtrlSA as vm">
+		
 
 			<div
 				style="top: 152px; left: 15px; width: 1336px; height: 190px; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1;">
@@ -265,45 +277,48 @@
 								 
 									<c:forEach items="${categoryMapDataList}" var="mapData">
 									<tr>
-										<td style="font-size: 15px;color:#280071;">
+									<h4>
+									<c:set var="mapKey" value="${mapData.key}"/>
+									<%
+									    String resp = ""; 
+									    resp = (String)pageContext.getAttribute("mapKey"); 									    
+									    String keyValue = resp.trim().replaceAll(" ", "");
+									    System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+									    System.out.println(keyValue);
+									  %> 
+									
+										<td style="font-size: 15px;color:#280071;" aria-expanded="false" data-toggle="collapse" href="#<c:out value="<%=keyValue%>"/>"  >
 				                         <c:out value="${mapData.key}"></c:out></td>
 										
-	<td style="font-size: 15px; color: #280071;"><span style="background-color:#280071;color:white;border-radius: 25px;padding-left:7px;padding-right:7px" >
-								  <c:out value="${mapData.value}"></c:out> </span>
+									<td style="font-size: 15px; color: #280071;"><span style="background-color:#280071;color:white;border-radius: 25px;padding-left:7px;padding-right:7px" >
+								    <c:out value="${mapData.value}"></c:out> </span>
 							        <%-- <input type="hidden"  id="category" name="category"  value="${mapData.key}" /> --%>
 							        </td>
 								
-						<td><span data-toggle="collapse" data-target="#demo"
-											data-target="#demo1" class="fa fa-chevron-circle-down"
-											style="font-size: 15px; color: #280071;"> </span>
-							<input type="hidden"  id="category"  name="category" value="${mapData.key}" />
-						</td>		
-								
-									</tr>
-									<td style="font-size: 15px; color: #280071;">
-									<form:form	class="form-horizontal" name="form" action="">
+									<td><span data-toggle="collapse" data-target="#<c:out value="<%=keyValue%>"/>" class="fa fa-chevron-circle-down"
+											style="font-size: 15px; color: #280071;" data-toggle="collapse" href="#<c:out value="<%=keyValue%>"/>" aria-expanded="false"> </span>
+									<input type="hidden"  id="category"  name="category" value="${mapData.key}" />
+									</td>		
+								</h4>
+								</tr>	
+								<tr class="panel-collapse collapse" id="<c:out value="<%=keyValue%>"/>" >	
+										<td style="font-size: 15px; color: #280071;">
+									
 
-											<div id="demo12" class="collapse">
-												<table id="myTable" class="table">
+											
+												<table class="table">
 										
-														<tbody style="font-size: 15px;" id="subCategory">
+														<tbody style="font-size: 15px;" id="sub<c:out value="<%=keyValue%>"/>">
 														
 														</tbody>
 
 												</table>
 
 
-											</div>
-										</form:form></td>
-									
-									<!-- <div class="collapse">
-												<table id="maintable">
-												
-												</table>
+											
+										</td>
 
-
-											</div> -->
-									
+									</tr>									
 									
 									</c:forEach>
 								
@@ -341,11 +356,140 @@
 		</div>
 
 
-	</div>
+	
 </div>
 
-	
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>	
 <script>
+var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter']);
+
+
+app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementService', function ($scope, $filter,UserManagementService) 
+	{
+	
+	   var paginationOptions = {
+	     pageNumber: 1,
+		 pageSize: 5,
+		 sort: null
+		 };
+	   
+	   $scope.create = function(){
+		   alert(2);
+		   
+		   
+	   }
+	   
+	   
+	   
+	   var counttype = "";
+	   $scope.getCountType = function(type){	
+		counttype=type;
+		   UserManagementService.getUsers(paginationOptions.pageNumber,
+				   paginationOptions.pageSize,counttype).success(function(data){
+					   
+						  $scope.gridOptions.data = data.content;
+					 	  $scope.gridOptions.totalItems = data.totalElements;
+					   });
+		}
+	   
+	   
+	   $scope.refresh = function()
+	   {  		if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
+		
+			   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);
+		    }else{
+		    	
+			   $scope.gridOptions.data = $scope.gridOptions.data;
+		    }
+	   };
+	   
+	   
+	   UserManagementService.getUsers(paginationOptions.pageNumber,
+			   paginationOptions.pageSize,counttype).success(function(data){
+		  $scope.gridOptions.data = data.content;
+	 	  $scope.gridOptions.totalItems = data.totalElements;
+	   });
+	   
+	   
+	   $scope.gridOptions = {
+			    paginationPageSizes: [5, 10, 20],
+			    paginationPageSize: paginationOptions.pageSize,
+			    enableColumnMenus:false,
+				useExternalPagination: true,
+				enableGridMenu: true,
+				exporterMenuCsv: false,
+				exporterPdfDefaultStyle: {fontSize: 9},   
+			    exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, color: 'black'},      
+			    exporterPdfFooter: function ( currentPage, pageCount ) {
+			      return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
+			    },    
+			    exporterPdfCustomFormatter: function ( docDefinition ) {        
+			        docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
+			        return docDefinition;
+			      },
+				
+			    columnDefs: [
+			      { name: 'vendor', displayName: 'Vendor'  },
+			      { name: 'ticketId', displayName: 'Ticket Id' },
+			      { name: 'kisokId', displayName: 'KisokId'  },
+			      { name: 'branchCode', displayName: 'Branch Code'  },
+			      { name: 'callCategory', displayName: 'Call Category'},
+			      { name: 'callSubCategory', displayName: 'Call Sub Category'  },
+			      { name: 'call_log_date', displayName: 'Call Log Date'  },
+			      { name: 'ageing',  displayName: 'Ageing Hours'},
+			      { name: 'statusOfComplaint',  displayName: 'Status of Complaint'},
+			      { name: 'assigned_to_FE',  displayName: 'Assigned to FE'},
+			      { name: 'fe_schedule', displayName: 'FE Schedule'}
+			    ],
+			    onRegisterApi: function(gridApi) {
+			        $scope.gridApi = gridApi;
+			        gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
+			          paginationOptions.pageNumber = newPage;
+			          paginationOptions.pageSize = pageSize;
+			          UserManagementService.getUsers(newPage,pageSize).success(function(data){
+			        	  $scope.gridOptions.data = data.content;
+			         	  $scope.gridOptions.totalItems = data.totalElements;
+			          });
+			        });
+			     }
+			  };
+	   
+	   
+	}]);
+
+
+
+
+
+
+app.service('UserManagementService',['$http', function ($http) {
+	function getUsers(pageNumber,size,counttype) {
+		
+		pageNumber = pageNumber > 0?pageNumber - 1:0;
+        return  $http({
+          method: 'GET',
+          url: '/hm/ticketCentorFilter/get?page='+pageNumber+'&size='+size+'&type='+counttype
+        });
+    }
+    return {
+    	getUsers:getUsers
+    };
+	
+}]);
+
+
+
+
+
+$(document).ready(function () {
+	  $('#head__top').on('click', function(){
+	    if($('#innerCollapse').is(':visible')) {
+	      $('#innerCollapse').hide();
+	    }
+	  });
+	  
+	});
 angular.bootstrap(document.getElementById("appId"), ['app']);
 </script>
 </body>

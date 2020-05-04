@@ -14,13 +14,13 @@ public interface CallTypeRepository extends CrudRepository<CallType, String> {
 	
 	
 	
-	@Query(value=" select count(*) from TBL_CALL_TYPE where  RISK in('High') ",nativeQuery=true)
+	@Query(value="select count(a.ticket_id) from TBL_TICKET_CENTRE a  ,tbl_CALL_TYPE b  where a.CALL_CATEGORY=b.CATEGORY and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  and  B.RISK IN('High')",nativeQuery=true)
 	public int getCallTypeHiegh() ;
-	@Query(value=" select count(*) from TBL_CALL_TYPE where  RISK in('Medium') ",nativeQuery=true)
+	@Query(value="select count(a.ticket_id) from TBL_TICKET_CENTRE a  ,tbl_CALL_TYPE b  where a.CALL_CATEGORY=b.CATEGORY and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  and  B.RISK IN('Medium')",nativeQuery=true)
 	public int getCallTypeMedium() ;
-	@Query(value=" select count(*) from TBL_CALL_TYPE where  RISK in('Low') ",nativeQuery=true)
+	@Query(value="select count(a.ticket_id) from TBL_TICKET_CENTRE a  ,tbl_CALL_TYPE b  where a.CALL_CATEGORY=b.CATEGORY and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  and  B.RISK IN('Low')",nativeQuery=true)
 	public int getCallTypeLow() ;
-	@Query(value=" select count(*) from TBL_CALL_TYPE where  RISK in('High','Medium','Low') ",nativeQuery=true)
+	@Query(value="select count(a.ticket_id) from TBL_TICKET_CENTRE a  ,tbl_CALL_TYPE b  where a.CALL_CATEGORY=b.CATEGORY and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  and  B.RISK IN('High','Medium','Low')",nativeQuery=true)
 	public int getCallTypeTotal() ;
 
 	@Query(value=" select * from TBL_CALL_TYPE",nativeQuery=true)
