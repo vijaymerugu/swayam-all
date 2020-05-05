@@ -11,7 +11,7 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 		 };
 	   
 	   $scope.create = function(){
-		   alert(2);
+		   
 		   
 		   
 	   }
@@ -20,7 +20,7 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 	   
 	   var counttype = "";
 	   $scope.getCountType = function(type){
-	alert(1);
+	
 	counttype=type;
 		   UserManagementService.getUsers(paginationOptions.pageNumber,
 				   paginationOptions.pageSize,counttype).success(function(data){

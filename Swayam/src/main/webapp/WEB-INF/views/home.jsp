@@ -8,7 +8,8 @@
 <head>
 <script	src="/resources/js/angular.1.5.6.min.js"></script>
 <script src="/resources/js/jquery.3.4.1.min.js"></script>
-<script src="/resources/js/bootstrap.3.4.1.min.js"></script>
+<!-- <script src="/resources/js/bootstrap.3.4.1.min.js"></script> -->
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/resources/css/ui-grid.4.8.3.min.css">
 
 

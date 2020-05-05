@@ -107,7 +107,7 @@
     <script type="text/javascript">
    
    function javaScriptCall(){
-		 alert(5);
+		 
 			var scope = angular.element(document.getElementById('appId')).scope();
 			scope.create();        					
 		}  
@@ -282,9 +282,7 @@
 									<%
 									    String resp = ""; 
 									    resp = (String)pageContext.getAttribute("mapKey"); 									    
-									    String keyValue = resp.trim().replaceAll(" ", "");
-									    System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-									    System.out.println(keyValue);
+									    String keyValue = resp.trim().replaceAll(" ", "");									    
 									  %> 
 									
 										<td style="font-size: 15px;color:#280071;" aria-expanded="false" data-toggle="collapse" href="#<c:out value="<%=keyValue%>"/>"  >
@@ -301,12 +299,12 @@
 									</td>		
 								</h4>
 								</tr>	
-								<tr class="panel-collapse collapse" id="<c:out value="<%=keyValue%>"/>" >	
+								<tr class="collapse panel-collapse" id="<c:out value="<%=keyValue%>"/>" >	
 										<td style="font-size: 15px; color: #280071;">
 									
 
 											
-												<table class="table">
+												<table>
 										
 														<tbody style="font-size: 15px;" id="sub<c:out value="<%=keyValue%>"/>">
 														
@@ -375,7 +373,7 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 		 };
 	   
 	   $scope.create = function(){
-		   alert(2);
+		  
 		   
 		   
 	   }
