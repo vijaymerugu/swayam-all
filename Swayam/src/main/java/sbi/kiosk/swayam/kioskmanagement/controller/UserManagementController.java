@@ -1,8 +1,5 @@
 package sbi.kiosk.swayam.kioskmanagement.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import oracle.net.aso.b;
 import sbi.kiosk.swayam.common.dto.AddUserDto;
 import sbi.kiosk.swayam.common.dto.RolesDto;
 import sbi.kiosk.swayam.common.dto.UserDto;
@@ -288,9 +283,10 @@ public class UserManagementController {
 		ResponseEntity<String> entity=null;
 		try {
 			System.out.println("activeAndInActiveUser() --Start"+userId);
+			System.out.println("username=="+usersBean.getUsername());
 			Boolean result= userService.deActivateUserById(usersBean);
 			if(result){
-				entity=ResponseEntity.ok(userId);	
+				entity=ResponseEntity.ok(usersBean.getUsername());	
 			}else{
 				entity=ResponseEntity.ok("Cancel User");
 			}

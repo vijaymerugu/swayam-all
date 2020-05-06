@@ -1,5 +1,8 @@
 package sbi.kiosk.swayam.healthmonitoring.controller;
 
+import java.util.Arrays;
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -127,12 +130,13 @@ public class HealthMonitoringController {
 	
 	@RequestMapping(value = "/hm/saveCheckerCommentsCms" , method = RequestMethod.POST)
 	//public ModelAndView saveCheckerComments(@RequestParam("array") List<CheckerComments> array) {
-	public ModelAndView saveCheckerCommentsCms(@RequestBody String array) {
+	public ResponseEntity<String> saveCheckerCommentsCms(@RequestBody String array) {
 		
 		healthMonitoringService.saveCheckerCommentsCms(array);
-		
-		ModelAndView mav = new ModelAndView("requestFormCms");
-		return mav;
+		System.out.println("saveCheckerCommentsCms===array="+array);
+		//ModelAndView mav = new ModelAndView("requestFormCms");
+		ResponseEntity<String> entiry = ResponseEntity.ok(array);
+		return entiry;
 	}
 	
 	@RequestMapping(value = "/hm/rejectCheckerCommentsCms" , method = RequestMethod.POST)
@@ -149,6 +153,7 @@ public class HealthMonitoringController {
 	public ModelAndView saveApproverCommentsCC(@RequestBody String array) {
 		
 		healthMonitoringService.saveApproverCommentsCC(array);
+		//System.out.println("saveApproverCommentsCC===array="+array);
 		
 		ModelAndView mav = new ModelAndView("requestFormCC");
 		return mav;

@@ -13,7 +13,7 @@
       <table>
          <tr>
             <td>User:</td>
-            <td><input type='text' name='username' value=''></td>
+            <td><input type='text' name='pfId' value=''></td>
          </tr>         
          <tr>
             <td><input name="submit" type="submit" value="submit" /></td>

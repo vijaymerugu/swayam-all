@@ -16,6 +16,7 @@ import sbi.kiosk.swayam.common.entity.ManualTicketCallLog;
 import sbi.kiosk.swayam.common.entity.User;
 import sbi.kiosk.swayam.common.exception.ManualTicketNotFoudException;
 import sbi.kiosk.swayam.common.repository.UserRepository;
+import sbi.kiosk.swayam.healthmonitoring.repository.BranchMasterRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.CallTypeRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.KioskMasterRepo;
 import sbi.kiosk.swayam.healthmonitoring.repository.ManualTicketCallLogRepository;
@@ -29,6 +30,8 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 	ManualTicketCallLogRepository manualTicketCallLogRepo;
 	@Autowired
 	private KioskMasterRepo kioskMasterRepo;
+	@Autowired
+	private BranchMasterRepository branchMasterRepo;
 
 	@Autowired
 	private UserRepository userRepo;
@@ -94,7 +97,7 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 	public List<ManualTicketCallLogDto> getByBranchCode(String brachCode) {
 		String branchName=null;
 		List<String> kioskMasterList = kioskMasterRepo.getByBranchCode(brachCode);
-		List<String> kioskMastBranchNameList = kioskMasterRepo.findByBranchCode(brachCode);
+		List<String> kioskMastBranchNameList = branchMasterRepo.findByBranchCode(brachCode);
 		for(String branchNames:kioskMastBranchNameList){
 			branchName=branchNames;
 		}

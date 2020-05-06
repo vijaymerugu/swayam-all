@@ -30,7 +30,6 @@ import sbi.kiosk.swayam.common.dto.MenuMasterDto;
 import sbi.kiosk.swayam.common.dto.RequestResponseLogDto;
 import sbi.kiosk.swayam.common.dto.ResponseDto;
 import sbi.kiosk.swayam.common.dto.UserDto;
-import sbi.kiosk.swayam.common.entity.User;
 import sbi.kiosk.swayam.common.repository.UserRepository;
 import sbi.kiosk.swayam.common.service.LoginService;
 import sbi.kiosk.swayam.common.utils.CommonUtils;
@@ -49,15 +48,15 @@ public class LoginController{
 	
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public ModelAndView login(@RequestParam("username") String username, HttpSession session) {	
+	public ModelAndView login(@RequestParam("pfId") String pfId, HttpSession session) {	
 		
-		UserDto userObj = loginService.getRoleByUsername(username);
+		UserDto userObj = loginService.getRoleByUsername(pfId);
 		
-		session.setAttribute("username", username);
+		session.setAttribute("pfId", pfId);
 		session.setAttribute("userObj", userObj);
 		
 		
-		System.out.println("Session Val"+ session.getAttribute("username"));
+		System.out.println("Session Val"+ session.getAttribute("pfId"));
 		ModelAndView mav = new ModelAndView("home");
 		return mav;		
 	}
@@ -66,7 +65,7 @@ public class LoginController{
 	public List<MenuMasterDto> getMenu(HttpSession session) {		
 		UserDto userObj =(UserDto) session.getAttribute("userObj");
 		//session.setAttribute("username", username);
-		System.out.println("Session Val1111"+ session.getAttribute("username"));
+		System.out.println("Session Val1111"+ session.getAttribute("pfId"));
 		
 		
 		return loginService.getMenusByUserRole(userObj.getRole());
