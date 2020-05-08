@@ -54,13 +54,40 @@
 	</div>
 </div>	
 	
+	
+ <div id="reportbuttons">
+                <!-- <button type="button" class="btn bg-red waves-effect" onclick="convertToPdf()"  style="margin-right: 5px;float: right; margin-top: -8px">Download</button>  
+                 <button type="button"  class="btn bg-red waves-effect"  onclick="sendMail()"  style="margin-right: 5px;float: right; margin-top: -8px">Send Mail</button>  -->
+     <!-- Modal -->
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+             <!--  <h4 class="modal-title">Modal Header</h4> -->
+            </div>
+            <div class="modal-body">
+              <p id="para">Some text in the modal.</p>
+            </div>
+                        
+            <div class="modal-footer">
+               <button type="button"  id="butn"  data-dismiss="modal">OK</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+</div> 
+	
 <script>
 
 $(document).ready(function(){
     $('.openFinalPopup').on('click',function(){        
          
         var all_rows = [];
-
+        var keyDisplay;
         $('.addedRows').each(function() {
                 var this_row={};                
                 $(this).find("input").each(function(){                
@@ -75,11 +102,17 @@ $(document).ready(function(){
                 	this_row[keyvalue] = namevalue;
                 	all_rows.push(this_row);
                 }
+                
+                keyDisplay=keyvalue;
+                
+                $("#myModal").modal(); 
             });          
 
         });
         console.log(all_rows);               
-        
+        $("#para").html("successfully approved:"+ keyDisplay);
+	    modal.style.display = "block";
+	    
         $.ajax({
             type: "POST",
             //url: "/hm/saveCheckerComments?array="+all_rows,
@@ -115,11 +148,15 @@ $('.openRejectPopup').on('click',function(){
                 	this_row[keyvalue] = namevalue;
                 	all_rows.push(this_row);
                 }
+                  keyDisplay=keyvalue;
+                
+                $("#myModal").modal(); 
             });          
 
         });
         console.log(all_rows);               
-        
+        $("#para").html("Rejected: "+ keyDisplay);
+	    modal.style.display = "block";
         $.ajax({
             type: "POST",
             //url: "/hm/saveCheckerComments?array="+all_rows,

@@ -38,7 +38,7 @@
 	
 	<br/>
 	<br/>
-	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Ticket Id, Kiosk Id, Branch Code, Circle etc." style="font-size: 12px" size="150" height="80">
+	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Ticket Id, Kiosk Id, Branch Code, Circle etc." style="font-size: 12px" size="150" height="80" id="input">
 		
 		<br/>
 		<br/>
@@ -47,19 +47,47 @@
         
     </div>
     <div align="center">
-      <input type="submit" value="REJECT" class="openRejectPopup">
-      <input type="submit" value="SEND TO APPROVER" class="openFinalPopup">
+      <input type="button" value="REJECT" class="openRejectPopup">
+      <input type="button" value="SEND TO APPROVER" class="openFinalPopup" >
       </div>
     
 	</div>
 </div>	
+
+ <div id="reportbuttons">
+                <!-- <button type="button" class="btn bg-red waves-effect" onclick="convertToPdf()"  style="margin-right: 5px;float: right; margin-top: -8px">Download</button>  
+                 <button type="button"  class="btn bg-red waves-effect"  onclick="sendMail()"  style="margin-right: 5px;float: right; margin-top: -8px">Send Mail</button>  -->
+     <!-- Modal -->
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+             <!--  <h4 class="modal-title">Modal Header</h4> -->
+            </div>
+            <div class="modal-body">
+              <p id="para">Some text in the modal.</p>
+            </div>
+                        
+            <div class="modal-footer">
+               <button type="button"  id="butn"  data-dismiss="modal">OK</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+</div> 
 	
 <script>
 
+
 $(document).ready(function(){
     $('.openFinalPopup').on('click',function(){        
-         
+         debugger;
         var all_rows = [];
+        var keyDisplay;
 
         $('.addedRows').each(function() {
                 var this_row={};                
@@ -69,39 +97,57 @@ $(document).ready(function(){
                 var matches = mystring.match(/\[(.*?)\]/);
                 if (matches) {
                     keyvalue = matches[1];
-                }                
-                namevalue = $(this).val();                
+                }     
+                keyDisplay=keyvalue;
+                namevalue = $(this).val();   
+                //alert("keyDisplay=="+keyDisplay);
                 if(namevalue !=undefined && namevalue != ''){
                 	this_row[keyvalue] = namevalue;
                 	all_rows.push(this_row);
+                	
                 }
-            });          
-
+               // alert("keyDisplay===="+keyDisplay);
+                $("#myModal").modal();  
+               // alert('successfully '+namevalue);
+               // document.getElementById('reportbuttons').style.display ="block";
+             	
+            });     
+                
+                $("#para").html("successfully approved:"+ keyDisplay);
+        	    modal.style.display = "block";
+        	    console.log(all_rows); 
+        	       
+                $.ajax({
+                    type: "POST",
+                    //url: "/hm/saveCheckerComments?array="+all_rows,
+                    url: "/hm/saveCheckerCommentsCms",
+                    //data: '{array: "' + all_rows + '"}',
+                    data: JSON.stringify(all_rows),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                    	//alert("succ");
+                    	
+                    	console.log('Success');
+                    	location.reload(true);
+                    },
+                    failure: function (response) {
+                    	// document.getElementById('reportbuttons').style.display ="block";
+                    	console.log('Failed');
+                    }
+                });
+               
+               
+            }); 
+       
         });
-        console.log(all_rows);               
-        
-        $.ajax({
-            type: "POST",
-            //url: "/hm/saveCheckerComments?array="+all_rows,
-            url: "/hm/saveCheckerCommentsCms",
-            //data: '{array: "' + all_rows + '"}',
-            data: JSON.stringify(all_rows),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-            	console.log('Success');
-            	location.reload(true);
-            },
-            failure: function (response) {
-            	console.log('Failed');
-            }
-        });
-    }); 
+       
+   
     
     $('.openRejectPopup').on('click',function(){        
         
         var all_rows = [];
-
+        var keyDisplay;
         $('.addedRows').each(function() {
                 var this_row={};                
                 $(this).find("input").each(function(){                
@@ -110,13 +156,21 @@ $(document).ready(function(){
                 var matches = mystring.match(/\[(.*?)\]/);
                 if (matches) {
                     keyvalue = matches[1];
-                }                
+                    keyDisplay=keyvalue;
+                }      
+                //alert("reject:: "+keyDisplay);
                 namevalue = $(this).val();                
                 if(namevalue !=undefined && namevalue != ''){
                 	this_row[keyvalue] = namevalue;
                 	all_rows.push(this_row);
                 }
-            });          
+                $("#myModal").modal();  
+               //alert(' successfully Rejected: '+keyvalue);
+               //document.getElementById('reportbuttons').style.display ="block";
+             	
+            });   
+                $("#para").html("Rejected :"+keyDisplay);
+        	    modal.style.display = "block";
 
         });
         console.log(all_rows);               
@@ -130,6 +184,7 @@ $(document).ready(function(){
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
+            	//alert(22);
             	console.log('Success');
             },
             failure: function (response) {
@@ -138,6 +193,19 @@ $(document).ready(function(){
         });
     });
 });
+
+$(document).ready(function(){
+	 $('#butn').on('click',function(){      
+	        //alert("call11 ok ");
+	    	$("#contentHomeApp").load('/hm/requestFormCms');   
+	       
+	    }); 
+   
+});
+
+
 </script>
+
+
 </body>
 </html>

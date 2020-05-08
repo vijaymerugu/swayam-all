@@ -32,9 +32,9 @@ public class LoginService {
 	@Autowired
 	ReqRespAuditLogRepository reqRespAuditLogRepo;
 	
-	public UserDto getRoleByUsername(String username) {
+	public UserDto getRoleByUsername(String pfId) {
 		
-		User user = userRepository.findByUsername(username);
+		User user = userRepository.findByPfId(pfId);
 		UserDto userDto = new UserDto(user);
 		return userDto;
 		

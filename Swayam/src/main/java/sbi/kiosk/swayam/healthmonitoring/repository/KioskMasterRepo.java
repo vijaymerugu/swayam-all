@@ -18,9 +18,6 @@ public interface KioskMasterRepo  extends CrudRepository<KioskBranchMaster,Strin
 List<String> getByBranchCode(String brachCode);
 
 
-@Query(value="select BRANCH_NAME from tbl_kiosk_master  where  BRANCH_CODE=:brachCode",nativeQuery=true)
-List<String> findByBranchCode(@Param("brachCode")String brachCode);
-
 @Query(value="select * from tbl_kiosk_master   where vendor=:vendor and branch_code=:branchcode",nativeQuery=true)
 List<KioskBranchMaster> findByVendor(@Param("vendor")String vendor,@Param("branchcode")String branchcode);
 	 
