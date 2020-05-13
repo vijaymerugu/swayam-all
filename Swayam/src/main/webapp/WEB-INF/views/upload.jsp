@@ -42,9 +42,9 @@
 <script> 
 
 $(document).ready(function(){
-    debugger;
+   
 	$('.openPopupAssign').on('click',function(){
-    	alert("in popup");
+    	//alert("in popup");
 
         $.ajax({
         	type:"POST",
@@ -70,7 +70,7 @@ $(document).ready(function(){
 $(document).ready(function(){
     debugger;
 	$('.openPopupAssignCBS').on('click',function(){
-    	alert("in popup");
+    	//alert("in popup");
 
         $.ajax({
         	type:"POST",
@@ -96,7 +96,7 @@ $(document).ready(function(){
 $(document).ready(function(){
     debugger;
 	$('.openPopupAssignHoliday').on('click',function(){
-    	alert("in popup"); 
+    	//alert("in popup"); 
 
         $.ajax({
         	type:"POST",
@@ -123,7 +123,7 @@ $(document).ready(function(){
 $(document).ready(function(){
     debugger;
 	$('.openPopupAssignCMF ').on('click',function(){
-    	alert("in popup");
+    	//alert("in popup");
 
         $.ajax({
         	type:"POST",

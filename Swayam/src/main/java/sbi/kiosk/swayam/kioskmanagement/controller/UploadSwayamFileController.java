@@ -41,12 +41,12 @@ public class UploadSwayamFileController {
 		System.out.println("inside kiosk upload method........");
         //ModelAndView view=new ModelAndView();
 		
-		String fileName = request.getParameter("myFile");
-		String r=  request.getRealPath(fileName);
-		String r1 = request.getServletPath();
-		
-		File file = new File(fileName);
-		String name = file.getAbsolutePath();
+		/*
+		 * String fileName = request.getParameter("myFile"); String r=
+		 * request.getRealPath(fileName); String r1 = request.getServletPath();
+		 * 
+		 * File file = new File(fileName); String name = file.getAbsolutePath();
+		 */
 		//String filePath = request.getPathInfo();
 		/*
 		 * if(fileName == null || fileName.equals("")){ throw new

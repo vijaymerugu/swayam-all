@@ -1,8 +1,9 @@
 package sbi.kiosk.swayam.common.dto;
 
+import lombok.Data;
 
 // By Pankul 28-04-2020-----------STARTS---------
-
+@Data
 public class HolidayCalendarDto {
 	
 	private String calendarDate;
@@ -14,47 +15,6 @@ public class HolidayCalendarDto {
     private String circle;
 	
 	private String state;
-	
-
-	public String getCalendarDate() {
-		return calendarDate;
-	}
-
-	public void setCalendarDate(String calendarDate) {
-		this.calendarDate = calendarDate;
-	}
-
-	public String getDay() {
-		return day;
-	}
-
-	public void setDay(String day) {
-		this.day = day;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getCircle() {
-		return circle;
-	}
-
-	public void setCircle(String circle) {
-		this.circle = circle;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
 
 }
 

@@ -28,7 +28,7 @@ import sbi.kiosk.swayam.common.dto.KioskDto;
 import sbi.kiosk.swayam.common.entity.BranchMaster;
 import sbi.kiosk.swayam.common.entity.HolidayCalendar;
 import sbi.kiosk.swayam.common.entity.KioskBranchMaster;
-import sbi.kiosk.swayam.common.entity.KioskCMF;
+import sbi.kiosk.swayam.common.entity.UserKioskMapping;
 import sbi.kiosk.swayam.kioskmanagement.repository.BranchMasterRepository;
 import sbi.kiosk.swayam.kioskmanagement.repository.HolidayCalendarRepository;
 import sbi.kiosk.swayam.kioskmanagement.repository.KioskCMFRepository;
@@ -975,21 +975,21 @@ public class UploadServiceImpl implements UploadService {
 	           } // 2nd close while loop
 			
 			
-			KioskCMF entity = null;
-			List<KioskCMF> listEntity = new ArrayList<KioskCMF>();
+			UserKioskMapping entity = null;
+			List<UserKioskMapping> listEntity = new ArrayList<UserKioskMapping>();
 			int count = 0;
 
 			for (KioskCMFDto lidtDto1 : lidtDto) {
 				System.out.println();
 				if (count != 0) {
-					entity = new KioskCMF();
+					entity = new UserKioskMapping();
 					entity.setKioskId(lidtDto1.getKioskId());
-					entity.setCmfPfId(lidtDto1.getCmfPfId());
+					entity.setPfId(lidtDto1.getCmfPfId());
 					listEntity.add(entity);
 				}
 				count++;
 			}
-			Iterable<KioskCMF> result = kioskCMFRepository.saveAll(listEntity);
+			Iterable<UserKioskMapping> result = kioskCMFRepository.saveAll(listEntity);
 			if (result != null)
 				return "Data Uploaded Successfully";
 		}
