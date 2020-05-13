@@ -87,7 +87,7 @@ $(document).ready(function(){
     $('.openFinalPopup').on('click',function(){        
          
         var all_rows = [];
-        var keyDisplay;
+        var keyDisplay = [];
         $('.addedRows').each(function() {
                 var this_row={};                
                 $(this).find("input").each(function(){                
@@ -101,17 +101,15 @@ $(document).ready(function(){
                 if(namevalue !=undefined && namevalue != ''){
                 	this_row[keyvalue] = namevalue;
                 	all_rows.push(this_row);
+                	keyDisplay.push(keyvalue);  
                 }
                 
-                keyDisplay=keyvalue;
                 
-                $("#myModal").modal(); 
             });          
 
         });
         console.log(all_rows);               
-        $("#para").html("successfully approved:"+ keyDisplay);
-	    modal.style.display = "block";
+        
 	    
         $.ajax({
             type: "POST",
@@ -122,6 +120,8 @@ $(document).ready(function(){
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
+            	$("#myModal").modal();
+                $("#para").html("Successfully approved:"+ keyDisplay.join(',')); 
             	console.log('Success');
             },
             failure: function (response) {
@@ -133,7 +133,7 @@ $(document).ready(function(){
 $('.openRejectPopup').on('click',function(){        
         
         var all_rows = [];
-
+        var keyDisplay = [];
         $('.addedRows').each(function() {
                 var this_row={};                
                 $(this).find("input").each(function(){                
@@ -147,16 +147,14 @@ $('.openRejectPopup').on('click',function(){
                 if(namevalue !=undefined && namevalue != ''){
                 	this_row[keyvalue] = namevalue;
                 	all_rows.push(this_row);
+                	keyDisplay.push(keyvalue);
                 }
-                  keyDisplay=keyvalue;
-                
-                $("#myModal").modal(); 
+                 
             });          
 
         });
         console.log(all_rows);               
-        $("#para").html("Rejected: "+ keyDisplay);
-	    modal.style.display = "block";
+        
         $.ajax({
             type: "POST",
             //url: "/hm/saveCheckerComments?array="+all_rows,
@@ -166,6 +164,8 @@ $('.openRejectPopup').on('click',function(){
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
+            	$("#myModal").modal();
+                $("#para").html("Rejected:"+ keyDisplay.join(',')); 
             	console.log('Success');
             },
             failure: function (response) {
@@ -173,6 +173,17 @@ $('.openRejectPopup').on('click',function(){
             }
         });
     });
+});
+
+$(document).ready(function(){
+	 $('#butn').on('click',function(){      
+	        //alert("call11 ok ");
+	        
+	    	$("#contentHomeApp").load('/hm/requestFormCC'); 	    	
+	    	$('.modal-backdrop').remove();
+	    	$("body").css({"overflow":"visible"});
+	    }); 
+  
 });
 </script>
 </body>

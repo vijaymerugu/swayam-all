@@ -242,22 +242,14 @@ input[type=text], select {
 						$("#email").val(data.mailId);
 					});
 				});
-		$(document)
-				.ready(
+		$(document).ready(
 						function() {
-							$('.openPopupAssign')
-									.on(
-											'click',
-											function() {
+							$('.openPopupAssign').on('click',function() {
 
 												var url = "/km/saveSingleCmfKioskMapping?username="
-														+ $(
-																"#username option:selected")
-																.val()
+														+ $("#username option:selected").val()
 														+ "&kioskId="
-														+ $(
-																'input[name=kioskId]')
-																.val();
+														+ $('input[name=kioskId]').val();
 												$('.modal-body')
 														.load(url,function() {
 																	$('#myModal').modal(

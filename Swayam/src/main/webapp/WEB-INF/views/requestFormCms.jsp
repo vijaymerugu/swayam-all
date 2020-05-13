@@ -72,7 +72,7 @@
             </div>
                         
             <div class="modal-footer">
-               <button type="button"  id="butn"  data-dismiss="modal">OK</button>
+               <button type="button"  id="butn" data-dismiss="modal">OK</button>
             </div>
           </div>
 
@@ -85,9 +85,10 @@
 
 $(document).ready(function(){
     $('.openFinalPopup').on('click',function(){        
-         debugger;
+        // debugger;
         var all_rows = [];
-        var keyDisplay;
+        var keyDisplay = [];
+        
 
         $('.addedRows').each(function() {
                 var this_row={};                
@@ -97,24 +98,16 @@ $(document).ready(function(){
                 var matches = mystring.match(/\[(.*?)\]/);
                 if (matches) {
                     keyvalue = matches[1];
-                }     
-                keyDisplay=keyvalue;
-                namevalue = $(this).val();   
-                //alert("keyDisplay=="+keyDisplay);
+                }
+                namevalue = $(this).val();                   
                 if(namevalue !=undefined && namevalue != ''){
                 	this_row[keyvalue] = namevalue;
                 	all_rows.push(this_row);
-                	
-                }
-               // alert("keyDisplay===="+keyDisplay);
-                $("#myModal").modal();  
-               // alert('successfully '+namevalue);
-               // document.getElementById('reportbuttons').style.display ="block";
-             	
+                	keyDisplay.push(keyvalue);                	
+                }  
             });     
                 
-                $("#para").html("successfully approved:"+ keyDisplay);
-        	    modal.style.display = "block";
+               
         	    console.log(all_rows); 
         	       
                 $.ajax({
@@ -125,14 +118,13 @@ $(document).ready(function(){
                     data: JSON.stringify(all_rows),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    success: function (response) {
-                    	//alert("succ");
+                    success: function (response) {   
                     	
-                    	console.log('Success');
-                    	location.reload(true);
+                    	$("#myModal").modal();
+                    	$("#para").html("successfully recommended:"+ keyDisplay.join(','));                    	
+                    	console.log('Success');                    	
                     },
-                    failure: function (response) {
-                    	// document.getElementById('reportbuttons').style.display ="block";
+                    failure: function (response) {                    	
                     	console.log('Failed');
                     }
                 });
@@ -147,7 +139,7 @@ $(document).ready(function(){
     $('.openRejectPopup').on('click',function(){        
         
         var all_rows = [];
-        var keyDisplay;
+        var keyDisplay = [];
         $('.addedRows').each(function() {
                 var this_row={};                
                 $(this).find("input").each(function(){                
@@ -156,21 +148,21 @@ $(document).ready(function(){
                 var matches = mystring.match(/\[(.*?)\]/);
                 if (matches) {
                     keyvalue = matches[1];
-                    keyDisplay=keyvalue;
+                    //keyDisplay=keyvalue;
                 }      
                 //alert("reject:: "+keyDisplay);
                 namevalue = $(this).val();                
                 if(namevalue !=undefined && namevalue != ''){
                 	this_row[keyvalue] = namevalue;
                 	all_rows.push(this_row);
+                	keyDisplay.push(keyvalue);    
                 }
-                $("#myModal").modal();  
+                //$("#myModal").modal();  
                //alert(' successfully Rejected: '+keyvalue);
                //document.getElementById('reportbuttons').style.display ="block";
              	
             });   
-                $("#para").html("Rejected :"+keyDisplay);
-        	    modal.style.display = "block";
+                
 
         });
         console.log(all_rows);               
@@ -185,6 +177,8 @@ $(document).ready(function(){
             dataType: "json",
             success: function (response) {
             	//alert(22);
+            	$("#myModal").modal();
+                $("#para").html("Rejected:"+ keyDisplay.join(','));  
             	console.log('Success');
             },
             failure: function (response) {
@@ -197,8 +191,10 @@ $(document).ready(function(){
 $(document).ready(function(){
 	 $('#butn').on('click',function(){      
 	        //alert("call11 ok ");
-	    	$("#contentHomeApp").load('/hm/requestFormCms');   
-	       
+	        
+	    	$("#contentHomeApp").load('/hm/requestFormCms'); 	    	
+	    	$('.modal-backdrop').remove();
+	    	$("body").css({"overflow":"visible"});
 	    }); 
    
 });

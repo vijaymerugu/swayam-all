@@ -141,31 +141,32 @@ public class HealthMonitoringController {
 	
 	@RequestMapping(value = "/hm/rejectCheckerCommentsCms" , method = RequestMethod.POST)
 	//public ModelAndView saveCheckerComments(@RequestParam("array") List<CheckerComments> array) {
-	public ModelAndView rejectCheckerCommentsCms(@RequestBody String array) {
+	public ResponseEntity<String> rejectCheckerCommentsCms(@RequestBody String array) {
 		
 		healthMonitoringService.rejectCheckerCommentsCms(array);
 		
 		ModelAndView mav = new ModelAndView("requestFormCms");
-		return mav;
+		ResponseEntity<String> entiry = ResponseEntity.ok(array);
+		return entiry;
 	}
 	
 	@RequestMapping(value = "/hm/saveApproverCommentsCC" , method = RequestMethod.POST)	
-	public ModelAndView saveApproverCommentsCC(@RequestBody String array) {
+	public ResponseEntity<String> saveApproverCommentsCC(@RequestBody String array) {
 		
 		healthMonitoringService.saveApproverCommentsCC(array);
 		//System.out.println("saveApproverCommentsCC===array="+array);
 		
-		ModelAndView mav = new ModelAndView("requestFormCC");
-		return mav;
+		ResponseEntity<String> entiry = ResponseEntity.ok(array);
+		return entiry;
 	}
 	
 	@RequestMapping(value = "/hm/rejectApproverCommentsCC" , method = RequestMethod.POST)	
-	public ModelAndView rejectApproverCommentsCC(@RequestBody String array) {
+	public ResponseEntity<String> rejectApproverCommentsCC(@RequestBody String array) {
 		
 		healthMonitoringService.rejectApproverCommentsCC(array);
 		
-		ModelAndView mav = new ModelAndView("requestFormCC");
-		return mav;
+		ResponseEntity<String> entiry = ResponseEntity.ok(array);
+		return entiry;
 	}
 	
 	@RequestMapping(value = "/hm/viewCmfCaseId")	

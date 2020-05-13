@@ -333,7 +333,7 @@ $(document).ready(function(){
 	var respos='';
 	var errorList=[];
 	$('#kioskId').blur(function(){
-		debugger;
+		
 		 var kioskId=$("#kioskId").val();
 		// alert("kioskId retu "+kioskId);
 		 document.getElementById("kioskId").innerHTML=kioskId;
@@ -366,7 +366,7 @@ $(document).ready(function(){
 
 function fromValidation(){
 	//alert("form validation call ");
-    debugger;	
+    	
 	var errorList=[];
 	var branchCode=$("#branchCode").val();
 	var kiosk=$("#kioskId").val();
