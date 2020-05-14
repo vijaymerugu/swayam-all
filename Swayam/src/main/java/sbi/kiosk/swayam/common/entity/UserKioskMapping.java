@@ -16,7 +16,7 @@ import sbi.kiosk.swayam.common.dto.UserKioskMappingDto;
 @Table(name="TBL_USER_KIOSK_MAPPING")
 public class UserKioskMapping {
 	
-	UserKioskMapping(){
+	public UserKioskMapping(){
 		
 	}
 	
