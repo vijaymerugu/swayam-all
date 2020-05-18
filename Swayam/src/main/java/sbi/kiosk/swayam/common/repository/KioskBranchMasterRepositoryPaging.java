@@ -12,5 +12,12 @@ public interface KioskBranchMasterRepositoryPaging extends PagingAndSortingRepos
 	public Page<KioskBranchMaster>	findByVendor(@Param("type") String type, Pageable pageable);
 
 	public Page<KioskBranchMaster> findByVendorAndInstallationStatus(@Param("type") String type,@Param("installationStatus") String installationStatus, Pageable pageable);
+	
+	public Page<KioskBranchMaster>	findByVendorAndCircle(@Param("type") String type,@Param("circle") String circle, Pageable pageable);
 
+	public Page<KioskBranchMaster> findByVendorAndInstallationStatusAndCircle(@Param("type") String type,@Param("installationStatus") String installationStatus,@Param("circle") String circle, Pageable pageable);
+
+	
+	public Page<KioskBranchMaster> findAllByCircle(@Param("circle") String circle, Pageable pageable);
+	
 }

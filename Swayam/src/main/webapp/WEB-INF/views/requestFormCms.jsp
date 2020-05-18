@@ -33,14 +33,14 @@
 <div class="main" ng-app="app" id="appId">
 <div ng-controller="UserManagementCtrl as vm">
 
-<br/><br/>
+
 		<div class="submain">
 	
-	<br/>
-	<br/>
-	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Ticket Id, Kiosk Id, Branch Code, Circle etc." style="font-size: 12px" size="150" height="80" id="input">
+	
+	
+	<input class="form-group has-search" ng-model="searchText" ng-change="refresh()" placeholder="Enter Ticket Id, Kiosk Id, Branch Code, Circle etc." style="font-size: 12px" size="150" height="80" id="input">
 		
-		<br/>
+		
 		<br/>
 		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-selection ui-grid-exporter id="test"></div>
 		

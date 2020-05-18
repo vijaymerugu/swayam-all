@@ -5,14 +5,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import sbi.kiosk.swayam.common.dto.CmsCmfMappingDto;
 import sbi.kiosk.swayam.common.dto.KioskBranchMasterUserDto;
+import sbi.kiosk.swayam.common.dto.UserDto;
 import sbi.kiosk.swayam.common.dto.UserKioskMappingDeMapperDto;
 import sbi.kiosk.swayam.common.dto.UserKioskMappingDto;
 import sbi.kiosk.swayam.common.entity.BranchMaster;
@@ -47,6 +52,11 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 	
 	@Autowired
 	BranchMasterRepository branchMasterRepository;
+	
+	public static HttpSession session() {
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        return attr.getRequest().getSession(true); // true == allow create
+    }
 
 	@Override
 	public List<User> fetchAllUsersByCircleAdmin(String username, String circle) {
@@ -188,6 +198,37 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 	 	return entities;
     }
 	
+	@Override
+    public Page<KioskBranchMasterUserDto> findPaginatedByCircle(int page, int size) {	 	 
+		UserDto user = (UserDto) session().getAttribute("userObj");
+	 Page<KioskBranchMasterUserDto> entities = 
+			 kioskBranchMasterRepositoryPaging.findAllByCircle(user.getCircle(),PageRequest.of(page, size))
+			 .map(KioskBranchMasterUserDto::new);
+	 
+	 for(KioskBranchMasterUserDto dto:entities){
+		 UserKioskMapping us = userKioskMappingRepository.findByKioskId(String.valueOf(dto.getKioskId()));
+		 
+		 if(us !=null && us.getPfId() !=null && us.getPfId() !=""){
+			 dto.setPfId(us.getPfId());
+			 User usr = userRepository.findByPfId(us.getPfId());
+			 if(usr !=null && usr.getUsername() !=null && usr.getUsername() !=""){
+				 dto.setUsername(usr.getUsername());
+			 }
+		 }
+		 
+		 if(dto.getBranchCode() !=null){
+			 BranchMaster branchMaster	 = branchMasterRepository.findByBranchCode(dto.getBranchCode());
+			 if(branchMaster !=null && branchMaster.getCircle() !=null && branchMaster.getCircle() !=""){
+				 dto.setCircle(branchMaster.getCircle());
+			 }
+		 }
+	 }
+	 
+	 
+		
+	 //Page<UserManagementDto> pageDto = new PageImpl<UserManagementDto>(userList, PageRequest.of(page, size), userList.getSize());
+	 	return entities;
+    }
 	
 	
 	@Override
@@ -249,6 +290,66 @@ public class KioskManagementServiceImpl implements KioskManagementService {
  	return entities;
 }
 	
+	@Override
+    public Page<KioskBranchMasterUserDto> findPaginatedCountByCircle(int page, int size,String type) {	 
+	 
+		UserDto user = (UserDto) session().getAttribute("userObj");
+		String circle=user.getCircle();
+	 Page<KioskBranchMasterUserDto> entities = null;
+	 
+	 if(type!=null && !type.isEmpty()){
+		 System.out.println("type=sa===========================0=="+type);
+	 
+	 if(type!=null && type.equals("CMS")){
+		  System.out.println("type==IF==2==="+type);
+		  entities =  kioskBranchMasterRepositoryPaging.findByVendorAndCircle(type,circle,PageRequest.of(page, size)).map(KioskBranchMasterUserDto::new);
+	  }else if(type!=null && type.equals("LIPI")){
+	     System.out.println("type==LIPI==3==============="+type);
+	     entities =  kioskBranchMasterRepositoryPaging.findByVendorAndCircle(type,circle,PageRequest.of(page, size)).map(KioskBranchMasterUserDto::new);
+      
+	  } if(type!=null && type.equals("InstalledCMSVendor")){
+		  System.out.println("type==DeleviredCMSVendor==4==="+type);
+		  entities =  kioskBranchMasterRepositoryPaging.findByVendorAndInstallationStatusAndCircle("CMS","Installed",circle,PageRequest.of(page, size)).map(KioskBranchMasterUserDto::new);
+	
+	     System.out.println("=========entities========"+entities.getNumber());
+	  }else if(type!=null && type.equals("DeleviredCMSVendor")){
+		  System.out.println("type==DeleviredCMSVendor==5=============="+type);
+		 // type="CMS";
+		  entities =  kioskBranchMasterRepositoryPaging.findByVendorAndInstallationStatusAndCircle("CMS","Pending",circle,PageRequest.of(page, size)).map(KioskBranchMasterUserDto::new);
+	  } if(type!=null && type.equals("InstalledLIPIVendor")){
+		  System.out.println("type==InstalledLIPIVendor==6============"+type);
+		  entities =  kioskBranchMasterRepositoryPaging.findByVendorAndInstallationStatusAndCircle("LIPI","Installed",circle,PageRequest.of(page, size)).map(KioskBranchMasterUserDto::new);
+	  }else if(type!=null &&type.equals("DeleviredLIPIVendor")){
+		  System.out.println("type==DeleviredLIPIVendor==7=============="+type);
+		  entities =  kioskBranchMasterRepositoryPaging.findByVendorAndInstallationStatusAndCircle("LIPI","Pending",circle,PageRequest.of(page, size)).map(KioskBranchMasterUserDto::new);
+	  }
+	  
+	 }
+	  
+	 for(KioskBranchMasterUserDto dto:entities){
+		 UserKioskMapping us = userKioskMappingRepository.findByKioskId(String.valueOf(dto.getKioskId()));
+		 
+		 if(us !=null && us.getPfId() !=null && us.getPfId() !=""){
+			 dto.setPfId(us.getPfId());
+			 User usr = userRepository.findByPfId(us.getPfId());
+			 if(usr !=null && usr.getUsername() !=null && usr.getUsername() !=""){
+				 dto.setUsername(usr.getUsername());
+			 }
+		 }
+		 
+		 if(dto.getBranchCode() !=null){
+			 BranchMaster branchMaster	 = branchMasterRepository.findByBranchCode(dto.getBranchCode());
+			 if(branchMaster !=null && branchMaster.getCircle() !=null && branchMaster.getCircle() !=""){
+				 dto.setCircle(branchMaster.getCircle());
+			 }
+		 }
+	 }
+	 
+
+	
+ 	return entities;
+}
+
 	
 	@Override
 	public KioskBranchMasterUserDto getKiosksFromKioskBranchMasterByKioskId(String kioskId){		
@@ -314,5 +415,42 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 		return map;
 	}
 	
+	
+	@Override
+	public Map<String,Integer> findAllKioskMasterCountByCircle(){	
+		UserDto user = (UserDto) session().getAttribute("userObj");
+		String circle= user.getCircle();
+		Map<String,Integer> map=new HashMap<String,Integer>();
+		
+		
+		int installedKioskCount = kioskMasterRepository.findKioskMasterCount(circle);
+		int cmsCount=kioskMasterRepository.findKioskCMSMasterCount(circle);
+		int lipiCount=kioskMasterRepository.findKioskLIPIMasterCount(circle);
+		int totalKioskCount=kioskMasterRepository.findTotalKioskMasterCount(circle);
+		int installedStatusCMSVendorWiseCount = kioskMasterRepository.findInstalledStatusCMSVendorWiseCount(circle);
+		int deleviredStatusCMSVendorWiseCount= kioskMasterRepository.findDeliveredStatusCMSVendorWiseCount(circle);
+		int installedStatusLIPIVendorWiseCount = kioskMasterRepository.findInstalledStatusLIPIVendorWiseCount(circle);
+		int deleviredStatusLIPIVendorWiseCount= kioskMasterRepository.findDeliveredStatusLIPIVendorWiseCount(circle);
+		
+		int assignedCount=kioskMasterRepository.findAssignedCount(circle);
+		int toBeAssignedCount=kioskMasterRepository.findToBeAssignedCount(circle);
+		
+		map.put("InstalledKiosks", installedKioskCount);
+		map.put("CMS", cmsCount);
+		map.put("LIPI", lipiCount);
+		map.put("TotalKiosk", totalKioskCount);
+		map.put("InstalledCMSVendor", installedStatusCMSVendorWiseCount);
+		map.put("DeleviredCMSVendor", deleviredStatusCMSVendorWiseCount);
+		map.put("InstalledLIPIVendor", installedStatusLIPIVendorWiseCount);
+		map.put("DeleviredLIPIVendor", deleviredStatusLIPIVendorWiseCount);
+		
+		map.put("Assigned", assignedCount);
+		map.put("ToBeAssigned", toBeAssignedCount);
+		
+		
+		System.out.println("installedKioskCount=============="+installedKioskCount);		
+		return map;
+	}
+
 
 }

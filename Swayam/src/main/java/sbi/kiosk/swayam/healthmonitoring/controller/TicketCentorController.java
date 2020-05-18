@@ -67,6 +67,48 @@ public class TicketCentorController {
 		    }
 		        return resultPage;
 		    }
+	
+	@RequestMapping(value = "/hm/ticketCentorByCircle/get", params = { "page", "size","type"}, method = RequestMethod.GET, produces = "application/json")
+	public Page<TicketCentorDto> findPaginatedByCircle( @RequestParam("type") String type,
+		      @RequestParam("page") int page, @RequestParam("size") int size) {
+		 
+		System.out.println("type==findPaginated===========ticketCentorService====="+type);
+		 Page<TicketCentorDto> resultPage = null;
+		 
+	     
+		    
+			if(type.equals("High")){
+				resultPage= ticketCentorService.findPaginatedCountByCircle(page, size, type);
+			}else if(type.equals("Medium")){
+				resultPage= ticketCentorService.findPaginatedCountByCircle(page, size, type);
+			}else if(type.equalsIgnoreCase("Low")){
+				resultPage= ticketCentorService.findPaginatedCountByCircle(page, size, type);
+			}else if(type.equals("Total")){
+				resultPage= ticketCentorService.findPaginatedCountByCircle(page, size, type);
+				System.out.println("Total Size:::: "+resultPage.getContent().size());
+			}else if(type.equals("TwoToFourHrsCount")){
+				resultPage= ticketCentorService.findPaginatedCountByCircle(page, size, type);
+			}else if(type.equals("OneDaysCount")){
+			   resultPage= ticketCentorService.findPaginatedCountByCircle(page, size, type);
+			}else if(type.equals("ThreeDaysLessCount")){
+				   resultPage= ticketCentorService.findPaginatedCountByCircle(page, size, type);
+		    }else if(type.equals("ThreeDayGreaterCount")){
+		    	resultPage= ticketCentorService.findPaginatedCountByCircle(page, size, type);
+		         
+		    }else{
+		    	//resultPage= ticketCentorService.findPaginatedCount(page, size, type);
+		    
+			
+			 resultPage = ticketCentorService.findPaginatedByCircle(page, size);
+		      System.out.println("resultPage=="+resultPage.getContent());
+			    if (resultPage !=null && resultPage.getSize()>0){
+			    	//return resultPage;
+			        }
+		    }
+		        return resultPage;
+		    }
+
+
 
 	
 	@RequestMapping(value = "/hm/ticketCentorFilter/get", params = { "page", "size","type"}, method = RequestMethod.GET, produces = "application/json")

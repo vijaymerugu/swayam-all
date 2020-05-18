@@ -303,6 +303,19 @@ public class HealthMonitoringServiceImpl implements HealthMonitoringService {
 	public Page<RequestsDto> findPaginatedCount(int page, int size, String type) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Page<RequestsDto> findPaginatedByCircle(int page, int size) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<RequestsDto> findPaginatedCountByCircle(int page, int size,
+			String type) {
+		// TODO Auto-generated method stub
+		return null;
 	}	
 	
 }

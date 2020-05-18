@@ -2,7 +2,9 @@ package sbi.kiosk.swayam.kioskmanagement.repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import sbi.kiosk.swayam.common.entity.UserKioskMapping;
@@ -17,5 +19,6 @@ public interface UserKioskMappingRepository extends CrudRepository<UserKioskMapp
 	
 	UserKioskMapping findByKioskId(String kioskId);
 	
-	
+	@Query(value="SELECT COUNT(*) FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID =:pfId",nativeQuery=true)
+	int findKiosksCountByPfId(@Param("pfId") String pfId);
 }

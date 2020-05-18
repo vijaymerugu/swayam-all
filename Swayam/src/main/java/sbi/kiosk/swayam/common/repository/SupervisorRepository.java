@@ -21,4 +21,8 @@ public interface SupervisorRepository extends CrudRepository<Supervisor, Integer
 	Set<String> findPfIdListByPfIdSupervisor(@Param("pfIdSupervisor") String pfIdSupervisor);
 	
 	Supervisor findByPfId(String pfId);
+	
+	@Query(value ="select * from TBL_SUPERVISOR where PF_ID_SUPERVISOR =:pfId",
+			nativeQuery=true)
+	List<Supervisor> findBySupervisorPfId(@Param("pfId") String pfId);
 }

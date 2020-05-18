@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="sbi.kiosk.swayam.common.dto.UserDto" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,11 +51,18 @@
 
 </head>
 <body>
-
+		<%
+			UserDto userObj = (UserDto) session.getAttribute("userObj");
+			String circle = "";			
+			if(userObj.getCircle() !=null){
+				circle = userObj.getCircle();
+			}			
+			
+		%>
 <div class="main" ng-app="app" id="appId">
 <div ng-controller="UserManagementCtrl as vm">
 <%-- <a  href="${pageContext.request.contextPath}/km/addUser" align="right">AddUser</a> --%>
-<a class="openFinalPopup"><img src="/resources/img/plus.png">AddUser</a>
+<div style="text-align: right;float: right;"><a class="openFinalPopup"><img src="/resources/img/plus.png">&nbsp;AddUser</a></div>
 <div>
 <table class="table1" style="border: 1px solid #eee;">
 
@@ -64,32 +72,26 @@
     <tr>
     <td id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"><a ng-click="getCountType('CMF')">${cmfCount}</a></td> 
     <td id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"> <a ng-click="getCountType('CMS')"> ${cmsCount}</a>  </td> 
-	<td id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"> <a ng-click="getCountType('MUMBAI')">${circleCountByRole}</a></td>   
-    <td id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"> <a ng-click="getCountType('LA')">${laCount}</a></td>   
-	<td id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"><a ng-click="getCountType('CC')">${ccCount}</a></td>
-	<td id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"><a ng-click="getCountType('SA')">${saCount}</a></td>
+	<td id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"> <a ng-click="getCountType('C')">${circleUserCount}</a></td>   
+    
   </tr>
   <tr>
   <!-- Yogesh User Circle Wise -->
     <td id="count2" style="color: black; border-right: solid 2px #faf5f6;">CMF</td> 
 	<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">CMS</td>   
-	<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">Circle</td>   
-	<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">LA</td>   
-	<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">CC</td> 
-	<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">SA</td>  	
+	<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">Circle</td>   	
   </tr>
 </table>
 </div>
-<br/><br/>
+<br/>
 		<div class="submain">
 	
-	<br/>
-	<br/>
+	
 	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Username, First Name, Last Name, Mail Id, Circle etc." style="font-size: 12px" size="150" height="80" id="input" class="form-group has-search">
 		
 	
 		
-		<br/>
+		
 		<br/>
 		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter id="test"></div>
 		

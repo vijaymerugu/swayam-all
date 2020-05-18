@@ -40,7 +40,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script
 	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
-<script src="/resources/js/ticket-centor-app.js"></script>
+<script src="/resources/js/ticket-centor-cu-app.js"></script>
 <link rel="stylesheet" href="/resources/css/grid-style.css" />
 
 </head>

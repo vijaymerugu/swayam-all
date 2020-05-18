@@ -43,19 +43,21 @@ public class UserManagementController {
 				model.setViewName("userlistView");
 			} else if (user.getRole().equals("LA")) {
 				System.out.println("Users========Yogesh=============================="+user.getCircle());
-				int cmsCount=userService.findCMSCount();
-				int circleCountByRole=userService.findCircleCountByRole(user.getCircle());
-				int ccCount=userService.findCCCount();
-				int cmfCount= userService.findCMFCount();
-				int laCount= userService.findLACount();
-				int saCount= userService.findSACount();
+				int cmsCount=userService.findCMSCountByCircle();
+				//int circleCountByRole=userService.findCircleCountByRole(user.getCircle());
+				//int ccCount=userService.findCCCount();
+				int cmfCount= userService.findCMFCountByCircle();
+				//int laCount= userService.findLACount();
+				//int saCount= userService.findSACount();
+				int circleUserCount = userService.findCircleUserCountByCircle();
 				
 				model.addObject("cmfCount",cmfCount);
 				model.addObject("cmsCount", cmsCount);
-				model.addObject("circleCountByRole", circleCountByRole);
-				model.addObject("laCount",laCount);
-				model.addObject("ccCount",ccCount);
-				model.addObject("saCount",saCount);
+				//model.addObject("circleCountByRole", circleCountByRole);
+				//model.addObject("laCount",laCount);
+				//model.addObject("ccCount",ccCount);
+				//model.addObject("saCount",saCount);
+				model.addObject("circleUserCount",circleUserCount);
 				
 				model.setViewName("userlistLA");
 			}			
@@ -68,6 +70,7 @@ public class UserManagementController {
 				int cmfCount= userService.findCMFCount();
 				int laCount= userService.findLACount();
 				int saCount= userService.findSACount();
+				int circleUserCount = userService.findCircleUserCount();
 				
 				model.addObject("cmfCount",cmfCount);
 				model.addObject("cmsCount", cmsCount);
@@ -75,6 +78,7 @@ public class UserManagementController {
 				model.addObject("laCount",laCount);
 				model.addObject("ccCount",ccCount);
 				model.addObject("saCount",saCount);
+				model.addObject("circleUserCount",circleUserCount);
 				model.setViewName("userlist");
 			}
 		} catch (Exception e) {
@@ -82,6 +86,37 @@ public class UserManagementController {
 		}
 		return model;
 	}
+	
+	@RequestMapping(value = { "/km/userListCC" })
+	public ModelAndView userListCC(HttpSession session) {
+		ModelAndView model = new ModelAndView("userlistCC");
+		try {			
+			UserDto user = (UserDto) session.getAttribute("userObj");
+			System.out.println("userList");
+			List<UserManagementDto> userList = userService.findAllUsers(user);
+			model.addObject("usersList", userList);
+				
+				int cmsCount=userService.findCMSCount();
+				int circleCount=userService.findCircleCount();
+				int ccCount=userService.findCCCount();
+				int cmfCount= userService.findCMFCount();
+				int laCount= userService.findLACount();
+				int saCount= userService.findSACount();
+				
+				model.addObject("cmfCount",cmfCount);
+				model.addObject("cmsCount", cmsCount);
+				model.addObject("circleCount", circleCount);
+				model.addObject("laCount",laCount);
+				model.addObject("ccCount",ccCount);
+				model.addObject("saCount",saCount);				
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return model;
+	}
+	
+
 	
 	
 	@RequestMapping(value = "/users/get", params = { "page", "size" ,"type"}, method = RequestMethod.GET, produces = "application/json")
@@ -94,7 +129,7 @@ public class UserManagementController {
 			resultPage= userService.findPaginatedCount(page, size, type);
 		}else if(type.equals("CMS")){
 			resultPage= userService.findPaginatedCount(page, size, type);
-		}else if(type.equalsIgnoreCase("MUMBAI")){
+		}else if(type.equalsIgnoreCase("C")){
 			resultPage= userService.findPaginatedCount(page, size, type);
 		}else if(type.equals("LA")){
 			resultPage= userService.findPaginatedCount(page, size, type);
@@ -110,6 +145,28 @@ public class UserManagementController {
 		}
 		 return resultPage;
 		    }
+	
+	@RequestMapping(value = "/usersByCircle/get", params = { "page", "size" ,"type"}, method = RequestMethod.GET, produces = "application/json")
+	public Page<UserManagementDto> findPaginatedByCircle(
+		      @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("type") String type) {
+		 
+		System.out.println("type=========Yogesh========="+type);
+		 Page<UserManagementDto> resultPage = null;
+		if(type.equals("CMF")){
+			resultPage= userService.findPaginatedCountByCircle(page, size, type);
+		}else if(type.equals("CMS")){
+			resultPage= userService.findPaginatedCountByCircle(page, size, type);
+		}else if(type.equalsIgnoreCase("C")){
+			resultPage= userService.findPaginatedCountByCircle(page, size, type);
+		}else if(type.equals("LA")){
+			resultPage= userService.findPaginatedCountByCircle(page, size, type);
+		}else{
+	      resultPage = userService.findPaginatedByCircle(page, size);
+		    if (page > resultPage.getTotalPages()){
+		        }
+		}
+		 return resultPage;
+	}
 	
 	
 

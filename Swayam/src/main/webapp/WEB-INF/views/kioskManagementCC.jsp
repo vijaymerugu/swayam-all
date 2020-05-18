@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="/resources/css/ui-grid.4.8.3.min.css">
 
 <script	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
-<script src="/resources/js/kiosks-km-app.js"></script>
+<script src="/resources/js/kiosks-km-app-cc.js"></script>
 <link rel="stylesheet" href="/resources/css/grid-style.css"/>
 <link rel="stylesheet" href="/resources/css/body-page.css"/>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 

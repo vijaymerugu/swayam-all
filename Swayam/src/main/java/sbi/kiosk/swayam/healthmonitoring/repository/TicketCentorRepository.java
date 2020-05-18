@@ -48,4 +48,16 @@ public Page<TicketCentor> findAllByRisk(@Param("high") String high,@Param("mediu
 	   	public String findByTicketId(@Param("kiosk_id")String kisokid);	
 	    
 	    Page<TicketCentor> findByCallSubCategory(@Param("callSubCategory") String callSubCategory, Pageable pageable);
+	    
+	    @Query(value="select * from TBL_TICKET_CENTRE WHERE KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_KIOSK_MASTER WHERE CIRCLE=:circle)", nativeQuery = true)
+	Page<TicketCentor> findAllByCircle(@Param("circle") String circle, Pageable pageable);
+	    
+	    @Query(value="select * from TBL_TICKET_CENTRE a  ,tbl_CALL_TYPE b  where a.CALL_CATEGORY=b.CATEGORY " + 
+	              " and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  and  B.RISK IN(:type) and a.KIOSK_ID in (SELECT KIOSK_ID FROM TBL_KIOSK_MASTER WHERE CIRCLE=:circle)" , nativeQuery = true)
+	Page<TicketCentor> findAllByCircleAndType(@Param("circle") String circle,@Param("type") String type, Pageable pageable);
+	    
+	    @Query(value="select * from TBL_TICKET_CENTRE a  ,tbl_CALL_TYPE b  where a.CALL_CATEGORY=b.CATEGORY " + 
+	            " and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  and  B.RISK IN(:high,:medium,:low) and a.KIOSK_ID in (SELECT KIOSK_ID FROM TBL_KIOSK_MASTER WHERE CIRCLE=:circle)", nativeQuery = true)
+	   public Page<TicketCentor> findAllByRiskByCircle(@Param("circle") String circle,@Param("high") String high,@Param("medium") String medium,@Param("low") String low, Pageable pageable);
+
 }

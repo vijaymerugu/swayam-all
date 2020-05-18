@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.persistence.Column;
+
 import lombok.Data;
 import sbi.kiosk.swayam.common.entity.User;
 
@@ -51,6 +53,8 @@ public class UserManagementDto  {
 		this.modifiedBy = user.getModifiedBy();;
 		this.mobileNo = user.getPhoneNo();	
 		this.circle = user.getCircle();
+		this.reportingAuthorityName=user.getReportingAuthorityName();
+		this.reportingAuthorityEmail=user.getReportingAuthorityEmail();
 		
 	}
 
@@ -115,8 +119,11 @@ public class UserManagementDto  {
 	
 	private String circle;
 	
-
-
 	
+	private String noOfAssignedKiosks;
+	
+	private String reportingAuthorityName;	
+	
+	private String reportingAuthorityEmail;
 
 }

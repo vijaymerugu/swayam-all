@@ -11,7 +11,7 @@ overflow-y: scroll;
 overflow-x: scroll;
 }
 .submain{
-top: 1000px;
+top: 242px;
 left: 8px;
 width: 1352px;
 height: 519px;
@@ -24,7 +24,20 @@ table.table1 {
   top: 152px;
 left: 15px;
 width: 1336px;
-height: 156px;
+height: 90px;
+background: #FFFFFF 0% 0% no-repeat padding-box;
+box-shadow: 0px 3px 6px #8D8D8D29;
+opacity: 1;
+border-collapse: separate;
+border-spacing: 0em;
+border-spacing: 0;
+padding:7px;
+}
+.subTable {
+  top: 152px;
+left: 15px;
+width: 1336px;
+height: 90px;
 background: #FFFFFF 0% 0% no-repeat padding-box;
 box-shadow: 0px 3px 6px #8D8D8D29;
 opacity: 1;

@@ -52,7 +52,7 @@ public class LoginController{
 		
 		UserDto userObj = loginService.getRoleByUsername(pfId);
 		
-		session.setAttribute("pfId", pfId);
+		session.setAttribute("pfId", userObj.getPfId());
 		session.setAttribute("userObj", userObj);
 		
 		

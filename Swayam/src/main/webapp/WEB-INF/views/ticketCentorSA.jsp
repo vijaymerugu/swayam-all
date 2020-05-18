@@ -137,8 +137,7 @@
 
 		
 
-			<div
-				style="top: 152px; left: 15px; width: 1336px; height: 190px; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1;">
+			<div class="subTable">
 
 
 				<div class="col-md-6">
@@ -215,16 +214,16 @@
 						<tbody
 							style="color: #13A8E0; font-size: 20px; font-weight: bold; width: 12px;">
 							<tr>
-								<td align="center"
+								<td align="left"
 									style="color: #13A8E0; font-size: 20px; font-weight: bold;"
 									width="12%"><a id="high" ng-click="getCountType('High')"><c:out
 											value="${mapDataList['High']}" /></a></td>
-								<td align="center"
+								<td align="left"
 									style="color: #13A8E0; font-size: 20px; font-weight: bold;"
 									width="12%"><a id="countMedium"
 									ng-click="getCountType('Medium')"><c:out
 											value="${mapDataList['Medium']}" /></a></td>
-								<td align="center"
+								<td align="left"
 									style="color: #13A8E0; font-size: 20px; font-weight: bold;"
 									width="12%"><a id="countLow"
 									ng-click="getCountType('Low')"><c:out
@@ -237,12 +236,12 @@
 							</tr>
 						</tbody>
 
-						<thead style="font-size: 11px;">
+						<thead style="font-size: 11px; width: 12px;">
 							<tr>
 								<th colspan="1" width="12%">High</th>
-								<th colspan="1" align="center">Medium</th>
-								<th colspan="1" align="center">Low</th>
-								<th colspan="1" align="center">total</th>
+								<th colspan="1" width="12%">Medium</th>
+								<th colspan="1" width="12%">Low</th>
+								<th colspan="1" width="12%">total</th>
 							</tr>
 						</thead>
 					</table>
@@ -250,15 +249,15 @@
 
 			</div>
 
-			<br></br>
+			<br/>
 
 			<!--  -->
 
 
-			<div style="top: 1000px; left: 15px; width: 300px; height: 519px; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1; border: 1px solid black #eee;">
+			<div style="top: 242px; left: 15px; width: 300px; height: 519px; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1; border: 1px solid black #eee;padding:7px;">
 
 	
-<header style="top: 366px;left: 33px;width: 309px;height: 20px;text-align: left;font: Medium 17px/20px Effra;letter-spacing: 0;color: #000000;opacity: 1; text-align: center;">Call Category : Overall Summary of errors</header>
+<header style="top: 366px;left: 33px;width: 309px;height: 20px;text-align: left;font: Medium 17px/20px Effra;letter-spacing: 0;color: #000000;opacity: 1; text-align: center;"><b>Call Category : Overall Summary of errors</b></header>
 <br>
 <div class="container">
 
@@ -332,11 +331,11 @@
 
 
 			<div
-				style="width: 1036px; height: 346px; position: absolute; top: 890px; bottom: 910px; left: 311px; right: 1036px; margin: auto; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1; border: 1px solid black #eee;">
+				style="width: 1036px; height: 346px; position: absolute; top: 648px; bottom: 910px; left: 311px; right: 1036px; margin: auto; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1; border: 1px solid black #eee;padding:7px;">
 
 				<div style="border-bottom: 1px solid #eee;">
 					<span class="fa fa-search form-control-feedback" id="catsandstars"></span>
-					<input class="form-group has-search" ng-model="searchText"	ng-change="refresh()" placeholder=" Enter Vendor Name,Branch Code,Ticket Id,Kiosk ID.."	id="input"> <br /> <br />
+					<input class="form-group has-search" ng-model="searchText"	ng-change="refresh()" placeholder=" Enter Vendor Name,Branch Code,Ticket Id,Kiosk ID.."	id="input"> <br />
 
 					<div
 						style="top: 355px; left: 15px; width: 1336px; height: 519px; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1;"

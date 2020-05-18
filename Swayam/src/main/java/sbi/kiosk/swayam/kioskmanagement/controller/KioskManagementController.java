@@ -184,14 +184,48 @@ public class KioskManagementController {
 		    }
 	
 	
+	@RequestMapping(value = "/kiosksByCircle/get", params = { "page", "size" ,"type"}, method = RequestMethod.GET, produces = "application/json")
+	public Page<KioskBranchMasterUserDto> findPaginatedByCircle( 
+		      @RequestParam("page") int page, @RequestParam("size") int size,@RequestParam("type") String type) {
+		 
+		
+		System.out.println("type===11==============="+type);
+
+			 Page<KioskBranchMasterUserDto> resultPage;
+			if(type.equals("InstalledKiosks")){
+			    resultPage= kioskManagementService.findPaginatedByCircle(page, size);
+			}else if(type.equals("CMS")){
+				resultPage= kioskManagementService.findPaginatedCountByCircle(page, size, type);
+			}else if(type.equals("LIPI")){
+				resultPage= kioskManagementService.findPaginatedCountByCircle(page, size, type);
+			}else if(type.equalsIgnoreCase("InstalledCMSVendor")){
+				resultPage= kioskManagementService.findPaginatedCountByCircle(page, size, type);
+			}else if(type.equals("DeleviredCMSVendor")){
+				resultPage= kioskManagementService.findPaginatedCountByCircle(page, size, type);
+			}else if(type.equals("InstalledLIPIVendor")){
+				resultPage= kioskManagementService.findPaginatedCountByCircle(page, size, type);
+			}else if(type.equals("DeleviredLIPIVendor")){
+			   resultPage= kioskManagementService.findPaginatedCountByCircle(page, size, type);
+		    }else{
+		         resultPage = kioskManagementService.findPaginatedByCircle(page, size);
+		        if (page > resultPage.getTotalPages()) {
+		            //throw new MyResourceNotFoundException();
+		        }
+		        return resultPage;
+		    }
+		        return resultPage;
+		    }
+
+	
+	
 	
 	@RequestMapping(value ="/km/assignCmfForKiosk")
-	public ModelAndView getAssignCmfForKiosk( @RequestParam(value="kioskId") String kioskId,ModelAndView model) {	
-		
+	public ModelAndView getAssignCmfForKiosk( @RequestParam(value="kioskId") String kioskId,ModelAndView model,HttpSession session) {	
+		UserDto user = (UserDto) session.getAttribute("userObj");
 		System.out.println("Assign CMF KISK=======kioskId===="+kioskId);
 		
 		KioskBranchMasterUserDto kioskDto = kioskManagementService.getKiosksFromKioskBranchMasterByKioskId(kioskId);
-		List<User> usersList = userService.fetchAllCmfUserByCircle(kioskDto.getCircle());
+		List<User> usersList = userService.fetchAllCmfUserByCircle(user.getCircle());
 		//return kioskManagementService.fetchAllKiosksByCircleAndNotInUserKioskMapping(user.getCircle());
 		model.setViewName("assignCmfForKiosk");
 		model.addObject("kioskDto", kioskDto);

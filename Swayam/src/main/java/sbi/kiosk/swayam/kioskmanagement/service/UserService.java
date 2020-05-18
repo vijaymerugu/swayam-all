@@ -24,8 +24,12 @@ public interface UserService extends IOperations<UserManagementDto>{
 	int findCircleCount();
 	int findCMSCount();
 	int findCMFCount();
+	int findCircleUserCount();
     int findCircleCountByRole(String circle);
 	AddUserDto findUserByUserId(String userId);
+	int findCircleUserCountByCircle();
+	int findCMSCountByCircle();
+	int findCMFCountByCircle();
 	
 	
 

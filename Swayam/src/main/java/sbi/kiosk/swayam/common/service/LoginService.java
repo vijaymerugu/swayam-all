@@ -35,6 +35,7 @@ public class LoginService {
 	public UserDto getRoleByUsername(String pfId) {
 		
 		User user = userRepository.findByPfId(pfId);
+		//User user = userRepository.findByUsername(pfId);
 		UserDto userDto = new UserDto(user);
 		return userDto;
 		

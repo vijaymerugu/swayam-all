@@ -47,12 +47,24 @@ public class ViewResolverController {
 	@RequestMapping("/km/kioskManagement")
 	public ModelAndView kioskManagement(ModelAndView mav) {
 		Map<String, Integer> mapDataCount = null;
-		mapDataCount = kioskManagementService.findAllKioskMasterCount();
+		mapDataCount = kioskManagementService.findAllKioskMasterCountByCircle();
 		if (mapDataCount != null && !mapDataCount.isEmpty()) {
 			mav.addObject("mapDataCount", mapDataCount);
 		}
 
 		mav.setViewName("kioskManagement");
+		return mav;
+	}
+	
+	@RequestMapping("/km/kioskManagementCC")
+	public ModelAndView kioskManagementCC() {
+		ModelAndView mav = new ModelAndView("kioskManagementCC");	
+		Map<String, Integer> mapDataCount = null;
+		mapDataCount = kioskManagementService.findAllKioskMasterCount();
+		if (mapDataCount != null && !mapDataCount.isEmpty()) {
+			mav.addObject("mapDataCount", mapDataCount);
+		}
+			
 		return mav;
 	}
 
@@ -72,6 +84,24 @@ public class ViewResolverController {
 			mav.addObject("ageingMapDataList", ageingMapDataList);
 		}
 		mav.setViewName("ticketCentor");
+		return mav;
+	}
+	
+	@RequestMapping("/hm/ticketcentorByCircle")
+	public ModelAndView ticketCentorByCircle(ModelAndView mav) {
+
+		Map<String, Integer> mapDataList = null;
+		mapDataList = ticketCentorService.findAllSeverityOfTicketsCountByCircle();
+		if (mapDataList != null && !mapDataList.isEmpty()) {
+			mav.addObject("mapDataList", mapDataList);
+		}
+		
+		Map<String, Integer> ageingMapDataList = null;
+		ageingMapDataList = ticketCentorService.findAllAgeingOfTicketsCountByCircle();
+		if (ageingMapDataList != null && !ageingMapDataList.isEmpty()) {
+			mav.addObject("ageingMapDataList", ageingMapDataList);
+		}
+		mav.setViewName("ticketCentorCU");
 		return mav;
 	}
 

@@ -53,5 +53,35 @@ public interface KioskMasterRepository extends CrudRepository<KioskBranchMaster,
 	
 	KioskBranchMaster findByKioskId(String kiosId);
 	
+	@Query(value ="SELECT count(KIOSK_ID) FROM TBL_KIOSK_MASTER WHERE KIOSK_ID IS NOT NULL AND CIRCLE=:circle",nativeQuery=true)
+	int findKioskMasterCount(@Param("circle") String circle);
 	
+	@Query(value ="SELECT COUNT(*) FROM TBL_KIOSK_MASTER WHERE VENDOR IN('CMS') AND CIRCLE=:circle",nativeQuery=true)
+	int findKioskCMSMasterCount(@Param("circle") String circle);
+	
+	@Query(value =" SELECT COUNT(*) FROM  TBL_KIOSK_MASTER WHERE VENDOR IN('LIPI') AND CIRCLE=:circle",nativeQuery=true)
+	int findKioskLIPIMasterCount(@Param("circle") String circle);
+	
+	@Query(value ="SELECT count(*) FROM TBL_KIOSK_MASTER WHERE CIRCLE=:circle",nativeQuery=true)
+	int findTotalKioskMasterCount(@Param("circle") String circle);
+	
+	@Query(value ="SELECT COUNT(*) FROM  TBL_KIOSK_MASTER WHERE INSTALLATION_STATUS IN('Installed') and VENDOR IN('CMS') AND CIRCLE=:circle",nativeQuery=true)
+	int findInstalledStatusCMSVendorWiseCount(@Param("circle") String circle);
+	
+	@Query(value ="SELECT COUNT(*) FROM  TBL_KIOSK_MASTER WHERE INSTALLATION_STATUS IN('Pending') and VENDOR IN('CMS') AND CIRCLE=:circle",nativeQuery=true)
+	int findDeliveredStatusCMSVendorWiseCount(@Param("circle") String circle);
+	
+	@Query(value ="SELECT COUNT(*) FROM  TBL_KIOSK_MASTER WHERE INSTALLATION_STATUS IN('Installed') and VENDOR IN('LIPI') AND CIRCLE=:circle",nativeQuery=true)
+	int findInstalledStatusLIPIVendorWiseCount(@Param("circle") String circle);
+	
+	@Query(value ="SELECT COUNT(*) FROM  TBL_KIOSK_MASTER WHERE INSTALLATION_STATUS IN('Pending') and VENDOR IN('LIPI') AND CIRCLE=:circle",nativeQuery=true)
+	int findDeliveredStatusLIPIVendorWiseCount(@Param("circle") String circle);
+	
+	@Query(value =" SELECT COUNT(KIOSK_ID)  FROM  TBL_USER_KIOSK_MAPPING WHERE KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_KIOSK_MASTER WHERE CIRCLE=:circle)",nativeQuery=true)
+	int findAssignedCount(@Param("circle") String circle);
+	
+	@Query(value ="select count(KIOSK_ID) from TBL_KIOSK_MASTER where CIRCLE=:circle AND  KIOSK_ID  not in ( SELECT KIOSK_ID FROM  TBL_USER_KIOSK_MAPPING) ",nativeQuery=true)
+	int findToBeAssignedCount(@Param("circle") String circle);
+	
+
 }

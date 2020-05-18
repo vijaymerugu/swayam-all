@@ -1,4 +1,3 @@
-angular.element(document).ready(function() {	
 var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter']);
 
 app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService', function ($scope, $filter,UserManagementService) {
@@ -7,14 +6,15 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	 pageSize: 5,
 	 sort: null
    };
+   
    var counttype = "";
    $scope.loadHomeBodyPageForms = function(url){	   
 		if(url != undefined){	
-			var str ='/km/editUserMasterLA?userId=' + url;
+			var str ='/km/editUserMaster?userId=' + url;
 			$("#contentHomeApp").load(str);
 		}						
 	}
-  $scope.loadHomeBodyPageFormsDel = function(url){	   
+   $scope.loadHomeBodyPageFormsDel = function(url){	   
 		if(url != undefined){	
 			var str ='/km/deleteUserMaster?userId=' + url;
 			$("#contentHomeApp").load(str);
@@ -30,6 +30,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 				 	  $scope.gridOptions.totalItems = data.totalElements;
 				   });
 	}
+   
    
    $scope.refresh = function()
    {  		if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
@@ -49,8 +50,8 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    
    $scope.gridOptions = {
     paginationPageSizes: [5, 10, 20],
-    paginationPageSize: paginationOptions.pageSize,
-    enableColumnMenus:false,
+    paginationPageSize: paginationOptions.pageSize,	
+	enableColumnMenus:false,
 	useExternalPagination: true,
 	enableGridMenu: true,
 	exporterMenuCsv: false,
@@ -65,28 +66,11 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
       },
 
     columnDefs: [
-      { name: 'userId', displayName: 'SrNo'  },
+      { name: 'userId', displayName: 'Sr No'  },
       { name: 'pfId', displayName: 'PF ID'  },
       { name: 'username', displayName: 'Username'  },      
       { name: 'role', displayName: 'Role'  },
-      { name: 'noOfAssignedKiosks', displayName: 'No of Assigned Kiosks'  },
-      { name: 'reportingAuthorityName', displayName: 'Reporting Authority'  },
-      { name: 'Edit',
-    	  exporterSuppressExport: true,
-    	  headerCellTemplate: '<div></div>',
-    	  cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.userId)">Edit</a></div>'
-      },
-      { name: 'Delete',
-    	  exporterSuppressExport: true,
-    	  headerCellTemplate: '<div></div>',
-    	  cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.loadHomeBodyPageFormsDel(row.entity.userId)">Delete</a></div>'
-      },
-      { name: 'Assign',
-    	  exporterSuppressExport: true,
-    	  displayName: 'Assign Kiosk',
-    	  headerCellTemplate: '<div></div>',
-          cellTemplate: '<div class="ui-grid-cell-contents" id="myBtn"><div ng-if="row.entity.role == \'CMF\' && row.entity.noOfAssignedKiosks > 0"><a data-href="/km/userkioskmappingpopup?username="+{{ row.entity.userId }} data-val="{{ row.entity.pfId }}" class="openPopup">DeMap Kiosks</a></div></div>'
-      }
+      { name: 'reportingAuthorityName', displayName: 'Reporting Authority'  }
     ],
     onRegisterApi: function(gridApi) {
         $scope.gridApi = gridApi;
@@ -106,11 +90,11 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 
 app.service('UserManagementService',['$http', function ($http) {
 	
-	function getUsers(pageNumber,size,counttype) {		
+	function getUsers(pageNumber,size,counttype) {
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({
           method: 'GET',
-          url: '/usersByCircle/get?page='+pageNumber+'&size='+size+'&type='+counttype
+          url: '/users/get?page='+pageNumber+'&size='+size+'&type='+counttype
         });
     }
 	
@@ -119,6 +103,3 @@ app.service('UserManagementService',['$http', function ($http) {
     };
 	
 }]);
-
-angular.bootstrap(document.getElementById("appId"), ['app']);
-});

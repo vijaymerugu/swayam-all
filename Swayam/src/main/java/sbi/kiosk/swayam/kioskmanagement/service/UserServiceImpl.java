@@ -3,17 +3,23 @@ package sbi.kiosk.swayam.kioskmanagement.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import sbi.kiosk.swayam.common.dto.AddUserDto;
 import sbi.kiosk.swayam.common.dto.UserDto;
 import sbi.kiosk.swayam.common.dto.UserManagementDto;
+import sbi.kiosk.swayam.common.entity.Supervisor;
 import sbi.kiosk.swayam.common.entity.User;
+import sbi.kiosk.swayam.common.repository.SupervisorRepository;
 import sbi.kiosk.swayam.common.repository.UserRepositoryPaging;
+import sbi.kiosk.swayam.kioskmanagement.repository.UserKioskMappingRepository;
 import sbi.kiosk.swayam.kioskmanagement.repository.UsersRepository;
 
 @Service
@@ -24,6 +30,17 @@ public class UserServiceImpl implements UserService {
 	 
 	 @Autowired
 	 UserRepositoryPaging userRepositoryPagingRepo;
+	 
+	 @Autowired
+	 UserKioskMappingRepository userKioskMappingRepository;
+	 
+	 @Autowired
+	 SupervisorRepository supervisorRepository;
+	 
+	 public static HttpSession session() {
+	        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+	        return attr.getRequest().getSession(true); // true == allow create
+	    }
 
 	 @Override
 	public List<UserManagementDto> findAllUsers(UserDto userDto) {
@@ -58,38 +75,137 @@ public class UserServiceImpl implements UserService {
 		 Page<UserManagementDto> entities = 
 				 userRepositoryPagingRepo.findByEnabled("1",PageRequest.of(page, size))
 				 .map(UserManagementDto::new);
-		 //Page<UserManagementDto> entitiesNew  = new PageImpl<UserManagementDto>(userManaDTOList);
-		 /*for(User user:userList){
-			 if(user.getEnabled().equals("1")){
-				 entitiesNew.add(new UserManagementDto(user));
+		 if(entities !=null){
+			 for(UserManagementDto dto:entities){
+				 if(dto.getPfId() !=null && dto.getPfId() !="" && dto.getRole().equals("CMF")){
+					 int kioskCountCmf = userKioskMappingRepository.findKiosksCountByPfId(dto.getPfId());
+					 dto.setNoOfAssignedKiosks(String.valueOf(kioskCountCmf));
+				 }
+				 else if(dto.getPfId() !=null && dto.getPfId() !="" && dto.getRole().equals("CMS")){
+					 int total = 0;
+					 List<Supervisor> supList =  supervisorRepository.findBySupervisorPfId(dto.getPfId());
+					 
+					 if(supList !=null && supList.size() > 0){
+						 for(Supervisor sup:supList){
+							 int kioskCountCmf = userKioskMappingRepository.findKiosksCountByPfId(sup.getPfId());
+							 total = total + kioskCountCmf;
+						 }
+					 }
+					 if(total !=0){
+						 dto.setNoOfAssignedKiosks(String.valueOf(total));
+					 }				 
+					 						
+				 }
 			 }
-		 }*/
-		 /*Page<UserManagementDto> entities = 
-				 UserRepositoryPagingRepo.findAll(PageRequest.of(page, size))
-				 .stream()
-				 .filter(e -> e.getEnabled().equals("1"))
-				 .map(UserManagementDto::new).collect(Collectors.toCollection(Page::new));*/
-		 
-		 /*if(userList!=null && !userList.isEmpty() && userList.size()>0){
-			   for(User userEntity:userList){
-			      userManaDTOList.add(new UserManagementDto(userEntity));
-			
-			}
-		}*/
-		 //Page<UserManagementDto> pageDto = new PageImpl<UserManagementDto>(userList, PageRequest.of(page, size), userList.getSize());
-		 	return entities;
+		 }		 
+		   return entities;
 	    }
+	 
+	 @Override
+	    public Page<UserManagementDto> findPaginatedByCircle(int page, int size) {
+		// List<UserManagementDto> userManaDTOList=new ArrayList<UserManagementDto>();
+		// Page<User> userList = userRepositoryPagingRepo.findAll(PageRequest.of(page, size));
+		 UserDto user = (UserDto) session().getAttribute("userObj");
+		 List<String> roleList= new ArrayList<String>();
+		 roleList.add("LA");
+		 roleList.add("SA");
+		 roleList.add("CC");
+		 
+		 Page<UserManagementDto> entities = 
+				 userRepositoryPagingRepo.findByCircleAndEnabledAndRoleNotIn(user.getCircle(),"1",roleList,PageRequest.of(page, size))
+				 .map(UserManagementDto::new);
+		 if(entities !=null){
+			 for(UserManagementDto dto:entities){
+				 if(dto.getPfId() !=null && dto.getPfId() !="" && dto.getRole().equals("CMF")){
+					 int kioskCountCmf = userKioskMappingRepository.findKiosksCountByPfId(dto.getPfId());
+					 dto.setNoOfAssignedKiosks(String.valueOf(kioskCountCmf));
+				 }
+				 else if(dto.getPfId() !=null && dto.getPfId() !="" && dto.getRole().equals("CMS")){
+					 int total = 0;
+					 List<Supervisor> supList =  supervisorRepository.findBySupervisorPfId(dto.getPfId());
+					 
+					 if(supList !=null && supList.size() > 0){
+						 for(Supervisor sup:supList){
+							 int kioskCountCmf = userKioskMappingRepository.findKiosksCountByPfId(sup.getPfId());
+							 total = total + kioskCountCmf;
+						 }
+					 }
+					 if(total !=0){
+						 dto.setNoOfAssignedKiosks(String.valueOf(total));
+					 }				 
+					 						
+				 }
+			 }
+		 }		 
+		   return entities;
+	    }
+
 	 
 	 @SuppressWarnings("deprecation")
 	    @Override
 	    public Page<UserManagementDto> findPaginatedCount(int page, int size,String type) {
 		System.out.println("type=============findPaginatedCount=================================="+type); 
-		Page<UserManagementDto> entities =null;
-		if(!type.equals("MUMBAI")){
-	       entities =userRepositoryPagingRepo.findByRoleAndEnabled(type,"1",PageRequest.of(page, size)).map(UserManagementDto::new);
-	    }else{
-	    	 entities =userRepositoryPagingRepo.findByCircleAndEnabled(type,"1",PageRequest.of(page, size)).map(UserManagementDto::new);
+		Page<UserManagementDto> entities =null;		
+	    entities =userRepositoryPagingRepo.findByRoleAndEnabled(type,"1",PageRequest.of(page, size)).map(UserManagementDto::new);
+	    
+		if(entities !=null){
+			 for(UserManagementDto dto:entities){
+				 if(dto.getPfId() !=null && dto.getPfId() !="" && dto.getRole().equals("CMF")){
+					 int kioskCountCmf = userKioskMappingRepository.findKiosksCountByPfId(dto.getPfId());
+					 dto.setNoOfAssignedKiosks(String.valueOf(kioskCountCmf));
+				 }
+				 else if(dto.getPfId() !=null && dto.getPfId() !="" && dto.getRole().equals("CMS")){
+					 int total = 0;
+					 List<Supervisor> supList =  supervisorRepository.findBySupervisorPfId(dto.getPfId());
+					 
+					 if(supList !=null && supList.size() > 0){
+						 for(Supervisor sup:supList){
+							 int kioskCountCmf = userKioskMappingRepository.findKiosksCountByPfId(sup.getPfId());
+							 total = total + kioskCountCmf;
+						 }
+					 }
+					 if(total !=0){
+						 dto.setNoOfAssignedKiosks(String.valueOf(total));
+					 }				 
+					 						
+				 }
+			 }
+		 }
+		
+		 return entities;
 	    }
+	 
+	 @Override
+	    public Page<UserManagementDto> findPaginatedCountByCircle(int page, int size,String type) {
+		System.out.println("type=============findPaginatedCount=================================="+type); 
+		UserDto user = (UserDto) session().getAttribute("userObj");
+		Page<UserManagementDto> entities =null;		
+	    entities =userRepositoryPagingRepo.findByCircleAndRoleAndEnabled(user.getCircle(),type,"1",PageRequest.of(page, size)).map(UserManagementDto::new);
+	    
+		if(entities !=null){
+			 for(UserManagementDto dto:entities){
+				 if(dto.getPfId() !=null && dto.getPfId() !="" && dto.getRole().equals("CMF")){
+					 int kioskCountCmf = userKioskMappingRepository.findKiosksCountByPfId(dto.getPfId());
+					 dto.setNoOfAssignedKiosks(String.valueOf(kioskCountCmf));
+				 }
+				 else if(dto.getPfId() !=null && dto.getPfId() !="" && dto.getRole().equals("CMS")){
+					 int total = 0;
+					 List<Supervisor> supList =  supervisorRepository.findBySupervisorPfId(dto.getPfId());
+					 
+					 if(supList !=null && supList.size() > 0){
+						 for(Supervisor sup:supList){
+							 int kioskCountCmf = userKioskMappingRepository.findKiosksCountByPfId(sup.getPfId());
+							 total = total + kioskCountCmf;
+						 }
+					 }
+					 if(total !=0){
+						 dto.setNoOfAssignedKiosks(String.valueOf(total));
+					 }				 
+					 						
+				 }
+			 }
+		 }
+		
 		 return entities;
 	    }
 	 
@@ -216,6 +332,22 @@ public class UserServiceImpl implements UserService {
 		}
 	    
 	    @Override
+		public int findCMSCountByCircle() {
+	    	UserDto user = (UserDto) session().getAttribute("userObj");
+	    	int cmsCount=userRepo.findCMSCountByCircle(user.getCircle());
+	    	System.out.println("cmsCount:: "+cmsCount);
+			return cmsCount;
+		}
+	    
+	    @Override
+		public int findCMFCountByCircle() {
+	    	UserDto user = (UserDto) session().getAttribute("userObj");
+	    	int cmsCount=userRepo.findCMFCountByCircle(user.getCircle());
+	    	System.out.println("cmsCount:: "+cmsCount);
+			return cmsCount;
+		}
+	    
+	    @Override
 		public int findCircleCount() {
 	    	int circleCount=userRepo.findCircleCount();
 	    	System.out.println("circleCount:: "+circleCount);
@@ -239,6 +371,20 @@ public class UserServiceImpl implements UserService {
 	    	int saCount=userRepo.findSACount();
 			return saCount;
 		}
+	    
+	    @Override
+		public int findCircleUserCount() {
+	    	int circleUserCount=userRepo.findCircleUserCount();
+			return circleUserCount;
+		}
+	    
+	    @Override
+		public int findCircleUserCountByCircle() {
+	    	UserDto user = (UserDto) session().getAttribute("userObj");
+	    	int circleUserCount=userRepo.findCircleUserCountByCircle(user.getCircle());
+			return circleUserCount;
+		}
+
 	    
 	    @Override
 	    public int findCircleCountByRole(String circle){
