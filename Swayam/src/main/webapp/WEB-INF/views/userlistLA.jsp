@@ -70,6 +70,7 @@
     <td id="noOfUsers" colspan="6">No of users</td>
   </tr>
     <tr>
+    <td id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"><a ng-click="getCountType('LA')">${laCount}</a></td>
     <td id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"><a ng-click="getCountType('CMF')">${cmfCount}</a></td> 
     <td id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"> <a ng-click="getCountType('CMS')"> ${cmsCount}</a>  </td> 
 	<td id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"> <a ng-click="getCountType('C')">${circleUserCount}</a></td>   
@@ -77,6 +78,7 @@
   </tr>
   <tr>
   <!-- Yogesh User Circle Wise -->
+    <td id="count2" style="color: black; border-right: solid 2px #faf5f6;">Local Admin</td>   
     <td id="count2" style="color: black; border-right: solid 2px #faf5f6;">CMF</td> 
 	<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">CMS</td>   
 	<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">Circle</td>   	

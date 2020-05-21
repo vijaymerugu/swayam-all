@@ -327,7 +327,7 @@ element.style {
 
 function fromValidation(){
 	//  ("form validation call ");
-    debugger;	
+    //debugger;	
 	var errorList=[];
 	var pfId=$("#pfId").val();
 	var userName=$("#username").val();
@@ -336,6 +336,7 @@ function fromValidation(){
 	var reportingAuthorityName=$("#reportingAuthorityName").val(); 
 	var reportingAuthorityEmail=$("#reportingAuthorityEmail").val();
 	var role=$("#role").val();
+	var circle=$("#circle").val();
     
 	if(pfId==""){
 		 errorList.push("Please enter pfId");
@@ -383,6 +384,9 @@ function fromValidation(){
 	 if(role=="Select"){
 		 errorList.push("Please select valid role ");		 
 	 }
+	 if(circle=="Select" && role !="SA" && role !="CC"){
+		 errorList.push("Please select valid Circle ");		 
+	 }
 	 return errorList;
 }
 
@@ -391,11 +395,11 @@ function fromValidation(){
 
 <script> 
 $(document).ready(function(){
-	debugger;
+	//debugger;
 	var respos='';
 	var errorList=[];
 	$('#pfId').blur(function(){
-		debugger;
+		//debugger;
 		 var pfId=$("#pfId").val();
 		 document.getElementById("pfId").innerHTML=pfId;
 		 if(pfId !=null && pfId !=""){
@@ -453,6 +457,7 @@ $(document).ready(function(){
 		$("#reportingAuthorityName12").html("");		
 		$("#reportingAuthorityEmail12").html("");
 		$("#role12").html("");
+		$("#circle12").html("");
 		//$.each(errorList, function(index) {
 			
 			if($("#emailId").val()==""){
@@ -504,6 +509,9 @@ $(document).ready(function(){
 			if($("#role").val()=="Select"){
 				$("#role12").html("Please Select valid Role");
 			}
+			if($("#circle").val()=="Select" && $("#role").val() !="SA" && $("#role").val() !="CC"){
+				$("#circle12").html("Please Select valid Circle");
+			}
 		//});
 
 	}
@@ -512,7 +520,7 @@ $(document).ready(function(){
 	
 	function saveform() {
 		//  ("123");
-		debugger;
+		//debugger;
 		
 		 var errorlist=fromValidation();
 		 //  (errorlist);
@@ -530,6 +538,7 @@ $(document).ready(function(){
 				$("#reportingAuthorityName12").html("");		
 				$("#reportingAuthorityEmail12").html("");
 				$("#role12").html("");
+				$("#circle12").html("");
 		
 		var modal = document.getElementById("myModal");
 		var span = document.getElementsByClassName("close")[0];
@@ -637,11 +646,6 @@ $(document).ready(function(){
 						<td><span id="emailId12" style="color: red"></span></td>
 					</tr>
 					<tr>
-
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
 						<td style="top: 352px; width: 190px; height: 75px;opacity: 1;"><b style="color: purple">Role</b><b><span
 							 	style="color: red">*</span></b></td>
 						<td><form:select path="role" id="role" value="${addUser.role}" style="color:blue">
@@ -650,14 +654,29 @@ $(document).ready(function(){
 									<form:option value="${list.role}">${list.roleDescription}</form:option>
 								</c:forEach>
 							</form:select></td>
+						<td></td>
+						<td></td>
+						<td colspan="2">
+							<table style="display:none;" id="circleDiv">
+							<td style="top: 352px; width: 190px; height: 75px;opacity: 1;"><b style="color: purple">Circle</b><b><span
+								 	style="color: red">*</span></b></td>
+							<td><form:select path="circle" id="circle"   value="${addUserDto.circle}" style="color:blue">
+									<form:option value="Select" label="Select"></form:option>
+									<c:forEach var="list" items="${circleList}">
+										<form:option value="${list.circleName}">${list.circleName}</form:option>
+									</c:forEach>
+								</form:select></td>	
+							</table>
+						</td>
+						
 					</tr>
 					<tr>
 						<td></td>
-						<td><span id="userType12" style="color: red"></span></td>
-						<td></td>
-						<td></td>
-						<td></td>
 						<td><span id="role12" style="color: red"></span></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td><span id="circle12" style="color: red"></span></td>
 					</tr>
 					<tr>
 						<td><b style="color: purple">Reporting Authority Name</b><b><span
@@ -743,6 +762,28 @@ $(document).ready(function(){
        
     }); 
     
+});
+$(document).ready(function(){
+    $('#role').on('change', function() {
+      if (this.value == 'SA' || this.value == 'CC')     
+      {
+    	  $("#circleDiv").hide();        
+      }
+      else
+      {
+    	  $("#circleDiv").show();
+      }
+    });
+    var role=$("#role").val();
+        if (role == 'SA' || role == 'CC' || role == 'Select')     
+        {
+      	  $("#circleDiv").hide();        
+        }
+        else
+        {
+      	  $("#circleDiv").show();
+        }
+      
 });
 
 </script>	

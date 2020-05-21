@@ -16,7 +16,7 @@ public class AddUserServiceImpl implements AddUserService{
 	private UserRepository userRepository;
 	
 	@Override
-	public String addUser(AddUserDto dto,String role) {
+	public String addUser(AddUserDto dto,String role,String circle) {
 		System.out.println("saving adduser form.....");
 		System.out.println("Role==================");
 		System.out.println(role);
@@ -26,6 +26,11 @@ public class AddUserServiceImpl implements AddUserService{
 		user.setPhoneNo(dto.getPhoneNo());
 		user.setMailId(dto.getEmailId());
 		user.setRole(role);
+		if("Select".equals(circle)){
+			user.setCircle("");
+		}else{
+			user.setCircle(circle);
+		}
 		user.setReportingAuthorityEmail(dto.getReportingAuthorityEmail());
 		user.setReportingAuthorityName(dto.getReportingAuthorityName());
 		user.setEnabled("1");
@@ -43,7 +48,7 @@ public class AddUserServiceImpl implements AddUserService{
 
 	
 	@Override
-	public String updateUser(AddUserDto dto,String role) {
+	public String updateUser(AddUserDto dto,String role,String circle) {
 		System.out.println("saving adduser form.....");
 		System.out.println("Role==================");
 		System.out.println(role);
@@ -54,6 +59,11 @@ public class AddUserServiceImpl implements AddUserService{
 		user.setPhoneNo(dto.getPhoneNo());
 		user.setMailId(dto.getEmailId());
 		user.setRole(role);
+		if("Select".equals(circle)){
+			user.setCircle("");
+		}else{
+			user.setCircle(circle);
+		}
 		user.setReportingAuthorityEmail(dto.getReportingAuthorityEmail());
 		user.setReportingAuthorityName(dto.getReportingAuthorityName());
 		user.setEnabled("1"); 

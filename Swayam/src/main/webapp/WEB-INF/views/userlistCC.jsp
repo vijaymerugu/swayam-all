@@ -54,15 +54,17 @@
 					<td  id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"><a ng-click="getCountType('LA')">${laCount}</a></td>   
 					<td  id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"><a ng-click="getCountType('CC')">${ccCount}</a></td>
 					<td  id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"><a ng-click="getCountType('SA')">${saCount}</a></td>
+					<td  id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"><a ng-click="getCountType('C')">${circleCount}</a></td>
 				</tr>
 				<tr>
 					<!-- Vijay All Circle wise -->
 					
 					<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">CMF</td>
 					<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">CMS</td>					
-					<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">LA</td>
+					<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">Local Admin</td>
 					<td id="count2" style="color: black; border-right: solid 1px #faf5f6;">CC</td>
-					<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">SA</td>
+					<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">System Admin</td>
+					<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">Circle</td>
 				</tr>
 			</table>
 		</div>

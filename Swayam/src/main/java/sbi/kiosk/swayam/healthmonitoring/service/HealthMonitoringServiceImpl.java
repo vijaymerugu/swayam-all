@@ -316,6 +316,26 @@ public class HealthMonitoringServiceImpl implements HealthMonitoringService {
 			String type) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Page<RequestsDto> findPaginatedCountCmf(int page, int size,
+			String type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<RequestsDto> findPaginatedCms(int page, int size) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<RequestsDto> findPaginatedCountCms(int page, int size,
+			String type) {
+		// TODO Auto-generated method stub
+		return null;
 	}	
 	
 }

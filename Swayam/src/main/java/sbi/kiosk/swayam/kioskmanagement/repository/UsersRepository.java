@@ -94,5 +94,8 @@ public interface UsersRepository extends CrudRepository<User, Long> {
 	@Query(value=" SELECT COUNT(*) FROM TBL_USER WHERE ROLE IN ('C') and ENABLED in('1') and CIRCLE=:circle",nativeQuery=true)
 	public int findCircleUserCountByCircle(@Param("circle") String circle);	
 	
+	@Query(value=" SELECT COUNT(*) FROM TBL_USER WHERE ROLE IN ('LA')  and ENABLED in('1') and CIRCLE=:circle",nativeQuery=true)
+	public int findLACount(@Param("circle") String circle);
+	
 	
 }

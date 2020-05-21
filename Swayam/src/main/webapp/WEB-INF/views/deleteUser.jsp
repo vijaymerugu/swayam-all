@@ -336,6 +336,7 @@ function fromValidation(){
 	var reportingAuthorityName=$("#reportingAuthorityName").val(); 
 	var reportingAuthorityEmail=$("#reportingAuthorityEmail").val();
 	var role=$("#role").val();
+	var circle=$("#circle").val();
     
 	if(pfId==""){
 		 errorList.push("Please enter pfId");
@@ -382,6 +383,9 @@ function fromValidation(){
 
 	 if(role=="Select"){
 		 errorList.push("Please select valid role ");		 
+	 }
+	 if(circle=="Select"){
+		 errorList.push("Please select valid Circle ");		 
 	 }
 	 return errorList;
 }
@@ -453,6 +457,7 @@ $(document).ready(function(){
 		$("#reportingAuthorityName12").html("");		
 		$("#reportingAuthorityEmail12").html("");
 		$("#role12").html("");
+		$("#circle12").html("");
 		//$.each(errorList, function(index) {
 			
 			if($("#emailId").val()==""){
@@ -504,6 +509,9 @@ $(document).ready(function(){
 			if($("#role").val()=="Select"){
 				$("#role12").html("Please Select valid Role");
 			}
+			if($("#circle").val()=="Select"){
+				$("#circle12").html("Please Select valid Circle");
+			}
 		//});
 
 	}
@@ -530,6 +538,7 @@ $(document).ready(function(){
 				$("#reportingAuthorityName12").html("");		
 				$("#reportingAuthorityEmail12").html("");
 				$("#role12").html("");
+				$("#circle12").html("");
 		
 		var modal = document.getElementById("myModal");
 		var span = document.getElementsByClassName("close")[0];
@@ -624,10 +633,6 @@ $(document).ready(function(){
 					</tr>
 					<tr>
 
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
 						<td style="top: 352px; width: 190px; height: 75px;opacity: 1;"><b style="color: purple">Role</b><b><span
 							 	style="color: red">*</span></b></td>
 						<td><form:select path="role" id="role" value="${addUser.role}" style="color:blue">
@@ -636,14 +641,24 @@ $(document).ready(function(){
 									<form:option value="${list.role}">${list.roleDescription}</form:option>
 								</c:forEach>
 							</form:select></td>
+						<td></td>
+						<td></td>
+						<td style="top: 352px; width: 190px; height: 75px;opacity: 1;"><b style="color: purple">Circle</b><b><span
+							 	style="color: red">*</span></b></td>
+						<td><form:select path="circle" id="circle"   value="${addUser.circle}" style="color:blue">
+								<form:option value="Select" label="Select"></form:option>
+								<c:forEach var="list" items="${circleList}">
+									<form:option value="${list.circleName}">${list.circleName}</form:option>
+								</c:forEach>
+							</form:select></td>
 					</tr>
 					<tr>
 						<td></td>
-						<td><span id="userType12" style="color: red"></span></td>
-						<td></td>
-						<td></td>
-						<td></td>
 						<td><span id="role12" style="color: red"></span></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td><span id="circle12" style="color: red"></span></td>
 					</tr>
 					<tr>
 						<td><b style="color: purple">Reporting Authority Name</b><b><span

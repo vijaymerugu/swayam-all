@@ -34,6 +34,7 @@ public class AddController {
 	public ResponseEntity<String> addUserData(ModelAndView model,@ModelAttribute("addUser") AddUserDto addUser,HttpServletRequest request,RedirectAttributes redirectAttributes) {
 		ResponseEntity<String> entity=null;
 		String addUserResut=null;
+		
 		System.out.println("addUserSA  111 Start(-,-)");
 		System.out.println("request= userId from hiden==="+request.getParameter("userId"));
 		System.out.println("request checkAction action=="+request.getParameter("checkAction"));
@@ -44,11 +45,11 @@ public class AddController {
 				&& (request.getParameter("checkAction").equalsIgnoreCase("Edit"))) {
 			addUser.setUserId(Integer.parseInt(request.getParameter("userId")));
 			
-			addUserResut=addUserService.updateUser(addUser,request.getParameter("role"));
+			addUserResut=addUserService.updateUser(addUser,request.getParameter("role"),request.getParameter("circle"));
 			String result="User: "+addUserResut+ " has been successfully Updated";
 			entity=ResponseEntity.ok(result);
 	} else {
-		    addUserResut=addUserService.addUser(addUser,request.getParameter("role"));
+		    addUserResut=addUserService.addUser(addUser,request.getParameter("role"),request.getParameter("circle"));
 		    System.out.println(addUserResut);
 		
 		if(addUserResut.equals("User is Allready Exist")){
@@ -85,11 +86,11 @@ public class AddController {
 				&& (request.getParameter("checkAction").equalsIgnoreCase("Edit"))) {
 			addUserDto.setUserId(Integer.parseInt(request.getParameter("userId")));
 			
-			addUserResut=addUserService.updateUser(addUserDto,request.getParameter("role"));
+			addUserResut=addUserService.updateUser(addUserDto,request.getParameter("role"),request.getParameter("circle"));
 			String result="User: "+addUserResut+ " has been successfully Updated";
 			entity=ResponseEntity.ok(result);
 	} else {
-		    addUserResut=addUserService.addUser(addUserDto,request.getParameter("role"));
+		    addUserResut=addUserService.addUser(addUserDto,request.getParameter("role"),request.getParameter("circle"));
 		    System.out.println(addUserResut);
 		
 		if(addUserResut.equals("User is Allready Exist")){

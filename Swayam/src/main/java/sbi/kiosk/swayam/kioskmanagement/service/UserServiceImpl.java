@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import sbi.kiosk.swayam.common.constants.Constants;
 import sbi.kiosk.swayam.common.dto.AddUserDto;
 import sbi.kiosk.swayam.common.dto.UserDto;
 import sbi.kiosk.swayam.common.dto.UserManagementDto;
@@ -77,6 +78,15 @@ public class UserServiceImpl implements UserService {
 				 .map(UserManagementDto::new);
 		 if(entities !=null){
 			 for(UserManagementDto dto:entities){
+				 if(Constants.SYSTEMADMIN.getCode().equals(dto.getRole())){
+					 dto.setRole(Constants.SYSTEMADMIN.getValue());
+				 }
+				 if(Constants.LOCALADMIN.getCode().equals(dto.getRole())){
+					 dto.setRole(Constants.LOCALADMIN.getValue());
+				 }
+				 if(Constants.CIRCLE.getCode().equals(dto.getRole())){
+					 dto.setRole(Constants.CIRCLE.getValue());
+				 }
 				 if(dto.getPfId() !=null && dto.getPfId() !="" && dto.getRole().equals("CMF")){
 					 int kioskCountCmf = userKioskMappingRepository.findKiosksCountByPfId(dto.getPfId());
 					 dto.setNoOfAssignedKiosks(String.valueOf(kioskCountCmf));
@@ -107,7 +117,7 @@ public class UserServiceImpl implements UserService {
 		// Page<User> userList = userRepositoryPagingRepo.findAll(PageRequest.of(page, size));
 		 UserDto user = (UserDto) session().getAttribute("userObj");
 		 List<String> roleList= new ArrayList<String>();
-		 roleList.add("LA");
+		 //roleList.add("LA");
 		 roleList.add("SA");
 		 roleList.add("CC");
 		 
@@ -115,7 +125,13 @@ public class UserServiceImpl implements UserService {
 				 userRepositoryPagingRepo.findByCircleAndEnabledAndRoleNotIn(user.getCircle(),"1",roleList,PageRequest.of(page, size))
 				 .map(UserManagementDto::new);
 		 if(entities !=null){
-			 for(UserManagementDto dto:entities){
+			 for(UserManagementDto dto:entities){				 
+				 if(Constants.LOCALADMIN.getCode().equals(dto.getRole())){
+					 dto.setRole(Constants.LOCALADMIN.getValue());
+				 }
+				 if(Constants.CIRCLE.getCode().equals(dto.getRole())){
+					 dto.setRole(Constants.CIRCLE.getValue());
+				 }
 				 if(dto.getPfId() !=null && dto.getPfId() !="" && dto.getRole().equals("CMF")){
 					 int kioskCountCmf = userKioskMappingRepository.findKiosksCountByPfId(dto.getPfId());
 					 dto.setNoOfAssignedKiosks(String.valueOf(kioskCountCmf));
@@ -150,6 +166,15 @@ public class UserServiceImpl implements UserService {
 	    
 		if(entities !=null){
 			 for(UserManagementDto dto:entities){
+				 if(Constants.SYSTEMADMIN.getCode().equals(dto.getRole())){
+					 dto.setRole(Constants.SYSTEMADMIN.getValue());
+				 }
+				 if(Constants.LOCALADMIN.getCode().equals(dto.getRole())){
+					 dto.setRole(Constants.LOCALADMIN.getValue());
+				 }
+				 if(Constants.CIRCLE.getCode().equals(dto.getRole())){
+					 dto.setRole(Constants.CIRCLE.getValue());
+				 }
 				 if(dto.getPfId() !=null && dto.getPfId() !="" && dto.getRole().equals("CMF")){
 					 int kioskCountCmf = userKioskMappingRepository.findKiosksCountByPfId(dto.getPfId());
 					 dto.setNoOfAssignedKiosks(String.valueOf(kioskCountCmf));
@@ -184,6 +209,15 @@ public class UserServiceImpl implements UserService {
 	    
 		if(entities !=null){
 			 for(UserManagementDto dto:entities){
+				 if(Constants.SYSTEMADMIN.getCode().equals(dto.getRole())){
+					 dto.setRole(Constants.SYSTEMADMIN.getValue());
+				 }
+				 if(Constants.LOCALADMIN.getCode().equals(dto.getRole())){
+					 dto.setRole(Constants.LOCALADMIN.getValue());
+				 }
+				 if(Constants.CIRCLE.getCode().equals(dto.getRole())){
+					 dto.setRole(Constants.CIRCLE.getValue());
+				 }
 				 if(dto.getPfId() !=null && dto.getPfId() !="" && dto.getRole().equals("CMF")){
 					 int kioskCountCmf = userKioskMappingRepository.findKiosksCountByPfId(dto.getPfId());
 					 dto.setNoOfAssignedKiosks(String.valueOf(kioskCountCmf));
@@ -242,6 +276,7 @@ public class UserServiceImpl implements UserService {
 		 userDto.setPfId(user.getPfId());
 		 userDto.setUserId(user.getUserId());
 		 userDto.setRole(user.getRole());
+		 userDto.setCircle(user.getCircle());
 		 userDto.setUsername(user.getUsername());
 		 userDto.setPhoneNo(user.getPhoneNo());
 		 userDto.setEmailId(user.getMailId());
@@ -352,6 +387,13 @@ public class UserServiceImpl implements UserService {
 	    	int circleCount=userRepo.findCircleCount();
 	    	System.out.println("circleCount:: "+circleCount);
 			return circleCount;
+		}
+	    
+	    @Override
+		public int findLACountByCircle() {
+	    	UserDto user = (UserDto) session().getAttribute("userObj");
+	    	int laCount=userRepo.findLACount(user.getCircle());
+			return laCount;
 		}
 	    
 	    @Override

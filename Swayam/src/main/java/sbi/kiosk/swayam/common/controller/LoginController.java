@@ -61,6 +61,15 @@ public class LoginController{
 		return mav;		
 	}
 	
+	@RequestMapping(value="/logout")
+	public ModelAndView logout(ModelAndView model,HttpSession session) {	
+		
+		session.invalidate();
+		
+		model.setViewName("redirect:https://adfs.sbi.co.in/adfs/ls/?wa=wsignout1.0");
+		return model;
+	}
+	
 	@RequestMapping(value="/common/menu", method=RequestMethod.GET)
 	public List<MenuMasterDto> getMenu(HttpSession session) {		
 		UserDto userObj =(UserDto) session.getAttribute("userObj");

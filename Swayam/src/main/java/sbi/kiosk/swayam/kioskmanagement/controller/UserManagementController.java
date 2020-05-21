@@ -1,5 +1,6 @@
 package sbi.kiosk.swayam.kioskmanagement.controller;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import sbi.kiosk.swayam.common.dto.AddUserDto;
 import sbi.kiosk.swayam.common.dto.RolesDto;
 import sbi.kiosk.swayam.common.dto.UserDto;
 import sbi.kiosk.swayam.common.dto.UserManagementDto;
+import sbi.kiosk.swayam.common.entity.Circle;
 import sbi.kiosk.swayam.common.entity.User;
 import sbi.kiosk.swayam.kioskmanagement.service.RoleService;
 import sbi.kiosk.swayam.kioskmanagement.service.UserService;
@@ -50,11 +52,12 @@ public class UserManagementController {
 				//int laCount= userService.findLACount();
 				//int saCount= userService.findSACount();
 				int circleUserCount = userService.findCircleUserCountByCircle();
+				int laCount= userService.findLACountByCircle();
 				
 				model.addObject("cmfCount",cmfCount);
 				model.addObject("cmsCount", cmsCount);
 				//model.addObject("circleCountByRole", circleCountByRole);
-				//model.addObject("laCount",laCount);
+				model.addObject("laCount",laCount);
 				//model.addObject("ccCount",ccCount);
 				//model.addObject("saCount",saCount);
 				model.addObject("circleUserCount",circleUserCount);
@@ -97,7 +100,7 @@ public class UserManagementController {
 			model.addObject("usersList", userList);
 				
 				int cmsCount=userService.findCMSCount();
-				int circleCount=userService.findCircleCount();
+				int circleCount=userService.findCircleUserCount();
 				int ccCount=userService.findCCCount();
 				int cmfCount= userService.findCMFCount();
 				int laCount= userService.findLACount();
@@ -180,6 +183,8 @@ public class UserManagementController {
 			      System.out.println("inside addUser jsp call.."+request.getParameter("userName"));
 	              List<RolesDto> roleList = roleService.findAllRole();
 		           model.addObject("roleList", roleList);
+		           List<Circle> circleList = roleService.findAllCircle();
+		           model.addObject("circleList", circleList);
 		           model.setViewName("addUser");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -193,9 +198,18 @@ public class UserManagementController {
 
 		try {
 			      System.out.println("inside addUserLA jsp call..");
-	              List<RolesDto> roleList = roleService.findAllRole();
+	              List<RolesDto> roleList = roleService.findAllRole();	
+	              Iterator<RolesDto> itr = roleList.iterator();
+	              while(itr.hasNext()){
+	            	  String role = itr.next().getRole();
+	            	  if(role.equals("SA") || role.equals("CC")){
+	            		  itr.remove();
+	            	  }
+	              }
 		           model.addObject("roleList", roleList);
-		           model.setViewName("addUserLA");
+		           List<Circle> circleList = roleService.findAllCircle();  
+		          model.addObject("circleList", circleList);
+		          model.setViewName("addUserLA");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -219,6 +233,8 @@ public class UserManagementController {
 			model.addObject("addUser", addUser);
 			List<RolesDto> roleList = roleService.findAllRole();
 			model.addObject("roleList", roleList);
+			List<Circle> circleList = roleService.findAllCircle();
+	        model.addObject("circleList", circleList);
 			model.setViewName("addUser");
 
 		} catch (Exception e) {
@@ -246,7 +262,16 @@ public class UserManagementController {
 			
 			model.addObject("addUserDto", addUserDto);
 			List<RolesDto> roleList = roleService.findAllRole();
+			Iterator<RolesDto> itr = roleList.iterator();
+            while(itr.hasNext()){
+              String role = itr.next().getRole();
+          	  if(role.equals("SA") || role.equals("CC")){
+          		  itr.remove();
+          	  }
+            }
 			model.addObject("roleList", roleList);
+			List<Circle> circleList = roleService.findAllCircle();
+	        model.addObject("circleList", circleList);
 			model.setViewName("addUserLA");
 
 		} catch (Exception e) {
@@ -325,6 +350,8 @@ public class UserManagementController {
 			model.addObject("addUser", addUser);
 			List<RolesDto> roleList = roleService.findAllRole();
 			model.addObject("roleList", roleList);
+			List<Circle> circleList = roleService.findAllCircle();
+	        model.addObject("circleList", circleList);
 			model.setViewName("deleteUser");
 		} catch (Exception e) {
 			e.printStackTrace();

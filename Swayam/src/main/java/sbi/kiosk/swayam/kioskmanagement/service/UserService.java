@@ -30,6 +30,7 @@ public interface UserService extends IOperations<UserManagementDto>{
 	int findCircleUserCountByCircle();
 	int findCMSCountByCircle();
 	int findCMFCountByCircle();
+	int findLACountByCircle();
 	
 	
 

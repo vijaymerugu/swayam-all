@@ -1,5 +1,7 @@
 package sbi.kiosk.swayam.healthmonitoring.repository;
 
+import java.util.Set;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -91,6 +93,77 @@ public interface TicketCentorAgeingRepository extends CrudRepository<TicketCento
 	
 	@Query(value="SELECT  count(*)  from TBL_TICKET_CENTRE where  AGEING IS NOT NULL and KIOSK_ID in (SELECT KIOSK_ID FROM TBL_KIOSK_MASTER WHERE CIRCLE=:circle)", nativeQuery=true)
 	public int findTotalCount(@Param("circle") String circle);
+	
+	@Query(value = " SELECT *  from TBL_TICKET_CENTRE where  AGEING between to_date(trunc(sysdate-2/24), 'DD-MM-YY HH24:MI:SS' ) "
+			+ "  and  to_date(to_char(trunc(sysdate-4/24),'DD-MM-YY')||' 23:59:59',  'DD-MM-YY HH24:MI:SS')  AND KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID=:pfId)", nativeQuery = true)
+	public Page<TicketCentor> findAllTicketCentor4HourAndCMFUser(@Param("pfId") String pfId,Pageable pageable);
+	
+	@Query(value = " SELECT * from TBL_TICKET_CENTRE where  AGEING between to_date(trunc(sysdate-20/24), "
+			+ "'DD-MM-YY HH24:MI:SS' )	and  to_date(to_char(trunc(sysdate-1),'DD-MM-YY')||' 23:59:59',  'DD-MM-YY HH24:MI:SS') AND KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID=:pfId)", nativeQuery = true)
+	public Page<TicketCentor> findAllTicketCentor1DaysAndCMFUser(@Param("pfId") String pfId,Pageable pageable);
+	
+	@Query(value = " SELECT * from TBL_TICKET_CENTRE where  AGEING between to_date(trunc(sysdate-3), 'DD-MM-YY HH24:MI:SS' )	"
+			+ "and  to_date(to_char(trunc(sysdate-22/24),'DD-MM-YY')||' 23:59:59',  'DD-MM-YY HH24:MI:SS') AND KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID=:pfId)", nativeQuery = true)
+	public Page<TicketCentor> findAllTicketCentor3DaysLessAndCMFUser(@Param("pfId") String pfId,Pageable pageable);
+	
+	@Query(value = " SELECT * from TBL_TICKET_CENTRE where  AGEING between to_date(trunc(sysdate-3), 'DD-MM-YY HH24:MI:SS' )	"
+			+ " and  to_date(to_char(trunc(sysdate-22/72),'DD-MM-YY')||' 23:59:59',  'DD-MM-YY HH24:MI:SS') AND KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID=:pfId)", nativeQuery = true)
+	public Page<TicketCentor> findAllTicketCentor3DaysGreaterAndCMFUser(@Param("pfId") String pfId,Pageable pageable);
+	
+	@Query(value = " SELECT count(*)  from TBL_TICKET_CENTRE where  AGEING between to_date(trunc(sysdate-2/24), 'DD-MM-YY HH24:MI:SS' ) "
+			+ "  and  to_date(to_char(trunc(sysdate-4/24),'DD-MM-YY')||' 23:59:59',  'DD-MM-YY HH24:MI:SS') and KIOSK_ID in (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID=:pfId)", nativeQuery = true)
+	public int find2_4HoursCountCMF(@Param("pfId") String pfId) ;
+	
+	
+	@Query(value=" SELECT  count(*)  from TBL_TICKET_CENTRE where  AGEING between to_date(trunc(sysdate-20/24), "
+			+ "'DD-MM-YY HH24:MI:SS' )	and  to_date(to_char(trunc(sysdate-1),'DD-MM-YY')||' 23:59:59',  'DD-MM-YY HH24:MI:SS') and KIOSK_ID in (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID=:pfId)",nativeQuery=true)
+	public int find_1_DaysCountCMF(@Param("pfId") String pfId);
+	
+	@Query(value=" SELECT  count(*)  from TBL_TICKET_CENTRE where  AGEING between trunc(sysdate-3)	and  trunc(sysdate-22/24) and KIOSK_ID in (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID=:pfId)",nativeQuery=true)
+    public int find_3_Days_LessCountCMF(@Param("pfId") String pfId);
+	
+	@Query(value=" SELECT  count(*)  from TBL_TICKET_CENTRE where  AGEING >=trunc(sysdate-3) and KIOSK_ID in (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID=:pfId)",nativeQuery=true)
+    public int find_3_Days_GreaterThanCountCMF(@Param("pfId") String pfId);
+	
+	@Query(value="SELECT  count(*)  from TBL_TICKET_CENTRE where  AGEING IS NOT NULL and KIOSK_ID in (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID=:pfId)", nativeQuery=true)
+	public int findTotalCountCMF(@Param("pfId") String pfId);
+	
+	@Query(value = " SELECT count(*)  from TBL_TICKET_CENTRE where  AGEING between to_date(trunc(sysdate-2/24), 'DD-MM-YY HH24:MI:SS' ) "
+			+ "  and  to_date(to_char(trunc(sysdate-4/24),'DD-MM-YY')||' 23:59:59',  'DD-MM-YY HH24:MI:SS') and KIOSK_ID in (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId))", nativeQuery = true)
+	public int find2_4HoursCountCMF(@Param("pfId") Set<String> pfId) ;
+	
+	
+	@Query(value=" SELECT  count(*)  from TBL_TICKET_CENTRE where  AGEING between to_date(trunc(sysdate-20/24), "
+			+ "'DD-MM-YY HH24:MI:SS' )	and  to_date(to_char(trunc(sysdate-1),'DD-MM-YY')||' 23:59:59',  'DD-MM-YY HH24:MI:SS') and KIOSK_ID in (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId))",nativeQuery=true)
+	public int find_1_DaysCountCMF(@Param("pfId") Set<String> pfId);
+	
+	@Query(value=" SELECT  count(*)  from TBL_TICKET_CENTRE where  AGEING between trunc(sysdate-3)	and  trunc(sysdate-22/24) and KIOSK_ID in (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId))",nativeQuery=true)
+    public int find_3_Days_LessCountCMF(@Param("pfId") Set<String> pfId);
+	
+	@Query(value=" SELECT  count(*)  from TBL_TICKET_CENTRE where  AGEING >=trunc(sysdate-3) and KIOSK_ID in (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId))",nativeQuery=true)
+    public int find_3_Days_GreaterThanCountCMF(@Param("pfId") Set<String> pfId);
+	
+	@Query(value="SELECT  count(*)  from TBL_TICKET_CENTRE where  AGEING IS NOT NULL and KIOSK_ID in (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId))", nativeQuery=true)
+	public int findTotalCountCMF(@Param("pfId") Set<String> pfId);
+	
+	@Query(value = " SELECT *  from TBL_TICKET_CENTRE where  AGEING between to_date(trunc(sysdate-2/24), 'DD-MM-YY HH24:MI:SS' ) "
+			+ "  and  to_date(to_char(trunc(sysdate-4/24),'DD-MM-YY')||' 23:59:59',  'DD-MM-YY HH24:MI:SS')  AND KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId))", nativeQuery = true)
+	public Page<TicketCentor> findAllTicketCentor4HourAndCMSUser(@Param("pfId") Set<String> pfId,Pageable pageable);
+	
+	@Query(value = " SELECT * from TBL_TICKET_CENTRE where  AGEING between to_date(trunc(sysdate-20/24), "
+			+ "'DD-MM-YY HH24:MI:SS' )	and  to_date(to_char(trunc(sysdate-1),'DD-MM-YY')||' 23:59:59',  'DD-MM-YY HH24:MI:SS') AND KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId))", nativeQuery = true)
+	public Page<TicketCentor> findAllTicketCentor1DaysAndCMSUser(@Param("pfId") Set<String> pfId,Pageable pageable);
+	
+	@Query(value = " SELECT * from TBL_TICKET_CENTRE where  AGEING between to_date(trunc(sysdate-3), 'DD-MM-YY HH24:MI:SS' )	"
+			+ "and  to_date(to_char(trunc(sysdate-22/24),'DD-MM-YY')||' 23:59:59',  'DD-MM-YY HH24:MI:SS') AND KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId))", nativeQuery = true)
+	public Page<TicketCentor> findAllTicketCentor3DaysLessAndCMSUser(@Param("pfId") Set<String> pfId,Pageable pageable);
+	
+	@Query(value = " SELECT * from TBL_TICKET_CENTRE where  AGEING between to_date(trunc(sysdate-3), 'DD-MM-YY HH24:MI:SS' )	"
+			+ " and  to_date(to_char(trunc(sysdate-22/72),'DD-MM-YY')||' 23:59:59',  'DD-MM-YY HH24:MI:SS') AND KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId))", nativeQuery = true)
+	public Page<TicketCentor> findAllTicketCentor3DaysGreaterAndCMSUser(@Param("pfId") Set<String> pfId,Pageable pageable);
+	
+
+	
 	/*
 
 	@Query(value = "  select * from TBL_TICKET_CENTRE a  ,tbl_CALL_TYPE b  where a.CALL_CATEGORY=b.CATEGORY "

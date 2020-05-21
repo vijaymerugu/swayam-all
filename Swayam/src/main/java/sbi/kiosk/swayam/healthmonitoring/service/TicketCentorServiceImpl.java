@@ -339,5 +339,25 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 			return null;
 		}
 
+		@Override
+		public Page<TicketCentorDto> findPaginatedCountCmf(int page, int size,
+				String type) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Page<TicketCentorDto> findPaginatedCms(int page, int size) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Page<TicketCentorDto> findPaginatedCountCms(int page, int size,
+				String type) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 }
 

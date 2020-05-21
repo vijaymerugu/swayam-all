@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>sbi.kiosk</groupId>
 	<artifactId>Swayam</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<packaging>war</packaging>
 	<name>Swayam</name>
 	<description>Swayam project in Spring Boot</description>
