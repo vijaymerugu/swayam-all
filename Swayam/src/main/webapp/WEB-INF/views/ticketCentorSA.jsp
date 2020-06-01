@@ -12,15 +12,15 @@
 	
 
 <!-- <script src="/resources/js/ticket-centor-sa-app.js"></script> -->
- <link rel="stylesheet" href="/resources/css/grid-style.css" /> 
+ <link rel="stylesheet" href="resources/css/grid-style.css" /> 
  
  
  <!-- 44 -->
  
  
- <script	src="/resources/js/angular.1.5.6.min.js"></script>
+ <script	src="resources/js/angular.1.5.6.min.js"></script>
 
-<link rel="stylesheet" href="/resources/css/ui-grid.4.8.3.min.css">
+<link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
 
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
@@ -28,9 +28,9 @@
     
 <script
 	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
-<script	src="/resources/js/angular.1.5.6.min.js"></script>
-<link rel="stylesheet" href="/resources/css/grid-style.css"/>
-<link rel="stylesheet" href="/resources/css/body-page.css"/>
+<script	src="resources/js/angular.1.5.6.min.js"></script>
+<link rel="stylesheet" href="resources/css/grid-style.css"/>
+<link rel="stylesheet" href="resources/css/body-page.css"/>
 
 
 <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script> 
@@ -67,7 +67,7 @@
         		 console.log("inside category function...."+category);
                 $.ajax({
                     type: "GET",
-                    url: "/hm/categoryCall/"+category, //this is my servlet
+                    url: "hm/categoryCall/"+category, //this is my servlet
                    
                     success: function(data){
                     
@@ -466,7 +466,7 @@ app.service('UserManagementService',['$http', function ($http) {
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({
           method: 'GET',
-          url: '/hm/ticketCentorFilter/get?page='+pageNumber+'&size='+size+'&type='+counttype
+          url: 'hm/ticketCentorFilter/get?page='+pageNumber+'&size='+size+'&type='+counttype
         });
     }
     return {

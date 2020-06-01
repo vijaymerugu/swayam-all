@@ -6,20 +6,20 @@
 <!Doctype html>
 <html>
 <head>
-<script	src="/resources/js/angular.1.5.6.min.js"></script>
-<script src="/resources/js/jquery.3.4.1.min.js"></script>
-<!-- <script src="/resources/js/bootstrap.3.4.1.min.js"></script> -->
+<script	src="resources/js/angular.1.5.6.min.js"></script>
+<script src="resources/js/jquery.3.4.1.min.js"></script>
+<!-- <script src="resources/js/bootstrap.3.4.1.min.js"></script> -->
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="/resources/css/ui-grid.4.8.3.min.css">
+<link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
 
 
-<link rel="stylesheet" href="/resources/css/grid-style.css"/>
-<link rel="stylesheet" href="/resources/css/body-page.css"/>
+<link rel="stylesheet" href="resources/css/grid-style.css"/>
+<link rel="stylesheet" href="resources/css/body-page.css"/>
 <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script>
 <script	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   	
-<link href="/resources/css/menu.css" rel="stylesheet" type="text/css">	
+<link href="resources/css/menu.css" rel="stylesheet" type="text/css">	
 <link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css" type="text/css"/>
 
 <script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
@@ -52,7 +52,7 @@
 			
 		%>
 		<div class="inlineHomeMain">
-			<img src="/resources/img/sbi.png">
+			<img src="resources/img/sbi.png">
 		</div>
 		<table cellspacing="0">
 			<tr>
@@ -65,7 +65,7 @@
 						<td
 							style="width: 269px; background: #FDD209; color: #000000; align: center"
 							align="center"><b>Welcome <%=firstName%> &nbsp;<%=lastName%></b> 
-							<br /> <b> <%=pfId%> </b>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/logout">Log Out</a></td>
+							<br /> <b> <%=pfId%> </b>&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout">Log Out</a></td>
 					</tr>
 				</table>
 			</tr>
@@ -109,7 +109,7 @@
 						}						
 					}
 					
-					$http.get('/common/menu').then(function(data) {
+					$http.get('common/menu').then(function(data) {
 						$scope.SiteMenu = data.data;
 					}, function(error) {
 						alert('Error');

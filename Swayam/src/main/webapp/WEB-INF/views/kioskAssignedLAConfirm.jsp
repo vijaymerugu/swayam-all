@@ -56,7 +56,7 @@ De-Map Kiosk Assigned to : <c:out value="${kiosksList[0].username}" />
 
 <p style="color:#000000;font-size:10px;text-align: center;">
 <span style="text-align: center;color:#000000;">
-  <img src="/resources/img/successTick.png"></span></p>
+  <img src="resources/img/successTick.png"></span></p>
 
 <p style="color:#000000;font-size:12px;text-align: center;">
 <span style="text-align: center;color:#000000;">Following Kiosks has been De-Mapped Successfully</span></p>

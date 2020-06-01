@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script	src="/resources/js/angular.1.5.6.min.js"></script>
-<script src="/resources/js/jquery.3.4.1.min.js"></script>
-<script src="/resources/js/bootstrap.3.4.1.min.js"></script>
-<link rel="stylesheet" href="/resources/css/ui-grid.4.8.3.min.css">
+<script	src="resources/js/angular.1.5.6.min.js"></script>
+<script src="resources/js/jquery.3.4.1.min.js"></script>
+<script src="resources/js/bootstrap.3.4.1.min.js"></script>
+<link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
 
 <script
 	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
-<script src="/resources/js/requests-cc-app.js"></script>
-<script	src="/resources/js/angular.1.5.6.min.js"></script>
-<link rel="stylesheet" href="/resources/css/grid-style.css"/>
-<link rel="stylesheet" href="/resources/css/body-page.css"/>
+<script src="resources/js/requests-cc-app.js"></script>
+<script	src="resources/js/angular.1.5.6.min.js"></script>
+<link rel="stylesheet" href="resources/css/grid-style.css"/>
+<link rel="stylesheet" href="resources/css/body-page.css"/>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
 <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script> 
@@ -113,7 +113,7 @@ $(document).ready(function(){
         $.ajax({
             type: "POST",
             //url: "/hm/saveCheckerComments?array="+all_rows,
-            url: "/hm/saveApproverCommentsCC",
+            url: "hm/saveApproverCommentsCC",
             //data: '{array: "' + all_rows + '"}',
             data: JSON.stringify(all_rows),
             contentType: "application/json; charset=utf-8",
@@ -157,7 +157,7 @@ $('.openRejectPopup').on('click',function(){
         $.ajax({
             type: "POST",
             //url: "/hm/saveCheckerComments?array="+all_rows,
-            url: "/hm/rejectApproverCommentsCC",
+            url: "hm/rejectApproverCommentsCC",
             //data: '{array: "' + all_rows + '"}',
             data: JSON.stringify(all_rows),
             contentType: "application/json; charset=utf-8",
@@ -178,7 +178,7 @@ $(document).ready(function(){
 	 $('#butn').on('click',function(){      
 	        //alert("call11 ok ");
 	        
-	    	$("#contentHomeApp").load('/hm/requestFormCC'); 	    	
+	    	$("#contentHomeApp").load('hm/requestFormCC'); 	    	
 	    	$('.modal-backdrop').remove();
 	    	$("body").css({"overflow":"visible"});
 	    }); 

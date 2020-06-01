@@ -10,13 +10,13 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    var counttype = "";
    $scope.loadHomeBodyPageForms = function(url){	   
 		if(url != undefined){	
-			var str ='/km/editUserMasterLA?userId=' + url;
+			var str ='km/editUserMasterLA?userId=' + url;
 			$("#contentHomeApp").load(str);
 		}						
 	}
   $scope.loadHomeBodyPageFormsDel = function(url){	   
 		if(url != undefined){	
-			var str ='/km/deleteUserMaster?userId=' + url;
+			var str ='km/deleteUserMaster?userId=' + url;
 			$("#contentHomeApp").load(str);
 		}						
 	}
@@ -85,7 +85,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
     	  exporterSuppressExport: true,
     	  displayName: 'Assign Kiosk',
     	  headerCellTemplate: '<div></div>',
-          cellTemplate: '<div class="ui-grid-cell-contents" id="myBtn"><div ng-if="row.entity.role == \'CMF\' && row.entity.noOfAssignedKiosks > 0"><a data-href="/km/userkioskmappingpopup?username="+{{ row.entity.userId }} data-val="{{ row.entity.pfId }}" class="openPopup">DeMap Kiosks</a></div></div>'
+          cellTemplate: '<div class="ui-grid-cell-contents" id="myBtn"><div ng-if="row.entity.role == \'CMF\' && row.entity.noOfAssignedKiosks > 0"><a data-href="km/userkioskmappingpopup?username="+{{ row.entity.userId }} data-val="{{ row.entity.pfId }}" class="openPopup">DeMap Kiosks</a></div></div>'
       }
     ],
     onRegisterApi: function(gridApi) {
@@ -110,7 +110,7 @@ app.service('UserManagementService',['$http', function ($http) {
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({
           method: 'GET',
-          url: '/usersByCircle/get?page='+pageNumber+'&size='+size+'&type='+counttype
+          url: 'usersByCircle/get?page='+pageNumber+'&size='+size+'&type='+counttype
         });
     }
 	

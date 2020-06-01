@@ -36,10 +36,10 @@ table, td {
     Bootstrap-table
     <link rel="stylesheet" type="text/css" href="css/bootstrap-table.css"> -->
     
-      <link rel="stylesheet" href="<c:url value='/resources/css/style.css' />"/>
-    <link rel="stylesheet" href="<c:url value='/resources/css/font-awesome.min.css' />"/>
-    <link rel="stylesheet" href="<c:url value='/resources/css/bootstrap.min.css' />"/>
-     <link rel="stylesheet" href="<c:url value='/resources/css/bootstrap-table.css' />"/>
+      <link rel="stylesheet" href="<c:url value='resources/css/style.css' />"/>
+    <link rel="stylesheet" href="<c:url value='resources/css/font-awesome.min.css' />"/>
+    <link rel="stylesheet" href="<c:url value='resources/css/bootstrap.min.css' />"/>
+     <link rel="stylesheet" href="<c:url value='resources/css/bootstrap-table.css' />"/>
     
     <!-- InstanceBeginEditable name="head" -->
     <!-- InstanceEndEditable -->
@@ -54,7 +54,7 @@ table, td {
                 <div class="col-lg-12">
                     <!-- InstanceBeginEditable name="Body_title" -->
                     <h3 class="page-header">
-						 <form:form method="post" action="/km/userList">
+						 <form:form method="post" action="km/userList">
 				     		  User List Master
 							<INPUT Type="submit" VALUE="Back"  class="btn btn-black" style="margin-right: 20px" >
 						</form:form>

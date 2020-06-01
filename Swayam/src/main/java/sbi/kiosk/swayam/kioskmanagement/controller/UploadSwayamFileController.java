@@ -27,7 +27,7 @@ public class UploadSwayamFileController {
 //	HttpServletRequest request;
 	 
 	
-	@GetMapping("/km/upload")
+	@GetMapping("km/upload")
 	public ModelAndView UploadPage() {
 		System.out.println("inside upload cotroller........");
 		ModelAndView view=new ModelAndView();
@@ -36,7 +36,7 @@ public class UploadSwayamFileController {
 		return view;
 	}
 	
-	@PostMapping("/uploadKiosk")
+	@PostMapping("uploadKiosk")
 	public String uploadKiosk(HttpServletRequest request) throws ServletException {
 		System.out.println("inside kiosk upload method........");
         //ModelAndView view=new ModelAndView();
@@ -68,7 +68,7 @@ public class UploadSwayamFileController {
 		return result;
 	}
 	
-	@PostMapping("/uploadCBSbrhm")
+	@PostMapping("uploadCBSbrhm")
 	public String uploadCBSbrhmInformation() {
 		System.out.println("inside upload CBS Information method........");
 		//ModelAndView view=new ModelAndView();
@@ -82,7 +82,7 @@ public class UploadSwayamFileController {
 	
 	// By Pankul 28-04-2020-----------STARTS---------
 	
-	@PostMapping("/uploadHolidayCalendar")
+	@PostMapping("uploadHolidayCalendar")
 	public String uploadHolidayCalendarInformation() {
 		System.out.println("inside upload Holiday Calendar method........");
 		//ModelAndView view=new ModelAndView();
@@ -94,7 +94,7 @@ public class UploadSwayamFileController {
 		return result;
 	}
 	
-	@PostMapping("/uploadKioskCMF")
+	@PostMapping("uploadKioskCMF")
 	public String uploadKioskCMFInformation() {
 		System.out.println("inside upload Kiosk CMF method........");
 		//ModelAndView view=new ModelAndView();

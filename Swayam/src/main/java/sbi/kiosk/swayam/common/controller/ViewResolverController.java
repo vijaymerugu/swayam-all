@@ -30,21 +30,21 @@ public class ViewResolverController {
 		return mav;
 	}
 	
-	@RequestMapping("/km/userkioskmapping")
+	@RequestMapping("km/userkioskmapping")
 	public ModelAndView userKioskMapping() {		
 		
 		ModelAndView mav = new ModelAndView("userkioskmapping");
 		return mav;
 	}
 	
-	@RequestMapping("/km/cmscmfmapping")
+	@RequestMapping("km/cmscmfmapping")
 	public ModelAndView cmsCmfkMapping() {		
 		
 		ModelAndView mav = new ModelAndView("cmscmfmapping");
 		return mav;
 	}
 	
-	@RequestMapping("/km/kioskManagement")
+	@RequestMapping("km/kioskManagement")
 	public ModelAndView kioskManagement(ModelAndView mav) {
 		Map<String, Integer> mapDataCount = null;
 		mapDataCount = kioskManagementService.findAllKioskMasterCountByCircle();
@@ -56,7 +56,7 @@ public class ViewResolverController {
 		return mav;
 	}
 	
-	@RequestMapping("/km/kioskManagementCC")
+	@RequestMapping("km/kioskManagementCC")
 	public ModelAndView kioskManagementCC() {
 		ModelAndView mav = new ModelAndView("kioskManagementCC");	
 		Map<String, Integer> mapDataCount = null;
@@ -69,7 +69,7 @@ public class ViewResolverController {
 	}
 
 	
-	@RequestMapping("/hm/ticketcentor")
+	@RequestMapping("hm/ticketcentor")
 	public ModelAndView ticketCentor(ModelAndView mav) {
 
 		Map<String, Integer> mapDataList = null;
@@ -87,7 +87,7 @@ public class ViewResolverController {
 		return mav;
 	}
 	
-	@RequestMapping("/hm/ticketcentorByCircle")
+	@RequestMapping("hm/ticketcentorByCircle")
 	public ModelAndView ticketCentorByCircle(ModelAndView mav) {
 
 		Map<String, Integer> mapDataList = null;
@@ -108,7 +108,7 @@ public class ViewResolverController {
 	
 	
 	
-	@RequestMapping("/hm/ticketcentorCallCategory")
+	@RequestMapping("hm/ticketcentorCallCategory")
 	public ModelAndView ticketcentorCallCategory(ModelAndView mav,HttpServletRequest request) {
 
 		Map<String, Integer> mapDataList = null;
@@ -131,7 +131,7 @@ public class ViewResolverController {
 		return mav;
 	}
 	
-	@RequestMapping("/hm/ticketcentorCallCategoryCMF")
+	@RequestMapping("hm/ticketcentorCallCategoryCMF")
 	public ModelAndView ticketcentorCallCategoryCMF(ModelAndView mav,HttpServletRequest request) {
 
 		Map<String, Integer> mapDataList = null;
@@ -154,7 +154,7 @@ public class ViewResolverController {
 		return mav;
 	}
 
-	@RequestMapping("/hm/ticketcentorCallCategoryCMS")
+	@RequestMapping("hm/ticketcentorCallCategoryCMS")
 	public ModelAndView ticketcentorCallCategoryCMS(ModelAndView mav,HttpServletRequest request) {
 
 		Map<String, Integer> mapDataList = null;

@@ -103,7 +103,7 @@ app.service('UserManagementService',['$http', function ($http) {
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({
           method: 'GET',
-          url: '/hm/ticketCentor/get?page='+pageNumber+'&size='+size+'&type='+counttype
+          url: 'hm/ticketCentor/get?page='+pageNumber+'&size='+size+'&type='+counttype
         });
     }
     return {

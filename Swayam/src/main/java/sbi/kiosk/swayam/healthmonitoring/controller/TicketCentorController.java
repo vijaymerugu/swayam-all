@@ -28,7 +28,7 @@ public class TicketCentorController {
 	@Autowired
 	TicketCentorFilterService ticketCentorFilterService;
 	
-	@RequestMapping(value = "/hm/ticketCentor/get", params = { "page", "size","type"}, method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "hm/ticketCentor/get", params = { "page", "size","type"}, method = RequestMethod.GET, produces = "application/json")
 	public Page<TicketCentorDto> findPaginated( @RequestParam("type") String type,
 		      @RequestParam("page") int page, @RequestParam("size") int size) {
 		 
@@ -68,7 +68,7 @@ public class TicketCentorController {
 		        return resultPage;
 		    }
 	
-	@RequestMapping(value = "/hm/ticketCentorByCircle/get", params = { "page", "size","type"}, method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "hm/ticketCentorByCircle/get", params = { "page", "size","type"}, method = RequestMethod.GET, produces = "application/json")
 	public Page<TicketCentorDto> findPaginatedByCircle( @RequestParam("type") String type,
 		      @RequestParam("page") int page, @RequestParam("size") int size) {
 		 
@@ -111,7 +111,7 @@ public class TicketCentorController {
 
 
 	
-	@RequestMapping(value = "/hm/ticketCentorFilter/get", params = { "page", "size","type"}, method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "hm/ticketCentorFilter/get", params = { "page", "size","type"}, method = RequestMethod.GET, produces = "application/json")
 	public Page<TicketCentorDto> findPaginatedByCategory( @RequestParam("type") String type,
 		      @RequestParam("page") int page, @RequestParam("size") int size) {
 		 
@@ -155,7 +155,7 @@ public class TicketCentorController {
 		    }
 
 
-	@RequestMapping(value = "/hm/ticketCentorFilterCMF/get", params = { "page", "size","type"}, method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "hm/ticketCentorFilterCMF/get", params = { "page", "size","type"}, method = RequestMethod.GET, produces = "application/json")
 	public Page<TicketCentorDto> findPaginatedByCategoryCMF( @RequestParam("type") String type,
 		      @RequestParam("page") int page, @RequestParam("size") int size) {
 		 
@@ -198,7 +198,7 @@ public class TicketCentorController {
 		        return resultPage;
 		    }
 
-	@RequestMapping(value = "/hm/ticketCentorFilterCMS/get", params = { "page", "size","type"}, method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "hm/ticketCentorFilterCMS/get", params = { "page", "size","type"}, method = RequestMethod.GET, produces = "application/json")
 	public Page<TicketCentorDto> findPaginatedByCategoryCMS( @RequestParam("type") String type,
 		      @RequestParam("page") int page, @RequestParam("size") int size) {
 		 
@@ -241,7 +241,7 @@ public class TicketCentorController {
 		        return resultPage;
 		    }	
 	
-	@RequestMapping(value = "/hm/categoryCall/{category}")
+	@RequestMapping(value = "hm/categoryCall/{category}")
 	public ResponseEntity<List<CallTypeDto>> callLogCategory(ModelAndView model,
 			@PathVariable("category") String category, HttpServletRequest request) {
 		
@@ -257,7 +257,7 @@ public class TicketCentorController {
 	}
 	
 	
-	@RequestMapping(value = "/hm/subCategoryCall/{category}/{subCategory}")
+	@RequestMapping(value = "hm/subCategoryCall/{category}/{subCategory}")
 	public ResponseEntity<List<TicketCentorDto>> subCategoryCall(ModelAndView model,@PathVariable("category") String category, @PathVariable("subCategory") String subCategory,
 			HttpServletRequest request) {
 		

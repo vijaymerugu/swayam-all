@@ -5,15 +5,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script	src="/resources/js/angular.1.5.6.min.js"></script>
-<script src="/resources/js/jquery.3.4.1.min.js"></script>
-<script src="/resources/js/bootstrap.3.4.1.min.js"></script>
-<link rel="stylesheet" href="/resources/css/ui-grid.4.8.3.min.css">
+<script	src="resources/js/angular.1.5.6.min.js"></script>
+<script src="resources/js/jquery.3.4.1.min.js"></script>
+<script src="resources/js/bootstrap.3.4.1.min.js"></script>
+<link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
 
 <script	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
 
-<link rel="stylesheet" href="/resources/css/grid-style.css"/>
-<link rel="stylesheet" href="/resources/css/body-page.css"/>
+<link rel="stylesheet" href="resources/css/grid-style.css"/>
+<link rel="stylesheet" href="resources/css/body-page.css"/>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
 <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script> 
 <link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css" type="text/css"/>
@@ -62,7 +62,7 @@
 <div class="main" ng-app="app" id="appId">
 <div ng-controller="UserManagementCtrl as vm">
 <%-- <a  href="${pageContext.request.contextPath}/km/addUser" align="right">AddUser</a> --%>
-<div style="text-align: right;float: right;"><a class="openFinalPopup"><img src="/resources/img/plus.png">&nbsp;AddUser</a></div>
+<div style="text-align: right;float: right;"><a class="openFinalPopup"><img src="resources/img/plus.png">&nbsp;AddUser</a></div>
 <div>
 <table class="table1" style="border: 1px solid #eee;">
 
@@ -127,7 +127,7 @@
 	
 
 
-<script src="/resources/js/users-la-app.js"></script>
+<script src="resources/js/users-la-app.js"></script>
 <script> 
  $(document).ready(function(){	
     $('.openPopup').on('click',function(){    	
@@ -148,7 +148,7 @@
 $(document).ready(function(){
 	    $('.openFinalPopup').on('click',function(){      
 	        
-	    	$("#contentHomeApp").load('/km/addUserLA');    	
+	    	$("#contentHomeApp").load('km/addUserLA');    	
 	      	    }); 
 	});
 </script>

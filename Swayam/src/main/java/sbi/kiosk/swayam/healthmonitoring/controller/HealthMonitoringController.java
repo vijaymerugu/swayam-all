@@ -30,7 +30,7 @@ public class HealthMonitoringController {
 	@Autowired
 	HealthMonitoringService healthMonitoringService;
 	
-	@RequestMapping("/hm/requestFormCmf")
+	@RequestMapping("hm/requestFormCmf")
 	public ModelAndView requestFormCmf(ModelAndView mav,@ModelAttribute("requestDto") RequestsManagementDto requestDto) {
 		System.out.println("========1====="+requestDto.getComments());
 		//ModelAndView mav = new ModelAndView("requestFormCmf");
@@ -38,21 +38,21 @@ public class HealthMonitoringController {
 		return mav;
 	}
 	
-	@RequestMapping("/hm/requestFormGridCmf")
+	@RequestMapping("hm/requestFormGridCmf")
 	public ModelAndView requestFormGridCmf() {
 		
 		ModelAndView mav = new ModelAndView("requestFormGridCmf");
 		return mav;
 	}
 	
-	@RequestMapping("/hm/requestFormCms")
+	@RequestMapping("hm/requestFormCms")
 	public ModelAndView requestFormCms() {
 		
 		ModelAndView mav = new ModelAndView("requestFormCms");
 		return mav;
 	}
 	
-	@RequestMapping("/hm/requestFormCC")
+	@RequestMapping("hm/requestFormCC")
 	public ModelAndView requestFormCC() {
 		
 		ModelAndView mav = new ModelAndView("requestFormCC");
@@ -61,7 +61,7 @@ public class HealthMonitoringController {
 	
 	
 	
-	@GetMapping("/hm/checkDuplicateKiosk/{kioskId}")
+	@GetMapping("hm/checkDuplicateKiosk/{kioskId}")
 	public ResponseEntity<String>  checkDuplicateKiosk(@PathVariable("kioskId") String kioskId) {
 		String result=healthMonitoringService.checkDuplicateKiosAppr(kioskId);
 		System.out.println("result====="+result);
@@ -70,7 +70,7 @@ public class HealthMonitoringController {
 	}
 	
 	
-	@PostMapping(value = "/hm/addRequest")
+	@PostMapping(value = "hm/addRequest")
 	public ResponseEntity<String>  saveRequestForCmf(ModelAndView model, HttpServletRequest request,
 			RedirectAttributes redirectAttributes,@ModelAttribute("requestDto") RequestsManagementDto requestDto) {
 		System.err.println("saveRequestForCmf==="+requestDto.getBranchCode());
@@ -92,7 +92,7 @@ public class HealthMonitoringController {
 	
 	
 	
-	@RequestMapping(value = "/hm/requestsCmf/get", params = { "page", "size" }, method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "hm/requestsCmf/get", params = { "page", "size" }, method = RequestMethod.GET, produces = "application/json")
 	public Page<RequestsDto> findPaginatedCmf(
 		      @RequestParam("page") int page, @RequestParam("size") int size) {
 		 
@@ -104,7 +104,7 @@ public class HealthMonitoringController {
 		        return resultPage;
 		    }
 	
-	@RequestMapping(value = "/hm/requestsCms/get", params = { "page", "size" }, method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "hm/requestsCms/get", params = { "page", "size" }, method = RequestMethod.GET, produces = "application/json")
 	public Page<RequestsDto> findPaginated(
 		      @RequestParam("page") int page, @RequestParam("size") int size) {
 		 
@@ -116,7 +116,7 @@ public class HealthMonitoringController {
 		        return resultPage;
 		    }
 	
-	@RequestMapping(value = "/hm/requestsCC/get", params = { "page", "size" }, method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "hm/requestsCC/get", params = { "page", "size" }, method = RequestMethod.GET, produces = "application/json")
 	public Page<RequestsDto> findPaginatedCC(
 		      @RequestParam("page") int page, @RequestParam("size") int size) {
 		 
@@ -128,7 +128,7 @@ public class HealthMonitoringController {
 		        return resultPage;
 		    }
 	
-	@RequestMapping(value = "/hm/saveCheckerCommentsCms" , method = RequestMethod.POST)
+	@RequestMapping(value = "hm/saveCheckerCommentsCms" , method = RequestMethod.POST)
 	//public ModelAndView saveCheckerComments(@RequestParam("array") List<CheckerComments> array) {
 	public ResponseEntity<String> saveCheckerCommentsCms(@RequestBody String array) {
 		
@@ -139,7 +139,7 @@ public class HealthMonitoringController {
 		return entiry;
 	}
 	
-	@RequestMapping(value = "/hm/rejectCheckerCommentsCms" , method = RequestMethod.POST)
+	@RequestMapping(value = "hm/rejectCheckerCommentsCms" , method = RequestMethod.POST)
 	//public ModelAndView saveCheckerComments(@RequestParam("array") List<CheckerComments> array) {
 	public ResponseEntity<String> rejectCheckerCommentsCms(@RequestBody String array) {
 		
@@ -150,7 +150,7 @@ public class HealthMonitoringController {
 		return entiry;
 	}
 	
-	@RequestMapping(value = "/hm/saveApproverCommentsCC" , method = RequestMethod.POST)	
+	@RequestMapping(value = "hm/saveApproverCommentsCC" , method = RequestMethod.POST)	
 	public ResponseEntity<String> saveApproverCommentsCC(@RequestBody String array) {
 		
 		healthMonitoringService.saveApproverCommentsCC(array);
@@ -160,7 +160,7 @@ public class HealthMonitoringController {
 		return entiry;
 	}
 	
-	@RequestMapping(value = "/hm/rejectApproverCommentsCC" , method = RequestMethod.POST)	
+	@RequestMapping(value = "hm/rejectApproverCommentsCC" , method = RequestMethod.POST)	
 	public ResponseEntity<String> rejectApproverCommentsCC(@RequestBody String array) {
 		
 		healthMonitoringService.rejectApproverCommentsCC(array);
@@ -169,7 +169,7 @@ public class HealthMonitoringController {
 		return entiry;
 	}
 	
-	@RequestMapping(value = "/hm/viewCmfCaseId")	
+	@RequestMapping(value = "hm/viewCmfCaseId")	
 	public ModelAndView viewCmfCaseId(@RequestParam("caseId") int caseId) {
 		
 		RequestsManagementDto dto = healthMonitoringService.viewCaseId(caseId);
@@ -179,7 +179,7 @@ public class HealthMonitoringController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/hm/viewCmsCaseId")	
+	@RequestMapping(value = "hm/viewCmsCaseId")	
 	public ModelAndView viewCmsCaseId(@RequestParam("caseId") int caseId) {
 		
 		RequestsManagementDto dto = healthMonitoringService.viewCaseId(caseId);
@@ -189,7 +189,7 @@ public class HealthMonitoringController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/hm/viewCCCaseId")	
+	@RequestMapping(value = "hm/viewCCCaseId")	
 	public ModelAndView viewCCCaseId(@RequestParam("caseId") int caseId) {
 		
 		RequestsManagementDto dto = healthMonitoringService.viewCaseId(caseId);

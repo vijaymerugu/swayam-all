@@ -12,14 +12,14 @@
 <title>Add User</title>
 
 
-<script src="/resources/js/angular.1.5.6.min.js"></script>
-<script src="/resources/js/jquery.3.4.1.min.js"></script>
-<script src="/resources/js/bootstrap.3.4.1.min.js"></script>
-<link rel="stylesheet" href="/resources/css/ui-grid.4.8.3.min.css">
+<script src="resources/js/angular.1.5.6.min.js"></script>
+<script src="resources/js/jquery.3.4.1.min.js"></script>
+<script src="resources/js/bootstrap.3.4.1.min.js"></script>
+<link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
 
 
-<link rel="stylesheet" href="/resources/css/grid-style.css" />
-<link rel="stylesheet" href="/resources/css/body-page.css" />
+<link rel="stylesheet" href="resources/css/grid-style.css" />
+<link rel="stylesheet" href="resources/css/body-page.css" />
 <script
 	src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script>
 <script
@@ -27,7 +27,7 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-<link href="/resources/css/menu.css" rel="stylesheet" type="text/css">
+<link href="resources/css/menu.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css"
 	type="text/css" />
 
@@ -407,7 +407,7 @@ $(document).ready(function(){
 		 console.log("inside bluer function...."+pfId);
 	         	        $.ajax({
 	        	type:"GET",
-	        	url:"/km/getByPfId/"+pfId,
+	        	url:"km/getByPfId/"+pfId,
 	            success: function(data){
 	            	console.log("inside data");
 	        	    respos=data;
@@ -440,7 +440,7 @@ $(document).ready(function(){
 	} */
 	
  function openWin(){
-	      window.location.href = "/km/userList";
+	      window.location.href = "km/userList";
 	}; 
 	
 	
@@ -548,7 +548,7 @@ $(document).ready(function(){
 		
 		 $.ajax({
 	        	type:"POST",
-	        	url:"/km/addUsersLA",
+	        	url:"km/addUsersLA",
 	        	data:formData,
 	         success: function(data){
 	        	 resp=data;       	 	        	 
@@ -735,7 +735,7 @@ $(document).ready(function(){
 			
 			<p style="color: #000000; font-size: 10px; text-align: center;">
 				<span style="text-align: center; color: #000000;"> <img
-					src="/resources/img/successTick.png"></span>
+					src="resources/img/successTick.png"></span>
 			</p>
 			<p id="para" align="center"></p>
 			<button class="openFinalPopup">OK</button>
@@ -750,7 +750,7 @@ $(document).ready(function(){
 $(document).ready(function(){
     $('.openFinalPopup').on('click',function(){      
         
-    	$("#contentHomeApp").load('/km/userList');    	
+    	$("#contentHomeApp").load('km/userList');    	
        
     }); 
     

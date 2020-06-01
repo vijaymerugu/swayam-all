@@ -14,8 +14,8 @@
 	src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 <script
 	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
-<script src="/resources/js/users-la-app.js"></script>
-<link rel="stylesheet" href="/resources/css/grid-style.css" />
+<script src="resources/js/users-la-app.js"></script>
+<link rel="stylesheet" href="resources/css/grid-style.css" />
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -232,7 +232,7 @@ input[type=text], select {
 		$("#username").bind(
 				"change",
 				function(e) {
-					$.getJSON("/km/getUserByUsername?username="
+					$.getJSON("km/getUserByUsername?username="
 							+ $("#username option:selected").val(), function(
 							data) {
 
@@ -246,7 +246,7 @@ input[type=text], select {
 						function() {
 							$('.openPopupAssign').on('click',function() {
 
-												var url = "/km/saveSingleCmfKioskMapping?username="
+												var url = "km/saveSingleCmfKioskMapping?username="
 														+ $("#username option:selected").val()
 														+ "&kioskId="
 														+ $('input[name=kioskId]').val();

@@ -36,7 +36,7 @@
 
 
 <tr>
-<td>  <img src="/resources/img/successTick.png"></td>
+<td>  <img src="resources/img/successTick.png"></td>
 </tr>
 </tr>
 <tr><td style="color:#000000;font-size:15px;" align="center">CMF has been assigned Successfully</td></tr>

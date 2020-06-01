@@ -4,17 +4,17 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 
-<script src="/resources/js/angular.1.5.6.min.js"></script>
-<script src="/resources/js/jquery.3.4.1.min.js"></script>
-<script src="/resources/js/bootstrap.3.4.1.min.js"></script>
-<link rel="stylesheet" href="/resources/css/ui-grid.4.8.3.min.css">
+<script src="resources/js/angular.1.5.6.min.js"></script>
+<script src="resources/js/jquery.3.4.1.min.js"></script>
+<script src="resources/js/bootstrap.3.4.1.min.js"></script>
+<link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
 
 <script
 	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
-<script src="/resources/js/users-app.js"></script>
-<script src="/resources/js/angular.1.5.6.min.js"></script>
-<link rel="stylesheet" href="/resources/css/grid-style.css" />
-<link rel="stylesheet" href="/resources/css/body-page.css" />
+<script src="resources/js/users-app.js"></script>
+<script src="resources/js/angular.1.5.6.min.js"></script>
+<link rel="stylesheet" href="resources/css/grid-style.css" />
+<link rel="stylesheet" href="resources/css/body-page.css" />
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -342,7 +342,7 @@ $(document).ready(function(){
 		 console.log("inside bluer function kioskId...."+kioskId);
 	         	        $.ajax({
 	        	type:"GET",
-	        	url:"/hm/checkDuplicateKiosk/"+kioskId,
+	        	url:"hm/checkDuplicateKiosk/"+kioskId,
 	            success: function(data){
 	            	console.log("inside data");
 	        	    respos=data;
@@ -411,7 +411,7 @@ function fromValidation(){
 	
 	 var window;
 		function openWin(){
-		      window.location.href = "/hm/requestFormGridCmf";
+		      window.location.href = "hm/requestFormGridCmf";
 		};
 	 	
  	
@@ -486,7 +486,7 @@ function fromValidation(){
 		
 		 $.ajax({
 	        	type:"POST",
-	        	url:"/hm/addRequest",
+	        	url:"hm/addRequest",
 	        	data:formData,
 	         success: function(data){
 	        	 resp=data;   
@@ -644,7 +644,7 @@ opacity: 1;"><form:textarea path="comments" /></td>
 			
 			<p style="color: #000000; font-size: 10px; text-align: center;">
 				<span style="text-align: center; color: #000000;"> <img
-					src="/resources/img/successTick.png"></span>
+					src="resources/img/successTick.png"></span>
 			</p>
 			<p id="para" align="center"></p>
 			<span style="text-align: center;"><button  class="openFinalPopup" style="text-align: center;">OK</button> </span>
@@ -665,7 +665,7 @@ function loadImage() {
 $(document).ready(function(){
     $('.openFinalPopup').on('click',function(){      
         
-    	$("#contentHomeApp").load('/hm/requestFormGridCmf');    	
+    	$("#contentHomeApp").load('hm/requestFormGridCmf');    	
        
     }); 
     

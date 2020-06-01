@@ -12,19 +12,19 @@
 <link rel="stylesheet"
 	href="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css">
 
-<script	src="/resources/js/angular.1.5.6.min.js"></script>
-<script src="/resources/js/jquery.3.4.1.min.js"></script>
-<script src="/resources/js/bootstrap.3.4.1.min.js"></script>
- <link rel="stylesheet" href="/resources/css/ui-grid.4.8.3.min.css"> 
+<script	src="resources/js/angular.1.5.6.min.js"></script>
+<script src="resources/js/jquery.3.4.1.min.js"></script>
+<script src="resources/js/bootstrap.3.4.1.min.js"></script>
+ <link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css"> 
 
 
-<link rel="stylesheet" href="/resources/css/grid-style.css"/>
-<link rel="stylesheet" href="/resources/css/body-page.css"/>  
+<link rel="stylesheet" href="resources/css/grid-style.css"/>
+<link rel="stylesheet" href="resources/css/body-page.css"/>  
 <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script>
 <script	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   	-->
-<link href="/resources/css/menu.css" rel="stylesheet" type="text/css">	
+<link href="resources/css/menu.css" rel="stylesheet" type="text/css">	
 <!-- <link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css" type="text/css"/>
  -->
 <script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
@@ -48,7 +48,7 @@ $(document).ready(function(){
 
         $.ajax({
         	type:"POST",
-        	url:"/uploadKiosk",
+        	url:"uploadKiosk",
         	////data:formData,
             success: function(data){
 
@@ -74,7 +74,7 @@ $(document).ready(function(){
 
         $.ajax({
         	type:"POST",
-        	url:"/uploadCBSbrhm",
+        	url:"uploadCBSbrhm",
         	////data:formData,
             success: function(data){
 
@@ -100,7 +100,7 @@ $(document).ready(function(){
 
         $.ajax({
         	type:"POST",
-        	url:"/uploadHolidayCalendar",
+        	url:"uploadHolidayCalendar",
         	////data:formData,
             success: function(data){
 
@@ -127,7 +127,7 @@ $(document).ready(function(){
 
         $.ajax({
         	type:"POST",
-        	url:"/uploadKioskCMF",
+        	url:"uploadKioskCMF",
         	////data:formData,
             success: function(data){
 

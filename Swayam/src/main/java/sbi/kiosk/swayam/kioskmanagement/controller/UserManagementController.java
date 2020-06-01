@@ -33,7 +33,7 @@ public class UserManagementController {
 	@Autowired
 	RoleService roleService;
 
-	@RequestMapping(value = { "/km/userList" })
+	@RequestMapping(value = { "km/userList" })
 	public ModelAndView userList(ModelAndView model, HttpSession session) {
 
 		try {
@@ -90,7 +90,7 @@ public class UserManagementController {
 		return model;
 	}
 	
-	@RequestMapping(value = { "/km/userListCC" })
+	@RequestMapping(value = { "km/userListCC" })
 	public ModelAndView userListCC(HttpSession session) {
 		ModelAndView model = new ModelAndView("userlistCC");
 		try {			
@@ -122,7 +122,7 @@ public class UserManagementController {
 
 	
 	
-	@RequestMapping(value = "/users/get", params = { "page", "size" ,"type"}, method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "users/get", params = { "page", "size" ,"type"}, method = RequestMethod.GET, produces = "application/json")
 	public Page<UserManagementDto> findPaginated(
 		      @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("type") String type) {
 		 
@@ -149,7 +149,7 @@ public class UserManagementController {
 		 return resultPage;
 		    }
 	
-	@RequestMapping(value = "/usersByCircle/get", params = { "page", "size" ,"type"}, method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "usersByCircle/get", params = { "page", "size" ,"type"}, method = RequestMethod.GET, produces = "application/json")
 	public Page<UserManagementDto> findPaginatedByCircle(
 		      @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("type") String type) {
 		 
@@ -176,7 +176,7 @@ public class UserManagementController {
 	
 
 	
-	@RequestMapping(value = { "/km/addUser" })
+	@RequestMapping(value = { "km/addUser" })
 	public ModelAndView addUser(ModelAndView model, @ModelAttribute("addUser") AddUserDto addUser,HttpServletRequest request) {
 
 		try {
@@ -193,7 +193,7 @@ public class UserManagementController {
 	}
 	
 	
-	@RequestMapping(value = { "/km/addUserLA" })
+	@RequestMapping(value = { "km/addUserLA" })
 	public ModelAndView addUserLa(ModelAndView model, @ModelAttribute("addUserDto") AddUserDto addUserDto) {
 
 		try {
@@ -218,7 +218,7 @@ public class UserManagementController {
 
 	
 	
-	@RequestMapping(value = "/km/editUserMaster")
+	@RequestMapping(value = "km/editUserMaster")
 	public ModelAndView editUserMaster(ModelAndView model, HttpServletRequest request,@RequestParam("userId") String userId,@ModelAttribute("addUser") AddUserDto addUser) {
 		System.out.println("editUserMaster(-,-) :: START "+userId);
 		try {
@@ -248,7 +248,7 @@ public class UserManagementController {
 	
 	
 	
-	@RequestMapping(value = "/km/editUserMasterLA")
+	@RequestMapping(value = "km/editUserMasterLA")
 	public ModelAndView editUserMasterLA(ModelAndView model, HttpServletRequest request,@RequestParam("userId") String userId,@ModelAttribute("addUserDto") AddUserDto addUserDto) {
 		System.out.println("editUserMasterLA(-,-) :: START "+userId);
 		try {
@@ -284,7 +284,7 @@ public class UserManagementController {
 	}
 	
 
-	/*@RequestMapping(value = "/km/saveEditUserMaster")
+	/*@RequestMapping(value = "km/saveEditUserMaster")
 	public ModelAndView saveEditUserMaster(ModelAndView model, HttpServletRequest request,
 			RedirectAttributes redirectAttributes) {
 		System.out.println("saveEditUserMaster(-,-) :: START");
@@ -341,7 +341,7 @@ public class UserManagementController {
 		return model;
 	}*/
 	
-	@RequestMapping(value = "/km/deleteUserMaster")
+	@RequestMapping(value = "km/deleteUserMaster")
 	public ModelAndView deleteUserMaster(ModelAndView model,@RequestParam("userId") String userId, @ModelAttribute("addUser") AddUserDto addUser,HttpServletRequest request) {
 		System.out.println("deleteUserMaster(-,-) :: START");
 		try {
@@ -362,7 +362,7 @@ public class UserManagementController {
 		return model;
 	}
 
-	@RequestMapping(value = { "/km/deleteUser" })
+	@RequestMapping(value = { "km/deleteUser" })
 	public ResponseEntity<String>activeAndInActiveUser(ModelAndView model,@RequestParam("userId") String userId,@ModelAttribute("usersBean") UserDto usersBean) {
 		ResponseEntity<String> entity=null;
 		try {
@@ -381,7 +381,7 @@ public class UserManagementController {
 		return entity;
 	}
 
-	@RequestMapping(value = { "/km/searchUser" })
+	@RequestMapping(value = { "km/searchUser" })
 	public ModelAndView searchUsers(ModelAndView model, HttpServletRequest request, HttpSession session) {
 
 		try {
@@ -408,7 +408,7 @@ public class UserManagementController {
 		return model;
 	}
 	
-	@RequestMapping(value ="/km/getUserByUsername")
+	@RequestMapping(value ="km/getUserByUsername")
 	public User getUserByPfId(@RequestParam("username") String pfId){
 		return userService.getUserByPfId(pfId);		
 	}

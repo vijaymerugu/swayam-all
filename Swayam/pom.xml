@@ -12,7 +12,7 @@
 	<artifactId>Swayam</artifactId>
 	<version>0.0.1</version>
 	<packaging>war</packaging>
-	<name>Swayam</name>
+	<name>SMT</name>
 	<description>Swayam project in Spring Boot</description>
 
 	<properties>
