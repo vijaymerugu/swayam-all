@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,8 @@ import sbi.kiosk.swayam.healthmonitoring.service.TicketCentorService;
 
 @RestController
 public class TicketCentorController {
+	
+	Logger logger = LoggerFactory.getLogger(TicketCentorController.class);
 	
 
 	@Autowired
@@ -159,7 +163,8 @@ public class TicketCentorController {
 	public Page<TicketCentorDto> findPaginatedByCategoryCMF( @RequestParam("type") String type,
 		      @RequestParam("page") int page, @RequestParam("size") int size) {
 		 
-		System.out.println("type==findPaginated===========findPaginatedByCategoryCMF=====+++"+type);
+		logger.info("type==findPaginated===========findPaginatedByCategoryCMF=====+++TYPE="+type);
+		
 		if(type !=null && type.trim().equals("undefined")){
 			type = "";
 		}
@@ -167,30 +172,40 @@ public class TicketCentorController {
 		 Page<TicketCentorDto> resultPage = null;
 		    
 			if(type.equals("High")){
+				logger.info("=========findPaginatedByCategoryCMF=====+++TYPE="+type);
 				resultPage= ticketCentorFilterService.findPaginatedCountCmf(page, size, type);
 			}else if(type.equals("Medium")){
+				logger.info("=========findPaginatedByCategoryCMF=====+++TYPE="+type);
 				resultPage= ticketCentorFilterService.findPaginatedCountCmf(page, size, type);
 			}else if(type.equalsIgnoreCase("Low")){
+				logger.info("=========findPaginatedByCategoryCMF=====+++TYPE="+type);
 				resultPage= ticketCentorFilterService.findPaginatedCountCmf(page, size, type);
 			}else if(type.equals("Total")){
+				logger.info("=========findPaginatedByCategoryCMF=====+++TYPE="+type);
 				resultPage= ticketCentorFilterService.findPaginatedCountCmf(page, size, type);
 				System.out.println("Total Size:::: "+resultPage.getContent().size());
 			}else if(type.equals("TwoToFourHrsCount")){
+				logger.info("=========findPaginatedByCategoryCMF=====+++TYPE="+type);
 				resultPage= ticketCentorFilterService.findPaginatedCountCmf(page, size, type);
 			}else if(type.equals("OneDaysCount")){
+				logger.info("=========findPaginatedByCategoryCMF=====+++TYPE="+type);
 			   resultPage= ticketCentorFilterService.findPaginatedCountCmf(page, size, type);
 			}else if(type.equals("ThreeDaysLessCount")){
+				logger.info("=========findPaginatedByCategoryCMF=====+++TYPE="+type);
 				   resultPage= ticketCentorFilterService.findPaginatedCountCmf(page, size, type);
 		    }else if(type.equals("ThreeDayGreaterCount")){
+		    	logger.info("=========findPaginatedByCategoryCMF=====+++TYPE="+type);
 		    	resultPage= ticketCentorFilterService.findPaginatedCountCmf(page, size, type);
 		         
 		    }else if(type !=null && type !=""){
+		    	logger.info("=========findPaginatedByCategoryCMF=====+++ONLY=TYPE="+type);
 		    	resultPage= ticketCentorFilterService.findPaginatedCountCmf(page, size, type);
 		         
 		    }else{
 		    	//resultPage= ticketCentorFilterService.findPaginatedCount(page, size, type);
+		    logger.info("=========findPaginatedCmf=====+++");
 			 resultPage = ticketCentorFilterService.findPaginatedCmf(page, size);
-		      System.out.println("resultPage=="+resultPage.getContent());
+			 logger.info("resultPage=="+resultPage.getContent());
 			    if (resultPage !=null && resultPage.getSize()>0){
 			    	//return resultPage;
 			        }

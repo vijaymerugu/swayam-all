@@ -23,7 +23,7 @@
 <link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
 
-<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
 
     
 <script
@@ -34,18 +34,18 @@
 
 
 <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script> 
-<link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css" type="text/css"/>
+<link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/>
 
-<script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/lodash.min.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/jszip.min.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/excel-builder.dist.js"></script>  
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-touch.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-animate.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-aria.js"></script>
+<script src="resources/js/csv.js"></script>
+    <script src="resources/js/pdfmake.js"></script>
+    <script src="resources/js/vfs_fonts.js"></script>
+    <script src="resources/js/lodash.min.js"></script>
+    <script src="resources/js/jszip.min.js"></script>
+    <script src="resources/js/excel-builder.dist.js"></script>  
+    <script src="resources/js/angular.js"></script>
+    <script src="resources/js/angular-touch.js"></script>
+    <script src="resources/js/angular-animate.js"></script>
+    <script src="resources/js/angular-aria.js"></script>
 
 	
 	

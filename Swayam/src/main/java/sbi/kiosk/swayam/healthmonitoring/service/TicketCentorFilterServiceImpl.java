@@ -10,6 +10,8 @@ import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,12 +26,16 @@ import sbi.kiosk.swayam.common.dto.UserDto;
 import sbi.kiosk.swayam.common.entity.TicketCentor;
 import sbi.kiosk.swayam.common.repository.KioskMasterRepository;
 import sbi.kiosk.swayam.common.repository.SupervisorRepository;
+import sbi.kiosk.swayam.healthmonitoring.controller.TicketCentorController;
 import sbi.kiosk.swayam.healthmonitoring.repository.CallTypeRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.TicketCentorAgeingRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.TicketCentorRepository;
 
 @Service
 public class TicketCentorFilterServiceImpl implements TicketCentorFilterService {
+	
+	Logger logger = LoggerFactory.getLogger(TicketCentorFilterServiceImpl.class);
+	
 	@Autowired
 	TicketCentorRepository ticketCentorRepo;
 	@Autowired
@@ -51,6 +57,7 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 
 	 @Override
 	 public Page<TicketCentorDto> findPaginated(final int page, final int size){
+		 logger.info("Inside======findPaginated===========");
 		 Page<TicketCentorDto> entities = ticketCentorRepo.findAll(PageRequest.of(page, size)).map(TicketCentorDto::new);
 		 TicketCentorDto ticketCentorDto= new TicketCentorDto();
 		 for(TicketCentorDto dto:entities.getContent()){
@@ -396,6 +403,7 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 		
 		@Override
 		 public Page<TicketCentorDto> findPaginatedCmf(final int page, final int size){
+			logger.info("Inside======findPaginatedCmf===========");
 			UserDto user = (UserDto) session().getAttribute("userObj"); 
 			Page<TicketCentorDto> entities = ticketCentorRepo.findAllByCMFUser(user.getPfId(),PageRequest.of(page, size)).map(TicketCentorDto::new);
 			 TicketCentorDto ticketCentorDto= new TicketCentorDto();
