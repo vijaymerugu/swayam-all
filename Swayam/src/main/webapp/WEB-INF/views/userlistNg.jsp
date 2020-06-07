@@ -5,7 +5,7 @@
           <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="resources/css/bootstrap.min.css">
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.7.0/angular.js"></script>
     <script src="http://ui-grid.info/release/ui-grid.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-grid/4.8.3/i18n/ui-grid.grouping.min.js"></script>
@@ -77,7 +77,7 @@ app.service('StudentService',['$http', function ($http) {
         pageNumber = pageNumber > 0?pageNumber - 1:0;
         return $http({
           method: 'GET',
-            url: '/student/get?page='+pageNumber+'&size='+size
+            url: 'student/get?page='+pageNumber+'&size='+size
         });
     }
     return {

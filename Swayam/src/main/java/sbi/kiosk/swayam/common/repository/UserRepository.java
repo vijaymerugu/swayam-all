@@ -35,7 +35,7 @@ public interface UserRepository extends CrudRepository<User, String>{
     @Query(value="SELECT PF_ID FROM TBL_USER WHERE PF_ID=:pfid",nativeQuery=true)
     String findIdByPfId(@Param("pfid") String pfid);
     
-    @Query(value=" select * from TBL_USER where USER_ID in(select user_id from TBL_USER_KIOSK_MAPPING where KIOSK_ID=:kioskId )",nativeQuery=true)
+    @Query(value=" select * from TBL_USER where PF_ID in(select PF_ID from TBL_USER_KIOSK_MAPPING where KIOSK_ID=:kioskId )",nativeQuery=true)
     User findIdByKioskId(@Param("kioskId") String kioskId);
 
 }

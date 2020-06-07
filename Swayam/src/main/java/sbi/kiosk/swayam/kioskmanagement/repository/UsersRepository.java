@@ -59,10 +59,10 @@ public interface UsersRepository extends CrudRepository<User, Long> {
 	User findUserByUserId(int userId);
 	
 	
-	@Query(value=" SELECT COUNT(*) FROM TBL_USER WHERE ROLE IN ('CMF') ",nativeQuery=true)
+	@Query(value=" SELECT COUNT(*) FROM TBL_USER WHERE ROLE IN ('CMF') and ENABLED in('1')",nativeQuery=true)
 	public int findCMFCount();
 	
-	@Query(value=" SELECT COUNT(*) FROM TBL_USER WHERE ROLE IN ('CMS') ",nativeQuery=true)
+	@Query(value=" SELECT COUNT(*) FROM TBL_USER WHERE ROLE IN ('CMS') and ENABLED in('1')",nativeQuery=true)
 	public int findCMSCount();
 	
 	//@Query(value=" SELECT COUNT(*) FROM TBL_USER WHERE ROLE IN ('CIRCLE') ",nativeQuery=true)
@@ -77,11 +77,25 @@ public interface UsersRepository extends CrudRepository<User, Long> {
 	
 	@Query(value=" SELECT COUNT(*) FROM TBL_USER WHERE ROLE IN ('SA') and ENABLED in('1') ",nativeQuery=true)
 	public int findSACount();
+	
+	@Query(value=" SELECT COUNT(*) FROM TBL_USER WHERE ROLE IN ('C') and ENABLED in('1') ",nativeQuery=true)
+	public int findCircleUserCount();	
 
 	@Query(value=" SELECT COUNT(*) FROM TBL_USER WHERE CIRCLE=?1 and ENABLED in('1') ",nativeQuery=true)
 	/*@Query(value=" SELECT COUNT(*),ROLE FROM TBL_USER WHERE ROLE=?1 GROUP BY ROLE; ",nativeQuery=true)*/
 	int findCircleCountByRole(String circle);
 
+	@Query(value=" SELECT COUNT(*) FROM TBL_USER WHERE ROLE IN ('CMF') and ENABLED in('1') and CIRCLE=:circle",nativeQuery=true)
+	public int findCMFCountByCircle(@Param("circle") String circle);
+	
+	@Query(value=" SELECT COUNT(*) FROM TBL_USER WHERE ROLE IN ('CMS') and ENABLED in('1') and CIRCLE=:circle",nativeQuery=true)
+	public int findCMSCountByCircle(@Param("circle") String circle);
+	
+	@Query(value=" SELECT COUNT(*) FROM TBL_USER WHERE ROLE IN ('C') and ENABLED in('1') and CIRCLE=:circle",nativeQuery=true)
+	public int findCircleUserCountByCircle(@Param("circle") String circle);	
+	
+	@Query(value=" SELECT COUNT(*) FROM TBL_USER WHERE ROLE IN ('LA')  and ENABLED in('1') and CIRCLE=:circle",nativeQuery=true)
+	public int findLACount(@Param("circle") String circle);
 	
 	
 }

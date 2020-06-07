@@ -23,17 +23,18 @@ public class AddController {
 	private AddUserService addUserService;
 	
 	
-	@GetMapping("/km/getByPfIdSA/{pfId}")
+	@GetMapping("km/getByPfIdSA/{pfId}")
 	public ResponseEntity<String>  getByPfId(@PathVariable("pfId") String pfId) {
 		String result=addUserService.getByPfId(pfId);
 		ResponseEntity<String> entity=ResponseEntity.ok(result);
 		return entity;
 	}
 	
-	@PostMapping("/km/addUsers")
+	@PostMapping("km/addUsers")
 	public ResponseEntity<String> addUserData(ModelAndView model,@ModelAttribute("addUser") AddUserDto addUser,HttpServletRequest request,RedirectAttributes redirectAttributes) {
 		ResponseEntity<String> entity=null;
 		String addUserResut=null;
+		
 		System.out.println("addUserSA  111 Start(-,-)");
 		System.out.println("request= userId from hiden==="+request.getParameter("userId"));
 		System.out.println("request checkAction action=="+request.getParameter("checkAction"));
@@ -44,11 +45,11 @@ public class AddController {
 				&& (request.getParameter("checkAction").equalsIgnoreCase("Edit"))) {
 			addUser.setUserId(Integer.parseInt(request.getParameter("userId")));
 			
-			addUserResut=addUserService.updateUser(addUser,request.getParameter("role"));
+			addUserResut=addUserService.updateUser(addUser,request.getParameter("role"),request.getParameter("circle"));
 			String result="User: "+addUserResut+ " has been successfully Updated";
 			entity=ResponseEntity.ok(result);
 	} else {
-		    addUserResut=addUserService.addUser(addUser,request.getParameter("role"));
+		    addUserResut=addUserService.addUser(addUser,request.getParameter("role"),request.getParameter("circle"));
 		    System.out.println(addUserResut);
 		
 		if(addUserResut.equals("User is Allready Exist")){
@@ -62,7 +63,7 @@ public class AddController {
 	return entity;
 	}
 	
-	@GetMapping("/km/getByPfId/{pfId}")
+	@GetMapping("km/getByPfId/{pfId}")
 	public ResponseEntity<String>  getByPfIdLA(@PathVariable("pfId") String pfId) {
 		String result=addUserService.getByPfId(pfId);
 		System.out.println("LA result=="+result);
@@ -70,7 +71,7 @@ public class AddController {
 		return entity;
 	}
 	
-	@PostMapping("/km/addUsersLA")
+	@PostMapping("km/addUsersLA")
 	public ResponseEntity<String> addUserLA(ModelAndView model,@ModelAttribute("addUserDto") AddUserDto addUserDto,HttpServletRequest request,RedirectAttributes redirectAttributes) {
 		ResponseEntity<String> entity=null;
 		String addUserResut=null;
@@ -85,11 +86,11 @@ public class AddController {
 				&& (request.getParameter("checkAction").equalsIgnoreCase("Edit"))) {
 			addUserDto.setUserId(Integer.parseInt(request.getParameter("userId")));
 			
-			addUserResut=addUserService.updateUser(addUserDto,request.getParameter("role"));
+			addUserResut=addUserService.updateUser(addUserDto,request.getParameter("role"),request.getParameter("circle"));
 			String result="User: "+addUserResut+ " has been successfully Updated";
 			entity=ResponseEntity.ok(result);
 	} else {
-		    addUserResut=addUserService.addUser(addUserDto,request.getParameter("role"));
+		    addUserResut=addUserService.addUser(addUserDto,request.getParameter("role"),request.getParameter("circle"));
 		    System.out.println(addUserResut);
 		
 		if(addUserResut.equals("User is Allready Exist")){
@@ -110,7 +111,7 @@ public class AddController {
 	
 	
 	
-	@GetMapping("/km/reSetAddUser")
+	@GetMapping("km/reSetAddUser")
 	public ModelAndView reSeAddUser(@ModelAttribute("addUser") AddUserDto dto) {
 		ModelAndView view=new ModelAndView();
 		view.setViewName("addUser");

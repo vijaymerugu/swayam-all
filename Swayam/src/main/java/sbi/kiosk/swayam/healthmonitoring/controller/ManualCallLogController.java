@@ -28,7 +28,7 @@ public class ManualCallLogController {
 	@Autowired
 	private ManualTicketService manualTicketService;
 
-	@GetMapping("/hm/manualTicket")
+	@GetMapping("hm/manualTicket")
 	public ModelAndView manualTicketCallLog(
 			@ModelAttribute("manualTicketCallLogDto") ManualTicketCallLogDto manualTicketCallLogDto,
 			ModelAndView model) {
@@ -38,7 +38,7 @@ public class ManualCallLogController {
 		return model;
 	}
 
-	@PostMapping("/manualTicketForm")
+	@PostMapping("manualTicketForm")
 	public ResponseEntity<String> createManualForm(@ModelAttribute("manualTicketCallLogDto") ManualTicketCallLogDto manualTicketCallLogDto,
 			                  ModelAndView model)	throws ManualTicketNotFoudException {
 		
@@ -54,7 +54,7 @@ public class ManualCallLogController {
 		return entiry;
 	}
 
-	@PostMapping("/getByBranchCode/{brachCode}")
+	@PostMapping("getByBranchCode/{brachCode}")
 	public ResponseEntity<List<ManualTicketCallLogDto>> getByBranchCode(@PathVariable("brachCode") String brachCode,
 			ModelAndView model, @ModelAttribute("manualTicketCallLogDto") ManualTicketCallLogDto manualTicketCallLogDto)
 			throws JSONException {
@@ -69,7 +69,7 @@ public class ManualCallLogController {
 
 	}
 
-	@GetMapping("/getBykioskId/{kioskId}")
+	@GetMapping("getBykioskId/{kioskId}")
 	public ResponseEntity<List<ManualTicketCallLogDto>> getAllCirclesAgainstKioskID(
 			@PathVariable("kioskId") String kioskId,
 			@ModelAttribute("manualTicketCallLogDto") ManualTicketCallLogDto manualTicketCallLogDto,
@@ -81,7 +81,7 @@ public class ManualCallLogController {
 
 	}
 
-	@GetMapping("/getByVendor/{vendor}/{branchcode}")
+	@GetMapping("getByVendor/{vendor}/{branchcode}")
 	public ResponseEntity<List<ManualTicketCallLogDto>> getAllCirclesAgainstVendor(
 			@PathVariable("vendor") String vendor, @PathVariable("branchcode") String branchcode,
 			@ModelAttribute("manualTicketCallLogDto") ManualTicketCallLogDto manualTicketCallLogDto,

@@ -24,7 +24,17 @@ public interface TicketCentorFilterService extends IOperations<TicketCentorDto> 
 
 	List<TicketCentorDto> findByCategoryAndSubCategory(String category, String subCategory);
 
+	Map<String,Integer> findAllSeverityOfTicketsCountCMF();
 	
+	Map<String,Integer> findAllAgeingOfTicketsCountCMF();
+	
+	Map<String, Object> findAllCategoryCMF();
+	
+	Map<String,Integer> findAllSeverityOfTicketsCountCMS();
+	
+	Map<String,Integer> findAllAgeingOfTicketsCountCMS();
+	
+	Map<String, Object> findAllCategoryCMS();
 	
 	
 	

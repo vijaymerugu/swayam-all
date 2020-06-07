@@ -13,7 +13,7 @@
 <%@ include file = "home.jsp" %>	
 <div ng-app="UserKioskMappingApp" id="UserKioskMappingAppId">
     <div ng-controller="userKioskMappingController">
-	<form action="/km/userkioskmapping/kiosksbycirclepost" method="POST">
+	<form action="km/userkioskmapping/kiosksbycirclepost" method="POST">
 <table>
 	<tr>
 	<td>
@@ -48,13 +48,13 @@ angular.element(document).ready(function() {
 var app = angular.module('UserKioskMappingApp', []);
 app.controller('userKioskMappingController', ['$scope', '$http', function ($scope, $http) {
     $scope.UserList = [];
-    $http.get('/km/userkioskmapping/usersbyca').then(function (data) {
+    $http.get('km/userkioskmapping/usersbyca').then(function (data) {
         $scope.UserList = data.data;
     }, function (error) {
         alert('Error');
     });
     $scope.KioskList = [];
-    $http.get('/km/userkioskmapping/kiosksbycircle').then(function (data) {
+    $http.get('km/userkioskmapping/kiosksbycircle').then(function (data) {
         $scope.KioskList = data.data;
     }, function (error) {
         alert('Error');

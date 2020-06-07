@@ -1,5 +1,6 @@
 package sbi.kiosk.swayam.kioskmanagement.controller;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import sbi.kiosk.swayam.common.dto.AddUserDto;
 import sbi.kiosk.swayam.common.dto.RolesDto;
 import sbi.kiosk.swayam.common.dto.UserDto;
 import sbi.kiosk.swayam.common.dto.UserManagementDto;
+import sbi.kiosk.swayam.common.entity.Circle;
 import sbi.kiosk.swayam.common.entity.User;
 import sbi.kiosk.swayam.kioskmanagement.service.RoleService;
 import sbi.kiosk.swayam.kioskmanagement.service.UserService;
@@ -31,7 +33,7 @@ public class UserManagementController {
 	@Autowired
 	RoleService roleService;
 
-	@RequestMapping(value = { "/km/userList" })
+	@RequestMapping(value = { "km/userList" })
 	public ModelAndView userList(ModelAndView model, HttpSession session) {
 
 		try {
@@ -43,19 +45,22 @@ public class UserManagementController {
 				model.setViewName("userlistView");
 			} else if (user.getRole().equals("LA")) {
 				System.out.println("Users========Yogesh=============================="+user.getCircle());
-				int cmsCount=userService.findCMSCount();
-				int circleCountByRole=userService.findCircleCountByRole(user.getCircle());
-				int ccCount=userService.findCCCount();
-				int cmfCount= userService.findCMFCount();
-				int laCount= userService.findLACount();
-				int saCount= userService.findSACount();
+				int cmsCount=userService.findCMSCountByCircle();
+				//int circleCountByRole=userService.findCircleCountByRole(user.getCircle());
+				//int ccCount=userService.findCCCount();
+				int cmfCount= userService.findCMFCountByCircle();
+				//int laCount= userService.findLACount();
+				//int saCount= userService.findSACount();
+				int circleUserCount = userService.findCircleUserCountByCircle();
+				int laCount= userService.findLACountByCircle();
 				
 				model.addObject("cmfCount",cmfCount);
 				model.addObject("cmsCount", cmsCount);
-				model.addObject("circleCountByRole", circleCountByRole);
+				//model.addObject("circleCountByRole", circleCountByRole);
 				model.addObject("laCount",laCount);
-				model.addObject("ccCount",ccCount);
-				model.addObject("saCount",saCount);
+				//model.addObject("ccCount",ccCount);
+				//model.addObject("saCount",saCount);
+				model.addObject("circleUserCount",circleUserCount);
 				
 				model.setViewName("userlistLA");
 			}			
@@ -68,6 +73,7 @@ public class UserManagementController {
 				int cmfCount= userService.findCMFCount();
 				int laCount= userService.findLACount();
 				int saCount= userService.findSACount();
+				int circleUserCount = userService.findCircleUserCount();
 				
 				model.addObject("cmfCount",cmfCount);
 				model.addObject("cmsCount", cmsCount);
@@ -75,6 +81,7 @@ public class UserManagementController {
 				model.addObject("laCount",laCount);
 				model.addObject("ccCount",ccCount);
 				model.addObject("saCount",saCount);
+				model.addObject("circleUserCount",circleUserCount);
 				model.setViewName("userlist");
 			}
 		} catch (Exception e) {
@@ -83,8 +90,39 @@ public class UserManagementController {
 		return model;
 	}
 	
+	@RequestMapping(value = { "km/userListCC" })
+	public ModelAndView userListCC(HttpSession session) {
+		ModelAndView model = new ModelAndView("userlistCC");
+		try {			
+			UserDto user = (UserDto) session.getAttribute("userObj");
+			System.out.println("userList");
+			List<UserManagementDto> userList = userService.findAllUsers(user);
+			model.addObject("usersList", userList);
+				
+				int cmsCount=userService.findCMSCount();
+				int circleCount=userService.findCircleUserCount();
+				int ccCount=userService.findCCCount();
+				int cmfCount= userService.findCMFCount();
+				int laCount= userService.findLACount();
+				int saCount= userService.findSACount();
+				
+				model.addObject("cmfCount",cmfCount);
+				model.addObject("cmsCount", cmsCount);
+				model.addObject("circleCount", circleCount);
+				model.addObject("laCount",laCount);
+				model.addObject("ccCount",ccCount);
+				model.addObject("saCount",saCount);				
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return model;
+	}
 	
-	@RequestMapping(value = "/users/get", params = { "page", "size" ,"type"}, method = RequestMethod.GET, produces = "application/json")
+
+	
+	
+	@RequestMapping(value = "users/get", params = { "page", "size" ,"type"}, method = RequestMethod.GET, produces = "application/json")
 	public Page<UserManagementDto> findPaginated(
 		      @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("type") String type) {
 		 
@@ -94,7 +132,7 @@ public class UserManagementController {
 			resultPage= userService.findPaginatedCount(page, size, type);
 		}else if(type.equals("CMS")){
 			resultPage= userService.findPaginatedCount(page, size, type);
-		}else if(type.equalsIgnoreCase("MUMBAI")){
+		}else if(type.equalsIgnoreCase("C")){
 			resultPage= userService.findPaginatedCount(page, size, type);
 		}else if(type.equals("LA")){
 			resultPage= userService.findPaginatedCount(page, size, type);
@@ -111,18 +149,42 @@ public class UserManagementController {
 		 return resultPage;
 		    }
 	
+	@RequestMapping(value = "usersByCircle/get", params = { "page", "size" ,"type"}, method = RequestMethod.GET, produces = "application/json")
+	public Page<UserManagementDto> findPaginatedByCircle(
+		      @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("type") String type) {
+		 
+		System.out.println("type=========Yogesh========="+type);
+		 Page<UserManagementDto> resultPage = null;
+		if(type.equals("CMF")){
+			resultPage= userService.findPaginatedCountByCircle(page, size, type);
+		}else if(type.equals("CMS")){
+			resultPage= userService.findPaginatedCountByCircle(page, size, type);
+		}else if(type.equalsIgnoreCase("C")){
+			resultPage= userService.findPaginatedCountByCircle(page, size, type);
+		}else if(type.equals("LA")){
+			resultPage= userService.findPaginatedCountByCircle(page, size, type);
+		}else{
+	      resultPage = userService.findPaginatedByCircle(page, size);
+		    if (page > resultPage.getTotalPages()){
+		        }
+		}
+		 return resultPage;
+	}
+	
 	
 
 	
 
 	
-	@RequestMapping(value = { "/km/addUser" })
+	@RequestMapping(value = { "km/addUser" })
 	public ModelAndView addUser(ModelAndView model, @ModelAttribute("addUser") AddUserDto addUser,HttpServletRequest request) {
 
 		try {
 			      System.out.println("inside addUser jsp call.."+request.getParameter("userName"));
 	              List<RolesDto> roleList = roleService.findAllRole();
 		           model.addObject("roleList", roleList);
+		           List<Circle> circleList = roleService.findAllCircle();
+		           model.addObject("circleList", circleList);
 		           model.setViewName("addUser");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -131,14 +193,23 @@ public class UserManagementController {
 	}
 	
 	
-	@RequestMapping(value = { "/km/addUserLA" })
+	@RequestMapping(value = { "km/addUserLA" })
 	public ModelAndView addUserLa(ModelAndView model, @ModelAttribute("addUserDto") AddUserDto addUserDto) {
 
 		try {
 			      System.out.println("inside addUserLA jsp call..");
-	              List<RolesDto> roleList = roleService.findAllRole();
+	              List<RolesDto> roleList = roleService.findAllRole();	
+	              Iterator<RolesDto> itr = roleList.iterator();
+	              while(itr.hasNext()){
+	            	  String role = itr.next().getRole();
+	            	  if(role.equals("SA") || role.equals("CC")){
+	            		  itr.remove();
+	            	  }
+	              }
 		           model.addObject("roleList", roleList);
-		           model.setViewName("addUserLA");
+		           List<Circle> circleList = roleService.findAllCircle();  
+		          model.addObject("circleList", circleList);
+		          model.setViewName("addUserLA");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -147,7 +218,7 @@ public class UserManagementController {
 
 	
 	
-	@RequestMapping(value = "/km/editUserMaster")
+	@RequestMapping(value = "km/editUserMaster")
 	public ModelAndView editUserMaster(ModelAndView model, HttpServletRequest request,@RequestParam("userId") String userId,@ModelAttribute("addUser") AddUserDto addUser) {
 		System.out.println("editUserMaster(-,-) :: START "+userId);
 		try {
@@ -162,6 +233,8 @@ public class UserManagementController {
 			model.addObject("addUser", addUser);
 			List<RolesDto> roleList = roleService.findAllRole();
 			model.addObject("roleList", roleList);
+			List<Circle> circleList = roleService.findAllCircle();
+	        model.addObject("circleList", circleList);
 			model.setViewName("addUser");
 
 		} catch (Exception e) {
@@ -175,7 +248,7 @@ public class UserManagementController {
 	
 	
 	
-	@RequestMapping(value = "/km/editUserMasterLA")
+	@RequestMapping(value = "km/editUserMasterLA")
 	public ModelAndView editUserMasterLA(ModelAndView model, HttpServletRequest request,@RequestParam("userId") String userId,@ModelAttribute("addUserDto") AddUserDto addUserDto) {
 		System.out.println("editUserMasterLA(-,-) :: START "+userId);
 		try {
@@ -189,7 +262,16 @@ public class UserManagementController {
 			
 			model.addObject("addUserDto", addUserDto);
 			List<RolesDto> roleList = roleService.findAllRole();
+			Iterator<RolesDto> itr = roleList.iterator();
+            while(itr.hasNext()){
+              String role = itr.next().getRole();
+          	  if(role.equals("SA") || role.equals("CC")){
+          		  itr.remove();
+          	  }
+            }
 			model.addObject("roleList", roleList);
+			List<Circle> circleList = roleService.findAllCircle();
+	        model.addObject("circleList", circleList);
 			model.setViewName("addUserLA");
 
 		} catch (Exception e) {
@@ -202,7 +284,7 @@ public class UserManagementController {
 	}
 	
 
-	/*@RequestMapping(value = "/km/saveEditUserMaster")
+	/*@RequestMapping(value = "km/saveEditUserMaster")
 	public ModelAndView saveEditUserMaster(ModelAndView model, HttpServletRequest request,
 			RedirectAttributes redirectAttributes) {
 		System.out.println("saveEditUserMaster(-,-) :: START");
@@ -259,7 +341,7 @@ public class UserManagementController {
 		return model;
 	}*/
 	
-	@RequestMapping(value = "/km/deleteUserMaster")
+	@RequestMapping(value = "km/deleteUserMaster")
 	public ModelAndView deleteUserMaster(ModelAndView model,@RequestParam("userId") String userId, @ModelAttribute("addUser") AddUserDto addUser,HttpServletRequest request) {
 		System.out.println("deleteUserMaster(-,-) :: START");
 		try {
@@ -268,6 +350,8 @@ public class UserManagementController {
 			model.addObject("addUser", addUser);
 			List<RolesDto> roleList = roleService.findAllRole();
 			model.addObject("roleList", roleList);
+			List<Circle> circleList = roleService.findAllCircle();
+	        model.addObject("circleList", circleList);
 			model.setViewName("deleteUser");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -278,7 +362,7 @@ public class UserManagementController {
 		return model;
 	}
 
-	@RequestMapping(value = { "/km/deleteUser" })
+	@RequestMapping(value = { "km/deleteUser" })
 	public ResponseEntity<String>activeAndInActiveUser(ModelAndView model,@RequestParam("userId") String userId,@ModelAttribute("usersBean") UserDto usersBean) {
 		ResponseEntity<String> entity=null;
 		try {
@@ -297,7 +381,7 @@ public class UserManagementController {
 		return entity;
 	}
 
-	@RequestMapping(value = { "/km/searchUser" })
+	@RequestMapping(value = { "km/searchUser" })
 	public ModelAndView searchUsers(ModelAndView model, HttpServletRequest request, HttpSession session) {
 
 		try {
@@ -324,7 +408,7 @@ public class UserManagementController {
 		return model;
 	}
 	
-	@RequestMapping(value ="/km/getUserByUsername")
+	@RequestMapping(value ="km/getUserByUsername")
 	public User getUserByPfId(@RequestParam("username") String pfId){
 		return userService.getUserByPfId(pfId);		
 	}

@@ -10,7 +10,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    var counttype = "";
    $scope.loadHomeBodyPageForms = function(url){	   
 		if(url != undefined){	
-			var str ='/hm/viewCmfCaseId?caseId=' + url;
+			var str ='hm/viewCmfCaseId?caseId=' + url;
 			$("#contentHomeApp").load(str);
 		}						
 	}
@@ -97,7 +97,7 @@ app.service('UserManagementService',['$http', function ($http) {
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({
           method: 'GET',
-          url: '/hm/requestsCmf/get?page='+pageNumber+'&size='+size
+          url: 'hm/requestsCmf/get?page='+pageNumber+'&size='+size
         });
     }
 	

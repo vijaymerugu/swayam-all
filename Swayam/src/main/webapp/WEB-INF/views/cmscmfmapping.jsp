@@ -13,7 +13,7 @@
 <%@ include file = "home.jsp" %>	
 <div ng-app="CmsCmfMappingApp" id="CmsCmfMappingAppId">
     <div ng-controller="cmsCmfMappingController">
-	<form action="/km/cmscmfmapping/cmscmfmappingpost" method="POST">
+	<form action="km/cmscmfmapping/cmscmfmappingpost" method="POST">
 <table>
 	<tr>
 	<td>
@@ -48,13 +48,13 @@ angular.element(document).ready(function() {
 var app = angular.module('CmsCmfMappingApp', []);
 app.controller('cmsCmfMappingController', ['$scope', '$http', function ($scope, $http) {
     $scope.UserList = [];
-    $http.get('/km/cmscmfmapping/cmsusersbyca').then(function (data) {
+    $http.get('km/cmscmfmapping/cmsusersbyca').then(function (data) {
         $scope.UserList = data.data;
     }, function (error) {
         alert('Error');
     });
     $scope.KioskList = [];
-    $http.get('/km/cmscmfmapping/cmfusersbyca').then(function (data) {
+    $http.get('km/cmscmfmapping/cmfusersbyca').then(function (data) {
         $scope.cmfUserIdIdList = data.data;
     }, function (error) {
         alert('Error');

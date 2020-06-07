@@ -17,8 +17,8 @@ public interface ManualTicketCallLogRepository  extends CrudRepository<ManualTic
 	String findSeq();
 	
 	   @Modifying
-	   @Query(value="UPDATE TBL_MANUAL_CALL_LOG CL SET CL.CREATED_DATE=:createdDate, cl.COMPLAINTID=:complaintId WHERE CL.KIOSK_ID=:kioskId" , nativeQuery=true)
-	   public void updateComplaintId(@Param("createdDate") String createdDate,@Param("complaintId")String complaintId,@Param("kioskId") String kioskId);
+	   @Query(value="UPDATE TBL_MANUAL_CALL_LOG CL SET cl.COMPLAINTID=:complaintId WHERE CL.KIOSK_ID=:kioskId" , nativeQuery=true)
+	   public void updateComplaintId(@Param("complaintId")String complaintId,@Param("kioskId") String kioskId);
 		
 	
 	List<ManualTicketCallLog> findByKioskId(String kioskId);

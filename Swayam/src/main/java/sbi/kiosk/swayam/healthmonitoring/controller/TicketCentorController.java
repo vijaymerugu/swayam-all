@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -22,13 +24,15 @@ import sbi.kiosk.swayam.healthmonitoring.service.TicketCentorService;
 @RestController
 public class TicketCentorController {
 	
+	Logger logger = LoggerFactory.getLogger(TicketCentorController.class);
+	
 
 	@Autowired
 	TicketCentorService ticketCentorService;
 	@Autowired
 	TicketCentorFilterService ticketCentorFilterService;
 	
-	@RequestMapping(value = "/hm/ticketCentor/get", params = { "page", "size","type"}, method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "hm/ticketCentor/get", params = { "page", "size","type"}, method = RequestMethod.GET, produces = "application/json")
 	public Page<TicketCentorDto> findPaginated( @RequestParam("type") String type,
 		      @RequestParam("page") int page, @RequestParam("size") int size) {
 		 
@@ -67,9 +71,51 @@ public class TicketCentorController {
 		    }
 		        return resultPage;
 		    }
+	
+	@RequestMapping(value = "hm/ticketCentorByCircle/get", params = { "page", "size","type"}, method = RequestMethod.GET, produces = "application/json")
+	public Page<TicketCentorDto> findPaginatedByCircle( @RequestParam("type") String type,
+		      @RequestParam("page") int page, @RequestParam("size") int size) {
+		 
+		System.out.println("type==findPaginated===========ticketCentorService====="+type);
+		 Page<TicketCentorDto> resultPage = null;
+		 
+	     
+		    
+			if(type.equals("High")){
+				resultPage= ticketCentorService.findPaginatedCountByCircle(page, size, type);
+			}else if(type.equals("Medium")){
+				resultPage= ticketCentorService.findPaginatedCountByCircle(page, size, type);
+			}else if(type.equalsIgnoreCase("Low")){
+				resultPage= ticketCentorService.findPaginatedCountByCircle(page, size, type);
+			}else if(type.equals("Total")){
+				resultPage= ticketCentorService.findPaginatedCountByCircle(page, size, type);
+				System.out.println("Total Size:::: "+resultPage.getContent().size());
+			}else if(type.equals("TwoToFourHrsCount")){
+				resultPage= ticketCentorService.findPaginatedCountByCircle(page, size, type);
+			}else if(type.equals("OneDaysCount")){
+			   resultPage= ticketCentorService.findPaginatedCountByCircle(page, size, type);
+			}else if(type.equals("ThreeDaysLessCount")){
+				   resultPage= ticketCentorService.findPaginatedCountByCircle(page, size, type);
+		    }else if(type.equals("ThreeDayGreaterCount")){
+		    	resultPage= ticketCentorService.findPaginatedCountByCircle(page, size, type);
+		         
+		    }else{
+		    	//resultPage= ticketCentorService.findPaginatedCount(page, size, type);
+		    
+			
+			 resultPage = ticketCentorService.findPaginatedByCircle(page, size);
+		      System.out.println("resultPage=="+resultPage.getContent());
+			    if (resultPage !=null && resultPage.getSize()>0){
+			    	//return resultPage;
+			        }
+		    }
+		        return resultPage;
+		    }
+
+
 
 	
-	@RequestMapping(value = "/hm/ticketCentorFilter/get", params = { "page", "size","type"}, method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "hm/ticketCentorFilter/get", params = { "page", "size","type"}, method = RequestMethod.GET, produces = "application/json")
 	public Page<TicketCentorDto> findPaginatedByCategory( @RequestParam("type") String type,
 		      @RequestParam("page") int page, @RequestParam("size") int size) {
 		 
@@ -113,10 +159,104 @@ public class TicketCentorController {
 		    }
 
 
+	@RequestMapping(value = "hm/ticketCentorFilterCMF/get", params = { "page", "size","type"}, method = RequestMethod.GET, produces = "application/json")
+	public Page<TicketCentorDto> findPaginatedByCategoryCMF( @RequestParam("type") String type,
+		      @RequestParam("page") int page, @RequestParam("size") int size) {
+		 
+		logger.info("type==findPaginated===========findPaginatedByCategoryCMF=====+++TYPE="+type);
+		
+		if(type !=null && type.trim().equals("undefined")){
+			type = "";
+		}
+		
+		 Page<TicketCentorDto> resultPage = null;
+		    
+			if(type.equals("High")){
+				logger.info("=========findPaginatedByCategoryCMF=====+++TYPE="+type);
+				resultPage= ticketCentorFilterService.findPaginatedCountCmf(page, size, type);
+			}else if(type.equals("Medium")){
+				logger.info("=========findPaginatedByCategoryCMF=====+++TYPE="+type);
+				resultPage= ticketCentorFilterService.findPaginatedCountCmf(page, size, type);
+			}else if(type.equalsIgnoreCase("Low")){
+				logger.info("=========findPaginatedByCategoryCMF=====+++TYPE="+type);
+				resultPage= ticketCentorFilterService.findPaginatedCountCmf(page, size, type);
+			}else if(type.equals("Total")){
+				logger.info("=========findPaginatedByCategoryCMF=====+++TYPE="+type);
+				resultPage= ticketCentorFilterService.findPaginatedCountCmf(page, size, type);
+				System.out.println("Total Size:::: "+resultPage.getContent().size());
+			}else if(type.equals("TwoToFourHrsCount")){
+				logger.info("=========findPaginatedByCategoryCMF=====+++TYPE="+type);
+				resultPage= ticketCentorFilterService.findPaginatedCountCmf(page, size, type);
+			}else if(type.equals("OneDaysCount")){
+				logger.info("=========findPaginatedByCategoryCMF=====+++TYPE="+type);
+			   resultPage= ticketCentorFilterService.findPaginatedCountCmf(page, size, type);
+			}else if(type.equals("ThreeDaysLessCount")){
+				logger.info("=========findPaginatedByCategoryCMF=====+++TYPE="+type);
+				   resultPage= ticketCentorFilterService.findPaginatedCountCmf(page, size, type);
+		    }else if(type.equals("ThreeDayGreaterCount")){
+		    	logger.info("=========findPaginatedByCategoryCMF=====+++TYPE="+type);
+		    	resultPage= ticketCentorFilterService.findPaginatedCountCmf(page, size, type);
+		         
+		    }else if(type !=null && type !=""){
+		    	logger.info("=========findPaginatedByCategoryCMF=====+++ONLY=TYPE="+type);
+		    	resultPage= ticketCentorFilterService.findPaginatedCountCmf(page, size, type);
+		         
+		    }else{
+		    	//resultPage= ticketCentorFilterService.findPaginatedCount(page, size, type);
+		    logger.info("=========findPaginatedCmf=====+++");
+			 resultPage = ticketCentorFilterService.findPaginatedCmf(page, size);
+			 logger.info("resultPage=="+resultPage.getContent());
+			    if (resultPage !=null && resultPage.getSize()>0){
+			    	//return resultPage;
+			        }
+		    }
+		        return resultPage;
+		    }
+
+	@RequestMapping(value = "hm/ticketCentorFilterCMS/get", params = { "page", "size","type"}, method = RequestMethod.GET, produces = "application/json")
+	public Page<TicketCentorDto> findPaginatedByCategoryCMS( @RequestParam("type") String type,
+		      @RequestParam("page") int page, @RequestParam("size") int size) {
+		 
+		System.out.println("type==findPaginated===========findPaginatedByCategoryCMS=====+++"+type);
+		if(type !=null && type.trim().equals("undefined")){
+			type = "";
+		}
+		
+		 Page<TicketCentorDto> resultPage = null;
+		    
+			if(type.equals("High")){
+				resultPage= ticketCentorFilterService.findPaginatedCountCms(page, size, type);
+			}else if(type.equals("Medium")){
+				resultPage= ticketCentorFilterService.findPaginatedCountCms(page, size, type);
+			}else if(type.equalsIgnoreCase("Low")){
+				resultPage= ticketCentorFilterService.findPaginatedCountCms(page, size, type);
+			}else if(type.equals("Total")){
+				resultPage= ticketCentorFilterService.findPaginatedCountCms(page, size, type);
+				System.out.println("Total Size:::: "+resultPage.getContent().size());
+			}else if(type.equals("TwoToFourHrsCount")){
+				resultPage= ticketCentorFilterService.findPaginatedCountCms(page, size, type);
+			}else if(type.equals("OneDaysCount")){
+			   resultPage= ticketCentorFilterService.findPaginatedCountCms(page, size, type);
+			}else if(type.equals("ThreeDaysLessCount")){
+				   resultPage= ticketCentorFilterService.findPaginatedCountCms(page, size, type);
+		    }else if(type.equals("ThreeDayGreaterCount")){
+		    	resultPage= ticketCentorFilterService.findPaginatedCountCms(page, size, type);
+		         
+		    }else if(type !=null && type !=""){
+		    	resultPage= ticketCentorFilterService.findPaginatedCountCms(page, size, type);
+		         
+		    }else{
+		    	//resultPage= ticketCentorFilterService.findPaginatedCount(page, size, type);
+			 resultPage = ticketCentorFilterService.findPaginatedCms(page, size);
+		      System.out.println("resultPage=="+resultPage.getContent());
+			    if (resultPage !=null && resultPage.getSize()>0){
+			    	//return resultPage;
+			        }
+		    }
+		        return resultPage;
+		    }	
 	
-	
-	
-	@RequestMapping(value = "/hm/categoryCall/{category}")
+	@RequestMapping(value = "hm/categoryCall/{category}")
 	public ResponseEntity<List<CallTypeDto>> callLogCategory(ModelAndView model,
 			@PathVariable("category") String category, HttpServletRequest request) {
 		
@@ -132,7 +272,7 @@ public class TicketCentorController {
 	}
 	
 	
-	@RequestMapping(value = "/hm/subCategoryCall/{category}/{subCategory}")
+	@RequestMapping(value = "hm/subCategoryCall/{category}/{subCategory}")
 	public ResponseEntity<List<TicketCentorDto>> subCategoryCall(ModelAndView model,@PathVariable("category") String category, @PathVariable("subCategory") String subCategory,
 			HttpServletRequest request) {
 		

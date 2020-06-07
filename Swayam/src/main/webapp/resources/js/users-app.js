@@ -10,13 +10,13 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    var counttype = "";
    $scope.loadHomeBodyPageForms = function(url){	   
 		if(url != undefined){	
-			var str ='/km/editUserMaster?userId=' + url;
+			var str ='km/editUserMaster?userId=' + url;
 			$("#contentHomeApp").load(str);
 		}						
 	}
    $scope.loadHomeBodyPageFormsDel = function(url){	   
 		if(url != undefined){	
-			var str ='/km/deleteUserMaster?userId=' + url;
+			var str ='km/deleteUserMaster?userId=' + url;
 			$("#contentHomeApp").load(str);
 		}						
 	}
@@ -68,10 +68,9 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
     columnDefs: [
       { name: 'userId', displayName: 'Sr No'  },
       { name: 'pfId', displayName: 'PF ID'  },
-      { name: 'username', displayName: 'Username'  },
-      { name: 'firstName', displayName: 'First Name'  },
-      { name: 'lastName', displayName: 'Last Name'  },
+      { name: 'username', displayName: 'Username'  },      
       { name: 'role', displayName: 'Role'  },
+      { name: 'reportingAuthorityName', displayName: 'Reporting Authority'  },
       { name: 'Edit',
     	  exporterSuppressExport: true,
     	  headerCellTemplate: '<div></div>',
@@ -105,7 +104,7 @@ app.service('UserManagementService',['$http', function ($http) {
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({
           method: 'GET',
-          url: '/users/get?page='+pageNumber+'&size='+size+'&type='+counttype
+          url: 'users/get?page='+pageNumber+'&size='+size+'&type='+counttype
         });
     }
 	

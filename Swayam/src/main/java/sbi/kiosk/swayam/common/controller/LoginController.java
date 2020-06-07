@@ -47,12 +47,12 @@ public class LoginController{
 	private String oms_url;
 	
 	
-	@RequestMapping(value="/login", method=RequestMethod.POST)
+	@RequestMapping(value="login", method=RequestMethod.POST)
 	public ModelAndView login(@RequestParam("pfId") String pfId, HttpSession session) {	
 		
 		UserDto userObj = loginService.getRoleByUsername(pfId);
 		
-		session.setAttribute("pfId", pfId);
+		session.setAttribute("pfId", userObj.getPfId());
 		session.setAttribute("userObj", userObj);
 		
 		
@@ -61,7 +61,16 @@ public class LoginController{
 		return mav;		
 	}
 	
-	@RequestMapping(value="/common/menu", method=RequestMethod.GET)
+	@RequestMapping(value="logout")
+	public ModelAndView logout(ModelAndView model,HttpSession session) {	
+		
+		session.invalidate();
+		
+		model.setViewName("redirect:https://adfs.sbi.co.in/adfs/ls/?wa=wsignout1.0");
+		return model;
+	}
+	
+	@RequestMapping(value="common/menu", method=RequestMethod.GET)
 	public List<MenuMasterDto> getMenu(HttpSession session) {		
 		UserDto userObj =(UserDto) session.getAttribute("userObj");
 		//session.setAttribute("username", username);
@@ -73,7 +82,7 @@ public class LoginController{
 		//return mav;		
 	}
 	
-	@RequestMapping("/summary")
+	@RequestMapping("summary")
 	public ModelAndView summary() {
 		ModelAndView mav = new ModelAndView("userlist");
 		return mav;

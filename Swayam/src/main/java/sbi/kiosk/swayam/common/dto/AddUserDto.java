@@ -11,6 +11,7 @@ public class AddUserDto {
 	private String emailId;
 	private String userType;
 	private String role;
+	private String circle;
 	private String reportingAuthorityName;
 	private String reportingAuthorityEmail;
 	private String checkAction = null;

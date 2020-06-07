@@ -92,8 +92,8 @@ $(document).ready(function(){
             return this.value;
         }).get();
         
-        //var url= "/km/userkioskmappingpopupselected?check_list[]="+ $("input[name='check_list[]']:checked").val();
-        var url= "/km/userkioskmappingpopupselected?uname="+$('input[name=uname]').val()+"&array="+ array;
+        //var url= "km/userkioskmappingpopupselected?check_list[]="+ $("input[name='check_list[]']:checked").val();
+        var url= "km/userkioskmappingpopupselected?uname="+$('input[name=uname]').val()+"&array="+ array;
         $('.modal-body').load(url,function(){
             $('#myModal').modal({show:true});
         });

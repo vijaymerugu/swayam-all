@@ -6,6 +6,6 @@ public interface AddUserService {
 
 
 	public String getByPfId(String pfId);
-	String addUser(AddUserDto dto, String role);
-	String updateUser(AddUserDto dto, String role);
+	String addUser(AddUserDto dto, String role,String circle);
+	String updateUser(AddUserDto dto, String role,String circle);
 }

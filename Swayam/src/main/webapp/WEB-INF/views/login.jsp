@@ -9,7 +9,7 @@
 <body>
 
 <h1>Login</h1>
-   <form name='f' action="/login" method='POST'>
+   <form name='f' action="SMT\login" method='POST'>
       <table>
          <tr>
             <td>User:</td>

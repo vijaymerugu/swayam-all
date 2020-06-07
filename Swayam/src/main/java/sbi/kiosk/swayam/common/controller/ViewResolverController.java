@@ -30,24 +30,24 @@ public class ViewResolverController {
 		return mav;
 	}
 	
-	@RequestMapping("/km/userkioskmapping")
+	@RequestMapping("km/userkioskmapping")
 	public ModelAndView userKioskMapping() {		
 		
 		ModelAndView mav = new ModelAndView("userkioskmapping");
 		return mav;
 	}
 	
-	@RequestMapping("/km/cmscmfmapping")
+	@RequestMapping("km/cmscmfmapping")
 	public ModelAndView cmsCmfkMapping() {		
 		
 		ModelAndView mav = new ModelAndView("cmscmfmapping");
 		return mav;
 	}
 	
-	@RequestMapping("/km/kioskManagement")
+	@RequestMapping("km/kioskManagement")
 	public ModelAndView kioskManagement(ModelAndView mav) {
 		Map<String, Integer> mapDataCount = null;
-		mapDataCount = kioskManagementService.findAllKioskMasterCount();
+		mapDataCount = kioskManagementService.findAllKioskMasterCountByCircle();
 		if (mapDataCount != null && !mapDataCount.isEmpty()) {
 			mav.addObject("mapDataCount", mapDataCount);
 		}
@@ -55,9 +55,21 @@ public class ViewResolverController {
 		mav.setViewName("kioskManagement");
 		return mav;
 	}
+	
+	@RequestMapping("km/kioskManagementCC")
+	public ModelAndView kioskManagementCC() {
+		ModelAndView mav = new ModelAndView("kioskManagementCC");	
+		Map<String, Integer> mapDataCount = null;
+		mapDataCount = kioskManagementService.findAllKioskMasterCount();
+		if (mapDataCount != null && !mapDataCount.isEmpty()) {
+			mav.addObject("mapDataCount", mapDataCount);
+		}
+			
+		return mav;
+	}
 
 	
-	@RequestMapping("/hm/ticketcentor")
+	@RequestMapping("hm/ticketcentor")
 	public ModelAndView ticketCentor(ModelAndView mav) {
 
 		Map<String, Integer> mapDataList = null;
@@ -74,11 +86,29 @@ public class ViewResolverController {
 		mav.setViewName("ticketCentor");
 		return mav;
 	}
+	
+	@RequestMapping("hm/ticketcentorByCircle")
+	public ModelAndView ticketCentorByCircle(ModelAndView mav) {
+
+		Map<String, Integer> mapDataList = null;
+		mapDataList = ticketCentorService.findAllSeverityOfTicketsCountByCircle();
+		if (mapDataList != null && !mapDataList.isEmpty()) {
+			mav.addObject("mapDataList", mapDataList);
+		}
+		
+		Map<String, Integer> ageingMapDataList = null;
+		ageingMapDataList = ticketCentorService.findAllAgeingOfTicketsCountByCircle();
+		if (ageingMapDataList != null && !ageingMapDataList.isEmpty()) {
+			mav.addObject("ageingMapDataList", ageingMapDataList);
+		}
+		mav.setViewName("ticketCentorCU");
+		return mav;
+	}
 
 	
 	
 	
-	@RequestMapping("/hm/ticketcentorCallCategory")
+	@RequestMapping("hm/ticketcentorCallCategory")
 	public ModelAndView ticketcentorCallCategory(ModelAndView mav,HttpServletRequest request) {
 
 		Map<String, Integer> mapDataList = null;
@@ -100,5 +130,53 @@ public class ViewResolverController {
 		mav.setViewName("ticketCentorSA");
 		return mav;
 	}
+	
+	@RequestMapping("hm/ticketcentorCallCategoryCMF")
+	public ModelAndView ticketcentorCallCategoryCMF(ModelAndView mav,HttpServletRequest request) {
+
+		Map<String, Integer> mapDataList = null;
+		mapDataList = ticketCentorFilterService.findAllSeverityOfTicketsCountCMF();
+		if (mapDataList != null && !mapDataList.isEmpty()) {
+			mav.addObject("mapDataList", mapDataList);
+		}
+		
+		Map<String, Integer> ageingMapDataList = null;
+		ageingMapDataList = ticketCentorFilterService.findAllAgeingOfTicketsCountCMF();
+		if (ageingMapDataList != null && !ageingMapDataList.isEmpty()) {
+			mav.addObject("ageingMapDataList", ageingMapDataList);
+		}
+
+		Map<String, Object> categoryMapDataList  =ticketCentorFilterService.findAllCategoryCMF();
+		if (categoryMapDataList != null && !categoryMapDataList.isEmpty()) {
+			mav.addObject("categoryMapDataList", categoryMapDataList);
+		}
+		mav.setViewName("ticketCentorCMF");
+		return mav;
+	}
+
+	@RequestMapping("hm/ticketcentorCallCategoryCMS")
+	public ModelAndView ticketcentorCallCategoryCMS(ModelAndView mav,HttpServletRequest request) {
+
+		Map<String, Integer> mapDataList = null;
+		mapDataList = ticketCentorFilterService.findAllSeverityOfTicketsCountCMS();
+		if (mapDataList != null && !mapDataList.isEmpty()) {
+			mav.addObject("mapDataList", mapDataList);
+		}
+		
+		Map<String, Integer> ageingMapDataList = null;
+		ageingMapDataList = ticketCentorFilterService.findAllAgeingOfTicketsCountCMS();
+		if (ageingMapDataList != null && !ageingMapDataList.isEmpty()) {
+			mav.addObject("ageingMapDataList", ageingMapDataList);
+		}
+
+		Map<String, Object> categoryMapDataList  =ticketCentorFilterService.findAllCategoryCMS();
+		if (categoryMapDataList != null && !categoryMapDataList.isEmpty()) {
+			mav.addObject("categoryMapDataList", categoryMapDataList);
+		}
+		mav.setViewName("ticketCentorCMS");
+		return mav;
+	}
+
+
 
 }

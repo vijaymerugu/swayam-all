@@ -74,7 +74,7 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 					String date1 = date.format(new Date());
 					String createdDate = date1.replace("/", "");
 					complaintId = "INC" + createdDate + id;
-					manualTicketCallLogRepo.updateComplaintId(date1, complaintId, manualTicketCallLogDto.getKioskId());
+					manualTicketCallLogRepo.updateComplaintId(complaintId, manualTicketCallLogDto.getKioskId());
 					return id;
 				}
 			} else {
@@ -83,7 +83,7 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 				String createdDate = date1.replace("/", "");
 				complaintId = "INC" + createdDate + manual_call_log_id;
 				String kisokId = manualTicketCallLogDto.getKioskId();
-				manualTicketCallLogRepo.updateComplaintId(date1, complaintId, kisokId);
+				manualTicketCallLogRepo.updateComplaintId(complaintId, kisokId);
 				return manual_call_log_id;
 
 			}

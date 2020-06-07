@@ -36,10 +36,10 @@ table, td {
     Bootstrap-table
     <link rel="stylesheet" type="text/css" href="css/bootstrap-table.css"> -->
     
-      <link rel="stylesheet" href="<c:url value='/resources/css/style.css' />"/>
-    <link rel="stylesheet" href="<c:url value='/resources/css/font-awesome.min.css' />"/>
-    <link rel="stylesheet" href="<c:url value='/resources/css/bootstrap.min.css' />"/>
-     <link rel="stylesheet" href="<c:url value='/resources/css/bootstrap-table.css' />"/>
+      <link rel="stylesheet" href="<c:url value='resources/css/style.css' />"/>
+    <link rel="stylesheet" href="<c:url value='resources/css/font-awesome.min.css' />"/>
+    <link rel="stylesheet" href="<c:url value='resources/css/bootstrap.min.css' />"/>
+     <link rel="stylesheet" href="<c:url value='resources/css/bootstrap-table.css' />"/>
     
     <!-- InstanceBeginEditable name="head" -->
     <!-- InstanceEndEditable -->
@@ -54,7 +54,7 @@ table, td {
                 <div class="col-lg-12">
                     <!-- InstanceBeginEditable name="Body_title" -->
                     <h3 class="page-header">
-						 <form:form method="post" action="/km/userList">
+						 <form:form method="post" action="km/userList">
 				     		  User List Master
 							<INPUT Type="submit" VALUE="Back"  class="btn btn-black" style="margin-right: 20px" >
 						</form:form>
@@ -71,7 +71,7 @@ table, td {
                     <p>Fields Marked with <span style="color:#ff007a">* </span> are mandatory</p>
 	
 	
-	<form:form role="form"  class="form-horizontal" id="usersBean" name="usersBean" action="/km/deleteUser" method="post"  modelAttribute="usersBean"  autocomplete="off"> 
+	<form:form role="form"  class="form-horizontal" id="usersBean" name="usersBean" action="km/deleteUser" method="post"  modelAttribute="usersBean"  autocomplete="off"> 
                        <form:hidden path="checkAction" />
                          <%-- <form:hidden path="userId"  id="userId"/> --%>
                          
@@ -301,9 +301,9 @@ table, td {
 </div>
 </body>
 
-  <script type="text/javascript" src="/resources/js/jquery.min.js"/></script>
-      <script type="text/javascript" src="/resources/js/bootstrap.min.js"/></script>
-     <script type="text/javascript" src="/resources/js/metisMenu.min.js"/></script>
-      <script type="text/javascript" src="/resources/js/custom.js"/></script>
-    <script type="text/javascript" src="/resources/js/bootstrap-table.js"/></script>
+  <script type="text/javascript" src="resources/js/jquery.min.js"/></script>
+      <script type="text/javascript" src="resources/js/bootstrap.min.js"/></script>
+     <script type="text/javascript" src="resources/js/metisMenu.min.js"/></script>
+      <script type="text/javascript" src="resources/js/custom.js"/></script>
+    <script type="text/javascript" src="resources/js/bootstrap-table.js"/></script>
 </html>

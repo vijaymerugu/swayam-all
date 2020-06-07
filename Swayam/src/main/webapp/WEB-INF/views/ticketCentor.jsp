@@ -4,28 +4,27 @@
 <html lang="en">
 <head>
 
-<script	src="/resources/js/angular.1.5.6.min.js"></script>
-<script src="/resources/js/jquery.3.4.1.min.js"></script>
-<script src="/resources/js/bootstrap.3.4.1.min.js"></script>
-<link rel="stylesheet" href="/resources/css/ui-grid.4.8.3.min.css">
+<script	src="resources/js/angular.1.5.6.min.js"></script>
+<script src="resources/js/jquery.3.4.1.min.js"></script>
+<script src="resources/js/bootstrap.3.4.1.min.js"></script>
+<link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
 
 <script	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
-<link rel="stylesheet" href="/resources/css/grid-style.css"/>
-<link rel="stylesheet" href="/resources/css/body-page.css"/>
+<link rel="stylesheet" href="resources/css/grid-style.css"/>
+<link rel="stylesheet" href="resources/css/body-page.css"/>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
 <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script>
-<link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css" type="text/css"/>
-    <script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/lodash.min.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/jszip.min.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/excel-builder.dist.js"></script>  
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-touch.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-animate.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-aria.js"></script>
-
+<link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/>
+    <script src="resources/js/csv.js"></script>
+    <script src="resources/js/pdfmake.js"></script>
+    <script src="resources/js/vfs_fonts.js"></script>
+    <script src="resources/js/lodash.min.js"></script>
+    <script src="resources/js/jszip.min.js"></script>
+    <script src="resources/js/excel-builder.dist.js"></script>  
+    <script src="resources/js/angular.js"></script>
+    <script src="resources/js/angular-touch.js"></script>
+    <script src="resources/js/angular-animate.js"></script>
+    <script src="resources/js/angular-aria.js"></script>
 <!--  lll-->
 
 
@@ -40,14 +39,14 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script
 	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
-<script src="/resources/js/ticket-centor-app.js"></script>
-<link rel="stylesheet" href="/resources/css/grid-style.css" />
+<script src="resources/js/ticket-centor-app.js"></script>
+<link rel="stylesheet" href="resources/css/grid-style.css" />
 
 </head>
 <body>
 	<div class="main"  ng-app="app" id="appId">
 	<div ng-controller="UserManagementCtrl1 as vm">
-	<div>
+	<div class="subTable">
 	   <div class="col-md-6">
 			<table align="right" >
 			
@@ -109,13 +108,13 @@
 					
 				<tbody style="color: #13A8E0;font-size: 20px;font-weight: bold;width: 12px;">
 				<tr>
-				<td align="center" style="color: #13A8E0;font-size: 20px;font-weight: bold; " width="12%">
+				<td align="left" style="color: #13A8E0;font-size: 20px;font-weight: bold; " width="12%">
 				  <a id="high" ng-click="getCountType('High')"><c:out value="${mapDataList['High']}"/></a>
 				</td>
-				<td align="center" style="color: #13A8E0;font-size: 20px;font-weight: bold;" width="12%">
+				<td align="left" style="color: #13A8E0;font-size: 20px;font-weight: bold;" width="12%">
 				 <a id="countMedium" ng-click="getCountType('Medium')" ><c:out value="${mapDataList['Medium']}"/></a>
 				</td>
-				<td align="center" style="color: #13A8E0;font-size: 20px;font-weight: bold;" width="12%">
+				<td align="left" style="color: #13A8E0;font-size: 20px;font-weight: bold;" width="12%">
 				  <a id="countLow" ng-click="getCountType('Low')"><c:out value="${mapDataList['Low']}"/></a>
 				</td>
 				<td style="color: #13A8E0;font-size: 20px;font-weight: bold; text-align: left: 10px;" width="12%">
@@ -137,14 +136,14 @@
 	
 	</div>
 	
-	
+	<br/>
 			
-				<div class="submain" 	style="top: 152px; left: 15px; width: 1336px; height: 190px; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1;">
+				<div class="submain">
 
 					<div   style="border-bottom: 1px solid #eee;">
-						<br /> <br /> 
+						
 						<span class="fa fa-search form-control-feedback" id="catsandstars"></span> 
-						<input class="form-group has-search" ng-model="searchText" ng-change="refresh()"	placeholder=" Enter Vendor Name,Branch Code,Ticket Id,Kiosk ID.." id="input"> <br /> <br />
+						<input class="form-group has-search" ng-model="searchText" ng-change="refresh()"	placeholder=" Enter Vendor Name,Branch Code,Ticket Id,Kiosk ID.." id="input">  <br />
 						
 						<div style="top: 355px; left: 15px; width: 1336px; height: 519px; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1;"
 							                 ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter	id="test">

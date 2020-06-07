@@ -36,11 +36,11 @@ app.controller('UserManagementCtrl', ['$scope','$filter','StudentService', funct
       { name: 'role', displayName: 'Role'  },
       { name: 'Edit',
     	  headerCellTemplate: '<div></div>',
-    	  cellTemplate: '<div class="ui-grid-cell-contents"><a href="/km/editUserMaster?userId={{ row.entity.userId }}">Edit</a></div>'
+    	  cellTemplate: '<div class="ui-grid-cell-contents"><a href="km/editUserMaster?userId={{ row.entity.userId }}">Edit</a></div>'
       },
       { name: 'Delete',
     	  headerCellTemplate: '<div></div>',
-          cellTemplate: '<div class="ui-grid-cell-contents"><a href="/km/deleteUserMaster?userId={{ row.entity.userId }}">Delete</a></div>'
+          cellTemplate: '<div class="ui-grid-cell-contents"><a href="km/deleteUserMaster?userId={{ row.entity.userId }}">Delete</a></div>'
       }
     ],
     onRegisterApi: function(gridApi) {
@@ -65,7 +65,7 @@ app.service('StudentService',['$http', function ($http) {
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({
           method: 'GET',
-          url: '/users/get?page='+pageNumber+'&size='+size
+          url: 'users/get?page='+pageNumber+'&size='+size
         });
     }
 	

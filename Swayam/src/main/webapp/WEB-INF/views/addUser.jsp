@@ -12,14 +12,14 @@
 <title>Add User</title>
 
 
-<script src="/resources/js/angular.1.5.6.min.js"></script>
-<script src="/resources/js/jquery.3.4.1.min.js"></script>
-<script src="/resources/js/bootstrap.3.4.1.min.js"></script>
-<link rel="stylesheet" href="/resources/css/ui-grid.4.8.3.min.css">
+<script src="resources/js/angular.1.5.6.min.js"></script>
+<script src="resources/js/jquery.3.4.1.min.js"></script>
+<script src="resources/js/bootstrap.3.4.1.min.js"></script>
+<link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
 
 
-<link rel="stylesheet" href="/resources/css/grid-style.css" />
-<link rel="stylesheet" href="/resources/css/body-page.css" />
+<link rel="stylesheet" href="resources/css/grid-style.css" />
+<link rel="stylesheet" href="resources/css/body-page.css" />
 <script
 	src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script>
 <script
@@ -27,26 +27,20 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-<link href="/resources/css/menu.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css"
+<link href="resources/css/menu.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="resources/css/ui-grid.css"
 	type="text/css" />
 
-<script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
-<script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
-<script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
-<script src="http://ui-grid.info/docs/grunt-scripts/lodash.min.js"></script>
-<script src="http://ui-grid.info/docs/grunt-scripts/jszip.min.js"></script>
-<script
-	src="http://ui-grid.info/docs/grunt-scripts/excel-builder.dist.js"></script>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-touch.js"></script>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-animate.js"></script>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-aria.js"></script>
-
+<script src="resources/js/csv.js"></script>
+    <script src="resources/js/pdfmake.js"></script>
+    <script src="resources/js/vfs_fonts.js"></script>
+    <script src="resources/js/lodash.min.js"></script>
+    <script src="resources/js/jszip.min.js"></script>
+    <script src="resources/js/excel-builder.dist.js"></script>  
+    <script src="resources/js/angular.js"></script>
+    <script src="resources/js/angular-touch.js"></script>
+    <script src="resources/js/angular-animate.js"></script>
+    <script src="resources/js/angular-aria.js"></script>
 
 
 <style>
@@ -327,7 +321,7 @@ element.style {
 
 function fromValidation(){
 	//  ("form validation call ");
-    debugger;	
+    //debugger;	
 	var errorList=[];
 	var pfId=$("#pfId").val();
 	var userName=$("#username").val();
@@ -336,6 +330,7 @@ function fromValidation(){
 	var reportingAuthorityName=$("#reportingAuthorityName").val(); 
 	var reportingAuthorityEmail=$("#reportingAuthorityEmail").val();
 	var role=$("#role").val();
+	var circle=$("#circle").val();
     
 	if(pfId==""){
 		 errorList.push("Please enter pfId");
@@ -383,6 +378,9 @@ function fromValidation(){
 	 if(role=="Select"){
 		 errorList.push("Please select valid role ");		 
 	 }
+	 if(circle=="Select" && role !="SA" && role !="CC"){
+		 errorList.push("Please select valid Circle ");		 
+	 }
 	 return errorList;
 }
 
@@ -391,11 +389,11 @@ function fromValidation(){
 
 <script> 
 $(document).ready(function(){
-	debugger;
+	//debugger;
 	var respos='';
 	var errorList=[];
 	$('#pfId').blur(function(){
-		debugger;
+		//debugger;
 		 var pfId=$("#pfId").val();
 		 document.getElementById("pfId").innerHTML=pfId;
 		 if(pfId !=null && pfId !=""){
@@ -403,7 +401,7 @@ $(document).ready(function(){
 		 console.log("inside bluer function...."+pfId);
 	         	        $.ajax({
 	        	type:"GET",
-	        	url:"/km/getByPfIdSA/"+pfId,
+	        	url:"km/getByPfIdSA/"+pfId,
 	            success: function(data){
 	            	console.log("inside data");
 	        	    respos=data;
@@ -453,6 +451,7 @@ $(document).ready(function(){
 		$("#reportingAuthorityName12").html("");		
 		$("#reportingAuthorityEmail12").html("");
 		$("#role12").html("");
+		$("#circle12").html("");
 		//$.each(errorList, function(index) {
 			
 			if($("#emailId").val()==""){
@@ -504,6 +503,9 @@ $(document).ready(function(){
 			if($("#role").val()=="Select"){
 				$("#role12").html("Please Select valid Role");
 			}
+			if($("#circle").val()=="Select" && $("#role").val() !="SA" && $("#role").val() !="CC"){
+				$("#circle12").html("Please Select valid Circle");
+			}
 		//});
 
 	}
@@ -512,7 +514,7 @@ $(document).ready(function(){
 	
 	function saveform() {
 		//  ("123");
-		debugger;
+		//debugger;
 		
 		 var errorlist=fromValidation();
 		 //  (errorlist);
@@ -530,6 +532,7 @@ $(document).ready(function(){
 				$("#reportingAuthorityName12").html("");		
 				$("#reportingAuthorityEmail12").html("");
 				$("#role12").html("");
+				$("#circle12").html("");
 		
 		var modal = document.getElementById("myModal");
 		var span = document.getElementsByClassName("close")[0];
@@ -539,7 +542,7 @@ $(document).ready(function(){
 		
 		 $.ajax({
 	        	type:"POST",
-	        	url:"/km/addUsers",
+	        	url:"km/addUsers",
 	        	data:formData,
 	         success: function(data){
 	        	 resp=data;       	 	        	 
@@ -637,11 +640,6 @@ $(document).ready(function(){
 						<td><span id="emailId12" style="color: red"></span></td>
 					</tr>
 					<tr>
-
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
 						<td style="top: 352px; width: 190px; height: 75px;opacity: 1;"><b style="color: purple">Role</b><b><span
 							 	style="color: red">*</span></b></td>
 						<td><form:select path="role" id="role" value="${addUser.role}" style="color:blue">
@@ -650,14 +648,29 @@ $(document).ready(function(){
 									<form:option value="${list.role}">${list.roleDescription}</form:option>
 								</c:forEach>
 							</form:select></td>
+						<td></td>
+						<td></td>
+						<td colspan="2">
+							<table style="display:none;" id="circleDiv">
+							<td style="top: 352px; width: 190px; height: 75px;opacity: 1;"><b style="color: purple">Circle</b><b><span
+								 	style="color: red">*</span></b></td>
+							<td><form:select path="circle" id="circle"   value="${addUserDto.circle}" style="color:blue">
+									<form:option value="Select" label="Select"></form:option>
+									<c:forEach var="list" items="${circleList}">
+										<form:option value="${list.circleName}">${list.circleName}</form:option>
+									</c:forEach>
+								</form:select></td>	
+							</table>
+						</td>
+						
 					</tr>
 					<tr>
 						<td></td>
-						<td><span id="userType12" style="color: red"></span></td>
-						<td></td>
-						<td></td>
-						<td></td>
 						<td><span id="role12" style="color: red"></span></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td><span id="circle12" style="color: red"></span></td>
 					</tr>
 					<tr>
 						<td><b style="color: purple">Reporting Authority Name</b><b><span
@@ -724,7 +737,7 @@ $(document).ready(function(){
 			
 			<p style="color: #000000; font-size: 10px; text-align: center;">
 				<span style="text-align: center; color: #000000;"> <img
-					src="/resources/img/successTick.png"></span>
+					src="resources/img/successTick.png"></span>
 			</p>
 			<p id="para" align="center"></p>
 			<button class="openFinalPopup">OK</button>
@@ -739,10 +752,32 @@ $(document).ready(function(){
 $(document).ready(function(){
     $('.openFinalPopup').on('click',function(){      
         
-    	$("#contentHomeApp").load('/km/userList');    	
+    	$("#contentHomeApp").load('km/userList');    	
        
     }); 
     
+});
+$(document).ready(function(){
+    $('#role').on('change', function() {
+      if (this.value == 'SA' || this.value == 'CC')     
+      {
+    	  $("#circleDiv").hide();        
+      }
+      else
+      {
+    	  $("#circleDiv").show();
+      }
+    });
+    var role=$("#role").val();
+        if (role == 'SA' || role == 'CC' || role == 'Select')     
+        {
+      	  $("#circleDiv").hide();        
+        }
+        else
+        {
+      	  $("#circleDiv").show();
+        }
+      
 });
 
 </script>	

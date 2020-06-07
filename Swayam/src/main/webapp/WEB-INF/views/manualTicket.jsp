@@ -384,7 +384,7 @@ $(document).ready(function(){
 		    $("#kioskId12").html('');
 			$.ajax({
 		        	type:"GET",
-		        	url:"/getByVendor/"+vendor+"/"+branchcode,
+		        	url:"getByVendor/"+vendor+"/"+branchcode,
 		         success: function(data){
 		        	 respos=data;
 		            $("#kioskId").html('');
@@ -657,11 +657,11 @@ function cloesBox(){
    <!--  <p align="center"><img src="file:///C:/Users/Admin/git/swayam-all/Swayam/src/main/webapp/resources/img/successTick.png" /></p>
     --> 
   <!--   <span style="text-align: center;color:#black">
- <img src="/resources/img/successTick.png"></span> -->
+ <img src="resources/img/successTick.png"></span> -->
     
     <p style="color:#000000;font-size:10px;text-align: center;">
 <span style="text-align: center;color:#000000;">
-  <img src="/resources/img/successTick.png"></span></p>
+  <img src="resources/img/successTick.png"></span></p>
     
     <p id="para" align="center"></p>
   </div>

@@ -18,10 +18,10 @@
     <!-- InstanceBeginEditable name="doctitle" -->
     <title>User Master</title>
     
-    <link rel="stylesheet" href="<c:url value='/resources/css/style.css' />"/>
-    <link rel="stylesheet" href="<c:url value='/resources/css/font-awesome.min.css' />"/>
-    <link rel="stylesheet" href="<c:url value='/resources/css/bootstrap.min.css' />"/>
-     <link rel="stylesheet" href="<c:url value='/resources/css/bootstrap-table.css' />"/>
+    <link rel="stylesheet" href="<c:url value='resources/css/style.css' />"/>
+    <link rel="stylesheet" href="<c:url value='resources/css/font-awesome.min.css' />"/>
+    <link rel="stylesheet" href="<c:url value='resources/css/bootstrap.min.css' />"/>
+     <link rel="stylesheet" href="<c:url value='resources/css/bootstrap-table.css' />"/>
  
 </head>
 
@@ -163,11 +163,11 @@
     </script>
     
     
-      <script type="text/javascript" src="/resources/js/jquery.min.js"/></script>
-      <script type="text/javascript" src="/resources/js/bootstrap.min.js"/></script>
-     <script type="text/javascript" src="/resources/js/metisMenu.min.js"/></script>
-      <script type="text/javascript" src="/resources/js/custom.js"/></script>
-    <script type="text/javascript" src="/resources/js/bootstrap-table.js"/></script>
+      <script type="text/javascript" src="resources/js/jquery.min.js"/></script>
+      <script type="text/javascript" src="resources/js/bootstrap.min.js"/></script>
+     <script type="text/javascript" src="resources/js/metisMenu.min.js"/></script>
+      <script type="text/javascript" src="resources/js/custom.js"/></script>
+    <script type="text/javascript" src="resources/js/bootstrap-table.js"/></script>
     
     <!-- InstanceBeginEditable name="js" --> <!-- InstanceEndEditable -->
 </body>
