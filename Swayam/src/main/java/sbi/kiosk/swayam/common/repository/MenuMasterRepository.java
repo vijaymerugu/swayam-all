@@ -10,5 +10,5 @@ import sbi.kiosk.swayam.common.entity.MenuMaster;
 @Repository
 public interface MenuMasterRepository extends CrudRepository<MenuMaster, String> {
 	
-	List<MenuMaster> findByRole(String role);
+	List<MenuMaster> findByRoleAndUseYN(String role,String useYN);
 }

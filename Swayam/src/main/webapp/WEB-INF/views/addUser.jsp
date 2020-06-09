@@ -335,6 +335,13 @@ function fromValidation(){
 	if(pfId==""){
 		 errorList.push("Please enter pfId");
 	 }
+	else{
+		 if (!pfId.match(/^[a-zA-Z0-9]+$/)) 
+		    {
+			 errorList.push('Only alphabets and numbers are allowed');
+		        
+		    }
+	 }
 	 if(userName==""){
 		 errorList.push("Please enter user name");
 	 }
@@ -362,6 +369,13 @@ function fromValidation(){
 	 }
 	 if(reportingAuthorityName==""){
 		 errorList.push("Please enter Reporting Authority Name");
+	 }
+	 else{
+		 if (!reportingAuthorityName.match(/^[a-zA-Z]+$/)) 
+		    {
+			 errorList.push('Only alphabets are allowed');
+		        
+		    }
 	 }
 	 if(reportingAuthorityEmail==""){
 		 errorList.push("Please enter Reporting Authority Email");
@@ -481,12 +495,26 @@ $(document).ready(function(){
 				//  ("pfId valida====");
 				$("#pfId12").html("Please Enter Pf Id");	
 			}
+			else{
+				 if (!$("#pfId").val().match(/^[a-zA-Z0-9]+$/)) 
+				    {
+					 $("#pfId12").html('Only alphabets and numbers are allowed');
+				        
+				    }
+			 }
 			if($("#username").val()==""){
 				$("#userName12").html("Please Enter User Name");	
 			}
 			if($("#reportingAuthorityName").val()==""){
 				$("#reportingAuthorityName12").html("Please Enter Reporting Authority Name");		
 			}
+			else{
+				 if (!$("#reportingAuthorityName").val().match(/^[a-zA-Z]+$/)) 
+				    {
+					 $("#reportingAuthorityName12").html('Only alphabets are allowed');
+				        
+				    }
+			 }
 			
 			if($("#reportingAuthorityEmail").val()==""){
 				$("#reportingAuthorityEmail12").html("Please Enter Reporting Authority Email");	
@@ -605,12 +633,12 @@ $(document).ready(function(){
 						<td><b style="color: purple">PF ID</b><b><span
 								style="color: red">*</span></b></td>
 						<td style="top: 352px; width: 190px; height: 75px;opacity: 1;">
-						<form:input path="pfId" id="pfId" required="required" /></td>
+						<form:input path="pfId" id="pfId" required="required"  maxlength="15"/></td>
 						<td></td>
 						<td></td>
 						<td><b style="color: purple">Username</b><b><span
 								style="color: red">*</span></b></td>
-						<td><form:input path="username" value="${addUser.username}"  />
+						<td><form:input path="username" value="${addUser.username}" maxlength="50" />
 					</tr>
 					
 					<tr>
@@ -624,12 +652,12 @@ $(document).ready(function(){
 					<tr>
 						<td style="top: 352px; width: 190px; height: 75px;opacity: 1;"><b style="color: purple">Phone Number</b><b><span
 								style="color: red">*</span></b></td>
-						<td><form:input path="phoneNo" /></td>
+						<td><form:input path="phoneNo" maxlength="15" /></td>
 						<td></td>
 						<td></td>
-						<td><b style="color: purple">EmailId</b><b><span
+						<td><b style="color: purple">Email Id</b><b><span
 								style="color: red">*</span></b></td>
-						<td><form:input path="emailId" value=""/>
+						<td><form:input path="emailId" value="" maxlength="50" />
 					</tr>
 					<tr>
 						<td></td>
@@ -675,12 +703,12 @@ $(document).ready(function(){
 					<tr>
 						<td><b style="color: purple">Reporting Authority Name</b><b><span
 								style="color: red">*</span></b></td>
-						<td><form:input path="reportingAuthorityName" /></td>
+						<td><form:input path="reportingAuthorityName" maxlength="50" /></td>
 						<td></td>
 						<td></td>
 						<td><b style="color: purple">Reporting Authority Email</b><b><span
 								style="color: red">*</span></b></td>
-						<td><form:input path="reportingAuthorityEmail" value="${addUser.reportingAuthorityEmail}"/></td>
+						<td><form:input path="reportingAuthorityEmail" value="${addUser.reportingAuthorityEmail}" maxlength="50" /></td>
 					</tr>
 					<tr>
 					</tr>
@@ -740,7 +768,9 @@ $(document).ready(function(){
 					src="resources/img/successTick.png"></span>
 			</p>
 			<p id="para" align="center"></p>
+			<p align="center">
 			<button class="openFinalPopup">OK</button>
+			</p>
 		</div>
 	</div>
 	<div class="error-div"></div>

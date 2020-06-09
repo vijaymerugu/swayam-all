@@ -197,7 +197,7 @@ public class TicketCentorController {
 		    	logger.info("=========findPaginatedByCategoryCMF=====+++TYPE="+type);
 		    	resultPage= ticketCentorFilterService.findPaginatedCountCmf(page, size, type);
 		         
-		    }else if(type !=null && type !=""){
+		    }else if(type !=null && type !="" && type !=">"){
 		    	logger.info("=========findPaginatedByCategoryCMF=====+++ONLY=TYPE="+type);
 		    	resultPage= ticketCentorFilterService.findPaginatedCountCmf(page, size, type);
 		         

@@ -80,7 +80,7 @@ app.controller('UserManagementCtrl1', ['$scope','$filter','UserManagementService
 			        gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
 			          paginationOptions.pageNumber = newPage;
 			          paginationOptions.pageSize = pageSize;
-			          UserManagementService.getUsers(newPage,pageSize).success(function(data){
+			          UserManagementService.getUsers(newPage,pageSize,counttype).success(function(data){
 			        	  $scope.gridOptions.data = data.content;
 			         	  $scope.gridOptions.totalItems = data.totalElements;
 			          });

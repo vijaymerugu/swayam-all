@@ -357,7 +357,7 @@
 </div>
 
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>	
+    <script src="resources/js/bootstrap.3.1.1.min.js"></script>	
 <script>
 var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter']);
 
