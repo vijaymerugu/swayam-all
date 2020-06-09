@@ -2,20 +2,14 @@ package sbi.kiosk.swayam.common.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedStoredProcedureQueries;
 import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.StoredProcedureParameter;
-import javax.persistence.Table;
 import lombok.Data;
 
 @Data
 @Entity
-//@Table(name="VW_ZERO_TRANSACTION_KIOSKS")
 @NamedStoredProcedureQuery(
 name="SP_ZERO_TRANSACTION_KIOSKS",
 procedureName="SP_ZERO_TRANSACTION_KIOSKS",
@@ -29,8 +23,6 @@ parameters={
 public class ZeroTransactionKiosks {
 		
 		@Id
-	//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_TBL_USER_KIOSK_MAPPING")
-	//  @SequenceGenerator(sequenceName = "SEQ_TBL_USER_KIOSK_MAPPING", allocationSize = 1, name = "SEQ_TBL_USER_KIOSK_MAPPING")
 		@Column(name="BR_ID")
 		private Integer id;
 		
