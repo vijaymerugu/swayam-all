@@ -177,6 +177,11 @@ public class ViewResolverController {
 		return mav;
 	}
 
-
+	@RequestMapping("km/headerTemplate")
+	public ModelAndView headerTemplate() {		
+		
+		ModelAndView mav = new ModelAndView("header-template");
+		return mav;
+	}
 
 }
