@@ -1,8 +1,5 @@
 package sbi.kiosk.swayam.transactiondashboard.service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -17,7 +14,6 @@ import org.springframework.stereotype.Service;
 import sbi.kiosk.swayam.common.dto.DrillDownDto;
 import sbi.kiosk.swayam.common.entity.DrillDown;
 import sbi.kiosk.swayam.common.entity.ZeroTransactionKiosks;
-//import sbi.kiosk.swayam.transactiondashboard.repository.DrillDownPagingRepository;
 import sbi.kiosk.swayam.transactiondashboard.repository.DrillDownRepository;
 
 @Service
@@ -29,40 +25,9 @@ public class DrillDownServiceImpl implements DrillDownService{
 	@PersistenceContext
     private EntityManager em;
 	
-//	public List<DrillDownDto> list(){
-//		
-//		List<DrillDownDto> drillDownDTOList=new ArrayList<DrillDownDto>();
-//		
-//		List<DrillDown> drillDownList=drillDownRepository.findAll();
-//		
-//		if(drillDownList != null && !drillDownList.isEmpty() && drillDownList.size() > 0){
-//			
-//			   for(DrillDown drillDownEntity : drillDownList){
-//			
-//				   drillDownDTOList.add(new DrillDownDto(drillDownEntity));
-//			
-//			}
-//		}
-//		
-//		return drillDownDTOList;	
-//	}
-	
 	@Override
 	public Page<DrillDownDto> findPaginated(final int page, final int size){
 		 Page<DrillDownDto> entities = drillDownRepository.findAll(PageRequest.of(page, size)).map(DrillDownDto::new);
-		// ZeroTransactionKiosksDto zeroTransactionKiosksDto= new ZeroTransactionKiosksDto();
-//		 for(ZeroTransactionKiosksDto dto:entities.getContent()){
-//			 
-//			 String kioskId=dto.getKisokId();
-//			 
-//			 String kioskBranchMaster= kioskMasterRepo.findKioskByKioskId_circle(kioskId);
-//			ticketCentorDto.setServeriry(kioskBranchMaster);
-//			System.out.println(dto.getKisokId());
-//			 
-//			 
-//		 }
-		 
-		 
 		 
 		 return entities;
 
@@ -89,8 +54,7 @@ public class DrillDownServiceImpl implements DrillDownService{
         nearByEntities.setParameter("networkName", networkName);
         nearByEntities.setParameter("moduleName", moduleName);
         nearByEntities.setParameter("regionName", regionName);
- //       nearByEntities.setParameter("moduleName", moduleName);
- //       nearByEntities.setParameter("todate", toDate);
+ 
         System.out.println("nearByEntities======"+nearByEntities);
         return nearByEntities.getResultList();
     }
@@ -100,20 +64,7 @@ public class DrillDownServiceImpl implements DrillDownService{
 	@Override
 	public Page<DrillDownDto> findPaginatedByCircle(final int page, final int size, String circleName){
 		 Page<DrillDownDto> entities = drillDownRepository.findAllByCircle(PageRequest.of(page, size), circleName).map(DrillDownDto::new);
-		// ZeroTransactionKiosksDto zeroTransactionKiosksDto= new ZeroTransactionKiosksDto();
-//		 for(ZeroTransactionKiosksDto dto:entities.getContent()){
-//			 
-//			 String kioskId=dto.getKisokId();
-//			 
-//			 String kioskBranchMaster= kioskMasterRepo.findKioskByKioskId_circle(kioskId);
-//			ticketCentorDto.setServeriry(kioskBranchMaster);
-//			System.out.println(dto.getKisokId());
-//			 
-//			 
-//		 }
-		 
-		 
-		 
+		 		 
 		 return entities;
 
     }
@@ -122,19 +73,6 @@ public class DrillDownServiceImpl implements DrillDownService{
 	@Override
 	public Page<DrillDownDto> findPaginatedByNetwork(final int page, final int size, String networkName){
 		 Page<DrillDownDto> entities = drillDownRepository.findAllByNetwork(PageRequest.of(page, size), networkName).map(DrillDownDto::new);
-		// ZeroTransactionKiosksDto zeroTransactionKiosksDto= new ZeroTransactionKiosksDto();
-//		 for(ZeroTransactionKiosksDto dto:entities.getContent()){
-//			 
-//			 String kioskId=dto.getKisokId();
-//			 
-//			 String kioskBranchMaster= kioskMasterRepo.findKioskByKioskId_circle(kioskId);
-//			ticketCentorDto.setServeriry(kioskBranchMaster);
-//			System.out.println(dto.getKisokId());
-//			 
-//			 
-//		 }
-		 
-		 
 		 
 		 return entities;
 
@@ -143,19 +81,6 @@ public class DrillDownServiceImpl implements DrillDownService{
 	@Override
 	public Page<DrillDownDto> findPaginatedByModule(final int page, final int size, String moduleName){
 		 Page<DrillDownDto> entities = drillDownRepository.findAllByModule(PageRequest.of(page, size), moduleName).map(DrillDownDto::new);
-		// ZeroTransactionKiosksDto zeroTransactionKiosksDto= new ZeroTransactionKiosksDto();
-//		 for(ZeroTransactionKiosksDto dto:entities.getContent()){
-//			 
-//			 String kioskId=dto.getKisokId();
-//			 
-//			 String kioskBranchMaster= kioskMasterRepo.findKioskByKioskId_circle(kioskId);
-//			ticketCentorDto.setServeriry(kioskBranchMaster);
-//			System.out.println(dto.getKisokId());
-//			 
-//			 
-//		 }
-		 
-		 
 		 
 		 return entities;
 
@@ -165,19 +90,6 @@ public class DrillDownServiceImpl implements DrillDownService{
 	@Override
 	public Page<DrillDownDto> findPaginatedByRegion(final int page, final int size, String regionName){
 		 Page<DrillDownDto> entities = drillDownRepository.findAllByRegion(PageRequest.of(page, size), regionName).map(DrillDownDto::new);
-		// ZeroTransactionKiosksDto zeroTransactionKiosksDto= new ZeroTransactionKiosksDto();
-//		 for(ZeroTransactionKiosksDto dto:entities.getContent()){
-//			 
-//			 String kioskId=dto.getKisokId();
-//			 
-//			 String kioskBranchMaster= kioskMasterRepo.findKioskByKioskId_circle(kioskId);
-//			ticketCentorDto.setServeriry(kioskBranchMaster);
-//			System.out.println(dto.getKisokId());
-//			 
-//			 
-//		 }
-		 
-		 
 		 
 		 return entities;
 
@@ -185,7 +97,7 @@ public class DrillDownServiceImpl implements DrillDownService{
 
 	@Override
 	public Page<ZeroTransactionKiosks> findPaginatedByDate(int page, int size, String fromDate, String toDate) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 	

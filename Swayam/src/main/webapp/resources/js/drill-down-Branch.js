@@ -8,30 +8,11 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
    };
    
    var counttype = "";
-//   var circleName="";
-//   var networkName="";
-//   var moduleName="";
    var circleName = document.getElementById("circleName").value;
-   alert("Circle : "+document.getElementById("circleName").value);
    var networkName = document.getElementById("networkName").value;
-   alert("Network : "+document.getElementById("networkName").value);
    var moduleName = document.getElementById("moduleName").value;
-   alert("Module : "+document.getElementById("moduleName").value);
    var regionName = document.getElementById("regionName").value;
-   alert("Region :"+document.getElementById("regionName").value);
    
-    /*$scope.loadHomeBodyPageForms = function(url){	   
-		if(url != undefined){	
-			var str ='/td/drillDownFifth?userId=' + url;
-			$("#contentHomeApp").load(str);
-		}						
-	}*/
-   /* $scope.loadHomeBodyPageFormsDel = function(url){	   
-		if(url != undefined){	
-			var str ='/km/deleteUserMaster?userId=' + url;
-			$("#contentHomeApp").load(str);
-		}						
-	}*/
    $scope.getCountType = function(type){
       
        counttype=type;
@@ -77,7 +58,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
         return docDefinition;
       },
       
-      headerTemplate: '/km/headerTemplate',
+      headerTemplate: 'km/headerTemplate',
       superColDefs: [{
           name: 'lipi',
           displayName: 'LIPI'
@@ -118,6 +99,52 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
   
 }]);
 
+var getPage = function(curPage, pageSize, counttype) {
+    var url ='drillDown/get?page='+curPage+'&size='+pageSize+'&type='+counttype;
+    
+
+    var _scope = $scope;
+    return DrillDownService.getUsers(curPage,pageSize,counttype)
+    .success(function (response) {
+      var firstRow = (curPage - 1) * pageSize;
+      return response.content;
+    });
+  }; 
+
+
+app.directive('superColWidthUpdate', ['$timeout', function ($timeout) {
+    return {
+      'restrict': 'A',
+          'link': function (scope, element) {
+          var _colId = scope.col.colDef.superCol,
+              _el = jQuery(element);
+          _el.on('resize', function () {
+              _updateSuperColWidth();
+          });
+          var _updateSuperColWidth = function () {
+              $timeout(function () {
+                  var _parentCol = jQuery('.ui-grid-header-cell[col-name="' + _colId + '"]');
+                  var _parentWidth = _parentCol.outerWidth(),
+                      _width = _el.outerWidth();
+                  
+                  if (_parentWidth + 1 >= _width) {
+                    _parentWidth = _parentWidth + _width;
+                  } else {
+                    _parentWidth = _width;
+                  }
+                  
+                  _parentCol.css({
+                      'min-width': _parentWidth + 'px',
+                      'max-width': _parentWidth + 'px',
+                      'text-align': "center"
+                  });
+              }, 0);
+          };
+          _updateSuperColWidth();
+      }
+    };
+  }]);
+
 
 app.service('DrillDownService',['$http', function ($http) {
 	
@@ -125,7 +152,7 @@ app.service('DrillDownService',['$http', function ($http) {
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({
           method: 'GET',
-          url: '/drillDown/get?page='+pageNumber+'&size='+size+'&type='+counttype+'&circleName='+circleName
+          url: 'drillDown/get?page='+pageNumber+'&size='+size+'&type='+counttype+'&circleName='+circleName
                +'&networkName='+networkName+'&moduleName='+moduleName+'&regionName='+regionName
                +'&fromDate='+fromDate+'&toDate='+toDate
         });

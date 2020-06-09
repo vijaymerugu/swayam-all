@@ -19,13 +19,8 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
      
    $scope.loadHomeBodyPageForms = function(url){	   
 		if(url != undefined){	
-			var str ='/td/drillDownNetwork?circleName=' + url;
+			var str ='td/drillDownNetwork?circleName=' + url;
 			$("#contentHomeApp").load(str);
-			/*DrillDownService.getUsers(paginationOptions.pageNumber,
-					   paginationOptions.pageSize,counttype,url).success(function(data){
-				  $scope.gridOptions.data = data.content;
-			 	  $scope.gridOptions.totalItems = data.totalElements;
-			   });*/
 		}						
 	}
   
@@ -92,7 +87,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
         return docDefinition;
       },
       
-      headerTemplate: '/km/headerTemplate',
+      headerTemplate: 'km/headerTemplate',
       superColDefs: [{
           name: 'lipi',
           displayName: 'LIPI'
@@ -138,18 +133,13 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
 }]);
 
 var getPage = function(curPage, pageSize, counttype) {
-    var url ='/drillDown/get?page='+curPage+'&size='+pageSize+'&type='+counttype;
+    var url ='drillDown/get?page='+curPage+'&size='+pageSize+'&type='+counttype;
     
 
     var _scope = $scope;
     return DrillDownService.getUsers(curPage,pageSize,counttype)
     .success(function (response) {
-  	  alert(pageSize);
-  	  alert(response.content);
       var firstRow = (curPage - 1) * pageSize;
-      //$scope.gridOptions.totalItems = 100;
-      //$scope.gridOptions.data = response.content.slice(firstRow, firstRow + pageSize);
-      //return response.content.slice(firstRow, firstRow + pageSize);
       return response.content;
     });
   }; 
@@ -192,11 +182,11 @@ app.directive('superColWidthUpdate', ['$timeout', function ($timeout) {
 app.service('DrillDownService',['$http', function ($http) {
 	
 	function getUsers(pageNumber,size,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate) {
-		console.log()
+		
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({
           method: 'GET',
-          url: '/drillDown/get?page='+pageNumber+'&size='+size+'&type='+counttype+'&circleName='+circleName
+          url: 'drillDown/get?page='+pageNumber+'&size='+size+'&type='+counttype+'&circleName='+circleName
                +'&networkName='+networkName+'&moduleName='+moduleName+'&regionName='+regionName
                +'&fromDate='+fromDate+'&toDate='+toDate       
         });

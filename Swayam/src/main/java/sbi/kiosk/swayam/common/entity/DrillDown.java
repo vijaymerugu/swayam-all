@@ -2,27 +2,20 @@ package sbi.kiosk.swayam.common.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.StoredProcedureParameter;
-import javax.persistence.Table;
-
 import lombok.Data;
 
 @Data
 @Entity
-//@Table(name="VW_DRILL_DOWN")
-
 @NamedStoredProcedureQuery(
 name="SP_DRILL_DOWN",
 procedureName="SP_DRILL_DOWN",
 resultClasses=DrillDown.class,
 parameters={
-@StoredProcedureParameter( name="fromdate",type=String.class, mode= ParameterMode.IN),
+@StoredProcedureParameter(name="fromdate",type=String.class, mode= ParameterMode.IN),
 @StoredProcedureParameter(name="todate", type=String.class, mode= ParameterMode.IN),
 @StoredProcedureParameter(name="circleName", type=String.class, mode= ParameterMode.IN),
 @StoredProcedureParameter(name="networkName", type=String.class, mode= ParameterMode.IN),
@@ -34,8 +27,6 @@ parameters={
 public class DrillDown {
 	
 	@Id
-	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_TBL_USER_KIOSK_MAPPING")
-	//@SequenceGenerator(sequenceName = "SEQ_TBL_USER_KIOSK_MAPPING", allocationSize = 1, name = "SEQ_TBL_USER_KIOSK_MAPPING")
 	@Column(name="BR_ID")
 	private Integer id;
 	
