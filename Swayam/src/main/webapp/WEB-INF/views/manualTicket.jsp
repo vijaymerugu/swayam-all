@@ -423,6 +423,13 @@ function fromValidation(){
 	 if(comment==""){
 		 errorList.push("Please enter comment");
 	 }
+	 else{
+		 if (!comment.match(/^[a-zA-Z0-9 ]+$/)) 
+		    {
+			 errorList.push('Only alphabets and numbers are allowed');
+		        
+		    }
+	 }
 	 return errorList;
 }
 
@@ -502,6 +509,13 @@ function displayErrorsOnPage() {
 	 }
 	 if(comment==""){
 		 $("#comment12").html("Please enter comment");
+	 }
+	 else{
+		 if (!comment.match(/^[a-zA-Z0-9 ]+$/)) 
+		    {
+			 $("#comment12").html('Only alphabets and numbers are allowed');
+		        
+		    }
 	 }
 }
 
@@ -638,7 +652,7 @@ function cloesBox(){
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </b>
 								
 								</td>
-						<td><form:textarea path="comment" row="8" column="8"  required="required" /></td>
+						<td><form:textarea path="comment" row="8" column="8"  required="required"  maxlength="200" /></td>
 					</tr><tr>
 					  <td></td><td><span id="kioskError12" style="color:red"></td><td></td><td></td><td></td><td><span id="comment12" style="color:red"></span> </td>
 					</tr>
@@ -664,6 +678,9 @@ function cloesBox(){
   <img src="resources/img/successTick.png"></span></p>
     
     <p id="para" align="center"></p>
+    <p align="center">			
+		<button class="btn btn-default" onclick="cloesBox()">OK</button> 
+	</p>
   </div>
 </div>
 		

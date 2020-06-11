@@ -426,18 +426,17 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 			        return docDefinition;
 			      },
 				
-			    columnDefs: [
+			    columnDefs: [ 
 			      { name: 'vendor', displayName: 'Vendor'  },
 			      { name: 'ticketId', displayName: 'Ticket Id' },
 			      { name: 'kisokId', displayName: 'KisokId'  },
-			      { name: 'branchCode', displayName: 'Branch Code'  },
-			      { name: 'callCategory', displayName: 'Call Category'},
-			      { name: 'callSubCategory', displayName: 'Call Sub Category'  },
-			      { name: 'call_log_date', displayName: 'Call Log Date'  },
-			      { name: 'ageing',  displayName: 'Ageing Hours'},
-			      { name: 'statusOfComplaint',  displayName: 'Status of Complaint'},
-			      { name: 'assigned_to_FE',  displayName: 'Assigned to FE'},
-			      { name: 'fe_schedule', displayName: 'FE Schedule'}
+			      { name: 'branchCode', headerCellTemplate: '<div>Branch<br/>Code</div>',  },
+			      { name: 'callCategory',headerCellTemplate: '<div>Call<br/>Category</div>'},
+			      { name: 'callSubCategory', headerCellTemplate: '<div>Call Sub<br/>Category</div>'  },
+			      { name: 'call_log_date',headerCellTemplate: '<div>Call Log<br/>Date</div>'   },
+			      { name: 'ageing', headerCellTemplate: '<div>Ageing Log<br/>Hours</div>'},
+			      { name: 'statusOfComplaint',headerCellTemplate: '<div>Status of<br/>Complaint</div>'},
+			      { name: 'assigned_to_FE',headerCellTemplate: '<div>Assigned<br/>to FE</div>'}
 			    ],
 			    onRegisterApi: function(gridApi) {
 			        $scope.gridApi = gridApi;

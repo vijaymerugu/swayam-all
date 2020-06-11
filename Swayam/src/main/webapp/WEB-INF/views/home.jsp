@@ -37,14 +37,18 @@
 	<div id="mainMenuHome" ng-app="HomeApp" ng-controller="menuController">
 		<%
 			UserDto userObj = (UserDto) session.getAttribute("userObj");
-			String firstName = "";
-			String lastName="";
+			//String firstName = "";
+			//String lastName="";
+			String username="";
 			String pfId="";
-			if(userObj.getFirstName() !=null){
+			/* if(userObj.getFirstName() !=null){
 				firstName = userObj.getFirstName();
 			}
 			if(userObj.getLastName() !=null){
 				lastName = userObj.getLastName();
+			} */
+			if(userObj.getUsername() !=null){
+				username = userObj.getUsername();
 			}
 			if(userObj.getPfId() !=null){
 				pfId = userObj.getPfId();
@@ -64,7 +68,7 @@
 							align="center"><b>Swayam Monitoring Tool</b></td>
 						<td
 							style="width: 269px; background: #FDD209; color: #000000; align: center"
-							align="center"><b>Welcome <%=firstName%> &nbsp;<%=lastName%></b> 
+							align="center"><b>Welcome <%=username%></b> 
 							<br /> <b> <%=pfId%> </b>&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout">Log Out</a></td>
 					</tr>
 				</table>

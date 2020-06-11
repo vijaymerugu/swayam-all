@@ -60,20 +60,18 @@ app.controller('UserManagementCtrl1', ['$scope','$filter','UserManagementService
 			        docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
 			        return docDefinition;
 			      },
-			    columnDefs: [
+			    columnDefs: [			      
 			      { name: 'vendor', displayName: 'Vendor'  },
 			      { name: 'ticketId', displayName: 'Ticket Id' },
 			      { name: 'kisokId', displayName: 'KisokId'  },
 			      { name: 'branchCode', displayName: 'Branch Code'  },
 			      { name: 'serveriry', displayName: 'Circle'  },
-			      { name: 'callCategory', displayName: 'Call Category'},
-			      { name: 'cms_cmf_assigned', displayName: 'CMS/CMF Assigned'  },
-			      { name: 'call_log_date', displayName: 'Call Log Date'  },
+			      { name: 'callCategory',headerCellTemplate: '<div>Call<br/>Category</div>'},
+			      { name: 'cms_cmf_assigned',headerCellTemplate: '<div>CMS/CMF<br/>Assigned</div>'  },
+			      { name: 'call_log_date',headerCellTemplate: '<div>Call Log<br/>Date</div>'   },
 			      { name: 'ageing',  displayName: 'Ageing Hours'},
-			      { name: 'statusOfComplaint',  displayName: 'Status of Complaint'},
-			      { name: 'assigned_to_FE',  displayName: 'Assigned to FE'},
-			      { name: 'fe_schedule', displayName: 'FE Schedule'}
-			     
+			      { name: 'statusOfComplaint',headerCellTemplate: '<div>Status of<br/>Complaint</div>'},
+			      { name: 'assigned_to_FE', headerCellTemplate: '<div>Assigned<br/>to FE</div>'}
 			    ],
 			    onRegisterApi: function(gridApi) {
 			        $scope.gridApi = gridApi;

@@ -394,7 +394,7 @@ function fromValidation(){
 		 errorList.push("Please enter vendor");
 		}
 	 else{
-		 if (!vendor.match(/^[a-zA-Z0-9]+$/)) 
+		 if (!vendor.match(/^[a-zA-Z0-9 ]+$/)) 
 		    {
 			 errorList.push('Only alphabets and numbers are allowed');
 		        
@@ -410,7 +410,7 @@ function fromValidation(){
 		 errorList.push("Please enter subject ");		 
 	 }
 	 else{
-		 if (!subject.match(/^[a-zA-Z0-9]+$/)) 
+		 if (!subject.match(/^[a-zA-Z0-9 ]+$/)) 
 		    {
 			 errorList.push('Only alphabets and numbers are allowed');
 		        
@@ -421,7 +421,7 @@ function fromValidation(){
 		 errorList.push("Please enter comments ");		 
 	 }
 	 else{
-		 if (!comments.match(/^[a-zA-Z0-9]+$/)) 
+		 if (!comments.match(/^[a-zA-Z0-9 ]+$/)) 
 		    {
 			 errorList.push('Only alphabets and numbers are allowed');
 		        
@@ -480,7 +480,7 @@ function fromValidation(){
 				$("#vendorId").html("Please Enter Vendor");		
 			}
 			else{
-				 if (!$("#vendor").val().match(/^[a-zA-Z0-9]+$/)) 
+				 if (!$("#vendor").val().match(/^[a-zA-Z0-9 ]+$/)) 
 				    {
 					 $("#vendorId").html('Only alphabets and numbers are allowed');
 				        
@@ -499,7 +499,7 @@ function fromValidation(){
 				$("#subjectId").html("Please Enter Subject");
 			}
 			else{
-				 if (!$("#subject").val().match(/^[a-zA-Z0-9]+$/)) 
+				 if (!$("#subject").val().match(/^[a-zA-Z0-9 ]+$/)) 
 				    {
 					 $("#subjectId").html('Only alphabets and numbers are allowed');
 				        
@@ -510,7 +510,7 @@ function fromValidation(){
 				$("#commentsId").html("Please Enter comments");
 			}
 			else{
-				 if (!$("#comments").val().match(/^[a-zA-Z0-9]+$/)) 
+				 if (!$("#comments").val().match(/^[a-zA-Z0-9 ]+$/)) 
 				    {
 					 $("#commentsId").html('Only alphabets and numbers are allowed');
 				        

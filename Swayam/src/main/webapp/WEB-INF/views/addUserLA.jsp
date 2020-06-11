@@ -321,7 +321,7 @@ element.style {
 
 function fromValidation(){
 	//  ("form validation call ");
-    debugger;	
+    //debugger;	
 	var errorList=[];
 	var pfId=$("#pfId").val();
 	var userName=$("#username").val();
@@ -341,6 +341,23 @@ function fromValidation(){
 			 errorList.push('Only alphabets and numbers are allowed');
 		        
 		    }
+		 else{			 
+			 console.log("inside fromvalidation...."+pfId);
+		         	        $.ajax({
+		        	type:"GET",
+		        	url:"km/getByPfIdSA/"+pfId,
+		        	async:false,
+		            success: function(data){
+		            	console.log("inside data");
+		        	    respos=data;
+		        	 console.log("response "+respos);
+		        	 if(data !=''){
+		        	  errorList.push(data);
+		        	 }
+		
+		            }
+		         });		 
+		 }
 	 }
 	 if(userName==""){
 		 errorList.push("Please enter user name");
@@ -352,18 +369,18 @@ function fromValidation(){
 			var phoneNumber=new RegExp(/^[+]?(\d{1,2})?[\s.-]?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/);
 			var valid=phoneNumber.test(phone);
 			if(!valid){
-				 errorList.push("Please enter user name");
+				 errorList.push("Please enter valid phone nuber");
 			 }				
 		}
 
 	 if(emailId==""){
-		 errorList.push("Please enter phone Email Id");
+		 errorList.push("Please enter Email Id");
 	 }else{
 		 var email= $.trim($("#emailId").val());
 		 var emailrex=new RegExp(/^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$/i);
 		 var valid=emailrex.test(email);
 		 if(!valid){
-			 errorList.push("Please enter phone Email Id");
+			 errorList.push("Please enter valid Email Id");
 		
 		 }
 	 }
@@ -371,7 +388,7 @@ function fromValidation(){
 		 errorList.push("Please enter Reporting Authority Name");
 	 }
 	 else{
-		 if (!reportingAuthorityName.match(/^[a-zA-Z]+$/)) 
+		 if (!reportingAuthorityName.match(/^[a-zA-Z ]+$/)) 
 		    {
 			 errorList.push('Only alphabets are allowed');
 		        
@@ -403,11 +420,11 @@ function fromValidation(){
 
 <script> 
 $(document).ready(function(){
-	debugger;
+	//debugger;
 	var respos='';
 	var errorList=[];
 	$('#pfId').blur(function(){
-		debugger;
+		//debugger;
 		 var pfId=$("#pfId").val();
 		 document.getElementById("pfId").innerHTML=pfId;
 		 if(pfId !=null && pfId !=""){
@@ -425,7 +442,7 @@ $(document).ready(function(){
 	            }
 	         	   });
 		 }else{
-			 $("#pfId12").html("Please Enter Satendra Pf Id");
+			 $("#pfId12").html("Please Enter PF ID");
 		 }
 	});
 });
@@ -501,6 +518,22 @@ $(document).ready(function(){
 					 $("#pfId12").html('Only alphabets and numbers are allowed');
 				        
 				    }
+				 else{			 
+					 console.log("inside displayErrorsOnPage...."+$("#pfId").val());
+				         	        $.ajax({
+				        	type:"GET",
+				        	url:"km/getByPfIdSA/"+$("#pfId").val(),
+				        	async:false,
+				            success: function(data){
+				            	console.log("inside data");
+				        	    respos=data;
+				        	 console.log("response "+respos);
+				        	 if(data !=''){
+				        		 $("#pfId12").html(data);
+					        	 }				        	 				        	 
+				            }
+				         });		 
+				 }
 			 }
 			if($("#username").val()==""){
 				$("#userName12").html("Please Enter User Name");	
@@ -509,7 +542,7 @@ $(document).ready(function(){
 				$("#reportingAuthorityName12").html("Please Enter Reporting Authority Name");		
 			}
 			else{
-				 if (!$("#reportingAuthorityName").val().match(/^[a-zA-Z]+$/)) 
+				 if (!$("#reportingAuthorityName").val().match(/^[a-zA-Z ]+$/)) 
 				    {
 					 $("#reportingAuthorityName12").html('Only alphabets are allowed');
 				        
@@ -542,7 +575,7 @@ $(document).ready(function(){
 	
 	function saveform() {
 		//  ("123");
-		debugger;
+		//debugger;
 		
 		 var errorlist=fromValidation();
 		 //  (errorlist);

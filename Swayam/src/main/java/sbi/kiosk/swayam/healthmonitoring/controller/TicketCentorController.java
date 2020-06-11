@@ -168,6 +168,9 @@ public class TicketCentorController {
 		if(type !=null && type.trim().equals("undefined")){
 			type = "";
 		}
+		if(type !=null && (type.equals(">") || type ==">")){
+			type = "";
+		}
 		
 		 Page<TicketCentorDto> resultPage = null;
 		    
@@ -221,6 +224,9 @@ public class TicketCentorController {
 		if(type !=null && type.trim().equals("undefined")){
 			type = "";
 		}
+		if(type !=null && (type.equals(">") || type ==">")){
+			type = "";
+		}
 		
 		 Page<TicketCentorDto> resultPage = null;
 		    
@@ -242,7 +248,7 @@ public class TicketCentorController {
 		    }else if(type.equals("ThreeDayGreaterCount")){
 		    	resultPage= ticketCentorFilterService.findPaginatedCountCms(page, size, type);
 		         
-		    }else if(type !=null && type !=""){
+		    }else if(type !=null && type !="" && type !=">"){
 		    	resultPage= ticketCentorFilterService.findPaginatedCountCms(page, size, type);
 		         
 		    }else{

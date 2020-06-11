@@ -333,7 +333,7 @@ function fromValidation(){
 	var circle=$("#circle").val();
     
 	if(pfId==""){
-		 errorList.push("Please enter pfId");
+		 errorList.push("Please enter PF ID");
 	 }
 	else{
 		 if (!pfId.match(/^[a-zA-Z0-9]+$/)) 
@@ -341,6 +341,22 @@ function fromValidation(){
 			 errorList.push('Only alphabets and numbers are allowed');
 		        
 		    }
+		 else{			 
+			 console.log("inside fromvalidation...."+pfId);
+		         	        $.ajax({
+		        	type:"GET",
+		        	url:"km/getByPfIdSA/"+pfId,
+		        	async:false,
+		            success: function(data){
+		            	console.log("inside data");
+		        	    respos=data;
+		        	 console.log("response "+respos);		        	 	        	 
+		        	 if(data !=''){
+		        		 errorList.push(data);	
+			          }	
+		            }
+		         });		 
+		 }
 	 }
 	 if(userName==""){
 		 errorList.push("Please enter user name");
@@ -352,18 +368,18 @@ function fromValidation(){
 			var phoneNumber=new RegExp(/^[+]?(\d{1,2})?[\s.-]?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/);
 			var valid=phoneNumber.test(phone);
 			if(!valid){
-				 errorList.push("Please enter user name");
+				 errorList.push("Please enter valid phone nuber");
 			 }				
 		}
 
 	 if(emailId==""){
-		 errorList.push("Please enter phone Email Id");
+		 errorList.push("Please enter Email Id");
 	 }else{
 		 var email= $.trim($("#emailId").val());
 		 var emailrex=new RegExp(/^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$/i);
 		 var valid=emailrex.test(email);
 		 if(!valid){
-			 errorList.push("Please enter phone Email Id");
+			 errorList.push("Please enter valid Email Id");
 		
 		 }
 	 }
@@ -371,7 +387,7 @@ function fromValidation(){
 		 errorList.push("Please enter Reporting Authority Name");
 	 }
 	 else{
-		 if (!reportingAuthorityName.match(/^[a-zA-Z]+$/)) 
+		 if (!reportingAuthorityName.match(/^[a-zA-Z ]+$/)) 
 		    {
 			 errorList.push('Only alphabets are allowed');
 		        
@@ -392,7 +408,7 @@ function fromValidation(){
 	 if(role=="Select"){
 		 errorList.push("Please select valid role ");		 
 	 }
-	 if(circle=="Select" && role !="SA" && role !="CC"){
+	 if(role!="Select" && circle=="Select" && role !="SA" && role !="CC"){		 
 		 errorList.push("Please select valid Circle ");		 
 	 }
 	 return errorList;
@@ -425,7 +441,7 @@ $(document).ready(function(){
 	            }
 	         	   });
 		 }else{
-			 $("#pfId12").html("Please Enter Satendra Pf Id");
+			 $("#pfId12").html("Please Enter PF ID");
 		 }
 	});
 });
@@ -493,7 +509,7 @@ $(document).ready(function(){
 			
 			if($("#pfId").val()==""){
 				//  ("pfId valida====");
-				$("#pfId12").html("Please Enter Pf Id");	
+				$("#pfId12").html("Please Enter PF ID");	
 			}
 			else{
 				 if (!$("#pfId").val().match(/^[a-zA-Z0-9]+$/)) 
@@ -501,6 +517,22 @@ $(document).ready(function(){
 					 $("#pfId12").html('Only alphabets and numbers are allowed');
 				        
 				    }
+				 else{			 
+					 console.log("inside displayErrorsOnPage...."+$("#pfId").val());
+				         	        $.ajax({
+				        	type:"GET",
+				        	url:"km/getByPfIdSA/"+$("#pfId").val(),
+				        	async:false,
+				            success: function(data){
+				            	console.log("inside data");
+				        	    respos=data;
+				        	 console.log("response "+respos);
+				        	 if(data !=''){
+				        		 $("#pfId12").html(data);
+					          }				        	 
+				            }
+				         });		 
+				 }
 			 }
 			if($("#username").val()==""){
 				$("#userName12").html("Please Enter User Name");	
@@ -509,7 +541,7 @@ $(document).ready(function(){
 				$("#reportingAuthorityName12").html("Please Enter Reporting Authority Name");		
 			}
 			else{
-				 if (!$("#reportingAuthorityName").val().match(/^[a-zA-Z]+$/)) 
+				 if (!$("#reportingAuthorityName").val().match(/^[a-zA-Z ]+$/)) 
 				    {
 					 $("#reportingAuthorityName12").html('Only alphabets are allowed');
 				        
@@ -531,7 +563,7 @@ $(document).ready(function(){
 			if($("#role").val()=="Select"){
 				$("#role12").html("Please Select valid Role");
 			}
-			if($("#circle").val()=="Select" && $("#role").val() !="SA" && $("#role").val() !="CC"){
+			if($("#role").val()!="Select" && $("#circle").val()=="Select" && $("#role").val() !="SA" && $("#role").val() !="CC"){				
 				$("#circle12").html("Please Select valid Circle");
 			}
 		//});
@@ -548,7 +580,7 @@ $(document).ready(function(){
 		 //  (errorlist);
 		 
 		 if(errorlist.length>0){
-			 //  ("124");
+			 //  ("124");			 
 			 displayErrorsOnPage();
 			 
 		 }else{
@@ -789,7 +821,7 @@ $(document).ready(function(){
 });
 $(document).ready(function(){
     $('#role').on('change', function() {
-      if (this.value == 'SA' || this.value == 'CC')     
+      if (this.value == 'SA' || this.value == 'CC' || this.value == 'Select')     
       {
     	  $("#circleDiv").hide();        
       }
