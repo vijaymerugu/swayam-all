@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Delete User</title>
+<title>Add User</title>
 
 
 <script src="resources/js/angular.1.5.6.min.js"></script>
@@ -41,7 +41,6 @@
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
-
 
 
 <style>
@@ -322,7 +321,7 @@ element.style {
 
 function fromValidation(){
 	//  ("form validation call ");
-    debugger;	
+    //debugger;	
 	var errorList=[];
 	//var pfId=$("#pfId").val();
 	var userName=$("#username").val();
@@ -331,9 +330,9 @@ function fromValidation(){
 	var reportingAuthorityName=$("#reportingAuthorityName").val(); 
 	var reportingAuthorityEmail=$("#reportingAuthorityEmail").val();
 	var role=$("#role").val();
-	var circle=$("#circle").val();    
-	
-	 if(userName==""){
+	var circle=$("#circle").val();
+    
+	if(userName==""){
 		 errorList.push("Please enter user name");
 	 }
 	 if(phoneNumber==""){
@@ -343,23 +342,30 @@ function fromValidation(){
 			var phoneNumber=new RegExp(/^[+]?(\d{1,2})?[\s.-]?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/);
 			var valid=phoneNumber.test(phone);
 			if(!valid){
-				 errorList.push("Please enter user name");
+				 errorList.push("Please enter valid phone nuber");
 			 }				
 		}
 
 	 if(emailId==""){
-		 errorList.push("Please enter phone Email Id");
+		 errorList.push("Please enter Email Id");
 	 }else{
 		 var email= $.trim($("#emailId").val());
 		 var emailrex=new RegExp(/^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$/i);
 		 var valid=emailrex.test(email);
 		 if(!valid){
-			 errorList.push("Please enter phone Email Id");
+			 errorList.push("Please enter valid Email Id");
 		
 		 }
 	 }
 	 if(reportingAuthorityName==""){
 		 errorList.push("Please enter Reporting Authority Name");
+	 }
+	 else{
+		 if (!reportingAuthorityName.match(/^[a-zA-Z ]+$/)) 
+		    {
+			 errorList.push('Only alphabets are allowed');
+		        
+		    }
 	 }
 	 if(reportingAuthorityEmail==""){
 		 errorList.push("Please enter Reporting Authority Email");
@@ -376,13 +382,16 @@ function fromValidation(){
 	 if(role=="Select"){
 		 errorList.push("Please select valid role ");		 
 	 }
-	 if(circle=="Select"){
+	 if(role!="Select" && circle=="Select" && role !="SA" && role !="CC"){		 
 		 errorList.push("Please select valid Circle ");		 
 	 }
 	 return errorList;
 }
 
 </script>
+
+
+
 
 
 <script type="text/javascript">
@@ -401,7 +410,7 @@ function fromValidation(){
 	} */
 	
 	/* function openWin(){
-	      window.location.href = "km/userList";
+	      window.location.href = "/km/userList";
 	}; */
 	
 	
@@ -442,7 +451,7 @@ function fromValidation(){
 					if(!valid){
 						 $("#phoneNumber12").html("Phone Number Should be 10 digit");
 					 }				
-				}		
+				}			
 			
 			if($("#username").val()==""){
 				$("#userName12").html("Please Enter User Name");	
@@ -450,6 +459,13 @@ function fromValidation(){
 			if($("#reportingAuthorityName").val()==""){
 				$("#reportingAuthorityName12").html("Please Enter Reporting Authority Name");		
 			}
+			else{
+				 if (!$("#reportingAuthorityName").val().match(/^[a-zA-Z ]+$/)) 
+				    {
+					 $("#reportingAuthorityName12").html('Only alphabets are allowed');
+				        
+				    }
+			 }
 			
 			if($("#reportingAuthorityEmail").val()==""){
 				$("#reportingAuthorityEmail12").html("Please Enter Reporting Authority Email");	
@@ -466,7 +482,7 @@ function fromValidation(){
 			if($("#role").val()=="Select"){
 				$("#role12").html("Please Select valid Role");
 			}
-			if($("#circle").val()=="Select"){
+			if($("#role").val()!="Select" && $("#circle").val()=="Select" && $("#role").val() !="SA" && $("#role").val() !="CC"){				
 				$("#circle12").html("Please Select valid Circle");
 			}
 		//});
@@ -477,13 +493,13 @@ function fromValidation(){
 	
 	function saveform() {
 		//  ("123");
-		debugger;
+		//debugger;
 		
 		 var errorlist=fromValidation();
 		 //  (errorlist);
 		 
 		 if(errorlist.length>0){
-			 //  ("124");
+			 //  ("124");			 
 			 displayErrorsOnPage();
 			 
 		 }else{
@@ -505,11 +521,12 @@ function fromValidation(){
 		
 		 $.ajax({
 	        	type:"POST",
-	        	url:"km/deleteUser",
+	        	url:"km/addUsers",
 	        	data:formData,
 	         success: function(data){
 	        	 resp=data;       	 	        	 
-	        	 $("#para").html("User: "+resp+ " has been successfully Deleted");
+	        	/*  $("#para").html("User: "+resp+ " has been successfully Created"); */
+	        	 $("#para").html(resp);
 	     		 modal.style.display = "block";
 	        	 
 	         }
@@ -536,9 +553,9 @@ function fromValidation(){
 	<div  class="submainForm">
 
 
-		<h4 align="left">
-			<b>Delete User</b>
-		</h4>
+	<!-- 	<h4 align="left">
+			<b>Add User</b>
+		</h4> -->
 		<br></br>
 		<br></br>
 		
@@ -547,6 +564,19 @@ function fromValidation(){
 		<div class="col-md-12">
 			<!-- <div align="center" class="mytable"> -->
 			<form:form action="addUsers" modelAttribute="addUser" name="addUser" id="form">
+				<%-- <c:if test="${empty  addUser.checkAction}">
+				<h4 align="left">
+			     <b>Add User</b>
+		          </h4>
+		          </c:if> --%>
+		          
+		          
+		          <b class="mess"></b>
+				<h4 align="left">
+			     <b>Edit User</b>
+		          </h4>
+		          
+		          
 				<table align="center">
 					<tr>
 					<%-- <c:out value="${addUser.userId}">okk</c:out> --%>
@@ -554,12 +584,12 @@ function fromValidation(){
 						<td><b style="color: purple">PF ID</b><b><span
 								style="color: red">*</span></b></td>
 						<td style="top: 352px; width: 190px; height: 75px;opacity: 1;">
-						<form:input path="pfId" id="pfId" required="required" readonly="true" /></td>
+						<form:input path="pfId" id="pfId" required="required"  maxlength="15" readonly="true" /></td>
 						<td></td>
 						<td></td>
 						<td><b style="color: purple">Username</b><b><span
 								style="color: red">*</span></b></td>
-						<td><form:input path="username" value="${addUser.username}"  />
+						<td><form:input path="username" value="${addUser.username}" maxlength="50" />
 					</tr>
 					
 					<tr>
@@ -573,12 +603,12 @@ function fromValidation(){
 					<tr>
 						<td style="top: 352px; width: 190px; height: 75px;opacity: 1;"><b style="color: purple">Phone Number</b><b><span
 								style="color: red">*</span></b></td>
-						<td><form:input path="phoneNo" /></td>
+						<td><form:input path="phoneNo" maxlength="15" /></td>
 						<td></td>
 						<td></td>
-						<td><b style="color: purple">EmailId</b><b><span
+						<td><b style="color: purple">Email Id</b><b><span
 								style="color: red">*</span></b></td>
-						<td><form:input path="emailId" value=""/>
+						<td><form:input path="emailId" value="" maxlength="50" />
 					</tr>
 					<tr>
 						<td></td>
@@ -589,7 +619,6 @@ function fromValidation(){
 						<td><span id="emailId12" style="color: red"></span></td>
 					</tr>
 					<tr>
-
 						<td style="top: 352px; width: 190px; height: 75px;opacity: 1;"><b style="color: purple">Role</b><b><span
 							 	style="color: red">*</span></b></td>
 						<td><form:select path="role" id="role" value="${addUser.role}" style="color:blue">
@@ -600,14 +629,19 @@ function fromValidation(){
 							</form:select></td>
 						<td></td>
 						<td></td>
-						<td style="top: 352px; width: 190px; height: 75px;opacity: 1;"><b style="color: purple">Circle</b><b><span
-							 	style="color: red">*</span></b></td>
-						<td><form:select path="circle" id="circle"   value="${addUser.circle}" style="color:blue">
-								<form:option value="Select" label="Select"></form:option>
-								<c:forEach var="list" items="${circleList}">
-									<form:option value="${list.circleName}">${list.circleName}</form:option>
-								</c:forEach>
-							</form:select></td>
+						<td colspan="2">
+							<table style="display:none;" id="circleDiv">
+							<td style="top: 352px; width: 190px; height: 75px;opacity: 1;"><b style="color: purple">Circle</b><b><span
+								 	style="color: red">*</span></b></td>
+							<td><form:select path="circle" id="circle"   value="${addUserDto.circle}" style="color:blue">
+									<form:option value="Select" label="Select"></form:option>
+									<c:forEach var="list" items="${circleList}">
+										<form:option value="${list.circleName}">${list.circleName}</form:option>
+									</c:forEach>
+								</form:select></td>	
+							</table>
+						</td>
+						
 					</tr>
 					<tr>
 						<td></td>
@@ -620,12 +654,12 @@ function fromValidation(){
 					<tr>
 						<td><b style="color: purple">Reporting Authority Name</b><b><span
 								style="color: red">*</span></b></td>
-						<td><form:input path="reportingAuthorityName" /></td>
+						<td><form:input path="reportingAuthorityName" maxlength="50" /></td>
 						<td></td>
 						<td></td>
 						<td><b style="color: purple">Reporting Authority Email</b><b><span
 								style="color: red">*</span></b></td>
-						<td><form:input path="reportingAuthorityEmail" value="${addUser.reportingAuthorityEmail}"/></td>
+						<td><form:input path="reportingAuthorityEmail" value="${addUser.reportingAuthorityEmail}" maxlength="50" /></td>
 					</tr>
 					<tr>
 					</tr>
@@ -643,7 +677,23 @@ function fromValidation(){
 				<br>
 				<table align="center">
 					<tr>
-                   <td><input type="button" onclick="saveform()"   class="button" value="Delete"></td>
+						<!-- <td><input type="reset"  value="CANCEL"/></td>
+						<td><input type="button" onclick="saveform()" value="ADD" /></td> -->
+					<c:if test="${addUser.checkAction == 'Edit'}">	
+					 <form:hidden path="checkAction" />
+					  <form:hidden path="userId" />
+					<td><input type="reset" class="button" value="CANCEL"></td>
+                   <td><input type="button" onclick="saveform()"   class="button" value="UPDATE"></td>
+					</c:if>	
+					
+					<c:if test="${addUser.checkAction != 'Edit'}">	
+					 <form:hidden path="checkAction" />
+					  <form:hidden path="userId" />
+					<td><input type="reset" class="button" value="CANCEL"></td>
+                   <td><input type="button" onclick="saveform()"   class="button" value="ADD"></td>
+					</c:if>	
+					
+						
 					</tr>
 				</table>
 
@@ -669,7 +719,9 @@ function fromValidation(){
 					src="resources/img/successTick.png"></span>
 			</p>
 			<p id="para" align="center"></p>
+			<p align="center">
 			<button class="openFinalPopup">OK</button>
+			</p>
 		</div>
 	</div>
 	<div class="error-div"></div>
@@ -685,6 +737,28 @@ $(document).ready(function(){
        
     }); 
     
+});
+$(document).ready(function(){
+    $('#role').on('change', function() {
+      if (this.value == 'SA' || this.value == 'CC' || this.value == 'Select')     
+      {
+    	  $("#circleDiv").hide();        
+      }
+      else
+      {
+    	  $("#circleDiv").show();
+      }
+    });
+    var role=$("#role").val();
+        if (role == 'SA' || role == 'CC' || role == 'Select')     
+        {
+      	  $("#circleDiv").hide();        
+        }
+        else
+        {
+      	  $("#circleDiv").show();
+        }
+      
 });
 
 </script>	

@@ -89,7 +89,10 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
       
       headerTemplate: 'km/headerTemplate',
       superColDefs: [{
-          name: 'lipi',
+          name: 'front',
+          displayName: ''
+      }, {
+          name: 'LIPI',
           displayName: 'LIPI'
       }, {
           name: 'Forbes',
@@ -97,25 +100,29 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
       }, {
           name: 'CMS',
           displayName: 'CMS'
+      }, {
+          name: 'back',
+          displayName: ''
       }], 
 
     columnDefs: [
       { name: 'circleName',
       	  exporterSuppressExport: true,
-      	  headerCellTemplate: '<div> Circle </div>',
+      	  headerCellTemplate: '<div>Circle</div>',
+      	  superCol: 'front',
       	  cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.circleCode)">{{row.entity.circleName}}</a></div>'
       },
-      { name: 'totalSwayamBranches', displayName: 'Total Swayam Branches'  },
-      { name: 'totalSwayamKiosks', displayName: 'Total Swayam Kiosks'  },
-      { name: 'lipiKiosks', displayName: 'Kiosks',superCol: 'lipi'  },
-      { name: 'lipiTxns', displayName: 'Txns',superCol: 'lipi'  },
+      { name: 'totalSwayamBranches', displayName: 'Total Swayam Branches',superCol: 'front'  },
+      { name: 'totalSwayamKiosks', displayName: 'Total Swayam Kiosks',superCol: 'front'  },
+      { name: 'lipiKiosks', displayName: 'Kiosks',superCol: 'LIPI'  },
+      { name: 'lipiTxns', displayName: 'Txns',superCol: 'LIPI'  },
       { name: 'forbesKiosks', displayName: 'Kiosks',superCol: 'Forbes'  },
       { name: 'forbesTxns', displayName: 'Txns',superCol: 'Forbes'  },
       { name: 'cmsKiosks', displayName: 'Kiosks',superCol: 'CMS'  },
       { name: 'cmsTxns', displayName: 'Txns',superCol: 'CMS'  },
-      { name: 'totalSwayamTxns', displayName: 'Swayam Txns'  },
-      { name: 'totalBranchCounterTxns', displayName: 'Branch Counter Txns'  },
-      { name: 'migrationPercentage', displayName: 'Migration Percentage(%)'  }
+      { name: 'totalSwayamTxns', displayName: 'Swayam Txns',superCol: 'back'  },
+      { name: 'totalBranchCounterTxns', displayName: 'Branch Counter Txns',superCol: 'back'  },
+      { name: 'migrationPercentage', displayName: 'Migration Percentage(%)',superCol: 'back'  }
     ],
     onRegisterApi: function(gridApi) {
         $scope.gridApi = gridApi;

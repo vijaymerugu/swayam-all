@@ -235,7 +235,7 @@ public class UserManagementController {
 			model.addObject("roleList", roleList);
 			List<Circle> circleList = roleService.findAllCircle();
 	        model.addObject("circleList", circleList);
-			model.setViewName("addUser");
+			model.setViewName("editUser");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -272,7 +272,7 @@ public class UserManagementController {
 			model.addObject("roleList", roleList);
 			List<Circle> circleList = roleService.findAllCircle();
 	        model.addObject("circleList", circleList);
-			model.setViewName("addUserLA");
+			model.setViewName("editUserLA");
 
 		} catch (Exception e) {
 			e.printStackTrace();
