@@ -41,17 +41,7 @@ public class BranchMaster {
 	
 	@Column(name="BRANCH_NAME")
 	private String branchName;
-	
-	
 
-	
-
-	
-	
-	
-	@Column(name="MOD_CODE")
-	private String modCode;
-	
 	
 	@Column(name="CRCL_CODE")
 	private String cRCLCode;	
@@ -128,5 +118,8 @@ public class BranchMaster {
 	
 	@Column(name="OFFICE_DESC")
 	private String officeDesc;
+	
+	@Column(name="MOD_CODE")
+	private String modCode;
 
 }
