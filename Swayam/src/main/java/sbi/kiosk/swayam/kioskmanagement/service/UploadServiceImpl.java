@@ -2,7 +2,7 @@ package sbi.kiosk.swayam.kioskmanagement.service;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -14,7 +14,6 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -28,7 +27,7 @@ import sbi.kiosk.swayam.common.dto.KioskDto;
 import sbi.kiosk.swayam.common.entity.BranchMaster;
 import sbi.kiosk.swayam.common.entity.HolidayCalendar;
 import sbi.kiosk.swayam.common.entity.KioskBranchMaster;
-import sbi.kiosk.swayam.common.entity.UserKioskMapping;
+import sbi.kiosk.swayam.common.entity.UserKioskMapping;//
 import sbi.kiosk.swayam.kioskmanagement.repository.BranchMasterRepository;
 import sbi.kiosk.swayam.kioskmanagement.repository.HolidayCalendarRepository;
 import sbi.kiosk.swayam.kioskmanagement.repository.KioskCMFRepository;
@@ -58,19 +57,21 @@ public class UploadServiceImpl implements UploadService {
 	public static ResourceBundle rb;
 
 	@Override
-	public String uploadKioskInformation() {
+	public String uploadKioskInformation(String path) {
 		System.out.println("inside upload kiosk information service...");
 		// upload kiosk file information
 		try {
 			
 			// By Pankul 28-04-2020-----------STARTS---------
 			
-			rb = ResourceBundle.getBundle("system");
-			
-			String kioskFilepath = rb.getString("kioskFilepath");
+			/*
+			 * rb = ResourceBundle.getBundle("rb"+rb);
+			 * System.out.println("while reading excel file..."); String kioskFilepath =
+			 * rb.getString("kioskFilepath");
+			 */
 
 			System.out.println("while reading excel file...");
-			inputStream = new FileInputStream(new File(kioskFilepath));
+			inputStream = new FileInputStream(path);
 		//			new File("C:\\Users\\Admin\\Downloads\\Swayam_Kiosk_Information.xlsx"));
 			
 			//-------By Pankul END---------------------------
@@ -287,7 +288,7 @@ public class UploadServiceImpl implements UploadService {
 			}
 			Iterable<KioskBranchMaster> result = kioskMasterManagementRepository.saveAll(listEntity);
 			if (result != null)
-				return "Data Uploaded Successfully";
+				return "Kiosk CMF Uploaded Successfully";
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -308,7 +309,7 @@ public class UploadServiceImpl implements UploadService {
 	}
 
 	@Override
-	public String uploadCBSbrhmInformation() {
+	public String uploadCBSbrhmInformation(String path) {
 
 		System.out.println("inside upload kiosk information service...");
 		// upload kiosk file information
@@ -316,19 +317,17 @@ public class UploadServiceImpl implements UploadService {
 			
 			// By Pankul 28-04-2020-----------STARTS---------
 			
-			rb = ResourceBundle.getBundle("system");
-						
-			String CBSBrhmFilepath = rb.getString("CBSBrhmFilepath");
+			
+			
+			//System.out.println("name"+path);//{"myfile":"C:\\Users\\ankur.verma\\Desktop\\xml_file\\CBS_brhm.xlsx"}
+			       
+		//	rb = ResourceBundle.getBundle("stream");
+		
+		//	String CBSBrhmFilepath = rb.getString(path);
 			
 			System.out.println("while reading excel file...");
-			inputStream = new FileInputStream(new File(CBSBrhmFilepath));
-			
-			//-------By Pankul END---------------------------
-			
+			inputStream = new FileInputStream(new File(path));
 			workbook = new XSSFWorkbook(inputStream);
-			
-			// By Pankul 28-04-2020-----------STARTS---------
-			
 			Map<String, String> map = new HashMap();
 			
 		//	List<String> errorList = new ArrayList<String>();
@@ -712,11 +711,13 @@ public class UploadServiceImpl implements UploadService {
 					entity.setAddress1(listDto1.getAddress1());
 					entity.setAddress2(listDto1.getAddress2());
 					entity.setAddress3(listDto1.getAddress3());
-					entity.setCRCLCode(listDto1.getcRCLCode().substring(0, listDto1.getcRCLCode().length() - 2));
+					entity.setAddress4(listDto1.getAddress4());
+				//	entity.setCRCLCode(listDto1.getcRCLCode().substring(0, listDto1.getcRCLCode().length() - 2));
+					entity.setCRCLCode(listDto1.getcRCLCode());
 					entity.setBranchMgrName(listDto1.getBranchMgrName());
 					entity.setBranchMgrMobileNo(listDto1.getBranchMgrMobileNo());
 					entity.setCircle(listDto1.getcRCLName());
-					entity.setBusinessHrs("");
+					entity.setBusinessHrs(listDto1.getBusinessHrs());
 					entity.setDistCode(listDto1.getDistCode().substring(0, listDto1.getDistCode().length() - 2));
 					entity.setDistDesc(listDto1.getDistDesc());
 					entity.setEmail(listDto1.getEmail());
@@ -743,7 +744,7 @@ public class UploadServiceImpl implements UploadService {
 			}
 			System.out.println("before saving excel file");
 			branchMasterRepository.saveAll(listEntity);
-			return "Data Uploaded Successfully";
+			return "Branch Master Data Uploaded Successfully";
 		} // try close
 		catch (Exception e) {
 			e.printStackTrace();
@@ -767,7 +768,7 @@ public class UploadServiceImpl implements UploadService {
 	// By Pankul 28-04-2020-----------STARTS---------
 	
 	@Override
-	public String uploadHolidayCalendarInformation() {
+	public String uploadHolidayCalendarInformation(String path) {
 		
 		System.out.println("inside upload Holiday Calendar information service...");
 		// upload holiday calendar file information
@@ -775,13 +776,13 @@ public class UploadServiceImpl implements UploadService {
 		try {
 			
 			// By Pankul 28-04-2020-----------STARTS---------
-			
-			rb = ResourceBundle.getBundle("system");
+			System.out.println("path"+path);
+			//rb = ResourceBundle.getBundle("system");
 									
-			String holidayCalendarFilePath = rb.getString("CBSBrhmFilepath");
-
+			//String holidayCalendarFilePath = rb.getString("CBSBrhmFilepath");
+		//	String holidayCalendarFilePath = rb.getString(path);
 			System.out.println("while reading excel file...");
-			inputStream = new FileInputStream(new File(holidayCalendarFilePath));
+			inputStream = new FileInputStream(new File(path));
 			
 			//-------By Pankul END---------------------------
 			
@@ -852,6 +853,7 @@ public class UploadServiceImpl implements UploadService {
 		            } // 1st close while loop
 				      System.out.println();
 				      lidtDto.add(dto);
+				      System.out.println("lidtDto"+lidtDto);
 	           } // 2nd close while loop
 			
 			
@@ -869,12 +871,14 @@ public class UploadServiceImpl implements UploadService {
 					entity.setCircle(lidtDto1.getCircle());
 					entity.setState(lidtDto1.getState());
 					listEntity.add(entity);
+					  System.out.println("listEntity"+listEntity);
 				}
 				count++;
 			}
 			Iterable<HolidayCalendar> result = holidayCalendarRepository.saveAll(listEntity);
+			System.out.println("result"+result);
 			if (result != null)
-				return "Data Uploaded Successfully";
+				return "Holiday Calendar Data Uploaded Successfully";
 		}
 			
 		catch (Exception e) {
@@ -898,7 +902,7 @@ public class UploadServiceImpl implements UploadService {
 	
 	
 	@Override
-	public String uploadKioskCMFInformation() {
+	public String uploadKioskCMFInformation(String path) {
 		
 		System.out.println("inside upload Kiosk CMF information service...");
 		// upload holiday calendar file information
@@ -907,12 +911,14 @@ public class UploadServiceImpl implements UploadService {
 
 			// By Pankul 28-04-2020-----------STARTS---------
 			
-			rb = ResourceBundle.getBundle("system");
-												
-			String kioskCMFFilePath = rb.getString("kioskCMFFilePath");
+			/*
+			 * rb = ResourceBundle.getBundle("system");
+			 * 
+			 * String kioskCMFFilePath = rb.getString("kioskCMFFilePath");
+			 */
 
 			System.out.println("while reading excel file...");
-			inputStream = new FileInputStream(new File(kioskCMFFilePath));
+			inputStream = new FileInputStream(new File(path));
 						
 			//-------By Pankul END---------------------------
 			
@@ -991,7 +997,7 @@ public class UploadServiceImpl implements UploadService {
 			}
 			Iterable<UserKioskMapping> result = kioskCMFRepository.saveAll(listEntity);
 			if (result != null)
-				return "Data Uploaded Successfully";
+				return "Kiosk Details Data Uploaded Successfully";
 		}
 			
 		catch (Exception e) {
@@ -1012,6 +1018,10 @@ public class UploadServiceImpl implements UploadService {
 		return "Data Not Uploaded";
 	}
 		
+	//----
+	
+	
+	
 	//-------By Pankul END---------
 	
 }

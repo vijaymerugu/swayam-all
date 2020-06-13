@@ -1,18 +1,16 @@
 package sbi.kiosk.swayam.kioskmanagement.service;
 
+import org.springframework.web.multipart.MultipartFile;
 
 public interface UploadService {
 	
-	public String uploadKioskInformation();
+	public String uploadKioskInformation(String path);
 
-	public String uploadCBSbrhmInformation();
+	public String uploadCBSbrhmInformation(String path);
 	
-	// By Pankul 28-04-2020-----------STARTS---------
+	public String uploadHolidayCalendarInformation(String path);
 	
-	public String uploadHolidayCalendarInformation();
+	public String uploadKioskCMFInformation(String path);
 	
-	public String uploadKioskCMFInformation();
-	
-	// -------By Pankul END--------------------------
 
 }

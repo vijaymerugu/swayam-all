@@ -41,7 +41,7 @@
 
 <script> 
 
-$(document).ready(function(){
+/* $(document).ready(function(){
    
 	$('.openPopupAssign').on('click',function(){
     	//alert("in popup");
@@ -49,101 +49,168 @@ $(document).ready(function(){
         $.ajax({
         	type:"POST",
         	url:"uploadKiosk",
-        	////data:formData,
+        	// data:formData,
             success: function(data){
 
                 alert(data);
-        	     resp=data;       	 	     
-        	 
+        	     resp=data;       	 	      
          }
         });
-
-         
-        /* $('.modal-body').load(url,function(){
+         $('.modal-body').load(url,function(){
             $('#myModal').modal({show:true});
-        }); */
+        }); 
     }); 
 });
+  */
 
 
-
-$(document).ready(function(){
+/* $(document).ready(function(){
     debugger;
 	$('.openPopupAssignCBS').on('click',function(){
-    	//alert("in popup");
-
+    	
+             var myfile=document.getElementById("myFile").value;  
+           //  alert(myfile);
+           //  var obj = {myfile};
+             console.log(myfile);
         $.ajax({
         	type:"POST",
         	url:"uploadCBSbrhm",
-        	////data:formData,
-            success: function(data){
+        	 data: JSON.stringify(obj),
+             contentType: "application/json; charset=utf-8",
+             dataType: "json",
 
-                alert(data);
-        	     resp=data;       	 	     
-        	 
+            success: function(data){
+                alert("data"+data);
+        	     resp=data;       	 	     	 
          }
         });
-
-         
-        /* $('.modal-body').load(url,function(){
+         $('.modal-body').load(url,function(){
             $('#myModal').modal({show:true});
-        }); */
+        }); 
     }); 
-});
+}); */
 
 
+// ========== Holiday ==
+	 
+	 $(document).ready(function(){
 
-$(document).ready(function(){
-    debugger;
-	$('.openPopupAssignHoliday').on('click',function(){
-    	//alert("in popup"); 
-
+    $(".openPopupAssignHoliday").click(function(){
+    	var modal = document.getElementById("myModal");
+        var fd = new FormData();
+         var files = $('#myFile')[0].files[0];
+        fd.append('myFile',files);
+        console.log("2"+fd);
         $.ajax({
-        	type:"POST",
-        	url:"uploadHolidayCalendar",
-        	////data:formData,
+            url: 'uploadHolidayCalendar',
+            type: 'post',
+            data: fd,
+            enctype: 'multipart/form-data',
+            contentType: false,
+            processData: false,
+
             success: function(data){
-
-                alert(data);
-        	     resp=data;
-        	     $('.modal-body').load(url,function(){
-        	            $('#myModal').modal({show:true});
-        	     });       	 	     
-        	 
-         }
+            	resp= data;  
+            //	alert(resp) ;    	 	        	
+	        	 $("#para").html(resp);
+	     		 modal.style.display = "block";          
+          
+            }
         });
-
-         
-        $('.modal-body').load(url,function(){
-            $('#myModal').modal({show:true});
-        });
-    }); 
+    });
 });
+// === KioskDetails
+ $(document).ready(function(){
 
-$(document).ready(function(){
-    debugger;
-	$('.openPopupAssignCMF ').on('click',function(){
-    	//alert("in popup");
-
+    $(".openPopupKioskDetails").click(function(){
+    	var modal = document.getElementById("myModal");
+        var fd = new FormData();
+         var files = $('#KioskFile')[0].files[0];
+        fd.append('KioskFile',files);
+        console.log("2"+fd);
         $.ajax({
-        	type:"POST",
-        	url:"uploadKioskCMF",
-        	////data:formData,
+            url: 'uploadKioskDetails',
+            type: 'post',
+            data: fd,
+            enctype: 'multipart/form-data',
+            contentType: false,
+            processData: false,
+
             success: function(data){
-
-                alert(data);
-        	     resp=data;       	 	     
-        	 
-         }
+            	resp= data;  
+            	//alert(resp) ;    	 	        	
+	        	 $("#para").html(resp);
+	     		 modal.style.display = "block"; 
+	        	            
+          
+            }
         });
+    });
+}); 
+// 
+ $(document).ready(function(){
 
-         
-        /* $('.modal-body').load(url,function(){
-            $('#myModal').modal({show:true});
-        }); */
-    }); 
+    $(".openPopupAssignCMF").click(function(){
+    	var modal = document.getElementById("myModal");
+        var fd = new FormData();
+         var files = $('#CMFFile')[0].files[0];
+        fd.append('CMFFile',files);
+        console.log("2"+fd);
+        $.ajax({
+            url: 'uploadKioskCMF',
+            type: 'post',
+            data: fd,
+            enctype: 'multipart/form-data',
+            contentType: false,
+            processData: false,
+
+            success: function(data){
+            	resp= data;  
+            	//alert(resp) ;    	 	        	
+	        	 $("#para").html(resp);
+	     		 modal.style.display = "block"; 
+	        	            
+          
+            }
+        });
+    });
 });
+ 
+  $(document).ready(function(){
 
+    $(".openPopupAssignCBS").click(function(){
+    	var modal = document.getElementById("myModal");
+        var fd = new FormData();
+         var files = $('#BMFile')[0].files[0];
+        fd.append('BMFile',files);
+        console.log("2"+fd);
+        $.ajax({
+            url: 'uploadCBSbrhm',
+            type: 'post',
+            data: fd,
+            enctype: 'multipart/form-data',
+            contentType: false,
+            processData: false,
+
+            success: function(data){
+            	resp= data;  
+            //	alert(resp) ;    	 	        	
+	        	 $("#para").html(resp);
+	     		 modal.style.display = "block";       
+          
+            }
+        });
+    });
+}); 
+
+  $(document).ready(function(){
+	    $('.openFinalPopup').on('click',function(){      
+	        
+	    	$("#contentHomeApp").load('km/upload');    	
+	       
+	    }); 
+	    
+	})
 </script>
  
 <style type="text/css">
@@ -155,7 +222,7 @@ input[type=button], input[type=submit], input[type=reset] {
 	text-decoration: none;
 	margin: 4px 2px;
 	cursor: pointer;
-}
+} -->
 </style>
 
 <style>
@@ -187,6 +254,36 @@ input[type=button], input[type=submit], input[type=reset] {
   clear: both;
   display: table;
 }
+
+
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: #fced19; /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+.modal-content {
+	position: relative;
+	background-color: #fefefe;
+	margin: auto;
+	padding: 0;
+	border: 1px solid #black;
+	width: 40%;
+	height: 40%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	-webkit-animation-name: animatetop;
+	-webkit-animation-duration: 0.4s;
+	animation-name: animatetop;
+	animation-duration: 0.4s
+}
 </style>
 </head>
 <body>
@@ -196,93 +293,72 @@ input[type=button], input[type=submit], input[type=reset] {
 <br>
 <br>
 <br>
-<!-- By Pankul 28-04-2020-----------STARTS--------- -->
-	<div class="row">
-		<%-- <form action="uploadCBSbrhm" method="post"> --%>
-			<div class="column">
-				<label>Branch Master</label>
-			</div>
-			<div class="columnUpload">
-				<input type="file" id="myFile" name="filename">
-			</div>
-			<div class="columnSubmit">
-				<input type="submit" value="UPLOAD" class="openPopupAssignCBS">
-			</div>
-		<%-- </form> --%>
 
-		
-		<%-- <form action="uploadHolidayCalendar" method="post"> --%>
+<div class="row">
 			<div class="column">
 				<label>Holiday Calendar</label>
 			</div>
 			<div class="columnUpload">
-				<input type="file" id="myFile" name="filename">
+				<input type="file" id="myFile" name="filename" >
 			</div>
+			
 			<div class="columnSubmit">
 				<input type="submit" value="UPLOAD" class="openPopupAssignHoliday">
 			</div>
-		<%-- </form> --%>
-	</div>
-	
 
-<br>
-<br>
-
-	<div class="row">
-		<%-- <form action="uploadKiosk" method="post"> --%>
-      
 			<div class="column">
 				<label>Kiosk Details</label>
 			</div>
 			<div class="columnUpload">
-				<input type="file" id="myFile" name="myFile">
+				<input type="file" id="KioskFile" name="myFile">
 			</div>
 			<div class="columnSubmit">
-				<input type="submit" value="UPLOAD" class="openPopupAssignHoliday">
+				<input type="submit" value="UPLOAD" class="openPopupKioskDetails">
 			</div>
-
-			<!-- By Pankul 28-04-2020-----------STARTS--------- -->
-			<%-- <c:out value="${kioskUploadStatus}"/> --%>
-			<!-- -------By Pankul END-------------------------- -->
-		<%-- </form> --%>
-
-		
-
-		<%-- <form action="uploadKioskCMF" method="post"> --%>
+		</div>
+<br>
+<br>	
+<div class="row">
 			<div class="column">
 				<label>Kiosk CMF</label>
 			</div>
 			<div class="columnUpload">
-				<input type="file" id="myFile" name="myFile">
+				<input type="file" id="CMFFile" name="myFile">
 			</div>
 			<div class="columnSubmit">
 				<input type="submit" value="UPLOAD" class="openPopupAssignCMF">
 			</div>
-		<%-- </form> --%>
-	</div>
-	<!-- -------By Pankul END-------------------------- -->
 
-
-
-
-	<div class="modal fade" id="myModal" role="dialog">
-		<div class="modal-dialog">
-			<!-- Modal content -->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">
-						Success
-					</h4>
-					
-				</div>
-				<div class="modal-body">
-					<%-- <jsp:include page="kioskAssignedLA.jsp" /> --%>
-				</div>
-
+		
+	    	<div class="column">
+				<label>Branch Master</label>
 			</div>
+			<div class="columnUpload">
+				<input type="file" id="BMFile" name="filename">
+			</div>
+			
+			<div class="columnSubmit">
+				<input type="submit" value="UPLOAD" class="openPopupAssignCBS">
+			
+	</div>
+
+	
+	<div id="myModal" class="modal">
+		<!-- Modal content -->
+		<div class="modal-content">
+			<!-- <span class="close" onclick="cloesBox()">&times;</span> -->
+			<p style="color: #000000; font-size: 10px; text-align: center;">
+				<span style="text-align: center; color: #000000;"> <img
+					src="resources/img/successTick.png"></span>
+			</p>
+			<p id="para" align="center"></p>
+			<p align="center">
+			<button class="openFinalPopup">OK</button>
 		</div>
 	</div>
+	<div class="error-div"></div>
+	
+
 
 
 </body>
