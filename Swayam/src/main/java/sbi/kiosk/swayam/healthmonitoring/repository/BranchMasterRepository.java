@@ -16,4 +16,10 @@ public interface BranchMasterRepository extends CrudRepository<BranchMaster,Stri
 List<String> findByBranchCode(@Param("brachCode") String brachCode);
 
 
+@Query(value="select * from TBL_BRANCH_MASTER  where  BRANCH_CODE=:branchCode",nativeQuery=true)
+List<BranchMaster> findAllByBranchCode(@Param("branchCode") String branchCode);
+
+
+
+
 }
