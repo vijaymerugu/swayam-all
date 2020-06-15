@@ -5,19 +5,18 @@ public class CbsBrhmDto {
 	
 private String	branchCode;             
 	
-private String	branchName;          	
+private String	branchName;         	
 	
-private String cRCLCode;           	
+private String cRCLCode;          	
 	
-private String cRCLName;           	
+private String cRCLName;          	
 	
-private String network;             	
+private String network;            	
 	
-private String 	modCode;            	
-	
+         	
 private String module;              	
 	
-private String region;              	
+private String region;             	
 	
 private String	popGroup;	
 	
@@ -25,45 +24,47 @@ private String 	popDesc;
 	
 private String  openCloseStatu;	
 	
-private String opendt;              	
+private String opendt;             	
 	
-private String statCode;           	
+private String statCode;          	
 	
 private String  stateDesc;	
 	
-private String 	distCode;           	
+private String 	distCode;          	
 	
 private String distDesc;	
 	
-private String  address1;            	
+private String  address1;          	
 	
-private String  address2;
+private String  address2; 
 	
 private String  address3;            	
 	
-private String  address4;            	
+private String  address4;           	
 	
-private String  pinCode;	             	
+private String  pinCode;            	
 	
 private String  stdCode;	            	
 	
-private String  phone;               	
+private String  phone;              	
 	
 private String  micrCode;	           	
 	
-private String  ifsc;	                	
+private String  ifsc;	              	
 	
-private String	email;               	
+private String	email;              	
 	
-private String  branchMgrName;      	
+private String  branchMgrName;    	
 	
-private String   branchMgrMobileNo;    	
+private String   branchMgrMobileNo;   	
 	
-private String  businessHrs;         	
+private String  businessHrs;       	
 	
 private String  officeType;	
 	
-private String  officeDesc;
+private String  officeDesc; 
+
+private String 	modCode; 
 
 public String getBranchCode() {
 	return branchCode;

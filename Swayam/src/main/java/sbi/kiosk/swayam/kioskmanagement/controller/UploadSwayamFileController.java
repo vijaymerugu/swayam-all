@@ -101,7 +101,7 @@ public class UploadSwayamFileController extends HttpServlet {
 		ResponseEntity<String> entity = ResponseEntity.ok(result);
 		return entity;
 	}
-// 2  uploadKioskCMFInformation 
+// 2 KioskCMF 
 	@RequestMapping(value = "uploadKioskDetails", method = RequestMethod.POST)
 	public ResponseEntity<String> uploadKioskDetails(@RequestParam("KioskFile") List<MultipartFile> files) {
 		List<FileInfo> uploadedFiles = new ArrayList<FileInfo>();

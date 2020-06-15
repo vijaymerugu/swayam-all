@@ -42,7 +42,7 @@ public class KioskBranchMaster {
 	private Integer id;
 	
 	@Column(name="SR_NO")
-	private Long srNo;
+	private String srNo;
 	
 	@Column(name="KIOSK_ID")
 	private String kioskId;
