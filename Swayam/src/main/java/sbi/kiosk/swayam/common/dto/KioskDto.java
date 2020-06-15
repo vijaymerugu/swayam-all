@@ -2,21 +2,81 @@ package sbi.kiosk.swayam.common.dto;
 
 public class KioskDto {
 	
-	private String srNo;
-	private String circle;
-	private String branchName;
-	private String branchCode;
+	private String srNo; 
 	private String kioskID;
+	private String vendor;
+	private String installationDate;
+	private String kioskIPAddress;
+	private String kioskMacAddress;
+	private String siteType;
+	private String location;
+	private String address;
+	private String branchCode;
 	private String kioskSerialNumber;
-	private String kioskIPAddress;	
+	private String circle;
+	private String branchName;	
 	private String oS;	
 	private String make;
-
+	private String installationStatus;
 	public String getSrNo() {
 		return srNo;
 	}
 	public void setSrNo(String srNo) {
 		this.srNo = srNo;
+	}
+	public String getVendor() {
+		return vendor;
+	}
+	public void setVendor(String vendor) {
+		this.vendor = vendor;
+	}
+	public String getInstallationDate() {
+		return installationDate;
+	}
+	public void setInstallationDate(String installationDate) {
+		this.installationDate = installationDate;
+	}
+	public String getKioskID() {
+		return kioskID;
+	}
+	public void setKioskID(String kioskID) {
+		this.kioskID = kioskID;
+	}
+	public String getKioskMacAddress() {
+		return kioskMacAddress;
+	}
+	public void setKioskMacAddress(String kioskMacAddress) {
+		this.kioskMacAddress = kioskMacAddress;
+	}
+	public String getSiteType() {
+		return siteType;
+	}
+	public void setSiteType(String siteType) {
+		this.siteType = siteType;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getBranchCode() {
+		return branchCode;
+	}
+	public void setBranchCode(String branchCode) {
+		this.branchCode = branchCode;
+	}
+	public String getKioskSerialNumber() {
+		return kioskSerialNumber;
+	}
+	public void setKioskSerialNumber(String kioskSerialNumber) {
+		this.kioskSerialNumber = kioskSerialNumber;
 	}
 	public String getCircle() {
 		return circle;
@@ -29,24 +89,6 @@ public class KioskDto {
 	}
 	public void setBranchName(String branchName) {
 		this.branchName = branchName;
-	}
-	public String getBranchCode() {
-		return branchCode;
-	}
-	public void setBranchCode(String branchCode) {
-		this.branchCode = branchCode;
-	}
-	public String getKioskID() {
-		return kioskID;
-	}
-	public void setKioskID(String kioskID) {
-		this.kioskID = kioskID;
-	}
-	public String getKioskSerialNumber() {
-		return kioskSerialNumber;
-	}
-	public void setKioskSerialNumber(String kioskSerialNumber) {
-		this.kioskSerialNumber = kioskSerialNumber;
 	}
 	public String getKioskIPAddress() {
 		return kioskIPAddress;
@@ -65,6 +107,12 @@ public class KioskDto {
 	}
 	public void setMake(String make) {
 		this.make = make;
+	}
+	public String getInstallationStatus() {
+		return installationStatus;
+	}
+	public void setInstallationStatus(String installationStatus) {
+		this.installationStatus = installationStatus;
 	}
 	
 }
