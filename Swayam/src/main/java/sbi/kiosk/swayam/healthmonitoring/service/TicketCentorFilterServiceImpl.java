@@ -442,13 +442,15 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 		 }
 		
 		@Override
-		public Page<TicketCentorDto> findPaginatedCountCmf(int page, int size,String type) {	 
+		public Page<TicketCentorDto> findPaginatedCountCmf(int page, int size,String type) {
+			logger.info("Inside======findPaginatedCountCmf===========");
 			 Page<TicketCentorDto> entities = null;
 			 UserDto user = (UserDto) session().getAttribute("userObj"); 
 			 String pfId = user.getPfId();
 			 try{
-				 
+				 logger.info("Inside======findPaginatedCountCmf=======outside==type!=null && !type.isEmpty()="+type);
 				 if(type!=null && !type.isEmpty()){
+				 logger.info("Inside======findPaginatedCountCmf=====inside==type!=null && !type.isEmpty()="+type);
 				 if(type!=null && type.equals("High")){
 					  entities= ticketCentorRepo.findAllByRiskAndCMFUser(type,pfId, PageRequest.of(page, size)).map(TicketCentorDto::new);
 				  }else if(type!=null && type.equals("Medium")){
@@ -468,9 +470,15 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 			    } else if(type !=null && type !="" && type !="undefined" && !type.equals("TotalCount")){	    	
 			    	entities= ticketCentorRepo.findByCallSubCategoryAndCMFUser(type,pfId, PageRequest.of(page, size,Sort.by("TICKET_ID").descending())).map(TicketCentorDto::new);	         
 			    }else{
+			    	logger.info("Inside======findPaginatedCountCmf======inside==else");
 					  entities =  ticketCentorRepo.findAllByCMFUser(pfId,PageRequest.of(page, size)).map(TicketCentorDto::new);
 				      }
+				 logger.info("Inside======findPaginatedCountCmf=======inside==NoOne");
 				 }
+				 else{
+				    logger.info("Inside======findPaginatedCountCmf======inside==NO ONE");
+					entities =  ticketCentorRepo.findAllByCMFUser(pfId,PageRequest.of(page, size)).map(TicketCentorDto::new);
+				}
 			 }catch (Exception e) {
 				 e.printStackTrace();
 			}
@@ -508,6 +516,9 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 					  entities =  ticketCentorRepo.findAllByCMSUser(supList,PageRequest.of(page, size)).map(TicketCentorDto::new);
 				      }
 				 }
+				 else{
+					  entities =  ticketCentorRepo.findAllByCMSUser(supList,PageRequest.of(page, size)).map(TicketCentorDto::new);
+				      }
 			 }catch (Exception e) {
 				 e.printStackTrace();
 			}

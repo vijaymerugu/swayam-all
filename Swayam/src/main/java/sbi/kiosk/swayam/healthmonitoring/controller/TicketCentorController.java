@@ -36,7 +36,7 @@ public class TicketCentorController {
 	public Page<TicketCentorDto> findPaginated( @RequestParam("type") String type,
 		      @RequestParam("page") int page, @RequestParam("size") int size) {
 		 
-		System.out.println("type==findPaginated===========ticketCentorService====="+type);
+		logger.info("type==findPaginated===========ticketCentorServiceCC====="+type);
 		 Page<TicketCentorDto> resultPage = null;
 		 
 	     
@@ -61,7 +61,7 @@ public class TicketCentorController {
 		         
 		    }else{
 		    	//resultPage= ticketCentorService.findPaginatedCount(page, size, type);
-		    
+		    	logger.info("type==findPaginated===========ticketCentorServiceCC=====CC ELSE");
 			
 			 resultPage = ticketCentorService.findPaginated(page, size);
 		      System.out.println("resultPage=="+resultPage.getContent());
@@ -168,7 +168,7 @@ public class TicketCentorController {
 		if(type !=null && type.trim().equals("undefined")){
 			type = "";
 		}
-		if(type !=null && (type.equals(">") || type ==">")){
+		if(type !=null && type.trim().equals(">")){
 			type = "";
 		}
 		

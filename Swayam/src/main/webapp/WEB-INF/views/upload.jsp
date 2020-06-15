@@ -293,7 +293,7 @@ input[type=button], input[type=submit], input[type=reset] {
 <br>
 <br>
 <br>
-
+<div class="submain">
 <div class="row">
 			<div class="column">
 				<label>Holiday Calendar</label>
@@ -340,8 +340,8 @@ input[type=button], input[type=submit], input[type=reset] {
 				<input type="submit" value="UPLOAD" class="openPopupAssignCBS">
 			
 	</div>
-
-	
+</div>
+</div>	
 	<div id="myModal" class="modal">
 		<!-- Modal content -->
 		<div class="modal-content">
