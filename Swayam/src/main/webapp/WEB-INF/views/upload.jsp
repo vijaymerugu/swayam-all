@@ -122,7 +122,7 @@
 // === KioskDetails
  $(document).ready(function(){
 
-    $(".openPopupKioskDetails").click(function(){
+    $(".openPopupKioskCMF").click(function(){
     	var modal = document.getElementById("myModal");
         var fd = new FormData();
          var files = $('#KioskFile')[0].files[0];
@@ -150,7 +150,7 @@
 // 
  $(document).ready(function(){
 
-    $(".openPopupAssignCMF").click(function(){
+    $(".openPopupAssignCMFDetails").click(function(){
     	var modal = document.getElementById("myModal");
         var fd = new FormData();
          var files = $('#CMFFile')[0].files[0];
@@ -307,26 +307,25 @@ input[type=button], input[type=submit], input[type=reset] {
 			</div>
 
 			<div class="column">
-				<label>Kiosk Details</label>
+				<label>Kiosk CMF</label>
 			</div>
 			<div class="columnUpload">
 				<input type="file" id="KioskFile" name="myFile">
 			</div>
 			<div class="columnSubmit">
-				<input type="submit" value="UPLOAD" class="openPopupKioskDetails">
-			</div>
+				<input type="submit" value="UPLOAD" class="openPopupKioskCMF">	</div>
 		</div>
 <br>
 <br>	
 <div class="row">
 			<div class="column">
-				<label>Kiosk CMF</label>
+				<label>Kiosk Details</label>
 			</div>
 			<div class="columnUpload">
 				<input type="file" id="CMFFile" name="myFile">
 			</div>
 			<div class="columnSubmit">
-				<input type="submit" value="UPLOAD" class="openPopupAssignCMF">
+				<input type="submit" value="UPLOAD" class="openPopupAssignCMFDetails">
 			</div>
 
 		
