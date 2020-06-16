@@ -1067,9 +1067,9 @@ public class UploadServiceImpl implements UploadService {
 					Cell cell = cellIterator.next();
 					/* objFormulaEvaluator.evaluate(cell); */
 					
-					/*
-					 * switch (cell.getCellType()) { case STRING:
-					 */
+					
+					  switch (cell.getCellType()) { case STRING:
+					 
 						
 						if (!(String.valueOf(cell.getRow().getRowNum()).equals("0"))) { 
 							System.out.print(cell.getColumnIndex());
@@ -1084,17 +1084,23 @@ public class UploadServiceImpl implements UploadService {
 								dto.setCmfPfId(cell.getStringCellValue());
 							}							
 					}
-					/*	break;
-						
-					  case BOOLEAN:
-							System.out.print(cell.getBooleanCellValue());
-							break;
+						break;
+					  case NUMERIC:	
+						if (!(String.valueOf(cell.getRow().getRowNum()).equals("0"))) {
+							if (String.valueOf(cell.getColumnIndex()).equals("0")) {
+								System.out.print((String.valueOf(cell.getNumericCellValue())));
+								dto.setKioskId((String.valueOf(cell.getNumericCellValue())));
+							}
+							if (String.valueOf(cell.getColumnIndex()).equals("1")) {
+								System.out.print((String.valueOf(cell.getNumericCellValue())));
+								dto.setCmfPfId((String.valueOf(cell.getNumericCellValue())));
+							}
+						 
+						break;
+				}
 							
-					  case NUMERIC:							
-							System.out.print(cell.getNumericCellValue());
-							 
-							break;
-					}*/
+					 
+					}
 				System.out.print(" - ");
 		
 		            } // 1st close while loop
