@@ -1076,25 +1076,27 @@ public class UploadServiceImpl implements UploadService {
 							System.out.print(cell.getRow().getRowNum());
 							
 							if (String.valueOf(cell.getColumnIndex()).equals("0")) {
+								dto.setCmfPfId(cell.getStringCellValue());
+							}	
+							if (String.valueOf(cell.getColumnIndex()).equals("1")) {
 								//String cellValueStr = objDefaultFormat.formatCellValue(cell,objFormulaEvaluator);
 								dto.setKioskId(cell.getStringCellValue());
 							}
 							
-							if (String.valueOf(cell.getColumnIndex()).equals("1")) {
-								dto.setCmfPfId(cell.getStringCellValue());
-							}							
+														
 					}
 						break;
 					  case NUMERIC:	
 						if (!(String.valueOf(cell.getRow().getRowNum()).equals("0"))) {
 							if (String.valueOf(cell.getColumnIndex()).equals("0")) {
 								System.out.print((String.valueOf(cell.getNumericCellValue())));
-								dto.setKioskId((String.valueOf(cell.getNumericCellValue())));
+								dto.setCmfPfId((String.valueOf(cell.getNumericCellValue())));
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("1")) {
 								System.out.print((String.valueOf(cell.getNumericCellValue())));
-								dto.setCmfPfId((String.valueOf(cell.getNumericCellValue())));
+								dto.setKioskId((String.valueOf(cell.getNumericCellValue())));
 							}
+						
 						 
 						break;
 				}
@@ -1117,8 +1119,9 @@ public class UploadServiceImpl implements UploadService {
 				System.out.println();
 				if (count != 0) {
 					entity = new UserKioskMapping();
-					entity.setKioskId(lidtDto1.getKioskId());
 					entity.setPfId(lidtDto1.getCmfPfId());
+					entity.setKioskId(lidtDto1.getKioskId());
+					
 					listEntity.add(entity);
 				}
 				count++;
