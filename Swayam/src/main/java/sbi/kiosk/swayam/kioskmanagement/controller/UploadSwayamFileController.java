@@ -10,6 +10,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,11 +26,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import sbi.kiosk.swayam.common.dto.FileInfo;
+import sbi.kiosk.swayam.healthmonitoring.controller.TicketCentorController;
 import sbi.kiosk.swayam.kioskmanagement.service.UploadService;
 
 @RestController
 @RequestMapping("/")
-public class UploadSwayamFileController extends HttpServlet {
+public class UploadSwayamFileController  {
+	
+	Logger logger = LoggerFactory.getLogger(UploadSwayamFileController.class);
 
 	@Autowired
 	private UploadService uploadService;
@@ -145,6 +150,7 @@ public class UploadSwayamFileController extends HttpServlet {
 // 3 KioskInformation
 	@RequestMapping(value = "uploadKioskCMF", method = RequestMethod.POST)
 	public ResponseEntity<String> uploadKioskInformation(@RequestParam("CMFFile") List<MultipartFile> files) {
+		logger.info("==uploadKioskInformation================");
 		List<FileInfo> uploadedFiles = new ArrayList<FileInfo>();	
 		System.out.println("files"+files);
 		if (!files.isEmpty()) {
@@ -152,16 +158,18 @@ public class UploadSwayamFileController extends HttpServlet {
 				for (MultipartFile file : files) {
 					String path = context.getRealPath("/WEB-INF/uploaded") + File.separator
 							+ file.getOriginalFilename();
+					logger.info("==CONTEXT PATH========"+context.getRealPath("/WEB-INF/uploaded"));
+					logger.info("==PATH================"+path);
 					File destinationFile = new File(path);
 					file.transferTo(destinationFile);
 					uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
-					System.out.println("uploadedFiles" + uploadedFiles);
-					System.out.println("name"+destinationFile.getName());
+					logger.info("=====uploadedFiles=====" + uploadedFiles);
+					logger.info("=====DESTINATION=======name"+destinationFile.getName());
 						
 				}
 
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
+				logger.error(e.getMessage());
 			}
 
 		}
@@ -169,9 +177,9 @@ public class UploadSwayamFileController extends HttpServlet {
 		ModelAndView modelAndView = new ModelAndView("upload");
 		modelAndView.addObject("files", uploadedFiles);
 		 String name1 = uploadedFiles.get(0).getName();
-		 System.out.println("name1"+name1);
+		 logger.info("=====name1========"+name1);
 		String rootPath = System.getProperty("user.dir");// c
-		System.out.println("rootPath" + rootPath);
+		logger.info("======rootPath=======" + rootPath);
 		File dir = new File(rootPath + File.separator + "src\\main\\webapp\\WEB-INF\\uploaded");
 		if (!dir.exists())
 			dir.mkdirs();
@@ -179,7 +187,7 @@ public class UploadSwayamFileController extends HttpServlet {
 		// Create the file on server
 		File serverFile = new File(dir.getAbsolutePath() + File.separator + name1);
 
-		System.out.println("Server File Location=" + serverFile.getAbsolutePath());
+		logger.info("Server File Location=====" + serverFile.getAbsolutePath());
 		String path = serverFile.getAbsolutePath();
 		
 		String result = uploadService.uploadKioskInformation(path);
