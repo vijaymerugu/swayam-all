@@ -13,7 +13,9 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import sbi.kiosk.swayam.common.entity.DrillDown;
 import sbi.kiosk.swayam.common.entity.SwayamMigrationSummary;
+import sbi.kiosk.swayam.common.entity.ZeroTransactionKiosks;
 import sbi.kiosk.swayam.transactiondashboard.repository.TransactionDashBoardRepository;
 import sbi.kiosk.swayam.transactiondashboard.repository.TransactionDashBoardRepositoryPaging;
 
@@ -80,6 +82,55 @@ System.out.println("entities======pageSummary========Size()::::"+pageSummary.get
 		
 		return pageSummary;
 	  }
+
+	@Override
+	public Page<SwayamMigrationSummary> findPaginated(int page, int size) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<ZeroTransactionKiosks> findPaginatedByDate(int page, int size,
+			String fromDate, String toDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<DrillDown> findPaginatedByTxnDate(int page, int size,
+			String fromDate, String toDate, String circleName,
+			String networkName, String moduleName, String regionName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<SwayamMigrationSummary> findPaginatedByCircle(int page,
+			int size, String circleName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<SwayamMigrationSummary> findPaginatedByNetwork(int page,
+			int size, String networkName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<SwayamMigrationSummary> findPaginatedByModule(int page,
+			int size, String moduleName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<SwayamMigrationSummary> findPaginatedByRegion(int page,
+			int size, String regionName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	
 

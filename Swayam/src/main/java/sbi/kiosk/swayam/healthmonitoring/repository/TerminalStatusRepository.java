@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import sbi.kiosk.swayam.common.dto.TerminalStatusDto;
 import sbi.kiosk.swayam.common.entity.BranchMaster;
 import sbi.kiosk.swayam.common.entity.TerminalStatus;
-import sbi.kiosk.swayam.healthmonitoring.model.TerminalStatusModel;
+
 
 @Repository("terminalStatusRepository")
 public interface TerminalStatusRepository extends CrudRepository<TerminalStatus, String>{
