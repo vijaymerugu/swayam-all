@@ -1,5 +1,5 @@
 angular.element(document).ready(function() {	
-var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter','ui.grid.selection']);
+var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter','ui.grid.selection', 'ui.grid.resizeColumns']);
 
 app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService', function ($scope, $filter,UserManagementService) {
    var paginationOptions = {
@@ -56,18 +56,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
     paginationPageSize: paginationOptions.pageSize,
     enableColumnMenus:false,
 	useExternalPagination: true,
-	enableGridMenu: true,
-	exporterMenuCsv: false,
-	exporterPdfDefaultStyle: {fontSize: 9},   
-    exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, color: 'black'},      
-    exporterPdfFooter: function ( currentPage, pageCount ) {
-      return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
-    },    
-    exporterPdfCustomFormatter: function ( docDefinition ) {        
-        docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
-        return docDefinition;
-      },
-
+	
     columnDefs: [
       { name: 'id', displayName: 'Case Id', width:100,
     	  cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.id)">{{ row.entity.id }}</a></div>'  

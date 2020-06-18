@@ -151,10 +151,14 @@
 	
 	
 	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle Name,Branch Code,CMF Name,Kiosk ID.." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input"> 
-		
+	<span style="float:right">
+		<a class="openpdfonclick"><img src="resources/img/pdf.svg"></a>
+		<a class="openxlonclick"><img src="resources/img/excel.svg"></a>
+		&nbsp;&nbsp;&nbsp;
+		</span>		
 		
 		<br/>
-		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter id="test"></div>
+		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test"></div>
 		
         
     </div>
@@ -165,6 +169,32 @@
 	
 <script>
 angular.bootstrap(document.getElementById("appId"), ['app']);
+
+$(document).ready(function(){
+
+    $(".openpdfonclick").click(function(){
+    	
+        $.ajax({
+            url: 'report?page=kiosksAll&type=pdf',
+            type: 'GET',   
+            success: function(data){
+            	console.log(data);
+            	window.open("resources/download/"+data , '_blank');  
+            }
+        });
+    });
+    $(".openxlonclick").click(function(){    	
+        $.ajax({
+            url: 'report?page=kiosksAll&type=excel',
+            type: 'GET',   
+            success: function(data){
+            	console.log(data);
+            	window.open("resources/download/"+data , '_blank');  
+            }
+        });
+    });
+}); 
+
 </script>
 </body>
 </html>

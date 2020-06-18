@@ -90,12 +90,16 @@
 	
 	
 	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Username, First Name, Last Name, Mail Id, Circle etc." style="font-size: 12px" size="150" height="80" id="input" class="form-group has-search">
-		
+	<span style="float:right">
+		<a class="openpdfonclick"><img src="resources/img/pdf.svg"></a>
+		<a class="openxlonclick"><img src="resources/img/excel.svg"></a>
+		&nbsp;&nbsp;&nbsp;
+	</span>		
 	
 		
 		
 		<br/>
-		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter id="test"></div>
+		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test"></div>
 		
         
     </div>
@@ -151,6 +155,32 @@ $(document).ready(function(){
 	    	$("#contentHomeApp").load('km/addUserLA');    	
 	      	    }); 
 	});
+	
+$(document).ready(function(){
+
+    $(".openpdfonclick").click(function(){
+    	
+        $.ajax({
+            url: 'report?page=userListLA&type=pdf',
+            type: 'GET',   
+            success: function(data){
+            	console.log(data);
+            	window.open("resources/download/"+data , '_blank');  
+            }
+        });
+    });
+    $(".openxlonclick").click(function(){    	
+        $.ajax({
+            url: 'report?page=userListLA&type=excel',
+            type: 'GET',   
+            success: function(data){
+            	console.log(data);
+            	window.open("resources/download/"+data , '_blank');  
+            }
+        });
+    });
+}); 
+	
 </script>
 
 </body>

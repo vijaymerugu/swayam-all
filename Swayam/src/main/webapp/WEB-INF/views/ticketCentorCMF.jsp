@@ -334,12 +334,18 @@
 				style="width: 1036px; height: 346px; position: absolute; top: 648px; bottom: 910px; left: 311px; right: 1036px; margin: auto; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1; border: 1px solid black #eee;padding:7px;">
 
 				<div style="border-bottom: 1px solid #eee;">
-					<span class="fa fa-search form-control-feedback" id="catsandstars"></span>
-					<input class="form-group has-search" ng-model="searchText"	ng-change="refresh()" placeholder=" Enter Vendor Name,Branch Code,Ticket Id,Kiosk ID.."	id="input"> <br />
+					
+					<input class="form-group has-search" ng-model="searchText"	ng-change="refresh()" placeholder=" Enter Vendor Name,Branch Code,Ticket Id,Kiosk ID.."	id="input"> 
+					<span style="float:right">
+					<a class="openpdfonclick"><img src="resources/img/pdf.svg"></a>
+					<a class="openxlonclick"><img src="resources/img/excel.svg"></a>
+					&nbsp;&nbsp;&nbsp;
+					</span>
+					<br />
 
 					<div
 						style="top: 355px; left: 15px; width: 1336px; height: 519px; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1;"
-						ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter	id="test">
+						ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test">
 						
 					 </div>
 
@@ -359,7 +365,7 @@
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="resources/js/bootstrap.3.1.1.min.js"></script>	
 <script>
-var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter']);
+var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter', 'ui.grid.resizeColumns']);
 
 
 app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementService', function ($scope, $filter,UserManagementService) 
@@ -426,26 +432,16 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 			    paginationPageSize: paginationOptions.pageSize,
 			    enableColumnMenus:false,
 				useExternalPagination: true,
-				enableGridMenu: true,
-				exporterMenuCsv: false,
-				exporterPdfDefaultStyle: {fontSize: 9},   
-			    exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, color: 'black'},      
-			    exporterPdfFooter: function ( currentPage, pageCount ) {
-			      return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
-			    },    
-			    exporterPdfCustomFormatter: function ( docDefinition ) {        
-			        docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
-			        return docDefinition;
-			      },
-				
+								
 			    columnDefs: [
 			      { name: 'vendor', displayName: 'Vendor'  },
 			      { name: 'ticketId', displayName: 'Ticket Id' },
 			      { name: 'kisokId', displayName: 'KisokId'  },
 			      { name: 'branchCode', headerCellTemplate: '<div>Branch<br/>Code</div>'  },
+			      { name: 'serveriry', displayName: 'Circle'  },
 			      { name: 'callCategory',headerCellTemplate: '<div>Call<br/>Category</div>'},
 			      { name: 'callSubCategory', headerCellTemplate: '<div>Call Sub<br/>Category</div>'  },
-			      { name: 'call_log_date',headerCellTemplate: '<div>Call Log<br/>Date</div>'   },
+			      { name: 'call_log_date',headerCellTemplate: '<div>Call Log<br/>Date</div>',type: 'date',cellFilter: 'date:"dd-MM-yyyy hh:mm:ss a"'   },
 			      { name: 'ageing', headerCellTemplate: '<div>Ageing Log<br/>Hours</div>'},
 			      { name: 'statusOfComplaint',headerCellTemplate: '<div>Status of<br/>Complaint</div>'},
 			      { name: 'assigned_to_FE',headerCellTemplate: '<div>Assigned<br/>to FE</div>'}
@@ -500,6 +496,32 @@ $(document).ready(function () {
 	  
 	});
 angular.bootstrap(document.getElementById("appId"), ['app']);
+
+$(document).ready(function(){
+
+    $(".openpdfonclick").click(function(){
+    	
+        $.ajax({
+            url: 'report?page=ticketCenterCMF&type=pdf',
+            type: 'GET',   
+            success: function(data){
+            	console.log(data);
+            	window.open("resources/download/"+data , '_blank');  
+            }
+        });
+    });
+    $(".openxlonclick").click(function(){    	
+        $.ajax({
+            url: 'report?page=ticketCenterCMF&type=excel',
+            type: 'GET',   
+            success: function(data){
+            	console.log(data);
+            	window.open("resources/download/"+data , '_blank');  
+            }
+        });
+    });
+}); 
+
 </script>
 </body>
 </html>

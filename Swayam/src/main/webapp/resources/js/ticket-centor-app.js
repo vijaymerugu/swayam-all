@@ -1,5 +1,5 @@
 //var app = angular.module('app', ['ui.grid','ui.grid.pagination']);
-var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter']);
+var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter', 'ui.grid.resizeColumns']);
 
 app.controller('UserManagementCtrl1', ['$scope','$filter','UserManagementService', function ($scope, $filter,UserManagementService) 
 	{
@@ -61,17 +61,7 @@ app.controller('UserManagementCtrl1', ['$scope','$filter','UserManagementService
 			    paginationPageSize: paginationOptions.pageSize,
 			    enableColumnMenus:false,
 				useExternalPagination: true,
-				enableGridMenu: true,
-				exporterMenuCsv: false,
-				exporterPdfDefaultStyle: {fontSize: 9},   
-			    exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, color: 'black'},      
-			    exporterPdfFooter: function ( currentPage, pageCount ) {
-			      return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
-			    },    
-			    exporterPdfCustomFormatter: function ( docDefinition ) {        
-			        docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
-			        return docDefinition;
-			      },
+				
 			    columnDefs: [			      
 			      { name: 'vendor', displayName: 'Vendor'  },
 			      { name: 'ticketId', displayName: 'Ticket Id' },
@@ -80,7 +70,7 @@ app.controller('UserManagementCtrl1', ['$scope','$filter','UserManagementService
 			      { name: 'serveriry', displayName: 'Circle'  },
 			      { name: 'callCategory',headerCellTemplate: '<div>Call<br/>Category</div>'},
 			      { name: 'cms_cmf_assigned',headerCellTemplate: '<div>CMS/CMF<br/>Assigned</div>'  },
-			      { name: 'call_log_date',headerCellTemplate: '<div>Call Log<br/>Date</div>'   },
+			      { name: 'call_log_date',headerCellTemplate: '<div>Call Log<br/>Date</div>',type: 'date',cellFilter: 'date:"dd-MM-yyyy hh:mm:ss a"'   },
 			      { name: 'ageing',  displayName: 'Ageing Hours'},
 			      { name: 'statusOfComplaint',headerCellTemplate: '<div>Status of<br/>Complaint</div>'},
 			      { name: 'assigned_to_FE', headerCellTemplate: '<div>Assigned<br/>to FE</div>'}

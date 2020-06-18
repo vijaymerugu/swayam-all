@@ -143,11 +143,17 @@
 
 					<div   style="border-bottom: 1px solid #eee;">
 						
-						<span class="fa fa-search form-control-feedback" id="catsandstars"></span> 
-						<input class="form-group has-search" ng-model="searchText" ng-change="refresh()"	placeholder=" Enter Vendor Name,Branch Code,Ticket Id,Kiosk ID.." id="input">  <br />
+						 
+						<input class="form-group has-search" ng-model="searchText" ng-change="refresh()"	placeholder=" Enter Vendor Name,Branch Code,Ticket Id,Kiosk ID.." id="input">  
+						<span style="float:right">
+							<a class="openpdfonclick"><img src="resources/img/pdf.svg"></a>
+							<a class="openxlonclick"><img src="resources/img/excel.svg"></a>
+							&nbsp;&nbsp;&nbsp;
+						</span>	
+						<br />
 						
 						<div style="top: 355px; left: 15px; width: 1336px; height: 519px; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1;"
-							                 ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter	id="test">
+							                 ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter	ui-grid-resize-columns id="test">
 					     </div>
 
 					</div>
@@ -160,6 +166,32 @@
 					
 <script>
 angular.bootstrap(document.getElementById("appId"), ['app']);
+
+$(document).ready(function(){
+
+    $(".openpdfonclick").click(function(){
+    	
+        $.ajax({
+            url: 'report?page=ticketCenterCU&type=pdf',
+            type: 'GET',   
+            success: function(data){
+            	console.log(data);
+            	window.open("resources/download/"+data , '_blank');  
+            }
+        });
+    });
+    $(".openxlonclick").click(function(){    	
+        $.ajax({
+            url: 'report?page=ticketCenterCU&type=excel',
+            type: 'GET',   
+            success: function(data){
+            	console.log(data);
+            	window.open("resources/download/"+data , '_blank');  
+            }
+        });
+    });
+}); 
+
 </script>
 				
 				
