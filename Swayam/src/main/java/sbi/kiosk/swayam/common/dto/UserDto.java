@@ -34,6 +34,7 @@ public class UserDto {
 		this.addressline2 = user.getAddressline2();
 		this.gender = user.getGender();
 		this.pincode = user.getPincode();*/
+		this.mailId =  user.getMailId();
 		this.phoneNo = user.getPhoneNo();
 		this.circle = user.getCircle();
 		this.createdBy = user.getCreatedBy();

@@ -341,6 +341,16 @@ function fromValidation(){
 			 errorList.push('Only alphabets and numbers are allowed');
 		        
 		    }
+		 else if (pfId.length < 7) 
+		    {
+			 errorList.push('PF ID minimum size is 7');
+		        
+		    }
+		 else if (pfId.match(/^[a-zA-Z]+$/) && !pfId.match(/^[0-9]+$/)) 
+		    {
+			 errorList.push('PF ID should be alphanumeric');
+		        
+		    }
 		 else{			 
 			 console.log("inside fromvalidation...."+pfId);
 		         	        $.ajax({
@@ -426,7 +436,23 @@ $(document).ready(function(){
 		//debugger;
 		 var pfId=$("#pfId").val();
 		 document.getElementById("pfId").innerHTML=pfId;
-		 if(pfId !=null && pfId !=""){
+		 
+		 if (!pfId.match(/^[a-zA-Z0-9]+$/)) 
+		    {
+			 $("#pfId12").html('Only alphabets and numbers are allowed');
+		        
+		    }
+		 else if (pfId.length < 7) 
+		    {
+			 $("#pfId12").html('PF ID minimum size is 7');
+		        
+		    }
+		 else if (pfId.match(/^[a-zA-Z]+$/) && !pfId.match(/^[0-9]+$/)) 
+		    {
+			 $("#pfId12").html('PF ID should be alphanumeric');
+		        
+		  }
+		 else if(pfId !=null && pfId !=""){
 		 document.getElementById("pfId").innerHTML=pfId;
 		 console.log("inside bluer function...."+pfId);
 	         	        $.ajax({
@@ -515,6 +541,16 @@ $(document).ready(function(){
 				 if (!$("#pfId").val().match(/^[a-zA-Z0-9]+$/)) 
 				    {
 					 $("#pfId12").html('Only alphabets and numbers are allowed');
+				        
+				    }
+				 else if ($("#pfId").val().length < 7) 
+				    {
+					 $("#pfId12").html('PF ID minimum size is 7');
+				        
+				    }
+				 else if ($("#pfId").val().match(/^[a-zA-Z]+$/) && !$("#pfId").val().match(/^[0-9]+$/)) 
+				    {
+					 $("#pfId12").html('PF ID should be alphanumeric');
 				        
 				    }
 				 else{			 
