@@ -103,6 +103,8 @@ public class JasperServiceImpl implements JasperService{
 		 String filename = null;
 		 
 		  try {
+			  logger.info("jrxmlPath "+jrxmlPath);
+			  logger.info("reportPath "+reportPath);
 		       if(identifyPage.equals("userListSA")){
 		    	   List<UserManagementDto> list = findUsersBySA(); 
 		          File file = ResourceUtils.getFile(jrxmlPath + "usersListSA.jrxml");		 
@@ -205,7 +207,7 @@ public class JasperServiceImpl implements JasperService{
 		       return filename;
 		
 		         } catch (Exception e) {
-		 
+		        	 logger.error("Exception is "+e.getMessage());
 		             return e.getMessage();
 		 
 		         }
@@ -220,6 +222,8 @@ public class JasperServiceImpl implements JasperService{
 		 String filename = null;
 		 
 		  try {
+			  logger.info("jrxmlPath "+jrxmlPath);
+			  logger.info("reportPath "+reportPath);
 		       if(identifyPage.equals("userListSA")){
 		    	   List<UserManagementDto> list = findUsersBySA(); 
 		          File file = ResourceUtils.getFile(jrxmlPath + "usersListSA.jrxml");		 
@@ -320,7 +324,7 @@ public class JasperServiceImpl implements JasperService{
 		       return filename;
 		
 		         } catch (Exception e) {
-		 
+		        	 logger.error("Exception is "+e.getMessage());
 		             return e.getMessage();
 		 
 		         }
@@ -355,7 +359,7 @@ public class JasperServiceImpl implements JasperService{
 	
 	@Override
     public List<UserManagementDto> findUsersBySA() {	 
-	
+	logger.info("Inside==Jasper====findUsersBySA===========");
 	 List<UserManagementDto> entities = ObjectMapperUtils.mapAll(userRepo.findByEnabled("1"), UserManagementDto.class);
 	 if(entities !=null){
 		 for(UserManagementDto dto:entities){
@@ -394,6 +398,7 @@ public class JasperServiceImpl implements JasperService{
 	
 	@Override
     public List<UserManagementDto> findPaginatedByCircle() {
+	logger.info("Inside==Jasper====findPaginatedByCircle===========");
 	// List<UserManagementDto> userManaDTOList=new ArrayList<UserManagementDto>();
 	// Page<User> userList = userRepositoryPagingRepo.findAll(PageRequest.of(page, size));
 	 UserDto user = (UserDto) session().getAttribute("userObj");
@@ -437,7 +442,8 @@ public class JasperServiceImpl implements JasperService{
     }
 	
 	@Override
-    public List<KioskBranchMasterUserDto> findKiosksPaginatedByCircle() {	 	 
+    public List<KioskBranchMasterUserDto> findKiosksPaginatedByCircle() {
+		logger.info("Inside==Jasper====findKiosksPaginatedByCircle===========");
 		UserDto user = (UserDto) session().getAttribute("userObj");
 		
 		List<KioskBranchMasterUserDto> entities = ObjectMapperUtils.mapAll(kioskMasterRepository.findAllByCircle(user.getCircle()), KioskBranchMasterUserDto.class);	
@@ -465,7 +471,7 @@ public class JasperServiceImpl implements JasperService{
 	
 	@Override
     public List<KioskBranchMasterUserDto> findAllKiosks() {	 	 
-	 
+		logger.info("Inside==Jasper====findAllKiosks===========");
 		List<KioskBranchMasterUserDto> entities = ObjectMapperUtils.mapAll(kioskMasterRepository.findAll(), KioskBranchMasterUserDto.class);
 	 	 
 	 for(KioskBranchMasterUserDto dto:entities){
@@ -522,6 +528,7 @@ public class JasperServiceImpl implements JasperService{
 	
 	@Override
 	 public List<TicketCentorDto> findAllTicketsForCms(){
+		logger.info("Inside==Jasper====findAllTicketsForCms===========");
 		UserDto user = (UserDto) session().getAttribute("userObj");
 		String supPfId = user.getPfId();
 		Set<String> supList =  supervisorRepository.findPfIdListByPfIdSupervisor(supPfId);
@@ -540,6 +547,7 @@ public class JasperServiceImpl implements JasperService{
 	
 	@Override
 	 public List<TicketCentorDto> findAllTicketsByCircle(){
+		logger.info("Inside==Jasper====findAllTicketsByCircle===========");
 		 UserDto user = (UserDto) session().getAttribute("userObj");
 		 
 		 List<TicketCentorDto> entities = ObjectMapperUtils.mapAll(ticketCentorRepo.findAllListByCircle(user.getCircle()), TicketCentorDto.class);

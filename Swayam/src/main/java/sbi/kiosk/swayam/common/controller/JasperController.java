@@ -20,7 +20,8 @@ public class JasperController {
 	
 	@GetMapping("report")	
 	public String generateReport(@RequestParam("page") String page, @RequestParam("type") String type) {
-			
+		logger.info("Inside==Jasper====generateReport===========page "+page);
+		logger.info("Inside==Jasper====generateReport===========type "+type);
 			if(type.equals("pdf")){
 				return jasperService.generateReportPdf(page);
 			}
