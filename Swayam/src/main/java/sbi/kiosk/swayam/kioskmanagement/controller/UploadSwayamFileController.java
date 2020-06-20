@@ -66,9 +66,7 @@ public class UploadSwayamFileController extends HttpServlet {
 					file.transferTo(destinationFile);
 					uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
 					System.out.println("uploadedFiles" + uploadedFiles);
-					System.out.println("name"+destinationFile.getName());
-					
-					
+					System.out.println("name"+destinationFile.getName());	
 				}
 
 			} catch (Exception e) {
