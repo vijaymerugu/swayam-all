@@ -20,6 +20,9 @@ List<String> getByBranchCode(String brachCode);
 
 @Query(value="select * from tbl_kiosk_master   where vendor=:vendor and branch_code=:branchcode",nativeQuery=true)
 List<KioskBranchMaster> findByVendor(@Param("vendor")String vendor,@Param("branchcode")String branchcode);
-	 
+	
+//@Query(value="select * from TBL_KIOSK_MASTER where KIOSK_ID=:kioskId ",nativeQuery=true)
+List<KioskBranchMaster>  findByKioskId(String kioskId);
+
 }
 

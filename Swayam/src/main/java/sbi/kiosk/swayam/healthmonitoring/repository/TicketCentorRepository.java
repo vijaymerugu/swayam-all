@@ -10,6 +10,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import sbi.kiosk.swayam.common.dto.TicketCentorDto;
 import sbi.kiosk.swayam.common.entity.TicketCentor;
 
 @Repository("ticketCentorRepository")
@@ -99,4 +100,15 @@ public Page<TicketCentor> findAllByRisk(@Param("high") String high,@Param("mediu
 	    
 	    @Query(value="select * from TBL_TICKET_CENTRE WHERE KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId))", nativeQuery = true)
 		Page<TicketCentor> findAllByCMSUser(@Param("pfId") Set<String> pfId, Pageable pageable); 
+	    
+	    List<TicketCentor> findAll();
+	    
+	    @Query(value="select * from TBL_TICKET_CENTRE WHERE KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID=:pfId)", nativeQuery = true)
+		List<TicketCentor> findAllListByCMFUser(@Param("pfId") String pfId);
+	    
+	    @Query(value="select * from TBL_TICKET_CENTRE WHERE KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId))", nativeQuery = true)
+		List<TicketCentor> findAllListByCMFUserForCMS(@Param("pfId") Set<String> pfId);
+	    
+	    @Query(value="select * from TBL_TICKET_CENTRE WHERE KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_KIOSK_MASTER WHERE CIRCLE=:circle)", nativeQuery = true)
+		List<TicketCentor> findAllListByCircle(@Param("circle") String circle);
 }

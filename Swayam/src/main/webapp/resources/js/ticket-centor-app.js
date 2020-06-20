@@ -1,12 +1,12 @@
 //var app = angular.module('app', ['ui.grid','ui.grid.pagination']);
-var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter']);
+var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter', 'ui.grid.resizeColumns']);
 
 app.controller('UserManagementCtrl1', ['$scope','$filter','UserManagementService', function ($scope, $filter,UserManagementService) 
 	{
 	
 	   var paginationOptions = {
 	     pageNumber: 1,
-		 pageSize: 5,
+		 pageSize: 20,
 		 sort: null
 		 };
 	   
@@ -25,14 +25,26 @@ app.controller('UserManagementCtrl1', ['$scope','$filter','UserManagementService
 	   
 	   
 	   $scope.refresh = function()
-	   {  		if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
-		
-			   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);
-		    }else{
-		    	
-			   $scope.gridOptions.data = $scope.gridOptions.data;
-		    }
-	   };
+	   {  	
+		   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
+		 	   UserManagementService.getUsers(paginationOptions.pageNumber,
+		 			   paginationOptions.pageSize,counttype).success(function(data){
+		 		  $scope.gridOptions.data = data.content;
+		 	 	  $scope.gridOptions.totalItems = data.totalElements;
+		 	   });	   
+		 		   
+		 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
+		 	  
+		 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
+		 		   
+		 	    }else{
+		 	    	UserManagementService.getUsers(paginationOptions.pageNumber,
+		 	 			   paginationOptions.pageSize,counttype).success(function(data){
+		 	 		  $scope.gridOptions.data = data.content;
+		 	 	 	  $scope.gridOptions.totalItems = data.totalElements;
+		 	 	   });
+		 	    }
+		    };
 	   
 	   
 	   UserManagementService.getUsers(paginationOptions.pageNumber,
@@ -45,42 +57,30 @@ app.controller('UserManagementCtrl1', ['$scope','$filter','UserManagementService
 	   
 	   
 	   $scope.gridOptions = {
-			    paginationPageSizes: [5, 10, 20],
+			    paginationPageSizes: [20, 30, 40],
 			    paginationPageSize: paginationOptions.pageSize,
 			    enableColumnMenus:false,
 				useExternalPagination: true,
-				enableGridMenu: true,
-				exporterMenuCsv: false,
-				exporterPdfDefaultStyle: {fontSize: 9},   
-			    exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, color: 'black'},      
-			    exporterPdfFooter: function ( currentPage, pageCount ) {
-			      return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
-			    },    
-			    exporterPdfCustomFormatter: function ( docDefinition ) {        
-			        docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
-			        return docDefinition;
-			      },
-			    columnDefs: [
+				
+			    columnDefs: [			      
 			      { name: 'vendor', displayName: 'Vendor'  },
 			      { name: 'ticketId', displayName: 'Ticket Id' },
 			      { name: 'kisokId', displayName: 'KisokId'  },
 			      { name: 'branchCode', displayName: 'Branch Code'  },
 			      { name: 'serveriry', displayName: 'Circle'  },
-			      { name: 'callCategory', displayName: 'Call Category'},
-			      { name: 'cms_cmf_assigned', displayName: 'CMS/CMF Assigned'  },
-			      { name: 'call_log_date', displayName: 'Call Log Date'  },
+			      { name: 'callCategory',headerCellTemplate: '<div>Call<br/>Category</div>'},
+			      { name: 'cms_cmf_assigned',headerCellTemplate: '<div>CMS/CMF<br/>Assigned</div>'  },
+			      { name: 'call_log_date',headerCellTemplate: '<div>Call Log<br/>Date</div>',type: 'date',cellFilter: 'date:"dd-MM-yyyy hh:mm:ss a"'   },
 			      { name: 'ageing',  displayName: 'Ageing Hours'},
-			      { name: 'statusOfComplaint',  displayName: 'Status of Complaint'},
-			      { name: 'assigned_to_FE',  displayName: 'Assigned to FE'},
-			      { name: 'fe_schedule', displayName: 'FE Schedule'}
-			     
+			      { name: 'statusOfComplaint',headerCellTemplate: '<div>Status of<br/>Complaint</div>'},
+			      { name: 'assigned_to_FE', headerCellTemplate: '<div>Assigned<br/>to FE</div>'}
 			    ],
 			    onRegisterApi: function(gridApi) {
 			        $scope.gridApi = gridApi;
 			        gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
 			          paginationOptions.pageNumber = newPage;
 			          paginationOptions.pageSize = pageSize;
-			          UserManagementService.getUsers(newPage,pageSize).success(function(data){
+			          UserManagementService.getUsers(newPage,pageSize,counttype).success(function(data){
 			        	  $scope.gridOptions.data = data.content;
 			         	  $scope.gridOptions.totalItems = data.totalElements;
 			          });

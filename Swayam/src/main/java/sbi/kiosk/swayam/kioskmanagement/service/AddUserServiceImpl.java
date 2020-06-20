@@ -85,7 +85,7 @@ public class AddUserServiceImpl implements AddUserService{
 		System.out.println(result);
 			if(result==0)
 				return "";
-			return "This User Pf Id Is Exist";
+			return "PF ID Already Exists";
 	}
 
 }

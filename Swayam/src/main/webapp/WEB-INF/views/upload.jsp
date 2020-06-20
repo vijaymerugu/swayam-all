@@ -27,16 +27,16 @@
 <link href="resources/css/menu.css" rel="stylesheet" type="text/css">	
 <!-- <link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css" type="text/css"/>
  -->
-<script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/lodash.min.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/jszip.min.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/excel-builder.dist.js"></script>  
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-touch.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-animate.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-aria.js"></script>
+<script src="resources/js/csv.js"></script>
+    <script src="resources/js/pdfmake.js"></script>
+    <script src="resources/js/vfs_fonts.js"></script>
+    <script src="resources/js/lodash.min.js"></script>
+    <script src="resources/js/jszip.min.js"></script>
+    <script src="resources/js/excel-builder.dist.js"></script>  
+    <script src="resources/js/angular.js"></script>
+    <script src="resources/js/angular-touch.js"></script>
+    <script src="resources/js/angular-animate.js"></script>
+    <script src="resources/js/angular-aria.js"></script>
 
 
 <script> 
@@ -293,7 +293,7 @@ input[type=button], input[type=submit], input[type=reset] {
 <br>
 <br>
 <br>
-
+<div class="submain">
 <div class="row">
 			<div class="column">
 				<label>Holiday Calendar</label>
@@ -340,8 +340,8 @@ input[type=button], input[type=submit], input[type=reset] {
 				<input type="submit" value="UPLOAD" class="openPopupAssignCBS">
 			
 	</div>
-
-	
+</div>
+</div>	
 	<div id="myModal" class="modal">
 		<!-- Modal content -->
 		<div class="modal-content">

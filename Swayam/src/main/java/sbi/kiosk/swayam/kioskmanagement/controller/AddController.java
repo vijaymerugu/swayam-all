@@ -52,7 +52,7 @@ public class AddController {
 		    addUserResut=addUserService.addUser(addUser,request.getParameter("role"),request.getParameter("circle"));
 		    System.out.println(addUserResut);
 		
-		if(addUserResut.equals("User is Allready Exist")){
+		if(addUserResut.equals("User Allready Exists")){
 		 }else{
 			System.out.println("else add"+addUserResut);
 			String result="User: "+addUserResut+ " has been successfully Created";

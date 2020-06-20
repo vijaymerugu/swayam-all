@@ -43,7 +43,7 @@ public class LoginService {
 	
 	public List<MenuMasterDto> getMenusByUserRole(String role){
 		List<MenuMasterDto> menuMasterDtoList = new ArrayList<MenuMasterDto>();
-		List<MenuMaster> menuMasterEntity =  menuMasterRepository.findByRole(role);
+		List<MenuMaster> menuMasterEntity =  menuMasterRepository.findByRoleAndUseYN(role,"Y");
 		
 		if(menuMasterEntity !=null && menuMasterEntity.size() > 0)
 		for(MenuMaster menuMaster :menuMasterEntity) {

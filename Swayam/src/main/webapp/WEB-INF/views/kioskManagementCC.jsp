@@ -15,18 +15,17 @@
 <link rel="stylesheet" href="resources/css/body-page.css"/>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
 <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script>
-<link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css" type="text/css"/>
-    <script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/lodash.min.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/jszip.min.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/excel-builder.dist.js"></script>  
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-touch.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-animate.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-aria.js"></script>
-
+<link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/>
+    <script src="resources/js/csv.js"></script>
+    <script src="resources/js/pdfmake.js"></script>
+    <script src="resources/js/vfs_fonts.js"></script>
+    <script src="resources/js/lodash.min.js"></script>
+    <script src="resources/js/jszip.min.js"></script>
+    <script src="resources/js/excel-builder.dist.js"></script>  
+    <script src="resources/js/angular.js"></script>
+    <script src="resources/js/angular-touch.js"></script>
+    <script src="resources/js/angular-animate.js"></script>
+    <script src="resources/js/angular-aria.js"></script>
 <!--  lll-->
 
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -36,8 +35,7 @@
 <link rel="stylesheet"
 	href="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css">
 	
-	<link rel="stylesheet"
-	href="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css">
+	
 <script
 	src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -153,10 +151,14 @@
 	
 	
 	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle Name,Branch Code,CMF Name,Kiosk ID.." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input"> 
-		
+	<span style="float:right">
+		<a class="openpdfonclick"><img src="resources/img/pdf.svg"></a>
+		<a class="openxlonclick"><img src="resources/img/excel.svg"></a>
+		&nbsp;&nbsp;&nbsp;
+		</span>		
 		
 		<br/>
-		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter id="test"></div>
+		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test"></div>
 		
         
     </div>
@@ -167,6 +169,32 @@
 	
 <script>
 angular.bootstrap(document.getElementById("appId"), ['app']);
+
+$(document).ready(function(){
+
+    $(".openpdfonclick").click(function(){
+    	
+        $.ajax({
+            url: 'report?page=kiosksAll&type=pdf',
+            type: 'GET',   
+            success: function(data){
+            	console.log(data);
+            	window.open("resources/download/"+data , '_blank');  
+            }
+        });
+    });
+    $(".openxlonclick").click(function(){    	
+        $.ajax({
+            url: 'report?page=kiosksAll&type=excel',
+            type: 'GET',   
+            success: function(data){
+            	console.log(data);
+            	window.open("resources/download/"+data , '_blank');  
+            }
+        });
+    });
+}); 
+
 </script>
 </body>
 </html>

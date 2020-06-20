@@ -6,7 +6,7 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 	
 	   var paginationOptions = {
 	     pageNumber: 1,
-		 pageSize: 5,
+		 pageSize: 20,
 		 sort: null
 		 };
 	   
@@ -32,14 +32,26 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 	   
 	   
 	   $scope.refresh = function()
-	   {  		if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
-		
-			   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);
-		    }else{
-		    	
-			   $scope.gridOptions.data = $scope.gridOptions.data;
-		    }
-	   };
+	   {  	
+		   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
+		 	   UserManagementService.getUsers(paginationOptions.pageNumber,
+		 			   paginationOptions.pageSize,counttype).success(function(data){
+		 		  $scope.gridOptions.data = data.content;
+		 	 	  $scope.gridOptions.totalItems = data.totalElements;
+		 	   });	   
+		 		   
+		 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
+		 	  
+		 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
+		 		   
+		 	    }else{
+		 	    	UserManagementService.getUsers(paginationOptions.pageNumber,
+		 	 			   paginationOptions.pageSize,counttype).success(function(data){
+		 	 		  $scope.gridOptions.data = data.content;
+		 	 	 	  $scope.gridOptions.totalItems = data.totalElements;
+		 	 	   });
+		 	    }
+		    };
 	   
 	   
 	   UserManagementService.getUsers(paginationOptions.pageNumber,
@@ -50,7 +62,7 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 	   
 	   
 	   $scope.gridOptions = {
-			    paginationPageSizes: [5, 10, 20],
+				paginationPageSizes: [20, 30, 40],
 			    paginationPageSize: paginationOptions.pageSize,
 			    enableColumnMenus:false,
 				useExternalPagination: true,
@@ -84,7 +96,7 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 			        gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
 			          paginationOptions.pageNumber = newPage;
 			          paginationOptions.pageSize = pageSize;
-			          UserManagementService.getUsers(newPage,pageSize).success(function(data){
+			          UserManagementService.getUsers(newPage,pageSize,counttype).success(function(data){
 			        	  $scope.gridOptions.data = data.content;
 			         	  $scope.gridOptions.totalItems = data.totalElements;
 			          });

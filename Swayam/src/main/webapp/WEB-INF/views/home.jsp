@@ -6,10 +6,11 @@
 <!Doctype html>
 <html>
 <head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <script	src="resources/js/angular.1.5.6.min.js"></script>
 <script src="resources/js/jquery.3.4.1.min.js"></script>
 <!-- <script src="resources/js/bootstrap.3.4.1.min.js"></script> -->
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="resources/js/bootstrap.3.1.1.min.js"></script>
 <link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
 
 
@@ -20,31 +21,35 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   	
 <link href="resources/css/menu.css" rel="stylesheet" type="text/css">	
-<link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css" type="text/css"/>
+<link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/>
 
-<script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/lodash.min.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/jszip.min.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/excel-builder.dist.js"></script>  
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-touch.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-animate.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-aria.js"></script>
+<script src="resources/js/csv.js"></script>
+    <script src="resources/js/pdfmake.js"></script>
+    <script src="resources/js/vfs_fonts.js"></script>
+    <script src="resources/js/lodash.min.js"></script>
+    <script src="resources/js/jszip.min.js"></script>
+    <script src="resources/js/excel-builder.dist.js"></script>  
+    <script src="resources/js/angular.js"></script>
+    <script src="resources/js/angular-touch.js"></script>
+    <script src="resources/js/angular-animate.js"></script>
+    <script src="resources/js/angular-aria.js"></script>
 </head>
 <body style="background: #EFF3F6; margin: 0px; padding: 0px">
 	<div id="mainMenuHome" ng-app="HomeApp" ng-controller="menuController">
 		<%
 			UserDto userObj = (UserDto) session.getAttribute("userObj");
-			String firstName = "";
-			String lastName="";
+			//String firstName = "";
+			//String lastName="";
+			String username="";
 			String pfId="";
-			if(userObj.getFirstName() !=null){
+			/* if(userObj.getFirstName() !=null){
 				firstName = userObj.getFirstName();
 			}
 			if(userObj.getLastName() !=null){
 				lastName = userObj.getLastName();
+			} */
+			if(userObj.getUsername() !=null){
+				username = userObj.getUsername();
 			}
 			if(userObj.getPfId() !=null){
 				pfId = userObj.getPfId();
@@ -64,7 +69,7 @@
 							align="center"><b>Swayam Monitoring Tool</b></td>
 						<td
 							style="width: 269px; background: #FDD209; color: #000000; align: center"
-							align="center"><b>Welcome <%=firstName%> &nbsp;<%=lastName%></b> 
+							align="center"><b>Welcome <%=username%></b> 
 							<br /> <b> <%=pfId%> </b>&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout">Log Out</a></td>
 					</tr>
 				</table>

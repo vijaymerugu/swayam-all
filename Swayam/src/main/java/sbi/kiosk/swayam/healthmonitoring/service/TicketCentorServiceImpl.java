@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +24,9 @@ import sbi.kiosk.swayam.healthmonitoring.repository.TicketCentorRepository;
 
 @Service
 public class TicketCentorServiceImpl implements TicketCentorService {
+	
+	Logger logger = LoggerFactory.getLogger(TicketCentorServiceImpl.class);
+	
 	@Autowired
 	TicketCentorRepository ticketCentorRepo;
 	@Autowired
@@ -40,6 +45,7 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 	
 	 @Override
 	 public Page<TicketCentorDto> findPaginated(final int page, final int size){
+		 logger.info("Inside======findPaginatedCC===========ALL DATA");
 		 Page<TicketCentorDto> entities = ticketCentorRepo.findAll(PageRequest.of(page, size)).map(TicketCentorDto::new);
 		 TicketCentorDto ticketCentorDto= new TicketCentorDto();
 		 for(TicketCentorDto dto:entities){
@@ -109,6 +115,9 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 		      }
 		  
 		 }
+		 else{
+			  entities =  ticketCentorRepo.findAll(PageRequest.of(page, size)).map(TicketCentorDto::new);
+		      }
 		 for(TicketCentorDto dto:entities){
 			 
 			 String kioskId=dto.getKisokId();
@@ -151,9 +160,11 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 	    	entities=ticketCentorAgeingRepo.findAllTicketCentor3DaysGreaterByCircle(circle,PageRequest.of(page, size)).map(TicketCentorDto::new);
 	    } else{
 			  entities =  ticketCentorRepo.findAllByCircle(circle,PageRequest.of(page, size)).map(TicketCentorDto::new);
-		      }
-		  
+		      }		  
 		 }
+		 else{
+			  entities =  ticketCentorRepo.findAllByCircle(circle,PageRequest.of(page, size)).map(TicketCentorDto::new);
+		      }
 		 for(TicketCentorDto dto:entities){
 			 
 			 String kioskId=dto.getKisokId();

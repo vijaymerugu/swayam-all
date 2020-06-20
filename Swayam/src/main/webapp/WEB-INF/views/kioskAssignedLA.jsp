@@ -45,7 +45,7 @@ Kiosk Assigned to : <c:out value="${kiosksList[0].username}" />
         <table id="myTable">  
         <thead >  
           <tr style="top: 244px;left: 282px;width: 801px;height: 42px;background: #13A8E0 0% 0% no-repeat padding-box;opacity: 1;">  
-        <th><input type="checkbox" id="selectAll" />Select ALL</th>  
+        <th><input type="checkbox" id="selectAll" />&nbsp;Select ALL</th>  
             <th>Sr No.</th>  
             <th>Kiosk Id</th>  
             <th>Vendor</th>

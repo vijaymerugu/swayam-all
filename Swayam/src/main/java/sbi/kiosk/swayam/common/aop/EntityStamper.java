@@ -26,7 +26,8 @@ import sbi.kiosk.swayam.common.entity.Common;
 public class EntityStamper {
 
 	@Before("execution(public * sbi.kiosk.swayam.kioskmanagement.repository.* .*(..)) "
-			+ "|| execution(public * sbi.kiosk.swayam.healthmonitoring.repository.* .*(..))")
+			+ "|| execution(public * sbi.kiosk.swayam.healthmonitoring.repository.* .*(..)) "
+			+ "|| execution(public * sbi.kiosk.swayam.common.repository.* .*(..))")
     public void setTimestampsOnEntities(JoinPoint joinPoint) throws NoSuchMethodException {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 

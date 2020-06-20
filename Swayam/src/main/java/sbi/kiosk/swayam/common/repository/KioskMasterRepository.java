@@ -2,6 +2,8 @@ package sbi.kiosk.swayam.common.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -82,6 +84,10 @@ public interface KioskMasterRepository extends CrudRepository<KioskBranchMaster,
 	
 	@Query(value ="select count(KIOSK_ID) from TBL_KIOSK_MASTER where CIRCLE=:circle AND  KIOSK_ID  not in ( SELECT KIOSK_ID FROM  TBL_USER_KIOSK_MAPPING) ",nativeQuery=true)
 	int findToBeAssignedCount(@Param("circle") String circle);
+	
+	List<KioskBranchMaster> findAllByCircle(@Param("circle") String circle);
+	
+	List<KioskBranchMaster> findAll();
 	
 
 }

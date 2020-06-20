@@ -23,7 +23,7 @@
 <link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
 
-<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
 
     
 <script
@@ -34,19 +34,19 @@
 
 
 <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script> 
-<link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css" type="text/css"/>
+<link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/>
 
 <script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/lodash.min.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/jszip.min.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/excel-builder.dist.js"></script>  
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-touch.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-animate.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-aria.js"></script>
-
+    <script src="resources/js/csv.js"></script>
+    <script src="resources/js/pdfmake.js"></script>
+    <script src="resources/js/vfs_fonts.js"></script>
+    <script src="resources/js/lodash.min.js"></script>
+    <script src="resources/js/jszip.min.js"></script>
+    <script src="resources/js/excel-builder.dist.js"></script>  
+    <script src="resources/js/angular.js"></script>
+    <script src="resources/js/angular-touch.js"></script>
+    <script src="resources/js/angular-animate.js"></script>
+    <script src="resources/js/angular-aria.js"></script>
 	
 	
 
@@ -334,12 +334,18 @@
 				style="width: 1036px; height: 346px; position: absolute; top: 648px; bottom: 910px; left: 311px; right: 1036px; margin: auto; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1; border: 1px solid black #eee;padding:7px;">
 
 				<div style="border-bottom: 1px solid #eee;">
-					<span class="fa fa-search form-control-feedback" id="catsandstars"></span>
-					<input class="form-group has-search" ng-model="searchText"	ng-change="refresh()" placeholder=" Enter Vendor Name,Branch Code,Ticket Id,Kiosk ID.."	id="input"> <br />
+					
+					<input class="form-group has-search" ng-model="searchText"	ng-change="refresh()" placeholder=" Enter Vendor Name,Branch Code,Ticket Id,Kiosk ID.."	id="input"> 
+					<span style="float:right">
+					<a class="openpdfonclick"><img src="resources/img/pdf.svg"></a>
+					<a class="openxlonclick"><img src="resources/img/excel.svg"></a>
+					&nbsp;&nbsp;&nbsp;
+					</span>
+					<br />
 
 					<div
 						style="top: 355px; left: 15px; width: 1336px; height: 519px; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1;"
-						ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter	id="test">
+						ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test">
 						
 					 </div>
 
@@ -357,9 +363,9 @@
 </div>
 
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>	
+    <script src="resources/js/bootstrap.3.1.1.min.js"></script>	
 <script>
-var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter']);
+var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter', 'ui.grid.resizeColumns']);
 
 
 app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementService', function ($scope, $filter,UserManagementService) 
@@ -367,7 +373,7 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 	
 	   var paginationOptions = {
 	     pageNumber: 1,
-		 pageSize: 5,
+		 pageSize: 20,
 		 sort: null
 		 };
 	   
@@ -392,13 +398,25 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 	   
 	   
 	   $scope.refresh = function()
-	   {  		if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
-		
-			   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);
-		    }else{
-		    	
-			   $scope.gridOptions.data = $scope.gridOptions.data;
-		    }
+	   {  		  	
+		   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
+		 	   UserManagementService.getUsers(paginationOptions.pageNumber,
+		 			   paginationOptions.pageSize,counttype).success(function(data){
+		 		  $scope.gridOptions.data = data.content;
+		 	 	  $scope.gridOptions.totalItems = data.totalElements;
+		 	   });	   
+		 		   
+		 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
+		 	  
+		 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
+		 		   
+		 	    }else{
+		 	    	UserManagementService.getUsers(paginationOptions.pageNumber,
+		 	 			   paginationOptions.pageSize,counttype).success(function(data){
+		 	 		  $scope.gridOptions.data = data.content;
+		 	 	 	  $scope.gridOptions.totalItems = data.totalElements;
+		 	 	   });
+		 	    }		    
 	   };
 	   
 	   
@@ -410,41 +428,31 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 	   
 	   
 	   $scope.gridOptions = {
-			    paginationPageSizes: [5, 10, 20],
+				paginationPageSizes: [20, 30, 40],
 			    paginationPageSize: paginationOptions.pageSize,
 			    enableColumnMenus:false,
 				useExternalPagination: true,
-				enableGridMenu: true,
-				exporterMenuCsv: false,
-				exporterPdfDefaultStyle: {fontSize: 9},   
-			    exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, color: 'black'},      
-			    exporterPdfFooter: function ( currentPage, pageCount ) {
-			      return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
-			    },    
-			    exporterPdfCustomFormatter: function ( docDefinition ) {        
-			        docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
-			        return docDefinition;
-			      },
-				
+								
 			    columnDefs: [
 			      { name: 'vendor', displayName: 'Vendor'  },
 			      { name: 'ticketId', displayName: 'Ticket Id' },
 			      { name: 'kisokId', displayName: 'KisokId'  },
-			      { name: 'branchCode', displayName: 'Branch Code'  },
-			      { name: 'callCategory', displayName: 'Call Category'},
-			      { name: 'callSubCategory', displayName: 'Call Sub Category'  },
-			      { name: 'call_log_date', displayName: 'Call Log Date'  },
-			      { name: 'ageing',  displayName: 'Ageing Hours'},
-			      { name: 'statusOfComplaint',  displayName: 'Status of Complaint'},
-			      { name: 'assigned_to_FE',  displayName: 'Assigned to FE'},
-			      { name: 'fe_schedule', displayName: 'FE Schedule'}
+			      { name: 'branchCode', headerCellTemplate: '<div>Branch<br/>Code</div>'  },
+			      { name: 'serveriry', displayName: 'Circle'  },
+			      { name: 'callCategory',headerCellTemplate: '<div>Call<br/>Category</div>'},
+			      { name: 'callSubCategory', headerCellTemplate: '<div>Call Sub<br/>Category</div>'  },
+			      { name: 'call_log_date',headerCellTemplate: '<div>Call Log<br/>Date</div>',type: 'date',cellFilter: 'date:"dd-MM-yyyy hh:mm:ss a"'   },
+			      { name: 'ageing', headerCellTemplate: '<div>Ageing Log<br/>Hours</div>'},
+			      { name: 'statusOfComplaint',headerCellTemplate: '<div>Status of<br/>Complaint</div>'},
+			      { name: 'assigned_to_FE',headerCellTemplate: '<div>Assigned<br/>to FE</div>'}
+			      //{ name: 'fe_schedule', displayName: 'FE Schedule'}
 			    ],
 			    onRegisterApi: function(gridApi) {
 			        $scope.gridApi = gridApi;
 			        gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
 			          paginationOptions.pageNumber = newPage;
 			          paginationOptions.pageSize = pageSize;
-			          UserManagementService.getUsers(newPage,pageSize).success(function(data){
+			          UserManagementService.getUsers(newPage,pageSize,counttype).success(function(data){
 			        	  $scope.gridOptions.data = data.content;
 			         	  $scope.gridOptions.totalItems = data.totalElements;
 			          });
@@ -488,6 +496,32 @@ $(document).ready(function () {
 	  
 	});
 angular.bootstrap(document.getElementById("appId"), ['app']);
+
+$(document).ready(function(){
+
+    $(".openpdfonclick").click(function(){
+    	
+        $.ajax({
+            url: 'report?page=ticketCenterCMF&type=pdf',
+            type: 'GET',   
+            success: function(data){
+            	console.log(data);
+            	window.open("resources/download/"+data , '_blank');  
+            }
+        });
+    });
+    $(".openxlonclick").click(function(){    	
+        $.ajax({
+            url: 'report?page=ticketCenterCMF&type=excel',
+            type: 'GET',   
+            success: function(data){
+            	console.log(data);
+            	window.open("resources/download/"+data , '_blank');  
+            }
+        });
+    });
+}); 
+
 </script>
 </body>
 </html>

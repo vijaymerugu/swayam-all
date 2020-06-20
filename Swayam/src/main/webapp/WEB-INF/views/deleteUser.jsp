@@ -28,24 +28,19 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
 <link href="resources/css/menu.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css"
+<link rel="stylesheet" href="resources/css/ui-grid.css"
 	type="text/css" />
 
-<script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
-<script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
-<script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
-<script src="http://ui-grid.info/docs/grunt-scripts/lodash.min.js"></script>
-<script src="http://ui-grid.info/docs/grunt-scripts/jszip.min.js"></script>
-<script
-	src="http://ui-grid.info/docs/grunt-scripts/excel-builder.dist.js"></script>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-touch.js"></script>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-animate.js"></script>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-aria.js"></script>
+<script src="resources/js/csv.js"></script>
+    <script src="resources/js/pdfmake.js"></script>
+    <script src="resources/js/vfs_fonts.js"></script>
+    <script src="resources/js/lodash.min.js"></script>
+    <script src="resources/js/jszip.min.js"></script>
+    <script src="resources/js/excel-builder.dist.js"></script>  
+    <script src="resources/js/angular.js"></script>
+    <script src="resources/js/angular-touch.js"></script>
+    <script src="resources/js/angular-animate.js"></script>
+    <script src="resources/js/angular-aria.js"></script>
 
 
 
@@ -329,18 +324,15 @@ function fromValidation(){
 	//  ("form validation call ");
     debugger;	
 	var errorList=[];
-	var pfId=$("#pfId").val();
+	//var pfId=$("#pfId").val();
 	var userName=$("#username").val();
 	var phoneNumber=$("#phoneNo").val();
     var emailId=$("#emailId").val();	
 	var reportingAuthorityName=$("#reportingAuthorityName").val(); 
 	var reportingAuthorityEmail=$("#reportingAuthorityEmail").val();
 	var role=$("#role").val();
-	var circle=$("#circle").val();
-    
-	if(pfId==""){
-		 errorList.push("Please enter pfId");
-	 }
+	var circle=$("#circle").val();    
+	
 	 if(userName==""){
 		 errorList.push("Please enter user name");
 	 }
@@ -393,37 +385,6 @@ function fromValidation(){
 </script>
 
 
-<script> 
-$(document).ready(function(){
-	debugger;
-	var respos='';
-	var errorList=[];
-	$('#pfId').blur(function(){
-		debugger;
-		 var pfId=$("#pfId").val();
-		 document.getElementById("pfId").innerHTML=pfId;
-		 if(pfId !=null && pfId !=""){
-		 document.getElementById("pfId").innerHTML=pfId;
-		 console.log("inside bluer function...."+pfId);
-	         	        $.ajax({
-	        	type:"GET",
-	        	url:"km/getByPfIdSA/"+pfId,
-	            success: function(data){
-	            	console.log("inside data");
-	        	    respos=data;
-	        	 console.log("response "+respos);
-	             $("#pfId12").html(data);
-	
-	            }
-	         	   });
-		 }else{
-			 $("#pfId12").html("Please Enter Satendra Pf Id");
-		 }
-	});
-});
-</script>
-
-
 <script type="text/javascript">
 	function cloesBox() {
 		var modal = document.getElementById("myModal");
@@ -452,7 +413,7 @@ $(document).ready(function(){
 		var errMsg='';
 		$("#emailId12").html("");
 		$("#phoneNumber12").html("");	
-		$("#pfId12").html("");	
+		//$("#pfId12").html("");	
 		$("#userName12").html("");	
 		$("#reportingAuthorityName12").html("");		
 		$("#reportingAuthorityEmail12").html("");
@@ -481,12 +442,8 @@ $(document).ready(function(){
 					if(!valid){
 						 $("#phoneNumber12").html("Phone Number Should be 10 digit");
 					 }				
-				}
+				}		
 			
-			if($("#pfId").val()==""){
-				//  ("pfId valida====");
-				$("#pfId12").html("Please Enter Pf Id");	
-			}
 			if($("#username").val()==""){
 				$("#userName12").html("Please Enter User Name");	
 			}
@@ -597,7 +554,7 @@ $(document).ready(function(){
 						<td><b style="color: purple">PF ID</b><b><span
 								style="color: red">*</span></b></td>
 						<td style="top: 352px; width: 190px; height: 75px;opacity: 1;">
-						<form:input path="pfId" id="pfId" required="required" /></td>
+						<form:input path="pfId" id="pfId" required="required" readonly="true" /></td>
 						<td></td>
 						<td></td>
 						<td><b style="color: purple">Username</b><b><span

@@ -1,10 +1,10 @@
 angular.element(document).ready(function() {	
-var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter']);
+var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter', 'ui.grid.resizeColumns']);
 
 app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService', function ($scope, $filter,UserManagementService) {
    var paginationOptions = {
      pageNumber: 1,
-	 pageSize: 5,
+	 pageSize: 20,
 	 sort: null
    };
    var counttype = "";
@@ -32,12 +32,24 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	}
    
    $scope.refresh = function()
-   {  		if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
-	
-		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);
+   {  	
+   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
+	   UserManagementService.getUsers(paginationOptions.pageNumber,
+			   paginationOptions.pageSize,counttype).success(function(data){
+		  $scope.gridOptions.data = data.content;
+	 	  $scope.gridOptions.totalItems = data.totalElements;
+	   });	   
+		   
+	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
+	  
+		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
+		   
 	    }else{
-	    	
-		   $scope.gridOptions.data = $scope.gridOptions.data;
+	    	UserManagementService.getUsers(paginationOptions.pageNumber,
+	 			   paginationOptions.pageSize,counttype).success(function(data){
+	 		  $scope.gridOptions.data = data.content;
+	 	 	  $scope.gridOptions.totalItems = data.totalElements;
+	 	   });
 	    }
    };
 
@@ -48,22 +60,11 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    });
    
    $scope.gridOptions = {
-    paginationPageSizes: [5, 10, 20],
+    paginationPageSizes: [20, 30, 40],
     paginationPageSize: paginationOptions.pageSize,
     enableColumnMenus:false,
 	useExternalPagination: true,
-	enableGridMenu: true,
-	exporterMenuCsv: false,
-	exporterPdfDefaultStyle: {fontSize: 9},   
-    exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, color: 'black'},      
-    exporterPdfFooter: function ( currentPage, pageCount ) {
-      return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
-    },    
-    exporterPdfCustomFormatter: function ( docDefinition ) {        
-        docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
-        return docDefinition;
-      },
-
+	
     columnDefs: [
       { name: 'userId', displayName: 'SrNo'  },
       { name: 'pfId', displayName: 'PF ID'  },

@@ -165,41 +165,41 @@ input[type=text], select {
 				<tr>
 					<td><b style="color: #2F246C;">PF ID </b></td>
 					<td style="top: 352px; width: 190px; height: 75px; opacity: 1;">
-						<input type="text" name="pfId" id="pfId" />
+						<input type="text" name="pfId" id="pfId" readonly="true" />
 					</td>
 					<td></td>
 					<td></td>
 					<td></td>
 					<td><b style="color: #2F246C;">Username</b></td>
-					<td><input type="text" name="uname" id="uname" /></td>
+					<td><input type="text" name="uname" id="uname" readonly="true" /></td>
 				</tr>
 				<tr>
 					<td><b style="color: #2F246C;">Phone Number</b></td>
 					<td style="top: 352px; width: 190px; height: 75px; opacity: 1;"><input
-						type="text" name="phone" id="phone" /></td>
+						type="text" name="phone" id="phone" readonly="true" /></td>
 					<td></td>
 					<td></td>
 					<td></td>
 					<td><b style="color: #2F246C;">EmailId</b></td>
-					<td><input type="text" name="email" id="email" /></td>
+					<td><input type="text" name="email" id="email" readonly="true" /></td>
 				</tr>
 				<tr>
-					<td><b style="color: #2F246C;">Reporting Authority Name </b></td>
+					<td><b style="color: #2F246C;">Reporting Authority Name &nbsp;</b></td>
 					<td style="top: 352px; width: 190px; height: 75px; opacity: 1;"><input
 						type="text" name="reportingAuthorityName"
-						id="reportingAuthorityName" /></td>
+						id="reportingAuthorityName" readonly="true" /></td>
 					<td></td>
 					<td></td>
 					<td></td>
-					<td><b style="color: #2F246C;">Reporting Authority Email </b></td>
+					<td><b style="color: #2F246C;">Reporting Authority Email &nbsp;</b></td>
 					<td><input type="text" name="reportingAuthorityEmail"
-						id="reportingAuthorityEmail" /></td>
+						id="reportingAuthorityEmail" readonly="true" /></td>
 				</tr>
 			</table>
 			<br> <br> <br>
 			<table align="center">
 				<tr>
-					<td><input type="button" value="BACK" /></td>
+					<td><input type="button" value="BACK" class="openBackPopup"/></td>
 					<!-- <td><input type="button" value="ASSIGN" onclick="addUser()" /></td> -->
 					
 					<td><input type="hidden" name="kioskId"	value="${kioskDto.kioskId}" /></td>
@@ -238,8 +238,10 @@ input[type=text], select {
 
 						$("#pfId").val(data.pfId);
 						$("#uname").val(data.username);
-						$("#phone").val(data.mobileNo);
+						$("#phone").val(data.phoneNo);
 						$("#email").val(data.mailId);
+						$("#reportingAuthorityName").val(data.mailId);
+						$("#reportingAuthorityEmail").val(data.mailId);
 					});
 				});
 		$(document).ready(
@@ -259,6 +261,16 @@ input[type=text], select {
 																});
 											});
 						});
+		
+		
+		$(document).ready(function(){
+		    $('.openBackPopup').on('click',function(){      
+		        
+		    	$("#contentHomeApp").load('km/kioskManagement');    	
+		       
+		    }); 
+		    
+		});		
 	</script>
 
 

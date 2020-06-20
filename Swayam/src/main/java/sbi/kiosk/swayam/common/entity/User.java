@@ -36,6 +36,7 @@ public class User extends Common {
 		this.city = userDto.getCity();
 		this.state = userDto.getState();
 		this.mailId =  userDto.getMailId();*/
+		this.mailId =  userDto.getMailId();
 		this.phoneNo = userDto.getPhoneNo();
 		this.circle = userDto.getCircle();
 		this.createdBy = userDto.getCreatedBy();

@@ -10,6 +10,8 @@ import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,12 +26,16 @@ import sbi.kiosk.swayam.common.dto.UserDto;
 import sbi.kiosk.swayam.common.entity.TicketCentor;
 import sbi.kiosk.swayam.common.repository.KioskMasterRepository;
 import sbi.kiosk.swayam.common.repository.SupervisorRepository;
+import sbi.kiosk.swayam.healthmonitoring.controller.TicketCentorController;
 import sbi.kiosk.swayam.healthmonitoring.repository.CallTypeRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.TicketCentorAgeingRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.TicketCentorRepository;
 
 @Service
 public class TicketCentorFilterServiceImpl implements TicketCentorFilterService {
+	
+	Logger logger = LoggerFactory.getLogger(TicketCentorFilterServiceImpl.class);
+	
 	@Autowired
 	TicketCentorRepository ticketCentorRepo;
 	@Autowired
@@ -51,6 +57,7 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 
 	 @Override
 	 public Page<TicketCentorDto> findPaginated(final int page, final int size){
+		 logger.info("Inside======findPaginated===========");
 		 Page<TicketCentorDto> entities = ticketCentorRepo.findAll(PageRequest.of(page, size)).map(TicketCentorDto::new);
 		 TicketCentorDto ticketCentorDto= new TicketCentorDto();
 		 for(TicketCentorDto dto:entities.getContent()){
@@ -396,6 +403,7 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 		
 		@Override
 		 public Page<TicketCentorDto> findPaginatedCmf(final int page, final int size){
+			logger.info("Inside======findPaginatedCmf===========");
 			UserDto user = (UserDto) session().getAttribute("userObj"); 
 			Page<TicketCentorDto> entities = ticketCentorRepo.findAllByCMFUser(user.getPfId(),PageRequest.of(page, size)).map(TicketCentorDto::new);
 			 TicketCentorDto ticketCentorDto= new TicketCentorDto();
@@ -434,13 +442,15 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 		 }
 		
 		@Override
-		public Page<TicketCentorDto> findPaginatedCountCmf(int page, int size,String type) {	 
+		public Page<TicketCentorDto> findPaginatedCountCmf(int page, int size,String type) {
+			logger.info("Inside======findPaginatedCountCmf===========");
 			 Page<TicketCentorDto> entities = null;
 			 UserDto user = (UserDto) session().getAttribute("userObj"); 
 			 String pfId = user.getPfId();
 			 try{
-				 
+				 logger.info("Inside======findPaginatedCountCmf=======outside==type!=null && !type.isEmpty()="+type);
 				 if(type!=null && !type.isEmpty()){
+				 logger.info("Inside======findPaginatedCountCmf=====inside==type!=null && !type.isEmpty()="+type);
 				 if(type!=null && type.equals("High")){
 					  entities= ticketCentorRepo.findAllByRiskAndCMFUser(type,pfId, PageRequest.of(page, size)).map(TicketCentorDto::new);
 				  }else if(type!=null && type.equals("Medium")){
@@ -460,9 +470,15 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 			    } else if(type !=null && type !="" && type !="undefined" && !type.equals("TotalCount")){	    	
 			    	entities= ticketCentorRepo.findByCallSubCategoryAndCMFUser(type,pfId, PageRequest.of(page, size,Sort.by("TICKET_ID").descending())).map(TicketCentorDto::new);	         
 			    }else{
+			    	logger.info("Inside======findPaginatedCountCmf======inside==else");
 					  entities =  ticketCentorRepo.findAllByCMFUser(pfId,PageRequest.of(page, size)).map(TicketCentorDto::new);
 				      }
+				 logger.info("Inside======findPaginatedCountCmf=======inside==NoOne");
 				 }
+				 else{
+				    logger.info("Inside======findPaginatedCountCmf======inside==NO ONE");
+					entities =  ticketCentorRepo.findAllByCMFUser(pfId,PageRequest.of(page, size)).map(TicketCentorDto::new);
+				}
 			 }catch (Exception e) {
 				 e.printStackTrace();
 			}
@@ -500,6 +516,9 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 					  entities =  ticketCentorRepo.findAllByCMSUser(supList,PageRequest.of(page, size)).map(TicketCentorDto::new);
 				      }
 				 }
+				 else{
+					  entities =  ticketCentorRepo.findAllByCMSUser(supList,PageRequest.of(page, size)).map(TicketCentorDto::new);
+				      }
 			 }catch (Exception e) {
 				 e.printStackTrace();
 			}

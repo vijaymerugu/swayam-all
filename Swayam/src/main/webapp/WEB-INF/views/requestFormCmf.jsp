@@ -20,25 +20,19 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script
 	src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script>
-<link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css"
+<link rel="stylesheet" href="resources/css/ui-grid.css"
 	type="text/css" />
 
-<script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
-<script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
-<script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
-<script src="http://ui-grid.info/docs/grunt-scripts/lodash.min.js"></script>
-<script src="http://ui-grid.info/docs/grunt-scripts/jszip.min.js"></script>
-<script
-	src="http://ui-grid.info/docs/grunt-scripts/excel-builder.dist.js"></script>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-touch.js"></script>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-animate.js"></script>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-aria.js"></script>
-
+<script src="resources/js/csv.js"></script>
+    <script src="resources/js/pdfmake.js"></script>
+    <script src="resources/js/vfs_fonts.js"></script>
+    <script src="resources/js/lodash.min.js"></script>
+    <script src="resources/js/jszip.min.js"></script>
+    <script src="resources/js/excel-builder.dist.js"></script>  
+    <script src="resources/js/angular.js"></script>
+    <script src="resources/js/angular-touch.js"></script>
+    <script src="resources/js/angular-animate.js"></script>
+    <script src="resources/js/angular-aria.js"></script>
 
 
 <style>
@@ -379,12 +373,33 @@ function fromValidation(){
 	if(branchCode==""){
 		 errorList.push("Please enter branchCode");
 	 }
+	else{
+		 if (!branchCode.match(/^[0-9]+$/)) 
+		    {
+			 errorList.push('Only numbers are allowed');
+		        
+		    }
+	 }
 	 if(kiosk==""){
 		 errorList.push("Please enter kiosk");
+	 }
+	 else{
+		 if (!kiosk.match(/^[a-zA-Z0-9]+$/)) 
+		    {
+			 errorList.push('Only alphabets and numbers are allowed');
+		        
+		    }
 	 }
 	 if(vendor==""){
 		 errorList.push("Please enter vendor");
 		}
+	 else{
+		 if (!vendor.match(/^[a-zA-Z0-9 ]+$/)) 
+		    {
+			 errorList.push('Only alphabets and numbers are allowed');
+		        
+		    }
+	 }
 
 	
 	 if(typeOfRequest=="Select"){
@@ -394,9 +409,23 @@ function fromValidation(){
 	 if(subject==""){
 		 errorList.push("Please enter subject ");		 
 	 }
+	 else{
+		 if (!subject.match(/^[a-zA-Z0-9 ]+$/)) 
+		    {
+			 errorList.push('Only alphabets and numbers are allowed');
+		        
+		    }
+	 }
 	 
 	 if(comments==""){
 		 errorList.push("Please enter comments ");		 
+	 }
+	 else{
+		 if (!comments.match(/^[a-zA-Z0-9 ]+$/)) 
+		    {
+			 errorList.push('Only alphabets and numbers are allowed');
+		        
+		    }
 	 }
 	 return errorList;
 }
@@ -430,12 +459,33 @@ function fromValidation(){
 				//alert("branchCodeId valida====");
 				$("#branchCodeId").html("Please Enter Branch Code");	
 			}
+			else{
+				 if (!$("#branchCode").val().match(/^[0-9]+$/)) 
+				    {
+					 $("#branchCodeId").html('Only numbers are allowed');
+				        
+				    }
+			 }
 			if($("#kioskId").val()==""){
 				$("#kioskId1").html("Please Enter kiosk Id");	
 			}
+			else{
+				 if (!$("#kioskId").val().match(/^[a-zA-Z0-9]+$/)) 
+				    {
+					 $("#kioskId1").html('Only alphabets and numbers are allowed');
+				        
+				    }
+			 }
 			if($("#vendor").val()==""){
 				$("#vendorId").html("Please Enter Vendor");		
 			}
+			else{
+				 if (!$("#vendor").val().match(/^[a-zA-Z0-9 ]+$/)) 
+				    {
+					 $("#vendorId").html('Only alphabets and numbers are allowed');
+				        
+				    }
+			 }
 			
 			if($("#typeOfRequest").val()=="Select"){
 				//alert("typeOfRequestId valida===0=");
@@ -448,10 +498,24 @@ function fromValidation(){
 			if($("#subject").val()==""){
 				$("#subjectId").html("Please Enter Subject");
 			}
+			else{
+				 if (!$("#subject").val().match(/^[a-zA-Z0-9 ]+$/)) 
+				    {
+					 $("#subjectId").html('Only alphabets and numbers are allowed');
+				        
+				    }
+			 }
 			
 			if($("#comments").val()==""){
 				$("#commentsId").html("Please Enter comments");
 			}
+			else{
+				 if (!$("#comments").val().match(/^[a-zA-Z0-9 ]+$/)) 
+				    {
+					 $("#commentsId").html('Only alphabets and numbers are allowed');
+				        
+				    }
+			 }
 
 	}
 	
@@ -528,12 +592,12 @@ opacity: 1;">
 								style="color: red">*</span></b></td>
 								
 						<td style="top: 352px; width: 190px; height: 75px;opacity: 1;" >
-						<form:input path="branchCode" /></td>
+						<form:input path="branchCode" maxlength="20" /></td>
 						<td></td>
 						<td></td>
 						<td><b style="color: purple">Kiosk Id:</b><b><span
 								style="color: red">*</span></b></td>
-						<td><form:input path="kioskId" />
+						<td><form:input path="kioskId" maxlength="50" />
 					</tr>
 					
 					<tr>
@@ -549,7 +613,7 @@ opacity: 1;">
 					<tr>
 						<td><b style="color: purple">Vendor:</b><b><span
 								style="color: red">*</span></b><b></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-						<td><form:input path="vendor" /></td>
+						<td><form:input path="vendor" maxlength="15" /></td>
 						
 					<td></td>
 						<td></td>
@@ -591,7 +655,7 @@ opacity: 1;">
 					<tr>
 						<td><b style="color: purple">Subject:</b><b><span
 								style="color: red">*</span></b></td>
-						<td><form:input path="subject" /></td>
+						<td><form:input path="subject" maxlength="100" /></td>
 						<td></td>
 						<td></td>
 						<td><b style="color: purple">Comments:</b><b><span
@@ -601,7 +665,7 @@ left: 969px;
 width: 196px;
 height: 96px;
 background: #F9F9F9 0% 0% no-repeat padding-box;
-opacity: 1;"><form:textarea path="comments" /></td>
+opacity: 1;"><form:textarea path="comments" maxlength="200" /></td>
 					</tr>
 					<tr>
 					</tr>
@@ -647,7 +711,11 @@ opacity: 1;"><form:textarea path="comments" /></td>
 					src="resources/img/successTick.png"></span>
 			</p>
 			<p id="para" align="center"></p>
-			<span style="text-align: center;"><button  class="openFinalPopup" style="text-align: center;">OK</button> </span>
+			<p align="center">
+			<span style="text-align: center;">
+			<button  class="openFinalPopup" style="text-align: center;">OK</button> 
+			</span>
+			</p>
 		</div>
 	</div>
 	<div class="error-div"></div>

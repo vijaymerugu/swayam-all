@@ -2,6 +2,8 @@ package sbi.kiosk.swayam.common.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -35,7 +37,11 @@ public interface UserRepository extends CrudRepository<User, String>{
     @Query(value="SELECT PF_ID FROM TBL_USER WHERE PF_ID=:pfid",nativeQuery=true)
     String findIdByPfId(@Param("pfid") String pfid);
     
-    @Query(value=" select * from TBL_USER where USER_ID in(select user_id from TBL_USER_KIOSK_MAPPING where KIOSK_ID=:kioskId )",nativeQuery=true)
+    @Query(value=" select * from TBL_USER where PF_ID in(select PF_ID from TBL_USER_KIOSK_MAPPING where KIOSK_ID=:kioskId )",nativeQuery=true)
     User findIdByKioskId(@Param("kioskId") String kioskId);
+    
+    List<User> findByEnabled(@Param("enabled") String enabled);
+    
+    List<User> findByCircleAndEnabledAndRoleNotIn(@Param("circle") String circle,@Param("enabled") String enabled,@Param("role") List<String> role);
 
 }
