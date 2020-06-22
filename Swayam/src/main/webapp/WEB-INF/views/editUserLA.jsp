@@ -241,6 +241,16 @@ button, html input[type=button], input[type=reset], input[type=submit] {
     height: 32px;
     opacity: 1;
 }
+.openBackPopup {
+    background-color: #FDD209;
+    border-top: 2px #FDD209;
+    border-bottom-width: 4px #FDD209;
+    top: 670px;
+    left: 579px;
+    width: 97px;
+    height: 32px;
+    opacity: 1;
+}
 
 .reset {
     background-color: #FDD209;
@@ -474,7 +484,7 @@ function fromValidation(){
 				var reportEmail=new RegExp(/^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$/i);
 				var valid=reportEmail.test(remail);
 				if(!valid){
-					 $("#reportingAuthorityEmail12").html("Please Enter Reporting valid Authority Email");
+					 $("#reportingAuthorityEmail12").html("Please enter valid Reporting Authority Email");
 				 }				
 			}
 		
@@ -675,14 +685,14 @@ function fromValidation(){
 						<c:if test="${addUserDto.checkAction == 'Edit'}">	
 					 <form:hidden path="checkAction" />
 					  <form:hidden path="userId" />
-					<td><input type="reset" class="button" value="CANCEL"></td>
+					<td><input type="button" value="CANCEL" class="openBackPopup"></td>
                    <td><input type="button" onclick="saveform()"   class="button" value="UPDATE"></td>
 					</c:if>	
 					
 					<c:if test="${addUserDto.checkAction != 'Edit'}">	
 					 <form:hidden path="checkAction" />
 					  <form:hidden path="userId" />
-					<td><input type="reset" class="button" value="CANCEL"></td>
+					<td><input type="button" value="CANCEL" class="openBackPopup"></td>
                    <td><input type="button" onclick="saveform()"   class="button" value="ADD"></td>
 					</c:if>	
 					
@@ -730,7 +740,14 @@ $(document).ready(function(){
     }); 
     
 });
-
+$(document).ready(function(){
+    $('.openBackPopup').on('click',function(){      
+        
+    	$("#contentHomeApp").load('km/userList');    	
+       
+    }); 
+    
+});	
 </script>	
 </body>
 </html>

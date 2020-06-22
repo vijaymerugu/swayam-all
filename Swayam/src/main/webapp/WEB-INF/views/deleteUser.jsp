@@ -458,7 +458,7 @@ function fromValidation(){
 				var reportEmail=new RegExp(/^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$/i);
 				var valid=reportEmail.test(remail);
 				if(!valid){
-					 $("#reportingAuthorityEmail12").html("Please Enter Reporting valid Authority Email");
+					 $("#reportingAuthorityEmail12").html("Please enter valid Reporting Authority Email");
 				 }				
 			}
 		

@@ -16,6 +16,7 @@
 	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
 <script src="resources/js/users-la-app.js"></script>
 <link rel="stylesheet" href="resources/css/grid-style.css" />
+<link rel="stylesheet" href="resources/css/body-page.css" />
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -123,19 +124,44 @@ input[type=text], select {
 	height: 200px;
 }
 </style> -->
+<script type="text/javascript">
+
+function fromValidation(){
+	//  ("form validation call ");
+    //debugger;	
+	var errorList=[];
+	var pfId=$("#username").val();
+	
+	if(pfId=="Select"){
+		 errorList.push("Please select PF ID");		 
+	 }
+	return errorList;
+}	
+
+function displayErrorsOnPage() {
+	//  ("form displayErrorsOnPage call ");
+	var errMsg='';
+	$("#pfId12").html("");
+	if($("#username").val()=="Select"){
+		$("#pfId12").html("Please select PF ID");
+	}
+	
+}	
+</script>
+
 </head>
 <body bgcolor="white">
 	<br>
 	<br>
 	<div class="cmf">
-		<table>
+		<table style="width:1360px">
 			<tr>
 				<td><b>Assigned CMF</b></td>
 			</tr>
 		</table>
 	</div>
 	<div class="th-next">
-		<table class="table1">
+		<table class="table1" style="width:1360px">
 			<tr>
 				<td><b style="color: #2F246C;">Kiosk Id : </b><b>${kioskDto.kioskId}</b></td>
 				<td><b style="color: #2F246C;">Circle : </b><b>${kioskDto.circle}</b></td>
@@ -146,14 +172,14 @@ input[type=text], select {
 				<td><b style="color: #2F246C;">Installation Status: </b><b>${kioskDto.installationStatus}</b></td>
 
 				<td colspan=""><b style="color: #2F246C;">PF ID :</b></td>
-				<td colspan="2"><select id="username" name="username"
+				<td><select id="username" name="username"
 					class="form-control select2" style="width: 40%;">
-						<option value="0">Select</option>
+						<option value="Select">Select</option>
 						<c:forEach items="${usersList}" var="usr">
 							<option value="${usr.pfId}">${usr.pfId}</option>
 						</c:forEach>
 				</select></td>
-
+				<td><span id="pfId12" style="color: red"></span></td>
 			</tr>
 		</table>
 	</div>
@@ -247,7 +273,12 @@ input[type=text], select {
 		$(document).ready(
 						function() {
 							$('.openPopupAssign').on('click',function() {
-
+								var errorlist=fromValidation();							 
+								 
+								 if(errorlist.length>0){											 
+									 displayErrorsOnPage();									 
+								 }else{
+									 $("#pfId12").html("");	
 												var url = "km/saveSingleCmfKioskMapping?username="
 														+ $("#username option:selected").val()
 														+ "&kioskId="
@@ -259,7 +290,8 @@ input[type=text], select {
 																						show : true
 																					});
 																});
-											});
+								 }			
+								 });//
 						});
 		
 		
