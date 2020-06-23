@@ -38,7 +38,7 @@
   <script>
   $.ajax({
   	type:"GET",
-  	url:"/td/getCurrentDate",
+  	url:"td/getCurrentDate",
       success: function(data){
     	  alert("dddd=")
       	console.log("inside data");
@@ -73,7 +73,7 @@
 		</table>
 
 <div>
-<pre style="background-color: #13A8E0;color: white;font-size: 12px;font-weight: bold;">
+<pre style="background-color: #00BFFF;color: white;font-size: 12px;font-weight: bold;">
 <span>Real-time Swayam Transaction</span>
  <span colspan="4" align="center" style="color: white;font-size: 12px;font-weight: bold;float:right; margin-right:1em">Last Updated :<span id="dateId">ss</span></span> 
 </pre>
@@ -102,7 +102,7 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
 $(document).ready(function(){
     $('.openFinalPopup').on('click',function(){      
         
-    	$("#contentHomeApp").load('/td/realTimeTransactionYestrday'); 
+    	$("#contentHomeApp").load('td/realTimeTransactionYestrday'); 
     	//$("#contentHomeApp").load('/td/realTimeTransaction'); 
        
     }); 

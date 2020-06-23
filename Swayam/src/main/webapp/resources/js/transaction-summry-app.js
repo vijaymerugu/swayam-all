@@ -80,7 +80,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
       },
       
       
-      headerTemplate: '/km/headerTemplate',
+      headerTemplate: 'km/headerTemplate',
       superColDefs: [{
           name: 'lipi',
           displayName: 'LIPI'
@@ -172,7 +172,7 @@ app.service('UserManagementService',['$http', function ($http) {
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({
           method: 'GET',
-          url: '/td/dashBoardTxnBM/get?page='+pageNumber+'&size='+size+'&fromdate='+begin+'&todate='+end
+          url: 'td/dashBoardTxnBM/get?page='+pageNumber+'&size='+size+'&fromdate='+begin+'&todate='+end
         });
     }
 	

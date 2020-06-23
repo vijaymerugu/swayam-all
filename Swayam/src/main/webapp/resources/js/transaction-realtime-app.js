@@ -14,10 +14,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    var yesterdayType = "";
    
    $scope.getCountType = function(yesterday){
-	    alert(2);  
-	    
 	    yesterdayType=yesterday;
-       alert("===="+yesterdayType);
 	   UserManagementService.getUsers(paginationOptions.pageNumber,
 			   paginationOptions.pageSize,yesterdayType).success(function(data){
 				   
@@ -31,14 +28,14 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    $scope.loadHomeBodyPageForms = function(url){	   
 		if(url != undefined){	
 			alert("reltime yest");
-			var str ='/td/realTimeTransactionYestrday=' + url;
+			var str ='td/realTimeTransactionYestrday=' + url;
 			$("#contentHomeApp").load(str);
 		}						
 	}
    $scope.loadHomeBodyPageFormsDel = function(url){	  
 	   alert("reltime");
 		if(url != undefined){	
-			var str ='/td/realTimeTransaction=' + url;
+			var str ='td/realTimeTransaction=' + url;
 			$("#contentHomeApp").load(str);
 		}						
 	}
@@ -126,13 +123,11 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
     
     
     app.service('UserManagementService',['$http', function ($http) {
-    	alert("123");
     	function getUsers(pageNumber,size,yesterdayType) {
-    		alert("indide=="+yesterdayType);
     		pageNumber = pageNumber > 0?pageNumber - 1:0;
             return  $http({
               method: 'GET',
-              url: '/td/realTimeTxn/get?page='+pageNumber+'&size='+size+'&fromdate='+yesterdayType
+              url: 'td/realTimeTxn/get?page='+pageNumber+'&size='+size+'&fromdate='+yesterdayType
             });
         }
     	

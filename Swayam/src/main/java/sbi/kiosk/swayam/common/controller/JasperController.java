@@ -1,4 +1,4 @@
-package sbi.kiosk.swayam.common.controller;
+/*package sbi.kiosk.swayam.common.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,3 +34,4 @@ public class JasperController {
 	}
 
 }
+*/

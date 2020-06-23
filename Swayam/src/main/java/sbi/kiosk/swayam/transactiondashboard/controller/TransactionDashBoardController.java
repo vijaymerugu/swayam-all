@@ -1,5 +1,7 @@
 package sbi.kiosk.swayam.transactiondashboard.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,48 +15,28 @@ import sbi.kiosk.swayam.transactiondashboard.service.TransactionDashBoardService
 
 @RestController
 public class TransactionDashBoardController {
+	Logger logger = LoggerFactory.getLogger(TransactionDashBoardController.class);
 	
 	@Autowired
 	TransactionDashBoardService transactionDashBoardService;
-	
-	
-	@RequestMapping("/td/transactionDashBoard")
+
+	@RequestMapping("td/transactionSummary")
 	public ModelAndView transactionDashBoard() {
-		System.out.println("transa==========");
+		logger.info("transa==========");
 		ModelAndView mav = new ModelAndView("transactionDashBoard");
 		return mav;
 	}
-	
-	
-	/*@RequestMapping(value = "/td/dashBoardTxnBM/get", params = { "page", "size" }, method = RequestMethod.GET, produces = "application/json")
-	public Page<SwayamMigrationSummary> findPaginated(
-		      @RequestParam("page") int page, @RequestParam("size") int size) {
-		 
-		        Page<SwayamMigrationSummary> resultPage = transactionDashBoardService.findPaginated(page, size);
-		       System.out.println("resultPage=="+resultPage.getNumberOfElements());
-		        if (page > resultPage.getTotalPages()) {
-		            //throw new MyResourceNotFoundException();
-		        }
-		 
-		        return resultPage;
-		    }
-	*/
-	
-	@RequestMapping(value = "/td/dashBoardTxnBM/get", params = { "page", "size", "fromdate","todate"}, method = RequestMethod.GET, produces = "application/json")
-	public Page<SwayamMigrationSummary> findPaginated(
-		      @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("fromdate") String fromdate, @RequestParam("todate") String todate) {
-		 
-		       // Page<SwayamMigrationSummary> resultPage = transactionDashBoardService.findPaginated(page, size);
-		       
-		   Page<SwayamMigrationSummary> resultPage = transactionDashBoardService.findPaginated(page, size,fromdate,todate);
-		System.out.println("resultPage=="+resultPage.getNumberOfElements());
-		        if (page > resultPage.getTotalPages()) {
-		            //throw new MyResourceNotFoundException();
-		        }
-		 
-		        return resultPage;
-		    }
-	
-	
-	
+
+	@RequestMapping(value = "td/dashBoardTxnBM/get", params = { "page", "size", "fromdate",	"todate" }, method = RequestMethod.GET, produces = "application/json")
+	public Page<SwayamMigrationSummary> findPaginated(@RequestParam("page") int page, @RequestParam("size") int size,@RequestParam("fromdate") String fromdate, @RequestParam("todate") String todate) {
+		Page<SwayamMigrationSummary> resultPage = transactionDashBoardService.findPaginated(page, size, fromdate,todate);
+		
+		logger.info("resultPage==" + resultPage.getNumberOfElements());
+		if (page > resultPage.getTotalPages()) {
+			// throw new MyResourceNotFoundException();
+		}
+
+		return resultPage;
+	}
+
 }

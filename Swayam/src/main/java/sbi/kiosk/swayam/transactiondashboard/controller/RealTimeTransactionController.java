@@ -27,14 +27,14 @@ public class RealTimeTransactionController {
 	@Autowired
 	RealTimeTransactionService realTimeTransactionService;
 	
-	@RequestMapping("/td/realTimeTransaction")
+	@RequestMapping("td/realTimeTransaction")
 	public ModelAndView realTimeTransation(ModelAndView mav) {
 		System.out.println("Real time ==transa==========");
 		mav.setViewName("realTimeTransaction");
 		return mav;
 	}
 	
-	@GetMapping("/td/getCurrentDate")
+	@GetMapping("td/getCurrentDate")
 	public ResponseEntity<String>  getByPfId() {
 		
 		 SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
@@ -49,7 +49,7 @@ public class RealTimeTransactionController {
 		return entity;
 	}
 	
-	@RequestMapping("/td/realTimeTransactionYestrday")
+	@RequestMapping("td/realTimeTransactionYestrday")
 	public ModelAndView realTimeTransationYestarday(ModelAndView mav) {
 		System.out.println("Real time ==transa====Yesterday======");
 		mav.setViewName("realTimeTransactionToday");
@@ -57,7 +57,7 @@ public class RealTimeTransactionController {
 	}
 	
 	
-	@RequestMapping("/td/fromToDate")
+	@RequestMapping("td/fromToDate")
 	public ModelAndView fromToDate(ModelAndView mav,HttpServletRequest request) {
 		System.out.println("fromToDate==transa=========="+request.getParameter("date1"));
 		
@@ -82,7 +82,7 @@ public class RealTimeTransactionController {
 		    }*/
 	
 	
-	@RequestMapping(value = "/td/realTimeTxn/get", params = { "page", "size","fromdate" }, method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "td/realTimeTxn/get", params = { "page", "size","fromdate" }, method = RequestMethod.GET, produces = "application/json")
 	public Page<RealTimeTransaction> findPaginatedRealTimeFromToDate(
 		      @RequestParam("page") int page, @RequestParam("size") int size,
 		      @RequestParam("fromdate") String fromdate) {

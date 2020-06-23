@@ -1,4 +1,4 @@
-package sbi.kiosk.swayam.common.service;
+/*package sbi.kiosk.swayam.common.service;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -562,3 +562,4 @@ public class JasperServiceImpl implements JasperService{
 	 }
 	
 }
+*/

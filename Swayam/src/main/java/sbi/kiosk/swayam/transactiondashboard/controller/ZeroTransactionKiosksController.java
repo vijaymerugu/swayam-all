@@ -1,6 +1,9 @@
 package sbi.kiosk.swayam.transactiondashboard.controller;
 
 import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +16,7 @@ import sbi.kiosk.swayam.transactiondashboard.service.ZeroTransactionKiosksServic
 
 @RestController
 public class ZeroTransactionKiosksController {
-	
+	Logger logger = LoggerFactory.getLogger(ZeroTransactionKiosksController.class);
 	@Autowired
 	ZeroTransactionKiosksService zeroTransactionKiosksService;
 	
@@ -22,7 +25,7 @@ public class ZeroTransactionKiosksController {
 		
 		try {
 		
-			System.out.println("zeroTransactionKiosksList");
+			logger.info("zeroTransactionKiosksList");
 			
 			model.setViewName("zeroTransactionKiosks");
 			
@@ -37,9 +40,9 @@ public class ZeroTransactionKiosksController {
 	public Page<ZeroTransactionKiosks> findPaginated(
 		      @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("type") String type, @RequestParam("fromDate") String fromDate, @RequestParam("toDate") String toDate) {
 		 
-		System.out.println("type=========Yogesh========="+type);
-		System.out.println("From Date--- "+fromDate);
-		System.out.println("To Date----- "+toDate);
+		logger.info("type=========Yogesh========="+type);
+		logger.info("From Date--- "+fromDate);
+		logger.info("To Date----- "+toDate);
 		Page<ZeroTransactionKiosks> resultPage = null;
 		
 		if(fromDate.equals("undefined") || toDate.equals("undefined")) {		
