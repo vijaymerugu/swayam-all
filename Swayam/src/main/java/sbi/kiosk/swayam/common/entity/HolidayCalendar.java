@@ -21,7 +21,7 @@ public class HolidayCalendar {
 	private Integer id;
 	
 	@Column(name="HOLIDAY_DATE")
-	private String calendarDate;
+	private String holidayDate;
 	
 	@Column(name="DAY")
 	private String day;
