@@ -68,19 +68,6 @@ public class RealTimeTransactionController {
 	}
 
 	
-/*	@RequestMapping(value = "/td/realTimeTxn/get", params = { "page", "size" }, method = RequestMethod.GET, produces = "application/json")
-	public Page<RealTimeTransaction> findPaginatedRealTimeTxn(
-		      @RequestParam("page") int page, @RequestParam("size") int size) {
-		      System.out.println("findPaginatedRealTimeTxn====page========="+page);
-		Page<RealTimeTransaction> resultPage = realTimeTransactionService.findPaginated(page, size);
-		        System.out.println("r==="+resultPage.getNumber());
-		        if (page > resultPage.getTotalPages()) {
-		            //throw new MyResourceNotFoundException();
-		        }
-		 
-		        return resultPage;
-		    }*/
-	
 	
 	@RequestMapping(value = "td/realTimeTxn/get", params = { "page", "size","fromdate" }, method = RequestMethod.GET, produces = "application/json")
 	public Page<RealTimeTransaction> findPaginatedRealTimeFromToDate(
