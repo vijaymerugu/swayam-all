@@ -61,16 +61,16 @@ alert(1);
           {name:'circle',displayName: 'Circle'},
           { name: 'cmf', displayName: 'CMF'},
           { name: 'rmmsConnectivity', width:150, displayName: 'RMMS Connectivity' ,
-         cellTemplate: '<div ng-if="row.entity.rmmsConnectivity == \'Red\'"><span><img src="/resources/img/red.gif"></span></div><div ng-if="row.entity.rmmsConnectivity == \'Green\'"><span><img src="/resources/img/green.gif"></span></div><div ng-if="row.entity.rmmsConnectivity == \'Grey\'"><span><img src="/resources/img/gray.gif"></span></div>'},
+         cellTemplate: '<div ng-if="row.entity.rmmsConnectivity == \'Red\'"><span><img src="resources/img/red.gif"></span></div><div ng-if="row.entity.rmmsConnectivity == \'Green\'"><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.rmmsConnectivity == \'Grey\'"><span><img src="resources/img/gray.gif"></span></div>'},
           { name: 'pbPrinterStatus', width:100, displayName: 'PB Printer Status',
-         cellTemplate: '<div ng-if="row.entity.pbPrinterStatus == \'Red\'"><span><img src="/resources/img/red.gif"></span></div><div ng-if="row.entity.pbPrinterStatus == \'Green\'"><span><img src="/resources/img/green.gif"></span></div><div ng-if="row.entity.pbPrinterStatus == \'Grey\'"><span><img src="/resources/img/gray.gif"></span></div>'},
+         cellTemplate: '<div ng-if="row.entity.pbPrinterStatus == \'Red\'"><span><img src="resources/img/red.gif"></span></div><div ng-if="row.entity.pbPrinterStatus == \'Green\'"><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.pbPrinterStatus == \'Grey\'"><span><img src="resources/img/gray.gif"></span></div>'},
           { name: 'cartridgeStatus', width:100, displayName: 'Cartridge Status',
-         cellTemplate: '<div ng-if="row.entity.cartridgeStatus == \'Red\'"><span><img src="/resources/img/red.gif"></span></div><div ng-if="row.entity.cartridgeStatus == \'Green\'"><span><img src="/resources/img/green.gif"></span></div><div ng-if="row.entity.cartridgeStatus == \'Grey\'"><span><img src="/resources/img/gray.gif"></span></div>'},
+         cellTemplate: '<div ng-if="row.entity.cartridgeStatus == \'Red\'"><span><img src="resources/img/red.gif"></span></div><div ng-if="row.entity.cartridgeStatus == \'Green\'"><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.cartridgeStatus == \'Grey\'"><span><img src="resources/img/gray.gif"></span></div>'},
           { name: 'antivirusStatus', width:100, displayName: 'Antivirus Status   ' ,
-         cellTemplate: '<div ng-if="row.entity.antivirusStatus == \'Red\'"><span><img src="/resources/img/red.gif"></span></div><div ng-if="row.entity.antivirusStatus == \'Green\'"><span><img src="/resources/img/green.gif"></span></div><div ng-if="row.entity.antivirusStatus == \'Grey\'"><span><img src="/resources/img/gray.gif"></span></div>' },
+         cellTemplate: '<div ng-if="row.entity.antivirusStatus == \'Red\'"><span><img src="resources/img/red.gif"></span></div><div ng-if="row.entity.antivirusStatus == \'Green\'"><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.antivirusStatus == \'Grey\'"><span><img src="resources/img/gray.gif"></span></div>' },
           { name: 'aplicationStatus', width:150,    
          displayName: 'Aplication Status',
-         cellTemplate: '<div ng-if="row.entity.aplicationStatus == \'Red\'"><span><img src="/resources/img/red.gif"></span></div><div ng-if="row.entity.aplicationStatus == \'Green\'"><span><img src="/resources/img/green.gif"></span></div><div ng-if="row.entity.aplicationStatus == \'Grey\'"><span><img src="/resources/img/gray.gif"></span></div>'
+         cellTemplate: '<div ng-if="row.entity.aplicationStatus == \'Red\'"><span><img src="resources/img/red.gif"></span></div><div ng-if="row.entity.aplicationStatus == \'Green\'"><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.aplicationStatus == \'Grey\'"><span><img src="resources/img/gray.gif"></span></div>'
           },
           { name: 'lastPrntTxnDttm', width:200, displayName: 'Last Print TxnDate  ',type:'date',cellFilter: 'date:"dd-MM-yyyy hh:mm:ss a"'
          
