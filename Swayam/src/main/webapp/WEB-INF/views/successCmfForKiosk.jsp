@@ -28,20 +28,36 @@
   background-color: #00BFFF;
   color: white;
 }
+.content {  
+  margin: auto;
+}
 </style>
 </head>
 
 <body>
+<div class="content">
 <table>
 
 
 <tr>
-<td>  <img src="resources/img/successTick.png"></td>
+<td align="center" style="text-align:center">  <img src="resources/img/successTick.png"></td>
 </tr>
+<tr><td style="color:#000000;font-size:15px;" align="center" style="text-align:center">CMF has been assigned Successfully</td></tr>
+<tr>
+<td align="center"> <button class="openBackPopup" style="text-align:center">OK</button></td>
 </tr>
-<tr><td style="color:#000000;font-size:15px;" align="center">CMF has been assigned Successfully</td></tr>
 </table>
-
-
+</div>
+<script>
+$(document).ready(function(){
+    $('.openBackPopup').on('click',function(){      
+        
+    	$("#contentHomeApp").load('km/kioskManagement');    	
+    	$('.modal-backdrop').remove();
+    	$("body").css({"overflow":"visible"});
+    }); 
+    
+});	
+</script>
 </body>
 </html>

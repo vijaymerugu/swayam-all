@@ -103,6 +103,8 @@ public class JasperServiceImpl implements JasperService{
 		 String filename = null;
 		 
 		  try {
+			  jrxmlPath = jrxmlPath.replaceAll(">", "");
+			  reportPath = reportPath.replaceAll(">", "");
 			  logger.info("jrxmlPath "+jrxmlPath);
 			  logger.info("reportPath "+reportPath);
 		       if(identifyPage.equals("userListSA")){

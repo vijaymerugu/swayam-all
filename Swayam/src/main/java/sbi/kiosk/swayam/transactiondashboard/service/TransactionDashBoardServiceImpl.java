@@ -7,21 +7,21 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import sbi.kiosk.swayam.common.entity.DrillDown;
 import sbi.kiosk.swayam.common.entity.SwayamMigrationSummary;
-import sbi.kiosk.swayam.common.entity.ZeroTransactionKiosks;
 import sbi.kiosk.swayam.transactiondashboard.repository.TransactionDashBoardRepository;
 import sbi.kiosk.swayam.transactiondashboard.repository.TransactionDashBoardRepositoryPaging;
 
 @Service
 public class TransactionDashBoardServiceImpl implements TransactionDashBoardService{
-
+	Logger logger = LoggerFactory.getLogger(TransactionDashBoardServiceImpl.class);
 	@Autowired
 	TransactionDashBoardRepository transactionDashBoardRepo;
 	
@@ -36,8 +36,8 @@ public class TransactionDashBoardServiceImpl implements TransactionDashBoardServ
 	public Page<SwayamMigrationSummary> findPaginated(int page, int size,String fromdate,String todate) {
 	   // Page<SwayamMigrationSummary>  entities = transactionDashBoardRepositoryPaging.findAll(PageRequest.of(page, size));
 			//.map(VmMigrationSummary::new);
-		System.out.println("entities=Swayam Migrartion 555555555555=fromdate::="+fromdate);
-		System.out.println("entities=Swayam Migrartion 2222222=todate::="+todate);
+		logger.info("entities=Swayam Migrartion 555555555555=fromdate::="+fromdate);
+		logger.info("entities=Swayam Migrartion 2222222=todate::="+todate);
 		List<SwayamMigrationSummary> summaryList=new ArrayList<SwayamMigrationSummary>();
 		
 		if(fromdate!=null && !fromdate.isEmpty() && !fromdate.equals("undefined")){
@@ -46,15 +46,15 @@ public class TransactionDashBoardServiceImpl implements TransactionDashBoardServ
        // nearByEntities.setParameter("todate", "2020-05-10");
 		nearByEntities.setParameter("fromdate", todate);
 	   nearByEntities.setParameter("todate", fromdate);
-        System.out.println("nearByEntities======"+nearByEntities);
+        logger.info("nearByEntities======"+nearByEntities);
         summaryList=nearByEntities.getResultList();
 			
-	    System.out.println("entities=Size()::::"+summaryList.size());
-		System.out.println("entities=Size()::::"+summaryList);
+	    logger.info("entities=Size()::::"+summaryList.size());
+		logger.info("entities=Size()::::"+summaryList);
 		for(SwayamMigrationSummary swayamTxn:summaryList){
-			System.out.println("swayamTxn=1="+swayamTxn.getCrclName());
-			System.out.println("swayamTxn=2="+swayamTxn.getMigrationPerc());
-			System.out.println("swayamTxn=3="+swayamTxn.getBranchName());
+			logger.info("swayamTxn=1="+swayamTxn.getCrclName());
+			logger.info("swayamTxn=2="+swayamTxn.getMigrationPerc());
+			logger.info("swayamTxn=3="+swayamTxn.getBranchName());
 		}
 		
 		}else{
@@ -65,73 +65,25 @@ public class TransactionDashBoardServiceImpl implements TransactionDashBoardServ
 		       // nearByEntities.setParameter("todate", "2020-05-10");
 				nearByEntities.setParameter("fromdate", "");
 			   nearByEntities.setParameter("todate", "");
-		        System.out.println("nearByEntities======"+nearByEntities);
+		        logger.info("nearByEntities======"+nearByEntities);
 		        summaryList=nearByEntities.getResultList();
 					
-			    System.out.println("entities=Size()::::"+summaryList.size());
-				System.out.println("entities=Size()::::"+summaryList);
+			    logger.info("entities=Size()::::"+summaryList.size());
+				logger.info("entities=Size()::::"+summaryList);
 				for(SwayamMigrationSummary swayamTxn:summaryList){
-					System.out.println("swayamTxn=1="+swayamTxn.getCrclName());
-					System.out.println("swayamTxn=2="+swayamTxn.getMigrationPerc());
-					System.out.println("swayamTxn=3="+swayamTxn.getBranchName());
+					logger.info("swayamTxn=1="+swayamTxn.getCrclName());
+					logger.info("swayamTxn=2="+swayamTxn.getMigrationPerc());
+					logger.info("swayamTxn=3="+swayamTxn.getBranchName());
 				}
 		}
 			
 Page<SwayamMigrationSummary> pageSummary = new PageImpl<SwayamMigrationSummary>(summaryList, PageRequest.of(page, size),summaryList.size());
-System.out.println("entities======pageSummary========Size()::::"+pageSummary.getContent());
+logger.info("entities======pageSummary========Size()::::"+pageSummary.getContent());
 		
 		return pageSummary;
 	  }
 
-	@Override
-	public Page<SwayamMigrationSummary> findPaginated(int page, int size) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Page<ZeroTransactionKiosks> findPaginatedByDate(int page, int size,
-			String fromDate, String toDate) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Page<DrillDown> findPaginatedByTxnDate(int page, int size,
-			String fromDate, String toDate, String circleName,
-			String networkName, String moduleName, String regionName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Page<SwayamMigrationSummary> findPaginatedByCircle(int page,
-			int size, String circleName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Page<SwayamMigrationSummary> findPaginatedByNetwork(int page,
-			int size, String networkName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Page<SwayamMigrationSummary> findPaginatedByModule(int page,
-			int size, String moduleName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Page<SwayamMigrationSummary> findPaginatedByRegion(int page,
-			int size, String regionName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	
 
 

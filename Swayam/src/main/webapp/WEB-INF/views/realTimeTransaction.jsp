@@ -4,18 +4,19 @@
 <html lang="en">
 
 <head>
- <script src="/resources/js/transaction-realtime-app.js"></script>
-<script	src="/resources/js/angular.1.5.6.min.js"></script>
-<script src="/resources/js/jquery.3.4.1.min.js"></script>
-<script src="/resources/js/bootstrap.3.4.1.min.js"></script>
-<link rel="stylesheet" href="/resources/css/ui-grid.4.8.3.min.css">
+ <script src="resources/js/transaction-realtime-app.js"></script>
+ 
+<script	src="resources/js/angular.1.5.6.min.js"></script>
+<script src="resources/js/jquery.3.4.1.min.js"></script>
+<script src="resources/js/bootstrap.3.4.1.min.js"></script>
+<link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
 
 <script
 	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
 
-<script	src="/resources/js/angular.1.5.6.min.js"></script>
-<link rel="stylesheet" href="/resources/css/grid-style.css"/>
-<link rel="stylesheet" href="/resources/css/body-page.css"/>
+<script	src="resources/js/angular.1.5.6.min.js"></script>
+<link rel="stylesheet" href="resources/css/grid-style.css"/>
+<link rel="stylesheet" href="resources/css/body-page.css"/>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
 <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script> 
@@ -38,7 +39,7 @@
   <script>
   $.ajax({
   	type:"GET",
-  	url:"/td/getCurrentDate",
+  	url:"td/getCurrentDate",
       success: function(data){
     	  alert("dddd=")
       	console.log("inside data");
@@ -73,7 +74,7 @@
 		</table>
 
 <div>
-<pre style="background-color: #13A8E0;color: white;font-size: 12px;font-weight: bold;">
+<pre style="background-color: #00BFFF;color: white;font-size: 12px;font-weight: bold;">
 <span>Real-time Swayam Transaction</span>
  <span colspan="4" align="center" style="color: white;font-size: 12px;font-weight: bold;float:right; margin-right:1em">Last Updated :<span id="dateId">ss</span></span> 
 </pre>
@@ -102,7 +103,7 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
 $(document).ready(function(){
     $('.openFinalPopup').on('click',function(){      
         
-    	$("#contentHomeApp").load('/td/realTimeTransactionYestrday'); 
+    	$("#contentHomeApp").load('td/realTimeTransactionYestrday'); 
     	//$("#contentHomeApp").load('/td/realTimeTransaction'); 
        
     }); 

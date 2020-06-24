@@ -47,13 +47,13 @@ public class DrillDownServiceImpl implements DrillDownService{
 	
 
     private List<DrillDown> nearByEntities(String fromDate,String toDate, String circleName, String networkName, String moduleName, String regionName) {
-        StoredProcedureQuery nearByEntities= em.createNamedStoredProcedureQuery("SP_DRILL_DOWN");
-        nearByEntities.setParameter("fromdate", fromDate);
-        nearByEntities.setParameter("todate", toDate);
-        nearByEntities.setParameter("circleName", circleName);
-        nearByEntities.setParameter("networkName", networkName);
-        nearByEntities.setParameter("moduleName", moduleName);
-        nearByEntities.setParameter("regionName", regionName);
+        StoredProcedureQuery nearByEntities= em.createNamedStoredProcedureQuery("sp_drill_down_proc");
+        nearByEntities.setParameter("in_fromdate", fromDate);
+        nearByEntities.setParameter("in_todate", toDate);
+        nearByEntities.setParameter("in_circle_code", circleName);
+        nearByEntities.setParameter("in_network_code", networkName);
+        nearByEntities.setParameter("in_module_code", moduleName);
+        nearByEntities.setParameter("in_region_code", regionName);
  
         System.out.println("nearByEntities======"+nearByEntities);
         return nearByEntities.getResultList();

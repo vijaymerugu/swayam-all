@@ -26,7 +26,46 @@ button {
     width: 10%;
     opacity: 0.9;
 }
-
+.buttonManual {
+    background-color: #FDD209;
+    border-top: 2px #FDD209;
+    border-bottom-width: 4px #FDD209;
+    top: 670px;
+    left: 579px;
+    width: 97px;
+    right: 579px;
+    height: 32px;
+    opacity: 1;
+}
+input[type=button], input[type=submit], input[type=reset] {
+    background-color: #FDD209;
+    /* border: 95px; */
+    color: black;
+    padding: 1px 14px;
+    text-decoration: none;
+    margin: -5px 23px;
+    cursor: pointer;
+}
+input[type=submit], input[type=reset] {
+    background-color: #FDD209;
+    height: 34px;
+    border-top: 1px #F2F1EF;
+    border-left: 2px whtie;
+    border-bottom-width: 4px #F2F1EF;
+    width: 72%;
+    align: center;
+    border-bottom-width: 0px;
+}
+.okButton{
+background-color: #FFFFFF;
+    /* border: 95px; */
+    color: black;
+    padding: 1px 14px;
+    text-decoration: none;
+    margin: -5px 23px;
+    cursor: pointer;
+    width: 30%;
+}
 button:hover {
     opacity:1;
 }
@@ -435,7 +474,7 @@ function fromValidation(){
 
 
 function saveform(){
-	debugger;
+	
 	$("#branchCode12").html("");
 	$("#vendor12").html("");
 	$("#kioskId12").html("");
@@ -523,6 +562,7 @@ function displayErrorsOnPage() {
 function cloesBox(){
 	var modal = document.getElementById("myModal");
 	 modal.style.display = "none";
+	 $('#form')[0].reset();
 }
 </script>
 <body background="color:white">
@@ -571,7 +611,7 @@ function cloesBox(){
 								</td>
 						
 						<td><form:select path="vendor" style="color:blue">
-                             <form:option value="Select"></form:option>
+                             <form:option value="Select" label="Select"></form:option>
                              <c:forEach var="listVal" items="${mlist}">
 							<form:option value="${listVal.vendor}" >${listVal.vendor}</form:option>
 							</c:forEach>
@@ -588,7 +628,7 @@ function cloesBox(){
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>
 					</td>
 					<td><form:select path="kioskId" id="kioskId" style="color:blue">
-							  <form:option value="Select"></form:option>
+							  <form:option value="Select" label="Select"></form:option>
 							  <c:forEach var="listVal" items="${mlist}">
 							<form:option value="${listVal.kioskId}" >${listVal.kioskId}</form:option>
 							</c:forEach>				
@@ -616,7 +656,7 @@ function cloesBox(){
 						<td><b id="kioskId1"></b></td>
 					</tr>
 					<tr>
-						<td><b style="color:purple">Circle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b></td>
+						<td style="height: 75px;opacity: 1;"><b style="color:purple">Circle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b></td>
 						<td><b id="circle"></b></td>
 						<form:hidden path="circle" id="vish"/>
 						<td colspan="2"></td>
@@ -637,6 +677,8 @@ function cloesBox(){
 								</c:forEach>
 							</form:select> </td>
 					</tr> --%>
+					<br/>
+					<br/>
 					<tr>
 						<td><b style="color:purple">Error on Kiosk Screen <b><span style="color:red">*</span></b>&nbsp;&nbsp; : </b>
 						
@@ -652,13 +694,13 @@ function cloesBox(){
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </b>
 								
 								</td>
-						<td><form:textarea path="comment" row="8" column="8"  required="required"  maxlength="200" /></td>
+						<td style="vertical-align: bottom;"><form:textarea path="comment" row="8" column="8"  required="required"  maxlength="200" /></td>
 					</tr><tr>
 					  <td></td><td><span id="kioskError12" style="color:red"></td><td></td><td></td><td></td><td><span id="comment12" style="color:red"></span> </td>
 					</tr>
 					<tr><td colspan="5" ></td>
 						<td> <input type="button" 
-							value="Submit" onclick="saveform()" /></td>
+							value="Submit" onclick="saveform()" class="buttonManual" /></td>
 					</tr>
 				</table>
 			</div>
@@ -679,7 +721,7 @@ function cloesBox(){
     
     <p id="para" align="center"></p>
     <p align="center">			
-		<button class="btn btn-default" onclick="cloesBox()">OK</button> 
+		<button class="okButton" onclick="cloesBox()">OK</button> 
 	</p>
   </div>
 </div>

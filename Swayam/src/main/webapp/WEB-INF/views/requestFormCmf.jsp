@@ -664,7 +664,6 @@ opacity: 1;">
 left: 969px;
 width: 196px;
 height: 96px;
-background: #F9F9F9 0% 0% no-repeat padding-box;
 opacity: 1;"><form:textarea path="comments" maxlength="200" /></td>
 					</tr>
 					<tr>
