@@ -47,7 +47,7 @@
 <script
 	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
 	
-	<script src="/resources/js/terminal-status.app.js"></script>
+	<script src="resources/js/terminal-status.app.js"></script>
 
 </head>
 <body>
@@ -175,7 +175,7 @@
 	
 	<br/>
 	<br/>
-	<input type="checkbox" ng-model="searchText" ng-change="refresh()" placeholder="Enter Kiosk Id,Agent Status etc." style="font-size: 12px" size="150" height="80" id="input" class="form-group has-search">
+	<input  ng-model="searchText" ng-change="refresh()" placeholder="Enter Kiosk Id,Agent Status etc." style="font-size: 12px" size="150" height="80" id="input" class="form-group has-search">
 		
 		<br/>
 		<br/>
