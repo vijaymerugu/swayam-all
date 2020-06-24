@@ -13,6 +13,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -33,10 +35,11 @@ import sbi.kiosk.swayam.common.dto.UserDto;
 import sbi.kiosk.swayam.common.repository.UserRepository;
 import sbi.kiosk.swayam.common.service.LoginService;
 import sbi.kiosk.swayam.common.utils.CommonUtils;
+import sbi.kiosk.swayam.kioskmanagement.controller.UploadSwayamFileController;
 
 @RestController
 public class LoginController{ 
-	
+	Logger logger = LoggerFactory.getLogger(LoginController.class);
 	@Autowired
 	LoginService loginService;
 	
@@ -56,7 +59,7 @@ public class LoginController{
 		session.setAttribute("userObj", userObj);
 		
 		
-		System.out.println("Session Val"+ session.getAttribute("pfId"));
+		logger.info("Session Val"+ session.getAttribute("pfId"));
 		ModelAndView mav = new ModelAndView("home");
 		return mav;		
 	}
@@ -74,7 +77,7 @@ public class LoginController{
 	public List<MenuMasterDto> getMenu(HttpSession session) {		
 		UserDto userObj =(UserDto) session.getAttribute("userObj");
 		//session.setAttribute("username", username);
-		System.out.println("Session Val1111"+ session.getAttribute("pfId"));
+		logger.info("Session Val1111"+ session.getAttribute("pfId"));
 		
 		
 		return loginService.getMenusByUserRole(userObj.getRole());
@@ -97,13 +100,13 @@ public class LoginController{
 		
 		  try {
 			  
-			  System.out.println("oms_url post 1 request:::: "+oms_url);
+			  logger.info("oms_url post 1 request:::: "+oms_url);
 			  
 		        System.err.println("inside createAuthentication token "+token);
 		    if((token!=null && !token.isEmpty()) && (!token.equals("") && !token.equals("null"))){
 		    	
 			    URL url = new URL(oms_url);
-			    System.out.println("oms_url post request:::: "+oms_url);
+			    logger.info("oms_url post request:::: "+oms_url);
 		        Map<String,Object> params = new LinkedHashMap<>();
 		        params.put("token", token);
 		        StringBuilder postData = new StringBuilder();
@@ -128,13 +131,13 @@ public class LoginController{
 			       
 			if ((output = br.readLine()) != null) {
 			   Gson gson = new Gson();
-			   System.out.println("response1==="+output);
+			   logger.info("response1==="+output);
 		       Map map =  gson.fromJson(output, Map.class);
-			   System.out.println("response2==="+map);
+			   logger.info("response2==="+map);
 			   
 			   String userId=(String) map.get("UserId");
 			   String result=(String) map.get("Result");
-			   System.out.println("response3==="+result);
+			   logger.info("response3==="+result);
 			   
 			   response =new ResponseDto();
 			   RequestResponseLogDto reqRespLogDto=new RequestResponseLogDto();
@@ -155,7 +158,7 @@ public class LoginController{
 				
 				// check userId in db
 				String dbPfId=userRepo.findIdByPfId(userId);
-				System.out.println("dbPfId=="+dbPfId);
+				logger.info("dbPfId=="+dbPfId);
 				response.setPfId(dbPfId);
 				response.setResponse(result);
 				if(userId.equals(dbPfId)){
@@ -187,7 +190,7 @@ public class LoginController{
 	
 	@RequestMapping(value = "${dummy_oms_url}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> sendResponse(@RequestBody String token) {
-		System.out.println("sfssadasd");
+		logger.info("sfssadasd");
 		
 		String result="Success";
 		String userId="14";

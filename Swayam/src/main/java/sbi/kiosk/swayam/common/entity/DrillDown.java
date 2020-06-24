@@ -11,16 +11,16 @@ import lombok.Data;
 @Data
 @Entity
 @NamedStoredProcedureQuery(
-name="SP_DRILL_DOWN",
-procedureName="SP_DRILL_DOWN",
+name="sp_drill_down_proc",
+procedureName="sp_drill_down_proc",
 resultClasses=DrillDown.class,
 parameters={
-@StoredProcedureParameter(name="fromdate",type=String.class, mode= ParameterMode.IN),
-@StoredProcedureParameter(name="todate", type=String.class, mode= ParameterMode.IN),
-@StoredProcedureParameter(name="circleName", type=String.class, mode= ParameterMode.IN),
-@StoredProcedureParameter(name="networkName", type=String.class, mode= ParameterMode.IN),
-@StoredProcedureParameter(name="moduleName", type=String.class, mode= ParameterMode.IN),
-@StoredProcedureParameter(name="regionName", type=String.class, mode= ParameterMode.IN),
+@StoredProcedureParameter(name="in_fromdate",type=String.class, mode= ParameterMode.IN),
+@StoredProcedureParameter(name="in_todate", type=String.class, mode= ParameterMode.IN),
+@StoredProcedureParameter(name="in_circle_code", type=String.class, mode= ParameterMode.IN),
+@StoredProcedureParameter(name="in_network_code", type=String.class, mode= ParameterMode.IN),
+@StoredProcedureParameter(name="in_module_code", type=String.class, mode= ParameterMode.IN),
+@StoredProcedureParameter(name="in_region_code", type=String.class, mode= ParameterMode.IN),
 @StoredProcedureParameter(name="cur", type=void.class, mode= ParameterMode.REF_CURSOR)
 }
 )
