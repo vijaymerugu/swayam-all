@@ -65,13 +65,13 @@
 </head>
 <body background="#FFFFFF">
 <div class="submainForm">
-	<div class="space" style="background-color: white"><b>Case Id : ${dto.id}</b></div>
+	<div class="space" style="background-color: white"><b>Case ID : ${dto.id}</b></div>
 	<div class="row">
 		<div class="column" style="background-color: #F3F7FA;">
 				<table>
 				<tbody><tr><td><h5 style="color: blue">Maker Information</h5></td></tr><tr></tr>
 		        <tr>
-		        <td colspan="7"><b>PfId &nbsp;&nbsp;&nbsp;&nbsp;:</b></td>
+		        <td colspan="7"><b>PF ID &nbsp;&nbsp;&nbsp;&nbsp;:</b></td>
 				
 				<td>
 				<b>${dto.makerPfId}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -92,7 +92,7 @@
 				<table>
 				<tbody><tr><td><h5 style="color: blue">Checker Information</h5></td></tr><tr></tr>
 		        <tr>
-		        <td colspan="7"><b>PfId &nbsp;&nbsp;&nbsp;&nbsp;:</b></td>
+		        <td colspan="7"><b>PF ID &nbsp;&nbsp;&nbsp;&nbsp;:</b></td>
 				<td>
 				<b>${dto.checkerPfId}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 				<td><b>Circle</b></td>
@@ -112,7 +112,7 @@
 				<table>
 				<tbody><tr><td><h5 style="color: blue">Approver Information</h5></td></tr><tr></tr>
 		        <tr>
-		        <td colspan="7"><b>PfId &nbsp;&nbsp;&nbsp;&nbsp;:</b></td>
+		        <td colspan="7"><b>PF ID &nbsp;&nbsp;&nbsp;&nbsp;:</b></td>
 				
 				<td>
 				<b>${dto.approverPfId}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -141,7 +141,7 @@
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				
 				</td>
-		        <td><b>Kiosk Id</b></td>
+		        <td><b>Kiosk ID</b></td>
 		        <td>
 				<b>:${dto.kioskId}</b>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -177,7 +177,7 @@
 			<h5 style="color: blue">Terminal Information</h5>
 			<table>
 			   <tbody><tr>
-		        <td colspan="7"><b>Kiosk Id</b></td>
+		        <td colspan="7"><b>Kiosk ID</b></td>
                 <td>
 				<b>:${dto.kioskId}</b>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -237,7 +237,7 @@
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				</td>
-				<td><b>New Kiok Id</b></td><td><b>:${dto.kioskId}</b></td>
+				<td><b>New Kiok ID</b></td><td><b>:${dto.kioskId}</b></td>
 		       </tr>
 			 
 			</tbody></table>

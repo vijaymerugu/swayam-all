@@ -72,7 +72,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
       { name: 'remarks',
     	  exporterSuppressExport: true, width:300,
     	  headerCellTemplate: '<div>Remarks By <br/> Approver</div>',
-    	  cellTemplate: '<div class="addedRows"><input type="text" name="remarks[{{row.entity.id}}]" id="remarks"/></div>'
+    	  cellTemplate: '<div class="addedRows"><input type="text" name="remarks[{{row.entity.id}}]" id="remarks" maxlength="100" /></div>'
       }
     ],
     onRegisterApi: function(gridApi) {
