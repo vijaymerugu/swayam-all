@@ -17,6 +17,7 @@ public class HolidayCalendar {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_TBL_BRANCH_HOLIDAY")
 	@SequenceGenerator(sequenceName = "SEQ_TBL_BRANCH_HOLIDAY", allocationSize = 1, name = "SEQ_TBL_BRANCH_HOLIDAY")
+
 	@Column(name="ID")
 	private Integer id;
 	

@@ -15,10 +15,6 @@ public class HolidayCalendarDto {
 	
 	private String state;
 
-	
-	
-
-	
 
 	public String getHolidayDate() {
 		return holidayDate;
