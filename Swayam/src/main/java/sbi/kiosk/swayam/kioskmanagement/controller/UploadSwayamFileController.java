@@ -50,7 +50,7 @@ public class UploadSwayamFileController  {
 		return view;
 	}
 
-	// By Pankul 10-04-2020-----------STARTS---------
+	
 
 
 	// 1--------- ankur Verma -----uploadHolidayCalendar

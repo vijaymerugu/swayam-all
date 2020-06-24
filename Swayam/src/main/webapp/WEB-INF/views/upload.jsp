@@ -18,6 +18,7 @@
  <link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css"> 
 
 
+
 <link rel="stylesheet" href="resources/css/grid-style.css"/>
 <link rel="stylesheet" href="resources/css/body-page.css"/>  
 <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script>
@@ -202,6 +203,7 @@
 
             success: function(data){
             	resp= data;  
+            	
             //	alert(resp) ;    	 	        	
 	        	// $("#para").html(resp);
 	        	 $("#para").html(resp+" Data Uploaded Successfully"); 
