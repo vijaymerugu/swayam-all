@@ -18,6 +18,7 @@
  <link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css"> 
 
 
+
 <link rel="stylesheet" href="resources/css/grid-style.css"/>
 <link rel="stylesheet" href="resources/css/body-page.css"/>  
 <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script>
@@ -80,7 +81,7 @@
              dataType: "json",
 
             success: function(data){
-                alert("data"+data);
+               // alert("data"+data);
         	     resp=data;       	 	     	 
          }
         });
@@ -111,9 +112,12 @@
 
             success: function(data){
             	resp= data;  
-            //	alert(resp) ;    	 	        	
-	        	 $("#para").html(resp);
-	     		 modal.style.display = "block";          
+                //  alert(resp) ;    	 	        	
+            	// $("#para").html(resp);
+	        	 $("#para").html(resp+" Data Uploaded Successfully"); 
+	     		 modal.style.display = "block"; 
+	     		window.open("resources/download/"+data+".xlsx" , '_blank');  
+	     	//	alert(data1);         
           
             }
         });
@@ -139,9 +143,11 @@
             success: function(data){
             	resp= data;  
             	//alert(resp) ;    	 	        	
-	        	 $("#para").html(resp);
+	        	// $("#para").html(resp);
+	        	 $("#para").html(resp+" Data Uploaded Successfully"); 
 	     		 modal.style.display = "block"; 
-	        	            
+	     		window.open("resources/download/"+data+".xlsx" , '_blank');  
+	     		//alert(data1);          
           
             }
         });
@@ -166,9 +172,12 @@
 
             success: function(data){
             	resp= data;  
-            	//alert(resp) ;    	 	        	
-	        	 $("#para").html(resp);
+            	// alert(resp) ;    	 	        	
+	        	// $("#para").html(resp);
+	        	 $("#para").html(resp+" Data Uploaded Successfully"); 
 	     		 modal.style.display = "block"; 
+	     		window.open("resources/download/"+data+".xlsx" , '_blank');  
+	     		// alert(data1);   
 	        	            
           
             }
@@ -194,9 +203,13 @@
 
             success: function(data){
             	resp= data;  
+            	
             //	alert(resp) ;    	 	        	
-	        	 $("#para").html(resp);
-	     		 modal.style.display = "block";       
+	        	// $("#para").html(resp);
+	        	 $("#para").html(resp+" Data Uploaded Successfully"); 
+	     		 modal.style.display = "block"; 
+	     		window.open("resources/download/"+data+".xlsx" , '_blank');  
+	     		// alert(data1);         
           
             }
         });
