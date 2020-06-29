@@ -169,7 +169,7 @@ public class JasperServiceImpl implements JasperService{
 			   }
 		       else if(identifyPage.equals("ticketCenterCMF")){
 		    	      List<TicketCentorDto> list = findAllTicketsForCmf(); 
-			          File file = ResourceUtils.getFile(jrxmlPath + "ticketCenter.jrxml");		 
+			          File file = ResourceUtils.getFile(jrxmlPath + "ticketCenterCMF.jrxml");		 
 			          InputStream input = new FileInputStream(file); 
 			          jasperReport = JasperCompileManager.compileReport(input);		 
 			          source = new JRBeanCollectionDataSource(list);		             
@@ -181,7 +181,7 @@ public class JasperServiceImpl implements JasperService{
 				}
 		       else if(identifyPage.equals("ticketCenterCMS")){
 		    	      List<TicketCentorDto> list = findAllTicketsForCms(); 
-			          File file = ResourceUtils.getFile(jrxmlPath + "ticketCenter.jrxml");		 
+			          File file = ResourceUtils.getFile(jrxmlPath + "ticketCenterCMF.jrxml");		 
 			          InputStream input = new FileInputStream(file); 
 			          jasperReport = JasperCompileManager.compileReport(input);		 
 			          source = new JRBeanCollectionDataSource(list);		             
@@ -288,7 +288,7 @@ public class JasperServiceImpl implements JasperService{
 		       }
 		       else if(identifyPage.equals("ticketCenterCMF")){
 		    	   List<TicketCentorDto> list = findAllTicketsForCmf(); 
-		          File file = ResourceUtils.getFile(jrxmlPath + "ticketCenter.jrxml");		 
+		          File file = ResourceUtils.getFile(jrxmlPath + "ticketCenterCMF.jrxml");		 
 		          InputStream input = new FileInputStream(file); 
 		          jasperReport = JasperCompileManager.compileReport(input);		 
 		          source = new JRBeanCollectionDataSource(list);		             
@@ -300,7 +300,7 @@ public class JasperServiceImpl implements JasperService{
 		       }
 		       else if(identifyPage.equals("ticketCenterCMS")){
 		    	   List<TicketCentorDto> list = findAllTicketsForCms(); 
-		          File file = ResourceUtils.getFile(jrxmlPath + "ticketCenter.jrxml");		 
+		          File file = ResourceUtils.getFile(jrxmlPath + "ticketCenterCMF.jrxml");		 
 		          InputStream input = new FileInputStream(file); 
 		          jasperReport = JasperCompileManager.compileReport(input);		 
 		          source = new JRBeanCollectionDataSource(list);		             

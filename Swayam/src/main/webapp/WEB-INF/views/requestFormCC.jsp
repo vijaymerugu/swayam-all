@@ -41,7 +41,7 @@
 		
 		
 		<br/>
-		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-selection ui-grid-exporter ui-grid-resize-columns id="test"></div>
+		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test"></div>
 		
         
     </div>
@@ -87,6 +87,9 @@ $(document).ready(function(){
          
         var all_rows = [];
         var keyDisplay = [];
+        var valueText = [];
+        var errorList=[];
+        
         $('.addedRows').each(function() {
                 var this_row={};                
                 $(this).find("input").each(function(){                
@@ -101,6 +104,7 @@ $(document).ready(function(){
                 	this_row[keyvalue] = namevalue;
                 	all_rows.push(this_row);
                 	keyDisplay.push(keyvalue);  
+                	valueText.push(namevalue);
                 }
                 
                 
@@ -109,7 +113,21 @@ $(document).ready(function(){
         });
         console.log(all_rows);               
         
+        var arrayLength = valueText.length;
+	    for (var i = 0; i < arrayLength; i++) {
+	        console.log(valueText[i]);
+	        var value = valueText[i];        	        
+	        if (!value.match(/^[a-zA-Z0-9. ]+$/)) 
+		    {    				 
+			 errorList.push('Only alphabets and numbers are allowed');    			        
+		    }
+	    }
 	    
+	    if(errorList.length>0){       			 			 
+	    	$("#myModal").modal();
+        	$("#para").html("Only alphabets and numbers are allowed in Remarks by Approver");
+		 	}else{
+
         $.ajax({
             type: "POST",
             //url: "/hm/saveCheckerComments?array="+all_rows,
@@ -127,12 +145,16 @@ $(document).ready(function(){
             	console.log('Failed');
             }
         });
+      }
     }); 
     
 $('.openRejectPopup').on('click',function(){        
         
         var all_rows = [];
         var keyDisplay = [];
+        var valueText = [];
+        var errorList=[];
+        
         $('.addedRows').each(function() {
                 var this_row={};                
                 $(this).find("input").each(function(){                
@@ -147,13 +169,28 @@ $('.openRejectPopup').on('click',function(){
                 	this_row[keyvalue] = namevalue;
                 	all_rows.push(this_row);
                 	keyDisplay.push(keyvalue);
+                	valueText.push(namevalue);
                 }
                  
             });          
 
         });
         console.log(all_rows);               
-        
+        var arrayLength = valueText.length;
+	    for (var i = 0; i < arrayLength; i++) {
+	        console.log(valueText[i]);
+	        var value = valueText[i];        	        
+	        if (!value.match(/^[a-zA-Z0-9. ]+$/)) 
+		    {    				 
+			 errorList.push('Only alphabets and numbers are allowed');    			        
+		    }
+	    }
+	    
+	    if(errorList.length>0){       			 			 
+	    	$("#myModal").modal();
+        	$("#para").html("Only alphabets and numbers are allowed in Remarks by Approver");
+		 	}else{
+
         $.ajax({
             type: "POST",
             //url: "/hm/saveCheckerComments?array="+all_rows,
@@ -171,6 +208,7 @@ $('.openRejectPopup').on('click',function(){
             	console.log('Failed');
             }
         });
+	   }
     });
 });
 

@@ -59,13 +59,13 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 	 public Page<TicketCentorDto> findPaginated(final int page, final int size){
 		 logger.info("Inside======findPaginated===========");
 		 Page<TicketCentorDto> entities = ticketCentorRepo.findAll(PageRequest.of(page, size)).map(TicketCentorDto::new);
-		 TicketCentorDto ticketCentorDto= new TicketCentorDto();
-		 for(TicketCentorDto dto:entities.getContent()){
+		 
+		 for(TicketCentorDto dto:entities){
 			 
 			 String kioskId=dto.getKisokId();
 			 
 			 String kioskBranchMaster= kioskMasterRepo.findKioskByKioskId_circle(kioskId);
-			 ticketCentorDto.setServeriry(kioskBranchMaster);
+			 dto.setServeriry(kioskBranchMaster);
 			 System.out.println(dto.getKisokId());
 			 
 			 
@@ -406,8 +406,8 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 			logger.info("Inside======findPaginatedCmf===========");
 			UserDto user = (UserDto) session().getAttribute("userObj"); 
 			Page<TicketCentorDto> entities = ticketCentorRepo.findAllByCMFUser(user.getPfId(),PageRequest.of(page, size)).map(TicketCentorDto::new);
-			 TicketCentorDto ticketCentorDto= new TicketCentorDto();
-			 for(TicketCentorDto dto:entities.getContent()){
+			 
+			 for(TicketCentorDto dto:entities){
 				 
 				 String kioskId=dto.getKisokId();
 				 
@@ -427,8 +427,8 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 			Set<String> supList =  supervisorRepository.findPfIdListByPfIdSupervisor(supPfId);
 			
 			Page<TicketCentorDto> entities = ticketCentorRepo.findAllByCMFUserForCMS(supList,PageRequest.of(page, size)).map(TicketCentorDto::new);
-			 TicketCentorDto ticketCentorDto= new TicketCentorDto();
-			 for(TicketCentorDto dto:entities.getContent()){
+			 
+			 for(TicketCentorDto dto:entities){
 				 
 				 String kioskId=dto.getKisokId();
 				 

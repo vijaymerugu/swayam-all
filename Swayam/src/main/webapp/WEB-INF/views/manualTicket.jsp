@@ -27,8 +27,7 @@ button {
     opacity: 0.9;
 }
 .buttonManual {
-    background-color: #FDD209;
-    border-top: 2px #FDD209;
+    background-color: #FDD209;    
     border-bottom-width: 4px #FDD209;
     top: 670px;
     left: 579px;
@@ -37,25 +36,7 @@ button {
     height: 32px;
     opacity: 1;
 }
-input[type=button], input[type=submit], input[type=reset] {
-    background-color: #FDD209;
-    /* border: 95px; */
-    color: black;
-    padding: 1px 14px;
-    text-decoration: none;
-    margin: -5px 23px;
-    cursor: pointer;
-}
-input[type=submit], input[type=reset] {
-    background-color: #FDD209;
-    height: 34px;
-    border-top: 1px #F2F1EF;
-    border-left: 2px whtie;
-    border-bottom-width: 4px #F2F1EF;
-    width: 72%;
-    align: center;
-    border-bottom-width: 0px;
-}
+
 .okButton{
 background-color: #FFFFFF;
     /* border: 95px; */
@@ -99,15 +80,7 @@ label {
 	display: inline-block;
 }
 
-input[type=submit] {
-	background-color: #4CAF50;
-	color: white;
-	padding: 12px 20px;
-	border: NONE;
-	border-radius: 4px;
-	cursor: pointer;
-	float: center;
-}
+
 
 input[type=submit]:hover {
 	background-color:#fced19;
@@ -164,24 +137,7 @@ input[type=submit]:hover {
 </style>
 <style>
 /* The Modal (background) */
-input[type=button]{
 
-background-color:yellow;
-  border-top:2px yellow;
-  border-bottom-width: 4px yellow;
-  width: 40%;
-  align:center
-  border-bottom-width: 5px;
-
-} input[type=submit], input[type=reset] {
-  background-color: #F2F1EF;
-  height: 50px;
-  border-top:1px #F2F1EF;
-  border-left:2px whtie;
-  border-bottom-width: 4px #F2F1EF;
-  width: 72%;
-  align:center;
-  border-bottom-width: 0px;}
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
@@ -302,14 +258,46 @@ body {font-family: Arial, Helvetica, sans-serif;}
 </style>
 <style type="text/css">
 input[type=button], input[type=submit], input[type=reset] {
-  background-color: #f5e947;
-  border: 4px ;
-  color: black;
-  padding: 6px 14px;
-  text-decoration: none;
-  margin: 4px 2px;
-  cursor: pointer;
-  }
+    background-color: #f2a50a;
+    /* border: 95px; */
+    color: black;
+    padding: 1px 14px;
+    text-decoration: none;    
+    cursor: pointer;
+}
+input[type=submit], input[type=reset] {
+    background-color: #f2a50a;
+    height: 34px;
+    border-top: 1px #F2F1EF;
+    border-left: 2px whtie;
+    border-bottom-width: 4px #F2F1EF;
+    width: 72%;
+    align: center;
+    border-bottom-width: 0px;
+}
+button, html input[type=button], input[type=reset], input[type=submit] {
+    -webkit-appearance: button;
+    cursor: pointer;
+}
+.button {
+    background-color: #FDD209;
+    border-top: 2px #FDD209;
+    border-bottom-width: 4px #FDD209;    
+    left: 579px;
+    width: 97px;
+    height: 32px;
+    opacity: 1;
+}
+
+.reset {
+    background-color: #FDD209;
+    border-top: 2px #FDD209;
+    border-bottom-width: 4px #FDD209;    
+    left: 579px;
+    width: 97px;
+    height: 32px;
+    opacity: 1;
+}
 </style>
 <style>
 
@@ -344,9 +332,9 @@ input[type=text], select {
 
 <script type="text/javascript">
 $(document).ready(function(){
-	debugger;	
+		
 	$('#branchCode').blur(function(){
-		debugger;
+		
 		 brCode=document.getElementById("branchCode").value;
 		 if(brCode==""){
 			 $("#branchCode12").html("Please Enter Branch Code");	 
@@ -355,7 +343,7 @@ $(document).ready(function(){
 			 $("#vendor12").html('');
 		 document.getElementById("brCode").innerHTML=brCode;
 			var respos;
-		 console.log("inside bluer function...."+brCode);
+		 console.log("inside bluer function...."+brCode);		 
 	         	        $.ajax({
 	        	type:"GET",
 	        	url:"getByBranchCode/"+brCode,
@@ -363,6 +351,7 @@ $(document).ready(function(){
 	        	 respos=data;
 	           
 	            $("#vendor").html('');
+	            $("#vendor").append('<option value=\'Select\'>Select</option>'); 
 	        	  $.each(respos, function(index){
 	        		 // alert(respos[index].branchName);
 	             //      $("#kioskId").append('<option value='+respos[index].kioskId+'>'+respos[index].kioskId+'</option>');
@@ -379,7 +368,7 @@ $(document).ready(function(){
 	    });
 	
 	 $('#kioskId').blur(function() {
-		 debugger;
+		 
 		 // $(this).val() will work here
 		 var respos="";
 		    var kioskId=$("#kioskId").val();
@@ -415,7 +404,7 @@ $(document).ready(function(){
 		});
 	  
 	 $('#vendor').change(function() {
-		  debugger;
+		  
 			$("#vendor1").html($("#vendor").val());
 			var branchcode=$("#branchCode").val();
 			var vendor=$("#vendor").val();
@@ -423,11 +412,11 @@ $(document).ready(function(){
 		    $("#kioskId12").html('');
 			$.ajax({
 		        	type:"GET",
-		        	url:"getByVendor/"+vendor+"/"+branchcode,
+		        	url:"getByVendor/"+vendor+"/"+branchcode,		        	
 		         success: function(data){
 		        	 respos=data;
 		            $("#kioskId").html('');
-		           
+		            $("#kioskId").append('<option value=\'Select\'>Select</option>'); 
 		        	  $.each(respos, function(index){
 		        		  $("#kioskId").append('<option value='+respos[index].kioskId+'>'+respos[index].kioskId+'</option>'); 
 		        	  });
@@ -438,7 +427,7 @@ $(document).ready(function(){
 });
 
 function fromValidation(){
-    debugger;	
+    	
 	var errorList=[];
 	var branchcode=$("#branchCode").val();
 	var vendor=$("#vendor").val();
@@ -463,7 +452,7 @@ function fromValidation(){
 		 errorList.push("Please enter comment");
 	 }
 	 else{
-		 if (!comment.match(/^[a-zA-Z0-9 ]+$/)) 
+		 if (!comment.match(/^[a-zA-Z0-9., ]+$/)) 
 		    {
 			 errorList.push('Only alphabets and numbers are allowed');
 		        
@@ -494,7 +483,7 @@ function saveform(){
 	var modal = document.getElementById("myModal");
 	var span = document.getElementsByClassName("close")[0];
 	//formData = "branchCode=MUM&vendor=CMS-&kioskId=KIOSKID_4&kioskError=Kiosk&comment=jfadfjafadf"
-		debugger;
+		
 		var resp='';
 	    circle=document.getElementById("circle1");
 		console.log("circle :"+circle);
@@ -506,8 +495,8 @@ function saveform(){
 	        	data:formData,
 	         success: function(data){
 	        	 resp=data;       	 	        	 
-	        	 $("#para").html("  Your complaint `INC"+resp+"` has been successfully registered" ); 
-	        	modal.style.display = "block";
+	        	 $("#para").html(resp); 
+	 	        	modal.style.display = "block";
 	        	 
 	         }
 	        });
@@ -550,7 +539,7 @@ function displayErrorsOnPage() {
 		 $("#comment12").html("Please enter comment");
 	 }
 	 else{
-		 if (!comment.match(/^[a-zA-Z0-9 ]+$/)) 
+		 if (!comment.match(/^[a-zA-Z0-9., ]+$/)) 
 		    {
 			 $("#comment12").html('Only alphabets and numbers are allowed');
 		        
@@ -563,6 +552,13 @@ function cloesBox(){
 	var modal = document.getElementById("myModal");
 	 modal.style.display = "none";
 	 $('#form')[0].reset();
+	 $("#brCode").html("");
+	 $("#vendor1").html("");
+	 $("#kioskId1").html("");
+	 $("#circle").html("");
+	 $("#contactPerson1").html("");
+	 $("#contactNo1").html("");
+	 $("#branchName2").html("");
 }
 </script>
 <body background="color:white">

@@ -421,7 +421,7 @@ function fromValidation(){
 		 errorList.push("Please enter comments ");		 
 	 }
 	 else{
-		 if (!comments.match(/^[a-zA-Z0-9 ]+$/)) 
+		 if (!comments.match(/^[a-zA-Z0-9., ]+$/)) 
 		    {
 			 errorList.push('Only alphabets and numbers are allowed');
 		        
@@ -510,7 +510,7 @@ function fromValidation(){
 				$("#commentsId").html("Please Enter comments");
 			}
 			else{
-				 if (!$("#comments").val().match(/^[a-zA-Z0-9 ]+$/)) 
+				 if (!$("#comments").val().match(/^[a-zA-Z0-9., ]+$/)) 
 				    {
 					 $("#commentsId").html('Only alphabets and numbers are allowed');
 				        
