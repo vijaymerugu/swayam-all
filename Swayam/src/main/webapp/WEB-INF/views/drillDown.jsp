@@ -57,14 +57,14 @@
               
               <!-- <label for="exampleInput">Pick a date in 2013:</label> -->
               
-                   From Date: <input type="date" id="exampleInput" name="input1" ng-model="fromDate.value"
+                   From Date: <input type="date" id="exampleInput" name="input1" ng-model="searchDateStart"
                               placeholder="yyyy-MM-dd" min="2020-01-01" max="2020-12-31" required/>
             
-                   To Date : <input type="date" id="exampleInput" name="input2" ng-model="toDate.value"
+                   To Date : <input type="date" id="exampleInput" name="input2" ng-model="searchDateEnd"
                               placeholder="yyyy-MM-dd" min="2020-01-01" max="2020-12-31" required/>                
                              
 			  <button ng-click="">Reset</button>	  
-		      <button ng-click="loadHomeBodyPageFormsGenerate()">Generate</button>
+		      <button ng-click="searchPositions(searchDateStart,searchDateEnd)">Generate</button>
 				     
 			  </div> 
 			   

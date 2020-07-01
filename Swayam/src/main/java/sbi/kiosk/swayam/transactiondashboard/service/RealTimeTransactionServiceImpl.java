@@ -56,7 +56,6 @@ public class RealTimeTransactionServiceImpl implements RealTimeTransactionServic
 				System.out.println("entities=Size()::::"+list);
 				for(RealTimeTransaction swayamTxn:list){
 					System.out.println("swayamTxn=11="+swayamTxn.getCrclName());
-					System.out.println("swayamTxn=22="+swayamTxn.getFromDate());
 					System.out.println("swayamTxn=33="+swayamTxn.getBranchName());
 				}
 				

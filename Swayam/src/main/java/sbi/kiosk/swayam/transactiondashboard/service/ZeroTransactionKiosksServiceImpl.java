@@ -1,5 +1,7 @@
 package sbi.kiosk.swayam.transactiondashboard.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
 import sbi.kiosk.swayam.common.dto.ZeroTransactionKiosksDto;
 import sbi.kiosk.swayam.common.entity.DrillDown;
 import sbi.kiosk.swayam.common.entity.ZeroTransactionKiosks;
@@ -34,11 +37,17 @@ public Page<ZeroTransactionKiosksDto> findPaginated(final int page, final int si
 }
 	
 	@Override
-	public Page<ZeroTransactionKiosks> findPaginatedByDate(final int page, final int size, String fromDate, String toDate){
+	public Page<ZeroTransactionKiosks> findPaginatedByDate(final int page, final int size, String fromdate, String todate){
 	
-		List<ZeroTransactionKiosks> list= nearByEntities(fromDate,toDate);
+		//List<ZeroTransactionKiosks> list= nearByEntities(fromDate,toDate);
+		if((fromdate ==null || fromdate.isEmpty()) && (todate ==null || todate.isEmpty())){
+			SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+			Date curDate=new Date();
+			fromdate=sdf.format(curDate);
+			todate=sdf.format(curDate);
+		}
 				
-        Page<ZeroTransactionKiosks> pageDto = new PageImpl<ZeroTransactionKiosks>(list, PageRequest.of(page, size),list.size());
+        Page<ZeroTransactionKiosks> pageDto = zeroTransactionKiosksRepository.findByDate(fromdate, todate, PageRequest.of(page, size));
 		 
         System.out.println("entities======pageDto========Size()::::"+pageDto.getContent());
 		 

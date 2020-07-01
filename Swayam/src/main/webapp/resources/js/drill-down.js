@@ -8,35 +8,48 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
    };
    
    var counttype = "";
-     
-     $scope.fromDate = {
-    	       value: new Date(2020, 12, 22)
-     };
-     
-     $scope.toDate = {
-    	       value: new Date(2020, 12, 22)
-     };
+   var circleName="";
+   var networkName="";
+   var moduleName="";
+   var regionName="";     
+   var fromDate = "";
+   var toDate= "";
      
    $scope.loadHomeBodyPageForms = function(url){	   
 		if(url != undefined){	
-			var str ='td/drillDownNetwork?circleName=' + url;
+			var str ='td/drillDownNetwork?circleName='+url+'&fromDate='+fromDate+'&toDate='+toDate;
 			$("#contentHomeApp").load(str);
 		}						
 	}
+   
+   function convertDate(dateParam){
+	   var result="";
+	   var date = new Date(dateParam);
+       var year = date.getFullYear();
+       var rawMonth = parseInt(date.getMonth()) + 1;
+       var month = rawMonth < 10 ? '0' + rawMonth : rawmonth;
+       var rawDay = parseInt(date.getDate());
+       var day = rawDay < 10 ? '0' + rawDay : rawDay; 
+       console.log(year + '-' + month + '-' + day);
+	   
+	     // result= year+"-"+month+"-"+day;
+	      result= day+"-"+month+"-"+year;
+	    //  alert("return --result::: "+result);
+	      return result;
+	  }
   
- $scope.loadHomeBodyPageFormsGenerate = function(){	
-	 $scope.fromDate.value = $filter('date')($scope.fromDate.value, "dd-MMM-yy");
-	 console.log($scope.fromDate.value);
-	 $scope.toDate.value = $filter('date')($scope.toDate.value, "dd-MMM-yy");
-	 console.log($scope.toDate.value);
+   $scope.searchPositions= function(startDate,endDate){
+	 	  fromDate= convertDate(startDate);
+		// alert("fromDate=="+fromDate);   
+		  toDate=  convertDate(endDate);
 	 
-    	var circleName="";
-    	var networkName="";
-    	var moduleName="";
-    	var regionName="";
+    	 circleName="";
+    	 networkName="";
+    	 moduleName="";
+    	 regionName="";
     	
     	DrillDownService.getUsers(paginationOptions.pageNumber,
-    			   paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName,$scope.fromDate.value,$scope.toDate.value).success(function(data){
+    			   paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
     		  $scope.gridOptions.data = data.content;
     	 	  $scope.gridOptions.totalItems = data.totalElements;
     	   });
@@ -46,7 +59,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
       
        counttype=type;
        DrillDownService.getUsers(paginationOptions.pageNumber,
-			   paginationOptions.pageSize,counttype).success(function(data){
+			   paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
 				   
 					  $scope.gridOptions.data = data.content;
 				 	  $scope.gridOptions.totalItems = data.totalElements;
@@ -58,7 +71,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
    {  	
 	   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
 	 	   UserManagementService.getUsers(paginationOptions.pageNumber,
-	 			   paginationOptions.pageSize,counttype).success(function(data){
+	 			   paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
 	 		  $scope.gridOptions.data = data.content;
 	 	 	  $scope.gridOptions.totalItems = data.totalElements;
 	 	   });	   
@@ -69,7 +82,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
 	 		   
 	 	    }else{
 	 	    	UserManagementService.getUsers(paginationOptions.pageNumber,
-	 	 			   paginationOptions.pageSize,counttype).success(function(data){
+	 	 			   paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
 	 	 		  $scope.gridOptions.data = data.content;
 	 	 	 	  $scope.gridOptions.totalItems = data.totalElements;
 	 	 	   });
@@ -77,7 +90,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
 	    };
 
    DrillDownService.getUsers(paginationOptions.pageNumber,
-		   paginationOptions.pageSize,counttype).success(function(data){
+		   paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
 	  $scope.gridOptions.data = data.content;
  	  $scope.gridOptions.totalItems = data.totalElements;
    });
@@ -107,11 +120,11 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
       }], 
 
     columnDefs: [
-      { name: 'circleName',
+      { name: 'name',
       	  exporterSuppressExport: true,
       	  headerCellTemplate: '<div>Circle</div>',
       	  superCol: 'front',
-      	  cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.circleCode)">{{row.entity.circleName}}</a></div>'
+      	  cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.code)">{{row.entity.name}}</a></div>'
       },
       { name: 'totalSwayamBranches', displayName: 'Total Swayam Branches',superCol: 'front'  },
       { name: 'totalSwayamKiosks', displayName: 'Total Swayam Kiosks',superCol: 'front'  },
@@ -130,7 +143,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
           paginationOptions.pageNumber = newPage;
           paginationOptions.pageSize = pageSize;
-          DrillDownService.getUsers(newPage,pageSize,counttype).success(function(data){
+          DrillDownService.getUsers(newPage,pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
         	  $scope.gridOptions.data = data.content;
          	  $scope.gridOptions.totalItems = data.totalElements;
           });
@@ -190,7 +203,7 @@ app.directive('superColWidthUpdate', ['$timeout', function ($timeout) {
 app.service('DrillDownService',['$http', function ($http) {
 	
 	function getUsers(pageNumber,size,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate) {
-		
+		alert("fromDate:: "+fromDate);
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({
           method: 'GET',

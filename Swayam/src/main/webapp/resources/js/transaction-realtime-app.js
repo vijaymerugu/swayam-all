@@ -2,7 +2,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 
 app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService', function ($scope, $filter,UserManagementService) {
    var paginationOptions = {
-     pageNumber: 1,
+     pageNumber: 0,
 	 pageSize: 5,
 	 sort: null
    };
