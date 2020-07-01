@@ -2,38 +2,39 @@
 <html lang="en">
 <head>
 <link rel="stylesheet" href="http://cdn.rawgit.com/angular-ui/ui-grid.info/gh-pages/release/3.0.0-rc.20/ui-grid.min.css">
-<script	src="/resources/js/angular.1.5.6.min.js"></script>
-<script src="/resources/js/jquery.3.4.1.min.js"></script>
-<script src="/resources/js/bootstrap.3.4.1.min.js"></script>
-<link rel="stylesheet" href="/resources/css/ui-grid.4.8.3.min.css">
+<script	src="resources/js/angular.1.5.6.min.js"></script>
+<script src="resources/js/jquery.3.4.1.min.js"></script>
+<script src="resources/js/bootstrap.3.4.1.min.js"></script>
+<link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
 
 <script
 	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
-<script src="/resources/js/drill-down-Module.js"></script>
-<script	src="/resources/js/angular.1.5.6.min.js"></script>
-<link rel="stylesheet" href="/resources/css/grid-style.css"/>
-<link rel="stylesheet" href="/resources/css/body-page.css"/>
+<script src="resources/js/drill-down-Module.js"></script>
+<script	src="resources/js/angular.1.5.6.min.js"></script>
+<link rel="stylesheet" href="resources/css/grid-style.css"/>
+<link rel="stylesheet" href="resources/css/body-page.css"/>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
 <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script> 
-<link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css" type="text/css"/>
+<link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/>
 
 
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="resources/css/style.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+    <script src="resources/js/csv.js"></script>
+    <script src="resources/js/pdfmake.js"></script>
+    <script src="resources/js/vfs_fonts.js"></script>
+    <script src="resources/js/lodash.min.js"></script>
+    <script src="resources/js/jszip.min.js"></script>
+    <script src="resources/js/excel-builder.dist.js"></script>  
+    <script src="resources/js/angular.js"></script>
+    <script src="resources/js/angular-touch.js"></script>
+    <script src="resources/js/angular-animate.js"></script>
+    <script src="resources/js/angular-aria.js"></script>
 
-<script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/lodash.min.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/jszip.min.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/excel-builder.dist.js"></script>  
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-touch.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-animate.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-aria.js"></script>
 
 <script>
   $( function() {
@@ -57,6 +58,8 @@
           
 <input type="text" id="circleName" value="${circleName}">
 <input type="text" id="networkName" value="${networkName}">
+<input type="text" id="fromDate" value="${fromDate}">
+<input type="text" id="toDate" value="${toDate}">
 
 			<%-- <table class="table1" style="border: 1px solid #eee;">
 				

@@ -42,8 +42,14 @@ public class DrillDownController {
 			System.out.println("drillDownNetworkList");
 			
 			String circleName = request.getParameter("circleName");
+			String fromDate = request.getParameter("fromDate");
+			String toDate = request.getParameter("toDate");
 			
 			model.addObject("circleName", circleName);
+			model.addObject("fromDate", fromDate);
+			model.addObject("toDate", toDate);
+			
+			model.setViewName("drillDownNetwork");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -61,10 +67,15 @@ public class DrillDownController {
 			
 			String circleName = request.getParameter("circleName");	
 			String networkName = request.getParameter("networkName");
+			String fromDate = request.getParameter("fromDate");
+			String toDate = request.getParameter("toDate");
 			
 			model.addObject("circleName", circleName);
 			model.addObject("networkName", networkName);
+			model.addObject("fromDate", fromDate);
+			model.addObject("toDate", toDate);
 			
+			model.setViewName("drillDownModule");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -82,10 +93,14 @@ public class DrillDownController {
 			String circleName = request.getParameter("circleName");	
 			String networkName = request.getParameter("networkName");
             String moduleName = request.getParameter("moduleName");
+            String fromDate = request.getParameter("fromDate");
+			String toDate = request.getParameter("toDate");
                      
             model.addObject("circleName", circleName);
 			model.addObject("networkName", networkName);
 			model.addObject("moduleName", moduleName);
+			model.addObject("fromDate", fromDate);
+			model.addObject("toDate", toDate);
 			
 			model.setViewName("drillDownRegion");
 			
@@ -108,11 +123,15 @@ public class DrillDownController {
 			String networkName = request.getParameter("networkName");
             String moduleName = request.getParameter("moduleName");
             String regionName = request.getParameter("regionName");
+            String fromDate = request.getParameter("fromDate");
+			String toDate = request.getParameter("toDate");
 			
             model.addObject("circleName", circleName);
 			model.addObject("networkName", networkName);
 			model.addObject("moduleName", moduleName);
 			model.addObject("regionName", regionName);
+			model.addObject("fromDate", fromDate);
+			model.addObject("toDate", toDate);
 						
 			model.setViewName("drillDownBranch");
 			
@@ -136,8 +155,8 @@ public class DrillDownController {
 		 Page<DrillDown> resultPage = null;
 		 
 		 if(fromDate.equals("undefined") || toDate.equals("undefined")) {		
-				fromDate="05-MAY-20";
-				toDate="20-MAY-20";
+				//fromDate="05-MAY-20";
+				//toDate="20-MAY-20";
 	     }
 		 
 		 if(networkName.equals("undefined") || moduleName.equals("undefined") || regionName.equals("undefined")) {	 
@@ -146,7 +165,7 @@ public class DrillDownController {
 			 regionName="";
 		 }
 		 
-		 if(!circleName.equals("undefined")) {
+		 if(fromDate !=null && !fromDate.isEmpty() && toDate !=null && !toDate.isEmpty()) {
 		 
 				resultPage = drillDownService.findPaginatedByTxnDate(page, size, fromDate, toDate, circleName, networkName, moduleName, regionName);
 		 

@@ -2,74 +2,75 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 
 app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService', function ($scope, $filter,UserManagementService) {
    var paginationOptions = {
-     pageNumber: 1,
-	 pageSize: 5,
-	 sort: null
+     pageNumber: 0,
+pageSize: 5,
+sort: null
    };
  
-  
-  
+   var fromDate = "";
+   var toDate= "";
    
    function convertDate(dateParam){
-	   var result="";
-	   var date = new Date(dateParam);
+  var result="";
+  var date = new Date(dateParam);
        var year = date.getFullYear();
        var rawMonth = parseInt(date.getMonth()) + 1;
        var month = rawMonth < 10 ? '0' + rawMonth : rawmonth;
        var rawDay = parseInt(date.getDate());
-       var day = rawDay < 10 ? '0' + rawDay : rawDay; 
+       var day = rawDay < 10 ? '0' + rawDay : rawDay;
        console.log(year + '-' + month + '-' + day);
-	   
-	      result= year+"-"+month+"-"+day;
-	    //  alert("return --result::: "+result);
-	      return result;
-	  }
+ 
+    // result= year+"-"+month+"-"+day;
+       result= day+"-"+month+"-"+year;
+   //  alert("return --result::: "+result);
+     return result;
+ }
 
-	 
-		
-    
+
+
+   
    $scope.searchPositions= function(startDate,endDate){
-	  // alert("From=="+startDate);
-	  // convertDate(startDate);
-		 var fromDate= convertDate(startDate);
-		// alert("fromDate=="+fromDate);   
-		 var toDate=  convertDate(endDate);
-		 //alert("toDate=="+toDate);   
+ // alert("From=="+startDate);
+ // convertDate(startDate);
+ fromDate= convertDate(startDate);
+// alert("fromDate=="+fromDate);  
+ toDate=  convertDate(endDate);
+//alert("toDate=="+toDate);  
      
-	
-	
-	   UserManagementService.getUsers(paginationOptions.pageNumber,
-			   paginationOptions.pageSize,fromDate,toDate).success(function(data){
-					  $scope.gridOptions.data = data.content;
-				 	  $scope.gridOptions.totalItems = data.totalElements;
-				   });
-	   
+
+
+  UserManagementService.getUsers(paginationOptions.pageNumber,
+  paginationOptions.pageSize,fromDate,toDate).success(function(data){
+ $scope.gridOptions.data = data.content;
+ $scope.gridOptions.totalItems = data.totalElements;
+  });
+ 
    }
    
    $scope.refresh = function()
-   {  		if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
-	
-		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);
-	    }else{
-	    	
-		   $scope.gridOptions.data = $scope.gridOptions.data;
-	    }
+   {   if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
+
+  $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);
+   }else{
+   
+  $scope.gridOptions.data = $scope.gridOptions.data;
+   }
    };
 
    UserManagementService.getUsers(paginationOptions.pageNumber,
-		   paginationOptions.pageSize).success(function(data){
-	  $scope.gridOptions.data = data.content;
- 	  $scope.gridOptions.totalItems = data.totalElements;
+  paginationOptions.pageSize,fromDate,toDate).success(function(data){
+ $scope.gridOptions.data = data.content;
+   $scope.gridOptions.totalItems = data.totalElements;
    });
    
    $scope.gridOptions = {
     paginationPageSizes: [5, 10, 20],
-    paginationPageSize: paginationOptions.pageSize,	
-	enableColumnMenus:false,
-	useExternalPagination: true,
-	enableGridMenu: true,
-	exporterMenuCsv: false,
-	exporterPdfDefaultStyle: {fontSize: 9},   
+    paginationPageSize: paginationOptions.pageSize,
+enableColumnMenus:false,
+useExternalPagination: true,
+enableGridMenu: true,
+exporterMenuCsv: false,
+exporterPdfDefaultStyle: {fontSize: 9},  
     exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, color: 'black'},      
     exporterPdfFooter: function ( currentPage, pageCount ) {
       return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
@@ -78,8 +79,8 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
         docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
         return docDefinition;
       },
-      
-      
+     
+     
       headerTemplate: 'km/headerTemplate',
       superColDefs: [{
           name: 'lipi',
@@ -117,14 +118,14 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
           paginationOptions.pageNumber = newPage;
           paginationOptions.pageSize = pageSize;
-          UserManagementService.getUsers(newPage,pageSize).success(function(data){
-        	  $scope.gridOptions.data = data.content;
-         	  $scope.gridOptions.totalItems = data.totalElements;
+          UserManagementService.getUsers(newPage,pageSize,fromDate,toDate).success(function(data){
+         $scope.gridOptions.data = data.content;
+           $scope.gridOptions.totalItems = data.totalElements;
           });
         });
      }
   };
-  
+ 
 }]);
 
 
@@ -144,13 +145,13 @@ app.directive('superColWidthUpdate', ['$timeout', function ($timeout) {
                   var _parentCol = jQuery('.ui-grid-header-cell[col-name="' + _colId + '"]');
                   var _parentWidth = _parentCol.outerWidth(),
                       _width = _el.outerWidth();
-                  
+                 
                   if (_parentWidth + 1 >= _width) {
                     _parentWidth = _parentWidth + _width;
                   } else {
                     _parentWidth = _width;
                   }
-                  
+                 
                   _parentCol.css({
                       'min-width': _parentWidth + 'px',
                       'max-width': _parentWidth + 'px',
@@ -165,19 +166,18 @@ app.directive('superColWidthUpdate', ['$timeout', function ($timeout) {
 
 
 app.service('UserManagementService',['$http', function ($http) {
-	//alert("123");
-	function getUsers(pageNumber,size,begin,end) {
-		//alert("12==="+begin);
-		//alert("13==="+end);
-		pageNumber = pageNumber > 0?pageNumber - 1:0;
+//alert("123");
+function getUsers(pageNumber,size,begin,end) {
+alert("12= fromdate=="+begin);
+alert("13=todate=="+end);
         return  $http({
           method: 'GET',
           url: 'td/dashBoardTxnBM/get?page='+pageNumber+'&size='+size+'&fromdate='+begin+'&todate='+end
         });
     }
-	
+
     return {
-    	getUsers:getUsers
+    getUsers:getUsers
     };
-	
+
 }]);
