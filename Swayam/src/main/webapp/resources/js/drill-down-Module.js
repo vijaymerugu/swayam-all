@@ -7,7 +7,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
 	 sort: null
    };
    
-   var counttype = "";
+   var counttype = "MOD";
    var circleName = document.getElementById("circleName").value;
    var networkName = document.getElementById("networkName").value;
    var fromDate = document.getElementById("fromDate").value;

@@ -55,7 +55,7 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
 	   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
 	 	   UserManagementService.getUsers(paginationOptions.pageNumber,
 	 			   paginationOptions.pageSize,counttype,fromDate,toDate).success(function(data){
-	 				   alert(1);
+	 				   
 	 		  $scope.gridOptions.data = data.content;
 	 	 	  $scope.gridOptions.totalItems = data.totalElements;
 	 	   });	   
@@ -67,7 +67,7 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
 	 	    }else{
 	 	    	UserManagementService.getUsers(paginationOptions.pageNumber,
 	 	 			   paginationOptions.pageSize,counttype,fromDate,toDate).success(function(data){
-	 	 				 alert(2);
+	 	 				 
 	 	 		  $scope.gridOptions.data = data.content;
 	 	 	 	  $scope.gridOptions.totalItems = data.totalElements;
 	 	 	   });

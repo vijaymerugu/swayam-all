@@ -51,7 +51,7 @@
 <div ng-controller="DrillDownCtrl as vm">
 <div>
 
-			 <table class="table1" style="border: 1px solid #eee;">
+			 <table class="" style="border: 1px solid #eee;">
 				
               <div> 
               

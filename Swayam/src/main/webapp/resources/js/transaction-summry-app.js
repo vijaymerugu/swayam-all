@@ -56,6 +56,28 @@ sort: null
   $scope.gridOptions.data = $scope.gridOptions.data;
    }
    };
+   $scope.refresh = function()
+   {  	
+	   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
+	   		UserManagementService.getUsers(paginationOptions.pageNumber,
+	   			  paginationOptions.pageSize,fromDate,toDate).success(function(data){
+	   			 $scope.gridOptions.data = data.content;
+	   			   $scope.gridOptions.totalItems = data.totalElements;
+	   			   });   
+	 		   
+	 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
+	 	  
+	 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
+	 		   
+	 	    }else{
+	 	    	UserManagementService.getUsers(paginationOptions.pageNumber,
+	 	    			  paginationOptions.pageSize,fromDate,toDate).success(function(data){
+	 	    			 $scope.gridOptions.data = data.content;
+	 	    			   $scope.gridOptions.totalItems = data.totalElements;
+	 	    			   });
+	 	    }
+	    };
+
 
    UserManagementService.getUsers(paginationOptions.pageNumber,
   paginationOptions.pageSize,fromDate,toDate).success(function(data){
@@ -83,6 +105,9 @@ exporterPdfDefaultStyle: {fontSize: 9},
      
       headerTemplate: 'km/headerTemplate',
       superColDefs: [{
+          name: 'front',
+          displayName: ''
+      },{
           name: 'lipi',
           displayName: 'LIPI'
       }, {
@@ -94,15 +119,18 @@ exporterPdfDefaultStyle: {fontSize: 9},
       }, {
           name: 'total',
           displayName: 'Total'
+      }, {
+          name: 'back',
+          displayName: ''
       }],
 
     columnDefs: [
-      { name: 'crclName', displayName: 'Circle'  },
-      { name: 'network', displayName: 'NW'  },
-      { name: 'module', displayName: 'Mode'  },
-      { name: 'region', displayName: 'Reg'  },
-      { name: 'branchCode', displayName: 'Branch Code'},
-      { name: 'branchName', displayName: 'Branch Name'  },
+      { name: 'crclName', displayName: 'Circle',superCol: 'front'  },
+      { name: 'network', displayName: 'NW',superCol: 'front'  },
+      { name: 'module', displayName: 'Mode',superCol: 'front'  },
+      { name: 'region', displayName: 'Reg',superCol: 'front'  },
+      { name: 'branchCode', displayName: 'Branch Code',superCol: 'front'},
+      { name: 'branchName', displayName: 'Branch Name',superCol: 'front'  },
       { name: 'aaKioskCount', displayName: 'No Of Kios',superCol: 'lipi'},
       { name: 'aaTxnCount', displayName: 'Txn', superCol: 'lipi'},
       { name: 'bbKioskCount', displayName: 'No Of Kios',superCol: 'Forbes' },
@@ -111,7 +139,7 @@ exporterPdfDefaultStyle: {fontSize: 9},
       { name: 'ccTxnCount', displayName: 'Txn',superCol: 'CMS'},
       { name: 'swayamTxn', displayName: 'SWAYAM Txn',superCol: 'total'},
       { name: 'branchTxn', displayName: 'Branch Txn',superCol: 'total' },
-      { name: 'migrationPerc', displayName: 'Migration (%)'}
+      { name: 'migrationPerc', displayName: 'Migration (%)',superCol: 'back'}
     ],
     onRegisterApi: function(gridApi) {
         $scope.gridApi = gridApi;
@@ -168,8 +196,8 @@ app.directive('superColWidthUpdate', ['$timeout', function ($timeout) {
 app.service('UserManagementService',['$http', function ($http) {
 //alert("123");
 function getUsers(pageNumber,size,begin,end) {
-alert("12= fromdate=="+begin);
-alert("13=todate=="+end);
+//alert("12= fromdate=="+begin);
+//alert("13=todate=="+end);
         return  $http({
           method: 'GET',
           url: 'td/dashBoardTxnBM/get?page='+pageNumber+'&size='+size+'&fromdate='+begin+'&todate='+end

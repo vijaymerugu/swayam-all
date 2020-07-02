@@ -11,7 +11,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	     
    }
    
-   var yesterdayType = "today";
+   var yesterdayType = "yesterday";
    
    $scope.getCountType = function(yesterday){
 	    yesterdayType=yesterday;
@@ -41,6 +41,16 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	}
   
    $scope.refresh = function()
+   {  		if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
+	
+		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);
+	    }else{
+	    	
+		   $scope.gridOptions.data = $scope.gridOptions.data;
+	    }
+   };
+   
+   $scope.refresh = function()
    {  	
 	   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
 	   	 UserManagementService.getUsers(paginationOptions.pageNumber,
@@ -61,6 +71,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	 	    	   });
 	 	    }
 	    };
+
 
    UserManagementService.getUsers(paginationOptions.pageNumber,
 		   paginationOptions.pageSize,yesterdayType).success(function(data){

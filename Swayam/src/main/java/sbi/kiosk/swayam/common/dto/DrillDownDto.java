@@ -11,17 +11,6 @@ public class DrillDownDto {
 	}
 	
 	public DrillDownDto(DrillDown drillDown) {
-		
-		this.circleName = drillDown.getCircleName();
-		this.circleCode = drillDown.getCircleCode();
-		this.network = drillDown.getNetwork();
-		this.networkCode = drillDown.getNetworkCode();
-		this.module = drillDown.getModule();
-		this.moduleCode = drillDown.getModuleCode();
-		this.region = drillDown.getRegion();
-		this.regionCode = drillDown.getRegionCode();
-		this.branchName = drillDown.getBranchName();
-		this.totalSwayamBranches = drillDown.getTotalSwayamBranches();
 		this.totalSwayamKiosks = drillDown.getTotalSwayamKiosks();
 		this.lipiKiosks = drillDown.getLipiKiosks();
 		this.lipiTxns = drillDown.getLipiTxns();

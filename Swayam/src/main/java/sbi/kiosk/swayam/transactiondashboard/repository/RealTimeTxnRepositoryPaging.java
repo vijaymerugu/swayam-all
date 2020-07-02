@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import sbi.kiosk.swayam.common.entity.RealTimeTransaction;
 
 @Repository
-public interface RealTimeTxnRepositoryPaging extends PagingAndSortingRepository<RealTimeTransaction, Integer>{
+public interface RealTimeTxnRepositoryPaging extends PagingAndSortingRepository<RealTimeTransaction, String>{
 	
 	//Page<RealTimeTransaction> findByFromDate(Pageable pageable,@Param("fromdate") String fromdate,@Param("todate") String todate);
 	

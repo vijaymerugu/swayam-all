@@ -7,13 +7,14 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
 	 sort: null
    };
    
-   var counttype = "";
+   var counttype = "REG";
 
    var circleName = document.getElementById("circleName").value;
    var networkName = document.getElementById("networkName").value;
    var moduleName = document.getElementById("moduleName").value;
    var fromDate = document.getElementById("fromDate").value;
    var toDate = document.getElementById("toDate").value;   
+   var regionName="";
 
    
    $scope.loadHomeBodyPageForms = function(regionName){	   
