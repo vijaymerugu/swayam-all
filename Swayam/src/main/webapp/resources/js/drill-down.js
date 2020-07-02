@@ -203,7 +203,7 @@ app.directive('superColWidthUpdate', ['$timeout', function ($timeout) {
 app.service('DrillDownService',['$http', function ($http) {
 	
 	function getUsers(pageNumber,size,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate) {
-		alert("fromDate:: "+fromDate);
+		//alert("fromDate:: "+fromDate);
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({
           method: 'GET',

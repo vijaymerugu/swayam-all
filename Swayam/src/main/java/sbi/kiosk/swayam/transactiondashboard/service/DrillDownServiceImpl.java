@@ -37,13 +37,14 @@ public class DrillDownServiceImpl implements DrillDownService{
 }
 	
 	@Override
-	public Page<DrillDown> findPaginatedByTxnDate(final int page,final int size, String fromdate, String todate, String in_circle_code, String in_network_code, String in_module_code, String in_region_code){
+	public Page<DrillDown> findPaginatedByTxnDate(final int page,final int size,String type, String fromdate, String todate, String in_circle_code, String in_network_code, String in_module_code, String in_region_code){
 		
 		//List<DrillDown> list= nearByEntities(fromDate,toDate,circleName,networkName,moduleName,regionName);
 				
         //Page<DrillDown> pageDto = new PageImpl<DrillDown>(list, PageRequest.of(page, size),list.size());
 		 
         //System.out.println("entities======pageDto========Size()::::"+pageDto.getContent());
+		Page<DrillDown> pageDrillDown = null;
 		if((in_circle_code ==null || in_circle_code.isEmpty())){
 			in_circle_code = null;
 		}
@@ -56,8 +57,22 @@ public class DrillDownServiceImpl implements DrillDownService{
 		if((in_region_code ==null || in_region_code.isEmpty())){
 			in_region_code = null;
 		}		
-		
-		Page<DrillDown> pageDrillDown = drillDownRepository.findByDate(fromdate, todate, in_circle_code, in_network_code, in_region_code, in_module_code, PageRequest.of(page, size));
+		if("NW".equals(type)){
+			pageDrillDown = drillDownRepository.findByDate(fromdate, todate,in_circle_code, PageRequest.of(page, size));
+		}
+		else if("MOD".equals(type)){
+			pageDrillDown = drillDownRepository.findByDate(fromdate, todate,in_circle_code, in_network_code, PageRequest.of(page, size));
+		}
+		else if("REG".equals(type)){
+			pageDrillDown = drillDownRepository.findByDate(fromdate, todate,in_circle_code, in_network_code,in_module_code, PageRequest.of(page, size));
+		}
+		else if("BR".equals(type)){
+			pageDrillDown = drillDownRepository.findByDate(fromdate, todate,in_circle_code, in_network_code,in_module_code,in_region_code, PageRequest.of(page, size));
+		}
+		else  {
+			
+		 pageDrillDown = drillDownRepository.findByDate(fromdate, todate, PageRequest.of(page, size));
+		}
 		 
 		 return pageDrillDown;
 	}
@@ -115,6 +130,14 @@ public class DrillDownServiceImpl implements DrillDownService{
 	@Override
 	public Page<ZeroTransactionKiosks> findPaginatedByDate(int page, int size, String fromDate, String toDate) {
 		
+		return null;
+	}
+
+	@Override
+	public Page<DrillDown> findPaginatedByTxnDate(int page, int size,
+			String fromDate, String toDate, String circleName,
+			String networkName, String moduleName, String regionName) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 	

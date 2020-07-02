@@ -93,4 +93,11 @@ public Page<DrillDown> findPaginatedByTxnDate(int page, int size, String fromDat
 	return null;
 }
 
+@Override
+public Page<DrillDown> findPaginatedByTxnDate(int page, int size, String type, String fromdate, String todate,
+		String in_circle_code, String in_network_code, String in_module_code, String in_region_code) {
+	// TODO Auto-generated method stub
+	return null;
+}
+
 }

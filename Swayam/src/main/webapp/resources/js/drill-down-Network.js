@@ -7,7 +7,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
 	 sort: null
    };
    
-   var counttype = "";     
+   var counttype = "NW";     
    var fromDate = document.getElementById("fromDate").value;
    var toDate = document.getElementById("toDate").value;
    var circleName = document.getElementById("circleName").value;
@@ -92,7 +92,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
       	  exporterSuppressExport: true,
       	  headerCellTemplate: '<div> Network </div>',
       	  superCol: 'front', 
-      	  cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.code)">{{row.entity.name}}</a></div>'
+      	  cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.code)">NET-0{{row.entity.name}}</a></div>'
       },
       { name: 'totalSwayamBranches', displayName: 'Total Swayam Branches',superCol: 'front'   },
       { name: 'totalSwayamKiosks', displayName: 'Total Swayam Kiosks',superCol: 'front'   },

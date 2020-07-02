@@ -56,10 +56,10 @@
 
           <!-- <p>Date: <input type="text" id="datepicker"></p> -->
           
-<input type="text" id="circleName" value="${circleName}">
-<input type="text" id="networkName" value="${networkName}">
-<input type="text" id="fromDate" value="${fromDate}">
-<input type="text" id="toDate" value="${toDate}">
+<input type="hidden" id="circleName" value="${circleName}">
+<input type="hidden" id="networkName" value="${networkName}">
+<input type="hidden" id="fromDate" value="${fromDate}">
+<input type="hidden" id="toDate" value="${toDate}">
 
 			<%-- <table class="table1" style="border: 1px solid #eee;">
 				
@@ -89,14 +89,13 @@
 				</tr>
 			</table> --%>
 		</div>
-<br/><br/>
+<br/>
 		<div class="submain">
 	
-	<br/>
-	<br/>
+	
 	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle, No Of Branches, Kiosks, Txns, etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">
 		
-		<br/>
+		
 		<br/>
 		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test"></div>
 		

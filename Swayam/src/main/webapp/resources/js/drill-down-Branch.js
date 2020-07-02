@@ -2,12 +2,12 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 
 app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function ($scope, $filter,DrillDownService) {
    var paginationOptions = {
-     pageNumber: 0,
+     pageNumber: 1,
 	 pageSize: 20,
 	 sort: null
    };
    
-   var counttype = "";
+   var counttype = "BR";
    var circleName = document.getElementById("circleName").value;
    var networkName = document.getElementById("networkName").value;
    var moduleName = document.getElementById("moduleName").value;
@@ -158,7 +158,7 @@ app.directive('superColWidthUpdate', ['$timeout', function ($timeout) {
 app.service('DrillDownService',['$http', function ($http) {
 	
 	function getUsers(pageNumber,size,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate) {
-		//pageNumber = pageNumber > 0?pageNumber - 1:0;
+		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({
           method: 'GET',
           url: 'drillDown/get?page='+pageNumber+'&size='+size+'&type='+counttype+'&circleName='+circleName

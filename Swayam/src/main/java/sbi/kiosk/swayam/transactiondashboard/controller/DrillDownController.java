@@ -167,7 +167,7 @@ public class DrillDownController {
 		 
 		 if(fromDate !=null && !fromDate.isEmpty() && toDate !=null && !toDate.isEmpty()) {
 		 
-				resultPage = drillDownService.findPaginatedByTxnDate(page, size, fromDate, toDate, circleName, networkName, moduleName, regionName);
+				resultPage = drillDownService.findPaginatedByTxnDate(page, size,type, fromDate, toDate, circleName, networkName, moduleName, regionName);
 		 
 		 }
 
