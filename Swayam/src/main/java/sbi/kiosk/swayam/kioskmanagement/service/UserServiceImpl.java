@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,6 +15,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import sbi.kiosk.swayam.common.constants.Constants;
+import sbi.kiosk.swayam.common.constants.ExceptionConstants;
 import sbi.kiosk.swayam.common.dto.AddUserDto;
 import sbi.kiosk.swayam.common.dto.UserDto;
 import sbi.kiosk.swayam.common.dto.UserManagementDto;
@@ -25,6 +28,8 @@ import sbi.kiosk.swayam.kioskmanagement.repository.UsersRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
+	
+	Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	 @Autowired
 	 UsersRepository userRepo;
@@ -300,7 +305,7 @@ public class UserServiceImpl implements UserService {
 			userEntity.setEnabled("1");
 			userRepo.save(userEntity);
 		} catch (Exception e) {
-               e.printStackTrace();
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
                result=false;
 		}
 		return result;
@@ -334,7 +339,7 @@ public class UserServiceImpl implements UserService {
 			user.getEnabled().equals("0");
 			return true;
 		} catch (Exception e) {
-               e.printStackTrace();
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
                result=false;
 		}
 		return result;

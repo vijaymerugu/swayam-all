@@ -3,6 +3,8 @@ package sbi.kiosk.swayam.transactiondashboard.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,11 +12,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
+import sbi.kiosk.swayam.common.constants.ExceptionConstants;
 import sbi.kiosk.swayam.common.entity.DrillDown;
 import sbi.kiosk.swayam.transactiondashboard.service.DrillDownService;
 
 @RestController
 public class DrillDownController {
+	
+	Logger logger = LoggerFactory.getLogger(DrillDownController.class);
 	
 	@Autowired 
     DrillDownService drillDownService;
@@ -29,7 +35,7 @@ public class DrillDownController {
 			model.setViewName("drillDown");
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
 		return model;
 	}
@@ -52,7 +58,7 @@ public class DrillDownController {
 			model.setViewName("drillDownNetwork");
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
 		return model;
 	}
@@ -77,7 +83,7 @@ public class DrillDownController {
 			
 			model.setViewName("drillDownModule");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
 		return model;
 	}
@@ -105,7 +111,7 @@ public class DrillDownController {
 			model.setViewName("drillDownRegion");
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
 		return model;
 	}
@@ -136,7 +142,7 @@ public class DrillDownController {
 			model.setViewName("drillDownBranch");
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
 		return model;
 	}

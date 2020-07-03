@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.codehaus.jettison.json.JSONException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,10 +22,13 @@ import sbi.kiosk.swayam.common.dto.CallTypeDto;
 import sbi.kiosk.swayam.common.dto.ManualTicketCallLogDto;
 import sbi.kiosk.swayam.common.exception.ManualTicketNotFoudException;
 import sbi.kiosk.swayam.healthmonitoring.service.ManualTicketService;
+import sbi.kiosk.swayam.kioskmanagement.controller.UserManagementController;
 
 @RestController
 @RequestMapping(value = "/", method = { RequestMethod.POST, RequestMethod.GET })
 public class ManualCallLogController {
+	
+	Logger logger = LoggerFactory.getLogger(ManualCallLogController.class);
 
 	@Autowired
 	private ManualTicketService manualTicketService;
@@ -42,14 +47,14 @@ public class ManualCallLogController {
 	public ResponseEntity<String> createManualForm(@ModelAttribute("manualTicketCallLogDto") ManualTicketCallLogDto manualTicketCallLogDto,
 			                  ModelAndView model)	throws ManualTicketNotFoudException {
 		
-		System.out.println("............inside create manual ticekt .....  ");
+		logger.info("............inside create manual ticekt .....");
 		String complaintId = manualTicketService.createManualTicket(manualTicketCallLogDto);
-		System.out.println("complaint ID:::" + complaintId);
+		
 
 		SimpleDateFormat date = new SimpleDateFormat("dd/MM/YY");
 		String date1 = date.format(new Date());
 		String d = date1.replace("/", "");
-		System.out.println(d);
+		
 		ResponseEntity<String> entiry = ResponseEntity.ok(d + "" + complaintId);
 		return entiry;
 	}
@@ -59,11 +64,11 @@ public class ManualCallLogController {
 			ModelAndView model, @ModelAttribute("manualTicketCallLogDto") ManualTicketCallLogDto manualTicketCallLogDto)
 			throws JSONException {
 
-		System.out.println("calling for ajax with brach code :::" + brachCode);
+		logger.info("calling for ajax with brach code :::");
 
 		List<ManualTicketCallLogDto> mlist1 = manualTicketService.getByBranchCode(brachCode);
 
-		System.out.println("for vendor::::" + mlist1.size());
+		
 		ResponseEntity<List<ManualTicketCallLogDto>> entiry = ResponseEntity.ok(mlist1);
 		return entiry;
 
@@ -74,7 +79,7 @@ public class ManualCallLogController {
 			@PathVariable("kioskId") String kioskId,
 			@ModelAttribute("manualTicketCallLogDto") ManualTicketCallLogDto manualTicketCallLogDto,
 			ModelAndView model) {
-		System.out.println("ajax call for assiging kioskId " + kioskId);
+		logger.info("ajax call for assiging kioskId ");
 		List<ManualTicketCallLogDto> ldto = manualTicketService.getByKioskId(kioskId);
 		ResponseEntity<List<ManualTicketCallLogDto>> entiry = ResponseEntity.ok(ldto);
 		return entiry;
@@ -86,7 +91,7 @@ public class ManualCallLogController {
 			@PathVariable("vendor") String vendor, @PathVariable("branchcode") String branchcode,
 			@ModelAttribute("manualTicketCallLogDto") ManualTicketCallLogDto manualTicketCallLogDto,
 			ModelAndView model) {
-		System.out.println("ajax call for assiging vendor " + vendor);
+		logger.info("ajax call for assiging vendor ");
 		List<ManualTicketCallLogDto> ldto = manualTicketService.getByVendor(vendor, branchcode);
 		ResponseEntity<List<ManualTicketCallLogDto>> entiry = ResponseEntity.ok(ldto);
 		return entiry;

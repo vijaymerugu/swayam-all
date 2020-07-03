@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="stylesheet" href="http://cdn.rawgit.com/angular-ui/ui-grid.info/gh-pages/release/3.0.0-rc.20/ui-grid.min.css">
+<link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
 <script	src="resources/js/angular.1.5.6.min.js"></script>
 <script src="resources/js/jquery.3.4.1.min.js"></script>
 <script src="resources/js/bootstrap.3.4.1.min.js"></script>
@@ -24,13 +24,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-    <script src="resources/js/csv.js"></script>
-    <script src="resources/js/pdfmake.js"></script>
-    <script src="resources/js/vfs_fonts.js"></script>
-    <script src="resources/js/lodash.min.js"></script>
-    <script src="resources/js/jszip.min.js"></script>
-    <script src="resources/js/excel-builder.dist.js"></script>  
-    <script src="resources/js/angular.js"></script>
+<script src="resources/js/angular.js"></script>
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
@@ -91,12 +85,12 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
 </script>
 
 <script>
-  $(function() {
+  /* $(function() {
     $("#datepicker").datepicker()({
     minDate: -20, 
     maxDate: "+1M +15D" 
     });
-  });
+  }); */
 </script>
 </body>
 </html>

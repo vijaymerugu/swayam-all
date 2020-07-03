@@ -8,15 +8,7 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 	     pageNumber: 1,
 		 pageSize: 20,
 		 sort: null
-		 };
-	   
-	   $scope.create = function(){
-		   
-		   
-		   
-	   }
-	   
-	   
+		 }; 
 	   
 	   var counttype = "";
 	   $scope.getCountType = function(type){
@@ -66,17 +58,6 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 			    paginationPageSize: paginationOptions.pageSize,
 			    enableColumnMenus:false,
 				useExternalPagination: true,
-				enableGridMenu: true,
-				exporterMenuCsv: false,
-				exporterPdfDefaultStyle: {fontSize: 9},   
-			    exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, color: 'black'},      
-			    exporterPdfFooter: function ( currentPage, pageCount ) {
-			      return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
-			    },    
-			    exporterPdfCustomFormatter: function ( docDefinition ) {        
-			        docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
-			        return docDefinition;
-			      },
 				
 			    columnDefs: [
 			      { name: 'vendor', displayName: 'Vendor'  },

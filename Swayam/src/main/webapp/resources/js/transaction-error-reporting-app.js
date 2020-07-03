@@ -27,8 +27,8 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService1
    
    
    $scope.searchPositions1= function(fromDate_param,toDate_param){
-	   alert(5);
-	   alert("startDate1111=="+fromDate_param);
+	   //alert(5);
+	   //alert("startDate1111=="+fromDate_param);
 	   /*convertDate(startDate);
 		 var fromDate= convertDate(startDate);
 		alert("fromDate=="+fromDate);   

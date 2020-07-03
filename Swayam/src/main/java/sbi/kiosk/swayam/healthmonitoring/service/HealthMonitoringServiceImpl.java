@@ -60,12 +60,12 @@ public class HealthMonitoringServiceImpl implements HealthMonitoringService {
 	 public String checkDuplicateKiosAppr(String kioskId){
 	   // String result=null;
 	  int  result=requestsRepository.findByKioskId(kioskId);
-	    System.out.println("result==="+result);
+	    
 	     if(result>0){
-	    	 System.out.println("result=1=="+result);
+	    	 
 		      return "This Kiosk Id Is Allready Exist";
 	     }else {
-	    	 System.out.println("result=2=="+result);
+	    	 
 	    	 return "";
 	     }
 	 }
@@ -87,8 +87,7 @@ public class HealthMonitoringServiceImpl implements HealthMonitoringService {
 		
 		String result="REQ"+request.getId();
 		if(result!=null && !result.isEmpty()){
-			System.out.println("result update=="+result);
-			System.out.println("requests.getId()=="+request.getId());
+			
 		 requestsRepository.update(result,request.getId());
 		}
 		

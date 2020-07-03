@@ -21,21 +21,14 @@
 
 <link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/>
 
-<script src="resources/js/csv.js"></script>
-    <script src="resources/js/pdfmake.js"></script>
-    <script src="resources/js/vfs_fonts.js"></script>
-    <script src="resources/js/lodash.min.js"></script>
-    <script src="resources/js/jszip.min.js"></script>
-    <script src="resources/js/excel-builder.dist.js"></script>  
-    <script src="resources/js/angular.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="resources/css/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="resources/js/angular.js"></script>
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="resources/demos/style.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
 <script>
   $.ajax({
   	type:"GET",

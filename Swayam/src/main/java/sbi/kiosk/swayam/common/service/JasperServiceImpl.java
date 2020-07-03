@@ -523,7 +523,7 @@ public class JasperServiceImpl implements JasperService{
 			 String kioskId=dto.getKisokId();			 
 			 String kioskBranchMaster= kioskMasterRepo.findKioskByKioskId_circle(kioskId);
 			 dto.setServeriry(kioskBranchMaster);
-			 System.out.println(dto.getKisokId());	
+			 	
 		 }			 
 		 return entities;			 
 	 }
@@ -541,7 +541,7 @@ public class JasperServiceImpl implements JasperService{
 			 String kioskId=dto.getKisokId();			 
 			 String kioskBranchMaster= kioskMasterRepo.findKioskByKioskId_circle(kioskId);
 			 dto.setServeriry(kioskBranchMaster);
-			 System.out.println(dto.getKisokId());	 
+			 	 
 			 
 		 }			 
 		 return entities;			 
@@ -558,7 +558,7 @@ public class JasperServiceImpl implements JasperService{
 			 String kioskId=dto.getKisokId();			 
 			 String kioskBranchMaster= kioskMasterRepo.findKioskByKioskId_circle(kioskId);
 			 dto.setServeriry(kioskBranchMaster);
-			 System.out.println(dto.getKisokId());			 
+			 			 
 		 }
 		 return entities;		 
 	 }

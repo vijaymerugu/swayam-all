@@ -49,7 +49,7 @@ public class TicketCentorController {
 				resultPage= ticketCentorService.findPaginatedCount(page, size, type);
 			}else if(type.equals("Total")){
 				resultPage= ticketCentorService.findPaginatedCount(page, size, type);
-				System.out.println("Total Size:::: "+resultPage.getContent().size());
+				
 			}else if(type.equals("TwoToFourHrsCount")){
 				resultPage= ticketCentorService.findPaginatedCount(page, size, type);
 			}else if(type.equals("OneDaysCount")){
@@ -64,7 +64,7 @@ public class TicketCentorController {
 		    	logger.info("type==findPaginated===========ticketCentorServiceCC=====CC ELSE");
 			
 			 resultPage = ticketCentorService.findPaginated(page, size);
-		      System.out.println("resultPage=="+resultPage.getContent());
+		      
 			    if (resultPage !=null && resultPage.getSize()>0){
 			    	//return resultPage;
 			        }
@@ -76,7 +76,7 @@ public class TicketCentorController {
 	public Page<TicketCentorDto> findPaginatedByCircle( @RequestParam("type") String type,
 		      @RequestParam("page") int page, @RequestParam("size") int size) {
 		 
-		System.out.println("type==findPaginated===========ticketCentorService====="+type);
+		
 		 Page<TicketCentorDto> resultPage = null;
 		 
 	     
@@ -89,7 +89,7 @@ public class TicketCentorController {
 				resultPage= ticketCentorService.findPaginatedCountByCircle(page, size, type);
 			}else if(type.equals("Total")){
 				resultPage= ticketCentorService.findPaginatedCountByCircle(page, size, type);
-				System.out.println("Total Size:::: "+resultPage.getContent().size());
+				
 			}else if(type.equals("TwoToFourHrsCount")){
 				resultPage= ticketCentorService.findPaginatedCountByCircle(page, size, type);
 			}else if(type.equals("OneDaysCount")){
@@ -104,7 +104,7 @@ public class TicketCentorController {
 		    
 			
 			 resultPage = ticketCentorService.findPaginatedByCircle(page, size);
-		      System.out.println("resultPage=="+resultPage.getContent());
+		      
 			    if (resultPage !=null && resultPage.getSize()>0){
 			    	//return resultPage;
 			        }
@@ -119,7 +119,7 @@ public class TicketCentorController {
 	public Page<TicketCentorDto> findPaginatedByCategory( @RequestParam("type") String type,
 		      @RequestParam("page") int page, @RequestParam("size") int size) {
 		 
-		System.out.println("type==findPaginated===========findPaginatedByCategory=====+++"+type);
+		
 		if(type !=null && type.trim().equals("undefined")){
 			type = "";
 		}
@@ -134,7 +134,7 @@ public class TicketCentorController {
 				resultPage= ticketCentorFilterService.findPaginatedCount(page, size, type);
 			}else if(type.equals("Total")){
 				resultPage= ticketCentorFilterService.findPaginatedCount(page, size, type);
-				System.out.println("Total Size:::: "+resultPage.getContent().size());
+				
 			}else if(type.equals("TwoToFourHrsCount")){
 				resultPage= ticketCentorFilterService.findPaginatedCount(page, size, type);
 			}else if(type.equals("OneDaysCount")){
@@ -150,7 +150,7 @@ public class TicketCentorController {
 		    }else{
 		    	//resultPage= ticketCentorFilterService.findPaginatedCount(page, size, type);
 			 resultPage = ticketCentorFilterService.findPaginated(page, size);
-		      System.out.println("resultPage=="+resultPage.getContent());
+		      
 			    if (resultPage !=null && resultPage.getSize()>0){
 			    	//return resultPage;
 			        }
@@ -186,7 +186,7 @@ public class TicketCentorController {
 			}else if(type.equals("Total")){
 				logger.info("=========findPaginatedByCategoryCMF=====+++TYPE="+type);
 				resultPage= ticketCentorFilterService.findPaginatedCountCmf(page, size, type);
-				System.out.println("Total Size:::: "+resultPage.getContent().size());
+				
 			}else if(type.equals("TwoToFourHrsCount")){
 				logger.info("=========findPaginatedByCategoryCMF=====+++TYPE="+type);
 				resultPage= ticketCentorFilterService.findPaginatedCountCmf(page, size, type);
@@ -220,7 +220,7 @@ public class TicketCentorController {
 	public Page<TicketCentorDto> findPaginatedByCategoryCMS( @RequestParam("type") String type,
 		      @RequestParam("page") int page, @RequestParam("size") int size) {
 		 
-		System.out.println("type==findPaginated===========findPaginatedByCategoryCMS=====+++"+type);
+		
 		if(type !=null && type.trim().equals("undefined")){
 			type = "";
 		}
@@ -238,7 +238,7 @@ public class TicketCentorController {
 				resultPage= ticketCentorFilterService.findPaginatedCountCms(page, size, type);
 			}else if(type.equals("Total")){
 				resultPage= ticketCentorFilterService.findPaginatedCountCms(page, size, type);
-				System.out.println("Total Size:::: "+resultPage.getContent().size());
+				
 			}else if(type.equals("TwoToFourHrsCount")){
 				resultPage= ticketCentorFilterService.findPaginatedCountCms(page, size, type);
 			}else if(type.equals("OneDaysCount")){
@@ -254,7 +254,7 @@ public class TicketCentorController {
 		    }else{
 		    	//resultPage= ticketCentorFilterService.findPaginatedCount(page, size, type);
 			 resultPage = ticketCentorFilterService.findPaginatedCms(page, size);
-		      System.out.println("resultPage=="+resultPage.getContent());
+		      
 			    if (resultPage !=null && resultPage.getSize()>0){
 			    	//return resultPage;
 			        }
@@ -266,13 +266,13 @@ public class TicketCentorController {
 	public ResponseEntity<List<CallTypeDto>> callLogCategory(ModelAndView model,
 			@PathVariable("category") String category, HttpServletRequest request) {
 		
-		System.out.println("category===12345=="+category);
+		
 		
 		       List<CallTypeDto> subCategoryList = ticketCentorFilterService.findSubCategoryByCategory(category.trim());
-		       System.out.println("callLogCategory==entiry.getBody():::category:::::::"+subCategoryList);
+		       
 		       model.addObject("subCategoryList", subCategoryList);
 		       ResponseEntity<List<CallTypeDto>> entiry = ResponseEntity.ok(subCategoryList);
-		       System.out.println("entiry.getBody():::category:::::::");
+		       
 		       model.setViewName("ticketCentorSA");
 		return entiry;
 	}

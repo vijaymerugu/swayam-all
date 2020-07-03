@@ -135,7 +135,7 @@ public class TerminalStatusServiceImpl implements TerminalStatusService {
 			mapData.put("GreyApplicationCount", greyApplicationCount);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 		}
 		return mapData;
 

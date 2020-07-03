@@ -2,14 +2,13 @@ package sbi.kiosk.swayam.common.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import antlr.StringUtils;
+import sbi.kiosk.swayam.common.constants.ExceptionConstants;
 import sbi.kiosk.swayam.common.dto.MenuMasterDto;
 import sbi.kiosk.swayam.common.dto.RequestResponseLogDto;
 import sbi.kiosk.swayam.common.dto.UserDto;
@@ -19,9 +18,12 @@ import sbi.kiosk.swayam.common.entity.User;
 import sbi.kiosk.swayam.common.repository.MenuMasterRepository;
 import sbi.kiosk.swayam.common.repository.ReqRespAuditLogRepository;
 import sbi.kiosk.swayam.common.repository.UserRepository;
+import sbi.kiosk.swayam.transactiondashboard.controller.TransactionDashBoardController;
 
 @Service
 public class LoginService {
+	
+	Logger logger = LoggerFactory.getLogger(LoginService.class);
 	
 	@Autowired
 	UserRepository userRepository;
@@ -55,7 +57,7 @@ public class LoginService {
 	
 	public void saveReqAndResponse(RequestResponseLogDto reqRespLogDto){
 		try {
-			System.out.println("saveReqAndResponse Call()...."+reqRespLogDto);
+			logger.info("saveReqAndResponse Call()....");
 			
 			int srIdSeq=reqRespAuditLogRepo.findSeq();
 			System.err.println("reqRespAuditLogRepo.findSeq()  "+srIdSeq);
@@ -70,11 +72,11 @@ public class LoginService {
 			requestResponse.setSuccess(reqRespLogDto.getSuccess());
 			requestResponse.setError(reqRespLogDto.getError());
 			//requestResponse.setModifiedDate(new Date());
-			System.out.println("requestResponse=="+requestResponse);
+			logger.info("requestResponse==");
 			reqRespAuditLogRepo.save(requestResponse);
 			
 		} catch (Exception e) {
-               e.printStackTrace();
+			logger.info("Exception "+ExceptionConstants.EXCEPTION);
 		}
 		
 		

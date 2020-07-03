@@ -3,7 +3,6 @@ package sbi.kiosk.swayam.kioskmanagement.service;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -11,21 +10,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.Set;
-import java.util.TreeMap;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import sbi.kiosk.swayam.common.constants.ExceptionConstants;
 import sbi.kiosk.swayam.common.dto.CbsBrhmDto;
 import sbi.kiosk.swayam.common.dto.HolidayCalendarDto;
 import sbi.kiosk.swayam.common.dto.KioskCMFDto;
@@ -38,11 +40,12 @@ import sbi.kiosk.swayam.kioskmanagement.repository.BranchMasterRepository;
 import sbi.kiosk.swayam.kioskmanagement.repository.HolidayCalendarRepository;
 import sbi.kiosk.swayam.kioskmanagement.repository.KioskCMFRepository;
 import sbi.kiosk.swayam.kioskmanagement.repository.kioskMasterManagementRepository;
-import org.apache.poi.ss.usermodel.*;
 
 
 @Service
 public class UploadServiceImpl implements UploadService {
+	
+	Logger logger = LoggerFactory.getLogger(UploadServiceImpl.class);
 
 	@Autowired
 	private kioskMasterManagementRepository kioskMasterManagementRepository;
@@ -381,7 +384,7 @@ public class UploadServiceImpl implements UploadService {
 				//return "Kiosk Details Uploaded Successfully";
 				return "Kiosk_Branch_Master";
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		} finally {
 			try {
 				if (workbook != null) {
@@ -392,7 +395,7 @@ public class UploadServiceImpl implements UploadService {
 				}
 
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.error("Exception "+ExceptionConstants.EXCEPTION);
 			}
 		}
 		return "Data Not Uploaded";
@@ -459,7 +462,7 @@ public class UploadServiceImpl implements UploadService {
 			out.close();
 			System.out.println("Kiosk BranchMaster.xlsx written successfully on disk.");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
 
 	}
@@ -1016,7 +1019,7 @@ public class UploadServiceImpl implements UploadService {
 			}
 		} // try close
 		catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		} finally {
 			try {
 				if (workbook != null) {
@@ -1026,7 +1029,7 @@ public class UploadServiceImpl implements UploadService {
 					inputStream.close();
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.error("Exception "+ExceptionConstants.EXCEPTION);
 			}
 		}
 		return "Data Not Uploaded";
@@ -1110,7 +1113,7 @@ public class UploadServiceImpl implements UploadService {
 			out.close();
 			System.out.println("BranchMaster.xlsx written successfully on disk.");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
 
 	}
@@ -1249,7 +1252,7 @@ public class UploadServiceImpl implements UploadService {
 		}
 
 		catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		} finally {
 			try {
 				if (workbook != null) {
@@ -1260,7 +1263,7 @@ public class UploadServiceImpl implements UploadService {
 				}
 
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.error("Exception "+ExceptionConstants.EXCEPTION);
 			}
 		}
 		return "Data Not Uploaded";
@@ -1311,7 +1314,7 @@ public class UploadServiceImpl implements UploadService {
 			out.close();
 			System.out.println("HolidayCalendar.xlsx written successfully on disk.");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
 
 	}
@@ -1422,7 +1425,7 @@ public class UploadServiceImpl implements UploadService {
 		}
 
 		catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		} finally {
 			try {
 				if (workbook != null) {
@@ -1433,7 +1436,7 @@ public class UploadServiceImpl implements UploadService {
 				}
 
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.error("Exception "+ExceptionConstants.EXCEPTION);
 			}
 		}
 		return "Data Not Uploaded";
@@ -1491,7 +1494,7 @@ public class UploadServiceImpl implements UploadService {
 			out.close();
 			System.out.println("KioskC.xlsx written successfully on disk.");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
 
 	}

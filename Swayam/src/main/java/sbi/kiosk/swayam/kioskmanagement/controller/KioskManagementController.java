@@ -31,7 +31,7 @@ public class KioskManagementController {
 	
 	@RequestMapping("km/userkioskmapping/usersbyca")
 	public List<User> fetchAllUsersByCircleAdmin(HttpSession session) {
-		System.out.println("22222222222222222222");
+		
 		UserDto user = (UserDto) session.getAttribute("userObj");
 		
 		return kioskManagementService.fetchAllUsersByCircleAdmin(user.getUsername(),user.getCircle());
@@ -41,7 +41,7 @@ public class KioskManagementController {
 	
 	@RequestMapping("km/userkioskmapping/kiosksbycircle")
 	public List<String> fetchAllKiosksByCircleAndNotInUserKioskMapping(HttpSession session) {
-		System.out.println("333333333333333333333");
+		
 		UserDto user = (UserDto) session.getAttribute("userObj");
 		
 		return kioskManagementService.fetchAllKiosksByCircleAndNotInUserKioskMapping(user.getCircle());
@@ -52,7 +52,7 @@ public class KioskManagementController {
 	@RequestMapping(value ="km/userkioskmapping/kiosksbycirclepost", method = RequestMethod.POST)
 	public ModelAndView saveUserKioskMapping( @RequestParam(value="username") String username, @RequestParam(value="kioskIdList") ArrayList<String> kioskIdList) {
 		
-		System.out.println("444444444444444");
+		
 		//UserDto user = (UserDto) session.getAttribute("userObj");
 		kioskManagementService.saveUserKioskMapping(username, kioskIdList);
 		
@@ -65,7 +65,7 @@ public class KioskManagementController {
 	
 	@RequestMapping("km/cmscmfmapping/cmsusersbyca")
 	public List<User> fetchAllCmsUsersByCircleAdmin(HttpSession session) {
-		System.out.println("22222222222222222222");
+		
 		UserDto user = (UserDto) session.getAttribute("userObj");
 		
 		return kioskManagementService.fetchAllCmsUsersByCircleAdmin(user.getUsername(),user.getCircle());
@@ -75,7 +75,7 @@ public class KioskManagementController {
 	
 	@RequestMapping("km/cmscmfmapping/cmfusersbyca")
 	public List<User> fetchAllCmfUsersByCircleAndInUserKioskMapping(HttpSession session) {
-		System.out.println("333333333333333333333");
+		
 		UserDto user = (UserDto) session.getAttribute("userObj");
 		
 		return kioskManagementService.fetchAllCmfUsersByCircleAndInUserKioskMapping(user.getCircle());
@@ -86,7 +86,7 @@ public class KioskManagementController {
 	@RequestMapping(value ="km/cmscmfmapping/cmscmfmappingpost", method = RequestMethod.POST)
 	public ModelAndView saveCmsCmfUserMapping( @RequestParam(value="username") String cmsusername, @RequestParam(value="cmfUserIdIdList") ArrayList<String> cmfUserIdIdList) {
 		
-		System.out.println("444444444444444");
+		
 		//UserDto user = (UserDto) session.getAttribute("userObj");
 		kioskManagementService.saveCmsCmfUserMapping(cmsusername, cmfUserIdIdList);
 		
@@ -101,8 +101,7 @@ public class KioskManagementController {
 	@RequestMapping(value ="km/userkioskmappingpopup")
 	public ModelAndView getKiosksForUser( @RequestParam(value="username") String pfId) {
 		
-		System.out.println("444444444444444");
-		System.out.println("Display cont");
+		
 		//UserDto user = (UserDto) session.getAttribute("userObj");
 		//kioskManagementService.saveCmsCmfUserMapping(cmsusername, cmfUserIdIdList);
 		List<UserKioskMappingDeMapperDto> kiosksList = kioskManagementService.getKiosksForUser(pfId);
@@ -118,7 +117,7 @@ public class KioskManagementController {
 	@RequestMapping(value ="km/userkioskmappingpopupselected")
 	public ModelAndView deMapKiosksForUser( @RequestParam(value="array") String[] kiosksArray, @RequestParam(value="uname") String username) {
 		
-		System.out.println("444444444444444");
+		
 		//UserDto user = (UserDto) session.getAttribute("userObj");
 		//kioskManagementService.saveCmsCmfUserMapping(cmsusername, cmfUserIdIdList);
 		List<UserKioskMappingDeMapperDto> dto = new ArrayList<UserKioskMappingDeMapperDto>();

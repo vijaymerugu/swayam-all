@@ -3,7 +3,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransactionKiosksService', function ($scope, $filter,ZeroTransactionKiosksService) {
    var paginationOptions = {
      pageNumber: 1,
-	 pageSize: 5,
+	 pageSize: 20,
 	 sort: null
    };
    
@@ -81,7 +81,7 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
    });
    
    $scope.gridOptions = {
-    paginationPageSizes: [5, 10, 15],
+    paginationPageSizes: [20, 30, 40],
     paginationPageSize: paginationOptions.pageSize,	
 	enableColumnMenus:false,
 	useExternalPagination: true,

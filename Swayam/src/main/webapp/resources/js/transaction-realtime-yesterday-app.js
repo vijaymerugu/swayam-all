@@ -2,15 +2,12 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 
 app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService', function ($scope, $filter,UserManagementService) {
    var paginationOptions = {
-     pageNumber: 0,
-	 pageSize: 5,
+     pageNumber: 1,
+	 pageSize: 20,
 	 sort: null
    };
    
-   $scope.BtnClick = function() { 
-	     
-   }
-   
+      
    var yesterdayType = "yesterday";
    
    $scope.getCountType = function(yesterday){
@@ -80,21 +77,11 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    });
    
    $scope.gridOptions = {
-    paginationPageSizes: [5, 10, 20],
+    paginationPageSizes: [20, 30, 40],
     paginationPageSize: paginationOptions.pageSize,	
 	enableColumnMenus:false,
 	useExternalPagination: true,
-	enableGridMenu: true,
-	exporterMenuCsv: false,
-	exporterPdfDefaultStyle: {fontSize: 9},   
-    exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, color: 'black'},      
-    exporterPdfFooter: function ( currentPage, pageCount ) {
-      return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
-    },    
-    exporterPdfCustomFormatter: function ( docDefinition ) {        
-        docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
-        return docDefinition;
-      },
+	
       columnDefs: [{name: 'crclName', displayName: 'Real-time Swayam Transaction'}
     	  ],
     columnDefs: [

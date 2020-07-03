@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import sbi.kiosk.swayam.common.constants.ExceptionConstants;
 import sbi.kiosk.swayam.common.dto.AddUserDto;
 import sbi.kiosk.swayam.common.dto.RolesDto;
 import sbi.kiosk.swayam.common.dto.UserDto;
@@ -27,7 +30,9 @@ import sbi.kiosk.swayam.kioskmanagement.service.UserService;
 
 @RestController
 public class UserManagementController {
-
+	
+	Logger logger = LoggerFactory.getLogger(UserManagementController.class);
+	
 	@Autowired
 	UserService userService;
 	@Autowired
@@ -85,7 +90,7 @@ public class UserManagementController {
 				model.setViewName("userlist");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
 		return model;
 	}
@@ -114,7 +119,7 @@ public class UserManagementController {
 				model.addObject("saCount",saCount);				
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
 		return model;
 	}
@@ -187,7 +192,7 @@ public class UserManagementController {
 		           model.addObject("circleList", circleList);
 		           model.setViewName("addUser");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
 		return model;
 	}
@@ -211,7 +216,7 @@ public class UserManagementController {
 		          model.addObject("circleList", circleList);
 		          model.setViewName("addUserLA");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
 		return model;
 	}
@@ -238,8 +243,8 @@ public class UserManagementController {
 			model.setViewName("editUser");
 
 		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("An error occured while editUserMaster :Exception " + e.getMessage());
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
+			
 		} finally {
 			System.out.println("editUserMaster(-,-) :: END");
 		}
@@ -275,8 +280,8 @@ public class UserManagementController {
 			model.setViewName("editUserLA");
 
 		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("An error occured while editUserMasterLA :Exception " + e.getMessage());
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
+			
 		} finally {
 			System.out.println("editUserMasterLA(-,-) :: END");
 		}
@@ -334,7 +339,7 @@ public class UserManagementController {
 			}
 			model.setViewName("redirect:/km/userList");
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 		} finally {
 			System.out.println("saveUserr(-,-) :: END");
 		}
@@ -354,8 +359,8 @@ public class UserManagementController {
 	        model.addObject("circleList", circleList);
 			model.setViewName("deleteUser");
 		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("An error occured while editUserMaster :Exception " + e.getMessage());
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
+			
 		} finally {
 			System.out.println("deleteUserMaster(-,-) :: END");
 		}
@@ -376,7 +381,7 @@ public class UserManagementController {
 			}
 			//model.setViewName("redirect:/km/userList");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
 		return entity;
 	}
@@ -403,7 +408,7 @@ public class UserManagementController {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
 		return model;
 	}
