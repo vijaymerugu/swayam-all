@@ -24,7 +24,8 @@ public class MyScheduledTasks {
 	
 	@Autowired
 	CommaSeparated commaseparated ;
-	
+	@Autowired
+	MyProcedureScheduler myProcedureScheduler ;
 	
 	  @Value("${dailyreport.path}") private String dailyreportPath;//dailyreport.path
 	  
@@ -37,11 +38,11 @@ public class MyScheduledTasks {
             = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
     // @Scheduled(cron = "0/10 * * * * *") 
-      @Scheduled(cron = "0 0 12 * * ?")//day
+    //  @Scheduled(cron = "0 0 12 * * ?")//day
 	  public void runEveryday() {
 	   String path   =dailyreportPath;
 			   //"C:\\Users\\ankur.verma\\Desktop\\sbi_document\\Corn_job\\input\\";// reportPath 
-	  commaseparated.fileRead(path);
+	// commaseparated.fileRead(path);
 	  
 	  }
 	 
@@ -51,7 +52,12 @@ public class MyScheduledTasks {
 	String path =hourreportpath ; 
 			//"C:\\Users\\ankur.verma\\Desktop\\sbi_document\\Corn_job\\hourlyinput";
     commaseparated.filehourlyRead(path) ;
-
-    
-}
+  }
+  
+	/*
+	 * @Scheduled(cron = "0/10 * * * * *") public void executeprodure() {
+	 * System.out.println("welocome"); myProcedureScheduler.executprodure();
+	 * 
+	 * }
+	 */
 }

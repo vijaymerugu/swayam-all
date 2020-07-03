@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 
-@Table(name = "TBL_SWAYAM_TXN_HOURLY")
+@Table(name = "TBL_SWAYAM_TXN_DAILY")
 public class SwayamTranactionhourEntity {
 
 	@Id

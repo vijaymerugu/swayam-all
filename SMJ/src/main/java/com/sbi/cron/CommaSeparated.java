@@ -7,8 +7,13 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.StoredProcedureQuery;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -28,6 +33,8 @@ public class CommaSeparated {
 
 	@Autowired
 	SwayamTranactionhourRepository swayamTranactionhourRepository;
+	@Autowired
+	MyProcedureScheduler myProcedureScheduler ;
 
 	public void fileRead(String path) {
 
@@ -207,7 +214,7 @@ public class CommaSeparated {
 				}
 				swayamTranactionhourRepository.deleteAll();
 				swayamTranactionhourRepository.saveAll(listentity);
-
+				 myProcedureScheduler.executprodure();
 			} catch (Exception e) {
 				System.out.println(e);
 			}
@@ -229,5 +236,18 @@ public class CommaSeparated {
 		}
 
 		return chosenFile;
+	}
+	
+	// 
+	@PersistenceContext
+    private EntityManager em;
+	//  private static final SimpleDateFormat dateFormat1   = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+	
+	public void executprodure()
+	{
+		
+		StoredProcedureQuery nearByEntities= em.createNamedStoredProcedureQuery("SP_INSERT_INTO_TBL_SWAYAM_TXN_REPORT");
+		System.out.println("nearByEntities"+nearByEntities);
+		// nearByEntities.setParameter("fromdate_param", dateFormat1);
 	}
 }
