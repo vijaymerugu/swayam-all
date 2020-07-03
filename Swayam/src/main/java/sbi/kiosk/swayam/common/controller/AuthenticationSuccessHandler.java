@@ -13,7 +13,7 @@ public class AuthenticationSuccessHandler{ /*implements org.springframework.secu
 	        ServletException {
 
 
-	    System.out.println(authentication.getName());
+	    
 	    redirectStrategy.sendRedirect(request, response, "home");
 	}*/
 

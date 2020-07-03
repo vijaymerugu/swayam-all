@@ -28,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
+import sbi.kiosk.swayam.common.constants.ExceptionConstants;
 import sbi.kiosk.swayam.common.dto.MenuMasterDto;
 import sbi.kiosk.swayam.common.dto.RequestResponseLogDto;
 import sbi.kiosk.swayam.common.dto.ResponseDto;
@@ -181,7 +182,8 @@ public class LoginController{
 		 
 					
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Exception "+ExceptionConstants.AUTHENTICATION_ERROR);
+			
 		}finally {
 			return CommonUtils.getResponse(response, MediaType.APPLICATION_JSON);
 		} 

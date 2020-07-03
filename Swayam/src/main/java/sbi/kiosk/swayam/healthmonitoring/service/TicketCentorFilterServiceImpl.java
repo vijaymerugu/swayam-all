@@ -20,13 +20,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import sbi.kiosk.swayam.common.constants.ExceptionConstants;
 import sbi.kiosk.swayam.common.dto.CallTypeDto;
 import sbi.kiosk.swayam.common.dto.TicketCentorDto;
 import sbi.kiosk.swayam.common.dto.UserDto;
 import sbi.kiosk.swayam.common.entity.TicketCentor;
 import sbi.kiosk.swayam.common.repository.KioskMasterRepository;
 import sbi.kiosk.swayam.common.repository.SupervisorRepository;
-import sbi.kiosk.swayam.healthmonitoring.controller.TicketCentorController;
 import sbi.kiosk.swayam.healthmonitoring.repository.CallTypeRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.TicketCentorAgeingRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.TicketCentorRepository;
@@ -106,7 +106,7 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 			      }
 			 }
 		 }catch (Exception e) {
-			 e.printStackTrace();
+			 logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
 	 	return entities;
    }
@@ -133,7 +133,7 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 				}
 				System.out.println("countKioskCount::::::::::mapData:::::::::::" + mapDataList.size());
 		 }catch (Exception e) {
-            e.printStackTrace();
+			 logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		 } 
 			
 			return mapDataList;
@@ -163,7 +163,7 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 				}
 				System.out.println("countKioskCount::::::::::mapData:::::::::::" + mapDataList.size());
 		 }catch (Exception e) {
-            e.printStackTrace();
+			 logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		 } 
 			
 			return mapDataList;
@@ -194,7 +194,7 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 				}
 				System.out.println("countKioskCount::::::::::mapData:::::::::::" + mapDataList.size());
 		 }catch (Exception e) {
-            e.printStackTrace();
+			 logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		 } 
 			
 			return mapDataList;
@@ -223,7 +223,7 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 				System.out.println("findAllAgeingOfTicketsCount::::::::::mapData:::::::::::" + mapDataList.size());
 			 
 			}catch (Exception e) {
-                e.printStackTrace();
+				logger.error("Exception "+ExceptionConstants.EXCEPTION);
 			}
 			return mapDataList;
 		}
@@ -252,7 +252,7 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 				System.out.println("findAllAgeingOfTicketsCount::::::::::mapData:::::::::::" + mapDataList.size());
 			 
 			}catch (Exception e) {
-                e.printStackTrace();
+				logger.error("Exception "+ExceptionConstants.EXCEPTION);
 			}
 			return mapDataList;
 		}
@@ -282,7 +282,7 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 				System.out.println("findAllAgeingOfTicketsCount::::::::::mapData:::::::::::" + mapDataList.size());
 			 
 			}catch (Exception e) {
-                e.printStackTrace();
+				logger.error("Exception "+ExceptionConstants.EXCEPTION);
 			}
 			return mapDataList;
 		}		
@@ -389,7 +389,7 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 			}
 			System.out.println("listData=22222222222222="+listData);
 			}catch (Exception e) {
-               e.printStackTrace();
+				logger.error("Exception "+ExceptionConstants.EXCEPTION);
 			}
 			return listData;
 		}
@@ -480,7 +480,7 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 					entities =  ticketCentorRepo.findAllByCMFUser(pfId,PageRequest.of(page, size)).map(TicketCentorDto::new);
 				}
 			 }catch (Exception e) {
-				 e.printStackTrace();
+				 logger.error("Exception "+ExceptionConstants.EXCEPTION);
 			}
 		 	return entities;
 	   }
@@ -520,7 +520,7 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 					  entities =  ticketCentorRepo.findAllByCMSUser(supList,PageRequest.of(page, size)).map(TicketCentorDto::new);
 				      }
 			 }catch (Exception e) {
-				 e.printStackTrace();
+				 logger.error("Exception "+ExceptionConstants.EXCEPTION);
 			}
 		 	return entities;
 	   }

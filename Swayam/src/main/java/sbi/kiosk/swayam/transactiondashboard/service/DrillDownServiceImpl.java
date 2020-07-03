@@ -1,5 +1,7 @@
 package sbi.kiosk.swayam.transactiondashboard.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
 import sbi.kiosk.swayam.common.dto.DrillDownDto;
 import sbi.kiosk.swayam.common.entity.DrillDown;
 import sbi.kiosk.swayam.common.entity.ZeroTransactionKiosks;
@@ -34,15 +37,44 @@ public class DrillDownServiceImpl implements DrillDownService{
 }
 	
 	@Override
-	public Page<DrillDown> findPaginatedByTxnDate(final int page,final int size, String fromDate, String toDate, String circleName, String networkName, String moduleName, String regionName){
+	public Page<DrillDown> findPaginatedByTxnDate(final int page,final int size,String type, String fromdate, String todate, String in_circle_code, String in_network_code, String in_module_code, String in_region_code){
 		
-		List<DrillDown> list= nearByEntities(fromDate,toDate,circleName,networkName,moduleName,regionName);
+		//List<DrillDown> list= nearByEntities(fromDate,toDate,circleName,networkName,moduleName,regionName);
 				
-        Page<DrillDown> pageDto = new PageImpl<DrillDown>(list, PageRequest.of(page, size),list.size());
+        //Page<DrillDown> pageDto = new PageImpl<DrillDown>(list, PageRequest.of(page, size),list.size());
 		 
-        System.out.println("entities======pageDto========Size()::::"+pageDto.getContent());
+        //System.out.println("entities======pageDto========Size()::::"+pageDto.getContent());
+		Page<DrillDown> pageDrillDown = null;
+		if((in_circle_code ==null || in_circle_code.isEmpty())){
+			in_circle_code = null;
+		}
+		if((in_network_code ==null || in_network_code.isEmpty())){
+			in_network_code = null;
+		}
+		if((in_module_code ==null || in_module_code.isEmpty())){
+			in_module_code = null;
+		}
+		if((in_region_code ==null || in_region_code.isEmpty())){
+			in_region_code = null;
+		}		
+		if("NW".equals(type)){
+			pageDrillDown = drillDownRepository.findByDate(fromdate, todate,in_circle_code, PageRequest.of(page, size));
+		}
+		else if("MOD".equals(type)){
+			pageDrillDown = drillDownRepository.findByDate(fromdate, todate,in_circle_code, in_network_code, PageRequest.of(page, size));
+		}
+		else if("REG".equals(type)){
+			pageDrillDown = drillDownRepository.findByDate(fromdate, todate,in_circle_code, in_network_code,in_module_code, PageRequest.of(page, size));
+		}
+		else if("BR".equals(type)){
+			pageDrillDown = drillDownRepository.findByDate(fromdate, todate,in_circle_code, in_network_code,in_module_code,in_region_code, PageRequest.of(page, size));
+		}
+		else  {
+			
+		 pageDrillDown = drillDownRepository.findByDate(fromdate, todate, PageRequest.of(page, size));
+		}
 		 
-		 return pageDto;
+		 return pageDrillDown;
 	}
 	
 
@@ -98,6 +130,14 @@ public class DrillDownServiceImpl implements DrillDownService{
 	@Override
 	public Page<ZeroTransactionKiosks> findPaginatedByDate(int page, int size, String fromDate, String toDate) {
 		
+		return null;
+	}
+
+	@Override
+	public Page<DrillDown> findPaginatedByTxnDate(int page, int size,
+			String fromDate, String toDate, String circleName,
+			String networkName, String moduleName, String regionName) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 	

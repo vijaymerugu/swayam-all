@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
+import sbi.kiosk.swayam.common.constants.ExceptionConstants;
 import sbi.kiosk.swayam.common.entity.ZeroTransactionKiosks;
 import sbi.kiosk.swayam.transactiondashboard.service.ZeroTransactionKiosksService;
 
@@ -30,7 +32,7 @@ public class ZeroTransactionKiosksController {
 			model.setViewName("zeroTransactionKiosks");
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
 		return model;
 	}

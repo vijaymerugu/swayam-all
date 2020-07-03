@@ -5,10 +5,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import sbi.kiosk.swayam.common.constants.ExceptionConstants;
 import sbi.kiosk.swayam.common.dto.CallTypeDto;
 import sbi.kiosk.swayam.common.dto.ManualTicketCallLogDto;
 import sbi.kiosk.swayam.common.entity.KioskBranchMaster;
@@ -24,6 +27,9 @@ import sbi.kiosk.swayam.healthmonitoring.repository.TicketCentorRepository;
 
 @Service
 public class ManualTicketServiceImpl implements ManualTicketService {
+	
+	Logger logger = LoggerFactory.getLogger(ManualTicketServiceImpl.class);
+	
 	@Autowired
 	private TicketCentorRepository ticketCentorRepo;
 	@Autowired
@@ -89,7 +95,7 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info("Exception "+ExceptionConstants.EXCEPTION);
 		}
 		return complaintId;
 	}

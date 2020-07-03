@@ -33,13 +33,13 @@ public class RequestsManagementDto {
 			this.createdDate = requests.getCreatedDate() !=null ?formatStringToDate(requests.getCreatedDate().toString()):requests.getCreatedDate();
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		}		
 		try {
 			this.modifiedDate = requests.getModifiedDate() !=null ?formatStringToDate(requests.getModifiedDate().toString()):requests.getModifiedDate() ;
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		}*/
 	
 	}

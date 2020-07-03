@@ -5,6 +5,8 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -23,16 +25,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sbi.kiosk.swayam.common.dto.RequestsDto;
 import sbi.kiosk.swayam.common.dto.RequestsManagementDto;
 import sbi.kiosk.swayam.healthmonitoring.service.HealthMonitoringService;
+import sbi.kiosk.swayam.kioskmanagement.controller.UserManagementController;
 
 @RestController
 public class HealthMonitoringController {
+	
+	Logger logger = LoggerFactory.getLogger(HealthMonitoringController.class);
 	
 	@Autowired
 	HealthMonitoringService healthMonitoringService;
 	
 	@RequestMapping("hm/requestFormCmf")
 	public ModelAndView requestFormCmf(ModelAndView mav,@ModelAttribute("requestDto") RequestsManagementDto requestDto) {
-		System.out.println("========1====="+requestDto.getComments());
+		logger.info("Comment "+requestDto.getComments());
 		//ModelAndView mav = new ModelAndView("requestFormCmf");
 		mav.setViewName("requestFormCmf");
 		return mav;
@@ -64,7 +69,7 @@ public class HealthMonitoringController {
 	@GetMapping("hm/checkDuplicateKiosk/{kioskId}")
 	public ResponseEntity<String>  checkDuplicateKiosk(@PathVariable("kioskId") String kioskId) {
 		String result=healthMonitoringService.checkDuplicateKiosAppr(kioskId);
-		System.out.println("result====="+result);
+		
 		ResponseEntity<String> entity=ResponseEntity.ok(result);
 		return entity;
 	}
@@ -133,7 +138,7 @@ public class HealthMonitoringController {
 	public ResponseEntity<String> saveCheckerCommentsCms(@RequestBody String array) {
 		
 		healthMonitoringService.saveCheckerCommentsCms(array);
-		System.out.println("saveCheckerCommentsCms===array="+array);
+		logger.info("saveCheckerCommentsCms===array=");
 		//ModelAndView mav = new ModelAndView("requestFormCms");
 		ResponseEntity<String> entiry = ResponseEntity.ok(array);
 		return entiry;
@@ -154,7 +159,7 @@ public class HealthMonitoringController {
 	public ResponseEntity<String> saveApproverCommentsCC(@RequestBody String array) {
 		
 		healthMonitoringService.saveApproverCommentsCC(array);
-		//System.out.println("saveApproverCommentsCC===array="+array);
+		
 		
 		ResponseEntity<String> entiry = ResponseEntity.ok(array);
 		return entiry;

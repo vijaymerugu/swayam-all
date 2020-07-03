@@ -3,85 +3,99 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService', function ($scope, $filter,UserManagementService) {
    var paginationOptions = {
      pageNumber: 1,
-	 pageSize: 5,
-	 sort: null
+pageSize: 20,
+sort: null
    };
  
-  
-  
+   var fromDate = "";
+   var toDate= "";
    
    function convertDate(dateParam){
-	   var result="";
-	   var date = new Date(dateParam);
+  var result="";
+  var date = new Date(dateParam);
        var year = date.getFullYear();
        var rawMonth = parseInt(date.getMonth()) + 1;
        var month = rawMonth < 10 ? '0' + rawMonth : rawmonth;
        var rawDay = parseInt(date.getDate());
-       var day = rawDay < 10 ? '0' + rawDay : rawDay; 
+       var day = rawDay < 10 ? '0' + rawDay : rawDay;
        console.log(year + '-' + month + '-' + day);
-	   
-	      result= year+"-"+month+"-"+day;
-	    //  alert("return --result::: "+result);
-	      return result;
-	  }
+ 
+    // result= year+"-"+month+"-"+day;
+       result= day+"-"+month+"-"+year;
+   //  alert("return --result::: "+result);
+     return result;
+ }
 
-	 
-		
-    
+
+
+   
    $scope.searchPositions= function(startDate,endDate){
-	  // alert("From=="+startDate);
-	  // convertDate(startDate);
-		 var fromDate= convertDate(startDate);
-		// alert("fromDate=="+fromDate);   
-		 var toDate=  convertDate(endDate);
-		 //alert("toDate=="+toDate);   
+ // alert("From=="+startDate);
+ // convertDate(startDate);
+ fromDate= convertDate(startDate);
+// alert("fromDate=="+fromDate);  
+ toDate=  convertDate(endDate);
+//alert("toDate=="+toDate);  
      
-	
-	
-	   UserManagementService.getUsers(paginationOptions.pageNumber,
-			   paginationOptions.pageSize,fromDate,toDate).success(function(data){
-					  $scope.gridOptions.data = data.content;
-				 	  $scope.gridOptions.totalItems = data.totalElements;
-				   });
-	   
+
+
+  UserManagementService.getUsers(paginationOptions.pageNumber,
+  paginationOptions.pageSize,fromDate,toDate).success(function(data){
+ $scope.gridOptions.data = data.content;
+ $scope.gridOptions.totalItems = data.totalElements;
+  });
+ 
    }
    
    $scope.refresh = function()
-   {  		if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
-	
-		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);
-	    }else{
-	    	
-		   $scope.gridOptions.data = $scope.gridOptions.data;
-	    }
+   {   if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
+
+  $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);
+   }else{
+   
+  $scope.gridOptions.data = $scope.gridOptions.data;
+   }
    };
+   $scope.refresh = function()
+   {  	
+	   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
+	   		UserManagementService.getUsers(paginationOptions.pageNumber,
+	   			  paginationOptions.pageSize,fromDate,toDate).success(function(data){
+	   			 $scope.gridOptions.data = data.content;
+	   			   $scope.gridOptions.totalItems = data.totalElements;
+	   			   });   
+	 		   
+	 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
+	 	  
+	 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
+	 		   
+	 	    }else{
+	 	    	UserManagementService.getUsers(paginationOptions.pageNumber,
+	 	    			  paginationOptions.pageSize,fromDate,toDate).success(function(data){
+	 	    			 $scope.gridOptions.data = data.content;
+	 	    			   $scope.gridOptions.totalItems = data.totalElements;
+	 	    			   });
+	 	    }
+	    };
+
 
    UserManagementService.getUsers(paginationOptions.pageNumber,
-		   paginationOptions.pageSize).success(function(data){
-	  $scope.gridOptions.data = data.content;
- 	  $scope.gridOptions.totalItems = data.totalElements;
+  paginationOptions.pageSize,fromDate,toDate).success(function(data){
+ $scope.gridOptions.data = data.content;
+   $scope.gridOptions.totalItems = data.totalElements;
    });
    
    $scope.gridOptions = {
-    paginationPageSizes: [5, 10, 20],
-    paginationPageSize: paginationOptions.pageSize,	
-	enableColumnMenus:false,
-	useExternalPagination: true,
-	enableGridMenu: true,
-	exporterMenuCsv: false,
-	exporterPdfDefaultStyle: {fontSize: 9},   
-    exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, color: 'black'},      
-    exporterPdfFooter: function ( currentPage, pageCount ) {
-      return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
-    },    
-    exporterPdfCustomFormatter: function ( docDefinition ) {        
-        docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
-        return docDefinition;
-      },
-      
-      
+    paginationPageSizes: [20, 30, 40],
+    paginationPageSize: paginationOptions.pageSize,
+enableColumnMenus:false,
+useExternalPagination: true,     
+     
       headerTemplate: 'km/headerTemplate',
       superColDefs: [{
+          name: 'front',
+          displayName: ''
+      },{
           name: 'lipi',
           displayName: 'LIPI'
       }, {
@@ -93,15 +107,18 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
       }, {
           name: 'total',
           displayName: 'Total'
+      }, {
+          name: 'back',
+          displayName: ''
       }],
 
     columnDefs: [
-      { name: 'crclName', displayName: 'Circle'  },
-      { name: 'network', displayName: 'NW'  },
-      { name: 'module', displayName: 'Mode'  },
-      { name: 'region', displayName: 'Reg'  },
-      { name: 'branchCode', displayName: 'Branch Code'},
-      { name: 'branchName', displayName: 'Branch Name'  },
+      { name: 'crclName', displayName: 'Circle',superCol: 'front'  },
+      { name: 'network', displayName: 'NW',superCol: 'front'  },
+      { name: 'module', displayName: 'Mode',superCol: 'front'  },
+      { name: 'region', displayName: 'Reg',superCol: 'front'  },
+      { name: 'branchCode', displayName: 'Branch Code',superCol: 'front'},
+      { name: 'branchName', displayName: 'Branch Name',superCol: 'front'  },
       { name: 'aaKioskCount', displayName: 'No Of Kios',superCol: 'lipi'},
       { name: 'aaTxnCount', displayName: 'Txn', superCol: 'lipi'},
       { name: 'bbKioskCount', displayName: 'No Of Kios',superCol: 'Forbes' },
@@ -110,21 +127,21 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
       { name: 'ccTxnCount', displayName: 'Txn',superCol: 'CMS'},
       { name: 'swayamTxn', displayName: 'SWAYAM Txn',superCol: 'total'},
       { name: 'branchTxn', displayName: 'Branch Txn',superCol: 'total' },
-      { name: 'migrationPerc', displayName: 'Migration (%)'}
+      { name: 'migrationPerc', displayName: 'Migration (%)',superCol: 'back'}
     ],
     onRegisterApi: function(gridApi) {
         $scope.gridApi = gridApi;
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
           paginationOptions.pageNumber = newPage;
           paginationOptions.pageSize = pageSize;
-          UserManagementService.getUsers(newPage,pageSize).success(function(data){
-        	  $scope.gridOptions.data = data.content;
-         	  $scope.gridOptions.totalItems = data.totalElements;
+          UserManagementService.getUsers(newPage,pageSize,fromDate,toDate).success(function(data){
+         $scope.gridOptions.data = data.content;
+           $scope.gridOptions.totalItems = data.totalElements;
           });
         });
      }
   };
-  
+ 
 }]);
 
 
@@ -144,13 +161,13 @@ app.directive('superColWidthUpdate', ['$timeout', function ($timeout) {
                   var _parentCol = jQuery('.ui-grid-header-cell[col-name="' + _colId + '"]');
                   var _parentWidth = _parentCol.outerWidth(),
                       _width = _el.outerWidth();
-                  
+                 
                   if (_parentWidth + 1 >= _width) {
                     _parentWidth = _parentWidth + _width;
                   } else {
                     _parentWidth = _width;
                   }
-                  
+                 
                   _parentCol.css({
                       'min-width': _parentWidth + 'px',
                       'max-width': _parentWidth + 'px',
@@ -165,19 +182,19 @@ app.directive('superColWidthUpdate', ['$timeout', function ($timeout) {
 
 
 app.service('UserManagementService',['$http', function ($http) {
-	//alert("123");
-	function getUsers(pageNumber,size,begin,end) {
-		//alert("12==="+begin);
-		//alert("13==="+end);
-		pageNumber = pageNumber > 0?pageNumber - 1:0;
+//alert("123");
+function getUsers(pageNumber,size,begin,end) {
+//alert("12= fromdate=="+begin);
+//alert("13=todate=="+end);
+	pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({
           method: 'GET',
           url: 'td/dashBoardTxnBM/get?page='+pageNumber+'&size='+size+'&fromdate='+begin+'&todate='+end
         });
     }
-	
+
     return {
-    	getUsers:getUsers
+    getUsers:getUsers
     };
-	
+
 }]);

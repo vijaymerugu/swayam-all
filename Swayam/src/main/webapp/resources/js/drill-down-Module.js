@@ -7,13 +7,17 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
 	 sort: null
    };
    
-   var counttype = "";
+   var counttype = "MOD";
    var circleName = document.getElementById("circleName").value;
    var networkName = document.getElementById("networkName").value;
+   var fromDate = document.getElementById("fromDate").value;
+   var toDate = document.getElementById("toDate").value;   
+   var moduleName="";
+   var regionName=""; 
    
-   $scope.loadHomeBodyPageForms = function(circleName, networkName, moduleName){	   
+   $scope.loadHomeBodyPageForms = function(moduleName){	   
 		if(circleName != undefined || networkName != undefined || moduleName != undefined){	
-			var str ='td/drillDownRegion?circleName='+circleName+'&networkName=' + networkName +'&moduleName=' + moduleName;
+			var str ='td/drillDownRegion?circleName='+circleName+'&networkName='+networkName+'&moduleName='+moduleName+'&fromDate='+fromDate+'&toDate='+toDate;
 			$("#contentHomeApp").load(str);
 		}						
 	}
@@ -22,7 +26,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
       
        counttype=type;
        DrillDownService.getUsers(paginationOptions.pageNumber,
-			   paginationOptions.pageSize,counttype,circleName,networkName).success(function(data){
+			   paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
 				   
 					  $scope.gridOptions.data = data.content;
 				 	  $scope.gridOptions.totalItems = data.totalElements;
@@ -34,7 +38,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
    {  	
 	   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
 	 	   UserManagementService.getUsers(paginationOptions.pageNumber,
-	 			   paginationOptions.pageSize,counttype).success(function(data){
+	 			   paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
 	 		  $scope.gridOptions.data = data.content;
 	 	 	  $scope.gridOptions.totalItems = data.totalElements;
 	 	   });	   
@@ -45,7 +49,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
 	 		   
 	 	    }else{
 	 	    	UserManagementService.getUsers(paginationOptions.pageNumber,
-	 	 			   paginationOptions.pageSize,counttype).success(function(data){
+	 	 			   paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
 	 	 		  $scope.gridOptions.data = data.content;
 	 	 	 	  $scope.gridOptions.totalItems = data.totalElements;
 	 	 	   });
@@ -53,7 +57,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
 	    };
 
    DrillDownService.getUsers(paginationOptions.pageNumber,
-		   paginationOptions.pageSize,counttype,circleName,networkName).success(function(data){
+		   paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
 	  $scope.gridOptions.data = data.content;
  	  $scope.gridOptions.totalItems = data.totalElements;
    });
@@ -66,6 +70,9 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
 	  
       headerTemplate: 'km/headerTemplate',
       superColDefs: [{
+          name: 'front',
+          displayName: ''
+      },{
           name: 'lipi',
           displayName: 'LIPI'
       }, {
@@ -74,32 +81,36 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
       }, {
           name: 'CMS',
           displayName: 'CMS'
+      }, {
+          name: 'back',
+          displayName: ''
       }], 
 
     columnDefs: [
-      { name: 'module',
+      { name: 'name',
       	  exporterSuppressExport: true,
       	  headerCellTemplate: '<div> Mod </div>',
-      	  cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.circleCode,row.entity.networkCode,row.entity.moduleCode)">{{row.entity.module}}</a></div>'
+      	  superCol: 'front', 
+      	  cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.code)">{{row.entity.name}}</a></div>'
       },
-      { name: 'totalSwayamBranches', displayName: 'Total Swayam Branches'  },
-      { name: 'totalSwayamKiosks', displayName: 'Total Swayam Kiosks'  },
+      { name: 'totalSwayamBranches', displayName: 'Total Swayam Branches',superCol: 'front'   },
+      { name: 'totalSwayamKiosks', displayName: 'Total Swayam Kiosks',superCol: 'front'   },
       { name: 'lipiKiosks', displayName: 'Kiosks',superCol: 'lipi'  },
       { name: 'lipiTxns', displayName: 'Txns',superCol: 'lipi'  },
       { name: 'forbesKiosks', displayName: 'Kiosks',superCol: 'Forbes'  },
       { name: 'forbesTxns', displayName: 'Txns',superCol: 'Forbes'  },
       { name: 'cmsKiosks', displayName: 'Kiosks',superCol: 'CMS'  },
       { name: 'cmsTxns', displayName: 'Txns',superCol: 'CMS'  },
-      { name: 'totalSwayamTxns', displayName: 'Swayam Txns'  },
-      { name: 'totalBranchCounterTxns', displayName: 'Branch Counter Txns'  },
-      { name: 'migrationPercentage', displayName: 'Migration Percentage(%)'  }
+      { name: 'totalSwayamTxns', displayName: 'Swayam Txns',superCol: 'back'  },
+      { name: 'totalBranchCounterTxns', displayName: 'Branch Counter Txns',superCol: 'back'  },
+      { name: 'migrationPercentage', displayName: 'Migration Percentage(%)',superCol: 'back'  }
     ],
     onRegisterApi: function(gridApi) {
         $scope.gridApi = gridApi;
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
           paginationOptions.pageNumber = newPage;
           paginationOptions.pageSize = pageSize;
-          DrillDownService.getUsers(newPage,pageSize,counttype,circleName,networkName).success(function(data){
+          DrillDownService.getUsers(newPage,pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
         	  $scope.gridOptions.data = data.content;
          	  $scope.gridOptions.totalItems = data.totalElements;
           });

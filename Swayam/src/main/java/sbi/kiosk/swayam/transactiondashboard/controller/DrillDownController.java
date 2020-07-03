@@ -3,6 +3,8 @@ package sbi.kiosk.swayam.transactiondashboard.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,11 +12,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
+import sbi.kiosk.swayam.common.constants.ExceptionConstants;
 import sbi.kiosk.swayam.common.entity.DrillDown;
 import sbi.kiosk.swayam.transactiondashboard.service.DrillDownService;
 
 @RestController
 public class DrillDownController {
+	
+	Logger logger = LoggerFactory.getLogger(DrillDownController.class);
 	
 	@Autowired 
     DrillDownService drillDownService;
@@ -29,7 +35,7 @@ public class DrillDownController {
 			model.setViewName("drillDown");
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
 		return model;
 	}
@@ -42,11 +48,17 @@ public class DrillDownController {
 			System.out.println("drillDownNetworkList");
 			
 			String circleName = request.getParameter("circleName");
+			String fromDate = request.getParameter("fromDate");
+			String toDate = request.getParameter("toDate");
 			
 			model.addObject("circleName", circleName);
+			model.addObject("fromDate", fromDate);
+			model.addObject("toDate", toDate);
+			
+			model.setViewName("drillDownNetwork");
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
 		return model;
 	}
@@ -61,12 +73,17 @@ public class DrillDownController {
 			
 			String circleName = request.getParameter("circleName");	
 			String networkName = request.getParameter("networkName");
+			String fromDate = request.getParameter("fromDate");
+			String toDate = request.getParameter("toDate");
 			
 			model.addObject("circleName", circleName);
 			model.addObject("networkName", networkName);
+			model.addObject("fromDate", fromDate);
+			model.addObject("toDate", toDate);
 			
+			model.setViewName("drillDownModule");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
 		return model;
 	}
@@ -82,15 +99,19 @@ public class DrillDownController {
 			String circleName = request.getParameter("circleName");	
 			String networkName = request.getParameter("networkName");
             String moduleName = request.getParameter("moduleName");
+            String fromDate = request.getParameter("fromDate");
+			String toDate = request.getParameter("toDate");
                      
             model.addObject("circleName", circleName);
 			model.addObject("networkName", networkName);
 			model.addObject("moduleName", moduleName);
+			model.addObject("fromDate", fromDate);
+			model.addObject("toDate", toDate);
 			
 			model.setViewName("drillDownRegion");
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
 		return model;
 	}
@@ -108,16 +129,20 @@ public class DrillDownController {
 			String networkName = request.getParameter("networkName");
             String moduleName = request.getParameter("moduleName");
             String regionName = request.getParameter("regionName");
+            String fromDate = request.getParameter("fromDate");
+			String toDate = request.getParameter("toDate");
 			
             model.addObject("circleName", circleName);
 			model.addObject("networkName", networkName);
 			model.addObject("moduleName", moduleName);
 			model.addObject("regionName", regionName);
+			model.addObject("fromDate", fromDate);
+			model.addObject("toDate", toDate);
 						
 			model.setViewName("drillDownBranch");
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
 		return model;
 	}
@@ -136,8 +161,8 @@ public class DrillDownController {
 		 Page<DrillDown> resultPage = null;
 		 
 		 if(fromDate.equals("undefined") || toDate.equals("undefined")) {		
-				fromDate="05-MAY-20";
-				toDate="20-MAY-20";
+				//fromDate="05-MAY-20";
+				//toDate="20-MAY-20";
 	     }
 		 
 		 if(networkName.equals("undefined") || moduleName.equals("undefined") || regionName.equals("undefined")) {	 
@@ -146,9 +171,9 @@ public class DrillDownController {
 			 regionName="";
 		 }
 		 
-		 if(!circleName.equals("undefined")) {
+		 if(fromDate !=null && !fromDate.isEmpty() && toDate !=null && !toDate.isEmpty()) {
 		 
-				resultPage = drillDownService.findPaginatedByTxnDate(page, size, fromDate, toDate, circleName, networkName, moduleName, regionName);
+				resultPage = drillDownService.findPaginatedByTxnDate(page, size,type, fromDate, toDate, circleName, networkName, moduleName, regionName);
 		 
 		 }
 

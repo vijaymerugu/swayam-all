@@ -52,7 +52,7 @@ public class RealTimeTransactionController {
 	@RequestMapping("td/realTimeTransactionYestrday")
 	public ModelAndView realTimeTransationYestarday(ModelAndView mav) {
 		System.out.println("Real time ==transa====Yesterday======");
-		mav.setViewName("realTimeTransactionToday");
+		mav.setViewName("realTimeTransactionYestrday");
 		return mav;
 	}
 	

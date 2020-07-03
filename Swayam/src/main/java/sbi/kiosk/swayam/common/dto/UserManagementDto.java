@@ -4,13 +4,18 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.persistence.Column;
-
 import lombok.Data;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import sbi.kiosk.swayam.common.constants.ExceptionConstants;
 import sbi.kiosk.swayam.common.entity.User;
 
 @Data
 public class UserManagementDto  {
+	
+	Logger logger = LoggerFactory.getLogger(UserManagementDto.class);
 	
 	public static String formatTimestampToString(String dateString) throws ParseException {
 		Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(dateString);
@@ -41,14 +46,14 @@ public class UserManagementDto  {
 			this.createdDate = user.getCreatedDate() !=null ?formatTimestampToString(user.getCreatedDate().toString()):"";
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.info("Exception "+ExceptionConstants.PARSE_EXCEPTION);			
 		}
 		this.createdBy = user.getCreatedBy();
 		try {
 			this.modifiedDate = user.getModifiedDate() !=null ?formatTimestampToString(user.getModifiedDate().toString()):"" ;
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.info("Exception "+ExceptionConstants.PARSE_EXCEPTION);			
 		}
 		this.modifiedBy = user.getModifiedBy();;
 		this.mobileNo = user.getPhoneNo();	

@@ -1,6 +1,8 @@
 package sbi.kiosk.swayam.transactiondashboard.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -16,6 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import sbi.kiosk.swayam.common.entity.SwayamMigrationSummary;
+import sbi.kiosk.swayam.common.entity.ZeroTransactionKiosks;
 import sbi.kiosk.swayam.transactiondashboard.repository.TransactionDashBoardRepository;
 import sbi.kiosk.swayam.transactiondashboard.repository.TransactionDashBoardRepositoryPaging;
 
@@ -38,49 +41,32 @@ public class TransactionDashBoardServiceImpl implements TransactionDashBoardServ
 			//.map(VmMigrationSummary::new);
 		logger.info("entities=Swayam Migrartion 555555555555=fromdate::="+fromdate);
 		logger.info("entities=Swayam Migrartion 2222222=todate::="+todate);
-		List<SwayamMigrationSummary> summaryList=new ArrayList<SwayamMigrationSummary>();
-		
-		if(fromdate!=null && !fromdate.isEmpty() && !fromdate.equals("undefined")){
-		StoredProcedureQuery nearByEntities= em.createNamedStoredProcedureQuery("SP_MIGRATION_SUMMARY");
-       // nearByEntities.setParameter("fromdate", "2020-05-10");
-       // nearByEntities.setParameter("todate", "2020-05-10");
-		nearByEntities.setParameter("fromdate", todate);
-	   nearByEntities.setParameter("todate", fromdate);
-        logger.info("nearByEntities======"+nearByEntities);
-        summaryList=nearByEntities.getResultList();
+		if((fromdate ==null || fromdate.isEmpty()) && (todate ==null || todate.isEmpty())){
+			//SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+			//Date curDate=new Date();
+			//fromdate=sdf.format(curDate);
+			//todate=sdf.format(curDate);
 			
-	    logger.info("entities=Size()::::"+summaryList.size());
-		logger.info("entities=Size()::::"+summaryList);
-		for(SwayamMigrationSummary swayamTxn:summaryList){
-			logger.info("swayamTxn=1="+swayamTxn.getCrclName());
-			logger.info("swayamTxn=2="+swayamTxn.getMigrationPerc());
-			logger.info("swayamTxn=3="+swayamTxn.getBranchName());
+			
+			SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+			 Date curDate=new Date();
+			 curDate.setTime(curDate.getTime()-48*60*60*1000); 
+			 String passedDate=sdf.format(curDate);
+			 logger.info("sdfsf "+passedDate);
+			fromdate=passedDate;
+			todate=passedDate;
+			 Page<SwayamMigrationSummary> pageSummary1=transactionDashBoardRepositoryPaging.findByDate(fromdate, todate, PageRequest.of(page, size));
+			 return pageSummary1;
+		}else {
+		 logger.info("fromdate22222222   "+fromdate);
+		 logger.info("todate6666666666   "+todate);
+		  Page<SwayamMigrationSummary> pageSummary= transactionDashBoardRepositoryPaging.findByDate(fromdate, todate, PageRequest.of(page, size));			
+		  return pageSummary;
 		}
 		
-		}else{
-			
-			
-			StoredProcedureQuery nearByEntities= em.createNamedStoredProcedureQuery("SP_MIGRATION_SUMMARY");
-		       // nearByEntities.setParameter("fromdate", "2020-05-10");
-		       // nearByEntities.setParameter("todate", "2020-05-10");
-				nearByEntities.setParameter("fromdate", "");
-			   nearByEntities.setParameter("todate", "");
-		        logger.info("nearByEntities======"+nearByEntities);
-		        summaryList=nearByEntities.getResultList();
-					
-			    logger.info("entities=Size()::::"+summaryList.size());
-				logger.info("entities=Size()::::"+summaryList);
-				for(SwayamMigrationSummary swayamTxn:summaryList){
-					logger.info("swayamTxn=1="+swayamTxn.getCrclName());
-					logger.info("swayamTxn=2="+swayamTxn.getMigrationPerc());
-					logger.info("swayamTxn=3="+swayamTxn.getBranchName());
-				}
-		}
-			
-Page<SwayamMigrationSummary> pageSummary = new PageImpl<SwayamMigrationSummary>(summaryList, PageRequest.of(page, size),summaryList.size());
-logger.info("entities======pageSummary========Size()::::"+pageSummary.getContent());
+      
 		
-		return pageSummary;
+		
 	  }
 
 	

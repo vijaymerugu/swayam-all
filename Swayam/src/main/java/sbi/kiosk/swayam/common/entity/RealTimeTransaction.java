@@ -53,7 +53,6 @@ public class RealTimeTransaction {
 		@Column(name = "NO_OF_TXNS")
 		private String noOfTxns;
 		
-		@Column(name = "TXN_DATE")
-		private String fromDate;
+		
 
 }

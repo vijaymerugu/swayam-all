@@ -3,15 +3,15 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService', function ($scope, $filter,UserManagementService) {
    var paginationOptions = {
      pageNumber: 1,
-	 pageSize: 5,
+	 pageSize: 20,
 	 sort: null
    };
    
    $scope.BtnClick = function() { 
-	   alert(1);  
+	     
    }
    
-   var yesterdayType = "";
+   var yesterdayType = "today";
    
    $scope.getCountType = function(yesterday){
 	    yesterdayType=yesterday;
@@ -27,13 +27,13 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    var counttype = "";
    $scope.loadHomeBodyPageForms = function(url){	   
 		if(url != undefined){	
-			alert("reltime yest");
+			//alert("reltime yest");
 			var str ='td/realTimeTransactionYestrday=' + url;
 			$("#contentHomeApp").load(str);
 		}						
 	}
    $scope.loadHomeBodyPageFormsDel = function(url){	  
-	   alert("reltime");
+	   //alert("reltime");
 		if(url != undefined){	
 			var str ='td/realTimeTransaction=' + url;
 			$("#contentHomeApp").load(str);
@@ -41,37 +41,39 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	}
   
    $scope.refresh = function()
-   {  		if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
-	
-		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);
-	    }else{
-	    	
-		   $scope.gridOptions.data = $scope.gridOptions.data;
-	    }
-   };
+   {  	
+	   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
+	   	 UserManagementService.getUsers(paginationOptions.pageNumber,
+	  		   paginationOptions.pageSize,yesterdayType).success(function(data){
+	  	  $scope.gridOptions.data = data.content;
+	   	  $scope.gridOptions.totalItems = data.totalElements;
+	     }); 
+	 		   
+	 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
+	 	  
+	 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
+	 		   
+	 	    }else{
+	 	    	 UserManagementService.getUsers(paginationOptions.pageNumber,
+	 	    			   paginationOptions.pageSize,yesterdayType).success(function(data){
+	 	    		  $scope.gridOptions.data = data.content;
+	 	    	 	  $scope.gridOptions.totalItems = data.totalElements;
+	 	    	   });
+	 	    }
+	    };
 
    UserManagementService.getUsers(paginationOptions.pageNumber,
-		   paginationOptions.pageSize).success(function(data){
+		   paginationOptions.pageSize,yesterdayType).success(function(data){
 	  $scope.gridOptions.data = data.content;
  	  $scope.gridOptions.totalItems = data.totalElements;
    });
    
    $scope.gridOptions = {
-    paginationPageSizes: [5, 10, 20],
+    paginationPageSizes: [20, 30, 40],
     paginationPageSize: paginationOptions.pageSize,	
 	enableColumnMenus:false,
 	useExternalPagination: true,
-	enableGridMenu: true,
-	exporterMenuCsv: false,
-	exporterPdfDefaultStyle: {fontSize: 9},   
-    exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, color: 'black'},      
-    exporterPdfFooter: function ( currentPage, pageCount ) {
-      return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
-    },    
-    exporterPdfCustomFormatter: function ( docDefinition ) {        
-        docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
-        return docDefinition;
-      },
+	
       columnDefs: [{name: 'crclName', displayName: 'Real-time Swayam Transaction'}
     	  ],
     columnDefs: [
@@ -95,7 +97,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
           paginationOptions.pageNumber = newPage;
           paginationOptions.pageSize = pageSize;
-          UserManagementService.getUsers(newPage,pageSize).success(function(data){
+          UserManagementService.getUsers(newPage,pageSize,yesterdayType).success(function(data){
         	  $scope.gridOptions.data = data.content;
          	  $scope.gridOptions.totalItems = data.totalElements;
           });

@@ -37,53 +37,33 @@ public class RealTimeTransactionServiceImpl implements RealTimeTransactionServic
 		// Page<RealTimeTransaction>  entities =	realTimeTxnRepositoryPaging.findByFromDate(PageRequest.of(page, size),fromdate);
 		//logger.info("entities==date wise==="+entities.getContent());
 		 List<RealTimeTransaction> list=new ArrayList<RealTimeTransaction>(); 
+		 String passedDate = null;
 		
 		 if(fromdate!=null && !fromdate.isEmpty() && fromdate.equalsIgnoreCase("yesterday")){
 			 SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
 			 Date curDate=new Date();
 			 curDate.setTime(curDate.getTime()-24*60*60*1000); 
-			 String date=sdf.format(curDate);
+			 passedDate=sdf.format(curDate);
 			 
-			logger.info("date===========::"+date);
-		 
-			StoredProcedureQuery nearByEntities= em.createNamedStoredProcedureQuery("SP_REAL_TIME_PROC");
+			logger.info("date===========::"+passedDate);		 
+			/*StoredProcedureQuery nearByEntities= em.createNamedStoredProcedureQuery("SP_REAL_TIME_PROC");
 	        nearByEntities.setParameter("fromdate_param", date);
 	       // nearByEntities.setParameter("todate", "20-05-12");
 	       logger.info("nearByEntities===IF===111=="+nearByEntities.getFirstResult());
-	        list=nearByEntities.getResultList();
-				
-			   logger.info("entities=Size()::::"+list.toString());
-				System.out.println("entities=Size()::::"+list);
-				for(RealTimeTransaction swayamTxn:list){
-					System.out.println("swayamTxn=11="+swayamTxn.getCrclName());
-					System.out.println("swayamTxn=22="+swayamTxn.getFromDate());
-					System.out.println("swayamTxn=33="+swayamTxn.getBranchName());
-				}
-				
+	        list=nearByEntities.getResultList();*/				
 		 }else if(fromdate!=null && !fromdate.isEmpty() && fromdate.equalsIgnoreCase("today") && !fromdate.equalsIgnoreCase("undefined")){
 			 SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
 			 Date curDate=new Date();
-			 String todayDate=sdf.format(curDate);
-			 logger.info("Else If===todayDate===========::"+todayDate);
-			 StoredProcedureQuery nearByEntities= em.createNamedStoredProcedureQuery("SP_REAL_TIME_PROC");
-		     nearByEntities.setParameter("fromdate_param", todayDate);
-		     // nearByEntities.setParameter("todate", "20-05-12");
-		     logger.info("nearByEntities====Esle=="+nearByEntities);
-		     list=nearByEntities.getResultList();
-		     logger.info("entities=Size()::::"+list.toString());
-			}else{
+			 passedDate=sdf.format(curDate);
+			 logger.info("Else If===todayDate===========::"+passedDate);			 
+		}else{
 				 SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
 				 Date curDate=new Date();
-				 String todayDate=sdf.format(curDate);
+				 passedDate=sdf.format(curDate);
 				//String todayDate=sdf.format(curDate);
-				logger.info("Else ===todayDate===========::"+todayDate);
-				StoredProcedureQuery nearByEntities= em.createNamedStoredProcedureQuery("SP_REAL_TIME_PROC");
-			    nearByEntities.setParameter("fromdate_param", todayDate);
-			    logger.info("nearByEntities====Esle=="+nearByEntities);
-			    list=nearByEntities.getResultList();
-			    logger.info("entities=Size()::::"+list.toString());
-				}
-					Page<RealTimeTransaction> pageEntity = new PageImpl<RealTimeTransaction>(list, PageRequest.of(page, size),list.size());
+				logger.info("Else ===todayDate===========::"+passedDate);
+		}
+		 Page<RealTimeTransaction> pageEntity = realTimeTxnRepositoryPaging.findByFromDate(passedDate, PageRequest.of(page, size));					
 		return pageEntity;
 	}
 

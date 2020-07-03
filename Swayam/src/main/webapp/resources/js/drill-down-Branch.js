@@ -7,17 +7,19 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
 	 sort: null
    };
    
-   var counttype = "";
+   var counttype = "BR";
    var circleName = document.getElementById("circleName").value;
    var networkName = document.getElementById("networkName").value;
    var moduleName = document.getElementById("moduleName").value;
    var regionName = document.getElementById("regionName").value;
+   var fromDate = document.getElementById("fromDate").value;
+   var toDate = document.getElementById("toDate").value;  
    
    $scope.getCountType = function(type){
       
        counttype=type;
        DrillDownService.getUsers(paginationOptions.pageNumber,
-			   paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName).success(function(data){
+			   paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
 				   
 					  $scope.gridOptions.data = data.content;
 				 	  $scope.gridOptions.totalItems = data.totalElements;
@@ -29,7 +31,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
    {  	
 	   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
 	 	   UserManagementService.getUsers(paginationOptions.pageNumber,
-	 			   paginationOptions.pageSize,counttype).success(function(data){
+	 			   paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
 	 		  $scope.gridOptions.data = data.content;
 	 	 	  $scope.gridOptions.totalItems = data.totalElements;
 	 	   });	   
@@ -40,7 +42,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
 	 		   
 	 	    }else{
 	 	    	UserManagementService.getUsers(paginationOptions.pageNumber,
-	 	 			   paginationOptions.pageSize,counttype).success(function(data){
+	 	 			   paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
 	 	 		  $scope.gridOptions.data = data.content;
 	 	 	 	  $scope.gridOptions.totalItems = data.totalElements;
 	 	 	   });
@@ -48,7 +50,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
 	    };
 
    DrillDownService.getUsers(paginationOptions.pageNumber,
-		   paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName).success(function(data){
+		   paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
 	  $scope.gridOptions.data = data.content;
  	  $scope.gridOptions.totalItems = data.totalElements;
    });
@@ -61,6 +63,9 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
 	  
       headerTemplate: 'km/headerTemplate',
       superColDefs: [{
+          name: 'front',
+          displayName: ''
+      },{
           name: 'lipi',
           displayName: 'LIPI'
       }, {
@@ -69,28 +74,31 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
       }, {
           name: 'CMS',
           displayName: 'CMS'
+      }, {
+          name: 'back',
+          displayName: ''
       }],
 
     columnDefs: [
-    	 { name: 'branchName', displayName: 'Branch'  },
-    	 { name: 'totalSwayamBranches', displayName: 'Total Swayam Branches'  },
-         { name: 'totalSwayamKiosks', displayName: 'Total Swayam Kiosks'  },
+    	 { name: 'name', displayName: 'Branch',superCol: 'front'   },
+    	 { name: 'totalSwayamBranches', displayName: 'Total Swayam Branches',superCol: 'front'   },
+         { name: 'totalSwayamKiosks', displayName: 'Total Swayam Kiosks',superCol: 'front'   },
          { name: 'lipiKiosks', displayName: 'Kiosks',superCol: 'lipi'  },
          { name: 'lipiTxns', displayName: 'Txns',superCol: 'lipi'  },
          { name: 'forbesKiosks', displayName: 'Kiosks',superCol: 'Forbes'  },
          { name: 'forbesTxns', displayName: 'Txns',superCol: 'Forbes'  },
          { name: 'cmsKiosks', displayName: 'Kiosks',superCol: 'CMS'  },
          { name: 'cmsTxns', displayName: 'Txns',superCol: 'CMS'  },
-         { name: 'totalSwayamTxns', displayName: 'Swayam Txns'  },
-         { name: 'totalBranchCounterTxns', displayName: 'Branch Counter Txns'  },
-         { name: 'migrationPercentage', displayName: 'Migration Percentage(%)'  }
+         { name: 'totalSwayamTxns', displayName: 'Swayam Txns',superCol: 'back'  },
+         { name: 'totalBranchCounterTxns', displayName: 'Branch Counter Txns',superCol: 'back'  },
+         { name: 'migrationPercentage', displayName: 'Migration Percentage(%)',superCol: 'back'  }
     ],
     onRegisterApi: function(gridApi) {
         $scope.gridApi = gridApi;
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
           paginationOptions.pageNumber = newPage;
           paginationOptions.pageSize = pageSize;
-          DrillDownService.getUsers(newPage,pageSize,counttype,circleName,networkName,moduleName,region).success(function(data){
+          DrillDownService.getUsers(newPage,pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
         	  $scope.gridOptions.data = data.content;
          	  $scope.gridOptions.totalItems = data.totalElements;
           });

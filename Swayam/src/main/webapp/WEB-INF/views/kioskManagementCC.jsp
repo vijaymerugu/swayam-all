@@ -16,13 +16,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
 <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script>
 <link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/>
-    <script src="resources/js/csv.js"></script>
-    <script src="resources/js/pdfmake.js"></script>
-    <script src="resources/js/vfs_fonts.js"></script>
-    <script src="resources/js/lodash.min.js"></script>
-    <script src="resources/js/jszip.min.js"></script>
-    <script src="resources/js/excel-builder.dist.js"></script>  
-    <script src="resources/js/angular.js"></script>
+ <script src="resources/js/angular.js"></script>
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>

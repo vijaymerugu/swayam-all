@@ -1,5 +1,7 @@
 package sbi.kiosk.swayam.common.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -20,11 +22,17 @@ parameters={
 @StoredProcedureParameter(name="cur", type=void.class, mode= ParameterMode.REF_CURSOR)
 }
 )
-public class ZeroTransactionKiosks {
+public class ZeroTransactionKiosks implements Serializable{
+		
+		/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+		
 		
 		@Id
-		@Column(name="BR_ID")
-		private Integer id;
+		@Column(name="KIOSK_ID")
+		private String kioskId;
 		
 		@Column(name="CRCL_NAME")
 		private String circleName;
@@ -44,8 +52,7 @@ public class ZeroTransactionKiosks {
 		@Column(name="BRANCH_NAME")
 		private String branchName;
 		
-		@Column(name="KIOSK_ID")
-		private String kioskId;
+	
 		
 		@Column(name="VENDOR")
 		private String vendor;
