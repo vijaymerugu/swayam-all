@@ -74,6 +74,7 @@ public class UploadServiceImpl implements UploadService {
 	@Override
 	public String uploadKioskInformation(String path) {
 		// upload kiosk file information
+		
 		Map<String, String> map = new HashMap();
 		try {
 
@@ -111,8 +112,6 @@ public class UploadServiceImpl implements UploadService {
 					case STRING:
 
 						if (!(String.valueOf(cell.getRow().getRowNum()).equals("0"))) {
-							System.out.print(cell.getColumnIndex());
-							System.out.print(cell.getRow().getRowNum());
 							if (String.valueOf(cell.getColumnIndex()).equals("1")) {
 
 								dto.setSrNo(cell.getStringCellValue());
@@ -211,13 +210,13 @@ public class UploadServiceImpl implements UploadService {
 						}
 						break;
 					case BOOLEAN:
-						System.out.print(cell.getBooleanCellValue());
+				//System.out.println(cell.getBooleanCellValue());
 						break;
 					case NUMERIC:
 
 						// dto.setSrNo(String.valueOf(cell.getNumericCellValue()));
 
-						System.out.print(cell.getNumericCellValue());
+						//System.out.println(cell.getNumericCellValue());
 
 						break;
 
@@ -294,7 +293,7 @@ public class UploadServiceImpl implements UploadService {
 					// -------By Ankur END---------------------------
 
 					} // switch close
-					System.out.print(" - ");
+					logger.info(" - ");
 				} // 1st close while loop
 				lidtDto.add(dto);
 			} // 2nd close while loop
@@ -505,129 +504,98 @@ public class UploadServiceImpl implements UploadService {
 
 							if (String.valueOf(cell.getColumnIndex()).equals("1")) {
 								dto.setBranchCode(cell.getStringCellValue());
-								System.out.print(cell.getStringCellValue());
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("2")) {
 								dto.setBranchName(cell.getStringCellValue());
-								System.out.print(cell.getStringCellValue());
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("3")) {
 								dto.setcRCLCode((String.valueOf(cell.getStringCellValue())));
-								System.out.print(cell.getStringCellValue());
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("4")) {
 								dto.setcRCLName((String.valueOf(cell.getStringCellValue())));
-								System.out.print(cell.getStringCellValue());
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("5")) {
 								dto.setNetwork((String.valueOf(cell.getStringCellValue())));
-								System.out.print(cell.getStringCellValue());
 							}
 
 							if (String.valueOf(cell.getColumnIndex()).equals("6")) {
 								dto.setModule(cell.getStringCellValue());
-								System.out.print(cell.getStringCellValue());
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("7")) {
 								dto.setRegion(cell.getStringCellValue());
-								System.out.print(cell.getStringCellValue());
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("8")) {
 								dto.setPopGroup(cell.getStringCellValue());
-								System.out.print(cell.getStringCellValue());
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("9")) {
 								dto.setPopDesc(cell.getStringCellValue());
-								System.out.print(cell.getStringCellValue());
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("10")) {
 								dto.setOpenCloseStatu(cell.getStringCellValue());
-								System.out.print(cell.getStringCellValue());
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("11")) {
 								dto.setOpendt(cell.getStringCellValue());
-								System.out.print(cell.getStringCellValue());
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("12")) {
 								dto.setStatCode(cell.getStringCellValue());
-								System.out.print(cell.getStringCellValue());
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("13")) {
 								dto.setStateDesc(cell.getStringCellValue());
-								System.out.print(cell.getStringCellValue());
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("14")) {
 								dto.setDistCode(cell.getStringCellValue());
-								System.out.print(cell.getStringCellValue());
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("15")) {
 								dto.setDistDesc(cell.getStringCellValue());
-								System.out.print(cell.getStringCellValue());
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("16")) {
 								dto.setAddress1(cell.getStringCellValue());
-								System.out.print(cell.getStringCellValue());
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("17")) {
 								dto.setAddress2(cell.getStringCellValue());
-								System.out.print(cell.getStringCellValue());
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("18")) {
 								dto.setAddress3(cell.getStringCellValue());
-								System.out.print(cell.getStringCellValue());
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("19")) {
 								dto.setAddress4(cell.getStringCellValue());
-								System.out.print(cell.getStringCellValue());
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("20")) {
 								dto.setPinCode(cell.getStringCellValue());
-								System.out.print(cell.getStringCellValue());
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("21")) {
 								dto.setStdCode(cell.getStringCellValue());
-								System.out.print(cell.getStringCellValue());
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("22")) {
 								dto.setPhone(cell.getStringCellValue());
-								System.out.print(cell.getStringCellValue());
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("23")) {
 								dto.setMicrCode(cell.getStringCellValue());
-								System.out.print(cell.getStringCellValue());
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("24")) {
 								dto.setIfsc(cell.getStringCellValue());
-								System.out.print(cell.getStringCellValue());
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("25")) {
 								dto.setEmail(cell.getStringCellValue());
-								System.out.print(cell.getStringCellValue());
 							}
 
 							if (String.valueOf(cell.getColumnIndex()).equals("26")) {
 								dto.setBranchMgrName(cell.getStringCellValue());
-								System.out.print(cell.getStringCellValue());
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("27")) {
 								dto.setBranchMgrMobileNo(cell.getStringCellValue());
-								System.out.print(cell.getStringCellValue());
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("28")) {
 								dto.setBusinessHrs(cell.getStringCellValue());
-								System.out.print(cell.getStringCellValue());
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("29")) {
 								dto.setOfficeType(cell.getStringCellValue());
-								System.out.print(cell.getStringCellValue());
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("30")) {
 								dto.setOfficeDesc(cell.getStringCellValue());
-								System.out.print(cell.getStringCellValue());
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("31")) {
 								dto.setModCode(cell.getStringCellValue());
-								System.out.print(cell.getStringCellValue());
 							}
 
 							break;
@@ -638,188 +606,14 @@ public class UploadServiceImpl implements UploadService {
 						if (!(String.valueOf(cell.getRow().getRowNum()).equals("0"))) {
 							
 							  if (String.valueOf(cell.getColumnIndex()).equals("0")) {
-							  System.out.print((String.valueOf(cell.getNumericCellValue())));
 							  dto.setBranchCode((String.valueOf(cell.getNumericCellValue()))); }
 							 
-							/*
-							 * if (String.valueOf(cell.getColumnIndex()).equals("2")) {
-							 * dto.setcRCLCode((String.valueOf(cell.getNumericCellValue())));
-							 * System.out.print((String.valueOf(cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("4")) {
-							 * dto.setNetwork((String.valueOf(cell.getNumericCellValue())));
-							 * System.out.print((String.valueOf(cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("5")) {
-							 * dto.setModCode((String.valueOf(cell.getNumericCellValue())));
-							 * System.out.print((String.valueOf(cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("7")) {
-							 * dto.setRegion((String.valueOf(cell.getNumericCellValue())));
-							 * System.out.print((String.valueOf(cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("8")) {
-							 * dto.setPopGroup((String.valueOf(cell.getNumericCellValue())));
-							 * System.out.print((String.valueOf(cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("11")) {
-							 * dto.setOpendt((String.valueOf(cell.getNumericCellValue())));
-							 * System.out.print((String.valueOf(cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("12")) {
-							 * dto.setStatCode((String.valueOf(cell.getNumericCellValue())));
-							 * System.out.print((String.valueOf(cell.getNumericCellValue()))); }
-							 * 
-							 * if (String.valueOf(cell.getColumnIndex()).equals("14")) {
-							 * dto.setDistCode((String.valueOf(cell.getNumericCellValue())));
-							 * System.out.print((String.valueOf(cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("20")) {
-							 * dto.setPinCode((String.valueOf(cell.getNumericCellValue())));
-							 * System.out.print((String.valueOf(cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("21")) {
-							 * dto.setStdCode((String.valueOf(cell.getNumericCellValue())));
-							 * System.out.print((String.valueOf(cell.getNumericCellValue()))); }
-							 * 
-							 * if (String.valueOf(cell.getColumnIndex()).equals("22")) {
-							 * dto.setPhone((String.valueOf(cell.getNumericCellValue())));
-							 * System.out.print((String.valueOf(cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("23")) {
-							 * dto.setMicrCode((String.valueOf(cell.getNumericCellValue())));
-							 * System.out.print((String.valueOf(cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("27")) {
-							 * dto.setBranchMgrMobileNo((String.valueOf(cell.getNumericCellValue())));
-							 * System.out.print((String.valueOf(cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("28")) {
-							 * dto.setBusinessHrs((String.valueOf(cell.getNumericCellValue())));
-							 * System.out.print((String.valueOf(cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("29")) {
-							 * dto.setOfficeType((String.valueOf(cell.getNumericCellValue())));
-							 * System.out.print((String.valueOf(cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("30")) {
-							 * dto.setModCode((String.valueOf(cell.getStringCellValue())));
-							 * System.out.print(cell.getStringCellValue()); }
-							 */
-
+							
 							break;
-						}
-//
-//					case BLANK:	
-//						
-//					  if (!(String.valueOf(cell.getRow().getRowNum()).equals("0"))) {
-//						
-//						if (String.valueOf(cell.getColumnIndex()).equals("1")) {
-//							
-//	                        String row=String.valueOf(cell.getRow().getRowNum());
-//	                        map.put(dto.getBranchCode(),"Branch Name is empty");
-//                //        errorList.add("Branch Name data cannot be empty of row "+ row + "and column " + cell.getColumnIndex());
-//
-//                       }
-//
-//                       if (String.valueOf(cell.getColumnIndex()).equals("2")) {
-//	
-//	                        String row=String.valueOf(cell.getRow().getRowNum());
-//	                        map.put(dto.getBranchCode(),"Crcl Code data cannot be empty of row "+ row);
-//	                //        errorList.add("Crcl Code data cannot be empty of row "+ row + "and column " + cell.getColumnIndex());
-//	
-//                       }
-//						
-//						if (String.valueOf(cell.getColumnIndex()).equals("3")) {
-//							
-//							String row=String.valueOf(cell.getRow().getRowNum());
-//							map.put(dto.getBranchCode(),"Crcl Name data cannot be empty of row "+ row);
-//					//		errorList.add("Crcl Name data cannot be empty of row "+ row + "and column " + cell.getColumnIndex());
-//						}
-//						
-//						if (String.valueOf(cell.getColumnIndex()).equals("4")) {
-//							
-//							String row=String.valueOf(cell.getRow().getRowNum());
-//							map.put(dto.getBranchCode(),"Network data cannot be empty of row "+ row);
-//					//		errorList.add("Network data cannot be empty of row "+ row + "and column " + cell.getColumnIndex());
-//						}
-//					
-//                        if (String.valueOf(cell.getColumnIndex()).equals("5")) {
-//							
-//							String row=String.valueOf(cell.getRow().getRowNum());
-//							map.put(dto.getBranchCode(),"Mod Code data cannot be empty of row "+ row);
-//					//		errorList.add("Mod Code data cannot be empty of row "+ row + "and column " + cell.getColumnIndex());
-//						}
-//                        
-//                        if (String.valueOf(cell.getColumnIndex()).equals("6")) {
-//							
-//							String row=String.valueOf(cell.getRow().getRowNum());
-//							map.put(dto.getBranchCode(),"Module data cannot be empty of row "+ row);
-//					//		errorList.add("Module data cannot be empty of row "+ row + "and column " + cell.getColumnIndex());
-//						}
-//                        
-//                       if (String.valueOf(cell.getColumnIndex()).equals("7")) {
-//							
-//							String row=String.valueOf(cell.getRow().getRowNum());
-//						map.put(dto.getBranchCode(),"Region data cannot be empty of row "+ row);
-//					//		errorList.add("Region data cannot be empty of row "+ row + "and column " + cell.getColumnIndex());
-//						}
-//                        
-//                       if (String.valueOf(cell.getColumnIndex()).equals("12")) {
-//                        	
-//	                        String row=String.valueOf(cell.getRow().getRowNum());
-//	                        map.put(dto.getBranchCode(),"Stat Code data cannot be empty of row "+ row);
-//	               //       errorList.add("Stat Code data cannot be empty of row "+ row + "and column " + cell.getColumnIndex());
-//                        }
-//						                     
-//                        break;
-//                        
-//			      }
-//					  
-//					default:
-//						
-//					  if (!(String.valueOf(cell.getRow().getRowNum()).equals("0"))) {
-//					
-//                        if (String.valueOf(cell.getColumnIndex()).equals("1")) {
-//							
-//	                        String row=String.valueOf(cell.getRow().getRowNum());
-//                        map.put(dto.getBranchCode(),"Branch Name is empty");
-//                //        errorList.add("Branch Name data cannot be empty of row "+ row + "and column " + cell.getColumnIndex());
-//
-//                       }
-//
-//                       if (String.valueOf(cell.getColumnIndex()).equals("2")) {
-//
-//	                        String row=String.valueOf(cell.getRow().getRowNum());
-//	                        map.put(dto.getBranchCode(),"Crcl Code data cannot be empty of row "+ row);
-//	                //        errorList.add("Crcl Code data cannot be empty of row "+ row + "and column " + cell.getColumnIndex());
-//	
-//                       }
-//						
-//						if (String.valueOf(cell.getColumnIndex()).equals("3")) {
-//						
-//							String row=String.valueOf(cell.getRow().getRowNum());
-//							map.put(dto.getBranchCode(),"Crcl Name data cannot be empty of row "+ row);
-//					//		errorList.add("Crcl Name data cannot be empty of row "+ row + "and column " + cell.getColumnIndex());
-//					}
-//						
-//						if (String.valueOf(cell.getColumnIndex()).equals("4")) {
-//							
-//							String row=String.valueOf(cell.getRow().getRowNum());
-//							map.put(dto.getBranchCode(),"Network data cannot be empty of row "+ row);
-//					//		errorList.add("Network data cannot be empty of row "+ row + "and column " + cell.getColumnIndex());
-//						}
-//						
-//                       if (String.valueOf(cell.getColumnIndex()).equals("5")) {
-//							
-//							String row=String.valueOf(cell.getRow().getRowNum());
-//							map.put(dto.getBranchCode(),"Mod Code data cannot be empty of row "+ row);
-//					//		errorList.add("Mod Code data cannot be empty of row "+ row + "and column " + cell.getColumnIndex());
-//						}
-//                       
-//                        if (String.valueOf(cell.getColumnIndex()).equals("6")) {
-//							
-//							String row=String.valueOf(cell.getRow().getRowNum());
-//							map.put(dto.getBranchCode(),"Module data cannot be empty of row "+ row);
-//					//		errorList.add("Module data cannot be empty of row "+ row + "and column " + cell.getColumnIndex());
-//						}
-//                       
-//                        if (String.valueOf(cell.getColumnIndex()).equals("7")) {
-//							
-//							String row=String.valueOf(cell.getRow().getRowNum());
-//							map.put(dto.getBranchCode(),"Region data cannot be empty of row "+ row);
-//					//		errorList.add("Region data cannot be empty of row "+ row + "and column " + cell.getColumnIndex());
-//						}
+						}				
 
 					}// switch close
-					System.out.print(" - ");
+					logger.info(" - ");
 				} // 1st close while loop
 				lidtDto.add(dto);
 			} // 2nd close while loop
@@ -1142,8 +936,6 @@ public class UploadServiceImpl implements UploadService {
 					 */
 
 					if (!(String.valueOf(cell.getRow().getRowNum()).equals("0"))) {
-						System.out.print(cell.getColumnIndex());
-						System.out.print(cell.getRow().getRowNum());
 
 						if (String.valueOf(cell.getColumnIndex()).equals("0")) {
 							String cellValueStr = objDefaultFormat.formatCellValue(cell, objFormulaEvaluator);
@@ -1167,16 +959,8 @@ public class UploadServiceImpl implements UploadService {
 						}
 
 					}
-					/*
-					 * break;
-					 * 
-					 * case BOOLEAN: System.out.print(cell.getBooleanCellValue()); break;
-					 * 
-					 * case NUMERIC: System.out.print(cell.getNumericCellValue());
-					 * 
-					 * break; }
-					 */
-					System.out.print(" - ");
+					
+					logger.info(" - ");
 
 				} // 1st close while loop
 				lidtDto.add(dto);
@@ -1324,15 +1108,13 @@ public class UploadServiceImpl implements UploadService {
 					switch (cell.getCellType()) {
 					case STRING:
 						if (!(String.valueOf(cell.getRow().getRowNum()).equals("0"))) {
-							System.out.print(cell.getColumnIndex());
-							System.out.print(cell.getRow().getRowNum());
+						
 
 							if (String.valueOf(cell.getColumnIndex()).equals("0")) {
 								dto.setCmfPfId(cell.getStringCellValue());
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("1")) {
-								// String cellValueStr =
-								// objDefaultFormat.formatCellValue(cell,objFormulaEvaluator);
+							
 								dto.setKioskId(cell.getStringCellValue());
 							}
 
@@ -1341,11 +1123,11 @@ public class UploadServiceImpl implements UploadService {
 					case NUMERIC:
 						if (!(String.valueOf(cell.getRow().getRowNum()).equals("0"))) {
 							if (String.valueOf(cell.getColumnIndex()).equals("0")) {
-								System.out.print((String.valueOf(cell.getNumericCellValue())));
+							
 								dto.setCmfPfId((String.valueOf(cell.getNumericCellValue())));
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("1")) {
-								System.out.print((String.valueOf(cell.getNumericCellValue())));
+							
 								dto.setKioskId((String.valueOf(cell.getNumericCellValue())));
 							}
 
@@ -1353,7 +1135,7 @@ public class UploadServiceImpl implements UploadService {
 						}
 
 					}
-					System.out.print(" - ");
+					logger.info(" - ");
 
 				} // 1st close while loop
 				lidtDto.add(dto);

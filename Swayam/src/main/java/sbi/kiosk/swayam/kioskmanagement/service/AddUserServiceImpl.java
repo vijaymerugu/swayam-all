@@ -17,9 +17,6 @@ public class AddUserServiceImpl implements AddUserService{
 	
 	@Override
 	public String addUser(AddUserDto dto,String role,String circle) {
-		System.out.println("saving adduser form.....");
-		System.out.println("Role==================");
-		System.out.println(role);
 		User user=new User();
 		user.setPfId(dto.getPfId());
 		user.setUsername(dto.getUsername());
@@ -49,9 +46,6 @@ public class AddUserServiceImpl implements AddUserService{
 	
 	@Override
 	public String updateUser(AddUserDto dto,String role,String circle) {
-		System.out.println("saving adduser form.....");
-		System.out.println("Role==================");
-		System.out.println(role);
 		User user=new User();
 		user.setUserId(dto.getUserId());
 		user.setPfId(dto.getPfId());
@@ -80,9 +74,7 @@ public class AddUserServiceImpl implements AddUserService{
 	
 	@Override
 	public String getByPfId(String pfId) {
-		System.out.println("inside addservice class::"+pfId);
 		int result=userRepository.geByPfId((pfId));
-		System.out.println(result);
 			if(result==0)
 				return "";
 			return "PF ID Already Exists";

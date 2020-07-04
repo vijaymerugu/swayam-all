@@ -54,7 +54,6 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 			 
 			 String kioskBranchMaster= kioskMasterRepo.findKioskByKioskId_circle(kioskId);
 			 dto.setServeriry(kioskBranchMaster);
-			 System.out.println(dto.getKisokId());
 			 
 			 
 		 }
@@ -77,7 +76,6 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 			 
 			 String kioskBranchMaster= kioskMasterRepo.findKioskByKioskId_circle(kioskId);
 			 dto.setServeriry(kioskBranchMaster);
-			 System.out.println(dto.getKisokId());
 			 
 			 
 		 }
@@ -92,7 +90,6 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 		 Page<TicketCentorDto> entities = null;
 		 
 		 if(type!=null && !type.isEmpty()){
-			 System.out.println("type=sa===========================0=="+type);
 		 
 		 if(type!=null && type.equals("High")){
 			  entities= ticketCentorRepo.findAll(type, PageRequest.of(page, size)).map(TicketCentorDto::new);
@@ -124,7 +121,6 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 			 
 			 String kioskBranchMaster= kioskMasterRepo.findKioskByKioskId_circle(kioskId);
 			 dto.setServeriry(kioskBranchMaster);
-			 System.out.println(dto.getKisokId());
 			 
 			 
 		 }
@@ -140,7 +136,6 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 		 Page<TicketCentorDto> entities = null;
 		 
 		 if(type!=null && !type.isEmpty()){
-			 System.out.println("type=sa===========================0=="+type);
 		 
 		 if(type!=null && type.equals("High")){
 			  entities= ticketCentorRepo.findAllByCircleAndType(circle,type, PageRequest.of(page, size)).map(TicketCentorDto::new);
@@ -171,7 +166,6 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 			 
 			 String kioskBranchMaster= kioskMasterRepo.findKioskByKioskId_circle(kioskId);
 			 dto.setServeriry(kioskBranchMaster);
-			 System.out.println(dto.getKisokId());
 			 
 			 
 		 }
@@ -199,7 +193,6 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 			
 			 
 			    int countHigh = callTypeRepo.getCallTypeHiegh();
-				System.out.println("countHiegh==" + countHigh);
 				int countMedium = callTypeRepo.getCallTypeMedium();
 				int countLow = callTypeRepo.getCallTypeLow();
 				int countTotal = callTypeRepo.getCallTypeTotal();
@@ -211,12 +204,8 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 				mapDataList.put("Total", countTotal);
 			
 				for (Map.Entry<String, Integer> entry : mapDataList.entrySet()) {
-					System.out.println("key===" + entry.getKey());
-					System.out.println("Value " + entry.getValue());
 
 				}
-				System.out.println("countKioskCount::::::::::mapData:::::::::::" + mapDataList.size());
-			 
 			
 			return mapDataList;
 		}
@@ -229,7 +218,6 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 			
 			 
 			    int countHigh = callTypeRepo.getCallTypeHiegh(circle);
-				System.out.println("countHiegh==" + countHigh);
 				int countMedium = callTypeRepo.getCallTypeMedium(circle);
 				int countLow = callTypeRepo.getCallTypeLow(circle);
 				int countTotal = callTypeRepo.getCallTypeTotal(circle);
@@ -241,12 +229,8 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 				mapDataList.put("Total", countTotal);
 			
 				for (Map.Entry<String, Integer> entry : mapDataList.entrySet()) {
-					System.out.println("key===" + entry.getKey());
-					System.out.println("Value " + entry.getValue());
 
 				}
-				System.out.println("countKioskCount::::::::::mapData:::::::::::" + mapDataList.size());
-			 
 			
 			return mapDataList;
 		}
@@ -260,7 +244,6 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 			
 			 
 			    int twoToFourHrsCount = ticketCentorAgeingRepo.find2_4HoursCount();
-				System.out.println("twoToFourHrsCount==" + twoToFourHrsCount);
 				int oneDaysCount = ticketCentorAgeingRepo.find_1_DaysCount();
 				int threeDaysCount = ticketCentorAgeingRepo.find_3_Days_LessCount();
 				int threeDayGreaterCount = ticketCentorAgeingRepo.find_3_Days_GreaterThanCount();
@@ -274,13 +257,8 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 				mapDataList.put("TotalCount", totalCount);
 			
 				for (Map.Entry<String, Integer> entry : mapDataList.entrySet()) {
-					System.out.println("key===" + entry.getKey());
-					System.out.println("Value " + entry.getValue());
 
 				}
-				System.out.println("findAllAgeingOfTicketsCount::::::::::mapData:::::::::::" + mapDataList.size());
-			 
-			
 			return mapDataList;
 		}
 		
@@ -292,7 +270,6 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 			
 			 
 			    int twoToFourHrsCount = ticketCentorAgeingRepo.find2_4HoursCount(circle);
-				System.out.println("twoToFourHrsCount==" + twoToFourHrsCount);
 				int oneDaysCount = ticketCentorAgeingRepo.find_1_DaysCount(circle);
 				int threeDaysCount = ticketCentorAgeingRepo.find_3_Days_LessCount(circle);
 				int threeDayGreaterCount = ticketCentorAgeingRepo.find_3_Days_GreaterThanCount(circle);
@@ -306,13 +283,11 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 				mapDataList.put("TotalCount", totalCount);
 			
 				for (Map.Entry<String, Integer> entry : mapDataList.entrySet()) {
-					System.out.println("key===" + entry.getKey());
-					System.out.println("Value " + entry.getValue());
 
 				}
-				System.out.println("findAllAgeingOfTicketsCount::::::::::mapData:::::::::::" + mapDataList.size());
-			 
 			
+				
+				
 			return mapDataList;
 		}
 
