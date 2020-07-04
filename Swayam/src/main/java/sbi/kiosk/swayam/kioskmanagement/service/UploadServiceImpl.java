@@ -210,13 +210,13 @@ public class UploadServiceImpl implements UploadService {
 						}
 						break;
 					case BOOLEAN:
-				System.out.println(cell.getBooleanCellValue());
+				//System.out.println(cell.getBooleanCellValue());
 						break;
 					case NUMERIC:
 
 						// dto.setSrNo(String.valueOf(cell.getNumericCellValue()));
 
-						System.out.println(cell.getNumericCellValue());
+						//System.out.println(cell.getNumericCellValue());
 
 						break;
 
