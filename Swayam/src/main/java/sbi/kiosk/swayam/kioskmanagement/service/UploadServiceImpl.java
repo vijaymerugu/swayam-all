@@ -73,7 +73,6 @@ public class UploadServiceImpl implements UploadService {
 
 	@Override
 	public String uploadKioskInformation(String path) {
-		System.out.println("inside upload kiosk information service...");
 		// upload kiosk file information
 		Map<String, String> map = new HashMap();
 		try {
@@ -82,11 +81,9 @@ public class UploadServiceImpl implements UploadService {
 
 			/*
 			 * rb = ResourceBundle.getBundle("rb"+rb);
-			 * System.out.println("while reading excel file..."); String kioskFilepath =
 			 * rb.getString("kioskFilepath");
 			 */
 
-			System.out.println("while reading excel file...");
 			inputStream = new FileInputStream(path);
 			// new File("C:\\Users\\Admin\\Downloads\\Swayam_Kiosk_Information.xlsx"));
 
@@ -207,7 +204,6 @@ public class UploadServiceImpl implements UploadService {
 							 * for (HashMap.Entry<Integer, String> entry : map.entrySet()) { Integer key =
 							 * entry.getKey(); Object value = entry.getValue();
 							 * 
-							 * System.out.println("Key : " + key); System.out.println("Value : " + value);
 							 * 
 							 * }
 							 */
@@ -299,9 +295,7 @@ public class UploadServiceImpl implements UploadService {
 
 					} // switch close
 					System.out.print(" - ");
-					// System.out.println(map);
 				} // 1st close while loop
-				System.out.println();
 				lidtDto.add(dto);
 			} // 2nd close while loop
 
@@ -309,7 +303,6 @@ public class UploadServiceImpl implements UploadService {
 			 * for (HashMap.Entry<Integer, String> entry : map.entrySet()) { Integer key =
 			 * entry.getKey(); Object value = entry.getValue();
 			 * 
-			 * System.out.println("Key : " + key); System.out.println("Value : " + value);
 			 * 
 			 * }
 			 */
@@ -325,7 +318,6 @@ public class UploadServiceImpl implements UploadService {
 					// entity.setSrNo(Long.parseLong(lidtDto1.getSrNo().substring(0,
 					// lidtDto1.getSrNo().length() - 2)));//1
 					entity.setSrNo(entity.getSrNo());
-					// System.out.println(entity.getSrNo());
 					entity.setCircle(lidtDto1.getCircle());// 2
 					entity.setBranchName(lidtDto1.getBranchName());// 3
 					entity.setBranchCode(lidtDto1.getBranchCode());// 4
@@ -355,7 +347,6 @@ public class UploadServiceImpl implements UploadService {
 				if (!checkNullgetKioskID.isPresent() || !checkNullVendor.isPresent() || !checkNullInstallationDate.isPresent()
 						|| !checkNullKioskMacAddress.isPresent() || !checkNullBranchCode.isPresent() || !checkNullKioskSerialNumber.isPresent()
 						|| !checkNulloS.isPresent()) {
-					System.out.println("checKNull" + lidtDto1.getKioskID());
 					entity = new KioskBranchMaster();
 					entity.setSrNo(entity.getSrNo());
 					entity.setCircle(lidtDto1.getCircle());// 2
@@ -460,7 +451,6 @@ public class UploadServiceImpl implements UploadService {
 			FileOutputStream out = new FileOutputStream(new File(reportPath1+filename));
 			workbook1.write(out);
 			out.close();
-			System.out.println("Kiosk BranchMaster.xlsx written successfully on disk.");
 		} catch (Exception e) {
 			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
@@ -472,19 +462,16 @@ public class UploadServiceImpl implements UploadService {
 	@Override
 	public String uploadCBSbrhmInformation(String path) {
 
-		System.out.println("inside upload kiosk information service...");
 		// upload kiosk file information
 		try {
 
 			// By Ankur 28-04-2020-----------STARTS---------
 
-			// System.out.println("name"+path);//{"myfile":"C:\\Users\\ankur.verma\\Desktop\\xml_file\\CBS_brhm.xlsx"}
 
 			// rb = ResourceBundle.getBundle("stream");
 
 			// String CBSBrhmFilepath = rb.getString(path);
 
-			System.out.println("while reading excel file...");
 			inputStream = new FileInputStream(new File(path));
 			workbook = new XSSFWorkbook(inputStream);
 
@@ -833,10 +820,8 @@ public class UploadServiceImpl implements UploadService {
 
 					}// switch close
 					System.out.print(" - ");
-					// System.out.println(map);
 				} // 1st close while loop
 				lidtDto.add(dto);
-				System.out.println();
 			} // 2nd close while loop
 
 //			 XSSFWorkbook workbook = new XSSFWorkbook();
@@ -882,7 +867,6 @@ public class UploadServiceImpl implements UploadService {
 //		    for (HashMap.Entry<String, String> entry : map.entrySet()) { 
 //		    	String key = entry.getKey(); 
 //		    	Object value = entry.getValue();
-//			    System.out.println("Key : " + key); System.out.println("Value : " + value);
 //			}
 //		 
 ////		    for (String aBook : errorList) {
@@ -969,8 +953,6 @@ public class UploadServiceImpl implements UploadService {
 				
 				if (!checkNullRegion.isPresent() || !checkNullBranchCode.isPresent() || !checkNullcRCLName.isPresent() || !checkNullModcode.isPresent()
 						|| !checkNullModule.isPresent() || !checkNullBranchname.isPresent() || !checkNullstatcode.isPresent()) {
-					System.out.println();
-					System.out.println("checKNull" +listDto1.getRegion());
 					entity = new BranchMaster();
 					entity.setBranchCode(listDto1.getBranchCode());
 					entity.setBranchName(listDto1.getBranchName());
@@ -1006,12 +988,11 @@ public class UploadServiceImpl implements UploadService {
 					entity.setStatDesc(listDto1.getStateDesc());
 
 					listEntity1.add(entity);
-					System.out.println("listEntity1"+listEntity1);
 				//	branchmasterxlsx(listEntity1);
 
 				}
 			}
-			System.out.println("before saving excel file");
+		
 			Iterable<BranchMaster> result =	branchMasterRepository.saveAll(listEntity);
 			if(result != null) {
 		//	return "Branch Master Data Uploaded Successfully";
@@ -1111,7 +1092,6 @@ public class UploadServiceImpl implements UploadService {
 					new File(reportPath1+filename));
 			workbook1.write(out);
 			out.close();
-			System.out.println("BranchMaster.xlsx written successfully on disk.");
 		} catch (Exception e) {
 			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
@@ -1123,18 +1103,16 @@ public class UploadServiceImpl implements UploadService {
 	@Override
 	public String uploadHolidayCalendarInformation(String path) {
 
-		System.out.println("inside upload Holiday Calendar information service...");
+		
 		// upload holiday calendar file information
 
 		try {
 
 			// By Ankur 28-04-2020-----------STARTS---------
-			System.out.println("path" + path);
 			// rb = ResourceBundle.getBundle("system");
 
 			// String holidayCalendarFilePath = rb.getString("CBSBrhmFilepath");
 			// String holidayCalendarFilePath = rb.getString(path);
-			System.out.println("while reading excel file...");
 			inputStream = new FileInputStream(new File(path));
 
 			// -------By Ankur END---------------------------
@@ -1201,9 +1179,7 @@ public class UploadServiceImpl implements UploadService {
 					System.out.print(" - ");
 
 				} // 1st close while loop
-				System.out.println();
 				lidtDto.add(dto);
-				System.out.println("lidtDto" + lidtDto);
 			} // 2nd close while loop
 
 			HolidayCalendar entity = null;
@@ -1212,7 +1188,6 @@ public class UploadServiceImpl implements UploadService {
 			int count = 0;
 
 			for (HolidayCalendarDto lidtDto1 : lidtDto) {
-				System.out.println();
 				if (count != 0) {
 					entity = new HolidayCalendar();
 					entity.setHolidayDate(lidtDto1.getHolidayDate());
@@ -1221,7 +1196,6 @@ public class UploadServiceImpl implements UploadService {
 					entity.setCircle(lidtDto1.getCircle());
 					entity.setState(lidtDto1.getState());
 					listEntity.add(entity);
-					System.out.println("listEntity" + listEntity);
 				}
 				count++;
 				// ==== not null check
@@ -1231,7 +1205,6 @@ public class UploadServiceImpl implements UploadService {
 				Optional<String> checkNullDate = Optional.ofNullable(lidtDto1.getHolidayDate());
 				if (!checkNullDay.isPresent() || !checkNullCircle.isPresent() || !checkNullState.isPresent() || ! checkNullDate.isPresent() ) {
 					
-					System.out.println("checKNull" + lidtDto1.getDay()+"checkNullCircle"+lidtDto1.getCircle());
 					entity = new HolidayCalendar();
 					entity.setHolidayDate(lidtDto1.getHolidayDate());
 					entity.setDay(lidtDto1.getDay());
@@ -1245,7 +1218,6 @@ public class UploadServiceImpl implements UploadService {
 
 			}
 			Iterable<HolidayCalendar> result = holidayCalendarRepository.saveAll(listEntity);
-			System.out.println("result" + result);
 			if (result != null)
 			//	return "Holiday Calendar Data Uploaded Successfully";
 				return "Holiday_Calendar";
@@ -1312,7 +1284,6 @@ public class UploadServiceImpl implements UploadService {
 					new File(reportPath1+filename));
 			workbook1.write(out);
 			out.close();
-			System.out.println("HolidayCalendar.xlsx written successfully on disk.");
 		} catch (Exception e) {
 			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
@@ -1324,11 +1295,9 @@ public class UploadServiceImpl implements UploadService {
 	@Override
 	public String uploadKioskCMFInformation(String path) {
 
-		System.out.println("inside upload Kiosk CMF information service...");
 
 		try {
 
-			System.out.println("while reading excel file...");
 			inputStream = new FileInputStream(new File(path));
 			workbook = new XSSFWorkbook(inputStream);
 			/* HashMap<Integer,String> map=null; */
@@ -1387,7 +1356,6 @@ public class UploadServiceImpl implements UploadService {
 					System.out.print(" - ");
 
 				} // 1st close while loop
-				System.out.println();
 				lidtDto.add(dto);
 			} // 2nd close while loop
 
@@ -1408,7 +1376,6 @@ public class UploadServiceImpl implements UploadService {
 				Optional<String> checkNullCmfPfId = Optional.ofNullable(lidtDto1.getCmfPfId());
 				Optional<String> checkNullgetKioskId = Optional.ofNullable(lidtDto1.getKioskId());
 				if (!checkNullgetKioskId.isPresent() || !checkNullCmfPfId.isPresent()) {
-					System.out.println("checKNull" + lidtDto1.getCmfPfId()+"checkNullgetKioskId"+checkNullgetKioskId);
 					entity = new UserKioskMapping();
 					entity.setPfId(lidtDto1.getCmfPfId());
 					entity.setKioskId(lidtDto1.getKioskId());
@@ -1487,12 +1454,10 @@ public class UploadServiceImpl implements UploadService {
 		
 		try {
 			// this Writes the workbook KioskC  reportPath1
-			System.out.println("reportPath1"+reportPath1+filename);
 			FileOutputStream out = new FileOutputStream(
 					new File(reportPath1+filename));
 			workbook1.write(out);
 			out.close();
-			System.out.println("KioskC.xlsx written successfully on disk.");
 		} catch (Exception e) {
 			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}

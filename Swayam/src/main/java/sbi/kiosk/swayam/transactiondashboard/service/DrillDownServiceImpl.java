@@ -43,7 +43,6 @@ public class DrillDownServiceImpl implements DrillDownService{
 				
         //Page<DrillDown> pageDto = new PageImpl<DrillDown>(list, PageRequest.of(page, size),list.size());
 		 
-        //System.out.println("entities======pageDto========Size()::::"+pageDto.getContent());
 		Page<DrillDown> pageDrillDown = null;
 		if((in_circle_code ==null || in_circle_code.isEmpty())){
 			in_circle_code = null;
@@ -87,7 +86,6 @@ public class DrillDownServiceImpl implements DrillDownService{
         nearByEntities.setParameter("in_module_code", moduleName);
         nearByEntities.setParameter("in_region_code", regionName);
  
-        System.out.println("nearByEntities======"+nearByEntities);
         return nearByEntities.getResultList();
     }
     

@@ -43,13 +43,11 @@ public class UserManagementController {
 
 		try {
 			UserDto user = (UserDto) session.getAttribute("userObj");
-			System.out.println("userList");
 			List<UserManagementDto> userList = userService.findAllUsers(user);
 			model.addObject("usersList", userList);
 			if (user.getRole().equals("CC")) {
 				model.setViewName("userlistView");
 			} else if (user.getRole().equals("LA")) {
-				System.out.println("Users========Yogesh=============================="+user.getCircle());
 				int cmsCount=userService.findCMSCountByCircle();
 				//int circleCountByRole=userService.findCircleCountByRole(user.getCircle());
 				//int ccCount=userService.findCCCount();
@@ -71,7 +69,6 @@ public class UserManagementController {
 			}			
 			else {
 				// Vijay Login
-				System.out.println("Users========Vijay=============================="+user.getCircle());
 				int cmsCount=userService.findCMSCount();
 				int circleCount=userService.findCircleCount();
 				int ccCount=userService.findCCCount();
@@ -100,7 +97,6 @@ public class UserManagementController {
 		ModelAndView model = new ModelAndView("userlistCC");
 		try {			
 			UserDto user = (UserDto) session.getAttribute("userObj");
-			System.out.println("userList");
 			List<UserManagementDto> userList = userService.findAllUsers(user);
 			model.addObject("usersList", userList);
 				
@@ -130,8 +126,6 @@ public class UserManagementController {
 	@RequestMapping(value = "users/get", params = { "page", "size" ,"type"}, method = RequestMethod.GET, produces = "application/json")
 	public Page<UserManagementDto> findPaginated(
 		      @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("type") String type) {
-		 
-		System.out.println("type=========Yogesh========="+type);
 		 Page<UserManagementDto> resultPage = null;
 		if(type.equals("CMF")){
 			resultPage= userService.findPaginatedCount(page, size, type);
@@ -158,7 +152,6 @@ public class UserManagementController {
 	public Page<UserManagementDto> findPaginatedByCircle(
 		      @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("type") String type) {
 		 
-		System.out.println("type=========Yogesh========="+type);
 		 Page<UserManagementDto> resultPage = null;
 		if(type.equals("CMF")){
 			resultPage= userService.findPaginatedCountByCircle(page, size, type);
@@ -185,7 +178,6 @@ public class UserManagementController {
 	public ModelAndView addUser(ModelAndView model, @ModelAttribute("addUser") AddUserDto addUser,HttpServletRequest request) {
 
 		try {
-			      System.out.println("inside addUser jsp call.."+request.getParameter("userName"));
 	              List<RolesDto> roleList = roleService.findAllRole();
 		           model.addObject("roleList", roleList);
 		           List<Circle> circleList = roleService.findAllCircle();
@@ -202,7 +194,6 @@ public class UserManagementController {
 	public ModelAndView addUserLa(ModelAndView model, @ModelAttribute("addUserDto") AddUserDto addUserDto) {
 
 		try {
-			      System.out.println("inside addUserLA jsp call..");
 	              List<RolesDto> roleList = roleService.findAllRole();	
 	              Iterator<RolesDto> itr = roleList.iterator();
 	              while(itr.hasNext()){
@@ -225,14 +216,11 @@ public class UserManagementController {
 	
 	@RequestMapping(value = "km/editUserMaster")
 	public ModelAndView editUserMaster(ModelAndView model, HttpServletRequest request,@RequestParam("userId") String userId,@ModelAttribute("addUser") AddUserDto addUser) {
-		System.out.println("editUserMaster(-,-) :: START "+userId);
 		try {
 			
-			System.out.println("createdBy=======1==========="+request.getParameter("createdBy"));
 			
 			addUser= userService.findUserByUserId(userId);
 			addUser.setCheckAction("Edit");
-			System.out.println("get == userId====="+addUser.getUserId());
 			
 			
 			model.addObject("addUser", addUser);
@@ -246,7 +234,6 @@ public class UserManagementController {
 			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 			
 		} finally {
-			System.out.println("editUserMaster(-,-) :: END");
 		}
 		return model;
 	}
@@ -255,14 +242,11 @@ public class UserManagementController {
 	
 	@RequestMapping(value = "km/editUserMasterLA")
 	public ModelAndView editUserMasterLA(ModelAndView model, HttpServletRequest request,@RequestParam("userId") String userId,@ModelAttribute("addUserDto") AddUserDto addUserDto) {
-		System.out.println("editUserMasterLA(-,-) :: START "+userId);
 		try {
 			
-			System.out.println("createdBy=======2==========="+request.getParameter("createdBy"));
 			
 			addUserDto= userService.findUserByUserId(userId);
 			addUserDto.setCheckAction("Edit");
-			System.out.println("get == userId====="+addUserDto.getUserId());
 			
 			
 			model.addObject("addUserDto", addUserDto);
@@ -283,7 +267,6 @@ public class UserManagementController {
 			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 			
 		} finally {
-			System.out.println("editUserMasterLA(-,-) :: END");
 		}
 		return model;
 	}
@@ -292,7 +275,6 @@ public class UserManagementController {
 	/*@RequestMapping(value = "km/saveEditUserMaster")
 	public ModelAndView saveEditUserMaster(ModelAndView model, HttpServletRequest request,
 			RedirectAttributes redirectAttributes) {
-		System.out.println("saveEditUserMaster(-,-) :: START");
 
 		try {
 
@@ -300,7 +282,6 @@ public class UserManagementController {
 			String pattern = "MM-dd-yyyy";
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 			String date = simpleDateFormat.format(new Date());
-			System.out.println(date);
 			UserDto userBean = new UserDto();
 			// userBean.setUserId(Integer.parseInt(request.getParameter("userId")));
 			userBean.setUsername(request.getParameter("username"));
@@ -321,7 +302,6 @@ public class UserManagementController {
 			userBean.setCreatedBy(request.getParameter("createdBy"));
 			//userBean.setModifiedDate(date);// request.getParameter("modifiedDate")
 			userBean.setModifiedBy(request.getParameter("modifiedBy"));			
-			// System.out.println("Enable==="+request.getParameter("enabled"));
 			// userBean.setEnabled(request.getParameter("enabled"));
 
 			if ((request.getParameter("checkAction") != null) && !request.getParameter("checkAction").isEmpty()
@@ -341,17 +321,14 @@ public class UserManagementController {
 		} catch (Exception e) {
 			
 		} finally {
-			System.out.println("saveUserr(-,-) :: END");
 		}
 		return model;
 	}*/
 	
 	@RequestMapping(value = "km/deleteUserMaster")
 	public ModelAndView deleteUserMaster(ModelAndView model,@RequestParam("userId") String userId, @ModelAttribute("addUser") AddUserDto addUser,HttpServletRequest request) {
-		System.out.println("deleteUserMaster(-,-) :: START");
 		try {
 			addUser= userService.findUserByUserId(userId);
-			System.out.println("get == userId====="+addUser.getUserId());
 			model.addObject("addUser", addUser);
 			List<RolesDto> roleList = roleService.findAllRole();
 			model.addObject("roleList", roleList);
@@ -362,7 +339,6 @@ public class UserManagementController {
 			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 			
 		} finally {
-			System.out.println("deleteUserMaster(-,-) :: END");
 		}
 		return model;
 	}
@@ -371,8 +347,6 @@ public class UserManagementController {
 	public ResponseEntity<String>activeAndInActiveUser(ModelAndView model,@RequestParam("userId") String userId,@ModelAttribute("usersBean") UserDto usersBean) {
 		ResponseEntity<String> entity=null;
 		try {
-			System.out.println("activeAndInActiveUser() --Start"+userId);
-			System.out.println("username=="+usersBean.getUsername());
 			Boolean result= userService.deActivateUserById(usersBean);
 			if(result){
 				entity=ResponseEntity.ok(usersBean.getUsername());	
@@ -391,13 +365,11 @@ public class UserManagementController {
 
 		try {
 			UserDto user = (UserDto) session.getAttribute("userObj");
-			System.out.println("searchUsers" + request.getParameter("userName"));
 			String userName = request.getParameter("userName");
 
 			if (userName != null && !userName.isEmpty()) {
 
 				List<UserManagementDto> userList = userService.findByUserName(userName);
-				System.out.println("userList::::" + userList);
 				model.addObject("usersList", userList);
 				model.setViewName("userlist");
 			} else {

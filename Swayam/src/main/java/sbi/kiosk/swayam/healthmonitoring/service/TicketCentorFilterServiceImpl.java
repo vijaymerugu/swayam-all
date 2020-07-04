@@ -66,9 +66,6 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 			 
 			 String kioskBranchMaster= kioskMasterRepo.findKioskByKioskId_circle(kioskId);
 			 dto.setServeriry(kioskBranchMaster);
-			 System.out.println(dto.getKisokId());
-			 
-			 
 		 }
 		 
 		 
@@ -115,7 +112,6 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 		public Map<String,Integer> findAllSeverityOfTicketsCount(){	
 			Map<String, Integer> mapDataList = null;
 		 try{
-			 System.out.println("findAllSeverityOfTicketsCount Start():::");
 			    mapDataList = new HashMap<String, Integer>();			
 			    int countHigh = callTypeRepo.getCallTypeHiegh();
 				int countMedium = callTypeRepo.getCallTypeMedium();
@@ -127,11 +123,8 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 				mapDataList.put("Total", countTotal);
 			
 				for (Map.Entry<String, Integer> entry : mapDataList.entrySet()) {
-					System.out.println("key===" + entry.getKey());
-					System.out.println("Value " + entry.getValue());
 
 				}
-				System.out.println("countKioskCount::::::::::mapData:::::::::::" + mapDataList.size());
 		 }catch (Exception e) {
 			 logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		 } 
@@ -145,7 +138,7 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 			String pfId = user.getPfId();
 			Map<String, Integer> mapDataList = null;
 		 try{
-			 System.out.println("findAllSeverityOfTicketsCount Start():::");
+			
 			    mapDataList = new HashMap<String, Integer>();			
 			    int countHigh = callTypeRepo.getCallTypeHieghCMF(pfId);
 				int countMedium = callTypeRepo.getCallTypeMediumCMF(pfId);
@@ -157,11 +150,8 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 				mapDataList.put("Total", countTotal);
 			
 				for (Map.Entry<String, Integer> entry : mapDataList.entrySet()) {
-					System.out.println("key===" + entry.getKey());
-					System.out.println("Value " + entry.getValue());
 
 				}
-				System.out.println("countKioskCount::::::::::mapData:::::::::::" + mapDataList.size());
 		 }catch (Exception e) {
 			 logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		 } 
@@ -176,7 +166,7 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 			Set<String> supList =  supervisorRepository.findPfIdListByPfIdSupervisor(supPfId);
 			Map<String, Integer> mapDataList = null;
 		 try{
-			 System.out.println("findAllSeverityOfTicketsCount Start():::");
+			
 			    mapDataList = new HashMap<String, Integer>();			
 			    int countHigh = callTypeRepo.getCallTypeHieghCMF(supList);
 				int countMedium = callTypeRepo.getCallTypeMediumCMF(supList);
@@ -188,11 +178,9 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 				mapDataList.put("Total", countTotal);
 			
 				for (Map.Entry<String, Integer> entry : mapDataList.entrySet()) {
-					System.out.println("key===" + entry.getKey());
-					System.out.println("Value " + entry.getValue());
 
 				}
-				System.out.println("countKioskCount::::::::::mapData:::::::::::" + mapDataList.size());
+			
 		 }catch (Exception e) {
 			 logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		 } 
@@ -205,10 +193,10 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 		public Map<String,Integer> findAllAgeingOfTicketsCount(){	
 			Map<String, Integer> mapDataList = null;		
 			try{
-				 System.out.println("findAllAgeingOfTicketsCount Start():::");
+				 
 				 mapDataList = new HashMap<String, Integer>();	
 			    int twoToFourHrsCount = ticketCentorAgeingRepo.find2_4HoursCount();
-				System.out.println("twoToFourHrsCount==" + twoToFourHrsCount);
+				
 				int oneDaysCount = ticketCentorAgeingRepo.find_1_DaysCount();
 				int threeDaysCount = ticketCentorAgeingRepo.find_3_Days_LessCount();
 				int threeDayGreaterCount = ticketCentorAgeingRepo.find_3_Days_GreaterThanCount();
@@ -220,7 +208,7 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 				mapDataList.put("ThreeDaysLessCount", threeDaysCount);
 				mapDataList.put("ThreeDayGreaterCount", threeDayGreaterCount);
 				mapDataList.put("TotalCount", totalCount);
-				System.out.println("findAllAgeingOfTicketsCount::::::::::mapData:::::::::::" + mapDataList.size());
+				
 			 
 			}catch (Exception e) {
 				logger.error("Exception "+ExceptionConstants.EXCEPTION);
@@ -234,10 +222,10 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 			String pfId = user.getPfId();
 			Map<String, Integer> mapDataList = null;		
 			try{
-				 System.out.println("findAllAgeingOfTicketsCount Start():::");
+				
 				 mapDataList = new HashMap<String, Integer>();	
 			    int twoToFourHrsCount = ticketCentorAgeingRepo.find2_4HoursCountCMF(pfId);
-				System.out.println("twoToFourHrsCount==" + twoToFourHrsCount);
+				
 				int oneDaysCount = ticketCentorAgeingRepo.find_1_DaysCountCMF(pfId);
 				int threeDaysCount = ticketCentorAgeingRepo.find_3_Days_LessCountCMF(pfId);
 				int threeDayGreaterCount = ticketCentorAgeingRepo.find_3_Days_GreaterThanCountCMF(pfId);
@@ -249,8 +237,7 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 				mapDataList.put("ThreeDaysLessCount", threeDaysCount);
 				mapDataList.put("ThreeDayGreaterCount", threeDayGreaterCount);
 				mapDataList.put("TotalCount", totalCount);
-				System.out.println("findAllAgeingOfTicketsCount::::::::::mapData:::::::::::" + mapDataList.size());
-			 
+			
 			}catch (Exception e) {
 				logger.error("Exception "+ExceptionConstants.EXCEPTION);
 			}
@@ -264,10 +251,8 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 			Set<String> supList =  supervisorRepository.findPfIdListByPfIdSupervisor(supPfId);
 			Map<String, Integer> mapDataList = null;		
 			try{
-				 System.out.println("findAllAgeingOfTicketsCount Start():::");
 				 mapDataList = new HashMap<String, Integer>();	
 			    int twoToFourHrsCount = ticketCentorAgeingRepo.find2_4HoursCountCMF(supList);
-				System.out.println("twoToFourHrsCount==" + twoToFourHrsCount);
 				int oneDaysCount = ticketCentorAgeingRepo.find_1_DaysCountCMF(supList);
 				int threeDaysCount = ticketCentorAgeingRepo.find_3_Days_LessCountCMF(supList);
 				int threeDayGreaterCount = ticketCentorAgeingRepo.find_3_Days_GreaterThanCountCMF(supList);
@@ -279,8 +264,7 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 				mapDataList.put("ThreeDaysLessCount", threeDaysCount);
 				mapDataList.put("ThreeDayGreaterCount", threeDayGreaterCount);
 				mapDataList.put("TotalCount", totalCount);
-				System.out.println("findAllAgeingOfTicketsCount::::::::::mapData:::::::::::" + mapDataList.size());
-			 
+			
 			}catch (Exception e) {
 				logger.error("Exception "+ExceptionConstants.EXCEPTION);
 			}
@@ -332,7 +316,6 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 		 
     @Override 
 	public List<CallTypeDto> findSubCategoryByCategory(String category){
-			 System.out.println("findSubCategoryByCategory==="+category);
 			 Set<String> supList = null;
 			 UserDto user = (UserDto) session().getAttribute("userObj");
 			 if("CMS".equals(user.getRole())){
@@ -345,17 +328,14 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 				  supList.add(pfId);
 			 }
 			 List<Object[]>  list= ticketCentorRepo.findByCategoryCMF(category,supList);
-			 System.out.println("list=Size::="+list.size());
+			
              List<CallTypeDto> callTypeList=new ArrayList<>();
 			 
 			 for(Object[] object1 :list){
 				 CallTypeDto callType=new CallTypeDto();
-				 System.out.println("getCallCategory==1======"+object1[0]);
-				 System.out.println("getCallCategory==2======"+object1[1]);
-				 System.out.println("getCallCategory==3======"+object1[2]);
-				 
+				
 				 int count = ((BigDecimal) object1[1]).intValue();
-				 System.out.println("grandChildCount:::"+count);
+				
 				 
 				
 				 
@@ -366,8 +346,7 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 				 
 			 }	
 			 
-			 System.out.println("callTypeList Size::"+callTypeList.size());
-			 System.out.println("callTypeList ::::"+callTypeList.toString());
+			
 			 
 			 
 		    return callTypeList;
@@ -379,15 +358,13 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 		public List<TicketCentorDto> findByCategoryAndSubCategory(String category, String subCategory) {
 			List<TicketCentorDto> listData=null;
 		try{
-		    System.out.println("findByCategoryAndSubCategory Start():::");
+		 
 			List<TicketCentor> ticketCentorList=ticketCentorRepo.findByCategoryAndSubCate(category, subCategory);
 			listData=new ArrayList<>();
 			for(TicketCentor ticketCentor:ticketCentorList){
-				System.out.println("listData Size()::=="+listData.size());
 				TicketCentorDto dto=new TicketCentorDto(ticketCentor);
 				listData.add(dto);
 			}
-			System.out.println("listData=22222222222222="+listData);
 			}catch (Exception e) {
 				logger.error("Exception "+ExceptionConstants.EXCEPTION);
 			}
@@ -413,7 +390,6 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 				 
 				 String kioskBranchMaster= kioskMasterRepo.findKioskByKioskId_circle(kioskId);
 				 dto.setServeriry(kioskBranchMaster);
-				 System.out.println(dto.getKisokId());
 				 
 				 
 			 }			 
@@ -434,7 +410,6 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 				 
 				 String kioskBranchMaster= kioskMasterRepo.findKioskByKioskId_circle(kioskId);
 				 dto.setServeriry(kioskBranchMaster);
-				 System.out.println(dto.getKisokId());
 				 
 				 
 			 }			 

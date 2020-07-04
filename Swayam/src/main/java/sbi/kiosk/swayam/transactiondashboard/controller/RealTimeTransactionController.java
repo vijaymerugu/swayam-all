@@ -29,7 +29,6 @@ public class RealTimeTransactionController {
 	
 	@RequestMapping("td/realTimeTransaction")
 	public ModelAndView realTimeTransation(ModelAndView mav) {
-		System.out.println("Real time ==transa==========");
 		mav.setViewName("realTimeTransaction");
 		return mav;
 	}
@@ -41,7 +40,6 @@ public class RealTimeTransactionController {
 		 Date curDate=new Date();
 		 String lastUpdatedDate=sdf.format(curDate);
 		// Map<String, String> lastUpdateDateMap=new HashMap<String, String>();
-		// System.out.println("lastUpdatedDate===========::"+lastUpdatedDate);
 		// lastUpdateDateMap.put("CurentDate", lastUpdatedDate);
 		//mav.addObject("lastUpdatedDate", lastUpdatedDate);
 		
@@ -51,7 +49,6 @@ public class RealTimeTransactionController {
 	
 	@RequestMapping("td/realTimeTransactionYestrday")
 	public ModelAndView realTimeTransationYestarday(ModelAndView mav) {
-		System.out.println("Real time ==transa====Yesterday======");
 		mav.setViewName("realTimeTransactionYestrday");
 		return mav;
 	}
@@ -59,7 +56,6 @@ public class RealTimeTransactionController {
 	
 	@RequestMapping("td/fromToDate")
 	public ModelAndView fromToDate(ModelAndView mav,HttpServletRequest request) {
-		System.out.println("fromToDate==transa=========="+request.getParameter("date1"));
 		
 		String fromDate= request.getParameter("date1");
 		String toDate= request.getParameter("date2");
@@ -73,11 +69,9 @@ public class RealTimeTransactionController {
 	public Page<RealTimeTransaction> findPaginatedRealTimeFromToDate(
 		      @RequestParam("page") int page, @RequestParam("size") int size,
 		      @RequestParam("fromdate") String fromdate) {
-		      System.out.println("findPaginatedRealTimeFromToDate====page========="+page);
 		//Page<RealTimeTransaction> resultPage = realTimeTransactionService.findPaginatedFromToDate(page, size,fromDate,toDate);
 		      Page<RealTimeTransaction> resultPage = realTimeTransactionService.findPaginated(page, size,fromdate);
 				
-		      System.out.println("r=11=="+resultPage.getNumber());
 		        if (page > resultPage.getTotalPages()) {
 		            //throw new MyResourceNotFoundException();
 		        }
