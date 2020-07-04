@@ -47,7 +47,6 @@ public class UploadSwayamFileController  {
 
 	@GetMapping("km/upload")
 	public ModelAndView UploadPage() {
-		System.out.println("inside upload cotroller........");
 		ModelAndView view = new ModelAndView();
 
 		view.setViewName("upload");
@@ -90,8 +89,6 @@ public class UploadSwayamFileController  {
 		modelAndView.addObject("files", uploadedFiles);
 		 String name1 = uploadedFiles.get(0).getName();
 			logger.info("name1"+name1);
-	//	String rootPath = System.getProperty("user.dir");
-	//	System.out.println("rootPath" + rootPath);
 		File dir = new File(uploadpath);
 				//new File(rootPath + File.separator + "src\\main\\webapp\\WEB-INF\\uploaded");
 		if (!dir.exists())
@@ -138,8 +135,6 @@ public class UploadSwayamFileController  {
 		modelAndView.addObject("files", uploadedFiles);
 		 String name1 = uploadedFiles.get(0).getName();
 		 logger.info("name1"+name1);
-		//String rootPath = System.getProperty("user.dir");
-		//System.out.println("rootPath" + rootPath);
 		File dir = new File(uploadpath);
 				//new File(rootPath + File.separator + "src\\main\\webapp\\WEB-INF\\uploaded");
 		if (!dir.exists())
@@ -149,6 +144,7 @@ public class UploadSwayamFileController  {
 		logger.info("Server File Location=" + serverFile.getAbsolutePath());
 		String path = serverFile.getAbsolutePath();
 		String result = uploadService.uploadKioskCMFInformation(path);
+		logger.info("result=" + result);
 		ResponseEntity<String> entity = ResponseEntity.ok(result);
 		return entity;
 	}
@@ -171,6 +167,7 @@ public class UploadSwayamFileController  {
 					uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
 					logger.info("=====uploadedFiles=====" + uploadedFiles);
 					logger.info("=====DESTINATION=======name"+destinationFile.getName());
+				
 						
 				}
 

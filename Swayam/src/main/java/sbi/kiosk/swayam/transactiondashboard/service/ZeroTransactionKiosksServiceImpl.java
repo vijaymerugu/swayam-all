@@ -49,7 +49,6 @@ public Page<ZeroTransactionKiosksDto> findPaginated(final int page, final int si
 				
         Page<ZeroTransactionKiosks> pageDto = zeroTransactionKiosksRepository.findByDate(fromdate, todate, PageRequest.of(page, size));
 		 
-        System.out.println("entities======pageDto========Size()::::"+pageDto.getContent());
 		 
 		 return pageDto;
 	}
@@ -59,7 +58,6 @@ public Page<ZeroTransactionKiosksDto> findPaginated(final int page, final int si
         StoredProcedureQuery nearByEntities= em.createNamedStoredProcedureQuery("SP_ZERO_TRANSACTION_KIOSKS");
         nearByEntities.setParameter("fromdate", fromDate);
         nearByEntities.setParameter("todate", toDate);
-        System.out.println("nearByEntities======"+nearByEntities);
         return nearByEntities.getResultList();
     }
 

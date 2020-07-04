@@ -30,7 +30,6 @@ public class DrillDownController {
 		
 		try {
 			
-			System.out.println("drillDownList");
 			
 			model.setViewName("drillDown");
 			
@@ -45,7 +44,6 @@ public class DrillDownController {
 		
 		try {
 			
-			System.out.println("drillDownNetworkList");
 			
 			String circleName = request.getParameter("circleName");
 			String fromDate = request.getParameter("fromDate");
@@ -69,7 +67,6 @@ public class DrillDownController {
 		
 		try {
 		
-			System.out.println("drillDownModuleList");
 			
 			String circleName = request.getParameter("circleName");	
 			String networkName = request.getParameter("networkName");
@@ -94,7 +91,6 @@ public class DrillDownController {
 		
 		try {
 			
-			System.out.println("drillDownRegionList");
 		
 			String circleName = request.getParameter("circleName");	
 			String networkName = request.getParameter("networkName");
@@ -123,8 +119,6 @@ public class DrillDownController {
 		
 		try {
 			
-			System.out.println("drillDownBranchList");
-			
 			String circleName = request.getParameter("circleName");	
 			String networkName = request.getParameter("networkName");
             String moduleName = request.getParameter("moduleName");
@@ -151,13 +145,6 @@ public class DrillDownController {
 	public Page<DrillDown> findPaginated(
 		      @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("type") String type, @RequestParam("circleName") String circleName,
 		      @RequestParam("networkName") String networkName, @RequestParam("moduleName") String moduleName, @RequestParam("regionName") String regionName, @RequestParam("fromDate") String fromDate, @RequestParam("toDate") String toDate) {
-		 
-		System.out.println("Circle------- "+circleName);
-		System.out.println("Network------- "+networkName);
-		System.out.println("Module------- "+moduleName);
-		System.out.println("Region------- "+regionName);
-		System.out.println("From Date------- "+fromDate);
-		System.out.println("To Date------- "+toDate);
 		 Page<DrillDown> resultPage = null;
 		 
 		 if(fromDate.equals("undefined") || toDate.equals("undefined")) {		

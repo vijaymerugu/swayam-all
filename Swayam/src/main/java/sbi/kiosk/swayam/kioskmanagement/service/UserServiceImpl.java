@@ -165,7 +165,6 @@ public class UserServiceImpl implements UserService {
 	 @SuppressWarnings("deprecation")
 	    @Override
 	    public Page<UserManagementDto> findPaginatedCount(int page, int size,String type) {
-		System.out.println("type=============findPaginatedCount=================================="+type); 
 		Page<UserManagementDto> entities =null;		
 	    entities =userRepositoryPagingRepo.findByRoleAndEnabled(type,"1",PageRequest.of(page, size)).map(UserManagementDto::new);
 	    
@@ -207,7 +206,6 @@ public class UserServiceImpl implements UserService {
 	 
 	 @Override
 	    public Page<UserManagementDto> findPaginatedCountByCircle(int page, int size,String type) {
-		System.out.println("type=============findPaginatedCount=================================="+type); 
 		UserDto user = (UserDto) session().getAttribute("userObj");
 		Page<UserManagementDto> entities =null;		
 	    entities =userRepositoryPagingRepo.findByCircleAndRoleAndEnabled(user.getCircle(),type,"1",PageRequest.of(page, size)).map(UserManagementDto::new);
@@ -253,9 +251,7 @@ public class UserServiceImpl implements UserService {
 		public List<UserManagementDto> findByUserName(String userName) {
 			  List<UserManagementDto> userManaDTOList=new ArrayList<UserManagementDto>();
 		      List<User> userList=null;
-		      System.out.println("findByUserName111==  "+userName);
 			  userList=userRepo.findByUserName(userName);
-			  System.out.println("userList:: SIZE "+userList.size());
 				if(userList!=null && !userList.isEmpty() && userList.size()>0){
 					   for(User userEntity:userList){
 					      userManaDTOList.add(new UserManagementDto(userEntity));
@@ -275,7 +271,6 @@ public class UserServiceImpl implements UserService {
 
 	 @Override
      public AddUserDto	findUserByUserId(String userId){
-		 System.out.println("userId========"+userId);
 		 User user=userRepo.findUserByUserId(Integer.parseInt(userId));
 		 AddUserDto userDto=new AddUserDto();
 		 userDto.setPfId(user.getPfId());
@@ -319,9 +314,7 @@ public class UserServiceImpl implements UserService {
 		
 		boolean result = false;
 		try {
-			System.out.println("userid====="+usersBean.getUserId());
 			Integer userId=usersBean.getUserId();
-			System.out.println("=====id======="+userId);
 		    User userEntity= userRepo.findUserByUserId(usersBean.getUserId());
 			//User userEntity=new User();
 			//userEntity.setUserId(userId);
@@ -360,14 +353,12 @@ public class UserServiceImpl implements UserService {
 	 @Override
 		public int findCMFCount() {
 	    	int cmfCount=userRepo.findCMFCount();
-	    	System.out.println("cmfCount:: "+cmfCount);
 			return cmfCount;
 		}
 	    
 	    @Override
 		public int findCMSCount() {
 	    	int cmsCount=userRepo.findCMSCount();
-	    	System.out.println("cmsCount:: "+cmsCount);
 			return cmsCount;
 		}
 	    
@@ -375,7 +366,6 @@ public class UserServiceImpl implements UserService {
 		public int findCMSCountByCircle() {
 	    	UserDto user = (UserDto) session().getAttribute("userObj");
 	    	int cmsCount=userRepo.findCMSCountByCircle(user.getCircle());
-	    	System.out.println("cmsCount:: "+cmsCount);
 			return cmsCount;
 		}
 	    
@@ -383,14 +373,12 @@ public class UserServiceImpl implements UserService {
 		public int findCMFCountByCircle() {
 	    	UserDto user = (UserDto) session().getAttribute("userObj");
 	    	int cmsCount=userRepo.findCMFCountByCircle(user.getCircle());
-	    	System.out.println("cmsCount:: "+cmsCount);
 			return cmsCount;
 		}
 	    
 	    @Override
 		public int findCircleCount() {
 	    	int circleCount=userRepo.findCircleCount();
-	    	System.out.println("circleCount:: "+circleCount);
 			return circleCount;
 		}
 	    
@@ -437,7 +425,6 @@ public class UserServiceImpl implements UserService {
 	    public int findCircleCountByRole(String circle){
 	    	System.err.println("circle=========================sa===="+circle);
 	    	int circleCountByRole=userRepo.findCircleCountByRole(circle);
-	    	System.out.println("circleCountByRole:: "+circleCountByRole);
 			return circleCountByRole;
 	    }
 	

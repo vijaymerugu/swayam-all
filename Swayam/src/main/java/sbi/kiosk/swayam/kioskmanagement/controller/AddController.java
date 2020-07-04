@@ -35,11 +35,7 @@ public class AddController {
 		ResponseEntity<String> entity=null;
 		String addUserResut=null;
 		
-		System.out.println("addUserSA  111 Start(-,-)");
-		System.out.println("request= userId from hiden==="+request.getParameter("userId"));
-		System.out.println("request checkAction action=="+request.getParameter("checkAction"));
 		
-		System.out.println("request= pf id from hiden==="+request.getParameter("pfId"));
 
 		if ((request.getParameter("checkAction") != null) && !request.getParameter("checkAction").isEmpty()
 				&& (request.getParameter("checkAction").equalsIgnoreCase("Edit"))) {
@@ -50,11 +46,9 @@ public class AddController {
 			entity=ResponseEntity.ok(result);
 	} else {
 		    addUserResut=addUserService.addUser(addUser,request.getParameter("role"),request.getParameter("circle"));
-		    System.out.println(addUserResut);
 		
 		if(addUserResut.equals("User Allready Exists")){
 		 }else{
-			System.out.println("else add"+addUserResut);
 			String result="User: "+addUserResut+ " has been successfully Created";
 			entity=ResponseEntity.ok(result);
 		 }
@@ -66,7 +60,6 @@ public class AddController {
 	@GetMapping("km/getByPfId/{pfId}")
 	public ResponseEntity<String>  getByPfIdLA(@PathVariable("pfId") String pfId) {
 		String result=addUserService.getByPfId(pfId);
-		System.out.println("LA result=="+result);
 		ResponseEntity<String> entity=ResponseEntity.ok(result);
 		return entity;
 	}
@@ -75,12 +68,6 @@ public class AddController {
 	public ResponseEntity<String> addUserLA(ModelAndView model,@ModelAttribute("addUserDto") AddUserDto addUserDto,HttpServletRequest request,RedirectAttributes redirectAttributes) {
 		ResponseEntity<String> entity=null;
 		String addUserResut=null;
-		System.out.println("addUserLA  2222 Start(-,-)");
-		
-		System.out.println("request= userId from hiden==="+request.getParameter("userId"));
-		System.out.println("request checkAction action=="+request.getParameter("checkAction"));
-		
-		System.out.println("request= pf id from hiden==="+request.getParameter("pfId"));
 
 		if ((request.getParameter("checkAction") != null) && !request.getParameter("checkAction").isEmpty()
 				&& (request.getParameter("checkAction").equalsIgnoreCase("Edit"))) {
@@ -91,11 +78,9 @@ public class AddController {
 			entity=ResponseEntity.ok(result);
 	} else {
 		    addUserResut=addUserService.addUser(addUserDto,request.getParameter("role"),request.getParameter("circle"));
-		    System.out.println(addUserResut);
 		
 		if(addUserResut.equals("User is Allready Exist")){
 		 }else{
-			System.out.println("else add"+addUserResut);
 			String result="User: "+addUserResut+ " has been successfully Created";
 			entity=ResponseEntity.ok(result);
 		 }

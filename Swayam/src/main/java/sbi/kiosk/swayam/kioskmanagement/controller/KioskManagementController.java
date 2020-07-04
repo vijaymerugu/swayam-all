@@ -155,7 +155,6 @@ public class KioskManagementController {
 		      @RequestParam("page") int page, @RequestParam("size") int size,@RequestParam("type") String type) {
 		 
 		
-		System.out.println("type===11==============="+type);
 
 			 Page<KioskBranchMasterUserDto> resultPage;
 			if(type.equals("InstalledKiosks")){
@@ -188,7 +187,6 @@ public class KioskManagementController {
 		      @RequestParam("page") int page, @RequestParam("size") int size,@RequestParam("type") String type) {
 		 
 		
-		System.out.println("type===11==============="+type);
 
 			 Page<KioskBranchMasterUserDto> resultPage;
 			if(type.equals("InstalledKiosks")){
@@ -221,7 +219,6 @@ public class KioskManagementController {
 	@RequestMapping(value ="km/assignCmfForKiosk")
 	public ModelAndView getAssignCmfForKiosk( @RequestParam(value="kioskId") String kioskId,ModelAndView model,HttpSession session) {	
 		UserDto user = (UserDto) session.getAttribute("userObj");
-		System.out.println("Assign CMF KISK=======kioskId===="+kioskId);
 		
 		KioskBranchMasterUserDto kioskDto = kioskManagementService.getKiosksFromKioskBranchMasterByKioskId(kioskId);
 		List<User> usersList = userService.fetchAllCmfUserByCircle(user.getCircle());

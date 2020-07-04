@@ -54,9 +54,8 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 		SimpleDateFormat date = null;
 		String complaintId = null;
 		try {
-			System.out.println("error message" + manualTicketCallLogDto.getKioskError());
+			manualTicketCallLogDto.getKioskError();
 			manual_call_log_id = manualTicketCallLogRepo.findSeq();
-			System.out.println("squence generated" + manual_call_log_id);
 			// String seq = "MANUAL_CALL_LOG_ID" + manual_call_log_id;
 			ManualTicketCallLog manualEnity = new ManualTicketCallLog();
 			manualEnity.setBranchCode(manualTicketCallLogDto.getBranchCode());
@@ -72,7 +71,6 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 			manualTicketCallLogRepo.save(manualEnity);
 
 			String kioskId = ticketCentorRepo.findByKisokId(manualTicketCallLogDto.getKioskId());
-			System.out.println("kioskId::" + kioskId);
 			String id = ticketCentorRepo.findByTicketId(kioskId);
 			if (kioskId != null) {
 				if (kioskId.equals(manualTicketCallLogDto.getKioskId())) {
@@ -115,7 +113,7 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 			dto.setBranchName(branchName);
 			listDto.add(dto);
 		}
-		System.out.println("kioskMasterList size()::::" + listDto.size());
+		
 		return listDto;
 	}
 
@@ -131,14 +129,6 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 			dto.setContactNo(user.getPhoneNo());
 			dto.setKioskError("Printer Error");
 			dtoList.add(dto);
-			System.out.println("kiosk id:" + dto.getKioskId());
-			System.out.println("kiosk id:" + dto.getKioskError());
-			System.out.println("vendor :" + dto.getVendor());
-			System.out.println("circle :" + dto.getCircle());
-			System.out.println("username :" + dto.getContactPerson());
-			System.out.println("contact:" + dto.getContactNo());
-
-			System.out.println("size of dto:: " + dtoList.size());
 		}
 
 		return dtoList;
@@ -170,7 +160,6 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 			dto.setVendor(kioskMaster.getVendor());
 			manualTicketCallLogDtoList.add(dto);
 		}
-		System.out.println("kioskMasterList size()::::" + kioskMasterList.size());
 		return manualTicketCallLogDtoList;
 
 	}
