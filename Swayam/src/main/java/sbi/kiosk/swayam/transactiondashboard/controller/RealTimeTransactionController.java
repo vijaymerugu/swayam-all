@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import sbi.kiosk.swayam.common.entity.RealTimeTransaction;
+import sbi.kiosk.swayam.common.validation.ValidationCommon;
 import sbi.kiosk.swayam.transactiondashboard.service.RealTimeTransactionService;
 
 @RestController
@@ -57,8 +58,8 @@ public class RealTimeTransactionController {
 	@RequestMapping("td/fromToDate")
 	public ModelAndView fromToDate(ModelAndView mav,HttpServletRequest request) {
 		
-		String fromDate= request.getParameter("date1");
-		String toDate= request.getParameter("date2");
+		String fromDate= ValidationCommon.validateString(request.getParameter("date1"));
+		String toDate= ValidationCommon.validateString(request.getParameter("date2"));
 		mav.setViewName("realTimeTransaction");
 		return mav;
 	}

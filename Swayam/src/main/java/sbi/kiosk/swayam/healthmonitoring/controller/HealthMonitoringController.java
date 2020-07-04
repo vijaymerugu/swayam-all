@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sbi.kiosk.swayam.common.dto.RequestsDto;
 import sbi.kiosk.swayam.common.dto.RequestsManagementDto;
+import sbi.kiosk.swayam.common.validation.ValidationCommon;
 import sbi.kiosk.swayam.healthmonitoring.service.HealthMonitoringService;
 import sbi.kiosk.swayam.kioskmanagement.controller.UserManagementController;
 
@@ -81,14 +82,14 @@ public class HealthMonitoringController {
 		System.err.println("saveRequestForCmf==="+requestDto.getBranchCode());
 		ResponseEntity<String> entity=null;
 		RequestsDto dto = new RequestsDto();		
-		dto.setBranchCode(request.getParameter("branchCode"));
-		dto.setKioskId(request.getParameter("kioskId"));
-		dto.setVendor(request.getParameter("vendor"));
-		dto.setTypeOfRequest(request.getParameter("typeOfRequest"));
-		dto.setCategory(request.getParameter("category"));
-		dto.setSubCategory(request.getParameter("subCategory"));
-		dto.setSubject(request.getParameter("subject"));
-		dto.setComments(request.getParameter("comments"));		
+		dto.setBranchCode(ValidationCommon.validateString(request.getParameter("branchCode")));
+		dto.setKioskId(ValidationCommon.validateString(request.getParameter("kioskId")));
+		dto.setVendor(ValidationCommon.validateString(request.getParameter("vendor")));
+		dto.setTypeOfRequest(ValidationCommon.validateString(request.getParameter("typeOfRequest")));
+		dto.setCategory(ValidationCommon.validateString(request.getParameter("category")));
+		dto.setSubCategory(ValidationCommon.validateString(request.getParameter("subCategory")));
+		dto.setSubject(ValidationCommon.validateString(request.getParameter("subject")));
+		dto.setComments(ValidationCommon.validateStringChar(request.getParameter("comments")));		
 		String result=healthMonitoringService.saveRequestForCmf(dto);
 		entity=ResponseEntity.ok(result);
 		

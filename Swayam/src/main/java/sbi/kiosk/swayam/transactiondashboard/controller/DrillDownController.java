@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import sbi.kiosk.swayam.common.constants.ExceptionConstants;
 import sbi.kiosk.swayam.common.entity.DrillDown;
+import sbi.kiosk.swayam.common.validation.ValidationCommon;
 import sbi.kiosk.swayam.transactiondashboard.service.DrillDownService;
 
 @RestController
@@ -45,9 +46,9 @@ public class DrillDownController {
 		try {
 			
 			
-			String circleName = request.getParameter("circleName");
-			String fromDate = request.getParameter("fromDate");
-			String toDate = request.getParameter("toDate");
+			String circleName = ValidationCommon.validateString(request.getParameter("circleName"));
+			String fromDate = ValidationCommon.validateString(request.getParameter("fromDate"));
+			String toDate = ValidationCommon.validateString(request.getParameter("toDate"));
 			
 			model.addObject("circleName", circleName);
 			model.addObject("fromDate", fromDate);
@@ -68,10 +69,10 @@ public class DrillDownController {
 		try {
 		
 			
-			String circleName = request.getParameter("circleName");	
-			String networkName = request.getParameter("networkName");
-			String fromDate = request.getParameter("fromDate");
-			String toDate = request.getParameter("toDate");
+			String circleName = ValidationCommon.validateString(request.getParameter("circleName"));	
+			String networkName = ValidationCommon.validateString(request.getParameter("networkName"));
+			String fromDate = ValidationCommon.validateString(request.getParameter("fromDate"));
+			String toDate = ValidationCommon.validateString(request.getParameter("toDate"));
 			
 			model.addObject("circleName", circleName);
 			model.addObject("networkName", networkName);
@@ -92,11 +93,11 @@ public class DrillDownController {
 		try {
 			
 		
-			String circleName = request.getParameter("circleName");	
-			String networkName = request.getParameter("networkName");
-            String moduleName = request.getParameter("moduleName");
-            String fromDate = request.getParameter("fromDate");
-			String toDate = request.getParameter("toDate");
+			String circleName = ValidationCommon.validateString(request.getParameter("circleName"));	
+			String networkName = ValidationCommon.validateString(request.getParameter("networkName"));
+            String moduleName = ValidationCommon.validateString(request.getParameter("moduleName"));
+            String fromDate = ValidationCommon.validateString(request.getParameter("fromDate"));
+			String toDate = ValidationCommon.validateString(request.getParameter("toDate"));
                      
             model.addObject("circleName", circleName);
 			model.addObject("networkName", networkName);
@@ -119,12 +120,12 @@ public class DrillDownController {
 		
 		try {
 			
-			String circleName = request.getParameter("circleName");	
-			String networkName = request.getParameter("networkName");
-            String moduleName = request.getParameter("moduleName");
-            String regionName = request.getParameter("regionName");
-            String fromDate = request.getParameter("fromDate");
-			String toDate = request.getParameter("toDate");
+			String circleName = ValidationCommon.validateString(request.getParameter("circleName"));	
+			String networkName = ValidationCommon.validateString(request.getParameter("networkName"));
+            String moduleName = ValidationCommon.validateString(request.getParameter("moduleName"));
+            String regionName = ValidationCommon.validateString(request.getParameter("regionName"));
+            String fromDate = ValidationCommon.validateString(request.getParameter("fromDate"));
+			String toDate = ValidationCommon.validateString(request.getParameter("toDate"));
 			
             model.addObject("circleName", circleName);
 			model.addObject("networkName", networkName);
@@ -147,11 +148,6 @@ public class DrillDownController {
 		      @RequestParam("networkName") String networkName, @RequestParam("moduleName") String moduleName, @RequestParam("regionName") String regionName, @RequestParam("fromDate") String fromDate, @RequestParam("toDate") String toDate) {
 		 Page<DrillDown> resultPage = null;
 		 
-		 if(fromDate.equals("undefined") || toDate.equals("undefined")) {		
-				//fromDate="05-MAY-20";
-				//toDate="20-MAY-20";
-	     }
-		 
 		 if(networkName.equals("undefined") || moduleName.equals("undefined") || regionName.equals("undefined")) {	 
 			 networkName="";
 			 moduleName="";
@@ -165,6 +161,6 @@ public class DrillDownController {
 		 }
 
 		      return resultPage;
-		    }
+	}
 
 }
