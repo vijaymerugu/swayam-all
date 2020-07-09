@@ -23,15 +23,15 @@ import lombok.Data;
 @Entity
 
 @NamedStoredProcedureQuery(
-	name="SP_KIOSKS_AVAILABLITY_PROC",
-	procedureName="SP_KIOSKS_AVAILABLITY_PROC",
-	resultClasses=Availability.class,
+	name="SP_CUMULATIVE_AVAILABLITY_PROC",
+	procedureName="SP_CUMULATIVE_AVAILABLITY_PROC",
+	resultClasses=CumulativeKiosksAvailability.class,
 	parameters={
 		@StoredProcedureParameter(name="cur", type=void.class, mode= ParameterMode.REF_CURSOR)
 	}
 )
 
-public class Availability implements Serializable {
+public class CumulativeKiosksAvailability implements Serializable {
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -39,19 +39,13 @@ public class Availability implements Serializable {
 		@Column(name="CIRCLE")
 		private String circleName;
 		
-		@Column(name="NO_OF_KIOSKS")
-		private Integer noOfKiosks;
+		@Column(name="TOTAL_KIOSKS")
+		private Integer totalKiosks;
 
-		@Column(name="NO_OF_AVAILABLE_KIOSKS")
-		private Integer totalAvailableKiosks;
-
-		@Column(name="NO_OF_UNAVAILABLE_KIOSKS")
-		private Integer totalNonAvailableKiosks;
+		@Column(name="TOTAL_OPERATIONAL_KIOSKS")
+		private Integer totalOperationalKiosks;
 		
-		@Column(name="PERCENTAGE_OF_AVAILABLE_KIOSKS")
+		@Column(name="AVAILABILITY_IN_PERCENT")
 		private Double availableKiosksPercent;
-		
-		@Column(name="NON_AVAILABLE_KIOSKS_PERCENT")
-		private Double nonAvailableKiosksPercent;
 		
 }

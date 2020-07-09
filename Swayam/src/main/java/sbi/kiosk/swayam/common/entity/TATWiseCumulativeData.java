@@ -22,16 +22,15 @@ import lombok.Data;
 @Entity
 
 @NamedStoredProcedureQuery(
-	name="SP_VENDOR_WISE_UPTIME_PROC",
-	procedureName="SP_VENDOR_WISE_UPTIME_PROC",
-	resultClasses=VendorWiseUptime.class,
+	name="SP_TAT_WISE_CUMULATIVE_DATA",
+	procedureName="SP_TAT_WISE_CUMULATIVE_DATA",
+	resultClasses=TATWiseCumulativeData.class,
 	parameters={
-			@StoredProcedureParameter( name="vendor",type=String.class, mode= ParameterMode.IN),
 			@StoredProcedureParameter(name="cur", type=void.class, mode= ParameterMode.REF_CURSOR)
 		}
 )
 
-public class VendorWiseUptime implements Serializable {
+public class TATWiseCumulativeData implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	

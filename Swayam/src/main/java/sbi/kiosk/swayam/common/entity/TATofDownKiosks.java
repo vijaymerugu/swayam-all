@@ -21,17 +21,15 @@ import lombok.Data;
 @Data
 @Entity
 
-/*
- * @NamedStoredProcedureQuery( name="SP_TAT_OF_DOWN_KIOSKS_PROC",
- * procedureName="SP_TAT_OF_DOWN_KIOSKS_PROC",
- * resultClasses=ZeroTransactionKiosks.class, parameters={
- * 
- * @StoredProcedureParameter( name="circleCode",type=String.class, mode=
- * ParameterMode.IN),
- * 
- * @StoredProcedureParameter(name="cur", type=void.class, mode=
- * ParameterMode.REF_CURSOR) } )
- */
+@NamedStoredProcedureQuery(
+	name="SP_TAT_OF_DOWN_KIOSKS_PROC",
+	procedureName="SP_TAT_OF_DOWN_KIOSKS_PROC",
+	resultClasses=TATofDownKiosks.class,
+	parameters={
+		@StoredProcedureParameter(name="cur", type=void.class, mode= ParameterMode.REF_CURSOR)
+	}
+)
+
 public class TATofDownKiosks implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

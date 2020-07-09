@@ -21,17 +21,15 @@ import lombok.Data;
 @Data
 @Entity
 
-/*
- * @NamedStoredProcedureQuery( name="SP_ERROT_TYPE_WISE_UPTIME_PROC",
- * procedureName="SP_ERROT_TYPE_WISE_UPTIME_PROC",
- * resultClasses=ZeroTransactionKiosks.class, parameters={
- * 
- * @StoredProcedureParameter( name="callCategory",type=String.class, mode=
- * ParameterMode.IN),
- * 
- * @StoredProcedureParameter(name="cur", type=void.class, mode=
- * ParameterMode.REF_CURSOR) } )
- */
+@NamedStoredProcedureQuery(
+	name="SP_ERROT_TYPE_WISE_UPTIME_PROC",
+	procedureName="SP_ERROT_TYPE_WISE_UPTIME_PROC",
+	resultClasses=ErrorTypeWiseUpTime.class,
+	parameters={
+		@StoredProcedureParameter( name="callCategory",type=String.class, mode= ParameterMode.IN),
+		@StoredProcedureParameter(name="cur", type=void.class, mode= ParameterMode.REF_CURSOR)
+	}
+)
 
 public class ErrorTypeWiseUpTime implements Serializable {
 	
