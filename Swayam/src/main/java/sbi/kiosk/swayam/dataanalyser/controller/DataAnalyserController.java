@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import sbi.kiosk.swayam.common.entity.Availability;
 import sbi.kiosk.swayam.common.entity.CumulativeKiosksAvailability;
+import sbi.kiosk.swayam.common.entity.CumulativeSummaryOfDownKiosks;
 import sbi.kiosk.swayam.common.entity.ErrorTypeWiseCumulativeData;
 import sbi.kiosk.swayam.common.entity.ErrorTypeWiseUpTime;
 import sbi.kiosk.swayam.common.entity.SummaryOfDownKiosks;
@@ -93,20 +94,21 @@ public class DataAnalyserController {
 	@RequestMapping(value = "da/getErrorTypeWiseCumulativeData", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<List<ErrorTypeWiseCumulativeData>> getErrorTypeWiseCumulativeData(ModelAndView model) {
 		ResponseEntity<List<ErrorTypeWiseCumulativeData>> respEntity = ResponseEntity.ok(dataAnalyserService.getErrorTypeWiseCumulativeData());
+		model.addObject("daErrorTypeWiseCumulativeData", respEntity);
 		return respEntity;
 	}
 	
 	@RequestMapping(value = "da/getTATWiseCumulativeData", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<List<TATWiseCumulativeData>> getTATWiseCumulativeData(ModelAndView model) {
 		ResponseEntity<List<TATWiseCumulativeData>> respEntity = ResponseEntity.ok(dataAnalyserService.getTATWiseCumulativeData());
+		model.addObject("daTATWiseCumulativeData", respEntity);
 		return respEntity;
 	}
 	
 	@RequestMapping(value = "da/getCumulativeSummaryOfDownKiosks", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<List<SummaryOfDownKiosks>> getCumulativeSummaryOfDownKiosks(ModelAndView model) {
-		ResponseEntity<List<SummaryOfDownKiosks>> respEntity = ResponseEntity.ok(dataAnalyserService.getSummaryOfDownKiosks());
-		model.addObject("daSummaryOfDownKiosks", respEntity);
-		model.setViewName("summaryOfDownKiosks");
+	public ResponseEntity<List<CumulativeSummaryOfDownKiosks>> getCumulativeSummaryOfDownKiosks(ModelAndView model) {
+		ResponseEntity<List<CumulativeSummaryOfDownKiosks>> respEntity = ResponseEntity.ok(dataAnalyserService.getCumulativeSummaryOfDownKiosks());
+		model.addObject("daCumulativeSummaryOfDownKiosks", respEntity);
 		return respEntity;
 	}
 	

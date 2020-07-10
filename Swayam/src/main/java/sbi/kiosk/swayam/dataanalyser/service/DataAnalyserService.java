@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import sbi.kiosk.swayam.common.entity.Availability;
 import sbi.kiosk.swayam.common.entity.CumulativeKiosksAvailability;
+import sbi.kiosk.swayam.common.entity.CumulativeSummaryOfDownKiosks;
 import sbi.kiosk.swayam.common.entity.ErrorTypeWiseCumulativeData;
 import sbi.kiosk.swayam.common.entity.ErrorTypeWiseUpTime;
 import sbi.kiosk.swayam.common.entity.SummaryOfDownKiosks;
@@ -40,5 +41,7 @@ public interface DataAnalyserService {
 	List<ErrorTypeWiseCumulativeData> getErrorTypeWiseCumulativeData();
 
 	List<TATWiseCumulativeData> getTATWiseCumulativeData();
+
+	List<CumulativeSummaryOfDownKiosks> getCumulativeSummaryOfDownKiosks();
 
 }

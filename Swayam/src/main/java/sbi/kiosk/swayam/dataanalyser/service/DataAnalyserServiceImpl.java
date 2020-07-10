@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import sbi.kiosk.swayam.common.entity.Availability;
 import sbi.kiosk.swayam.common.entity.CumulativeKiosksAvailability;
+import sbi.kiosk.swayam.common.entity.CumulativeSummaryOfDownKiosks;
 import sbi.kiosk.swayam.common.entity.ErrorTypeWiseCumulativeData;
 import sbi.kiosk.swayam.common.entity.ErrorTypeWiseUpTime;
 import sbi.kiosk.swayam.common.entity.SummaryOfDownKiosks;
@@ -154,10 +155,25 @@ public class DataAnalyserServiceImpl implements DataAnalyserService {
 	@Override
 	public List<TATWiseCumulativeData> getTATWiseCumulativeData() {
 		try {
-			return entityManager.createNamedStoredProcedureQuery("SP_TAT_WISE_CUMULATIVE_DATA").getResultList();
+			List<TATWiseCumulativeData> tats = entityManager.createNamedStoredProcedureQuery("SP_TAT_WISE_CUMULATIVE_DATA").getResultList();
+			for(TATWiseCumulativeData tat:tats) {
+				
+			}
+			return tats;
 		} catch (Exception e) {
 			logger.error("Exception in getTATWiseCumulativeData." + e.getMessage());
 			return new ArrayList<TATWiseCumulativeData>();
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<CumulativeSummaryOfDownKiosks> getCumulativeSummaryOfDownKiosks() {
+		try {
+			return entityManager.createNamedStoredProcedureQuery("SP_CUMULATIVE_KIOSKS_SUMMARY").getResultList();
+		} catch (Exception e) {
+			logger.error("Exception in getCumulativeSummaryOfDownKiosks." + e.getMessage());
+			return new ArrayList<CumulativeSummaryOfDownKiosks>();
 		}
 	}
 

@@ -35,25 +35,37 @@ public class TATWiseCumulativeData implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Column(name="VENDOR")
-	private String vendorName;
-	
-	@Column(name="CIRCLE")
-	private String circleName;
-	
-	@Column(name="NO_OF_KIOSKS")
-	private Integer noOfKiosks;
+	@Column(name="TOTAL_NO_OF_TICKETS")
+	private Integer noOfTickets;
 
-	@Column(name="NO_OF_AVAILABLE_KIOSKS")
-	private Integer totalAvailableKiosks;
+	@Column(name="ONE_DAY")
+	private Integer oneDay;
 
-	@Column(name="NO_OF_UNAVAILABLE_KIOSKS")
-	private Integer totalNonAvailableKiosks;
+	@Column(name="TWO_TO_FIVE_DAYS")
+	private Integer twoToFiveDays;
 	
-	@Column(name="PERCENTAGE_OF_AVAILABLE_KIOSKS")
-	private Double availableKiosksPercent;
+	@Column(name="ONE_WEEK")
+	private Integer oneWeek;
 	
-	@Column(name="NON_AVAILABLE_KIOSKS_PERCENT")
-	private Double nonAvailableKiosksPercent;
+	@Column(name="ONE_TO_TWO_WEEK")
+	private Integer oneToTwoWeek;
+	
+	@Column(name="GREATER_THAN_TWO_WEEK")
+	private Integer greaterThanTwoWeek;
+
+	@Column(name="PERCENTAGE_OF_ONE_DAYS")
+	private Double percentageOfOneDays;
+	
+	@Column(name="PERCENT_OF_TWO_TO_FIVE_DAYS")
+	private Double percentOfTwoToFiveDays;
+	
+	@Column(name="PERCENTAGE_OF_ONE_WEEK")
+	private Double percentageOfOneWeek;
+	
+	@Column(name="PERCENT_ONE_TO_TWO_WEEK")
+	private Double percentOneToTwoWeek;
+	
+	@Column(name="PERCENT_GREATER_THAN_TWO_WEEK")
+	private Double percentGreaterThanTwoWeek;
 	
 }
