@@ -671,7 +671,7 @@ $(document).ready(function(){
 		
 		<div class="col-md-12">
 			<!-- <div align="center" class="mytable"> -->
-			<form:form action="addUsers" modelAttribute="addUser" name="addUser" id="form">
+			<form:form action="addUsers" modelAttribute="addUser" name="addUser" id="form" autocomplete="off">
 				<c:if test="${empty  addUser.checkAction}">
 				<h4 align="left">
 			     <b>Add User</b>

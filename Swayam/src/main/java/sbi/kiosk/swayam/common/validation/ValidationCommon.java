@@ -23,4 +23,14 @@ public class ValidationCommon {
 			throw new ValidationException("Invalid Data");
 		}		
 	}	
+	
+	public static String validateNumber(String str){
+		
+		if(str !=null && str.matches("^[0-9]*$")){
+			return str;
+		}
+		else{
+			throw new ValidationException("Invalid Data");
+		}		
+	}	
 }

@@ -564,7 +564,7 @@ function fromValidation(){
 		
 		<div class="col-md-12">
 			<!-- <div align="center" class="mytable"> -->
-			<form:form action="addUsersLA" modelAttribute="addUserDto" name="addUserDto" id="form">
+			<form:form action="addUsersLA" modelAttribute="addUserDto" name="addUserDto" id="form" autocomplete="off">
 				<%-- <c:if test="${empty  addUserDto.checkAction}">
 				<h4 align="left">
 			     <b>Add User</b>

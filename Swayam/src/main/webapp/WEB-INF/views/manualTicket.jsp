@@ -584,7 +584,7 @@ function cloesBox(){
 	
 		<form:form method="POST" action="manualTicketForm"
 			modelAttribute="manualTicketCallLogDto" name="manualTicketCallLogDto"
-			id="form">
+			id="form" autocomplete="off">
 			<h3 style="color: #000000;font-size:12 px; text-align: left;">Please complete the below form for lodging complaint</h3>
 			<div class="col-md-12">
 				<table>

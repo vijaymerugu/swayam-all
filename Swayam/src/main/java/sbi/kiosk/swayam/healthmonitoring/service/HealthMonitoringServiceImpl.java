@@ -30,6 +30,7 @@ import sbi.kiosk.swayam.common.entity.User;
 import sbi.kiosk.swayam.common.repository.KioskMasterRepository;
 import sbi.kiosk.swayam.common.repository.SupervisorRepository;
 import sbi.kiosk.swayam.common.repository.UserRepository;
+import sbi.kiosk.swayam.common.validation.ValidationCommon;
 import sbi.kiosk.swayam.healthmonitoring.repository.RequestsRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.RequestsRepositoryPaging;
 
@@ -144,7 +145,7 @@ public class HealthMonitoringServiceImpl implements HealthMonitoringService {
 				String arrayVal[] = val.split(":"); 
 				String id = arrayVal[0].substring(1,arrayVal[0].length()-1);; 
 				String comment = arrayVal[1].substring(1,arrayVal[1].length()-1);;
-				map.put(id,comment);
+				map.put(ValidationCommon.validateNumber(id),ValidationCommon.validateStringChar(comment));
 			}
 		}
 		if(map !=null && map.size() > 0){
@@ -175,7 +176,7 @@ public class HealthMonitoringServiceImpl implements HealthMonitoringService {
 				String arrayVal[] = val.split(":"); 
 				String id = arrayVal[0].substring(1,arrayVal[0].length()-1);; 
 				String comment = arrayVal[1].substring(1,arrayVal[1].length()-1);;
-				map.put(id,comment);
+				map.put(ValidationCommon.validateNumber(id),ValidationCommon.validateStringChar(comment));
 			}
 		}
 		if(map !=null && map.size() > 0){
@@ -208,7 +209,7 @@ public class HealthMonitoringServiceImpl implements HealthMonitoringService {
 				String arrayVal[] = val.split(":"); 
 				String id = arrayVal[0].substring(1,arrayVal[0].length()-1);; 
 				String comment = arrayVal[1].substring(1,arrayVal[1].length()-1);;
-				map.put(id,comment);
+				map.put(ValidationCommon.validateNumber(id),ValidationCommon.validateStringChar(comment));
 			}
 		}
 		if(map !=null && map.size() > 0){
@@ -239,7 +240,7 @@ public class HealthMonitoringServiceImpl implements HealthMonitoringService {
 				String arrayVal[] = val.split(":"); 
 				String id = arrayVal[0].substring(1,arrayVal[0].length()-1);; 
 				String comment = arrayVal[1].substring(1,arrayVal[1].length()-1);;
-				map.put(id,comment);
+				map.put(ValidationCommon.validateNumber(id),ValidationCommon.validateStringChar(comment));
 			}
 		}
 		if(map !=null && map.size() > 0){
