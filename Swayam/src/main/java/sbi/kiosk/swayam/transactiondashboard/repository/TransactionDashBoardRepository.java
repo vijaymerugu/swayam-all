@@ -7,14 +7,11 @@ import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
 
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import sbi.kiosk.swayam.common.entity.SwayamTransactionReport;
+import sbi.kiosk.swayam.common.entity.SwayamMigrationSummary;
+
 
 @Repository
 
@@ -29,7 +26,7 @@ parameters = {
 	    @StoredProcedureParameter(name="cur",mode = ParameterMode.REF_CURSOR,  type=void.class)
 		 })
 })
-public interface TransactionDashBoardRepository extends CrudRepository<SwayamTransactionReport, Integer>{
+public interface TransactionDashBoardRepository extends CrudRepository<SwayamMigrationSummary, Integer>{
 
 	
 	  //@Procedure(procedureName = "SP_MIGRATION_SUMMARY")
@@ -49,6 +46,8 @@ public interface TransactionDashBoardRepository extends CrudRepository<SwayamTra
 	 // List<SwayamTransactionReport>   findByFromDateAndToDate(@Param("fromdate") String fromdate,@Param("todate") String todate);
 		
 	 // List<SwayamTransactionReport>   findByFromDateAndToDate();
+	
+	 List<SwayamMigrationSummary>   findAll();
 		
 	
 }

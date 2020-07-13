@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,20 +32,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import sbi.kiosk.swayam.common.constants.Constants;
+import sbi.kiosk.swayam.common.dto.ErrorReportingDto;
 import sbi.kiosk.swayam.common.dto.KioskBranchMasterUserDto;
+import sbi.kiosk.swayam.common.dto.RealTimeTransactionDto;
 import sbi.kiosk.swayam.common.dto.TicketCentorDto;
+import sbi.kiosk.swayam.common.dto.TransactionDashBoardDto;
 import sbi.kiosk.swayam.common.dto.UserDto;
 import sbi.kiosk.swayam.common.dto.UserManagementDto;
+import sbi.kiosk.swayam.common.dto.ZeroTransactionKiosksDto;
 import sbi.kiosk.swayam.common.entity.BranchMaster;
+import sbi.kiosk.swayam.common.entity.ErrorReporting;
+import sbi.kiosk.swayam.common.entity.RealTimeTransaction;
 import sbi.kiosk.swayam.common.entity.Supervisor;
+import sbi.kiosk.swayam.common.entity.SwayamMigrationSummary;
 import sbi.kiosk.swayam.common.entity.User;
 import sbi.kiosk.swayam.common.entity.UserKioskMapping;
+import sbi.kiosk.swayam.common.entity.ZeroTransactionKiosks;
 import sbi.kiosk.swayam.common.repository.KioskMasterRepository;
 import sbi.kiosk.swayam.common.repository.SupervisorRepository;
 import sbi.kiosk.swayam.common.repository.UserRepository;
@@ -53,6 +63,11 @@ import sbi.kiosk.swayam.common.utils.ObjectMapperUtils;
 import sbi.kiosk.swayam.healthmonitoring.repository.TicketCentorRepository;
 import sbi.kiosk.swayam.kioskmanagement.repository.BranchMasterRepository;
 import sbi.kiosk.swayam.kioskmanagement.repository.UserKioskMappingRepository;
+import sbi.kiosk.swayam.transactiondashboard.repository.ErrorReportingRepositoryPaging;
+import sbi.kiosk.swayam.transactiondashboard.repository.RealTimeTxnRepositoryPaging;
+import sbi.kiosk.swayam.transactiondashboard.repository.TransactionDashBoardRepository;
+import sbi.kiosk.swayam.transactiondashboard.repository.TransactionDashBoardRepositoryPaging;
+import sbi.kiosk.swayam.transactiondashboard.repository.ZeroTransactionKiosksRepository;
 
 
 @Service
@@ -89,6 +104,16 @@ public class JasperServiceImpl implements JasperService{
 	
 	@Autowired
 	KioskMasterRepository kioskMasterRepo;
+	@Autowired
+	TransactionDashBoardRepository transactionDashBoardRepo;
+	@Autowired
+	TransactionDashBoardRepositoryPaging transactionDashBoardRepositoryPaging;
+	@Autowired
+	RealTimeTxnRepositoryPaging realTimeTxnRepositoryPaging;
+	@Autowired
+	ZeroTransactionKiosksRepository zeroTransactionKiosksRepo;
+	@Autowired
+	ErrorReportingRepositoryPaging errorReportingRepositoryPaging;
 	 
 	 public static HttpSession session() {
 	        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
@@ -203,7 +228,92 @@ public class JasperServiceImpl implements JasperService{
 			          filename = "TicketCenter_" + timeStamp + ".pdf";		             
 			          JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);		          
 				 }
+		       
+		       else if(identifyPage.equals("transactionSummary")){
+		    	   logger.info("PDF File TransactionSummary !!");
+		    	   List<TransactionDashBoardDto> list= findAllTransactionSummary(); 
+			          File file = ResourceUtils.getFile(jrxmlPath + "transactionSummary.jrxml");		 
+			          InputStream input = new FileInputStream(file); 
+			          jasperReport = JasperCompileManager.compileReport(input);		 
+			          source = new JRBeanCollectionDataSource(list);		             
+			          Map<String, Object> parameters = new HashMap<>();		 
+			          jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);		             
+			          String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());		             
+			          filename = "TransactionSummary_" + timeStamp + ".pdf";		             
+			          JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);		          
+				 }
+		       
+		       else if(identifyPage.equals("realTimeToday")){
+		    	   logger.info("PDF File realTimeToday !!");
+		    	   SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+		  		   Date curDate=new Date();
+		  		   String todayDate=sdf.format(curDate);
+		    	   List<RealTimeTransactionDto> list= findAllDateWiseRealtimeTxn(todayDate);  
+			          File file = ResourceUtils.getFile(jrxmlPath + "realTimeToday.jrxml");		 
+			          InputStream input = new FileInputStream(file); 
+			          jasperReport = JasperCompileManager.compileReport(input);		 
+			          source = new JRBeanCollectionDataSource(list);		             
+			          Map<String, Object> parameters = new HashMap<>();		 
+			          jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);		             
+			          String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());		             
+			          filename = "RealTimeTxnToday_" + timeStamp + ".pdf";		             
+			          JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);		          
+				 }
+		       else if(identifyPage.equals("realTimeYesterday")){
+			    	   logger.info("PDF File RealTimeYesterday !!");
+			    	   SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+			  		   Date curDate=new Date();
+			  		   curDate.setTime(curDate.getTime()-48*60*60*1000); 
+			  		   String yesterdayDate=sdf.format(curDate);
+			    	    
+			  		  List<RealTimeTransactionDto> list= findAllDateWiseRealtimeTxn(yesterdayDate); 
+				          File file = ResourceUtils.getFile(jrxmlPath + "realTimeYesterday.jrxml");		 
+				          InputStream input = new FileInputStream(file); 
+				          jasperReport = JasperCompileManager.compileReport(input);		 
+				          source = new JRBeanCollectionDataSource(list);		             
+				          Map<String, Object> parameters = new HashMap<>();		 
+				          jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);		             
+				          String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());		             
+				          filename = "RealTimeTxnYesterday_" + timeStamp + ".pdf";		             
+				          JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);		          
+			       }
 			          
+		       else if(identifyPage.equals("zeroTxnKoisk")){
+		    	   logger.info("PDF File ZeroTxnKoisk !!");
+		    	   SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+		  		   Date curDate=new Date();
+		  		   String fromdate=sdf.format(curDate);
+		  		 String todate=sdf.format(curDate);
+		    	    
+		  		  List<ZeroTransactionKiosksDto> list= findAllZeroTxnKoisk(fromdate, todate);
+			          File file = ResourceUtils.getFile(jrxmlPath + "zeroTxnKiosk.jrxml");		 
+			          InputStream input = new FileInputStream(file); 
+			          jasperReport = JasperCompileManager.compileReport(input);		 
+			          source = new JRBeanCollectionDataSource(list);		             
+			          Map<String, Object> parameters = new HashMap<>();		 
+			          jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);		             
+			          String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());		             
+			          filename = "RealTimeTxnYesterday_" + timeStamp + ".pdf";		             
+			          JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);		          
+		       } else if(identifyPage.equals("errorReporting")){
+		    	   logger.info("PDF File ErrorReporting !!");
+		    	   SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+		  		   Date curDate=new Date();
+		  		   String fromdate=sdf.format(curDate);
+		  		 String todate=sdf.format(curDate);
+		    	    
+		  		List<ErrorReportingDto> list= findAllErrorReprting(fromdate,todate);
+			          File file = ResourceUtils.getFile(jrxmlPath + "errorReporting.jrxml");		 
+			          InputStream input = new FileInputStream(file); 
+			          jasperReport = JasperCompileManager.compileReport(input);		 
+			          source = new JRBeanCollectionDataSource(list);		             
+			          Map<String, Object> parameters = new HashMap<>();		 
+			          jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);		             
+			          String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());		             
+			          filename = "ErrorReporting_" + timeStamp + ".pdf";		             
+			          JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);		          
+		       }
+		          
 		             //xlsx(jasperPrint);
 		       logger.info("PDF File Generated !!");
 		       return filename;
@@ -322,6 +432,91 @@ public class JasperServiceImpl implements JasperService{
 		          filename = "TicketCenter_" + timeStamp + ".xlsx";		             
 		          xlsx(jasperPrint, filename); 		         
 		       }
+		       else if(identifyPage.equals("transactionSummary")){
+		    	   logger.info("PDF File TransactionSummary !!");
+		    	   List<TransactionDashBoardDto> list= findAllTransactionSummary(); 
+			          File file = ResourceUtils.getFile(jrxmlPath + "transactionSummary.jrxml");		 
+			          InputStream input = new FileInputStream(file); 
+			          jasperReport = JasperCompileManager.compileReport(input);		 
+			          source = new JRBeanCollectionDataSource(list);		             
+			          Map<String, Object> parameters = new HashMap<>();		 
+			          jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);		             
+			          String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());		             
+			          filename = "TransactionSummary_" + timeStamp + ".xlsx";		             
+			          JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);		          
+				 }
+		       
+		       else if(identifyPage.equals("realTimeToday")){
+		    	   logger.info("PDF File realTimeToday !!");
+		    	   SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+		  		   Date curDate=new Date();
+		  		   String todayDate=sdf.format(curDate);
+		    	   List<RealTimeTransactionDto> list= findAllDateWiseRealtimeTxn(todayDate);  
+			          File file = ResourceUtils.getFile(jrxmlPath + "realTimeToday.jrxml");		 
+			          InputStream input = new FileInputStream(file); 
+			          jasperReport = JasperCompileManager.compileReport(input);		 
+			          source = new JRBeanCollectionDataSource(list);		             
+			          Map<String, Object> parameters = new HashMap<>();		 
+			          jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);		             
+			          String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());		             
+			          filename = "RealTimeTxnToday_" + timeStamp + ".xlsx";		             
+			          JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);		          
+				 }
+		       else if(identifyPage.equals("realTimeYesterday")){
+			    	   logger.info("PDF File RealTimeYesterday !!");
+			    	   SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+			  		   Date curDate=new Date();
+			  		   curDate.setTime(curDate.getTime()-48*60*60*1000); 
+			  		   String yesterdayDate=sdf.format(curDate);
+			    	    
+			  		  List<RealTimeTransactionDto> list= findAllDateWiseRealtimeTxn(yesterdayDate); 
+				          File file = ResourceUtils.getFile(jrxmlPath + "realTimeYesterday.jrxml");		 
+				          InputStream input = new FileInputStream(file); 
+				          jasperReport = JasperCompileManager.compileReport(input);		 
+				          source = new JRBeanCollectionDataSource(list);		             
+				          Map<String, Object> parameters = new HashMap<>();		 
+				          jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);		             
+				          String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());		             
+				          filename = "RealTimeTxnYesterday_" + timeStamp + ".xlsx";		             
+				          JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);		          
+			       }
+		       else if(identifyPage.equals("zeroTxnKoisk")){
+		    	   logger.info("PDF File ZeroTxnKoisk !!");
+		    	   SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+		  		   Date curDate=new Date();
+		  		   String fromdate=sdf.format(curDate);
+		  		 String todate=sdf.format(curDate);
+		    	    
+		  		  List<ZeroTransactionKiosksDto> list= findAllZeroTxnKoisk(fromdate, todate);
+			          File file = ResourceUtils.getFile(jrxmlPath + "zeroTxnKiosk.jrxml");		 
+			          InputStream input = new FileInputStream(file); 
+			          jasperReport = JasperCompileManager.compileReport(input);		 
+			          source = new JRBeanCollectionDataSource(list);		             
+			          Map<String, Object> parameters = new HashMap<>();		 
+			          jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);		             
+			          String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());		             
+			          filename = "RealTimeTxnYesterday_" + timeStamp + ".xlsx";		             
+			          JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);		          
+		       }
+		       else if(identifyPage.equals("errorReporting")){
+		    	   logger.info("PDF File ErrorReporting !!");
+		    	   SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+		  		   Date curDate=new Date();
+		  		   String fromdate=sdf.format(curDate);
+		  		 String todate=sdf.format(curDate);
+		    	    
+		  		List<ErrorReportingDto> list= findAllErrorReprting(fromdate,todate);
+			          File file = ResourceUtils.getFile(jrxmlPath + "errorReporting.jrxml");		 
+			          InputStream input = new FileInputStream(file); 
+			          jasperReport = JasperCompileManager.compileReport(input);		 
+			          source = new JRBeanCollectionDataSource(list);		             
+			          Map<String, Object> parameters = new HashMap<>();		 
+			          jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);		             
+			          String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());		             
+			          filename = "ErrorReporting_" + timeStamp + ".xlsx";		             
+			          JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);		          
+		       }
+		        
 		       logger.info("Excel File Generated !!");
 		       return filename;
 		
@@ -561,6 +756,54 @@ public class JasperServiceImpl implements JasperService{
 			 System.out.println(dto.getKisokId());			 
 		 }
 		 return entities;		 
+	 }
+	
+	
+	
+	@Override
+	 public List<TransactionDashBoardDto> findAllTransactionSummary(){
+		SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+		 Date curDate=new Date();
+		 curDate.setTime(curDate.getTime()-48*60*60*1000); 
+		 String fromdate=sdf.format(curDate);
+		 String todate=sdf.format(curDate);
+		logger.info("Inside==Jasper====findAllTransactionSummary===========");
+		 UserDto user = (UserDto) session().getAttribute("userObj");
+		 List<SwayamMigrationSummary> page= transactionDashBoardRepositoryPaging.findAllByDate(fromdate,todate);
+		 logger.info("Inside==Jasper=page="+page);
+		 List<TransactionDashBoardDto> entities = ObjectMapperUtils.mapAll(page, TransactionDashBoardDto.class);
+		 return entities;		 
+	 }
+	
+	
+	@Override
+	 public List<RealTimeTransactionDto> findAllDateWiseRealtimeTxn(String fromdate){
+		logger.info("Inside==Jasper====findAllTransactionSummary===========");
+		 UserDto user = (UserDto) session().getAttribute("userObj");
+		 List<RealTimeTransaction> list= realTimeTxnRepositoryPaging.findByDate(fromdate);
+		 logger.info("Inside==Jasper=list="+list);
+		 List<RealTimeTransactionDto> entities = ObjectMapperUtils.mapAll(list, RealTimeTransactionDto.class);
+		 return entities;		 
+	 }
+	
+	@Override
+	 public List<ZeroTransactionKiosksDto> findAllZeroTxnKoisk(String fromdate,String todate){
+		logger.info("Inside==Jasper====findAllZeroTxnKoisk===========");
+		 UserDto user = (UserDto) session().getAttribute("userObj");
+		 List<ZeroTransactionKiosks> list= zeroTransactionKiosksRepo.findByDateZeroTxn(fromdate, todate);
+		 logger.info("Inside==Jasper=list="+list);
+		 List<ZeroTransactionKiosksDto> entities = ObjectMapperUtils.mapAll(list, ZeroTransactionKiosksDto.class);
+		 return entities;	
+	}
+		 
+		 @Override
+		 public List<ErrorReportingDto> findAllErrorReprting(String fromdate,String todate){
+			logger.info("Inside==Jasper====findAllErrorReprting===========");
+			 UserDto user = (UserDto) session().getAttribute("userObj");
+			 List<ErrorReporting> list= errorReportingRepositoryPaging.findAllErrReport(fromdate, todate);
+			 logger.info("Inside==Jasper=list="+list);
+			 List<ErrorReportingDto> entities = ObjectMapperUtils.mapAll(list, ErrorReportingDto.class);
+			 return entities;	
 	 }
 	
 }

@@ -10,7 +10,7 @@ sort: null
    var fromDate = "";
    var toDate= "";
    
-   function convertDate(dateParam){
+/*   function convertDate(dateParam){
   var result="";
   var date = new Date(dateParam);
        var year = date.getFullYear();
@@ -25,26 +25,25 @@ sort: null
    //  alert("return --result::: "+result);
      return result;
  }
+*/
 
 
-
-   
+   $scope.CurrentDate = new Date();
    $scope.searchPositions= function(startDate,endDate){
- // alert("From=="+startDate);
- // convertDate(startDate);
- fromDate= convertDate(startDate);
-// alert("fromDate=="+fromDate);  
- toDate=  convertDate(endDate);
-//alert("toDate=="+toDate);  
-     
+	   fromDate = $("#datepickerFromDate").val();
+	   toDate = $("#datepickerToDate").val();
+	  
+       //alert("From=="+fromDate);
 
-
-  UserManagementService.getUsers(paginationOptions.pageNumber,
-  paginationOptions.pageSize,fromDate,toDate).success(function(data){
- $scope.gridOptions.data = data.content;
- $scope.gridOptions.totalItems = data.totalElements;
-  });
- 
+       // alert("toDate=="+toDate);  
+  
+			 
+   UserManagementService.getUsers(paginationOptions.pageNumber,
+			  paginationOptions.pageSize,fromDate,toDate).success(function(data){
+			 $scope.gridOptions.data = data.content;
+			   $scope.gridOptions.totalItems = data.totalElements;
+			   });
+   
    }
    
    $scope.refresh = function()
@@ -131,14 +130,14 @@ exporterPdfDefaultStyle: {fontSize: 9},
       { name: 'region', displayName: 'Reg',superCol: 'front'  },
       { name: 'branchCode', displayName: 'Branch Code',superCol: 'front'},
       { name: 'branchName', displayName: 'Branch Name',superCol: 'front'  },
-      { name: 'aaKioskCount', displayName: 'No Of Kios',superCol: 'lipi'},
-      { name: 'aaTxnCount', displayName: 'Txn', superCol: 'lipi'},
-      { name: 'bbKioskCount', displayName: 'No Of Kios',superCol: 'Forbes' },
-      { name: 'bbTxnCount', displayName: 'Txn',superCol: 'Forbes'},
-      { name: 'ccKioskCount', displayName: 'No Of Kios',superCol: 'CMS'},
-      { name: 'ccTxnCount', displayName: 'Txn',superCol: 'CMS'},
-      { name: 'swayamTxn', displayName: 'SWAYAM Txn',superCol: 'total'},
-      { name: 'branchTxn', displayName: 'Branch Txn',superCol: 'total' },
+      { name: 'lipiKioskCount', displayName: 'No Of Kios',superCol: 'lipi'},
+      { name: 'lipiTxnCount', displayName: 'Txn', superCol: 'lipi'},
+      { name: 'forbesKioskCount', displayName: 'No Of Kios',superCol: 'Forbes' },
+      { name: 'forbesTxnCount', displayName: 'Txn',superCol: 'Forbes'},
+      { name: 'cmsKioskCount', displayName: 'No Of Kios',superCol: 'CMS'},
+      { name: 'cmsTxnCount', displayName: 'Txn',superCol: 'CMS'},
+      { name: 'manualTxn', displayName: 'SWAYAM Txn',superCol: 'total'},
+      { name: 'totalSwayamTxn', displayName: 'Branch Txn',superCol: 'total' },
       { name: 'migrationPerc', displayName: 'Migration (%)',superCol: 'back'}
     ],
     onRegisterApi: function(gridApi) {

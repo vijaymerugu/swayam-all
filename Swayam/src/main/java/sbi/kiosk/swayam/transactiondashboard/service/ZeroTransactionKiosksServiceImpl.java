@@ -8,9 +8,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ import sbi.kiosk.swayam.transactiondashboard.repository.ZeroTransactionKiosksRep
 
 @Service
 public class ZeroTransactionKiosksServiceImpl implements ZeroTransactionKiosksService {
-	
+	Logger logger = LoggerFactory.getLogger(ZeroTransactionKiosksServiceImpl.class);
 	@Autowired
 	ZeroTransactionKiosksRepository zeroTransactionKiosksRepository;
 	
@@ -49,7 +50,7 @@ public Page<ZeroTransactionKiosksDto> findPaginated(final int page, final int si
 				
         Page<ZeroTransactionKiosks> pageDto = zeroTransactionKiosksRepository.findByDate(fromdate, todate, PageRequest.of(page, size));
 		 
-        System.out.println("entities======pageDto========Size()::::"+pageDto.getContent());
+       logger.info("entities======pageDto========Size()::::"+pageDto.getContent());
 		 
 		 return pageDto;
 	}
@@ -59,7 +60,7 @@ public Page<ZeroTransactionKiosksDto> findPaginated(final int page, final int si
         StoredProcedureQuery nearByEntities= em.createNamedStoredProcedureQuery("SP_ZERO_TRANSACTION_KIOSKS");
         nearByEntities.setParameter("fromdate", fromDate);
         nearByEntities.setParameter("todate", toDate);
-        System.out.println("nearByEntities======"+nearByEntities);
+       logger.info("nearByEntities======"+nearByEntities);
         return nearByEntities.getResultList();
     }
 

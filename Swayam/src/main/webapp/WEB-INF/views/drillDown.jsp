@@ -1,6 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+<script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-datepicker3.min.css">
+<script>
+$(document).ready(function(){
+    $(function () {
+        $('#datepickerFromDate,#datepickerToDate').datepicker({dateFormat:'dd-mm-yy'});
+    });
+});
+
+</script>
+<!-- 
+<script type="text/javascript">
+$(function() {
+        $("#datepickerToDate").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '2020:2020',
+            dateFormat: 'dd-mm-yy',
+            minDate: 0,
+            defaultDate: null
+        }).on('changeDate', function(ev) {
+    if($('#datepickerToDate').valid()){
+       $('#datepickerToDate').removeClass('invalid').addClass('success');   
+    }
+ });
+
+    });
+</script> -->
+
+<!-- FOR BOOTSTRAP -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--End here  -->
+
+
 <link rel="stylesheet" href="http://cdn.rawgit.com/angular-ui/ui-grid.info/gh-pages/release/3.0.0-rc.20/ui-grid.min.css">
 <script	src="resources/js/angular.1.5.6.min.js"></script>
 <script src="resources/js/jquery.3.4.1.min.js"></script>
@@ -34,13 +71,6 @@
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
-
-<!-- <script>
-  $( function() {
-    $( "#datepicker" ).datepicker({ 
-        minDate: -20, maxDate: "+1M +15D" });
-  } );
-</script> -->	
 	
 </head>
 <body>
@@ -51,20 +81,16 @@
 <div ng-controller="DrillDownCtrl as vm">
 <div>
 
-			 <table class="" style="border: 1px solid #eee;">
+			 <table class="table1" style="border: 1px solid #eee;">
 				
               <div> 
               
-              <!-- <label for="exampleInput">Pick a date in 2013:</label> -->
-              
-                   From Date: <input type="date" id="exampleInput" name="input1" ng-model="searchDateStart"
-                              placeholder="yyyy-MM-dd" min="2020-01-01" max="2020-12-31" required/>
-            
-                   To Date : <input type="date" id="exampleInput" name="input2" ng-model="searchDateEnd"
-                              placeholder="yyyy-MM-dd" min="2020-01-01" max="2020-12-31" required/>                
-                             
-			  <button ng-click="">Reset</button>	  
-		      <button ng-click="searchPositions(searchDateStart,searchDateEnd)">Generate</button>
+					<div>
+						<br /> From Date: <input type="date" id="datepickerFromDate" name="input1" ng-model="searchDateStart" placeholder="dd-mm-yyyy" required maxlength="10" /> 
+							To	Date : <input type="date" id="datepickerToDate" name="input2"	ng-model="searchDateEnd" placeholder="dd-mm-yyyy" required maxlength="10"  />
+						<button type="button"  ng-click="searchPositions(searchDateStart,searchDateEnd) ">Generate</button>
+
+					</div>
 				     
 			  </div> 
 			   

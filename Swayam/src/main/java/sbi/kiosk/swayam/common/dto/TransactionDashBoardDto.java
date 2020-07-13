@@ -1,8 +1,8 @@
 package sbi.kiosk.swayam.common.dto;
-import java.util.Date;
+import javax.persistence.Column;
 
 import lombok.Data;
-import sbi.kiosk.swayam.common.entity.SwayamTransactionReport;
+import sbi.kiosk.swayam.common.entity.SwayamMigrationSummary;
 
 @Data
 public class TransactionDashBoardDto {
@@ -11,26 +11,25 @@ public class TransactionDashBoardDto {
 		
 	}
 	
-	public TransactionDashBoardDto(SwayamTransactionReport swayamTransactionReport){
+	public TransactionDashBoardDto(SwayamMigrationSummary swayamMigrationSummary){
 		
 	}
 	
-	private Integer id;
-	private String txnDate;
-	private String branchCode;
-	private String vendor;
-	private String kioskId;
-	private String noOfTxns;
-	private String noOfSuccessTxns;
-	private String noOfFial;
-	private String noOfTechFial;
-	private String noOfBusinessFail;
-	
-	private String circle;
+	private String crclName;
 	private String network;
-	private String modeCode;
+	private String module;
 	private String region;
+	private String branchCode;
 	private String branchName;
+	private String lipiKioskCount;
+	private String lipiTxnCount;
+	private String forbesKioskCount;
+	private String forbesTxnCount;
+	private String cmsKioskCount;
+	private String cmsTxnCount;
+	private String manualTxn;
+	private String totalSwayamTxn;
+	private Double migrationPerc;
 	
 	
 	

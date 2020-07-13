@@ -3,12 +3,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+ <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-datepicker3.min.css">
+<script>
+$(document).ready(function(){
+    $(function () {
+        $('#datepickerFromDate,#datepickerToDate').datepicker({dateFormat:'dd-mm-yy'});
+    });
+});
+
+</script>
+<!-- 
+<script type="text/javascript">
+$(function() {
+        $("#datepickerToDate").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '2020:2020',
+            dateFormat: 'dd-mm-yy',
+            minDate: 0,
+            defaultDate: null
+        }).on('changeDate', function(ev) {
+    if($('#datepickerToDate').valid()){
+       $('#datepickerToDate').removeClass('invalid').addClass('success');   
+    }
+ });
+
+    });
+</script> -->
+
+<!-- FOR BOOTSTRAP -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--End here  -->
  <script src="resources/js/transaction-summry-app.js"></script>
- 
+
+
+<link rel="stylesheet" href="https://cdn.rawgit.com/angular-ui/ui-grid.info/gh-pages/release/3.0.0-rc.20/ui-grid.min.css">
 <script	src="resources/js/angular.1.5.6.min.js"></script>
 <script src="resources/js/jquery.3.4.1.min.js"></script>
 <script src="resources/js/bootstrap.3.4.1.min.js"></script>
-<link rel="stylesheet" href="/resources/css/ui-grid.4.8.3.min.css">
+<link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
 
 <script
 	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
@@ -18,71 +54,64 @@
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
 <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script> 
-<link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css" type="text/css"/>
+<link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/>
 
-<script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/lodash.min.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/jszip.min.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/excel-builder.dist.js"></script>  
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-touch.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-animate.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-aria.js"></script>
 
-	<link rel="stylesheet" href="http://cdn.rawgit.com/angular-ui/ui-grid.info/gh-pages/release/3.0.0-rc.20/ui-grid.min.css">
-	
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="resources/css/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment-with-locales.min.js"></script>
-
+    <script src="resources/js/csv.js"></script>
+    <script src="resources/js/pdfmake.js"></script>
+    <script src="resources/js/vfs_fonts.js"></script>
+    <script src="resources/js/lodash.min.js"></script>
+    <script src="resources/js/jszip.min.js"></script>
+    <script src="resources/js/excel-builder.dist.js"></script>  
+    <script src="resources/js/angular.js"></script>
+    <script src="resources/js/angular-touch.js"></script>
+    <script src="resources/js/angular-animate.js"></script>
+    <script src="resources/js/angular-aria.js"></script>
 </head>
 <body>
 <div class="main" ng-app="app" id="appId">
 <div ng-controller="UserManagementCtrl as vm">
 
-
 <div>
-	
- <table style="width:100%">
-     <tr>
-   
-   
-  </tr>
-   <tr style="text-align: center;">
-    <td>
-     <label>Start Date:</label>
-        <input type="date" id="dateStart" name="input" ng-model="searchDateStart">
-     </td>
-    <td style="padding-right: 10px">
-     <label>End Date:</label>
-        <input style="width:180px;text-align: center;" type="date" id="dateEnd"   name="input" ng-model="searchDateEnd"  required />
-   </td>
-   <td style="padding-right: 10px;text-align: center;">
-   <input type="button" value="Generate" ng-click="searchPositions(searchDateStart, searchDateEnd)"/>
-   </td>
-    </tr>
-</table>
-</div>
+				<table class="" style="border: 1px solid #eee;">
+					<div>
+						<br /> From Date: <input type="date" id="datepickerFromDate" name="input1" ng-model="searchDateStart" placeholder="dd-mm-yyyy" required maxlength="10"/> 
+							To Date : <input type="date" id="datepickerToDate" name="input2" ng-model="searchDateEnd"  placeholder="dd-mm-yyyy" required maxlength="10" />
+						<button type="button" id="myBtn" ng-click="searchPositions(searchDateStart,searchDateEnd) ">Generate</button>
 
-  <table>
-  <h1 colspan="4" align="center" style="color: #05fc47;font-size: 16px;font-weight: bold;"> All India branch view on  <%= (new java.util.Date()).toLocaleString()%> </h1> 
+					</div>
 
-
-    </table>
-		
-		
-		
-<div>
-<pre style="background-color: #00BFFF;color: white;font-size: 12px;font-weight: bold;">
-<span>Overall Branch Wise Swayam Transactions</span>
-<!-- <span colspan="4" align="center" style="color: white;font-size: 12px;font-weight: bold;float:right; margin-right:1em">Last Updated : </span> -->
+				</table>
+			</div>
+			<br />
+			
+			<table>
+  <h1 colspan="4" align="center" style="color: #00BFFF;font-size: 12px;font-weight: bold;"> All India branch view on <span>{{CurrentDate | date:'EEE,dd MMM, yyyy hh:mm:ss a'}}</span>  </h1> 
+			    </table>
+			<br>	
+			<div>
+			
+			<pre align="left" style="background-color: #00BFFF;color: white;font-size:12px;font-weight: bold;">
+<span>Overall Branch Wise Swayam Transactions<span colspan="4" align="center" style="color: white;font-size: 12px;font-weight: bold;float:right; margin-right:1em">Last Updated :<span>{{CurrentDate | date:'dd:MM:yyyy'}}</span></span>
+</span>
 </pre>
-</div>
+			
+			
+			</div> 
 		<div class="submain">
 	<input class="form-group has-search" ng-model="searchText" ng-change="refresh()" placeholder="Enter Ticket Id, Kiosk Id, Branch Code, Circle etc." style="font-size: 12px" size="150" height="80" id="input">
-		
+		<span style="float:right">
+		<a class="openpdfonclick"><img src="resources/img/pdf.svg"></a>
+		<a class="openxlonclick"><img src="resources/img/excel.svg"></a>
+		&nbsp;&nbsp;&nbsp;
+		</span>		
 		<br/>
+		
 		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-selection ui-grid-exporter id="test"></div>
     </div>
 </div>	
@@ -90,6 +119,37 @@
 
 	<script>
        angular.bootstrap(document.getElementById("appId"), ['app']);
+      </script>
+      
+      <script type="text/javascript">
+      
+      $(document).ready(function(){
+
+    	    $(".openpdfonclick").click(function(){
+    	    	
+    	        $.ajax({
+    	            url: 'report?page=transactionSummary&type=pdf',
+    	            type: 'GET',   
+    	            success: function(data){
+    	            	console.log(data);
+    	            	window.open("resources/download/"+data , '_blank');  
+    	            }
+    	        });
+    	    });
+    	    $(".openxlonclick").click(function(){    	
+    	        $.ajax({
+    	            url: 'report?page=transactionSummary&type=excel',
+    	            type: 'GET',   
+    	            success: function(data){
+    	            	console.log(data);
+    	            	window.open("resources/download/"+data , '_blank');  
+    	            }
+    	        });
+    	    });
+    	}); 
+    		
+    		
+      
       </script>
 	
 </body>

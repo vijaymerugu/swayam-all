@@ -10,7 +10,11 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    $scope.BtnClick = function() { 
 	     
    }
+ $scope.CurrentDate = new Date();
    
+   $scope.BtnClick = function() { 
+	     
+   }
    var yesterdayType = "today";
    
    $scope.getCountType = function(yesterday){

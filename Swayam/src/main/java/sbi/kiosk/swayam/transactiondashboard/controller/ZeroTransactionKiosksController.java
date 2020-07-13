@@ -36,11 +36,10 @@ public class ZeroTransactionKiosksController {
 	}
 	
 	
-	@RequestMapping(value = "zeroTransactionKiosks/get", params = { "page", "size" ,"type", "fromDate", "toDate"}, method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "zeroTransactionKiosks/get", params = { "page", "size", "fromDate", "toDate"}, method = RequestMethod.GET, produces = "application/json")
 	public Page<ZeroTransactionKiosks> findPaginated(
-		      @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("type") String type, @RequestParam("fromDate") String fromDate, @RequestParam("toDate") String toDate) {
+		      @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("fromDate") String fromDate, @RequestParam("toDate") String toDate) {
 		 
-		logger.info("type=========Yogesh========="+type);
 		logger.info("From Date--- "+fromDate);
 		logger.info("To Date----- "+toDate);
 		Page<ZeroTransactionKiosks> resultPage = null;
@@ -57,5 +56,6 @@ public class ZeroTransactionKiosksController {
 		        }
 		  return resultPage;
 	}
+
 
 }

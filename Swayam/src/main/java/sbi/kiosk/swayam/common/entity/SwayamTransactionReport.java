@@ -1,4 +1,4 @@
-package sbi.kiosk.swayam.common.entity;
+/*package sbi.kiosk.swayam.common.entity;
 
 import java.io.Serializable;
 
@@ -29,7 +29,7 @@ parameters={
 )
 
 public class SwayamTransactionReport implements Serializable{
-	  @Id
+	    @Id
 	    @Column(name = "CRCL_NAME")
 		private String crclName;
 	    @Column(name = "NETWORK")
@@ -62,8 +62,9 @@ public class SwayamTransactionReport implements Serializable{
 	    @Column(name = "MIGRATION_PERCENTAGE")
 		private Double migrationPerc;
 	 
-	/* @Column(name = "txn_date")
-		private String fromDate;*/
+	 @Column(name = "txn_date")
+		private String fromDate;
 
 
 }
+*/

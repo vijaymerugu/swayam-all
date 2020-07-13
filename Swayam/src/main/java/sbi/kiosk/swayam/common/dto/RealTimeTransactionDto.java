@@ -19,12 +19,15 @@ public class RealTimeTransactionDto {
 		//this.createdDate=realTimeTransaction.getCreatedDate();
 	}
 
+	private String crclName;
 	private String kioskId;
 	private String branchCode;
 	private String module;
 	private String network;
-	private String crclName;
+	private String region;
 	private String branchName;
+	private String vendor;
+	private String noOfTxns;
 	private String createdDate;
 
 }
