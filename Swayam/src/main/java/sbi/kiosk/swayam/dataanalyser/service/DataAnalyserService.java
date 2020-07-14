@@ -15,6 +15,7 @@ import sbi.kiosk.swayam.common.entity.ErrorTypeWiseUpTime;
 import sbi.kiosk.swayam.common.entity.SummaryOfDownKiosks;
 import sbi.kiosk.swayam.common.entity.TATWiseCumulativeData;
 import sbi.kiosk.swayam.common.entity.TATofDownKiosks;
+import sbi.kiosk.swayam.common.entity.UserWiseKiosksData;
 import sbi.kiosk.swayam.common.entity.VendorWiseCumulativeData;
 import sbi.kiosk.swayam.common.entity.VendorWiseUptime;
 
@@ -43,5 +44,19 @@ public interface DataAnalyserService {
 	List<TATWiseCumulativeData> getTATWiseCumulativeData();
 
 	List<CumulativeSummaryOfDownKiosks> getCumulativeSummaryOfDownKiosks();
+
+	List<CumulativeKiosksAvailability> getCumulativeCircleAvailability(HttpServletRequest request);
+
+	List<VendorWiseCumulativeData> getVendorWiseCumulativeCircleData(HttpServletRequest request);
+
+	List<ErrorTypeWiseCumulativeData> getErrorTypeWiseCumulativeCircleData(HttpServletRequest request);
+
+	List<TATWiseCumulativeData> getTATWiseCumulativeCircleData(HttpServletRequest request);
+
+	List<CumulativeSummaryOfDownKiosks> getCumulativeCircleSummaryOfDownKiosks(HttpServletRequest request);
+
+	List<UserWiseKiosksData> getUserWiseDownKiosksData(HttpServletRequest request);
+
+	List<UserWiseKiosksData> getUserWiseZeroTxnKiosksData(HttpServletRequest request);
 
 }

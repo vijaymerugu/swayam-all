@@ -8,6 +8,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedStoredProcedureQueries;
 import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
@@ -22,14 +23,27 @@ import lombok.Data;
 @Data
 @Entity
 
-@NamedStoredProcedureQuery(
+
+@NamedStoredProcedureQueries({
+	
+	@NamedStoredProcedureQuery(
 	name="SP_CUMULATIVE_AVAILABLITY_PROC",
 	procedureName="SP_CUMULATIVE_AVAILABLITY_PROC",
 	resultClasses=CumulativeKiosksAvailability.class,
 	parameters={
 		@StoredProcedureParameter(name="cur", type=void.class, mode= ParameterMode.REF_CURSOR)
-	}
-)
+	}),
+	
+	@NamedStoredProcedureQuery(
+		name="SP_CUM_CIRCLE_AVAILABLITY",
+		procedureName="SP_CUM_CIRCLE_AVAILABLITY",
+		resultClasses=CumulativeKiosksAvailability.class,
+		parameters={
+			@StoredProcedureParameter(name = "userId", type = String.class, mode = ParameterMode.IN),
+			@StoredProcedureParameter(name="cur", type=void.class, mode= ParameterMode.REF_CURSOR)
+	})
+
+})
 
 public class CumulativeKiosksAvailability implements Serializable {
 		

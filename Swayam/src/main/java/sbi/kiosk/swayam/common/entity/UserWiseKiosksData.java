@@ -22,22 +22,22 @@ import lombok.Data;
 @Data
 @Entity
 
-
 @NamedStoredProcedureQueries({
 	
 	@NamedStoredProcedureQuery(
-			name="SP_CUMULATIVE_KIOSKS_SUMMARY",
-			procedureName="SP_CUMULATIVE_KIOSKS_SUMMARY",
-			resultClasses=CumulativeSummaryOfDownKiosks.class,
+			name="SP_USER_WISE_DOWN_KIOSK",
+			procedureName="SP_USER_WISE_DOWN_KIOSK",
+			resultClasses=UserWiseKiosksData.class,
 			parameters={
+				@StoredProcedureParameter(name = "userId", type = String.class, mode = ParameterMode.IN),
 				@StoredProcedureParameter(name="cur", type=void.class, mode= ParameterMode.REF_CURSOR)
 			}
 		),
 		
 		@NamedStoredProcedureQuery(
-			name="SP_CUM_CIRCLE_KIOSKS_SUMMARY",
-			procedureName="SP_CUM_CIRCLE_KIOSKS_SUMMARY",
-			resultClasses=CumulativeSummaryOfDownKiosks.class,
+			name="SP_USER_WISE_ZERO_TXN_KIOSK",
+			procedureName="SP_USER_WISE_ZERO_TXN_KIOSK",
+			resultClasses=UserWiseKiosksData.class,
 			parameters={
 				@StoredProcedureParameter(name = "userId", type = String.class, mode = ParameterMode.IN),
 				@StoredProcedureParameter(name="cur", type=void.class, mode= ParameterMode.REF_CURSOR)
@@ -45,23 +45,22 @@ import lombok.Data;
 		)
 })
 
-
-public class CumulativeSummaryOfDownKiosks implements Serializable {
+public class UserWiseKiosksData implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Column(name="CIRCLE")
-	private String circleName;
+	@Column(name="USERNAME")
+	private String userName;
 	
-	@Column(name="TOTAL_NO_OF_TICKETS")
-	private Integer noOfTickets;
+	@Column(name="TOTAL_KIOSKS")
+	private Integer totalKiosks;
 
-	@Column(name="NO_OF_OPEN_TICKETS")
-	private Integer noOfOpenTickets;
+	@Column(name="TOTAL_OPERATIONAL_KIOSKS")
+	private Integer totalOperationalKiosks;
 
-	@Column(name="PERCENTAGE_OF_TICKETS")
-	private Double percentageOfTickets;
+	@Column(name="AVAILABILITY_IN_PERCENT")
+	private Double availabilityPercentage;
 	
 	
 }
