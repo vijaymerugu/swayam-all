@@ -2,6 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en" onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="" oncontextmenu="return false;">
 <!-- InstanceBegin template="/Templates/FinalTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
@@ -306,7 +307,7 @@ table, td {
             <!-- /.row -->
 </div>
 </body>
-
+<sec:csrfInput />  
   <script type="text/javascript" src="resources/js/jquery.min.js"/></script>
       <script type="text/javascript" src="resources/js/bootstrap.min.js"/></script>
      <script type="text/javascript" src="resources/js/metisMenu.min.js"/></script>

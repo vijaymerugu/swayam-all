@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -60,6 +61,7 @@ public class UploadSwayamFileController  {
 	@Autowired
 	ServletContext context;
 	@RequestMapping(value = "uploadHolidayCalendar", method = RequestMethod.POST)
+	@PreAuthorize("hasPermission('UPDuploadHolidayCalendar','CREATE')")
 	public ResponseEntity<String> upload(@RequestParam("myFile") List<MultipartFile> files) {
 		List<FileInfo> uploadedFiles = new ArrayList<FileInfo>();
 		logger.info("files"+files);
@@ -110,6 +112,7 @@ public class UploadSwayamFileController  {
 	}
 // 2 KioskCMF 
 	@RequestMapping(value = "uploadKioskDetails", method = RequestMethod.POST)
+	@PreAuthorize("hasPermission('UPDuploadKioskDetails','CREATE')")
 	public ResponseEntity<String> uploadKioskDetails(@RequestParam("KioskFile") List<MultipartFile> files) {
 		List<FileInfo> uploadedFiles = new ArrayList<FileInfo>();
 		logger.info("files"+files);
@@ -151,6 +154,7 @@ public class UploadSwayamFileController  {
 	
 // 3 KioskInformation
 	@RequestMapping(value = "uploadKioskCMF", method = RequestMethod.POST)
+	@PreAuthorize("hasPermission('UPDuploadKioskCMF','CREATE')")
 	public ResponseEntity<String> uploadKioskInformation(@RequestParam("CMFFile") List<MultipartFile> files) {
 		logger.info("==uploadKioskInformation================");
 		List<FileInfo> uploadedFiles = new ArrayList<FileInfo>();	
@@ -200,6 +204,7 @@ public class UploadSwayamFileController  {
 	}
 // 4 uploadCBSbrhm
 	@RequestMapping(value = "uploadCBSbrhm", method = RequestMethod.POST)
+	@PreAuthorize("hasPermission('UPDuploadCBSbrhm','CREATE')")
 	public ResponseEntity<String> uploadCBSbrhm(@RequestParam("BMFile") List<MultipartFile> files) {
 		List<FileInfo> uploadedFiles = new ArrayList<FileInfo>();	
 		logger.info("files"+files);

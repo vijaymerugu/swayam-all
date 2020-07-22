@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <!-- saved from url=(0039)file:///C:/Users/Admin/Downloads/A.html -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
@@ -264,4 +265,6 @@ $(document).ready(function(){
 
 </script>	
 	
-</body></html>
+</body>
+<sec:csrfInput />  
+</html>

@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,7 +38,6 @@ import sbi.kiosk.swayam.common.dto.UserDto;
 import sbi.kiosk.swayam.common.repository.UserRepository;
 import sbi.kiosk.swayam.common.service.LoginService;
 import sbi.kiosk.swayam.common.utils.CommonUtils;
-import sbi.kiosk.swayam.kioskmanagement.controller.UploadSwayamFileController;
 
 @RestController
 public class LoginController{ 
@@ -52,6 +53,7 @@ public class LoginController{
 	
 	
 	@RequestMapping(value="login", method=RequestMethod.POST)
+	@PostAuthorize("hasPermission('login','READ')")
 	public ModelAndView login(@RequestParam("pfId") String pfId, HttpSession session) {	
 		
 		UserDto userObj = loginService.getRoleByUsername(pfId);
@@ -66,6 +68,7 @@ public class LoginController{
 	}
 	
 	@RequestMapping(value="logout")
+	@PreAuthorize("hasPermission('logout','READ')")
 	public ModelAndView logout(ModelAndView model,HttpSession session) {	
 		
 		session.invalidate();
@@ -75,6 +78,7 @@ public class LoginController{
 	}
 	
 	@RequestMapping(value="common/menu", method=RequestMethod.GET)
+	@PreAuthorize("hasPermission('commonMenu','READ')")
 	public List<MenuMasterDto> getMenu(HttpSession session) {		
 		UserDto userObj =(UserDto) session.getAttribute("userObj");
 		//session.setAttribute("username", username);

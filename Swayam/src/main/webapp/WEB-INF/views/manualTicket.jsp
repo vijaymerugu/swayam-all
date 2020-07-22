@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page import="sbi.kiosk.swayam.common.dto.UserDto" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <title>manualTicket</title>
 <html>
 <head>
@@ -729,7 +730,7 @@ function cloesBox(){
 	</div>
 	
 </body>
-
+<sec:csrfInput />  
 
 
 

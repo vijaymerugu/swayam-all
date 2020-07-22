@@ -1,7 +1,7 @@
-
-<!DOCTYPE html>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <script	src="resources/js/angular.1.5.6.min.js"></script>
@@ -190,4 +190,5 @@ $(document).ready(function(){
 
 </script>
 </body>
+<sec:csrfInput />  
 </html>

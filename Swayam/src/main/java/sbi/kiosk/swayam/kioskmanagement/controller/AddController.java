@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,7 @@ public class AddController {
 	}
 	
 	@PostMapping("km/addUsers")
+	@PreAuthorize("hasPermission('ACkmaddUserData','CREATE')")
 	public ResponseEntity<String> addUserData(ModelAndView model,@ModelAttribute("addUser") AddUserDto addUser,HttpServletRequest request,RedirectAttributes redirectAttributes) {
 		ResponseEntity<String> entity=null;
 		String addUserResut=null;
@@ -65,6 +67,7 @@ public class AddController {
 	}
 	
 	@PostMapping("km/addUsersLA")
+	@PreAuthorize("hasPermission('ACkmaddUserLA','CREATE')")
 	public ResponseEntity<String> addUserLA(ModelAndView model,@ModelAttribute("addUserDto") AddUserDto addUserDto,HttpServletRequest request,RedirectAttributes redirectAttributes) {
 		ResponseEntity<String> entity=null;
 		String addUserResut=null;

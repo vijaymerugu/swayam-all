@@ -30,8 +30,11 @@ public class AppFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
         res.setHeader("X-FRAME-OPTIONS", "DENY");
         ///res.addHeader("Expires", "-1" );
-        res.addHeader("Pragma", "no-cache" );
+        res.addHeader("Pragma", "no-cache" );	
         res.addHeader("Cache-control", "no-cache, no-store, must-revalidate");
+        res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE");
+        res.setHeader("Access-Control-Max-Age", "3600");
+        res.setHeader("Access-Control-Allow-Headers", "authorization, content-type, xsrf-token");
 
         //System.out.println(
           //"Logging Request  {} : {}");

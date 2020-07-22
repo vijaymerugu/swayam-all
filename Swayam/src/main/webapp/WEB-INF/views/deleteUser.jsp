@@ -4,6 +4,7 @@
 	pageEncoding="ISO-8859-1" import="java.util.Date"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -366,7 +367,7 @@ function fromValidation(){
 	 if(role=="Select"){
 		 errorList.push("Please select valid role ");		 
 	 }
-	 if(circle=="Select"){
+	 if(role!="Select" && circle=="Select" && role !="SA" && role !="CC"){		 
 		 errorList.push("Please select valid Circle ");		 
 	 }
 	 return errorList;
@@ -456,7 +457,7 @@ function fromValidation(){
 			if($("#role").val()=="Select"){
 				$("#role12").html("Please Select valid Role");
 			}
-			if($("#circle").val()=="Select"){
+			if($("#role").val()!="Select" && $("#circle").val()=="Select" && $("#role").val() !="SA" && $("#role").val() !="CC"){				
 				$("#circle12").html("Please Select valid Circle");
 			}
 		//});
@@ -589,15 +590,21 @@ function fromValidation(){
 								</c:forEach>
 							</form:select></td>
 						<td></td>
-						<td></td>
-						<td style="top: 352px; width: 190px; height: 75px;opacity: 1;"><b style="color: purple">Circle</b><b><span
+						<td></td>						
+						<td colspan="2">
+							<table style="display:none;" id="circleDiv">
+							<td style="top: 352px; width: 190px; height: 75px;opacity: 1;"><b style="color: purple">Circle</b><b><span
 							 	style="color: red">*</span></b></td>
 						<td><form:select path="circle" id="circle"   value="${addUser.circle}" style="color:blue">
 								<form:option value="Select" label="Select"></form:option>
 								<c:forEach var="list" items="${circleList}">
 									<form:option value="${list.circleName}">${list.circleName}</form:option>
 								</c:forEach>
-							</form:select></td>
+							</form:select></td>	
+							</table>
+						</td>	
+							
+							
 					</tr>
 					<tr>
 						<td></td>
@@ -636,7 +643,7 @@ function fromValidation(){
                    <td><input type="button" onclick="saveform()"   class="button" value="Delete"></td>
 					</tr>
 				</table>
-
+			<sec:csrfInput /> 
 			</form:form>
 
 
@@ -676,7 +683,30 @@ $(document).ready(function(){
     }); 
     
 });
+$(document).ready(function(){
+    $('#role').on('change', function() {
+      if (this.value == 'SA' || this.value == 'CC' || this.value == 'Select')     
+      {
+    	  $("#circleDiv").hide();        
+      }
+      else
+      {
+    	  $("#circleDiv").show();
+      }
+    });
+    var role=$("#role").val();
+        if (role == 'SA' || role == 'CC' || role == 'Select')     
+        {
+      	  $("#circleDiv").hide();        
+        }
+        else
+        {
+      	  $("#circleDiv").show();
+        }
+      
+});
 
 </script>	
 </body>
+ 
 </html>

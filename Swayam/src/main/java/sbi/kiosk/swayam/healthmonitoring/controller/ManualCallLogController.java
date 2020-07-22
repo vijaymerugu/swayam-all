@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +35,7 @@ public class ManualCallLogController {
 	private ManualTicketService manualTicketService;
 
 	@GetMapping("hm/manualTicket")
+	@PreAuthorize("hasPermission('HMmanualTicketCallLog','CREATE')")
 	public ModelAndView manualTicketCallLog(
 			@ModelAttribute("manualTicketCallLogDto") ManualTicketCallLogDto manualTicketCallLogDto,
 			ModelAndView model) {
@@ -44,6 +46,7 @@ public class ManualCallLogController {
 	}
 
 	@PostMapping("manualTicketForm")
+	@PreAuthorize("hasPermission('HMmanualTicketForm','CREATE')")
 	public ResponseEntity<String> createManualForm(@ModelAttribute("manualTicketCallLogDto") ManualTicketCallLogDto manualTicketCallLogDto,
 			                  ModelAndView model)	throws ManualTicketNotFoudException {
 		
@@ -60,6 +63,7 @@ public class ManualCallLogController {
 	}
 
 	@PostMapping("getByBranchCode/{brachCode}")
+	@PreAuthorize("hasPermission('HMgetByBranchCode','CREATE')")
 	public ResponseEntity<List<ManualTicketCallLogDto>> getByBranchCode(@PathVariable("brachCode") String brachCode,
 			ModelAndView model, @ModelAttribute("manualTicketCallLogDto") ManualTicketCallLogDto manualTicketCallLogDto)
 			throws JSONException {
@@ -75,6 +79,7 @@ public class ManualCallLogController {
 	}
 
 	@GetMapping("getBykioskId/{kioskId}")
+	@PreAuthorize("hasPermission('HMgetBykioskId','CREATE')")
 	public ResponseEntity<List<ManualTicketCallLogDto>> getAllCirclesAgainstKioskID(
 			@PathVariable("kioskId") String kioskId,
 			@ModelAttribute("manualTicketCallLogDto") ManualTicketCallLogDto manualTicketCallLogDto,
@@ -87,6 +92,7 @@ public class ManualCallLogController {
 	}
 
 	@GetMapping("getByVendor/{vendor}/{branchcode}")
+	@PreAuthorize("hasPermission('HMgetByVendor','CREATE')")
 	public ResponseEntity<List<ManualTicketCallLogDto>> getAllCirclesAgainstVendor(
 			@PathVariable("vendor") String vendor, @PathVariable("branchcode") String branchcode,
 			@ModelAttribute("manualTicketCallLogDto") ManualTicketCallLogDto manualTicketCallLogDto,
