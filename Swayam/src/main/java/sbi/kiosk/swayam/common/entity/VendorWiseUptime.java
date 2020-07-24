@@ -36,11 +36,11 @@ public class VendorWiseUptime implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Column(name="VENDOR")
-	private String vendorName;
-	
 	@Column(name="CIRCLE")
 	private String circleName;
+	
+	@Column(name="VENDOR")
+	private String vendorName;
 	
 	@Column(name="NO_OF_KIOSKS")
 	private Integer noOfKiosks;

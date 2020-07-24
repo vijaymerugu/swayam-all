@@ -67,8 +67,9 @@ public class DataAnalyserServiceImpl implements DataAnalyserService {
 	@Override
 	public List<ErrorTypeWiseUpTime> getErrorTypeWiseUpTime(HttpServletRequest request) {
 		try {
-			StoredProcedureQuery nearByEntities= entityManager.createNamedStoredProcedureQuery("SP_ERROT_TYPE_WISE_UPTIME_PROC")
-			.setParameter("callCategory", request.getParameter("callCategory"));
+			String callCategory = request.getParameter("callCategory");
+			StoredProcedureQuery nearByEntities= entityManager.createNamedStoredProcedureQuery("SP_ERROT_TYPE_WISE_UPTIME_PROC");
+					nearByEntities.setParameter("callCategory", callCategory);
 	        return nearByEntities.getResultList();
 		} catch (Exception e) {
 			logger.error("Exception in getErrorTypeWiseUpTime." + e.getMessage());
