@@ -9,7 +9,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    
       
    var yesterdayType = "yesterday";
-   
+   $scope.CurrentDate = new Date();
    $scope.getCountType = function(yesterday){
 	    yesterdayType=yesterday;
 	   UserManagementService.getUsers(paginationOptions.pageNumber,

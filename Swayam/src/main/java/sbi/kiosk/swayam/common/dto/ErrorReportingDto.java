@@ -38,5 +38,6 @@ public class ErrorReportingDto {
 	private Date createdDateTime;
 	private String modifiedBy;
 	private Date modifiedDateTime;
+	private String noOfErrors;
 
 }

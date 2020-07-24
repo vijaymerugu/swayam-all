@@ -11,6 +11,7 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
    var fromDate = "";
    var toDate= "";
    
+   /*
    function convertDate(dateParam){
 	   var result="";
 	   var date = new Date(dateParam);
@@ -24,19 +25,23 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
        result= day+"-"+month+"-"+year;
 	    //  alert("return --result::: "+result);
 	      return result;
-	  }
+	  } */
   
-   $scope.searchPositions= function(startDate,endDate){
-	 	  fromDate= convertDate(startDate);
-		// alert("fromDate=="+fromDate);   
-		  toDate=  convertDate(endDate);	 
+  $scope.CurrentDate = new Date();
+	   $scope.searchPositions= function(startDate,endDate){
+		        fromDate = $("#datepickerFromDate").val();
+		        toDate = $("#datepickerToDate").val();
+		  
+	       //alert("From=="+fromDate);
+
+	       // alert("toDate=="+toDate);   
     	 
     	 ZeroTransactionKiosksService.getUsers(paginationOptions.pageNumber,
      			   paginationOptions.pageSize,counttype,fromDate,toDate).success(function(data){     				  
      		  $scope.gridOptions.data = data.content;
      	 	  $scope.gridOptions.totalItems = data.totalElements;
      	   });
-	} 
+	}; 
    
     
    $scope.getCountType = function(type){
@@ -53,7 +58,7 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
    $scope.refresh = function()
    {  	
 	   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
-	 	   UserManagementService.getUsers(paginationOptions.pageNumber,
+	 	   ZeroTransactionKiosksService.getUsers(paginationOptions.pageNumber,
 	 			   paginationOptions.pageSize,counttype,fromDate,toDate).success(function(data){
 	 				   
 	 		  $scope.gridOptions.data = data.content;
@@ -65,7 +70,7 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
 	 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
 	 		   
 	 	    }else{
-	 	    	UserManagementService.getUsers(paginationOptions.pageNumber,
+	 	    	ZeroTransactionKiosksService.getUsers(paginationOptions.pageNumber,
 	 	 			   paginationOptions.pageSize,counttype,fromDate,toDate).success(function(data){
 	 	 				 
 	 	 		  $scope.gridOptions.data = data.content;

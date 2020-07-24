@@ -22,7 +22,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
 		}						
 	}
    
-   function convertDate(dateParam){
+  /* function convertDate(dateParam){
 	   var result="";
 	   var date = new Date(dateParam);
        var year = date.getFullYear();
@@ -36,17 +36,26 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
 	      result= day+"-"+month+"-"+year;
 	    //  alert("return --result::: "+result);
 	      return result;
-	  }
+	  }*/
   
    $scope.searchPositions= function(startDate,endDate){
-	 	  fromDate= convertDate(startDate);
-		// alert("fromDate=="+fromDate);   
-		  toDate=  convertDate(endDate);
-	 
+	 	 
     	 circleName="";
     	 networkName="";
     	 moduleName="";
     	 regionName="";
+    	 
+    	 
+    	 $scope.searchPositions= function(startDate,endDate){
+    	  	 
+    	  	 circleName="";
+    	  	 networkName="";
+    	  	 moduleName="";
+    	  	 regionName="";
+    	  	 
+    	  	 fromDate = $("#datepickerFromDate").val();
+    	  	 toDate = $("#datepickerToDate").val();
+    		    		
     	
     	DrillDownService.getUsers(paginationOptions.pageNumber,
     			   paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
@@ -54,6 +63,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
     	 	  $scope.gridOptions.totalItems = data.totalElements;
     	   });
 	}
+   };
  
    $scope.getCountType = function(type){
       
@@ -70,7 +80,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
    $scope.refresh = function()
    {  	
 	   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
-	 	   UserManagementService.getUsers(paginationOptions.pageNumber,
+	   		DrillDownService.getUsers(paginationOptions.pageNumber,
 	 			   paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
 	 		  $scope.gridOptions.data = data.content;
 	 	 	  $scope.gridOptions.totalItems = data.totalElements;
@@ -81,7 +91,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
 	 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
 	 		   
 	 	    }else{
-	 	    	UserManagementService.getUsers(paginationOptions.pageNumber,
+	 	    	DrillDownService.getUsers(paginationOptions.pageNumber,
 	 	 			   paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
 	 	 		  $scope.gridOptions.data = data.content;
 	 	 	 	  $scope.gridOptions.totalItems = data.totalElements;
