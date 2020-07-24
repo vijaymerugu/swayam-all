@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,6 +40,7 @@ public class UserManagementController {
 	RoleService roleService;
 
 	@RequestMapping(value = { "km/userList" })
+	@PreAuthorize("hasPermission('UMuserList','CREATE')")
 	public ModelAndView userList(ModelAndView model, HttpSession session) {
 
 		try {
@@ -93,6 +95,7 @@ public class UserManagementController {
 	}
 	
 	@RequestMapping(value = { "km/userListCC" })
+	@PreAuthorize("hasPermission('UMuserListCC','CREATE')")
 	public ModelAndView userListCC(HttpSession session) {
 		ModelAndView model = new ModelAndView("userlistCC");
 		try {			
@@ -124,6 +127,7 @@ public class UserManagementController {
 	
 	
 	@RequestMapping(value = "users/get", params = { "page", "size" ,"type"}, method = RequestMethod.GET, produces = "application/json")
+	@PreAuthorize("hasPermission('UMfindPaginatedUserGet','CREATE')")
 	public Page<UserManagementDto> findPaginated(
 		      @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("type") String type) {
 		 Page<UserManagementDto> resultPage = null;
@@ -149,6 +153,7 @@ public class UserManagementController {
 		    }
 	
 	@RequestMapping(value = "usersByCircle/get", params = { "page", "size" ,"type"}, method = RequestMethod.GET, produces = "application/json")
+	@PreAuthorize("hasPermission('UMfindPaginatedByCircleUserGet','CREATE')")
 	public Page<UserManagementDto> findPaginatedByCircle(
 		      @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("type") String type) {
 		 
@@ -175,6 +180,7 @@ public class UserManagementController {
 
 	
 	@RequestMapping(value = { "km/addUser" })
+	@PreAuthorize("hasPermission('UMkmaddUser','CREATE')")
 	public ModelAndView addUser(ModelAndView model, @ModelAttribute("addUser") AddUserDto addUser,HttpServletRequest request) {
 
 		try {
@@ -191,6 +197,7 @@ public class UserManagementController {
 	
 	
 	@RequestMapping(value = { "km/addUserLA" })
+	@PreAuthorize("hasPermission('UMkmaddUserLA','CREATE')")
 	public ModelAndView addUserLa(ModelAndView model, @ModelAttribute("addUserDto") AddUserDto addUserDto) {
 
 		try {
@@ -215,6 +222,7 @@ public class UserManagementController {
 	
 	
 	@RequestMapping(value = "km/editUserMaster")
+	@PreAuthorize("hasPermission('UMkmeditUserMaster','CREATE')")
 	public ModelAndView editUserMaster(ModelAndView model, HttpServletRequest request,@RequestParam("userId") String userId,@ModelAttribute("addUser") AddUserDto addUser) {
 		try {
 			
@@ -241,6 +249,7 @@ public class UserManagementController {
 	
 	
 	@RequestMapping(value = "km/editUserMasterLA")
+	@PreAuthorize("hasPermission('UMkmeditUserMasterLA','CREATE')")
 	public ModelAndView editUserMasterLA(ModelAndView model, HttpServletRequest request,@RequestParam("userId") String userId,@ModelAttribute("addUserDto") AddUserDto addUserDto) {
 		try {
 			
@@ -326,6 +335,7 @@ public class UserManagementController {
 	}*/
 	
 	@RequestMapping(value = "km/deleteUserMaster")
+	@PreAuthorize("hasPermission('UMkmdeleteUserMaster','CREATE')")
 	public ModelAndView deleteUserMaster(ModelAndView model,@RequestParam("userId") String userId, @ModelAttribute("addUser") AddUserDto addUser,HttpServletRequest request) {
 		try {
 			addUser= userService.findUserByUserId(userId);
@@ -344,6 +354,7 @@ public class UserManagementController {
 	}
 
 	@RequestMapping(value = { "km/deleteUser" })
+	@PreAuthorize("hasPermission('UMkmdeleteUser','EDIT')")
 	public ResponseEntity<String>activeAndInActiveUser(ModelAndView model,@RequestParam("userId") String userId,@ModelAttribute("usersBean") UserDto usersBean) {
 		ResponseEntity<String> entity=null;
 		try {
@@ -386,6 +397,7 @@ public class UserManagementController {
 	}
 	
 	@RequestMapping(value ="km/getUserByUsername")
+	@PreAuthorize("hasPermission('UMkmgetUserByUsername','READ')")
 	public User getUserByPfId(@RequestParam("username") String pfId){
 		return userService.getUserByPfId(pfId);		
 	}

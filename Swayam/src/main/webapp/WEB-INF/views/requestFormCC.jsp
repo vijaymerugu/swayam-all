@@ -1,3 +1,4 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -128,6 +129,10 @@ $(document).ready(function(){
             data: JSON.stringify(all_rows),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
+            headers: 
+            {
+                'X-CSRF-TOKEN': $('input[name="_csrf"]').attr('value')
+            },
             success: function (response) {
             	$("#myModal").modal();
                 $("#para").html("Successfully approved:"+ keyDisplay.join(',')); 
@@ -191,6 +196,10 @@ $('.openRejectPopup').on('click',function(){
             data: JSON.stringify(all_rows),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
+            headers: 
+            {
+                'X-CSRF-TOKEN': $('input[name="_csrf"]').attr('value')
+            },
             success: function (response) {
             	$("#myModal").modal();
                 $("#para").html("Rejected:"+ keyDisplay.join(',')); 
@@ -216,4 +225,5 @@ $(document).ready(function(){
 });
 </script>
 </body>
+<sec:csrfInput />  
 </html>

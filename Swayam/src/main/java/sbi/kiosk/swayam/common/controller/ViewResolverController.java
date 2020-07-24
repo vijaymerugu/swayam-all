@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -45,6 +46,7 @@ public class ViewResolverController {
 	}
 	
 	@RequestMapping("km/kioskManagement")
+	@PreAuthorize("hasPermission('kioskManagement','CREATE')")
 	public ModelAndView kioskManagement(ModelAndView mav) {
 		Map<String, Integer> mapDataCount = null;
 		mapDataCount = kioskManagementService.findAllKioskMasterCountByCircle();
@@ -57,6 +59,7 @@ public class ViewResolverController {
 	}
 	
 	@RequestMapping("km/kioskManagementCC")
+	@PreAuthorize("hasPermission('kioskManagementCC','CREATE')")
 	public ModelAndView kioskManagementCC() {
 		ModelAndView mav = new ModelAndView("kioskManagementCC");	
 		Map<String, Integer> mapDataCount = null;
@@ -70,6 +73,7 @@ public class ViewResolverController {
 
 	
 	@RequestMapping("hm/ticketcentor")
+	@PreAuthorize("hasPermission('ticketCentorCC','CREATE')")
 	public ModelAndView ticketCentor(ModelAndView mav) {
 
 		Map<String, Integer> mapDataList = null;
@@ -88,6 +92,7 @@ public class ViewResolverController {
 	}
 	
 	@RequestMapping("hm/ticketcentorByCircle")
+	@PreAuthorize("hasPermission('ticketCentorByCircle','CREATE')")
 	public ModelAndView ticketCentorByCircle(ModelAndView mav) {
 
 		Map<String, Integer> mapDataList = null;
@@ -108,7 +113,7 @@ public class ViewResolverController {
 	
 	
 	
-	@RequestMapping("hm/ticketcentorCallCategory")
+	@RequestMapping("hm/ticketcentorCallCategory")	
 	public ModelAndView ticketcentorCallCategory(ModelAndView mav,HttpServletRequest request) {
 
 		Map<String, Integer> mapDataList = null;
@@ -132,6 +137,7 @@ public class ViewResolverController {
 	}
 	
 	@RequestMapping("hm/ticketcentorCallCategoryCMF")
+	@PreAuthorize("hasPermission('ticketcentorCallCategoryCMF','CREATE')")
 	public ModelAndView ticketcentorCallCategoryCMF(ModelAndView mav,HttpServletRequest request) {
 
 		Map<String, Integer> mapDataList = null;
@@ -155,6 +161,7 @@ public class ViewResolverController {
 	}
 
 	@RequestMapping("hm/ticketcentorCallCategoryCMS")
+	@PreAuthorize("hasPermission('ticketcentorCallCategoryCMS','CREATE')")
 	public ModelAndView ticketcentorCallCategoryCMS(ModelAndView mav,HttpServletRequest request) {
 
 		Map<String, Integer> mapDataList = null;

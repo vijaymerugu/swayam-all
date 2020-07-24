@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page import="sbi.kiosk.swayam.common.dto.UserDto" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <title>manualTicket</title>
 <html>
 <head>
@@ -584,7 +585,7 @@ function cloesBox(){
 	
 		<form:form method="POST" action="manualTicketForm"
 			modelAttribute="manualTicketCallLogDto" name="manualTicketCallLogDto"
-			id="form">
+			id="form" autocomplete="off">
 			<h3 style="color: #000000;font-size:12 px; text-align: left;">Please complete the below form for lodging complaint</h3>
 			<div class="col-md-12">
 				<table>
@@ -729,7 +730,7 @@ function cloesBox(){
 	</div>
 	
 </body>
-
+<sec:csrfInput />  
 
 
 

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -115,6 +116,7 @@ public class KioskManagementController {
 	}
 	
 	@RequestMapping(value ="km/userkioskmappingpopupselected")
+	@PreAuthorize("hasPermission('KMkmuserkioskmappingpopupselected','CREATE')")
 	public ModelAndView deMapKiosksForUser( @RequestParam(value="array") String[] kiosksArray, @RequestParam(value="uname") String username) {
 		
 		
@@ -233,6 +235,7 @@ public class KioskManagementController {
 	}
 	
 	@RequestMapping(value ="km/saveSingleCmfKioskMapping")
+	@PreAuthorize("hasPermission('KMkmsaveSingleCmfKioskMapping','CREATE')")
 	public ModelAndView saveSingleUserKioskMapping( @RequestParam(value="username") String pfId, @RequestParam(value="kioskId") String kioskId) {
 				
 		kioskManagementService.saveSingleUserKioskMapping(pfId, kioskId);		

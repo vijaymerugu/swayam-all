@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,6 +38,7 @@ public class HealthMonitoringController {
 	HealthMonitoringService healthMonitoringService;
 	
 	@RequestMapping("hm/requestFormCmf")
+	@PreAuthorize("hasPermission('requestFormCmf','CREATE')")
 	public ModelAndView requestFormCmf(ModelAndView mav,@ModelAttribute("requestDto") RequestsManagementDto requestDto) {
 		logger.info("Comment "+requestDto.getComments());
 		//ModelAndView mav = new ModelAndView("requestFormCmf");
@@ -45,6 +47,7 @@ public class HealthMonitoringController {
 	}
 	
 	@RequestMapping("hm/requestFormGridCmf")
+	@PreAuthorize("hasPermission('requestFormGridCmf','CREATE')")
 	public ModelAndView requestFormGridCmf() {
 		
 		ModelAndView mav = new ModelAndView("requestFormGridCmf");
@@ -52,6 +55,7 @@ public class HealthMonitoringController {
 	}
 	
 	@RequestMapping("hm/requestFormCms")
+	@PreAuthorize("hasPermission('requestFormCms','CREATE')")
 	public ModelAndView requestFormCms() {
 		
 		ModelAndView mav = new ModelAndView("requestFormCms");
@@ -59,6 +63,7 @@ public class HealthMonitoringController {
 	}
 	
 	@RequestMapping("hm/requestFormCC")
+	@PreAuthorize("hasPermission('requestFormCC','CREATE')")
 	public ModelAndView requestFormCC() {
 		
 		ModelAndView mav = new ModelAndView("requestFormCC");
@@ -77,6 +82,7 @@ public class HealthMonitoringController {
 	
 	
 	@PostMapping(value = "hm/addRequest")
+	@PreAuthorize("hasPermission('saveRequestForCmf','CREATE')")
 	public ResponseEntity<String>  saveRequestForCmf(ModelAndView model, HttpServletRequest request,
 			RedirectAttributes redirectAttributes,@ModelAttribute("requestDto") RequestsManagementDto requestDto) {
 		System.err.println("saveRequestForCmf==="+requestDto.getBranchCode());
@@ -86,8 +92,8 @@ public class HealthMonitoringController {
 		dto.setKioskId(ValidationCommon.validateString(request.getParameter("kioskId")));
 		dto.setVendor(ValidationCommon.validateString(request.getParameter("vendor")));
 		dto.setTypeOfRequest(ValidationCommon.validateString(request.getParameter("typeOfRequest")));
-		dto.setCategory(ValidationCommon.validateString(request.getParameter("category")));
-		dto.setSubCategory(ValidationCommon.validateString(request.getParameter("subCategory")));
+		//dto.setCategory(ValidationCommon.validateString(request.getParameter("category")));
+		//dto.setSubCategory(ValidationCommon.validateString(request.getParameter("subCategory")));
 		dto.setSubject(ValidationCommon.validateString(request.getParameter("subject")));
 		dto.setComments(ValidationCommon.validateStringChar(request.getParameter("comments")));		
 		String result=healthMonitoringService.saveRequestForCmf(dto);
@@ -99,6 +105,7 @@ public class HealthMonitoringController {
 	
 	
 	@RequestMapping(value = "hm/requestsCmf/get", params = { "page", "size" }, method = RequestMethod.GET, produces = "application/json")
+	@PreAuthorize("hasPermission('HMfindPaginatedCmf','CREATE')")
 	public Page<RequestsDto> findPaginatedCmf(
 		      @RequestParam("page") int page, @RequestParam("size") int size) {
 		 
@@ -111,6 +118,7 @@ public class HealthMonitoringController {
 		    }
 	
 	@RequestMapping(value = "hm/requestsCms/get", params = { "page", "size" }, method = RequestMethod.GET, produces = "application/json")
+	@PreAuthorize("hasPermission('HMfindPaginatedCms','CREATE')")
 	public Page<RequestsDto> findPaginated(
 		      @RequestParam("page") int page, @RequestParam("size") int size) {
 		 
@@ -123,6 +131,7 @@ public class HealthMonitoringController {
 		    }
 	
 	@RequestMapping(value = "hm/requestsCC/get", params = { "page", "size" }, method = RequestMethod.GET, produces = "application/json")
+	@PreAuthorize("hasPermission('HMfindPaginatedCC','CREATE')")
 	public Page<RequestsDto> findPaginatedCC(
 		      @RequestParam("page") int page, @RequestParam("size") int size) {
 		 
@@ -136,6 +145,7 @@ public class HealthMonitoringController {
 	
 	@RequestMapping(value = "hm/saveCheckerCommentsCms" , method = RequestMethod.POST)
 	//public ModelAndView saveCheckerComments(@RequestParam("array") List<CheckerComments> array) {
+	@PreAuthorize("hasPermission('HMsaveCheckerCommentsCms','CREATE')")
 	public ResponseEntity<String> saveCheckerCommentsCms(@RequestBody String array) {
 		
 		healthMonitoringService.saveCheckerCommentsCms(array);
@@ -147,8 +157,9 @@ public class HealthMonitoringController {
 	
 	@RequestMapping(value = "hm/rejectCheckerCommentsCms" , method = RequestMethod.POST)
 	//public ModelAndView saveCheckerComments(@RequestParam("array") List<CheckerComments> array) {
-	public ResponseEntity<String> rejectCheckerCommentsCms(@RequestBody String array) {
+	@PreAuthorize("hasPermission('HMrejectCheckerCommentsCms','EDIT')")
 		
+	public ResponseEntity<String> rejectCheckerCommentsCms(@RequestBody String array) {
 		healthMonitoringService.rejectCheckerCommentsCms(array);
 		
 		ModelAndView mav = new ModelAndView("requestFormCms");
@@ -157,6 +168,7 @@ public class HealthMonitoringController {
 	}
 	
 	@RequestMapping(value = "hm/saveApproverCommentsCC" , method = RequestMethod.POST)	
+	@PreAuthorize("hasPermission('HMsaveApproverCommentsCC','CREATE')")
 	public ResponseEntity<String> saveApproverCommentsCC(@RequestBody String array) {
 		
 		healthMonitoringService.saveApproverCommentsCC(array);
@@ -166,7 +178,8 @@ public class HealthMonitoringController {
 		return entiry;
 	}
 	
-	@RequestMapping(value = "hm/rejectApproverCommentsCC" , method = RequestMethod.POST)	
+	@RequestMapping(value = "hm/rejectApproverCommentsCC" , method = RequestMethod.POST)
+	@PreAuthorize("hasPermission('HMrejectApproverCommentsCC','EDIT')")
 	public ResponseEntity<String> rejectApproverCommentsCC(@RequestBody String array) {
 		
 		healthMonitoringService.rejectApproverCommentsCC(array);
@@ -176,6 +189,7 @@ public class HealthMonitoringController {
 	}
 	
 	@RequestMapping(value = "hm/viewCmfCaseId")	
+	@PreAuthorize("hasPermission('HMviewCmfCaseId','READ')")
 	public ModelAndView viewCmfCaseId(@RequestParam("caseId") int caseId) {
 		
 		RequestsManagementDto dto = healthMonitoringService.viewCaseId(caseId);
@@ -186,6 +200,7 @@ public class HealthMonitoringController {
 	}
 	
 	@RequestMapping(value = "hm/viewCmsCaseId")	
+	@PreAuthorize("hasPermission('HMviewCmsCaseId','READ')")
 	public ModelAndView viewCmsCaseId(@RequestParam("caseId") int caseId) {
 		
 		RequestsManagementDto dto = healthMonitoringService.viewCaseId(caseId);
@@ -196,6 +211,7 @@ public class HealthMonitoringController {
 	}
 	
 	@RequestMapping(value = "hm/viewCCCaseId")	
+	@PreAuthorize("hasPermission('HMviewCCCaseId','READ')")
 	public ModelAndView viewCCCaseId(@RequestParam("caseId") int caseId) {
 		
 		RequestsManagementDto dto = healthMonitoringService.viewCaseId(caseId);
