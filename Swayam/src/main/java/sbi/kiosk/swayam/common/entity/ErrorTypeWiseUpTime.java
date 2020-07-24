@@ -36,11 +36,11 @@ public class ErrorTypeWiseUpTime implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Column(name="ERROR")
-	private String errorType;
-	
 	@Column(name="CIRCLE")
 	private String circleName;
+	
+	@Column(name="ERROR")
+	private String errorType;
 	
 	@Column(name="TOTAL_NO_OF_TICKETS")
 	private Integer noOfTickets;

@@ -22,6 +22,7 @@ import sbi.kiosk.swayam.common.entity.ErrorTypeWiseUpTime;
 import sbi.kiosk.swayam.common.entity.SummaryOfDownKiosks;
 import sbi.kiosk.swayam.common.entity.TATWiseCumulativeData;
 import sbi.kiosk.swayam.common.entity.TATofDownKiosks;
+import sbi.kiosk.swayam.common.entity.UserWiseKiosksData;
 import sbi.kiosk.swayam.common.entity.VendorWiseCumulativeData;
 import sbi.kiosk.swayam.common.entity.VendorWiseUptime;
 import sbi.kiosk.swayam.dataanalyser.service.DataAnalyserService;
@@ -36,6 +37,8 @@ public class DataAnalyserController {
 
 	@Autowired
 	DataAnalyserService dataAnalyserService;
+	
+	//-----------Data Analalysis---------------------
 	
 	@RequestMapping(value = "da/getAvailability", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<List<Availability>> getAvailability(ModelAndView model) {
@@ -77,6 +80,8 @@ public class DataAnalyserController {
 		return respEntity;
 	}
 	
+	//-----------Cumulative Data---------------------
+	
 	@RequestMapping(value = "da/getCumulativeAvailability", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<List<CumulativeKiosksAvailability>> getCumulativeAvailability(ModelAndView model) {
 		ResponseEntity<List<CumulativeKiosksAvailability>> respEntity = ResponseEntity.ok(dataAnalyserService.getCumulativeKiosksAvailability());
@@ -109,6 +114,59 @@ public class DataAnalyserController {
 	public ResponseEntity<List<CumulativeSummaryOfDownKiosks>> getCumulativeSummaryOfDownKiosks(ModelAndView model) {
 		ResponseEntity<List<CumulativeSummaryOfDownKiosks>> respEntity = ResponseEntity.ok(dataAnalyserService.getCumulativeSummaryOfDownKiosks());
 		model.addObject("daCumulativeSummaryOfDownKiosks", respEntity);
+		return respEntity;
+	}
+	
+	//-----------Cumulative Circle Data---------------------
+	
+	@RequestMapping(value = "da/getCumulativeCircleAvailability", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<List<CumulativeKiosksAvailability>> getCumulativeCircleAvailability(ModelAndView model, HttpServletRequest request) {
+		ResponseEntity<List<CumulativeKiosksAvailability>> respEntity = ResponseEntity.ok(dataAnalyserService.getCumulativeCircleAvailability(request));
+		model.addObject("getCumulativeCircleAvailability", respEntity);
+		return respEntity;
+	}
+	
+	@RequestMapping(value = "da/getVendorWiseCumulativeCircleData", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<List<VendorWiseCumulativeData>> getVendorWiseCumulativeCircleData(ModelAndView model, HttpServletRequest request) {
+		ResponseEntity<List<VendorWiseCumulativeData>> respEntity = ResponseEntity.ok(dataAnalyserService.getVendorWiseCumulativeCircleData(request));
+		model.addObject("getVendorWiseCumulativeCircleData", respEntity);
+		return respEntity;
+	}
+	
+	@RequestMapping(value = "da/getErrorTypeWiseCumulativeCircleData", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<List<ErrorTypeWiseCumulativeData>> getErrorTypeWiseCumulativeCircleData(ModelAndView model, HttpServletRequest request) {
+		ResponseEntity<List<ErrorTypeWiseCumulativeData>> respEntity = ResponseEntity.ok(dataAnalyserService.getErrorTypeWiseCumulativeCircleData(request));
+		model.addObject("getErrorTypeWiseCumulativeCircleData", respEntity);
+		return respEntity;
+	}
+	
+	@RequestMapping(value = "da/getTATWiseCumulativeCircleData", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<List<TATWiseCumulativeData>> getTATWiseCumulativeCircleData(ModelAndView model, HttpServletRequest request) {
+		ResponseEntity<List<TATWiseCumulativeData>> respEntity = ResponseEntity.ok(dataAnalyserService.getTATWiseCumulativeCircleData(request));
+		model.addObject("getTATWiseCumulativeCircleData", respEntity);
+		return respEntity;
+	}
+	
+	@RequestMapping(value = "da/getCumulativeCircleSummaryOfDownKiosks", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<List<CumulativeSummaryOfDownKiosks>> getCumulativeCircleSummaryOfDownKiosks(ModelAndView model, HttpServletRequest request) {
+		ResponseEntity<List<CumulativeSummaryOfDownKiosks>> respEntity = ResponseEntity.ok(dataAnalyserService.getCumulativeCircleSummaryOfDownKiosks(request));
+		model.addObject("getCumulativeCircleSummaryOfDownKiosks", respEntity);
+		return respEntity;
+	}
+	
+	//-----------User-wise Data---------------------
+	
+	@RequestMapping(value = "da/getUserWiseDownKiosksData", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<List<UserWiseKiosksData>> getUserWiseDownKiosksData(ModelAndView model, HttpServletRequest request) {
+		ResponseEntity<List<UserWiseKiosksData>> respEntity = ResponseEntity.ok(dataAnalyserService.getUserWiseDownKiosksData(request));
+		model.addObject("getUserWiseDownKiosksData", respEntity);
+		return respEntity;
+	}
+	
+	@RequestMapping(value = "da/getUserWiseZeroTxnKiosksData", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<List<UserWiseKiosksData>> getUserWiseZeroTxnKiosksData(ModelAndView model, HttpServletRequest request) {
+		ResponseEntity<List<UserWiseKiosksData>> respEntity = ResponseEntity.ok(dataAnalyserService.getUserWiseZeroTxnKiosksData(request));
+		model.addObject("getUserWiseZeroTxnKiosksData", respEntity);
 		return respEntity;
 	}
 	

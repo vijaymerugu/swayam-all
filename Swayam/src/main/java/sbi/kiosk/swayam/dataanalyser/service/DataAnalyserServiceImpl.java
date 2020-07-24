@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sbi.kiosk.swayam.common.entity.Availability;
@@ -24,13 +23,9 @@ import sbi.kiosk.swayam.common.entity.ErrorTypeWiseUpTime;
 import sbi.kiosk.swayam.common.entity.SummaryOfDownKiosks;
 import sbi.kiosk.swayam.common.entity.TATWiseCumulativeData;
 import sbi.kiosk.swayam.common.entity.TATofDownKiosks;
+import sbi.kiosk.swayam.common.entity.UserWiseKiosksData;
 import sbi.kiosk.swayam.common.entity.VendorWiseCumulativeData;
 import sbi.kiosk.swayam.common.entity.VendorWiseUptime;
-import sbi.kiosk.swayam.dataanalyser.repository.AvailabilityRepo;
-import sbi.kiosk.swayam.dataanalyser.repository.ErrorTypeWiseUpTimeRepo;
-import sbi.kiosk.swayam.dataanalyser.repository.SummaryOfDownKiosksRepo;
-import sbi.kiosk.swayam.dataanalyser.repository.TATofDownKiosksRepo;
-import sbi.kiosk.swayam.dataanalyser.repository.VendorWiseUpTimeRepo;
 
 /**
  * @author vmph2362595
@@ -43,21 +38,6 @@ public class DataAnalyserServiceImpl implements DataAnalyserService {
 	
 	@PersistenceContext
     private EntityManager entityManager;
-	
-	@Autowired
-	AvailabilityRepo availabilityRepo;
-	
-	@Autowired
-	VendorWiseUpTimeRepo vendorWiseUpTimeRepo;
-	
-	@Autowired
-	ErrorTypeWiseUpTimeRepo errorTypeWiseUpTimeRepo;
-	
-	@Autowired
-	SummaryOfDownKiosksRepo summaryOfDownKiosksRepo;
-	
-	@Autowired
-	TATofDownKiosksRepo tATofDownKiosksRepo;
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -87,8 +67,9 @@ public class DataAnalyserServiceImpl implements DataAnalyserService {
 	@Override
 	public List<ErrorTypeWiseUpTime> getErrorTypeWiseUpTime(HttpServletRequest request) {
 		try {
-			StoredProcedureQuery nearByEntities= entityManager.createNamedStoredProcedureQuery("SP_ERROT_TYPE_WISE_UPTIME_PROC")
-			.setParameter("callCategory", request.getParameter("callCategory"));
+			String callCategory = request.getParameter("callCategory");
+			StoredProcedureQuery nearByEntities= entityManager.createNamedStoredProcedureQuery("SP_ERROT_TYPE_WISE_UPTIME_PROC");
+					nearByEntities.setParameter("callCategory", callCategory);
 	        return nearByEntities.getResultList();
 		} catch (Exception e) {
 			logger.error("Exception in getErrorTypeWiseUpTime." + e.getMessage());
@@ -155,11 +136,7 @@ public class DataAnalyserServiceImpl implements DataAnalyserService {
 	@Override
 	public List<TATWiseCumulativeData> getTATWiseCumulativeData() {
 		try {
-			List<TATWiseCumulativeData> tats = entityManager.createNamedStoredProcedureQuery("SP_TAT_WISE_CUMULATIVE_DATA").getResultList();
-			for(TATWiseCumulativeData tat:tats) {
-				
-			}
-			return tats;
+			return entityManager.createNamedStoredProcedureQuery("SP_TAT_WISE_CUMULATIVE_DATA").getResultList();
 		} catch (Exception e) {
 			logger.error("Exception in getTATWiseCumulativeData." + e.getMessage());
 			return new ArrayList<TATWiseCumulativeData>();
@@ -177,4 +154,88 @@ public class DataAnalyserServiceImpl implements DataAnalyserService {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<CumulativeKiosksAvailability> getCumulativeCircleAvailability(HttpServletRequest request) {
+		try {
+			return entityManager.createNamedStoredProcedureQuery("SP_CUM_CIRCLE_AVAILABLITY")
+					.setParameter("userId", request.getParameter("userId")).getResultList();
+		} catch (Exception e) {
+			logger.error("Exception in getCumulativeCircleAvailability." + e.getMessage());
+			return new ArrayList<CumulativeKiosksAvailability>();
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<VendorWiseCumulativeData> getVendorWiseCumulativeCircleData(HttpServletRequest request) {
+		try {
+			return entityManager.createNamedStoredProcedureQuery("SP_CUM_CIRCLE_VENDOR_DATA")
+					.setParameter("userId", request.getParameter("userId")).getResultList();
+		} catch (Exception e) {
+			logger.error("Exception in getVendorWiseCumulativeCircleData." + e.getMessage());
+			return new ArrayList<VendorWiseCumulativeData>();
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ErrorTypeWiseCumulativeData> getErrorTypeWiseCumulativeCircleData(HttpServletRequest request) {
+		try {
+			return entityManager.createNamedStoredProcedureQuery("SP_CUM_CIRCLE_ERRORTYPE_UPTIME")
+					.setParameter("userId", request.getParameter("userId")).getResultList();
+		} catch (Exception e) {
+			logger.error("Exception in getErrorTypeWiseCumulativeCircleData." + e.getMessage());
+			return new ArrayList<ErrorTypeWiseCumulativeData>();
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<TATWiseCumulativeData> getTATWiseCumulativeCircleData(HttpServletRequest request) {
+		try {
+			return entityManager.createNamedStoredProcedureQuery("SP_CUM_CIRCLE_TAT_WISE")
+					.setParameter("userId", request.getParameter("userId")).getResultList();
+		} catch (Exception e) {
+			logger.error("Exception in getTATWiseCumulativeCircleData." + e.getMessage());
+			return new ArrayList<TATWiseCumulativeData>();
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<CumulativeSummaryOfDownKiosks> getCumulativeCircleSummaryOfDownKiosks(HttpServletRequest request) {
+		try {
+			return entityManager.createNamedStoredProcedureQuery("SP_CUM_CIRCLE_KIOSKS_SUMMARY")
+					.setParameter("userId", request.getParameter("userId")).getResultList();
+		} catch (Exception e) {
+			logger.error("Exception in getCumulativeCircleSummaryOfDownKiosks." + e.getMessage());
+			return new ArrayList<CumulativeSummaryOfDownKiosks>();
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<UserWiseKiosksData> getUserWiseDownKiosksData(HttpServletRequest request) {
+		try {
+			return entityManager.createNamedStoredProcedureQuery("SP_USER_WISE_DOWN_KIOSK")
+					.setParameter("userId", request.getParameter("userId")).getResultList();
+		} catch (Exception e) {
+			logger.error("Exception in getUserWiseDownKiosksData." + e.getMessage());
+			return new ArrayList<UserWiseKiosksData>();
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<UserWiseKiosksData> getUserWiseZeroTxnKiosksData(HttpServletRequest request) {
+		try {
+			return entityManager.createNamedStoredProcedureQuery("SP_USER_WISE_ZERO_TXN_KIOSK")
+					.setParameter("userId", request.getParameter("userId")).getResultList();
+		} catch (Exception e) {
+			logger.error("Exception in getUserWiseZeroTxnKiosksData." + e.getMessage());
+			return new ArrayList<UserWiseKiosksData>();
+		}
+	}
+	
 }
