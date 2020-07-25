@@ -1,5 +1,8 @@
 package sbi.kiosk.swayam.transactiondashboard.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +26,14 @@ public class ErrorReportingServiceImpl implements ErrorReportingService {
 		logger.info("ErrorReportingServiceImpl Started() fromDate:: "+fromDate);
 		logger.info("ErrorReportingServiceImpl Started() toDate::"+toDate);
 		//List<ErrorReporting> errorRepoList = nearByEntities(fromDate, toDate);
-		logger.info("fromdate22222222==   "+fromDate);
-		 logger.info("todate6666666666==   "+toDate);
+		if((fromDate ==null || fromDate.isEmpty()) && (toDate ==null || toDate.isEmpty()) || (fromDate.equalsIgnoreCase("undefined") || fromDate.equalsIgnoreCase("undefined"))){
+			SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+			Date curDate=new Date();
+			fromDate=sdf.format(curDate);
+			toDate=sdf.format(curDate);
+		}
 		  Page<ErrorReporting> pageErrorReporting= errorReportingRepo.findByDate(fromDate, toDate, PageRequest.of(page, size));			
+		  logger.info("pageErrorReporting"+pageErrorReporting);
 		  return pageErrorReporting;
 	}
 	

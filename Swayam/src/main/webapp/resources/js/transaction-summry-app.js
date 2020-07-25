@@ -9,7 +9,8 @@ sort: null
  
    var fromDate = "";
    var toDate= "";
-   
+  
+  /*  
    function convertDate(dateParam){
   var result="";
   var date = new Date(dateParam);
@@ -26,16 +27,12 @@ sort: null
      return result;
  }
 
-
-
-   
+*/
+     
+  $scope.CurrentDate = new Date();
    $scope.searchPositions= function(startDate,endDate){
- // alert("From=="+startDate);
- // convertDate(startDate);
- fromDate= convertDate(startDate);
-// alert("fromDate=="+fromDate);  
- toDate=  convertDate(endDate);
-//alert("toDate=="+toDate);  
+	   fromDate = $("#datepickerFromDate").val();
+	   toDate = $("#datepickerToDate").val();
      
 
 
@@ -47,15 +44,7 @@ sort: null
  
    }
    
-   $scope.refresh = function()
-   {   if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
-
-  $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);
-   }else{
-   
-  $scope.gridOptions.data = $scope.gridOptions.data;
-   }
-   };
+  
    $scope.refresh = function()
    {  	
 	   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   

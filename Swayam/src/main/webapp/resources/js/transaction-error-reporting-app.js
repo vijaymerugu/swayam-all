@@ -1,13 +1,14 @@
-var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter', 'ui.grid.resizeColumns']);
+var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter']);
 
-app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService1', function ($scope, $filter,UserManagementService1) {
+app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService', function ($scope, $filter,UserManagementService) {
    var paginationOptions = {
      pageNumber: 1,
 	 pageSize: 20,
 	 sort: null
    };
    
-   
+     var fromDate = "";
+     var toDate= "";
   /* function convertDate(dateParam){
 	   var result="";
 	   var date = new Date(dateParam);
@@ -25,59 +26,58 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService1
    */
  
    
+	   $scope.loadHomeBodyPageForms = function(url){  
+	       if(url != undefined){
+	           var str ='td/noOfErrorsKiosk?kioskId=' + url;
+	           $("#contentHomeApp").load(str);
+	         }
+	   };
    
-   $scope.searchPositions1= function(fromDate_param,toDate_param){
-	   //alert(5);
-	   //alert("startDate1111=="+fromDate_param);
-	   /*convertDate(startDate);
-		 var fromDate= convertDate(startDate);
-		alert("fromDate=="+fromDate);   
-		 var toDate=  convertDate(endDate);
-		alert("toDate=="+toDate);   */
+    // $scope.CurrentDate = new Date();
+      $scope.searchPositions= function(startDate,endDate){
+    	  
+    	 // var ss = $("#startDate").val();
+    	  //alert("sss==============="+ss);
+    	  fromDate = $("#datepickerFromDate").val();
+    	  toDate = $("#datepickerToDate").val();
+	     
+				   UserManagementService.getUsers(paginationOptions.pageNumber,
+							  paginationOptions.pageSize,fromDate,toDate).success(function(data){
+							 $scope.gridOptions.data = data.content;
+							 $scope.gridOptions.totalItems = data.totalElements;
+							  });
+			      
+      };
      
-	
-	/*
-	   UserManagementService.getUsers(paginationOptions.pageNumber,
-			   paginationOptions.pageSize,fromDate,toDate).success(function(data){
-					  $scope.gridOptions.data = data.content;
-				 	  $scope.gridOptions.totalItems = data.totalElements;
-				   });*/
-	   
-   }
-	   
-  /* $scope.loadHomeBodyPageForms = function(url){	   
-		if(url != undefined){	
-			var str ='td/noOfErrorViews?kioskId=' + url;
-			$("#contentHomeApp").load(str);
-		}						
-	}*/
-   $scope.refresh = function()
-   {  	
-	   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
-	 	   UserManagementService1.getUsers(paginationOptions.pageNumber,
-	 			   paginationOptions.pageSize).success(function(data){
-	 		  $scope.gridOptions.data = data.content;
-	 	 	  $scope.gridOptions.totalItems = data.totalElements;
-	 	   });	   
-	 		   
-	 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
-	 	  
-	 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
-	 		   
-	 	    }else{
-	 	    	UserManagementService1.getUsers(paginationOptions.pageNumber,
-	 	 			   paginationOptions.pageSize).success(function(data){
-	 	 		  $scope.gridOptions.data = data.content;
-	 	 	 	  $scope.gridOptions.totalItems = data.totalElements;
-	 	 	   });
-	 	    }
-	    };
+      
+      $scope.refresh = function()
+      {  	
+   	   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
+   	   		UserManagementService.getUsers(paginationOptions.pageNumber,
+   	   			  paginationOptions.pageSize,fromDate,toDate).success(function(data){
+   	   			 $scope.gridOptions.data = data.content;
+   	   			   $scope.gridOptions.totalItems = data.totalElements;
+   	   			   });   
+   	 		   
+   	 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
+   	 	  
+   	 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
+   	 		   
+   	 	    }else{
+   	 	    	UserManagementService.getUsers(paginationOptions.pageNumber,
+   	 	    			  paginationOptions.pageSize,fromDate,toDate).success(function(data){
+   	 	    			 $scope.gridOptions.data = data.content;
+   	 	    			   $scope.gridOptions.totalItems = data.totalElements;
+   	 	    			   });
+   	 	    }
+   	    };
 
-   UserManagementService1.getUsers(paginationOptions.pageNumber,
-		   paginationOptions.pageSize).success(function(data){
-	  $scope.gridOptions.data = data.content;
- 	  $scope.gridOptions.totalItems = data.totalElements;
-   });
+
+      UserManagementService.getUsers(paginationOptions.pageNumber,
+     paginationOptions.pageSize,fromDate,toDate).success(function(data){
+    $scope.gridOptions.data = data.content;
+      $scope.gridOptions.totalItems = data.totalElements;
+      });
    
    $scope.gridOptions = {
 	paginationPageSizes: [20, 30, 40],
@@ -93,20 +93,18 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService1
          { name: 'branchCode', displayName: 'Branch Code'},
          { name: 'branchName', displayName: 'Branch Name'  },
          { name: 'kioskId', displayName: 'Kiosk Id'},
-         { name: 'vendor', displayName: 'Vendor'}
-       /*  ,
-         
-      { name: 'noOfErrors',    	  
-    	  displayName: 'No Of Errors', 	  
-    	  cellTemplate: '<div ng-if="row.entity.kioskId != undefined">{{ row.entity.noOfError }}</div><div ng-if="row.entity.kioskId == undefined"><a ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.kioskId)">{{ row.entity.noOfError }}</a></div>'
-      }*/
+         { name: 'vendor', displayName: 'Vendor'},
+         { name: 'noOfErrors', displayName: 'No Of Errors',  
+          //cellTemplate: '<div ng-if="row.entity.kioskId != undefined">{{ row.entity.noOfError }}</div><div ng-if="row.entity.kioskId == undefined"><a ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.kioskId)">{{ row.entity.noOfError }}</a></div>'
+          cellTemplate: '<div ng-if="row.entity.noOfErrors != undefined"><a ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.kioskId)">{{row.entity.noOfErrors}}</a></div>'
+        }
     ],
     onRegisterApi: function(gridApi) {
         $scope.gridApi = gridApi;
-        gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,fromDate_param,toDate_param) {
+        gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
           paginationOptions.pageNumber = newPage;
           paginationOptions.pageSize = pageSize;
-          UserManagementService1.getUsers(newPage,pageSize,fromDate_param,toDate_param).success(function(data){
+          UserManagementService.getUsers(newPage,pageSize,fromDate,toDate).success(function(data){
         	  $scope.gridOptions.data = data.content;
          	  $scope.gridOptions.totalItems = data.totalElements;
           });
@@ -117,15 +115,15 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService1
 }]);
 
 
-app.service('UserManagementService1',['$http', function ($http) {
-	alert(1);
-	function getUsers(pageNumber,size,begin,end) {
-		alert("begin==2=="+begin);
-		alert("end==3=="+end);
+app.service('UserManagementService',['$http', function ($http) {
+	//alert(1);
+	function getUsers(pageNumber,size,fromDate,toDate) {
+		//alert("fromDate==2=="+fromDate);
+		//alert("toDate==3=="+toDate);
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({
           method: 'GET',
-          url: 'td/errorReporting/get?page='+pageNumber+'&size='+size+'&fromDate_param='+begin+'&toDate_param='+end
+          url: 'td/errorReporting/get?page='+pageNumber+'&size='+size+'&fromDate='+fromDate+'&toDate='+toDate
         });
     }
 	

@@ -29,12 +29,17 @@ Logger logger = LoggerFactory.getLogger(ErrorReportingContoller.class);
 		return mav;
 	}
 	
+	@RequestMapping("td/noOfErrorsKiosk")
+	public ModelAndView noOfErrorsKiosk(@RequestParam("kioskId") String kioskId) {
+		logger.info("noOfErrorsKiosk=========="+kioskId);
+		ModelAndView mav = new ModelAndView("errorSummary");
+		return mav;
+	}
 	
-	
-	@RequestMapping(value = "td/errorReporting/get", params = { "page", "size", "fromdate",	"todate" }, method = RequestMethod.GET, produces = "application/json")
-	public Page<ErrorReporting> findPaginated(@RequestParam("page") int page, @RequestParam("size") int size,@RequestParam("fromdate") String fromdate, @RequestParam("todate") String todate) {
+	@RequestMapping(value = "td/errorReporting/get", params = { "page", "size", "fromDate",	"toDate" }, method = RequestMethod.GET, produces = "application/json")
+	public Page<ErrorReporting> findPaginated(@RequestParam("page") int page, @RequestParam("size") int size,@RequestParam("fromDate") String fromDate, @RequestParam("toDate") String toDate) {
 		
-		Page<ErrorReporting> resultPage = errorReportingService.findPaginated(page, size, fromdate,todate);
+		Page<ErrorReporting> resultPage = errorReportingService.findPaginated(page, size, fromDate,toDate);
 		
 		logger.info("resultPage==" + resultPage.getNumberOfElements());
 		if (page > resultPage.getTotalPages()) {

@@ -86,6 +86,6 @@ public class ErrorReporting {
 	    @Column(name = "VENDOR")
 		private String vendor;
 	    @Column(name = "NO_OF_ERRORS")
-		private String noOfError;
+		private String noOfErrors;
 	
 }
