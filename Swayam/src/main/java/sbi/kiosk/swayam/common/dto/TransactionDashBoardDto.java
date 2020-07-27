@@ -1,17 +1,15 @@
 package sbi.kiosk.swayam.common.dto;
-import java.util.Date;
-
 import lombok.Data;
-import sbi.kiosk.swayam.common.entity.SwayamTransactionReport;
+import sbi.kiosk.swayam.common.entity.SwayamMigrationSummary;
 
 @Data
 public class TransactionDashBoardDto {
 	
-	public TransactionDashBoardDto() {
+public TransactionDashBoardDto() {
 		
 	}
 	
-	public TransactionDashBoardDto(SwayamTransactionReport swayamTransactionReport){
+	public TransactionDashBoardDto(SwayamMigrationSummary swayamMigrationSummary){
 		
 	}
 	
@@ -31,6 +29,7 @@ public class TransactionDashBoardDto {
 	private String modeCode;
 	private String region;
 	private String branchName;
+	
 	
 	
 	

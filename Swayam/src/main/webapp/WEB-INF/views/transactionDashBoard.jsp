@@ -1,5 +1,3 @@
- <%@ page import="java.util.*" %>
-<%@ page import="java.text.SimpleDateFormat" %>    
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">

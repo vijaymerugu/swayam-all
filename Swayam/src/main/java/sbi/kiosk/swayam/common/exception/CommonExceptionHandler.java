@@ -57,8 +57,9 @@ public class CommonExceptionHandler {
 	@ExceptionHandler(value = ValidationException.class)
 	protected ModelAndView handleValidationException() {
 		logger.error("CommonExceptionHandler -  ValidationException raised");
-		ModelAndView mav = new ModelAndView("error");
+		ModelAndView mav = new ModelAndView();
 		mav.addObject("commonError", "Bad Request");
+		mav.setViewName("error");
 		return mav;
 	}
 

@@ -756,7 +756,7 @@ public class JasperServiceImpl implements JasperService {
 
 	@Override
 	public List<RealTimeTransactionDto> findAllDateWiseRealtimeTxn(String fromdate) {
-		logger.info("Inside==Jasper====findAllTransactionSummary===========");
+		logger.info("Inside==Jasper====findAllDateWiseRealtimeTxn===========");
 		List<RealTimeTransaction> list = realTimeTxnRepositoryPaging.findByDate(fromdate);
 		logger.info("Inside==Jasper=list=" + list);
 		List<RealTimeTransactionDto> entities = ObjectMapperUtils.mapAll(list, RealTimeTransactionDto.class);
