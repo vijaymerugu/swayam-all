@@ -40,6 +40,9 @@ public class AppFilter implements Filter {
 	        res.setHeader("X-Content-Type-Options", "nosniff");        
 	        res.setHeader("X-XSS-Protection", "1; mode=block");
 	        //res.setHeader("Content-Security-Policy", "default-src 'self'");
+	        String sessionid = req.getSession().getId();
+	        res.setHeader("SET-COOKIE", "JSESSIONID=" + sessionid + "; HttpOnly; Secure");
+	        //res.setHeader("Refresh", "60; URL=/SMT/");
 
 	        //System.out.println(
 	          //"Logging Request  {} : {}");

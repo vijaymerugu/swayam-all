@@ -49,9 +49,13 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))            
 			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))            
             .logoutSuccessUrl("https://adfs.sbi.co.in/adfs/ls/?wa=wsignout1.0")
-            .invalidateHttpSession(true)        // set invalidation state when logout
             .deleteCookies("JSESSIONID") 
-				.and().sessionManagement().maximumSessions(1);
+            .invalidateHttpSession(true)        // set invalidation state when logout            
+				.and()
+				.sessionManagement()
+				.sessionFixation().migrateSession()
+				.maximumSessions(1)
+				.maxSessionsPreventsLogin(true);
 		http.headers().
 		httpStrictTransportSecurity()
 		.includeSubDomains(true)
