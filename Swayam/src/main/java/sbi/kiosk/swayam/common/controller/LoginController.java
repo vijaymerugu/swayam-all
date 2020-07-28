@@ -46,9 +46,11 @@ public class LoginController{
 	@SuppressWarnings("deprecation")
 	@GetMapping("authenticateUser")
 	@PostAuthorize("hasPermission('login','READ')")
-	public ModelAndView home(@RequestParam(value="token")String token, HttpSession session,AuditLogger auditLogger) {
+	public ModelAndView home(@RequestParam(value="token")String token, HttpSession session,AuditLogger auditLogger,ModelAndView mav) {
 		
 		//logger.info("Inside /authenticateUser?token"+token );
+		
+		try {
 		String pfId = jwtTokenUtil.extractUsername(token);
 		logger.info("Inside /authenticateUser?token"+token+ " USER_ID "+pfId);
 		UserDto userObj = loginService.getRoleByUsername(pfId);
@@ -72,7 +74,12 @@ public class LoginController{
 		
 		auditLogger.setToken(token);
 		audit.save(auditLogger);
-		ModelAndView mav = new ModelAndView("home");
+	    mav.setViewName("home");
+		}catch(Exception e) {
+			logger.error("Invalid Token Exception():: ",e,e.getMessage());
+			mav.addObject("commonError", "Bad Request");
+			mav.setViewName("error");
+		}
 		return mav;
 	}
 	

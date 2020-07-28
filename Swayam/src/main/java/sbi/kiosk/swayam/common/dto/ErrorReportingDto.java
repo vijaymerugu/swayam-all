@@ -1,9 +1,6 @@
 package sbi.kiosk.swayam.common.dto;
 
-import java.util.Date;
-
 import lombok.Data;
-import sbi.kiosk.swayam.common.entity.ErrorReporting;
 
 @Data
 public class ErrorReportingDto {
@@ -25,19 +22,13 @@ public class ErrorReportingDto {
 		this.modifiedDateTime = errorRepor.getModifiedDateTime();
 	}*/
 	private String kioskId;
-	private String brCode;
-	private Date txnDateTime;
-	private String totalTxns;
-	private String totalSuccessTxns;
-	private String totalFailureTxns;
-	private String errorCode;
-	private String errorDesc;
-	private String errorCount;
-	private String status;
-	private String createdBy;
-	private Date createdDateTime;
-	private String modifiedBy;
-	private Date modifiedDateTime;
+	private String crclName;
+	private String network;
+	private String module;
+	private String region;
+	private String branchCode;
+	private String branchName;
+	private String vendor;
 	private String noOfErrors;
 
 }
