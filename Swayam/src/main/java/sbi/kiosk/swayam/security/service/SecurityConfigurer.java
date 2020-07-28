@@ -1,7 +1,9 @@
 package sbi.kiosk.swayam.security.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -12,13 +14,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import sbi.kiosk.swayam.common.filter.JwtRequestFilter;
 import sbi.kiosk.swayam.common.service.MyUserDetailsService;
 
 @SuppressWarnings("deprecation")
-
+@Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
@@ -53,9 +56,10 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
             .invalidateHttpSession(true)        // set invalidation state when logout            
 				.and()
 				.sessionManagement()
-				.sessionFixation().migrateSession()
+				//.sessionFixation().migrateSession()
 				.maximumSessions(1)
-				.maxSessionsPreventsLogin(true);
+				.maxSessionsPreventsLogin(true)
+				.expiredUrl("https://adfs.sbi.co.in/adfs/ls/?wa=wsignout1.0");
 		http.headers().
 		httpStrictTransportSecurity()
 		.includeSubDomains(true)
@@ -90,4 +94,9 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 		return NoOpPasswordEncoder.getInstance();
 
 	}
+	
+	@Bean
+    public static ServletListenerRegistrationBean httpSessionEventPublisher() {
+        return new ServletListenerRegistrationBean(new HttpSessionEventPublisher());
+    }
 }
