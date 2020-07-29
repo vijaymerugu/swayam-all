@@ -44,7 +44,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable()
+		http//.csrf().disable()        	
 			.authorizeRequests()
 			.antMatchers("/login*").permitAll()
 			.antMatchers("/getToken").permitAll().anyRequest().authenticated()
@@ -64,6 +64,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 		httpStrictTransportSecurity()
 		.includeSubDomains(true)
 		.maxAgeInSeconds(31536000);
+		http.csrf()
+    	.ignoringAntMatchers("/getToken");
 
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
