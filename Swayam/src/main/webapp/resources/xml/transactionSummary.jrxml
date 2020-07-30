@@ -7,7 +7,7 @@
     <property name="ireport.x" value="0"></property>
 
     <property name="ireport.y" value="0"></property>  
-	<property name="net.sf.jasperreports.export.pdf.size.page.to.content" value="true"/>	
+<property name="net.sf.jasperreports.export.pdf.size.page.to.content" value="true"/>
 
     <field name="crclName" class="java.lang.String"></field>
 
@@ -16,28 +16,23 @@
     <field name="module" class="java.lang.String"></field>    
 
     <field name="region" class="java.lang.String"></field>
-	
-	<field name="branchCode" class="java.lang.String"></field>
-	
-	<field name="branchName" class="java.lang.String"></field>
+<field name="branchCode" class="java.lang.String"></field>
+<field name="branchName" class="java.lang.String"></field>
 
-    <field name="lipiKioskCount" class="java.lang.String"></field>
+    <field name="lipiKioskCount" class="java.lang.Integer"></field>
 
-    <field name="lipiTxnCount" class="java.lang.String"></field>    
+    <field name="lipiTxnCount" class="java.lang.Integer"></field>    
 
-    <field name="forbesKioskCount" class="java.lang.String"></field>
-	
-	<field name="forbesTxnCount" class="java.lang.String"></field>
-	
-	<field name="cmsKioskCount" class="java.lang.String"></field>
+    <field name="forbesKioskCount" class="java.lang.Integer"></field>
+<field name="forbesTxnCount" class="java.lang.Integer"></field>
+<field name="cmsKioskCount" class="java.lang.Integer"></field>
 
-    <field name="cmsTxnCount" class="java.lang.String"></field>
+    <field name="cmsTxnCount" class="java.lang.Integer"></field>
 
-    <field name="manualTxn" class="java.lang.String"></field>    
+    <field name="manualTxn" class="java.lang.Integer"></field>    
 
-    <field name="totalSwayamTxn" class="java.lang.String"></field>
-	
-	<field name="migrationPerc" class="java.lang.Double"></field>
+    <field name="totalSwayamTxn" class="java.lang.Integer"></field>
+<field name="migrationPerc" class="java.lang.Double"></field>
 
     <background>
 
@@ -50,15 +45,15 @@
 
             <staticText>
 
-                <reportElement x="61" y="0" width="200" height="25"></reportElement>
+                <reportElement x="61" y="0" width="300" height="25"></reportElement>
 
-                <textElement textAlignment="Center">
+                <textElement textAlignment="Left">
 
                     <font size="15" isBold="true"></font>
 
                 </textElement>
 
-                <text><![CDATA[Swayam Transactions]]></text>
+                <text><![CDATA[Swayam Migration Summary]]></text>
 
             </staticText>
 
@@ -208,8 +203,7 @@
                 <text><![CDATA[BRANCH CODE]]></text>
 
             </staticText>
-			
-			 <staticText>
+<staticText>
 
                 <reportElement x="644" y="41" width="200" height="20"></reportElement>
 
@@ -235,9 +229,7 @@
                 <text><![CDATA[BRANCH NAME]]></text>
 
             </staticText>
-			
-			
-			 <staticText>
+<staticText>
 
                 <reportElement x="844" y="41" width="100" height="20"></reportElement>
 
@@ -263,9 +255,7 @@
                 <text><![CDATA[NO OF KIOSK]]></text>
 
             </staticText>
-			
-			
-			 <staticText>
+<staticText>
 
                 <reportElement x="944" y="41" width="100" height="20"></reportElement>
 
@@ -291,10 +281,9 @@
                 <text><![CDATA[TXN]]></text>
 
             </staticText>
-			
-			<staticText>
+<staticText>
 
-                <reportElement x="1044" y="41" width="200" height="20"></reportElement>
+                <reportElement x="1044" y="41" width="100" height="20"></reportElement>
 
                 <box>
 
@@ -318,11 +307,9 @@
                 <text><![CDATA[NO OF KIOSK]]></text>
 
             </staticText>
-			
-			
-			 <staticText>
+<staticText>
 
-                <reportElement x="1194" y="41" width="100" height="20"></reportElement>
+                <reportElement x="1144" y="41" width="100" height="20"></reportElement>
 
                 <box>
 
@@ -346,8 +333,7 @@
                 <text><![CDATA[TXN]]></text>
 
             </staticText>
-			
-			<staticText>
+<staticText>
 
                 <reportElement x="1244" y="41" width="200" height="20"></reportElement>
 
@@ -373,9 +359,7 @@
                 <text><![CDATA[NO OF KIOSK]]></text>
 
             </staticText>
-			
-			
-			 <staticText>
+<staticText>
 
                 <reportElement x="1444" y="41" width="200" height="20"></reportElement>
 
@@ -401,9 +385,7 @@
                 <text><![CDATA[TXN]]></text>
 
             </staticText>
-			
-			
-			<staticText>
+<staticText>
 
                 <reportElement x="1644" y="41" width="200" height="20"></reportElement>
 
@@ -429,9 +411,7 @@
                 <text><![CDATA[SWAYAM TXN]]></text>
 
             </staticText>
-			
-			
-			 <staticText>
+<staticText>
 
                 <reportElement x="1844" y="41" width="200" height="20"></reportElement>
 
@@ -457,8 +437,7 @@
                 <text><![CDATA[BRANCH TXN]]></text>
 
             </staticText>
-			
-			 <staticText>
+<staticText>
 
                 <reportElement x="2044" y="41" width="111" height="20"></reportElement>
 
@@ -484,14 +463,10 @@
                 <text><![CDATA[MIGRATION PERCENTAGE]]></text>
 
             </staticText>
-            
+           
         </band>
 
     </columnHeader>
-	
-	
-	
-	
 
     <detail>
 
@@ -516,8 +491,8 @@
                 </box>
 
                 <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
-				</textElement>
+<font size="8" isItalic="false"></font>
+</textElement>
 
                 <textFieldExpression><![CDATA[$F{crclName} == null?"":$F{crclName}]]></textFieldExpression>
 
@@ -541,8 +516,8 @@
                 </box>
 
                 <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
-				</textElement>
+<font size="8" isItalic="false"></font>
+</textElement>
 
                 <textFieldExpression><![CDATA[$F{network}  == null?"":$F{network}]]></textFieldExpression>
 
@@ -566,8 +541,8 @@
                 </box>
 
                 <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
-				</textElement>
+<font size="8" isItalic="false"></font>
+</textElement>
 
                 <textFieldExpression><![CDATA[$F{module} == null?"":$F{module}]]></textFieldExpression>
 
@@ -592,8 +567,8 @@
                 </box>
 
                 <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
-				</textElement>
+<font size="8" isItalic="false"></font>
+</textElement>
 
                 <textFieldExpression><![CDATA[$F{region} == null?"":$F{region}]]></textFieldExpression>
 
@@ -618,16 +593,13 @@
                 </box>
 
                 <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
-				</textElement>
+<font size="8" isItalic="false"></font>
+</textElement>
 
                 <textFieldExpression><![CDATA[$F{branchCode} == null?"":$F{branchCode}]]></textFieldExpression>
 
             </textField>
-			
-			
-			
-			 <textField>
+<textField>
 
                 <reportElement x="644" y="0" width="200" height="15"></reportElement>
 
@@ -646,16 +618,13 @@
                 </box>
 
                 <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
-				</textElement>
+<font size="8" isItalic="false"></font>
+</textElement>
 
                 <textFieldExpression><![CDATA[$F{branchName} == null?"":$F{branchName}]]></textFieldExpression>
 
             </textField>
-			
-			
-			
-			 <textField>
+<textField>
 
                 <reportElement x="844" y="0" width="100" height="15"></reportElement>
 
@@ -674,14 +643,13 @@
                 </box>
 
                 <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
-				</textElement>
+<font size="8" isItalic="false"></font>
+</textElement>
 
-                <textFieldExpression><![CDATA[$F{lipiKioskCount} == null?"":$F{lipiKioskCount}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{lipiKioskCount}]]></textFieldExpression>
 
             </textField>
-			
-			 <textField>
+<textField>
 
                 <reportElement x="944" y="0" width="100" height="15"></reportElement>
 
@@ -700,18 +668,15 @@
                 </box>
 
                 <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
-				</textElement>
+<font size="8" isItalic="false"></font>
+</textElement>
 
-                <textFieldExpression><![CDATA[$F{lipiTxnCount} == null?"":$F{lipiTxnCount}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{lipiTxnCount}]]></textFieldExpression>
 
             </textField>
-			
-			
-			
-			 <textField>
+<textField>
 
-                <reportElement x="1044" y="0" width="200" height="15"></reportElement>
+                <reportElement x="1044" y="0" width="100" height="15"></reportElement>
 
                 <box>
 
@@ -728,16 +693,15 @@
                 </box>
 
                 <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
-				</textElement>
+<font size="8" isItalic="false"></font>
+</textElement>
 
-                <textFieldExpression><![CDATA[$F{forbesKioskCount} == null?"":$F{forbesKioskCount}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{forbesKioskCount}]]></textFieldExpression>
 
             </textField>
-			
-			<textField>
+<textField>
 
-                <reportElement x="1194" y="0" width="100" height="15"></reportElement>
+                <reportElement x="1144" y="0" width="100" height="15"></reportElement>
 
                 <box>
 
@@ -754,15 +718,13 @@
                 </box>
 
                 <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
-				</textElement>
+<font size="8" isItalic="false"></font>
+</textElement>
 
-                <textFieldExpression><![CDATA[$F{forbesTxnCount} == null?"":$F{forbesTxnCount}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{forbesTxnCount}]]></textFieldExpression>
 
             </textField>
-			
-			
-			<textField>
+<textField>
 
                 <reportElement x="1244" y="0" width="200" height="15"></reportElement>
 
@@ -781,15 +743,13 @@
                 </box>
 
                 <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
-				</textElement>
+<font size="8" isItalic="false"></font>
+</textElement>
 
-                <textFieldExpression><![CDATA[$F{cmsKioskCount} == null?"":$F{cmsKioskCount}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{cmsKioskCount}]]></textFieldExpression>
 
             </textField>
-			
-			
-			<textField>
+<textField>
 
                 <reportElement x="1444" y="0" width="200" height="15"></reportElement>
 
@@ -808,15 +768,13 @@
                 </box>
 
                 <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
-				</textElement>
+<font size="8" isItalic="false"></font>
+</textElement>
 
-                <textFieldExpression><![CDATA[$F{cmsTxnCount} == null?"":$F{cmsTxnCount}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{cmsTxnCount}]]></textFieldExpression>
 
             </textField>
-			
-			
-			<textField>
+<textField>
 
                 <reportElement x="1644" y="0" width="200" height="15"></reportElement>
 
@@ -835,15 +793,13 @@
                 </box>
 
                 <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
-				</textElement>
+<font size="8" isItalic="false"></font>
+</textElement>
 
-                <textFieldExpression><![CDATA[$F{manualTxn} == null?"":$F{manualTxn}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{manualTxn}]]></textFieldExpression>
 
             </textField>
-			
-			
-			<textField>
+<textField>
 
                 <reportElement x="1844" y="0" width="200" height="15"></reportElement>
 
@@ -862,14 +818,13 @@
                 </box>
 
                 <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
-				</textElement>
+<font size="8" isItalic="false"></font>
+</textElement>
 
-                <textFieldExpression><![CDATA[$F{totalSwayamTxn} == null?"":$F{totalSwayamTxn}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{totalSwayamTxn}]]></textFieldExpression>
 
             </textField>
-			
-			<textField>
+<textField>
 
                 <reportElement x="2044" y="0" width="111" height="15"></reportElement>
 
@@ -888,14 +843,12 @@
                 </box>
 
                 <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
-				</textElement>
+<font size="8" isItalic="false"></font>
+</textElement>
 
                 <textFieldExpression><![CDATA[$F{migrationPerc}]]></textFieldExpression>
 
             </textField>
-			
-			
 
         </band>
 

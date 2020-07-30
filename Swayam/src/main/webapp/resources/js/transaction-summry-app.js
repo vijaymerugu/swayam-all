@@ -101,23 +101,23 @@ useExternalPagination: true,
           displayName: ''
       }],
 
-    columnDefs: [
-      { name: 'crclName', displayName: 'Circle',superCol: 'front'  },
-      { name: 'network', displayName: 'NW',superCol: 'front'  },
-      { name: 'module', displayName: 'Mode',superCol: 'front'  },
-      { name: 'region', displayName: 'Reg',superCol: 'front'  },
-      { name: 'branchCode', displayName: 'Branch Code',superCol: 'front'},
-      { name: 'branchName', displayName: 'Branch Name',superCol: 'front'  },
-      { name: 'aaKioskCount', displayName: 'No Of Kios',superCol: 'lipi'},
-      { name: 'aaTxnCount', displayName: 'Txn', superCol: 'lipi'},
-      { name: 'bbKioskCount', displayName: 'No Of Kios',superCol: 'Forbes' },
-      { name: 'bbTxnCount', displayName: 'Txn',superCol: 'Forbes'},
-      { name: 'ccKioskCount', displayName: 'No Of Kios',superCol: 'CMS'},
-      { name: 'ccTxnCount', displayName: 'Txn',superCol: 'CMS'},
-      { name: 'swayamTxn', displayName: 'SWAYAM Txn',superCol: 'total'},
-      { name: 'branchTxn', displayName: 'Branch Txn',superCol: 'total' },
-      { name: 'migrationPerc', displayName: 'Migration (%)',superCol: 'back'}
-    ],
+      columnDefs: [
+          { name: 'crclName', displayName: 'Circle',superCol: 'front'  },
+          { name: 'network', displayName: 'NW',superCol: 'front'  },
+          { name: 'module', displayName: 'Mode',superCol: 'front'  },
+          { name: 'region', displayName: 'Reg',superCol: 'front'  },
+          { name: 'branchCode', displayName: 'Branch Code',superCol: 'front'},
+          { name: 'branchName', displayName: 'Branch Name',superCol: 'front'  },
+          { name: 'lipiKioskCount', displayName: 'No Of Kios',superCol: 'lipi'},
+          { name: 'lipiTxnCount', displayName: 'Txn', superCol: 'lipi'},
+          { name: 'forbesKioskCount', displayName: 'No Of Kios',superCol: 'Forbes' },
+          { name: 'forbesTxnCount', displayName: 'Txn',superCol: 'Forbes'},
+          { name: 'cmsKioskCount', displayName: 'No Of Kios',superCol: 'CMS'},
+          { name: 'cmsTxnCount', displayName: 'Txn',superCol: 'CMS'},
+          { name: 'manualTxn', displayName: 'SWAYAM Txn',superCol: 'total'},
+          { name: 'totalSwayamTxn', displayName: 'Branch Txn',superCol: 'total' },
+          { name: 'migrationPerc', displayName: 'Migration (%)',superCol: 'back'}
+        ],
     onRegisterApi: function(gridApi) {
         $scope.gridApi = gridApi;
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {

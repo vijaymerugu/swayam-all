@@ -141,7 +141,7 @@ $(document).ready(function(){
     	    $(".openpdfonclick").click(function(){
     	    	
     	        $.ajax({
-    	            url: 'report?page=realTimeYesterday&type=pdf',
+    	            url: 'report?page=realTimeToday&type=pdf',
     	            type: 'GET',   
     	            success: function(data){
     	            	console.log(data);
@@ -151,7 +151,7 @@ $(document).ready(function(){
     	    });
     	    $(".openxlonclick").click(function(){    	
     	        $.ajax({
-    	            url: 'report?page=realTimeYesterday&type=excel',
+    	            url: 'report?page=realTimeToday&type=excel',
     	            type: 'GET',   
     	            success: function(data){
     	            	console.log(data);
