@@ -5,33 +5,42 @@ import sbi.kiosk.swayam.common.entity.SwayamMigrationSummary;
 @Data
 public class TransactionDashBoardDto {
 	
-public TransactionDashBoardDto() {
-		
-	}
-	
-	public TransactionDashBoardDto(SwayamMigrationSummary swayamMigrationSummary){
-		
-	}
-	
-	private Integer id;
-	private String txnDate;
-	private String branchCode;
-	private String vendor;
-	private String kioskId;
-	private String noOfTxns;
-	private String noOfSuccessTxns;
-	private String noOfFial;
-	private String noOfTechFial;
-	private String noOfBusinessFail;
-	
-	private String circle;
-	private String network;
-	private String modeCode;
-	private String region;
-	private String branchName;
-	
-	
-	
-	
+	public TransactionDashBoardDto() {  
+        
+    }  
+      
+          
+    public TransactionDashBoardDto(SwayamMigrationSummary swayamMigrationSummary)  
+          
+     {
 
-}
+    	this.lipiKioskCount = swayamMigrationSummary.getLipiKioskCount();  
+    	this.lipiTxnCount = swayamMigrationSummary.getLipiTxnCount();  
+        this.forbesKioskCount = swayamMigrationSummary.getForbesKioskCount();  
+        this.forbesTxnCount = swayamMigrationSummary.getForbesTxnCount();  
+        this.cmsKioskCount = swayamMigrationSummary.getCmsKioskCount();  
+        this.cmsTxnCount = swayamMigrationSummary.getCmsTxnCount();  
+        this.manualTxn = swayamMigrationSummary.getManualTxn();  
+        this.totalSwayamTxn = swayamMigrationSummary.getTotalSwayamTxn();  
+        this.migrationPerc = swayamMigrationSummary.getMigrationPerc();  
+    }  
+    private String crclName;  
+    private String network;  
+    private String module;  
+    private String region;  
+    private String branchCode;  
+    private String branchName;  
+    private Integer lipiKioskCount;  
+    private Integer lipiTxnCount;  
+    private Integer forbesKioskCount;  
+    private Integer forbesTxnCount;  
+    private Integer cmsKioskCount;  
+    private Integer cmsTxnCount;  
+    private Integer manualTxn;  
+    private Integer totalSwayamTxn;  
+    private Double migrationPerc;  
+      
+      
+      
+      
+}  
