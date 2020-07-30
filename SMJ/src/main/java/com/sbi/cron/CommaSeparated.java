@@ -33,8 +33,8 @@ public class CommaSeparated {
 
 	@Autowired
 	SwayamTranactionhourRepository swayamTranactionhourRepository;
-	@Autowired
-	MyProcedureScheduler myProcedureScheduler ;
+	//@Autowired
+	//MyProcedureScheduler myProcedureScheduler ;
 
 	public void fileRead(String path) {
 
@@ -214,7 +214,7 @@ public class CommaSeparated {
 				}
 				swayamTranactionhourRepository.deleteAll();
 				swayamTranactionhourRepository.saveAll(listentity);
-				 myProcedureScheduler.executprodure();
+				// myProcedureScheduler.executprodure();
 			} catch (Exception e) {
 				System.out.println(e);
 			}

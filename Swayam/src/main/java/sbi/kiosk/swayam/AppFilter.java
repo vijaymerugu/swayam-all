@@ -32,7 +32,7 @@ public class AppFilter implements Filter {
 	        res.addHeader("Expires", "0" );
 	        res.addHeader("Pragma", "no-cache" );
 	        res.addHeader("Cache-control", "no-cache, no-store, max-age=0, must-revalidate");
-	        res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE");
+	        res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
 	        res.setHeader("Access-Control-Max-Age", "3600");
 	        res.setHeader("Access-Control-Allow-Headers", "authorization, content-type, xsrf-token");
 	       

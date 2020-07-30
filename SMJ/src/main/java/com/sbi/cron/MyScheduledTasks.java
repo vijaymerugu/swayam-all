@@ -5,16 +5,14 @@
  */
 package com.sbi.cron;
 
+import java.text.SimpleDateFormat;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * @author Ankur Verma
@@ -24,8 +22,8 @@ public class MyScheduledTasks {
 	
 	@Autowired
 	CommaSeparated commaseparated ;
-	@Autowired
-	MyProcedureScheduler myProcedureScheduler ;
+	//@Autowired
+	//MyProcedureScheduler myProcedureScheduler ;
 	
 	  @Value("${dailyreport.path}") private String dailyreportPath;//dailyreport.path
 	  
