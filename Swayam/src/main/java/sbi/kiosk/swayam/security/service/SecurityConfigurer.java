@@ -1,7 +1,9 @@
 package sbi.kiosk.swayam.security.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -12,13 +14,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import sbi.kiosk.swayam.common.filter.JwtRequestFilter;
 import sbi.kiosk.swayam.common.service.MyUserDetailsService;
 
 @SuppressWarnings("deprecation")
-
+@Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
@@ -41,7 +44,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable()
+		http//.csrf().disable()        	
 			.authorizeRequests()
 			.antMatchers("/login*").permitAll()
 			.antMatchers("/getToken").permitAll().anyRequest().authenticated()
@@ -49,13 +52,20 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))            
 			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))            
             .logoutSuccessUrl("https://adfs.sbi.co.in/adfs/ls/?wa=wsignout1.0")
-            .invalidateHttpSession(true)        // set invalidation state when logout
             .deleteCookies("JSESSIONID") 
-				.and().sessionManagement().maximumSessions(1);
+            .invalidateHttpSession(true)        // set invalidation state when logout            
+				.and()
+				.sessionManagement()
+				//.sessionFixation().migrateSession()
+				.maximumSessions(1)
+				.maxSessionsPreventsLogin(true)
+				.expiredUrl("https://adfs.sbi.co.in/adfs/ls/?wa=wsignout1.0");
 		http.headers().
 		httpStrictTransportSecurity()
 		.includeSubDomains(true)
 		.maxAgeInSeconds(31536000);
+		http.csrf()
+    	.ignoringAntMatchers("/getToken");
 
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
@@ -86,4 +96,9 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 		return NoOpPasswordEncoder.getInstance();
 
 	}
+	
+	@Bean
+    public static ServletListenerRegistrationBean httpSessionEventPublisher() {
+        return new ServletListenerRegistrationBean(new HttpSessionEventPublisher());
+    }
 }
