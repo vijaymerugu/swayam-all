@@ -73,6 +73,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
 				// System.out.println("Invlid JWT token");
 
+			} catch (Exception e) {
+
+				logger.error("BAD_REQUEST -  400 Bad Request");
+				logger.error("Exception is "+e.getMessage());
+
 			}
 
 		}

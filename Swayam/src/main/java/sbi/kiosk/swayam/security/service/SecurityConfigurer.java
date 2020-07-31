@@ -16,6 +16,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import sbi.kiosk.swayam.common.filter.JwtRequestFilter;
 import sbi.kiosk.swayam.common.service.MyUserDetailsService;
@@ -44,7 +47,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http//.csrf().disable()        	
+		http.cors()
+			.and()//.csrf().disable().and() 
 			.authorizeRequests()
 			.antMatchers("/login*").permitAll()
 			.antMatchers("/getToken").permitAll().anyRequest().authenticated()
@@ -72,6 +76,12 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 	}
 	
    
+	   @Bean
+	    CorsConfigurationSource corsConfigurationSource() {
+	        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+	        return source;
+	    }
 	
 	
 	
