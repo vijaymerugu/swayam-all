@@ -74,7 +74,7 @@ public class LoginController{
 		
 		auditLogger.setToken(token);
 		audit.save(auditLogger);
-	    mav.setViewName("home");
+		mav.setViewName("redirect:/home");
 		}catch(Exception e) {
 			logger.error("Invalid Token Exception():: ",e,e.getMessage());
 			mav.addObject("commonError", "Bad Request");
@@ -82,6 +82,14 @@ public class LoginController{
 		}
 		return mav;
 	}
+	
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	@PostAuthorize("hasPermission('login','READ')")
+	   public ModelAndView redirect() {
+		 ModelAndView mav = new ModelAndView("home");			
+		 return mav;
+	    
+	   }
 	
 	/*
 	 * @RequestMapping(value="login", method=RequestMethod.POST)

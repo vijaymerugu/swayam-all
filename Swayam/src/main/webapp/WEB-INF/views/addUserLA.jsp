@@ -634,6 +634,10 @@ $(document).ready(function(){
 	        	type:"POST",
 	        	url:"km/addUsersLA",
 	        	data:formData,
+	        	headers: 
+                {
+                    'X-CSRF-TOKEN': $('input[name="_csrf"]').attr('value')
+                },
 	         success: function(data){
 	        	 resp=data;       	 	        	 
 	        	// $("#para").html("User: "+resp+ " has been successfully created");
@@ -799,7 +803,7 @@ $(document).ready(function(){
 					
 					</tr>
 				</table>
-			<sec:csrfInput />  
+			 
 			</form:form>
 
 
@@ -844,5 +848,5 @@ $(document).ready(function(){
 
 </script>	
 </body>
-
+<sec:csrfInput /> 
 </html>

@@ -544,6 +544,10 @@ function fromValidation(){
 	        	type:"POST",
 	        	url:"hm/addRequest",
 	        	data:formData,
+	        	headers: 
+                {
+                    'X-CSRF-TOKEN': $('input[name="_csrf"]').attr('value')
+                },
 	         success: function(data){
 	        	 resp=data;   
 	        	 //alert(44);

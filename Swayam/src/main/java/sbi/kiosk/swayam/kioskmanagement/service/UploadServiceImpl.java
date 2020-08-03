@@ -987,6 +987,9 @@ public class UploadServiceImpl implements UploadService {
 				Optional<String> checkNullCircle = Optional.ofNullable(lidtDto1.getCircle());
 				Optional<String> checkNullState = Optional.ofNullable(lidtDto1.getState());
 				Optional<String> checkNullDate = Optional.ofNullable(lidtDto1.getHolidayDate());
+				if (!checkNullDay.isPresent() && !checkNullCircle.isPresent() && !checkNullState.isPresent() && ! checkNullDate.isPresent() ) {
+					
+				}else				
 				if (!checkNullDay.isPresent() || !checkNullCircle.isPresent() || !checkNullState.isPresent() || ! checkNullDate.isPresent() ) {
 					
 					entity = new HolidayCalendar();

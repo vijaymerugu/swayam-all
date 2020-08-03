@@ -111,7 +111,9 @@
             	// $("#para").html(resp);
 	        	 $("#para").html(resp+" Data Uploaded Successfully"); 
 	     		 modal.style.display = "block"; 
-	     		window.open("resources/download/"+data+".xlsx" , '_blank');  
+	     		if(data == 'Data Not Uploaded'){ 
+	     		  window.open("resources/download/"+data+".xlsx" , '_blank');  
+	     		}
 	     	//	alert(data1);         
           
             }
