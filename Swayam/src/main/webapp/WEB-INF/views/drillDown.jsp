@@ -8,14 +8,27 @@
             src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-datepicker3.min.css">
-<script>
+<!-- <script>
 $(document).ready(function(){
     $(function () {
         $('#datepickerFromDate,#datepickerToDate').datepicker({dateFormat:'dd-mm-yy'});
     });
 });
 
-</script>
+</script> -->
+
+<script>
+$(document).ready(function(){
+    $(function () {
+
+			$('#datepickerFromDate,#datepickerToDate').datepicker({ changeYear: true, changeMonth: true, dateFormat:'dd-mm-yy'});
+		
+    });
+    
+});
+			
+</script> 
+
 <meta http-equiv="x-ua-compatible" content="IE=edge">
 <link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
 <script	src="resources/js/angular.1.5.6.min.js"></script>
@@ -66,8 +79,8 @@ $(document).ready(function(){
               <div> 
               
 					<div>
-						<br /> From Date: <input type="date" id="datepickerFromDate" name="input1" ng-model="searchDateStart" placeholder="dd-mm-yyyy" required maxlength="10" /> 
-							To	Date : <input type="date" id="datepickerToDate" name="input2"	ng-model="searchDateEnd" placeholder="dd-mm-yyyy" required maxlength="10"  />
+						<br /> From Date: <input type="date" id="datepickerFromDate" name="input1" readonly="readonly" ng-model="searchDateStart" placeholder="dd-mm-yyyy" required maxlength="10" /> 
+							To	Date : <input type="date" id="datepickerToDate" name="input2" readonly="readonly"	ng-model="searchDateEnd" placeholder="dd-mm-yyyy" required maxlength="10"  />
 						<button type="button"  ng-click="searchPositions(searchDateStart,searchDateEnd) ">Generate</button>
 
 					</div>
@@ -117,6 +130,36 @@ $(document).ready(function(){
 angular.bootstrap(document.getElementById("appId"), ['app']);
 </script>
 
+<script type="text/javascript">
+      
+      $(document).ready(function(){
+
+    	    $(".openpdfonclick").click(function(){
+    	    	
+    	        $.ajax({
+    	            url: 'report?page=drillDown&type=pdf',
+    	            type: 'GET',   
+    	            success: function(data){
+    	            	console.log(data);
+    	            	window.open("resources/download/"+data , '_blank');  
+    	            }
+    	        });
+    	    });
+    	    $(".openxlonclick").click(function(){    	
+    	        $.ajax({
+    	            url: 'report?page=drillDown&type=excel',
+    	            type: 'GET',   
+    	            success: function(data){
+    	            	console.log(data);
+    	            	window.open("resources/download/"+data , '_blank');  
+    	            }
+    	        });
+    	    });
+    	}); 
+    		
+    		
+      
+      </script>
 <script>
   /* $(function() {
     $("#datepicker").datepicker()({

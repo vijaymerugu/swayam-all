@@ -9,14 +9,32 @@
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-datepicker3.min.css">
 
-<script>
+<!-- <script>
 $(document).ready(function(){
     $(function () {
         $('#datepickerFromDate,#datepickerToDate').datepicker({dateFormat:'dd-mm-yy'});
     });
 });
 
-</script>
+</script> -->
+
+<script>
+$(document).ready(function(){
+    $(function () {
+			
+			var d = new Date();
+			var year = d.getFullYear() - 5;
+			d.setFullYear(year);
+	
+			$('#datepickerFromDate,#datepickerToDate').datepicker({ changeYear: true, changeMonth: true, dateFormat:'dd-mm-yy'});
+		//	 $('#datepickerFromDate,#datepickerToDate').datepicker({dateFormat:'dd-mm-yy'});
+    });
+    
+});
+
+			
+</script> 
+
 <meta http-equiv="x-ua-compatible" content="IE=edge">
 
 <script	src="resources/js/angular.1.5.6.min.js"></script>
@@ -39,14 +57,14 @@ $(document).ready(function(){
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
-<!-- <script>
+<script>
   $( function() {
     $( "#datepicker" ).datepicker({ 
         minDate: -20, maxDate: "+1M +15D" });
   } );
-</script> -->	
+</script>	
 
-<script>
+<!-- <script>
   $.ajax({
   	type:"GET",
   	url:"td/getCurrentDate",
@@ -58,7 +76,18 @@ $(document).ready(function(){
 
       }
    	   });
-  </script>
+  </script> -->
+<script>
+$(document).ready(function(){
+    $(function () {
+
+			$('#datepickerFromDate,#datepickerToDate').datepicker({ changeYear: true, changeMonth: true, dateFormat:'dd-mm-yy'});
+		
+    });
+    
+});
+			
+</script> 
 	
 </head>
 <body>
@@ -72,8 +101,8 @@ $(document).ready(function(){
  <div>
 				<table class="" style="border: 1px solid #eee;">
 					<div>
-						<br /> From Date: <input type="date" id="datepickerFromDate" name="input1" ng-model="searchDateStart" placeholder="dd-mm-yyyy" required maxlength="10"/> 
-							To Date : <input type="date" id="datepickerToDate" name="input2" ng-model="searchDateEnd"  placeholder="dd-mm-yyyy" required maxlength="10" />
+						<br /> From Date: <input type="date" id="datepickerFromDate" name="input1" readonly="readonly"  ng-model="searchDateStart" placeholder="dd-mm-yyyy" required maxlength="10"/> 
+							To Date : <input type="date" id="datepickerToDate" name="input2" readonly="readonly"  ng-model="searchDateEnd"  placeholder="dd-mm-yyyy" required maxlength="10" />
 						<button type="button" ng-click="searchPositions(searchDateStart,searchDateEnd) ">Generate</button>
 
 					</div>

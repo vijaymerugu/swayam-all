@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import sbi.kiosk.swayam.common.entity.DateFrame;
 import sbi.kiosk.swayam.common.entity.SwayamMigrationSummary;
 import sbi.kiosk.swayam.transactiondashboard.service.TransactionDashBoardService;
 
@@ -19,6 +20,9 @@ public class TransactionDashBoardController {
 	
 	@Autowired
 	TransactionDashBoardService transactionDashBoardService;
+	
+	@Autowired
+	DateFrame dateFrame;
 
 	@RequestMapping("td/transactionSummary")
 	public ModelAndView transactionDashBoard() {
@@ -30,6 +34,13 @@ public class TransactionDashBoardController {
 	@RequestMapping(value = "td/dashBoardTxnBM/get", params = { "page", "size", "fromdate",	"todate" }, method = RequestMethod.GET, produces = "application/json")
 	public Page<SwayamMigrationSummary> findPaginated(@RequestParam("page") int page, @RequestParam("size") int size,@RequestParam("fromdate") String fromdate, @RequestParam("todate") String todate) {
 		Page<SwayamMigrationSummary> resultPage = transactionDashBoardService.findPaginated(page, size, fromdate,todate);
+		
+		
+		  dateFrame.setFromDate(fromdate); dateFrame.setToDate(todate);
+		  
+		  logger.info("Inside TransactionDashboardController From date from jsp: "+dateFrame.getFromDate());
+		  logger.info("Inside TransactionDashboardController To date from jsp: "+dateFrame.getToDate());
+		 
 		
 		logger.info("resultPage==" + resultPage.getNumberOfElements());
 		if (page > resultPage.getTotalPages()) {

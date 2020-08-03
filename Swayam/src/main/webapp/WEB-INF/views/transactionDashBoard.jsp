@@ -6,14 +6,27 @@
             src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-datepicker3.min.css">
-<script>
+<!-- <script>
 $(document).ready(function(){
     $(function () {
         $('#datepickerFromDate,#datepickerToDate').datepicker({dateFormat:'dd-mm-yy'});
     });
 });
 
-</script>
+</script> -->
+
+<script>
+$(document).ready(function(){
+    $(function () {
+
+			$('#datepickerFromDate,#datepickerToDate').datepicker({ changeYear: true, changeMonth: true, dateFormat:'dd-mm-yy'});
+		
+    });
+    
+});
+			
+</script> 
+
 <meta http-equiv="x-ua-compatible" content="IE=edge">
 <link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
 <script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment-with-locales.min.js"></script>
@@ -50,8 +63,8 @@ $(document).ready(function(){
    <div>
 				<table class="" style="border: 1px solid #eee;">
 					<div>
-						<br /> From Date: <input type="date" id="datepickerFromDate" name="input1" ng-model="searchDateStart" placeholder="dd-mm-yyyy" required maxlength="10"/> 
-							To Date : <input type="date" id="datepickerToDate" name="input2" ng-model="searchDateEnd"  placeholder="dd-mm-yyyy" required maxlength="10" />
+						<br /> From Date: <input type="date" id="datepickerFromDate" name="input1" ng-model="searchDateStart" readonly="readonly" placeholder="dd-mm-yyyy" required maxlength="10"/> 
+							To Date : <input type="date" id="datepickerToDate" name="input2" ng-model="searchDateEnd" readonly="readonly" placeholder="dd-mm-yyyy" required maxlength="10" />
 						<button type="button" id="myBtn" ng-click="searchPositions(searchDateStart,searchDateEnd) ">Generate</button>
 					</div>
 				</table>
@@ -133,9 +146,11 @@ $(document).ready(function(){
 
     	    $(".openpdfonclick").click(function(){
     	    	
+    	    	
+    	    	
     	        $.ajax({
-    	            url: 'report?page=transactionSummary&type=pdf',
-    	            type: 'GET',   
+    	            url: 'report?page=transactionSummary&type=pdf ',
+    	            type: 'GET',  
     	            success: function(data){
     	            	console.log(data);
     	            	window.open("resources/download/"+data , '_blank');  

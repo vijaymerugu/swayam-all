@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import sbi.kiosk.swayam.common.entity.DateFrame;
 import sbi.kiosk.swayam.common.entity.ErrorReporting;
 import sbi.kiosk.swayam.transactiondashboard.service.ErrorReportingService;
 
@@ -22,6 +23,9 @@ Logger logger = LoggerFactory.getLogger(ErrorReportingContoller.class);
 	@Autowired
 	ErrorReportingService errorReportingService;
 
+	@Autowired
+	DateFrame dateFrame;
+	
 	@RequestMapping("td/errorReporting")
 	public ModelAndView errorReporting() {
 		logger.info("errorReporting==========");
@@ -41,6 +45,15 @@ Logger logger = LoggerFactory.getLogger(ErrorReportingContoller.class);
 		
 		Page<ErrorReporting> resultPage = errorReportingService.findPaginated(page, size, fromDate,toDate);
 		
+		
+		  dateFrame.setFromDate(fromDate); dateFrame.setToDate(toDate);
+		  
+		  logger.info("Inside ZeroTransactionKiosksController From date from jsp: "
+		  +dateFrame.getFromDate());
+		  logger.info("Inside ZeroTransactionKiosksController To date from jsp: "
+		  +dateFrame.getToDate());
+		 
+		  
 		logger.info("resultPage==" + resultPage.getNumberOfElements());
 		if (page > resultPage.getTotalPages()) {
 			// throw new MyResourceNotFoundException();

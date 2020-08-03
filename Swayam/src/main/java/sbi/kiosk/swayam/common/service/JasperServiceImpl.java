@@ -44,6 +44,7 @@ import sbi.kiosk.swayam.common.dto.UserDto;
 import sbi.kiosk.swayam.common.dto.UserManagementDto;
 import sbi.kiosk.swayam.common.dto.ZeroTransactionKiosksDto;
 import sbi.kiosk.swayam.common.entity.BranchMaster;
+import sbi.kiosk.swayam.common.entity.DateFrame;
 import sbi.kiosk.swayam.common.entity.ErrorReporting;
 import sbi.kiosk.swayam.common.entity.RealTimeTransaction;
 import sbi.kiosk.swayam.common.entity.Supervisor;
@@ -110,6 +111,8 @@ public class JasperServiceImpl implements JasperService {
 
 	@Autowired
 	ErrorReportingRepositoryPaging errorReportingRepositoryPaging;
+	
+	 @Autowired DateFrame dateFrame;
 
 	public static HttpSession session() {
 		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
@@ -743,12 +746,30 @@ public class JasperServiceImpl implements JasperService {
 
 	@Override
 	public List<TransactionDashBoardDto> findAllTransactionSummary() {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-		Date curDate = new Date();
-		curDate.setTime(curDate.getTime() - 48 * 60 * 60 * 1000);
-		String fromdate = sdf.format(curDate);
-		String todate = sdf.format(curDate);
+		
 		logger.info("Inside==Jasper====findAllTransactionSummary===========");
+		String fromdate = "";
+		String todate = "";
+		
+		  if((dateFrame.getFromDate()== "") && (dateFrame.getToDate()== "")) {
+			
+			  SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+				Date curDate = new Date();
+				curDate.setTime(curDate.getTime() - 48 * 60 * 60 * 1000);
+				 fromdate = sdf.format(curDate);
+				 todate = sdf.format(curDate);
+		  }
+		  else
+		  {
+			   fromdate = dateFrame.getFromDate();
+			   todate = dateFrame.getToDate();
+		  }
+		
+		logger.info("Inside==Jasper====findAllTransactionSummary=======after date setting====");
+		
+		 logger.info("Inside TransactionDashboardController From date from jsp: "+dateFrame.getFromDate());
+		  logger.info("Inside TransactionDashboardController To date from jsp: "+dateFrame.getToDate());
+		  
 		List<SwayamMigrationSummary> page = transactionDashBoardRepositoryPaging.findAllByDate(fromdate, todate);
 		List<TransactionDashBoardDto> entities = ObjectMapperUtils.mapAll(page, TransactionDashBoardDto.class);
 		return entities;
@@ -766,6 +787,15 @@ public class JasperServiceImpl implements JasperService {
 	@Override
 	public List<ZeroTransactionKiosksDto> findAllZeroTxnKoisk(String fromdate, String todate) {
 		logger.info("Inside==Jasper====findAllZeroTxnKoisk===========");
+		logger.info("Inside==Jasper====findAllZeroTxnKoisk=========== From date: "+dateFrame.getFromDate());
+		  logger.info("Inside==Jasper====findAllZeroTxnKoisk===========To date: "+dateFrame.getToDate());
+		 
+		  if((dateFrame.getFromDate()!= "") && (dateFrame.getToDate()!= "")) {
+				
+			  fromdate = dateFrame.getFromDate();
+			   todate = dateFrame.getToDate();
+		  }
+		 
 		List<ZeroTransactionKiosks> list = zeroTransactionKiosksRepo.findByDateZeroTxn(fromdate, todate);
 		List<ZeroTransactionKiosksDto> entities = ObjectMapperUtils.mapAll(list, ZeroTransactionKiosksDto.class);
 		return entities;
@@ -774,6 +804,16 @@ public class JasperServiceImpl implements JasperService {
 	@Override
 	public List<ErrorReportingDto> findAllErrorReprting(String fromdate, String todate) {
 		logger.info("Inside==Jasper====findAllErrorReprting===========");
+		
+		  logger.info("Inside==Jasper====findAllZeroTxnKoisk=========== From date: "
+		  +dateFrame.getFromDate());
+		  logger.info("Inside==Jasper====findAllZeroTxnKoisk===========To date: "
+		  +dateFrame.getToDate());
+		  
+		  if((dateFrame.getFromDate()!= "") && (dateFrame.getToDate()!= "")) {
+		  
+		  fromdate = dateFrame.getFromDate(); todate = dateFrame.getToDate(); }
+		 
 		List<ErrorReporting> list = errorReportingRepositoryPaging.findAllErrReport(fromdate, todate);
 		List<ErrorReportingDto> entities = ObjectMapperUtils.mapAll(list, ErrorReportingDto.class);
 		return entities;
