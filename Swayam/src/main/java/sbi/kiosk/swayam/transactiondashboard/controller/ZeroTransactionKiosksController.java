@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import sbi.kiosk.swayam.common.constants.ExceptionConstants;
+import sbi.kiosk.swayam.common.entity.DateFrame;
 import sbi.kiosk.swayam.common.entity.ZeroTransactionKiosks;
 import sbi.kiosk.swayam.transactiondashboard.service.ZeroTransactionKiosksService;
 
@@ -21,6 +22,9 @@ public class ZeroTransactionKiosksController {
 	Logger logger = LoggerFactory.getLogger(ZeroTransactionKiosksController.class);
 	@Autowired
 	ZeroTransactionKiosksService zeroTransactionKiosksService;
+	
+	@Autowired
+	DateFrame dateFrame;
 	
 	@RequestMapping("td/zeroTransactionKiosks")
 	public ModelAndView zeroTransactionKiosksPage(ModelAndView model, HttpSession session) {
@@ -52,6 +56,11 @@ public class ZeroTransactionKiosksController {
 			toDate="";
 		}
 			
+		  dateFrame.setFromDate(fromDate); dateFrame.setToDate(toDate);
+		  
+		  logger.info("Inside ZeroTransactionKiosksController From date from jsp: "+dateFrame.getFromDate());
+		  logger.info("Inside ZeroTransactionKiosksController To date from jsp: "+dateFrame.getToDate());
+		  
 	      resultPage = zeroTransactionKiosksService.findPaginatedByDate(page, size, fromDate, toDate);
 		
 		    if (page > resultPage.getTotalPages()){
