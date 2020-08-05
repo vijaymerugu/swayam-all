@@ -19,7 +19,7 @@ $(document).ready(function(){
 $(document).ready(function(){
     $(function () {
 
-			$('#datepickerFromDate,#datepickerToDate').datepicker({ changeYear: true, changeMonth: true, dateFormat:'dd-mm-yy'});
+			$('#datepickerFromDate,#datepickerToDate').datepicker({ changeYear: true, changeMonth: true,autoclose: true,maxDate: new Date(), dateFormat:'dd-mm-yy'});
 		
     });
     

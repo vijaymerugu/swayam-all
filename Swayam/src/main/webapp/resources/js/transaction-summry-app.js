@@ -33,8 +33,15 @@ sort: null
    $scope.searchPositions= function(startDate,endDate){
 	   fromDate = $("#datepickerFromDate").val();
 	   toDate = $("#datepickerToDate").val();
-     
-
+	   
+       var $from=$("#datepickerFromDate").datepicker('getDate');
+       var $to =$("#datepickerToDate").datepicker('getDate');
+       if($from>$to)
+       	{
+       		alert("from date shouldn't greater than To date");
+       		$("#datepickerFromDate").focus();
+       	}
+   
 
   UserManagementService.getUsers(paginationOptions.pageNumber,
   paginationOptions.pageSize,fromDate,toDate).success(function(data){
@@ -103,9 +110,9 @@ useExternalPagination: true,
 
       columnDefs: [
           { name: 'crclName', displayName: 'Circle',superCol: 'front'  },
-          { name: 'network', displayName: 'NW',superCol: 'front'  },
-          { name: 'module', displayName: 'Mode',superCol: 'front'  },
-          { name: 'region', displayName: 'Reg',superCol: 'front'  },
+          { name: 'network', displayName: 'Network',superCol: 'front'  },
+          { name: 'module', displayName: 'Module',superCol: 'front'  },
+          { name: 'region', displayName: 'Region',superCol: 'front'  },
           { name: 'branchCode', displayName: 'Branch Code',superCol: 'front'},
           { name: 'branchName', displayName: 'Branch Name',superCol: 'front'  },
           { name: 'lipiKioskCount', displayName: 'No Of Kios',superCol: 'lipi'},
@@ -114,8 +121,8 @@ useExternalPagination: true,
           { name: 'forbesTxnCount', displayName: 'Txn',superCol: 'Forbes'},
           { name: 'cmsKioskCount', displayName: 'No Of Kios',superCol: 'CMS'},
           { name: 'cmsTxnCount', displayName: 'Txn',superCol: 'CMS'},
-          { name: 'manualTxn', displayName: 'SWAYAM Txn',superCol: 'total'},
-          { name: 'totalSwayamTxn', displayName: 'Branch Txn',superCol: 'total' },
+          { name: 'totalSwayamTxn', displayName: 'SWAYAM Txn',superCol: 'total'},
+          { name: 'manualTxn', displayName: 'Branch Txn',superCol: 'total' },
           { name: 'migrationPerc', displayName: 'Migration (%)',superCol: 'back'}
         ],
     onRegisterApi: function(gridApi) {

@@ -55,7 +55,16 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
     	  	 
     	  	 fromDate = $("#datepickerFromDate").val();
     	  	 toDate = $("#datepickerToDate").val();
-    		    		
+    	  	 
+      	    
+	        var $from=$("#datepickerFromDate").datepicker('getDate');
+	        var $to =$("#datepickerToDate").datepicker('getDate');
+	        if($from>$to)
+	        	{
+	        		alert("from date shouldn't greater than To date");
+	        		$("#datepickerFromDate").focus();
+	        	}
+		    
     	
     	DrillDownService.getUsers(paginationOptions.pageNumber,
     			   paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){

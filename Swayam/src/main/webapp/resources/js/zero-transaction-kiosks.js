@@ -10,6 +10,7 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
    var counttype = "";
    var fromDate = "";
    var toDate= "";
+   var currDate= "";
    
    /*
    function convertDate(dateParam){
@@ -27,14 +28,23 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
 	      return result;
 	  } */
   
+  
+   
+  
   $scope.CurrentDate = new Date();
 	   $scope.searchPositions= function(startDate,endDate){
+		   debugger; 
 		        fromDate = $("#datepickerFromDate").val();
 		        toDate = $("#datepickerToDate").val();
-		  
-	       //alert("From=="+fromDate);
-
-	       // alert("toDate=="+toDate);   
+		        
+		        var $from=$("#datepickerFromDate").datepicker('getDate');
+		        var $to =$("#datepickerToDate").datepicker('getDate');
+		        if($from>$to)
+		        	{
+		        		alert("from date shouldn't greater than To date");
+		        		$("#datepickerFromDate").focus();
+		        	}
+		    
     	 
     	 ZeroTransactionKiosksService.getUsers(paginationOptions.pageNumber,
      			   paginationOptions.pageSize,counttype,fromDate,toDate).success(function(data){     				  
