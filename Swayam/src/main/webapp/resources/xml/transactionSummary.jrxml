@@ -958,7 +958,8 @@
 <font size="8" isItalic="false"></font>
 </textElement>
 
-                <textFieldExpression><![CDATA[$F{manualTxn}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{totalSwayamTxn}]]></textFieldExpression>
+               
 
             </textField>
 <textField>
@@ -983,7 +984,7 @@
 <font size="8" isItalic="false"></font>
 </textElement>
 
-                <textFieldExpression><![CDATA[$F{totalSwayamTxn}]]></textFieldExpression>
+                 <textFieldExpression><![CDATA[$F{manualTxn}]]></textFieldExpression>
 
             </textField>
 <textField>
