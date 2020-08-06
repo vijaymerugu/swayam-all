@@ -36,18 +36,35 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
      $scope.CurrentDate = new Date();
       $scope.searchPositions= function(startDate,endDate){
     	  
-    	 // var ss = $("#startDate").val();
-    	//  alert("sss==============="+ss);
+    	
     	  fromDate = $("#datepickerFromDate").val();
     	  toDate = $("#datepickerToDate").val();
 	     
+    
 	        var $from=$("#datepickerFromDate").datepicker('getDate');
 	        var $to =$("#datepickerToDate").datepicker('getDate');
-	        if($from>$to)
-	        	{
-	        		alert("from date shouldn't greater than To date");
-	        		$("#datepickerFromDate").focus();
-	        	}
+	        if (($from== null) || ($to== null) )
+	 	   {
+	 	   
+	 	       if($from== null)
+	 	      	{
+	 	      		alert("Please enter from date!!!");
+	 	      		$("#datepickerFromDate").focus();
+	 	      	}
+	 	       if($to== null)
+	 	     	{
+	 	     		alert("Please enter to date!!!");
+	 	     		$("#datepickerToDate").focus();
+	 	     	}
+	    		}
+	        else
+	     	  {
+	 	    	   if($from>$to)
+	 	    	   {
+	 	         		alert("from date shouldn't greater than To date");
+	 	         		$("#datepickerFromDate").focus();
+	 	         	}
+	     	   }
 	    
 				   UserManagementService.getUsers(paginationOptions.pageNumber,
 							  paginationOptions.pageSize,fromDate,toDate).success(function(data){

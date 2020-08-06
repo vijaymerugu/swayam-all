@@ -751,24 +751,32 @@ public class JasperServiceImpl implements JasperService {
 		String fromdate = "";
 		String todate = "";
 		
-		  if((dateFrame.getFromDate()== "") && (dateFrame.getToDate()== "")) {
+		  if((dateFrame.getFromDate()!= "") && (dateFrame.getToDate()!= "")) 
+		  {
+			   fromdate = dateFrame.getFromDate();
+			   todate = dateFrame.getToDate();
+			   
+			     logger.info("findAllTransactionSummary===TimeFrame====fromdate==== " + fromdate);
+				 logger.info("findAllTransactionSummary====TimeFrame===todate==== "+todate);
+		  }
+		  else
+		  {
+			  
+			  
 			
 			  SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 				Date curDate = new Date();
 				curDate.setTime(curDate.getTime() - 48 * 60 * 60 * 1000);
 				 fromdate = sdf.format(curDate);
 				 todate = sdf.format(curDate);
+				 
+				 logger.info("findAllTransactionSummary=======Current=====fromdate==== " + fromdate);
+				 logger.info("findAllTransactionSummary=======Current=====todate==== "+todate);
 		  }
-		  else
-		  {
-			   fromdate = dateFrame.getFromDate();
-			   todate = dateFrame.getToDate();
-		  }
+	
 		
 		logger.info("Inside==Jasper====findAllTransactionSummary=======after date setting====");
 		
-		 logger.info("Inside TransactionDashboardController From date from jsp: "+dateFrame.getFromDate());
-		  logger.info("Inside TransactionDashboardController To date from jsp: "+dateFrame.getToDate());
 		  
 		List<SwayamMigrationSummary> page = transactionDashBoardRepositoryPaging.findAllByDate(fromdate, todate);
 		List<TransactionDashBoardDto> entities = ObjectMapperUtils.mapAll(page, TransactionDashBoardDto.class);
@@ -810,9 +818,12 @@ public class JasperServiceImpl implements JasperService {
 		  logger.info("Inside==Jasper====findAllZeroTxnKoisk===========To date: "
 		  +dateFrame.getToDate());
 		  
-		  if((dateFrame.getFromDate()!= "") && (dateFrame.getToDate()!= "")) {
+		  if((dateFrame.getFromDate()!= "") && (dateFrame.getToDate()!= "")) 
+		  {
 		  
-		  fromdate = dateFrame.getFromDate(); todate = dateFrame.getToDate(); }
+			  fromdate = dateFrame.getFromDate(); 
+			  todate = dateFrame.getToDate(); 
+		  }
 		 
 		List<ErrorReporting> list = errorReportingRepositoryPaging.findAllErrReport(fromdate, todate);
 		List<ErrorReportingDto> entities = ObjectMapperUtils.mapAll(list, ErrorReportingDto.class);
