@@ -762,7 +762,7 @@ public class JasperServiceImpl implements JasperService {
 				 logger.info("Inside findAllTransactionSummary===========Current==========From date: "+fromdate);
 				 logger.info("Inside findAllTransactionSummary===========Current==========To date: "+todate);
 	//	  }
-		  if((dateFrame.getFromDate()!= "") && (dateFrame.getToDate()!= "")) 
+		  if((dateFrame.getFromDate().isEmpty()== false) && (dateFrame.getToDate().isEmpty()== false)) 
 		  {
 			   fromdate = dateFrame.getFromDate();
 			   todate = dateFrame.getToDate();
@@ -773,9 +773,7 @@ public class JasperServiceImpl implements JasperService {
 		
 		logger.info("Inside==Jasper====findAllTransactionSummary=======after date setting====");
 		
-		 logger.info("Inside TransactionDashboardController From date from jsp: "+dateFrame.getFromDate());
-		  logger.info("Inside TransactionDashboardController To date from jsp: "+dateFrame.getToDate());
-		  
+		
 		List<SwayamMigrationSummary> page = transactionDashBoardRepositoryPaging.findAllByDate(fromdate, todate);
 		List<TransactionDashBoardDto> entities = ObjectMapperUtils.mapAll(page, TransactionDashBoardDto.class);
 		return entities;
