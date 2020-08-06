@@ -3,7 +3,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -383,5 +383,5 @@ input[type=button], input[type=submit], input[type=reset] {
 
 
 </body>
-<sec:csrfInput />  
+<input type="hidden" name="_csrf" value="<%=session.getAttribute("csrfToken")%>"> 
 </html>

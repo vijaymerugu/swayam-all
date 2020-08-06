@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="sbi.kiosk.swayam.common.dto.UserDto" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -179,5 +179,5 @@ $(document).ready(function(){
 </script>
 
 </body>
-<sec:csrfInput />  
+ 
 </html>

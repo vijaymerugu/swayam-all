@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page import="sbi.kiosk.swayam.common.dto.UserDto" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <title>manualTicket</title>
 <html>
 <head>
@@ -494,6 +494,10 @@ function saveform(){
 	        	type:"POST",
 	        	url:"manualTicketForm",
 	        	data:formData,
+	        	headers: 
+                {
+                    'X-CSRF-TOKEN': $('input[name="_csrf"]').attr('value')
+                },
 	         success: function(data){
 	        	 resp=data;       	 	        	 
 	        	 $("#para").html(resp); 
@@ -730,7 +734,8 @@ function cloesBox(){
 	</div>
 	
 </body>
-<sec:csrfInput />  
+<input type="hidden" name="_csrf" value="<%=session.getAttribute("csrfToken")%>"> 
+</html>
 
 
 
