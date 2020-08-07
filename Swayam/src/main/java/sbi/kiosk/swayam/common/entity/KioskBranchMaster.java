@@ -88,5 +88,9 @@ public class KioskBranchMaster {
 	
 	@Column(name="INSTALLATION_STATUS")
 	private String installationStatus;
+	
+	
+	@Column(name="RFP_REF_NO")
+	private String prfRefNumber;
 
 }
