@@ -108,12 +108,16 @@
             success: function(data){
             	resp= data;  
                 //  alert(resp) ;    	 	        	
-            	// $("#para").html(resp);
-	        	 $("#para").html(resp+" Data Uploaded Successfully"); 
-	     		 modal.style.display = "block"; 
+            	// $("#para").html(resp);	        	 
 	     		if(data == 'Data Not Uploaded'){ 
-	     		  window.open("resources/download/"+data+".xlsx" , '_blank');  
+	     			$("#para").html("Data Not Uploaded-View downloded file with empty columns"); 
+		     		 modal.style.display = "block"; 
+		     		window.open("resources/download/Holiday_Calendar.xlsx" , '_blank');    
 	     		}
+	     		else{
+	     			$("#para").html("Holiday Calendar Data Uploaded Successfully"); 
+		     		 modal.style.display = "block"; 
+		     	} 
 	     	//	alert(data1);         
           
             }
@@ -145,9 +149,16 @@
             	resp= data;  
             	//alert(resp) ;    	 	        	
 	        	// $("#para").html(resp);
-	        	 $("#para").html(resp+" Data Uploaded Successfully"); 
-	     		 modal.style.display = "block"; 
-	     		window.open("resources/download/"+data+".xlsx" , '_blank');  
+	        	 
+	     		if(data == 'Data Not Uploaded'){ 
+	     			$("#para").html("Data Not Uploaded-View downloded file with empty columns"); 
+		     		 modal.style.display = "block"; 
+	     			window.open("resources/download/Kiosk_CMF.xlsx" , '_blank');  
+	     		}
+	     		else{
+	     			$("#para").html("Kiosk Details Data Uploaded Successfully"); 
+		     		 modal.style.display = "block"; 
+		     	}
 	     		//alert(data1);          
           
             }
@@ -178,11 +189,17 @@
             success: function(data){
             	resp= data;  
             	// alert(resp) ;    	 	        	
-	        	// $("#para").html(resp);
-	        	 $("#para").html(resp+" Data Uploaded Successfully"); 
-	     		 modal.style.display = "block"; 
-	     		window.open("resources/download/"+data+".xlsx" , '_blank');  
-	     		// alert(data1);   
+	        	// $("#para").html(resp);	        	 
+	     		// alert(data1); 
+	     		if(data == 'Data Not Uploaded'){ 
+	     			$("#para").html("Data Not Uploaded-View downloded file with empty columns"); 
+		     		 modal.style.display = "block"; 
+		     		window.open("resources/download/Kiosk_Branch_Master.xlsx" , '_blank');    
+	     		}
+	     		else{
+	     			$("#para").html("Kiosk CMF Data Uploaded Successfully"); 
+		     		 modal.style.display = "block"; 
+		     	}  
 	        	            
           
             }
@@ -214,11 +231,16 @@
             	resp= data;  
             	
             //	alert(resp) ;    	 	        	
-	        	// $("#para").html(resp);
-	        	 $("#para").html(resp+" Data Uploaded Successfully"); 
-	     		 modal.style.display = "block"; 
-	     		window.open("resources/download/"+data+".xlsx" , '_blank');  
-	     		// alert(data1);         
+	        	// $("#para").html(resp);	        	 
+	     		if(data == 'Data Not Uploaded'){ 
+	     			$("#para").html("Data Not Uploaded-View downloded file with empty columns"); 
+		     		 modal.style.display = "block"; 
+		     		window.open("resources/download/BranchMaster.xlsx" , '_blank');    
+	     		}
+	     		else{
+	     			$("#para").html("Branch Master Data Uploaded Successfully"); 
+		     		 modal.style.display = "block"; 
+		     	}          
           
             }
         });

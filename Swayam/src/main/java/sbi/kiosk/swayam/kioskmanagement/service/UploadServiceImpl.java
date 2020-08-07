@@ -343,9 +343,41 @@ public class UploadServiceImpl implements UploadService {
 				Optional<String> checkNullBranchCode = Optional.ofNullable(lidtDto1.getBranchCode());
 				Optional<String> checkNullKioskSerialNumber = Optional.ofNullable(lidtDto1.getKioskSerialNumber());
 				Optional<String> checkNulloS = Optional.ofNullable(lidtDto1.getoS());
+				
+				Optional<String> checkNullSrNo = Optional.ofNullable(lidtDto1.getSrNo());
+				Optional<String> checkNullCircle = Optional.ofNullable(lidtDto1.getCircle());
+				Optional<String> checkNullBranchName= Optional.ofNullable(lidtDto1.getBranchName());
+				Optional<String> checkNullMake = Optional.ofNullable(lidtDto1.getMake());
+				Optional<String> checkNullSiteType = Optional.ofNullable(lidtDto1.getSiteType());
+				Optional<String> checkNullLocation = Optional.ofNullable(lidtDto1.getLocation());
+				Optional<String> checkNullAddress = Optional.ofNullable(lidtDto1.getAddress());
+				Optional<String> checkNullInstallationStatus = Optional.ofNullable(lidtDto1.getInstallationStatus());		
+				
+				
+				if ((!checkNullgetKioskID.isPresent() || checkNullgetKioskID.get().trim().equals(""))
+						&& (!checkNullVendor.isPresent() || checkNullVendor.get().trim().equals(""))
+						&& (!checkNullInstallationDate.isPresent() || checkNullInstallationDate.get().trim().equals(""))
+						&& (!checkNullKioskMacAddress.isPresent() || checkNullKioskMacAddress.get().trim().equals(""))
+						&& (!checkNullBranchCode.isPresent() || checkNullBranchCode.get().trim().equals(""))
+						&& (!checkNullKioskSerialNumber.isPresent() || checkNullKioskSerialNumber.get().trim().equals(""))
+						&& (!checkNulloS.isPresent() || checkNulloS.get().trim().equals(""))						
+						
+						&& (!checkNullSrNo.isPresent() || checkNullSrNo.get().trim().equals(""))
+						&& (!checkNullCircle.isPresent() || checkNullCircle.get().trim().equals(""))
+						&& (!checkNullBranchName.isPresent() || checkNullBranchName.get().trim().equals(""))
+						&& (!checkNullMake.isPresent() || checkNullMake.get().trim().equals(""))
+						&& (!checkNullSiteType.isPresent() || checkNullSiteType.get().trim().equals(""))
+						&& (!checkNullLocation.isPresent() || checkNullLocation.get().trim().equals(""))
+						&& (!checkNullAddress.isPresent() || checkNullAddress.get().trim().equals(""))					
+						&& (!checkNullInstallationStatus.isPresent() || checkNullInstallationStatus.get().trim().equals(""))) {
+					
+				}else				
 				if (!checkNullgetKioskID.isPresent() || !checkNullVendor.isPresent() || !checkNullInstallationDate.isPresent()
 						|| !checkNullKioskMacAddress.isPresent() || !checkNullBranchCode.isPresent() || !checkNullKioskSerialNumber.isPresent()
-						|| !checkNulloS.isPresent()) {
+						|| !checkNulloS.isPresent()
+						|| checkNullgetKioskID.get().trim().equals("") || checkNullVendor.get().trim().equals("") || checkNullInstallationDate.get().trim().equals("")
+						|| checkNullKioskMacAddress.get().trim().equals("") || checkNullBranchCode.get().trim().equals("") || checkNullKioskSerialNumber.get().trim().equals("")
+						|| checkNulloS.get().trim().equals("")) {
 					entity = new KioskBranchMaster();
 					entity.setSrNo(entity.getSrNo());
 					entity.setCircle(lidtDto1.getCircle());// 2
@@ -364,15 +396,23 @@ public class UploadServiceImpl implements UploadService {
 					entity.setAddress(lidtDto1.getAddress());
 					entity.setInstallationStatus(lidtDto1.getInstallationStatus());
 					listEntity1.add(entity);
-					KioskBranchMasterxlsx(listEntity1);
+					//KioskBranchMasterxlsx(listEntity1);
 
 				}
 
 			}
-			Iterable<KioskBranchMaster> result = kioskMasterManagementRepository.saveAll(listEntity);
-			if (result != null)
-				//return "Kiosk Details Uploaded Successfully";
-				return "Kiosk_Branch_Master";
+			if(listEntity1 !=null && listEntity1.size() > 0)
+			{	
+				KioskBranchMasterxlsx(listEntity1);
+				return "Data Not Uploaded";
+			}
+			else {
+				Iterable<KioskBranchMaster> result = kioskMasterManagementRepository.saveAll(listEntity);
+				if (result != null)
+					//return "Kiosk Details Uploaded Successfully";
+					return "Kiosk_Branch_Master";			
+			}
+			
 		} catch (Exception e) {
 			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		} finally {
@@ -745,8 +785,51 @@ public class UploadServiceImpl implements UploadService {
 				Optional<String> checkNullBranchname = Optional.ofNullable(listDto1.getBranchName());
 				Optional<String> checkNullstatcode = Optional.ofNullable(listDto1.getStatCode());
 				
+				Optional<String> checkNullAddr1 = Optional.ofNullable(listDto1.getAddress1());
+				Optional<String> checkNullAddr2 = Optional.ofNullable(listDto1.getAddress2());
+				Optional<String> checkNullAddr3= Optional.ofNullable(listDto1.getAddress3());
+				Optional<String> checkNullAddr4 = Optional.ofNullable(listDto1.getAddress4());
+				Optional<String> checkNullcRCLCode = Optional.ofNullable(listDto1.getcRCLCode());
+				Optional<String> checkNullBranchMgrName = Optional.ofNullable(listDto1.getBranchMgrName());
+				Optional<String> checkNullBranchMgrMobileNo = Optional.ofNullable(listDto1.getBranchMgrMobileNo());
+				Optional<String> checkNullBusinessHrs = Optional.ofNullable(listDto1.getBusinessHrs());
+				Optional<String> checkNullDistCode = Optional.ofNullable(listDto1.getDistCode());
+				Optional<String> checkNullDistDesc= Optional.ofNullable(listDto1.getDistDesc());
+				Optional<String> checkNullEmail = Optional.ofNullable(listDto1.getEmail());
+				Optional<String> checkNullPinCode = Optional.ofNullable(listDto1.getPinCode());
+				Optional<String> checkNullOfficeDesc = Optional.ofNullable(listDto1.getOfficeDesc());
+				Optional<String> checkNullOfficeType = Optional.ofNullable(listDto1.getOfficeType());
+				
+				
+				
+				if ((!checkNullcRCLName.isPresent() || checkNullcRCLName.get().trim().equals(""))
+						&& (!checkNullRegion.isPresent() || checkNullRegion.get().trim().equals(""))
+						&& (!checkNullBranchCode.isPresent() || checkNullBranchCode.get().trim().equals(""))
+						&& (!checkNullModcode.isPresent() || checkNullModcode.get().trim().equals(""))
+						&& (!checkNullModule.isPresent() || checkNullModule.get().trim().equals(""))
+						&& (!checkNullBranchname.isPresent() || checkNullBranchname.get().trim().equals(""))
+						&& (!checkNullstatcode.isPresent() || checkNullstatcode.get().trim().equals(""))						
+						&& (!checkNullAddr1.isPresent() || checkNullAddr1.get().trim().equals(""))
+						&& (!checkNullAddr2.isPresent() || checkNullAddr2.get().trim().equals(""))
+						&& (!checkNullAddr3.isPresent() || checkNullAddr3.get().trim().equals(""))
+						&& (!checkNullAddr4.isPresent() || checkNullAddr4.get().trim().equals(""))
+						&& (!checkNullcRCLCode.isPresent() || checkNullcRCLCode.get().trim().equals(""))
+						&& (!checkNullBranchMgrName.isPresent() || checkNullBranchMgrName.get().trim().equals(""))
+						&& (!checkNullBranchMgrMobileNo.isPresent() || checkNullBranchMgrMobileNo.get().trim().equals(""))
+						&& (!checkNullBusinessHrs.isPresent() || checkNullBusinessHrs.get().trim().equals(""))
+						&& (!checkNullDistCode.isPresent() || checkNullDistCode.get().trim().equals(""))
+						&& (!checkNullDistDesc.isPresent() || checkNullDistDesc.get().trim().equals(""))
+						&& (!checkNullEmail.isPresent() || checkNullEmail.get().trim().equals(""))
+						&& (!checkNullPinCode.isPresent() || checkNullPinCode.get().trim().equals(""))
+						&& (!checkNullOfficeDesc.isPresent() || checkNullOfficeDesc.get().trim().equals(""))
+						&& (!checkNullOfficeType.isPresent() || checkNullOfficeType.get().trim().equals(""))) {
+					
+				}else
 				if (!checkNullRegion.isPresent() || !checkNullBranchCode.isPresent() || !checkNullcRCLName.isPresent() || !checkNullModcode.isPresent()
-						|| !checkNullModule.isPresent() || !checkNullBranchname.isPresent() || !checkNullstatcode.isPresent()) {
+						|| !checkNullModule.isPresent() || !checkNullBranchname.isPresent() || !checkNullstatcode.isPresent()
+						|| checkNullRegion.get().trim().equals("") || checkNullBranchCode.get().trim().equals("") || checkNullcRCLName.get().trim().equals("")
+						|| checkNullModcode.get().trim().equals("") || checkNullModule.get().trim().equals("") || checkNullBranchname.get().trim().equals("")
+						|| checkNullstatcode.get().trim().equals("")) {
 					entity = new BranchMaster();
 					entity.setBranchCode(listDto1.getBranchCode());
 					entity.setBranchName(listDto1.getBranchName());
@@ -782,15 +865,22 @@ public class UploadServiceImpl implements UploadService {
 					entity.setStatDesc(listDto1.getStateDesc());
 
 					listEntity1.add(entity);
-				//	branchmasterxlsx(listEntity1);
+					//branchmasterxlsx(listEntity1);
 
 				}
 			}
-		
-			Iterable<BranchMaster> result =	branchMasterRepository.saveAll(listEntity);
-			if(result != null) {
-		//	return "Branch Master Data Uploaded Successfully";
-			return "BranchMaster";
+			if(listEntity1 !=null && listEntity1.size() > 0)
+			{	
+				branchmasterxlsx(listEntity1);
+				return "Data Not Uploaded";
+			}
+			else {
+				Iterable<BranchMaster> result =	branchMasterRepository.saveAll(listEntity);
+				if(result != null) {
+			//	return "Branch Master Data Uploaded Successfully";
+				return "BranchMaster";
+			}
+			
 			}
 		} // try close
 		catch (Exception e) {
@@ -987,10 +1077,18 @@ public class UploadServiceImpl implements UploadService {
 				Optional<String> checkNullCircle = Optional.ofNullable(lidtDto1.getCircle());
 				Optional<String> checkNullState = Optional.ofNullable(lidtDto1.getState());
 				Optional<String> checkNullDate = Optional.ofNullable(lidtDto1.getHolidayDate());
-				if (!checkNullDay.isPresent() && !checkNullCircle.isPresent() && !checkNullState.isPresent() && ! checkNullDate.isPresent() ) {
+				
+				Optional<String> checkName = Optional.ofNullable(lidtDto1.getName());
+				
+				if ((!checkNullDay.isPresent() || checkNullDay.get().trim().equals(""))
+						&& (!checkNullCircle.isPresent() || checkNullCircle.get().trim().equals(""))
+						&& (!checkNullState.isPresent() || checkNullState.get().trim().equals(""))
+						&& (!checkNullDate.isPresent() || checkNullDate.get().trim().equals(""))
+						&& (!checkName.isPresent() || checkName.get().trim().equals(""))) {
 					
 				}else				
-				if (!checkNullDay.isPresent() || !checkNullCircle.isPresent() || !checkNullState.isPresent() || ! checkNullDate.isPresent() ) {
+				if (!checkNullDay.isPresent() || !checkNullCircle.isPresent() || !checkNullState.isPresent() || ! checkNullDate.isPresent() 
+						|| checkNullDay.get().trim().equals("") || checkNullCircle.get().trim().equals("")  || checkNullState.get().trim().equals("")  || checkNullDate.get().trim().equals("") ) {
 					
 					entity = new HolidayCalendar();
 					entity.setHolidayDate(lidtDto1.getHolidayDate());
@@ -999,15 +1097,22 @@ public class UploadServiceImpl implements UploadService {
 					entity.setCircle(lidtDto1.getCircle());
 					entity.setState(lidtDto1.getState());
 					listEntity1.add(entity);
-					HolidayCalendarxlsx(listEntity1);
+					//HolidayCalendarxlsx(listEntity1);
 
 				}
 
 			}
-			Iterable<HolidayCalendar> result = holidayCalendarRepository.saveAll(listEntity);
-			if (result != null)
-			//	return "Holiday Calendar Data Uploaded Successfully";
-				return "Holiday_Calendar";
+			if(listEntity1 !=null && listEntity1.size() > 0)
+			{   
+				HolidayCalendarxlsx(listEntity1);
+				return "Data Not Uploaded";
+			}
+			else {
+				Iterable<HolidayCalendar> result = holidayCalendarRepository.saveAll(listEntity);
+				if (result != null)
+				//	return "Holiday Calendar Data Uploaded Successfully";
+					return "Holiday_Calendar";
+			}
 		}
 
 		catch (Exception e) {
@@ -1127,11 +1232,11 @@ public class UploadServiceImpl implements UploadService {
 						if (!(String.valueOf(cell.getRow().getRowNum()).equals("0"))) {
 							if (String.valueOf(cell.getColumnIndex()).equals("0")) {
 							
-								dto.setCmfPfId((String.valueOf(cell.getNumericCellValue())));
+								dto.setCmfPfId((String.valueOf((int)cell.getNumericCellValue())));
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("1")) {
 							
-								dto.setKioskId((String.valueOf(cell.getNumericCellValue())));
+								dto.setKioskId((String.valueOf((int)cell.getNumericCellValue())));
 							}
 
 							break;
@@ -1160,20 +1265,34 @@ public class UploadServiceImpl implements UploadService {
 				count++;
 				Optional<String> checkNullCmfPfId = Optional.ofNullable(lidtDto1.getCmfPfId());
 				Optional<String> checkNullgetKioskId = Optional.ofNullable(lidtDto1.getKioskId());
-				if (!checkNullgetKioskId.isPresent() || !checkNullCmfPfId.isPresent()) {
+				if ((!checkNullgetKioskId.isPresent() || checkNullgetKioskId.get().trim().equals(""))						
+						&& (!checkNullCmfPfId.isPresent() || checkNullCmfPfId.get().trim().equals(""))) {
+					
+				}else
+				if (!checkNullgetKioskId.isPresent() || !checkNullCmfPfId.isPresent()
+						|| checkNullgetKioskId.get().trim().equals("") || checkNullCmfPfId.get().trim().equals("")) {
 					entity = new UserKioskMapping();
 					entity.setPfId(lidtDto1.getCmfPfId());
 					entity.setKioskId(lidtDto1.getKioskId());
 					listEntity1.add(entity);
 					
-					emptyxlsx(listEntity1);
+					//emptyxlsx(listEntity1);
 
 				}
 			}
-			Iterable<UserKioskMapping> result = kioskCMFRepository.saveAll(listEntity);
-			if (result != null)
-			//	return "Kiosk_CMF Data Uploaded Successfully";
-				return "Kiosk_CMF";
+			if(listEntity1 !=null && listEntity1.size() > 0)
+			{	
+				emptyxlsx(listEntity1);
+				return "Data Not Uploaded";
+			}
+			else {
+				Iterable<UserKioskMapping> result = kioskCMFRepository.saveAll(listEntity);
+				if (result != null)
+				//	return "Kiosk_CMF Data Uploaded Successfully";
+					return "Kiosk_CMF";
+			}
+			
+			
 		}
 
 		catch (Exception e) {
@@ -1249,6 +1368,6 @@ public class UploadServiceImpl implements UploadService {
 
 	}
 
-	// -------By Ankur verma END---------
+	
 
 }

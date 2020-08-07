@@ -60,9 +60,9 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
             .invalidateHttpSession(true)        // set invalidation state when logout            
 				.and()
 				.sessionManagement()
-				//.sessionFixation().migrateSession()
+				.sessionFixation().migrateSession()
 				.maximumSessions(1)
-				.maxSessionsPreventsLogin(true)
+				.maxSessionsPreventsLogin(false)
 				.expiredUrl("https://adfs.sbi.co.in/adfs/ls/?wa=wsignout1.0");
 		http.headers().
 		httpStrictTransportSecurity()
