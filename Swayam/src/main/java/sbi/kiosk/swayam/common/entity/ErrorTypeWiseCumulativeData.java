@@ -54,7 +54,7 @@ public class ErrorTypeWiseCumulativeData implements Serializable {
 	private String errorType;
 	
 	@Column(name="TOTAL_NO_OF_TICKETS")
-	private String noOfTickets;
+	private Integer noOfTickets;
 	
 	@Column(name="ERROR_WISE_TOTAL_OPEN_TICKETS")
 	private Integer errorWiseTotalOpenTickets;
