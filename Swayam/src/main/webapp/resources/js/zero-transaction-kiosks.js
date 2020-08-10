@@ -33,17 +33,35 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
   
   $scope.CurrentDate = new Date();
 	   $scope.searchPositions= function(startDate,endDate){
-		   debugger; 
+		
 		        fromDate = $("#datepickerFromDate").val();
 		        toDate = $("#datepickerToDate").val();
 		        
 		        var $from=$("#datepickerFromDate").datepicker('getDate');
 		        var $to =$("#datepickerToDate").datepicker('getDate');
-		        if($from>$to)
-		        	{
-		        		alert("from date shouldn't greater than To date");
-		        		$("#datepickerFromDate").focus();
-		        	}
+		        
+		        if (($from== null) || ($to== null) )
+		 	   {
+		 	   
+		 	       if($from== null)
+		 	      	{
+		 	      		alert("Please enter from date!!!");
+		 	      		$("#datepickerFromDate").focus();
+		 	      	}
+		 	       if($to== null)
+		 	     	{
+		 	     		alert("Please enter to date!!!");
+		 	     		$("#datepickerToDate").focus();
+		 	     	}
+		    		}
+		        else
+		     	  {
+		 	    	   if($from>$to)
+		 	    	   {
+		 	         		alert("from date shouldn't greater than To date");
+		 	         		$("#datepickerFromDate").focus();
+		 	         	}
+		     	   }
 		    
     	 
     	 ZeroTransactionKiosksService.getUsers(paginationOptions.pageNumber,

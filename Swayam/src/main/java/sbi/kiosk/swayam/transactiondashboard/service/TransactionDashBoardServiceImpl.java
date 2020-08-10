@@ -13,7 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import sbi.kiosk.swayam.common.entity.DateFrame;
+
 import sbi.kiosk.swayam.common.entity.SwayamMigrationSummary;
 import sbi.kiosk.swayam.transactiondashboard.repository.TransactionDashBoardRepository;
 import sbi.kiosk.swayam.transactiondashboard.repository.TransactionDashBoardRepositoryPaging;
