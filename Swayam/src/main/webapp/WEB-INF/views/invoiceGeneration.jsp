@@ -8,7 +8,7 @@
 
 <script
 	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
-<script src="resources/js/billing-payment.js"></script>
+<script src="resources/js/invoice-generation.js"></script>
 <script	src="resources/js/angular.1.5.6.min.js"></script>
 <link rel="stylesheet" href="resources/css/grid-style.css"/>
 <link rel="stylesheet" href="resources/css/body-page.css"/>
@@ -76,7 +76,6 @@
         span.pull-right {
         padding:5px 10px;
         }
-        
          .ui-grid-header-cell-label {
 		display:inline-block;
 		white-space:initial;
@@ -114,9 +113,10 @@
 
 
 <div class="main" ng-app="app" id="appId">
-<div ng-controller="BillingPenaltyCtrl as vm">
+<div ng-controller="InvoiceGenarationCtrl as vm">
 <div>
- 		<form> <!-- ng-submit="searchPositions(SelectedCircelId,SelectedStateId,
+ 		
+		<form> <!-- ng-submit="searchPositions(SelectedCircelId,SelectedStateId,
 							SelectedQuarterId,SelectedYearId,SelectedVendorId,RfpId)" -->
 		<div class="tb-bk">
    <table>				
@@ -242,7 +242,7 @@
 		<a class="openpdfonclick"><img src="resources/img/pdf.svg"></a>
 		<a class="openxlonclick"><img src="resources/img/excel.svg"></a>
 		&nbsp;&nbsp;&nbsp;
-		</span>	
+		</span>
 		<br/>
 		
 		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test"></div>
@@ -257,16 +257,14 @@
 <script>
 angular.bootstrap(document.getElementById("appId"), ['app']);
 </script>
-
-
- <script type="text/javascript">
+<script type="text/javascript">
       
       $(document).ready(function(){
 
     	    $(".openpdfonclick").click(function(){
     	    	
     	        $.ajax({
-    	            url: 'report?page=bpReport&type=pdf',
+    	            url: 'report?page=invoiceReport&type=pdf',
     	            type: 'GET',   
     	            success: function(data){
     	            	console.log(data);
@@ -276,7 +274,7 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
     	    });
     	    $(".openxlonclick").click(function(){    	
     	        $.ajax({
-    	            url: 'report?page=bpReport&type=excel',
+    	            url: 'report?page=invoiceReport&type=excel',
     	            type: 'GET',   
     	            success: function(data){
     	            	console.log(data);
@@ -289,7 +287,6 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
     		
       
       </script>
-
 <script type="text/javascript">
     $(function () {
         $("#btnReset").bind("click", function () {
@@ -302,7 +299,6 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
         });
     });
 </script>
-
 
 </body>
 </html>

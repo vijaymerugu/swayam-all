@@ -203,6 +203,12 @@ public class BillingPenaltyController {
 		logger.info("selectedVendorId--- "+selectedVendorId);
 		logger.info("selectedRfpID--- "+selectedRfpID);
 		
+		report.setCircle(selectedCircelId);
+		report.setState(selectedStateId);
+		report.setTimePeiod(quterTimePeriod);
+		report.setVendor(selectedVendorId);
+		report.setRpfNumber(selectedRfpID);
+		
 		Page<BillingPenaltyEntity> resultPage = null;
 		
 		if(selectedCircelId.equals("undefined") ||
@@ -244,6 +250,11 @@ public class BillingPenaltyController {
 		logger.info("quterTimePeriod---- "+quterTimePeriod);
 		logger.info("selectedVendorId--- "+selectedVendorId);
 		logger.info("selectedRfpID--- "+selectedRfpID);
+		report.setCircle(selectedCircelId);
+		report.setState(selectedStateId);
+		report.setTimePeiod(quterTimePeriod);
+		report.setVendor(selectedVendorId);
+		report.setRpfNumber(selectedRfpID);
 		
 		Page<InvoiceGeneration> resultPage = null;
 		
@@ -292,6 +303,8 @@ public class BillingPenaltyController {
 		report.setTimePeiod(quterTimePeriod);
 		report.setVendor(selectedVendorId);
 		report.setRpfNumber(selectedRfpID);
+		
+		System.out.println("Check ");
 		
 		Page<InvoiceCompare> resultPage = null;
 		

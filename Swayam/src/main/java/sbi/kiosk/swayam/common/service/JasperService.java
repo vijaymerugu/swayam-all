@@ -2,8 +2,12 @@
   package sbi.kiosk.swayam.common.service;
   
   import java.util.List;
-  
-  import sbi.kiosk.swayam.common.dto.ErrorReportingDto; import
+
+import sbi.kiosk.swayam.common.dto.BillingPenaltyDto;
+import sbi.kiosk.swayam.common.dto.ErrorReportingDto;
+import sbi.kiosk.swayam.common.dto.InvoiceCompareDto;
+import sbi.kiosk.swayam.common.dto.InvoiceGenerationDto;
+import
   sbi.kiosk.swayam.common.dto.KioskBranchMasterUserDto; import
   sbi.kiosk.swayam.common.dto.RealTimeTransactionDto; import
   sbi.kiosk.swayam.common.dto.TicketCentorDto; import
@@ -42,6 +46,13 @@
   todate);
   
   List<ErrorReportingDto> findAllErrorReprting(String fromdate, String todate);
+  
+  
+  List<BillingPenaltyDto> findBillingPenaltyReport();
+  
+  List<InvoiceGenerationDto> findInvoiceGenerationReport();
+  
+  List<InvoiceCompareDto> findInvoiceCompareReport();
   
   }
  

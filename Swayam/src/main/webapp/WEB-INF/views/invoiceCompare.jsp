@@ -8,7 +8,7 @@
 
 <script
 	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
-<script src="resources/js/billing-payment.js"></script>
+<script src="resources/js/invoice-compare.js"></script>
 <script	src="resources/js/angular.1.5.6.min.js"></script>
 <link rel="stylesheet" href="resources/css/grid-style.css"/>
 <link rel="stylesheet" href="resources/css/body-page.css"/>
@@ -16,13 +16,14 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
 <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script> 
 <link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="resources/css/style.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+  
 <script src="resources/js/angular.js"></script>
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
@@ -76,7 +77,6 @@
         span.pull-right {
         padding:5px 10px;
         }
-        
          .ui-grid-header-cell-label {
 		display:inline-block;
 		white-space:initial;
@@ -114,7 +114,7 @@
 
 
 <div class="main" ng-app="app" id="appId">
-<div ng-controller="BillingPenaltyCtrl as vm">
+<div ng-controller="InvoiceCompareCtrl as vm">
 <div>
  		<form> <!-- ng-submit="searchPositions(SelectedCircelId,SelectedStateId,
 							SelectedQuarterId,SelectedYearId,SelectedVendorId,RfpId)" -->
@@ -242,31 +242,36 @@
 		<a class="openpdfonclick"><img src="resources/img/pdf.svg"></a>
 		<a class="openxlonclick"><img src="resources/img/excel.svg"></a>
 		&nbsp;&nbsp;&nbsp;
-		</span>	
+		</span>
 		<br/>
 		
 		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test"></div>
-		
+		<div style="width:700px"> 
+            <uib-alert ng-repeat="alert in alerts"
+                       type="{{alert.type}}"
+                       dismiss-on-timeout="5000"
+                       close="alerts.splice($index, 1);">
+                {{alert.msg}}
+            </uib-alert>
+        </div>
         
     </div>
     
     
 	</div>
-</div>	
+</div>		
 	
 <script>
 angular.bootstrap(document.getElementById("appId"), ['app']);
 </script>
-
-
- <script type="text/javascript">
+<script type="text/javascript">
       
       $(document).ready(function(){
 
     	    $(".openpdfonclick").click(function(){
     	    	
     	        $.ajax({
-    	            url: 'report?page=bpReport&type=pdf',
+    	            url: 'report?page=invoiceCompareReport&type=pdf',
     	            type: 'GET',   
     	            success: function(data){
     	            	console.log(data);
@@ -276,7 +281,7 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
     	    });
     	    $(".openxlonclick").click(function(){    	
     	        $.ajax({
-    	            url: 'report?page=bpReport&type=excel',
+    	            url: 'report?page=invoiceCompareReport&type=excel',
     	            type: 'GET',   
     	            success: function(data){
     	            	console.log(data);
@@ -289,8 +294,7 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
     		
       
       </script>
-
-<script type="text/javascript">
+      <script type="text/javascript">
     $(function () {
         $("#btnReset").bind("click", function () {
             $("#circle")[0].selectedIndex = "";            
@@ -302,7 +306,6 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
         });
     });
 </script>
-
 
 </body>
 </html>

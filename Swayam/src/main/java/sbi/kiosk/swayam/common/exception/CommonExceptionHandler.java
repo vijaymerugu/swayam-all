@@ -48,7 +48,7 @@ public class CommonExceptionHandler {
 		auditLogger.setSession_Date(formatter.format(date));;
 		auditLogger.setStatus("400 Bad Reques");
 		auditLogger.setToken(request.getQueryString());
-		audit.save(auditLogger);
+		//audit.save(auditLogger);
 		ErrorResponseDto error = new ErrorResponseDto(BAD_REQUEST, "400 Bad Request");
 		logger.error("BAD_REQUEST -  400 Bad Request");
 		return new ResponseEntity(error, HttpStatus.BAD_REQUEST);

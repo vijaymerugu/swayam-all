@@ -1,6 +1,9 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
 <script	src="resources/js/angular.1.5.6.min.js"></script>
 <script src="resources/js/jquery.3.4.1.min.js"></script>
 <script src="resources/js/bootstrap.3.4.1.min.js"></script>
@@ -8,7 +11,7 @@
 
 <script
 	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
-<script src="resources/js/billing-payment.js"></script>
+<script src="resources/js/invoice-Summary.js"></script>
 <script	src="resources/js/angular.1.5.6.min.js"></script>
 <link rel="stylesheet" href="resources/css/grid-style.css"/>
 <link rel="stylesheet" href="resources/css/body-page.css"/>
@@ -76,8 +79,7 @@
         span.pull-right {
         padding:5px 10px;
         }
-        
-         .ui-grid-header-cell-label {
+          .ui-grid-header-cell-label {
 		display:inline-block;
 		white-space:initial;
 		}
@@ -105,7 +107,7 @@
   			white-space: normal;
   			padding: 2px;
   			word-break: break-word;
-			}
+			} 
     </style>
 	
 </head>
@@ -114,13 +116,28 @@
 
 
 <div class="main" ng-app="app" id="appId">
-<div ng-controller="BillingPenaltyCtrl as vm">
+<div ng-controller="InvoiceSummearyCtrl as vm">
 <div>
- 		<form> <!-- ng-submit="searchPositions(SelectedCircelId,SelectedStateId,
+ 		
+		<form> <!-- ng-submit="searchPositions(SelectedCircelId,SelectedStateId,
 							SelectedQuarterId,SelectedYearId,SelectedVendorId,RfpId)" -->
 		<div class="tb-bk">
    <table>				
         <tr>
+         <td>
+                <div class="row">
+                    <div class="col-xs-6 lb">
+                        <span class="text-left">Year<b>*</b></span>
+                        <span class="pull-right">:</span>
+                    </div>
+                    <div class="col-xs-6">
+                       <select name="Year" ng-model="SelectedYearId" required>
+									<option value="0">Select Year</option>
+									<option ng-repeat="year in Years" value="{{year}}">{{year}}</option>
+							</select>
+                    </div>
+                </div>                                
+			</td>
 	        <td>
                 <div class="row">
                     <div class="col-xs-6 lb">
@@ -128,9 +145,9 @@
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
-                        <select id="circle" name="Circle" ng-model="SelectedCircelId"
+                        <select name="Circle" ng-model="SelectedCircelId"
 								ng-change="LoadDropDown('circleId',SelectedCircelId)" required>
-									<option value=""></option>
+									<option value="0">{{CircleDefaultLabel}}</option>
 									<option ng-repeat="item in Circles" value="{{item.circleCode}}">{{item.circleName}}</option>
 							</select>
                     </div>
@@ -143,86 +160,24 @@
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
-                        <select id="state" name="State" ng-model="SelectedStateId">
-									<option value=""></option>
+                        <select name="State" ng-model="SelectedStateId">
+									<option value="0">{{StateDefaultLabel}}</option>
 									<option ng-repeat="item in States" value="{{item.statCode}}">{{item.statDesc}}</option>
 							</select>
                     </div>
                 </div>                                
 	        </td>
-	       <td>
-                <div class="row">
-                    <div class="col-xs-6 lb">
-                        <span class="text-left">Vendor<b>*</b></span>
-                        <span class="pull-right">:</span>
-                    </div>
-                    <div class="col-xs-6">
-                       <select id="vendor"  name="Vendor" ng-model="SelectedVendorId" required>
-									<option value=""></option> 
-									<option ng-repeat="item in Vendors" value="{{item.vendorId}}">{{item.vendor}}</option>
-								</select>
-                    </div>
-                </div>
-			</td>							
+	      							
         </tr>
-		<tr>
-			<td>
-                <div class="row">
-                    <div class="col-xs-6 lb">
-                        <span class="text-left">Year<b>*</b></span>
-                        <span class="pull-right">:</span>
-                    </div>
-                    <div class="col-xs-6">
-                       <select id="year" name="Year" ng-model="SelectedYearId" required>
-									 <option value=""></option> 
-									<option ng-repeat="year in Years" value="{{year}}">{{year}}</option>
-							</select>
-                    </div>
-                </div>                                
-			</td>
-			
-			<td>
-                <div class="row">
-                    <div class="col-xs-6 lb">
-                        <span class="text-left">Time Periods(in quarter)<b>*</b></span>
-                        <span class="pull-right">:</span>
-                    </div>
-                    <div class="col-xs-6">
-                       <select id="timeperiod" name="TimePeriod" ng-model="SelectedQuarterId" required>
-                       				 <option value=""></option> 
-									<option value="Q1">Q1(Apr-Jun)</option>
-									<option value="Q2">Q2(Jul-Sep)</option>
-									<option value="Q3">Q3(Oct-Dec)</option>
-									<option value="Q4">Q4(Jan-Mar)</option>
-							</select>
-                    </div>
-                </div>                                
-	        </td>
-			<td>
-                <div class="row">
-                    <div class="col-xs-6 lb">
-                        <span class="text-left">RFP Ref. No.<b></b></span>
-                        <span class="pull-right">:</span>
-                    </div>
-                    <div class="col-xs-6">
-                       <select id="refno" name="RefNo" ng-model="RfpId">
-									<option value="1"></option>
-									<option ng-repeat="item in Rfpids" value="{{item.rfpNo}}">{{item.rfpNo}}</option>
-								</select>
-                    </div>
-                </div>
-			</td>							
-		</tr>
-        <tr>
+			<tr>
             <td></td><td></td>
             <td>
                 <div class="row">
                     <div class="col-xs-6"></div>
                     <div class="col-xs-6">
                          <div class="text-right" style="width: 80%;" >
-                             <button  id="btnReset" ng-click="">Reset</button>							
-			                 <button  ng-click="searchPositions(SelectedCircelId,SelectedStateId,
-							SelectedQuarterId,SelectedYearId,SelectedVendorId,RfpId)">Generate</button>
+                             <button ng-click="reset()">Reset</button>							
+			                 <button  ng-click="">Generate</button>
 							 <!-- <button  type="submit" id="submit">Generate</button> -->
                          </div>
                     </div>
@@ -238,11 +193,7 @@
 	
 	
 	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle, No Of Branches, Kiosks, Txns, etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">
-		<span style="float:right">
-		<a class="openpdfonclick"><img src="resources/img/pdf.svg"></a>
-		<a class="openxlonclick"><img src="resources/img/excel.svg"></a>
-		&nbsp;&nbsp;&nbsp;
-		</span>	
+		
 		<br/>
 		
 		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test"></div>
@@ -256,51 +207,6 @@
 	
 <script>
 angular.bootstrap(document.getElementById("appId"), ['app']);
-</script>
-
-
- <script type="text/javascript">
-      
-      $(document).ready(function(){
-
-    	    $(".openpdfonclick").click(function(){
-    	    	
-    	        $.ajax({
-    	            url: 'report?page=bpReport&type=pdf',
-    	            type: 'GET',   
-    	            success: function(data){
-    	            	console.log(data);
-    	            	window.open("resources/download/"+data , '_blank');  
-    	            }
-    	        });
-    	    });
-    	    $(".openxlonclick").click(function(){    	
-    	        $.ajax({
-    	            url: 'report?page=bpReport&type=excel',
-    	            type: 'GET',   
-    	            success: function(data){
-    	            	console.log(data);
-    	            	window.open("resources/download/"+data , '_blank');  
-    	            }
-    	        });
-    	    });
-    	}); 
-    		
-    		
-      
-      </script>
-
-<script type="text/javascript">
-    $(function () {
-        $("#btnReset").bind("click", function () {
-            $("#circle")[0].selectedIndex = "";            
-            $("#state")[0].selectedIndex = "";
-            $("#vendor")[0].selectedIndex = "";
-            $("#year")[0].selectedIndex = "";
-            $("#timeperiod")[0].selectedIndex = "";
-            $("#refno")[0].selectedIndex = "";
-        });
-    });
 </script>
 
 

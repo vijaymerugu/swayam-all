@@ -36,5 +36,7 @@ public class InvoiceCompare  {
 	private Float difference;
 	
 	
+	
+	
 
 }

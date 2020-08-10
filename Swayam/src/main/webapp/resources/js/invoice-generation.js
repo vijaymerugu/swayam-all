@@ -1,6 +1,6 @@
 var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter', 'ui.grid.resizeColumns']);
 
-	app.controller('BillingPenaltyCtrl', ['$scope','$filter','$http','$window','BillingPenaltyService',function ($scope, $filter, $http, $window,BillingPenaltyService) {
+	app.controller('InvoiceGenarationCtrl', ['$scope','$filter','$http','$window','InvoiceGenerationService',function ($scope, $filter, $http, $window,InvoiceGenerationService) {
 	   var paginationOptions = {
 	     pageNumber: 1,
 		 pageSize: 20,
@@ -36,7 +36,6 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 			});
 		   
 	   }
-	   
 	   $scope.Rfp=function(){
 		   $http({
 				method : "GET",
@@ -184,7 +183,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 				
 						
 
-				BillingPenaltyService
+				InvoiceGenerationService
 						.getUsers(paginationOptions.pageNumber,
 								paginationOptions.pageSize, counttype,
 								selectedCircelId,selectedStateId,
@@ -200,7 +199,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	   $scope.getCountType = function(type){
 	      
 	       counttype=type;
-	       BillingPenaltyService.getUsers(paginationOptions.pageNumber,
+	       InvoiceGenerationService.getUsers(paginationOptions.pageNumber,
 					paginationOptions.pageSize, counttype,
 					selectedCircelId,selectedStateId,
 					quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
@@ -226,7 +225,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
 		 		   
 		 	    }else{
-		 	    	BillingPenaltyService.getUsers(paginationOptions.pageNumber,
+		 	    	InvoiceGenerationService.getUsers(paginationOptions.pageNumber,
 							paginationOptions.pageSize, counttype,
 							selectedCircelId,selectedStateId,
 							quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
@@ -238,7 +237,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		 	    }
 		    };
 
-	  BillingPenaltyService.getUsers(paginationOptions.pageNumber,
+		    InvoiceGenerationService.getUsers(paginationOptions.pageNumber,
 				paginationOptions.pageSize, counttype,
 				selectedCircelId,selectedStateId,
 				quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
@@ -254,18 +253,18 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		useExternalPagination: true,
 		
 	      columnDefs: [
-	          { name: 'prfRefNumber', displayName: 'RFP RefNO.'  },
+	          { name: 'rpfRefNumber', displayName: 'RFP RefNO.'  },
 	          { name: 'vendor', displayName: 'Vendor' },
 	          { name: 'circleName', displayName: 'Circle'  },
 	          { name: 'state', displayName: 'State'  },
 	          { name: 'kisokId', displayName: 'Kiok Id'  },
 	          { name: 'kioskSerialNumber', displayName: 'Kisok Serial no'  },
 	          { name: 'timePeriod', displayName: 'Time Period In Quarter' },
-	          { name: 'toatalhours', displayName: 'Total Working Hours' },
-	          { name: 'downTime', displayName: 'Total Downtime(A)' },
-	          { name: 'relaxation', displayName: 'Relaxation in Downtime(B)' },
-	          { name: 'finalDowntime', displayName: 'Final DownTime(A-B)' },
-	          { name: 'penalty', displayName: 'Penalty(INR)' }
+	          { name: 'spareParts', displayName: 'AMC/Spare Parts(A)' },
+	          { name: 'penalty', displayName: 'Penalty(B)' },
+	          { name: 'invoiceAmount', displayName: 'Invoice Amount (c=A-B)' },
+	          { name: 'corrections', displayName: 'Corrections' },
+	          { name: 'finalAmount', displayName: 'Final Amount(C+D)' }
 	          
 	    ],
 	    onRegisterApi: function(gridApi) {
@@ -273,7 +272,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	        gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
 	          paginationOptions.pageNumber = newPage;
 	          paginationOptions.pageSize = pageSize;
-	          BillingPenaltyService.getUsers(paginationOptions.pageNumber,
+	          InvoiceGenerationService.getUsers(paginationOptions.pageNumber,
 						paginationOptions.pageSize, counttype,
 						selectedCircelId,selectedStateId,
 						quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
@@ -289,14 +288,14 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	}]);
 
 
-	app.service('BillingPenaltyService',['$http', function ($http) {
+	app.service('InvoiceGenerationService',['$http', function ($http) {
 		
 		function getUsers(pageNumber,size,counttype,selectedCircelId,selectedStateId,
 				quterTimePeriod,selectedVendorId,selectedRfpID) {
 			pageNumber = pageNumber > 0?pageNumber - 1:0;
 	        return  $http({
 	          method: 'GET',
-	          url: 'billingPenalty/get?page='+pageNumber+
+	          url: 'invoicegenaration/get?page='+pageNumber+
 	     '&size='+size+'&type='+counttype+'&selectedCircelId='+selectedCircelId+'&selectedStateId='+selectedStateId+
 	          '&quterTimePeriod='+quterTimePeriod+'&selectedVendorId='+selectedVendorId+'&selectedRfpID='+selectedRfpID
 	          

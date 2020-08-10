@@ -32,7 +32,7 @@ public class InvoiceCompareDto {
 		
 		this.invoiceAmountVendor=invoiceCompare.getInvoiceAmountVendor();
 		
-		this.diffrence = invoiceCompare.getDifference();
+		this.difference = invoiceCompare.getDifference();
 		
 		
 	}
@@ -57,7 +57,7 @@ public class InvoiceCompareDto {
 	
 	private Float invoiceAmountVendor;
 	
-	private Float diffrence;
+	private Float difference;
 
 }
 

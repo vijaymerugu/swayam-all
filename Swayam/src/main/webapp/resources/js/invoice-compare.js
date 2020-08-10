@@ -1,6 +1,6 @@
 var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter', 'ui.grid.resizeColumns']);
 
-	app.controller('BillingPenaltyCtrl', ['$scope','$filter','$http','$window','BillingPenaltyService',function ($scope, $filter, $http, $window,BillingPenaltyService) {
+	app.controller('InvoiceCompareCtrl', ['$scope','$filter','$http','$window','InvoiceCompareService','InvoiceCorrectionService',function ($scope, $filter, $http, $window,InvoiceCompareService,InvoiceCorrectionService) {
 	   var paginationOptions = {
 	     pageNumber: 1,
 		 pageSize: 20,
@@ -36,7 +36,6 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 			});
 		   
 	   }
-	   
 	   $scope.Rfp=function(){
 		   $http({
 				method : "GET",
@@ -184,7 +183,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 				
 						
 
-				BillingPenaltyService
+				InvoiceCompareService
 						.getUsers(paginationOptions.pageNumber,
 								paginationOptions.pageSize, counttype,
 								selectedCircelId,selectedStateId,
@@ -200,7 +199,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	   $scope.getCountType = function(type){
 	      
 	       counttype=type;
-	       BillingPenaltyService.getUsers(paginationOptions.pageNumber,
+	       InvoiceCompareService.getUsers(paginationOptions.pageNumber,
 					paginationOptions.pageSize, counttype,
 					selectedCircelId,selectedStateId,
 					quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
@@ -226,7 +225,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
 		 		   
 		 	    }else{
-		 	    	BillingPenaltyService.getUsers(paginationOptions.pageNumber,
+		 	    	InvoiceCompareService.getUsers(paginationOptions.pageNumber,
 							paginationOptions.pageSize, counttype,
 							selectedCircelId,selectedStateId,
 							quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
@@ -238,7 +237,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		 	    }
 		    };
 
-	  BillingPenaltyService.getUsers(paginationOptions.pageNumber,
+		    InvoiceCompareService.getUsers(paginationOptions.pageNumber,
 				paginationOptions.pageSize, counttype,
 				selectedCircelId,selectedStateId,
 				quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
@@ -246,6 +245,82 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 			$scope.gridOptions.data = data.content;
 			$scope.gridOptions.totalItems = data.totalElements;
 	   });
+		    
+		    
+		    $scope.edit = function (row) {
+		        //Get the index of selected row from row object
+		        var index = $scope.gridOptions.data.indexOf(row);
+		        //Use that to set the editrow attrbute value for seleted rows
+		        $scope.gridOptions.data[index].editrow = !$scope.gridOptions.data[index].editrow;
+		    };
+
+		    //Method to cancel the edit mode in UIGrid
+		    $scope.cancelEdit = function (row) {
+		        //Get the index of selected row from row object
+		        var index = $scope.gridOptions.data.indexOf(row);
+		        //Use that to set the editrow attrbute value to false
+		        $scope.gridOptions.data[index].editrow = false;
+		        //Display Successfull message after save
+		        $scope.alerts.push({
+		            msg: 'Row editing cancelled',
+		            type: 'info'
+		        });
+		    };
+		    
+		    
+		    $scope.alerts = [];
+
+		    //Class to hold the customer data
+		   /* $scope.Invoice = {
+		    		Corrections: 0,
+		    		remarks: '',
+		    		rpfRefNumber:'',
+		    		kisokId:'',
+		    		kioskSerialNumber:''
+		    };*/
+		    
+		    var Corrections = 0;
+	        var remarks = '';
+	        var rpfRefNumber = '';
+	        var kioskSerialNumber = '';
+	        var kisokId = '';
+		  
+		    //Function to save the data
+		    //Here we pass the row object as parmater, we use this row object to identify  the edited row
+		    $scope.saveRow = function (row) {
+		        //get the index of selected row 
+		        var index = $scope.gridOptions.data.indexOf(row);
+		        //Remove the edit mode when user click on Save button
+		        $scope.gridOptions.data[index].editrow = false;
+
+		        //Assign the updated value to Customer object
+		    /*    $scope.Invoice.Corrections = row.Corrections;
+		        $scope.Invoice.remarks = row.Remarks;
+		        $scope.Invoice.rpfRefNumber = row.rpfRefNumber;
+		        $scope.Invoice.kioskSerialNumber = row.kioskSerialNumber;
+		        $scope.Invoice.kisokId = row.kisokId;*/
+		        Corrections = row.Corrections;
+		        remarks = row.Remarks;
+		        rpfRefNumber = row.rpfRefNumber;
+		        kioskSerialNumber = row.kioskSerialNumber;
+		        kisokId = row.kisokId;
+		        console.log("Invoice correction" + Corrections);
+		        console.log("Remarks " + remarks);
+		       // alert('Selected Row: '+ $scope.Invoice.rpfRefNumber);
+
+		        //Call the function to save the data to database
+		        InvoiceCorrectionService.saveCorrection(Corrections,remarks,rpfRefNumber,
+		        		kioskSerialNumber,kisokId).then(function (d) {
+		            //Display Successfull message after save
+		        	console.log("Inside Success " + d);
+		            $scope.alerts.push({
+		                msg: 'Data saved successfully',
+		                type: 'success'
+		            });
+		        }, function (d) {
+		        	alert(d.data);
+		        });
+		    };
 	   
 	   $scope.gridOptions = {
 	    paginationPageSizes: [20, 30, 40],
@@ -254,18 +329,35 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		useExternalPagination: true,
 		
 	      columnDefs: [
-	          { name: 'prfRefNumber', displayName: 'RFP RefNO.'  },
+	    	  { name: 'rpfRefNumber', displayName: 'RFP RefNO.'  },
 	          { name: 'vendor', displayName: 'Vendor' },
 	          { name: 'circleName', displayName: 'Circle'  },
 	          { name: 'state', displayName: 'State'  },
 	          { name: 'kisokId', displayName: 'Kiok Id'  },
 	          { name: 'kioskSerialNumber', displayName: 'Kisok Serial no'  },
 	          { name: 'timePeriod', displayName: 'Time Period In Quarter' },
-	          { name: 'toatalhours', displayName: 'Total Working Hours' },
-	          { name: 'downTime', displayName: 'Total Downtime(A)' },
-	          { name: 'relaxation', displayName: 'Relaxation in Downtime(B)' },
-	          { name: 'finalDowntime', displayName: 'Final DownTime(A-B)' },
-	          { name: 'penalty', displayName: 'Penalty(INR)' }
+	          { name: 'invoiceAmountSBI', displayName: 'Invoice Amount SBI(A)' },
+	          { name: 'invoiceAmountVendor', displayName: 'Invoice Amount Vendor(B)' },
+	          { name: 'difference', displayName: 'Difference(c=A-B)' },
+	          
+	          
+	          {
+                  name: "Corrections", displayName: "CORRECTIONS", field: "Corrections",
+                  cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div '+ 
+                	 ' ng-if="row.entity.editrow"><input type="number" min="0" value="42" step="0.01"  style="height:30px" ng-model="MODEL_COL_FIELD"</div>', width: 140
+              },
+              {
+                  name: "Remarks", displayName: "REMARKS", field: "Remarks",
+                  cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div '+ 
+                	 ' ng-if="row.entity.editrow"><input type="text" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width: 140
+              },
+              {
+                  name: 'Actions', field: 'edit', enableFiltering: false, enableSorting: false,
+                  cellTemplate: '<div><button ng-show="!row.entity.editrow" class="btn primary" ng-click="grid.appScope.edit(row.entity)"><i class="fa fa-edit"></i></button>' +  //Edit Button
+                                 '<button ng-show="row.entity.editrow" class="btn primary" ng-click="grid.appScope.saveRow(row.entity)"><i class="fa fa-floppy-o"></i></button>' +//Save Button
+                                 '<button ng-show="row.entity.editrow" class="btn primary" ng-click="grid.appScope.cancelEdit(row.entity)"><i class="fa fa-times"></i></button>' + //Cancel Button
+                                 '</div>', width: 100
+              }
 	          
 	    ],
 	    onRegisterApi: function(gridApi) {
@@ -273,7 +365,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	        gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
 	          paginationOptions.pageNumber = newPage;
 	          paginationOptions.pageSize = pageSize;
-	          BillingPenaltyService.getUsers(paginationOptions.pageNumber,
+	          InvoiceCompareService.getUsers(paginationOptions.pageNumber,
 						paginationOptions.pageSize, counttype,
 						selectedCircelId,selectedStateId,
 						quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
@@ -289,14 +381,14 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	}]);
 
 
-	app.service('BillingPenaltyService',['$http', function ($http) {
+	app.service('InvoiceCompareService',['$http', function ($http) {
 		
 		function getUsers(pageNumber,size,counttype,selectedCircelId,selectedStateId,
 				quterTimePeriod,selectedVendorId,selectedRfpID) {
 			pageNumber = pageNumber > 0?pageNumber - 1:0;
 	        return  $http({
 	          method: 'GET',
-	          url: 'billingPenalty/get?page='+pageNumber+
+	          url: 'invoiceCompare/get?page='+pageNumber+
 	     '&size='+size+'&type='+counttype+'&selectedCircelId='+selectedCircelId+'&selectedStateId='+selectedStateId+
 	          '&quterTimePeriod='+quterTimePeriod+'&selectedVendorId='+selectedVendorId+'&selectedRfpID='+selectedRfpID
 	          
@@ -304,10 +396,60 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	        });
 	    }
 		
+		
+		  
+		
+	 
+	/*    
+	    var res = {};
+	    
+	    res.SaveCustomer = function ($scope) {
+	        return $http({
+	            method: 'POST',
+	            data: $scope.Invoice,
+	            url: 'ic/UpdateCorrection'
+	        });
+	    }
+	    
+	    function saveCorrection(Corrections,remarks,rpfRefNumber,
+        		kioskSerialNumber,kisokId) {
+	        return $http({
+	            method: 'GET',
+	     
+	            url: 'ic/UpdateCorrection?Corrections='+Corrections+'&remarks='
+	            +remarks+'&rpfRefNumber='+rpfRefNumber+'&kioskSerialNumber='
+	            +kioskSerialNumber+'&kisokId='+kisokId
+	        });
+	    }*/
+	    
+	    return {
+	    	getUsers:getUsers,
+	    	//saveCorrection:saveCorrection
+	    };
 
 		
-	    return {
-	    	getUsers:getUsers
-	    };
-		
 	}]);
+	
+	//Factory
+	app.factory('InvoiceCorrectionService', function ($http) {
+	    var res = {};
+	  /*  res.GetCustomer = function () {
+	        return $http({
+	            method: 'GET',
+	            dataType: 'jsonp',
+	            url: 'api/Customer/GetCustomer'
+	        });
+	    }*/
+
+	    res.saveCorrection = function (Corrections,remarks,rpfRefNumber,
+        		kioskSerialNumber,kisokId) {
+	    	 return $http({
+		            method: 'GET',
+		     
+		            url: 'ic/UpdateCorrection?Corrections='+Corrections+'&remarks='
+		            +remarks+'&rpfRefNumber='+rpfRefNumber+'&kioskSerialNumber='
+		            +kioskSerialNumber+'&kisokId='+kisokId
+		        });
+	    }
+	    return res;
+	});
