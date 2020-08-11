@@ -46,7 +46,7 @@ public class MyScheduledTasks {
 	  
 	  }
 	 
- //  @Scheduled(cron = "0/10 * * * * *")
+  //@Scheduled(cron = "0/10 * * * * *")
   //@Scheduled(cron = "* 0-59 * * * *")  //hour
     public void runhour() {
 	String path =hourreportpath ; 

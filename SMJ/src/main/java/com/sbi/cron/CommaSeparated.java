@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -15,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sbi.cron.dto.BranchTransactionDayDto;
 import com.sbi.cron.dto.SwayamTransactionhourlyDto;
@@ -22,8 +25,10 @@ import com.sbi.cron.entity.BranchTransactionDayEntity;
 import com.sbi.cron.entity.SwayamTranactionhourEntity;
 import com.sbi.cron.repository.BranchTransactionRepository;
 import com.sbi.cron.repository.SwayamTranactionhourRepository;
+import com.sbi.cron.repository.SwayanTxnReportRepository;
 
 @Component
+@Transactional
 public class CommaSeparated {
 	
 	Logger logger = LoggerFactory.getLogger(CommaSeparated.class);
@@ -33,6 +38,9 @@ public class CommaSeparated {
 
 	@Autowired
 	SwayamTranactionhourRepository swayamTranactionhourRepository;
+	
+	@Autowired
+	SwayanTxnReportRepository swayanTxnReportRepository;
 	//@Autowired
 	//MyProcedureScheduler myProcedureScheduler ;
 
@@ -141,16 +149,18 @@ public class CommaSeparated {
 
 			while ((strLine = br.readLine()) != null) {
 				logger.info("strLine" + strLine);
-				if (count != 0) {
+				//if (count != 0) {
 
 					String rep = strLine.replaceAll("\"", "");
 					String[] data = rep.split("\\^");
 
-					logger.info("UNIQUE_REFERENCE_NO - " + data[0] + " REQUEST_DATE_TIME- " + data[1]
-							+ " REQUESTING_BRANCH- " + data[2] + " KIOSK_ID- " + data[3] + " RESPONSE_DATE_TIME- "
-							+ data[4] + " ACKNOWLEDGE_DATE_TIME- " + data[5] + "RESPONSE_CODE- " + data[6]
-							+ " ERROR_CODE- " + data[7] + " ERROR_DESC- " + data[8] + " STATUS- " + data[9]
-							+ " BARCODE- " + data[10]);
+					/*
+					 * logger.info("UNIQUE_REFERENCE_NO - " + data[0] + " REQUEST_DATE_TIME- " +
+					 * data[1] + " REQUESTING_BRANCH- " + data[2] + " KIOSK_ID- " + data[3] +
+					 * " RESPONSE_DATE_TIME- " + data[4] + " ACKNOWLEDGE_DATE_TIME- " + data[5] +
+					 * "RESPONSE_CODE- " + data[6] + " ERROR_CODE- " + data[7] + " ERROR_DESC- " +
+					 * data[8] + " STATUS- " + data[9] + " BARCODE- " + data[10]);
+					 */
 
 					SwayamTransactionhourlyDto dto = new SwayamTransactionhourlyDto();
 					// dto.setId(count);// 0
@@ -168,7 +178,7 @@ public class CommaSeparated {
 					dto.setBarcode(data[10]);// 11
 					listDto.add(dto);
 
-				}
+				//}
 				count++;
 			}
 			//System.out.println(listDto + "size of array" + listDto.size());
@@ -189,10 +199,13 @@ public class CommaSeparated {
 		}
 
 	}
-
+  
+	
 	private void parseDatahour(List<SwayamTransactionhourlyDto> listDto) {
 
-		{
+		SimpleDateFormat sdf=new SimpleDateFormat("dd-mm-yyyy");
+		 Date curDate=new Date();
+		 String passedDate=sdf.format(curDate);
 
 			SwayamTranactionhourEntity entity = null;
 			List<SwayamTranactionhourEntity> listentity = new ArrayList<SwayamTranactionhourEntity>();
@@ -200,7 +213,7 @@ public class CommaSeparated {
 
 			try {
 				for (SwayamTransactionhourlyDto lidtDto1 : listDto) {
-
+					passedDate = lidtDto1.getRequestDateTime();
 					entity = new SwayamTranactionhourEntity();
 					entity.setUniqueReferenceNo(lidtDto1.getUniqueReferenceNo());
 					entity.setRequestDateTime(lidtDto1.getRequestDateTime());
@@ -215,13 +228,13 @@ public class CommaSeparated {
 					entity.setBarcode(lidtDto1.getBarcode());
 					listentity.add(entity);
 				}
-				swayamTranactionhourRepository.deleteAll();
+				swayamTranactionhourRepository.deleteByRequestDateTime(passedDate);
 				swayamTranactionhourRepository.saveAll(listentity);
-				executprodure();
+				executprodure(passedDate);
 			} catch (Exception e) {
 				logger.info("Exception is "+e.getMessage());
 			}
-		}
+		
 	}
 	public static File getLastModified(String directoryFilePath) {
 		File directory = new File(directoryFilePath);
@@ -246,11 +259,13 @@ public class CommaSeparated {
     private EntityManager em;
 	//  private static final SimpleDateFormat dateFormat1   = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	
-	public void executprodure()
+	public void executprodure(String passedDate)
 	{
 		try {
-		StoredProcedureQuery nearByEntities= em.createNamedStoredProcedureQuery("SP_INSERT_INTO_TBL_SWAYAM_TXN_REPORT");
-		nearByEntities.getResultList();
+		swayanTxnReportRepository.deleteByTxnDate(passedDate);
+		StoredProcedureQuery nearByEntities= em.createNamedStoredProcedureQuery("SP_SWAYAM_TXN_REPORT");
+		nearByEntities.setParameter("txnDate", passedDate); 
+		nearByEntities.execute();
 		logger.info("nearByEntities"+nearByEntities);
 		// nearByEntities.setParameter("fromdate_param", dateFormat1);
 		}
