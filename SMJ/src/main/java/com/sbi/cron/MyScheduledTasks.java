@@ -39,6 +39,7 @@ public class MyScheduledTasks {
 
     //@Scheduled(cron = "0/10 * * * * *") 
     //  @Scheduled(cron = "0 0 12 * * ?")//day
+    @Scheduled(cron = "30 23 * * *")
 	  public void runEveryday() {
 	   String path   =dailyreportPath;
 			   //"C:\\Users\\ankur.verma\\Desktop\\sbi_document\\Corn_job\\input\\";// reportPath 
@@ -48,6 +49,7 @@ public class MyScheduledTasks {
 	 
   //@Scheduled(cron = "0/10 * * * * *")
   //@Scheduled(cron = "* 0-59 * * * *")  //hour
+    @Scheduled(cron = "5 */1 * * *")
     public void runhour() {
 	String path =hourreportpath ; 
 			//"C:\\Users\\ankur.verma\\Desktop\\sbi_document\\Corn_job\\hourlyinput";
