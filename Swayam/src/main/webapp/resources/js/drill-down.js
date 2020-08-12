@@ -38,14 +38,14 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
 	      return result;
 	  }*/
   
-   $scope.searchPositions= function(startDate,endDate){
+/*   $scope.searchPositions= function(startDate,endDate){
 	 	 
     	 circleName="";
     	 networkName="";
     	 moduleName="";
     	 regionName="";
     	 
-    	 
+    	 */
     	 $scope.searchPositions= function(startDate,endDate){
     	  	 
     	  	 circleName="";
@@ -55,14 +55,41 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
     	  	 
     	  	 fromDate = $("#datepickerFromDate").val();
     	  	 toDate = $("#datepickerToDate").val();
-    		    		
+    	  	 
+      	 
+	        var $from=$("#datepickerFromDate").datepicker('getDate');
+	        var $to =$("#datepickerToDate").datepicker('getDate');
+	        
+	        if (($from== null) || ($to== null) )
+	 	   {
+	 	   
+	 	       if($from== null)
+	 	      	{
+	 	      		alert("Please enter from date!!!");
+	 	      		$("#datepickerFromDate").focus();
+	 	      	}
+	 	       if($to== null)
+	 	     	{
+	 	     		alert("Please enter to date!!!");
+	 	     		$("#datepickerToDate").focus();
+	 	     	}
+	    		}
+	        else
+	     	  {
+	 	    	   if($from>$to)
+	 	    	   {
+	 	         		alert("from date shouldn't greater than To date");
+	 	         		$("#datepickerFromDate").focus();
+	 	         	}
+	     	   }
+		    
     	
     	DrillDownService.getUsers(paginationOptions.pageNumber,
     			   paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
     		  $scope.gridOptions.data = data.content;
     	 	  $scope.gridOptions.totalItems = data.totalElements;
     	   });
-	}
+	
    };
  
    $scope.getCountType = function(type){

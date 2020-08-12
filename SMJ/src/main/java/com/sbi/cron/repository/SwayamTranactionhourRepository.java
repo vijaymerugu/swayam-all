@@ -7,5 +7,6 @@ import com.sbi.cron.entity.SwayamTranactionhourEntity;
 
 @Repository
 public interface SwayamTranactionhourRepository extends CrudRepository<SwayamTranactionhourEntity, Integer> {
-
+	
+	void deleteByRequestDateTime(String dateTime);
 }

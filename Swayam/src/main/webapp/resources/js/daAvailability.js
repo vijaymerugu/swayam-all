@@ -91,8 +91,6 @@ app.controller('daAvailabilityController', ['$scope','daAvailabilityService', fu
    });
 }]);
 
-
-
 app.service('daAvailabilityService',['$http', function ($http) {
 function loadApiData() {
         return  $http({

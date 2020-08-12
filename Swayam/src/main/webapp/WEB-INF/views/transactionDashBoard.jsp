@@ -1,4 +1,4 @@
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +19,7 @@ $(document).ready(function(){
 $(document).ready(function(){
     $(function () {
 
-			$('#datepickerFromDate,#datepickerToDate').datepicker({ changeYear: true, changeMonth: true, dateFormat:'dd-mm-yy'});
+			$('#datepickerFromDate,#datepickerToDate').datepicker({ changeYear: true, changeMonth: true,autoclose: true,maxDate: new Date(), dateFormat:'dd-mm-yy'});
 		
     });
     
@@ -172,5 +172,5 @@ $(document).ready(function(){
       
       </script>
 </body>
-<sec:csrfInput />  
+ 
 </html>

@@ -2,6 +2,7 @@ package sbi.kiosk.swayam.common.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -56,6 +57,7 @@ public class LoginController{
 		UserDto userObj = loginService.getRoleByUsername(pfId);
 		session.setAttribute("pfId", userObj.getPfId());
 		session.setAttribute("userObj", userObj);
+		session.setAttribute("csrfToken", UUID.randomUUID().toString());
 		logger.info("Session Val" + session.getAttribute("pfId"));
 		
 		auditLogger.setPath("/authenticateUser");

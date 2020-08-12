@@ -20,8 +20,8 @@ public class TransactionDashBoardDto {
         this.forbesTxnCount = swayamMigrationSummary.getForbesTxnCount();  
         this.cmsKioskCount = swayamMigrationSummary.getCmsKioskCount();  
         this.cmsTxnCount = swayamMigrationSummary.getCmsTxnCount();  
-        this.manualTxn = swayamMigrationSummary.getManualTxn();  
-        this.totalSwayamTxn = swayamMigrationSummary.getTotalSwayamTxn();  
+        this.totalSwayamTxn = swayamMigrationSummary.getTotalSwayamTxn(); 
+        this.manualTxn = swayamMigrationSummary.getManualTxn(); 
         this.migrationPerc = swayamMigrationSummary.getMigrationPerc();  
     }  
     private String crclName;  
@@ -36,8 +36,8 @@ public class TransactionDashBoardDto {
     private Integer forbesTxnCount;  
     private Integer cmsKioskCount;  
     private Integer cmsTxnCount;  
-    private Integer manualTxn;  
-    private Integer totalSwayamTxn;  
+    private Integer totalSwayamTxn;
+    private Integer manualTxn;
     private Double migrationPerc;  
       
       

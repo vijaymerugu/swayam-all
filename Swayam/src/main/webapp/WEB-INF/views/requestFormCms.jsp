@@ -1,4 +1,4 @@
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -244,5 +244,5 @@ $(document).ready(function(){
 
 
 </body>
-<sec:csrfInput /> 
+<input type="hidden" name="_csrf" value="<%=session.getAttribute("csrfToken")%>">
 </html>

@@ -100,10 +100,10 @@ public class JwtController {
 			logger.info("/getToken filed "+ userID);
 			logger.info("Failed "+ e.getLocalizedMessage());
 		}
-		logger.info("/getToken Sucess "+ userID);
+		logger.info("/getToken Success "+ userID);
 		logger.info("JWT token " +jwt );
 		audit.save(auditLogger);
-		return ResponseEntity.ok(new AuthenticationReponse("SUCESS", jwt));
+		return ResponseEntity.ok(new AuthenticationReponse("SUCCESS", jwt));
 
 	}
 	

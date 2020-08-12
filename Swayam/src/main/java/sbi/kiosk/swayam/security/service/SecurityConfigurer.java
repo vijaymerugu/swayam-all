@@ -48,7 +48,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors()
-			.and()//.csrf().disable().and() 
+			.and().csrf().disable()
 			.authorizeRequests()
 			.antMatchers("/login*").permitAll()
 			.antMatchers("/getToken").permitAll().anyRequest().authenticated()
@@ -60,16 +60,16 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
             .invalidateHttpSession(true)        // set invalidation state when logout            
 				.and()
 				.sessionManagement()
-				//.sessionFixation().migrateSession()
+				.sessionFixation().migrateSession()
 				.maximumSessions(1)
-				.maxSessionsPreventsLogin(true)
+				.maxSessionsPreventsLogin(false)
 				.expiredUrl("https://adfs.sbi.co.in/adfs/ls/?wa=wsignout1.0");
 		http.headers().
 		httpStrictTransportSecurity()
 		.includeSubDomains(true)
 		.maxAgeInSeconds(31536000);
-		http.csrf()
-    	.ignoringAntMatchers("/getToken");
+		//http.csrf()
+    	//.ignoringAntMatchers("/getToken");
 
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 

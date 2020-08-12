@@ -1,6 +1,7 @@
 package sbi.kiosk.swayam;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -46,9 +47,32 @@ public class AppFilter implements Filter {
 
 	        //System.out.println(
 	          //"Logging Request  {} : {}");
-	        chain.doFilter(request, response);
+	        	//chain.doFilter(request, response);
 	        //System.out.println(
 	          //"Logging Response :{}");
+	        if ("POST".equals(req.getMethod()) && !"/getToken".equals(req.getServletPath())){
+	        	
+		        String csrfToken = req.getHeader("X-CSRF-TOKEN");
+		        if (csrfToken ==null || csrfToken.isEmpty()) {
+		             res.setStatus(HttpServletResponse.SC_FORBIDDEN);
+		             req.getSession().invalidate();
+	                 req.getRequestDispatcher("/").forward(request, response);
+		        }	        
+		        else { 
+	                if(req.getSession() !=null && csrfToken.equals(req.getSession().getAttribute("csrfToken"))) {
+	            		req.getSession().setAttribute("csrfToken", UUID.randomUUID().toString());
+	            		chain.doFilter(request, response);
+	            	}
+	                else {
+	                	res.setStatus(HttpServletResponse.SC_FORBIDDEN);
+	                	req.getSession().invalidate();
+	                	req.getRequestDispatcher("/").forward(request, response);             	
+	                }
+		        }                  
+            } 
+	        else {
+            	chain.doFilter(request, response);
+            }   
 
 	}
 

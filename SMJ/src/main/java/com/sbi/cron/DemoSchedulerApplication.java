@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class DemoSchedulerApplication {
 
 	public static void main(String[] args) {
-		System.out.println( "=== Spring Boot Application for Scheduling Task Sample ===" );
+		
 		SpringApplication.run(DemoSchedulerApplication.class, args);
 	}
 }

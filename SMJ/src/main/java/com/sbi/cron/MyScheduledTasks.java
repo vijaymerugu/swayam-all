@@ -25,9 +25,11 @@ public class MyScheduledTasks {
 	//@Autowired
 	//MyProcedureScheduler myProcedureScheduler ;
 	
-	  @Value("${dailyreport.path}") private String dailyreportPath;//dailyreport.path
+	  @Value("${dailyreport.path}") 
+	  private String dailyreportPath;//dailyreport.path
 	  
-	  @Value("${hourreport.path}") private String hourreportpath;
+	  @Value("${hourreport.path}") 
+	  private String hourreportpath;
 	 
 
     private static final Logger log = LoggerFactory.getLogger(MyScheduledTasks.class);
@@ -35,17 +37,19 @@ public class MyScheduledTasks {
     private static final SimpleDateFormat dateFormat
             = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
-    // @Scheduled(cron = "0/10 * * * * *") 
+    //@Scheduled(cron = "0/10 * * * * *") 
     //  @Scheduled(cron = "0 0 12 * * ?")//day
+    @Scheduled(cron = "30 23 * * *")
 	  public void runEveryday() {
 	   String path   =dailyreportPath;
 			   //"C:\\Users\\ankur.verma\\Desktop\\sbi_document\\Corn_job\\input\\";// reportPath 
-	// commaseparated.fileRead(path);
+	commaseparated.fileRead(path);
 	  
 	  }
 	 
- //  @Scheduled(cron = "0/10 * * * * *")
-  @Scheduled(cron = "* 0-59 * * * *")  //hour
+  //@Scheduled(cron = "0/10 * * * * *")
+  //@Scheduled(cron = "* 0-59 * * * *")  //hour
+    @Scheduled(cron = "5 */1 * * *")
     public void runhour() {
 	String path =hourreportpath ; 
 			//"C:\\Users\\ankur.verma\\Desktop\\sbi_document\\Corn_job\\hourlyinput";
