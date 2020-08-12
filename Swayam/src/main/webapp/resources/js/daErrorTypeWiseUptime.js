@@ -88,7 +88,7 @@ app.controller('daErrorTypeWiseUptimeController', ['$scope','$interval','$http',
 								
 								// Preparing Data to display in chart
 								let rowData=[filterdResponse[i].percentageOfTickets, filterdResponse[i].otherErrorTickets];
-								tempData.push({rowData});
+								tempData.push({"rowData" : rowData});
 								
 								// doughnut chart data
 								  var data = {

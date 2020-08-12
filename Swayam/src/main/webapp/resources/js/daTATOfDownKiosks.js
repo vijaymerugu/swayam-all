@@ -54,7 +54,7 @@ app.controller('daTATOfDownKiosksController', ['$scope','$interval','$http','daT
 					//Preparing Data to display in chart
 					let rowData=[$scope.apiResponse[i].percentageOfOneDays, $scope.apiResponse[i].percentOfTwoToFiveDays,
 					$scope.apiResponse[i].percentageOfOneWeek, $scope.apiResponse[i].percentOneToTwoWeek, $scope.apiResponse[i].percentGreaterThanTwoWeek];
-					tempData.push({rowData});
+					tempData.push({"rowData" : rowData});
 
 					//doughnut chart data
 					  var data = {
