@@ -97,7 +97,7 @@ app.controller('daUserWiseDataController', ['$scope','$interval','$http','daUser
 			
 			//Preparing Data to display in chart
 			let rowData=[$scope.operationalKiosksPercent1, $scope.nonOperationalKiosksPercent1];
-			$scope.doughnutData1.push({rowData});
+			$scope.doughnutData1.push({"rowData" : rowData});
 			
 			$scope.apiResponse1.push({gtLabel:'Grand Total', gtOperationalKiosks:$scope.sumOfOperationalKiosks1, gtAllKiosks:$scope.sumOfAllKiosks1, gtOperationalKiosksPercent:$scope.operationalKiosksPercent1});
 		}
@@ -176,7 +176,7 @@ app.controller('daUserWiseDataController', ['$scope','$interval','$http','daUser
 
 		//Preparing Data to display in chart
 		let rowData=[$scope.operationalKiosksPercent2, $scope.nonOperationalKiosksPercent2];
-		$scope.doughnutData2.push({rowData});
+		$scope.doughnutData2.push({"rowData" : rowData});
 		
 		$scope.apiResponse2.push({gtLabel:'Grand Total', gtOperationalKiosks:$scope.sumOfOperationalKiosks2, gtAllKiosks:$scope.sumOfAllKiosks2, gtOperationalKiosksPercent:$scope.operationalKiosksPercent2});
 	}

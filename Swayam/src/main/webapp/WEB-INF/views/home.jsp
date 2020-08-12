@@ -52,10 +52,10 @@
 		<div class="inlineHomeMain">
 			<img src="resources/img/sbi.png">
 		</div>
-		<table cellspacing="0">
+		<table cellspacing="0px;">
 			<tr>
 				<table style="top: 0px; width: 1179px; height: 47px;"
-					cellspacing="0">
+					cellspacing="0px;">
 					<tr>
 						<td
 							style="left: 187px; width: 910px; background: #280071; color: #FFFFFF"

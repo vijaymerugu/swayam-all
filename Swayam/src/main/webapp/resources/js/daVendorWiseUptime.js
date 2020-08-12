@@ -75,7 +75,7 @@ app.controller('daVendorWiseUptimeController', ['$scope','$interval','$http','da
 
 								// Preparing Data to display in chart
 								let rowData=[filterdResponse[i].availableKiosksPercent,filterdResponse[i].nonAvailableKiosksPercent];
-								tempData.push({rowData});
+								tempData.push({"rowData" : rowData});
 
 								// doughnut chart data
 								  var data = {

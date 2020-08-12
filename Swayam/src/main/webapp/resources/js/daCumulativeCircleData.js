@@ -102,7 +102,7 @@ app.controller('daCumulativeCircleDataController', ['$scope','$interval','$http'
 			
 			//Preparing Data to display in chart
 			let rowData=[$scope.operationalKiosksPercent1, $scope.nonOperationalKiosksPercent1];
-			$scope.doughnutData1.push({rowData});
+			$scope.doughnutData1.push({"rowData" : rowData});
 			
 			$scope.apiResponse1.push({gtLabel:'Grand Total', gtOperationalKiosks:$scope.sumOfOperationalKiosks1, gtTotalKiosks:$scope.sumOfAllKiosks1, gtAvailabilityPercent:$scope.operationalKiosksPercent1});
 		}
@@ -180,7 +180,7 @@ app.controller('daCumulativeCircleDataController', ['$scope','$interval','$http'
 
 		//Preparing Data to display in chart
 		let rowData=[$scope.operationalKiosksPercent2, $scope.nonOperationalKiosksPercent2];
-		$scope.doughnutData2.push({rowData});
+		$scope.doughnutData2.push({"rowData" : rowData});
 		
 		$scope.apiResponse2.push({gtLabel:'Grand Total', gtOperationalKiosks:$scope.sumOfOperationalKiosks2, gtTotalKiosks:$scope.sumOfAllKiosks2, gtAvailabilityPercent:$scope.operationalKiosksPercent2});
 	}
@@ -261,7 +261,7 @@ app.controller('daCumulativeCircleDataController', ['$scope','$interval','$http'
 				
 				//Preparing Data to display in chart
 				let rowData=[$scope.errorWiseTotalOpenTicketsPercent3, $scope.errorWiseTotalCloseTicketsPercent3];
-				$scope.doughnutData3.push({rowData});
+				$scope.doughnutData3.push({"rowData" : rowData});
 				
 				$scope.apiResponse3.push({gtLabel:'Grand Total', gtErrorWiseTotalOpenTickets:$scope.sumOfErrorWiseTotalOpenTickets3, gtAllTickets:$scope.sumOfAllTickets3, gtErrorWiseTotalOpenTicketsPercent:$scope.errorWiseTotalOpenTicketsPercent3});
 			}
@@ -360,7 +360,7 @@ app.controller('daCumulativeCircleDataController', ['$scope','$interval','$http'
 
 				//Preparing Data to display in chart
 				let rowData=[$scope.apiResponse4[0].percentageOfOneDays, $scope.apiResponse4[0].percentOfTwoToFiveDays, $scope.apiResponse4[0].percentageOfOneWeek, $scope.apiResponse4[0].percentOneToTwoWeek, $scope.apiResponse4[0].percentGreaterThanTwoWeek];
-				$scope.doughnutData4.push({rowData});
+				$scope.doughnutData4.push({"rowData" : rowData});
 			}
 	   });
 }//End of loadTATOfDownKiosksApiData service
@@ -437,7 +437,7 @@ app.controller('daCumulativeCircleDataController', ['$scope','$interval','$http'
 
 				//Preparing Data to display in chart
 				let rowData=[$scope.openTicketsPercent5, $scope.closeTicketsPercent5];
-				$scope.doughnutData5.push({rowData});
+				$scope.doughnutData5.push({"rowData" : rowData});
 				$scope.apiResponse5.push({gtLabel:'Grand Total', gtOpenTickets:$scope.sumOfOpenTickets5, gtAllTickets:$scope.sumOfAllTickets5, gtOpenTicketsPercent:$scope.openTicketsPercent5});
 			}
 		}); 

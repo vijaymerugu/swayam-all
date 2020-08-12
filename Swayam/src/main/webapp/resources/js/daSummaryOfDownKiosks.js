@@ -52,7 +52,7 @@ app.controller('daSummaryOfDownKiosksController', ['$scope','$interval','$http',
 
 					//Preparing Data to display in chart
 					let rowData=[$scope.apiResponse[i].percentageOfTickets, $scope.apiResponse[i].percentageOfClosedTickets];
-					tempData.push({rowData});
+					tempData.push({"rowData" : rowData});
 
 					//doughnut chart data
 					  var data = {
