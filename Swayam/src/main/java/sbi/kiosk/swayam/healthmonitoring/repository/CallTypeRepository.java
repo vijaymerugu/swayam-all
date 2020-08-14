@@ -25,8 +25,8 @@ public interface CallTypeRepository extends CrudRepository<CallType, String> {
 	@Query(value="select count(a.ticket_id) from TBL_TICKET_CENTRE a  ,tbl_CALL_TYPE b  where a.CALL_CATEGORY=b.CATEGORY and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  and  B.RISK IN('High','Medium','Low')",nativeQuery=true)
 	public int getCallTypeTotal() ;
 
-	@Query(value=" select * from TBL_CALL_TYPE",nativeQuery=true)
-	List<CallType> findCallType();
+	//@Query(value=" select * from TBL_CALL_TYPE",nativeQuery=true)
+	//List<CallType> findCallType();
 
 	@Query(value = " select * from TBL_CALL_TYPE where CATEGORY=?1", nativeQuery = true)
 	List<CallType> findCallTypeByCategory(String category);
@@ -60,6 +60,12 @@ public interface CallTypeRepository extends CrudRepository<CallType, String> {
 	public int getCallTypeLowCMF(@Param("pfId") Set<String> pfId) ;
 	@Query(value="select count(a.ticket_id) from TBL_TICKET_CENTRE a  ,tbl_CALL_TYPE b  where a.CALL_CATEGORY=b.CATEGORY and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  and  B.RISK IN('High','Medium','Low') and a.KIOSK_ID in (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId))",nativeQuery=true)
 	public int getCallTypeTotalCMF(@Param("pfId") Set<String> pfId) ;
+	
+	@Query(value=" select DISTINCT CATEGORY from TBL_CALL_TYPE ",nativeQuery=true)
+	List<String> findCallType();
+	
+	@Query(value=" select DISTINCT SUB_CATEGORY from TBL_CALL_TYPE ",nativeQuery=true)
+	List<String> findCallTypeSubCategory();
 
 
 }
