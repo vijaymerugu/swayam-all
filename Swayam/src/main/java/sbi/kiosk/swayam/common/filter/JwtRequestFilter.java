@@ -63,7 +63,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		if (QueryString != null && QueryString.contains("token=")) {
 
 			jwt = QueryString.substring(6);
-			logger.info("Token = " + jwt);
+			//logger.info("Token = " + jwt);
 
 			try {
 

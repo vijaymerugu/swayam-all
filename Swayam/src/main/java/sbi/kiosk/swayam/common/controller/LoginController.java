@@ -52,7 +52,7 @@ public class LoginController{
 		
 		try {
 		String pfId = jwtTokenUtil.extractUsername(token);
-		logger.info("Inside /authenticateUser?token"+token+ " USER_ID "+pfId);
+		//logger.info("Inside /authenticateUser?token"+token+ " USER_ID "+pfId);
 		UserDto userObj = loginService.getRoleByUsername(pfId);
 		session.setAttribute("pfId", userObj.getPfId());
 		session.setAttribute("userObj", userObj);

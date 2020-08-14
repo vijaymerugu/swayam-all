@@ -7,7 +7,7 @@
     <property name="ireport.x" value="0"></property>
 
     <property name="ireport.y" value="0"></property>  
-<property name="net.sf.jasperreports.export.pdf.size.page.to.content" value="true"/>
+    <property name="net.sf.jasperreports.export.pdf.size.page.to.content" value="true"/>
 
     <field name="crclName" class="java.lang.String"></field>
 
@@ -16,8 +16,8 @@
     <field name="module" class="java.lang.String"></field>    
 
     <field name="region" class="java.lang.String"></field>
-<field name="branchCode" class="java.lang.String"></field>
-<field name="branchName" class="java.lang.String"></field>
+    <field name="branchCode" class="java.lang.String"></field>
+    <field name="branchName" class="java.lang.String"></field>
 
     <field name="lipiKioskCount" class="java.lang.Integer"></field>
 
@@ -229,7 +229,10 @@
                 <text><![CDATA[BRANCH NAME]]></text>
 
             </staticText>
-<staticText>
+            
+           
+
+        <staticText>
 
                 <reportElement x="844" y="41" width="100" height="20"></reportElement>
 
@@ -255,6 +258,8 @@
                 <text><![CDATA[NO OF KIOSK]]></text>
 
             </staticText>
+            
+             
 <staticText>
 
                 <reportElement x="944" y="41" width="100" height="20"></reportElement>
