@@ -92,7 +92,7 @@ app.controller('daUserWiseDataController', ['$scope','$interval','$http','daUser
 			
 			//Calculating the Operational & Non-Operational Percentage
 			$scope.operationalKiosksPercent1 = ($scope.sumOfOperationalKiosks1 / $scope.sumOfAllKiosks1) * 100;
-			$scope.nonOperationalKiosksPercent1 = ($scope.nonOperationalKiosksPercent1 / $scope.sumOfAllKiosks1) * 100;
+			$scope.nonOperationalKiosksPercent1 = ($scope.sumOfNonOperationalKiosks1 / $scope.sumOfAllKiosks1) * 100;
 			
 			
 			//Preparing Data to display in chart
