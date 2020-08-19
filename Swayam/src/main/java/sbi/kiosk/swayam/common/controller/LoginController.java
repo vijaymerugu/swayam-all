@@ -2,6 +2,7 @@ package sbi.kiosk.swayam.common.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -48,21 +49,20 @@ public class LoginController{
 	@PostAuthorize("hasPermission('login','READ')")
 	public ModelAndView home(@RequestParam(value="token")String token, HttpSession session,AuditLogger auditLogger,ModelAndView mav) {
 		
-		//logger.info("Inside /authenticateUser?token"+token );
-		
+				
 		try {
 		String pfId = jwtTokenUtil.extractUsername(token);
-		logger.info("Inside /authenticateUser?token"+token+ " USER_ID "+pfId);
+	
 		UserDto userObj = loginService.getRoleByUsername(pfId);
 		session.setAttribute("pfId", userObj.getPfId());
 		session.setAttribute("userObj", userObj);
-		logger.info("Session Val" + session.getAttribute("pfId"));
+		session.setAttribute("csrfToken", UUID.randomUUID().toString());
 		
 		auditLogger.setPath("/authenticateUser");
 		auditLogger.setUser_Id(pfId);
 		SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
 		java.util.Date date = new java.util.Date();
-		//System.out.println("date "+ formatter.format(date));
+		
 		
 		auditLogger.setSession_Date(formatter.format(date));
 		
@@ -74,7 +74,7 @@ public class LoginController{
 		
 		auditLogger.setToken(token);
 		audit.save(auditLogger);
-	    mav.setViewName("home");
+		mav.setViewName("redirect:/home");
 		}catch(Exception e) {
 			logger.error("Invalid Token Exception():: ",e,e.getMessage());
 			mav.addObject("commonError", "Bad Request");
@@ -82,6 +82,14 @@ public class LoginController{
 		}
 		return mav;
 	}
+	
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	@PostAuthorize("hasPermission('login','READ')")
+	   public ModelAndView redirect() {
+		 ModelAndView mav = new ModelAndView("home");			
+		 return mav;
+	    
+	   }
 	
 	/*
 	 * @RequestMapping(value="login", method=RequestMethod.POST)
@@ -114,7 +122,8 @@ public class LoginController{
 	public List<MenuMasterDto> getMenu(HttpSession session) {		
 		UserDto userObj =(UserDto) session.getAttribute("userObj");
 		//session.setAttribute("username", username);
-		logger.info("Session Val1111::: "+ session.getAttribute("pfId"));
+	//	logger.info("Session userid Val1111::: "+ session.getAttribute("pfId"));
+	//	logger.info("Session Val2222::: "+session.getId());
 		return loginService.getMenusByUserRole(userObj.getRole());
 		//ModelAndView mav = new ModelAndView("home");
 		//return mav;		

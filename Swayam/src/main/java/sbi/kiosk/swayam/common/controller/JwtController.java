@@ -4,6 +4,10 @@ package sbi.kiosk.swayam.common.controller;
 
 import java.text.SimpleDateFormat;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,23 +61,16 @@ public class JwtController {
 	
 	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "/getToken", method = RequestMethod.POST)
-	public ResponseEntity<?> createAuthenticationTocken(@RequestHeader(value="USER_ID") String userID,AuditLogger auditLogger)
+	public ResponseEntity<?> createAuthenticationTocken(@RequestHeader(value="USER_ID") String userID,AuditLogger auditLogger,HttpServletRequest req,HttpServletResponse res)
 			throws Exception {
 
 		String jwt = null;
-		
-		//authenticationRequest.setUSER_ID(userID);
-		
-		//System.out.println("header " + authenticationRequest.getUSER_ID());
-		
-		logger.info("Inside /getToken "+ userID);
-		
+	
 		auditLogger.setPath("/getToken");
 		auditLogger.setUser_Id(userID);
 		SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
 		java.util.Date date = new java.util.Date();
-		//System.out.println("date "+ formatter.format(date));
-		
+			
 		auditLogger.setSession_Date(formatter.format(date));
 		
 		auditLogger.setStatus("Success");
@@ -89,21 +86,26 @@ public class JwtController {
 
 		} catch (InternalAuthenticationServiceException e) {
 			logger.info("Failed", e.getLocalizedMessage());
-			logger.info("/getToken filed "+ userID);
-			logger.info("JWT token " +jwt);
+		
+	
 			auditLogger.setStatus("Failed");
 			auditLogger.setToken(jwt);
 			audit.save(auditLogger);
 			return ResponseEntity.ok(new AuthenticationReponse("FAIL", jwt));
 
 		}catch (Exception e) {
-			logger.info("/getToken filed "+ userID);
+		
 			logger.info("Failed "+ e.getLocalizedMessage());
 		}
-		logger.info("/getToken Sucess "+ userID);
-		logger.info("JWT token " +jwt );
+
 		audit.save(auditLogger);
-		return ResponseEntity.ok(new AuthenticationReponse("SUCESS", jwt));
+		
+		Cookie myCookie =  new Cookie("JSESSIONID", req.getSession().getId());
+		 myCookie.setPath("/getToken");
+		 myCookie.setDomain(req.getServerName());		 
+		res.addCookie(myCookie);
+		
+		return ResponseEntity.ok(new AuthenticationReponse("SUCCESS", jwt));
 
 	}
 	

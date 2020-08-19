@@ -129,8 +129,8 @@ public class JasperServiceImpl implements JasperService {
 		try {
 			jrxmlPath = jrxmlPath.replaceAll(">", "");
 			reportPath = reportPath.replaceAll(">", "");
-			logger.info("jrxmlPath " + jrxmlPath);
-			logger.info("reportPath " + reportPath);
+		//	logger.info("jrxmlPath " + jrxmlPath);
+		//	logger.info("reportPath " + reportPath);
 			if (identifyPage.equals("userListSA")) {
 				List<UserManagementDto> list = findUsersBySA();
 				File file = ResourceUtils.getFile(jrxmlPath + "usersListSA.jrxml");
@@ -325,8 +325,8 @@ public class JasperServiceImpl implements JasperService {
 		String filename = null;
 
 		try {
-			logger.info("jrxmlPath " + jrxmlPath);
-			logger.info("reportPath " + reportPath);
+		//	logger.info("jrxmlPath " + jrxmlPath);
+		//	logger.info("reportPath " + reportPath);
 			if (identifyPage.equals("userListSA")) {
 				List<UserManagementDto> list = findUsersBySA();
 				File file = ResourceUtils.getFile(jrxmlPath + "usersListSA.jrxml");
@@ -759,16 +759,16 @@ public class JasperServiceImpl implements JasperService {
 				 fromdate = sdf.format(curDate);
 				 todate = sdf.format(curDate);
 				 
-				 logger.info("Inside findAllTransactionSummary===========Current==========From date: "+fromdate);
-				 logger.info("Inside findAllTransactionSummary===========Current==========To date: "+todate);
+			//	 logger.info("Inside findAllTransactionSummary===========Current==========From date: "+fromdate);
+			//	 logger.info("Inside findAllTransactionSummary===========Current==========To date: "+todate);
 	//	  }
 		  if((dateFrame.getFromDate().isEmpty()== false) && (dateFrame.getToDate().isEmpty()== false)) 
 		  {
 			   fromdate = dateFrame.getFromDate();
 			   todate = dateFrame.getToDate();
 			   
-			   logger.info("Inside findAllTransactionSummary===========TimeFrame==========From date: "+fromdate);
-			   logger.info("Inside findAllTransactionSummary===========TimeFrame==========To date: "+todate);
+			//   logger.info("Inside findAllTransactionSummary===========TimeFrame==========From date: "+fromdate);
+			//   logger.info("Inside findAllTransactionSummary===========TimeFrame==========To date: "+todate);
 		  }
 		
 		logger.info("Inside==Jasper====findAllTransactionSummary=======after date setting====");
@@ -783,7 +783,7 @@ public class JasperServiceImpl implements JasperService {
 	public List<RealTimeTransactionDto> findAllDateWiseRealtimeTxn(String fromdate) {
 		logger.info("Inside==Jasper====findAllDateWiseRealtimeTxn===========");
 		List<RealTimeTransaction> list = realTimeTxnRepositoryPaging.findByDate(fromdate);
-		logger.info("Inside==Jasper=list=" + list);
+	//	logger.info("Inside==Jasper=list=" + list);
 		List<RealTimeTransactionDto> entities = ObjectMapperUtils.mapAll(list, RealTimeTransactionDto.class);
 		return entities;
 	}
@@ -791,8 +791,8 @@ public class JasperServiceImpl implements JasperService {
 	@Override
 	public List<ZeroTransactionKiosksDto> findAllZeroTxnKoisk(String fromdate, String todate) {
 		logger.info("Inside==Jasper====findAllZeroTxnKoisk===========");
-		logger.info("Inside==Jasper====findAllZeroTxnKoisk=========== From date: "+dateFrame.getFromDate());
-		  logger.info("Inside==Jasper====findAllZeroTxnKoisk===========To date: "+dateFrame.getToDate());
+		//logger.info("Inside==Jasper====findAllZeroTxnKoisk=========== From date: "+dateFrame.getFromDate());
+		//  logger.info("Inside==Jasper====findAllZeroTxnKoisk===========To date: "+dateFrame.getToDate());
 		 
 		  if((dateFrame.getFromDate()!= "") && (dateFrame.getToDate()!= "")) {
 				
@@ -809,10 +809,7 @@ public class JasperServiceImpl implements JasperService {
 	public List<ErrorReportingDto> findAllErrorReprting(String fromdate, String todate) {
 		logger.info("Inside==Jasper====findAllErrorReprting===========");
 		
-		  logger.info("Inside==Jasper====findAllZeroTxnKoisk=========== From date: "
-		  +dateFrame.getFromDate());
-		  logger.info("Inside==Jasper====findAllZeroTxnKoisk===========To date: "
-		  +dateFrame.getToDate());
+		
 		  
 		  if((dateFrame.getFromDate()!= "") && (dateFrame.getToDate()!= "")) {
 		  
