@@ -24,4 +24,12 @@ public interface ManualTicketCallLogRepository  extends CrudRepository<ManualTic
 	List<ManualTicketCallLog> findByKioskId(String kioskId);
 	
 	
+	//
+	
+	@Query(value = "select COMPLAINTID from TBL_MANUAL_CALL_LOG cl where cl.kiosk_id=:kiosk_id and cl.CALL_SUBCATEGORY=:subCategory and cl.STATUS=:status ", nativeQuery = true)
+	public String findByKisokIdAndCallSubCategoryAndStatus(@Param("kiosk_id") String kisokid,
+			@Param("subCategory") String subCategory, @Param("status") String status);
+
+	
+	
 }

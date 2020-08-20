@@ -45,6 +45,56 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 	@Autowired
 	private CallTypeRepository callTypeRpository;
 
+	/*
+	 * @Override
+	 * 
+	 * @Transactional(rollbackFor = Exception.class) public String
+	 * createManualTicket(ManualTicketCallLogDto manualTicketCallLogDto) throws
+	 * ManualTicketNotFoudException {
+	 * 
+	 * String manual_call_log_id = null; SimpleDateFormat date = null; String
+	 * complaintId = null; try { manualTicketCallLogDto.getKioskError();
+	 * manual_call_log_id = manualTicketCallLogRepo.findSeq(); // String seq =
+	 * "MANUAL_CALL_LOG_ID" + manual_call_log_id; ManualTicketCallLog manualEnity =
+	 * new ManualTicketCallLog();
+	 * manualEnity.setBranchCode(manualTicketCallLogDto.getBranchCode());
+	 * manualEnity.setCircle(manualTicketCallLogDto.getCircle());
+	 * manualEnity.setManual_call_log_id(manual_call_log_id);
+	 * manualEnity.setKioskId(manualTicketCallLogDto.getKioskId());
+	 * manualEnity.setComments(manualTicketCallLogDto.getComment());
+	 * manualEnity.setContactNo(manualTicketCallLogDto.getContactNo());
+	 * manualEnity.setContactPerson(manualTicketCallLogDto.getContactPerson());
+	 * manualEnity.setStatus(manualTicketCallLogDto.getStatus());
+	 * manualEnity.setVendor(manualTicketCallLogDto.getVendor());
+	 * manualEnity.setKioskError(manualTicketCallLogDto.getKioskError());
+	 * manualTicketCallLogRepo.save(manualEnity);
+	 * 
+	 * String kioskId =
+	 * ticketCentorRepo.findByKisokId(manualTicketCallLogDto.getKioskId()); String
+	 * id = ticketCentorRepo.findByTicketId(kioskId); if (kioskId != null) { if
+	 * (kioskId.equals(manualTicketCallLogDto.getKioskId())) { date = new
+	 * SimpleDateFormat("dd/MM/YY"); String date1 = date.format(new Date()); String
+	 * createdDate = date1.replace("/", ""); complaintId = "INC" + createdDate + id;
+	 * manualTicketCallLogRepo.updateComplaintId(complaintId,
+	 * manualTicketCallLogDto.getKioskId()); return id; } } else { date = new
+	 * SimpleDateFormat("dd/MM/YY"); String date1 = date.format(new Date()); String
+	 * createdDate = date1.replace("/", ""); complaintId = "INC" + createdDate +
+	 * manual_call_log_id; String kisokId = manualTicketCallLogDto.getKioskId();
+	 * manualTicketCallLogRepo.updateComplaintId(complaintId, kisokId); return
+	 * manual_call_log_id;
+	 * 
+	 * }
+	 * 
+	 * } catch (Exception e) {
+	 * logger.info("Exception "+ExceptionConstants.EXCEPTION); } return complaintId;
+	 * }
+	 */
+	
+	
+	
+	
+	//changes By Satendra
+	
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public String createManualTicket(ManualTicketCallLogDto manualTicketCallLogDto)
@@ -54,7 +104,7 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 		SimpleDateFormat date = null;
 		String complaintId = null;
 		try {
-			manualTicketCallLogDto.getKioskError();
+			logger.info("createManualTicket................. error message" + manualTicketCallLogDto.getKioskError());
 			manual_call_log_id = manualTicketCallLogRepo.findSeq();
 			// String seq = "MANUAL_CALL_LOG_ID" + manual_call_log_id;
 			ManualTicketCallLog manualEnity = new ManualTicketCallLog();
@@ -65,20 +115,34 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 			manualEnity.setComments(manualTicketCallLogDto.getComment());
 			manualEnity.setContactNo(manualTicketCallLogDto.getContactNo());
 			manualEnity.setContactPerson(manualTicketCallLogDto.getContactPerson());
-			manualEnity.setStatus(manualTicketCallLogDto.getStatus());
+			manualEnity.setStatus("Active");
 			manualEnity.setVendor(manualTicketCallLogDto.getVendor());
 			manualEnity.setKioskError(manualTicketCallLogDto.getKioskError());
-			manualTicketCallLogRepo.save(manualEnity);
+			manualEnity.setSubCategory(manualTicketCallLogDto.getKioskError());
 
-			String kioskId = ticketCentorRepo.findByKisokId(manualTicketCallLogDto.getKioskId());
+			String checkStatusTicket = ticketCentorRepo.findByKisokIdAndCallSubCategoryAndStatus(manualTicketCallLogDto.getKioskId(),manualTicketCallLogDto.getKioskError(),"Active");
+			
+			if(checkStatusTicket!=null && !checkStatusTicket.isEmpty()){
+				String existComplaintId= manualTicketCallLogRepo.findByKisokIdAndCallSubCategoryAndStatus(manualTicketCallLogDto.getKioskId(),manualTicketCallLogDto.getKioskError(),"Active");
+				
+				return "Your complaint Id: "+existComplaintId +" is already exist.";
+			}else{
+			
+			//manualTicketCallLogRepo.save(manualEnity);
+			
+			String kioskId = ticketCentorRepo.findByKisokIdAndCallSubCategory(manualTicketCallLogDto.getKioskId(),manualTicketCallLogDto.getKioskError());
+			
 			String id = ticketCentorRepo.findByTicketId(kioskId);
-			if (kioskId != null) {
+			
+			if (kioskId != null && !kioskId.isEmpty()) {
 				if (kioskId.equals(manualTicketCallLogDto.getKioskId())) {
 					date = new SimpleDateFormat("dd/MM/YY");
 					String date1 = date.format(new Date());
 					String createdDate = date1.replace("/", "");
 					complaintId = "INC" + createdDate + id;
-					manualTicketCallLogRepo.updateComplaintId(complaintId, manualTicketCallLogDto.getKioskId());
+					manualEnity.setComplaintId(complaintId);
+					manualTicketCallLogRepo.save(manualEnity);
+					//manualTicketCallLogRepo.updateComplaintId(complaintId, manualTicketCallLogDto.getKioskId());
 					return id;
 				}
 			} else {
@@ -87,16 +151,25 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 				String createdDate = date1.replace("/", "");
 				complaintId = "INC" + createdDate + manual_call_log_id;
 				String kisokId = manualTicketCallLogDto.getKioskId();
-				manualTicketCallLogRepo.updateComplaintId(complaintId, kisokId);
-				return manual_call_log_id;
-
+				manualEnity.setComplaintId(complaintId);
+				manualTicketCallLogRepo.save(manualEnity);
+				//manualTicketCallLogRepo.updateComplaintId(complaintId, kisokId);
+				//return manual_call_log_id;
+				complaintId = "Your complaint '"+complaintId+"` has been successfully registered";
 			}
+			
+			}
+			
 
 		} catch (Exception e) {
-			logger.info("Exception "+ExceptionConstants.EXCEPTION);
+			 logger.info("Exception "+ExceptionConstants.EXCEPTION); 
 		}
 		return complaintId;
 	}
+
+	
+	
+	
 
 	public List<ManualTicketCallLogDto> getByBranchCode(String brachCode) {
 		String branchName=null;
