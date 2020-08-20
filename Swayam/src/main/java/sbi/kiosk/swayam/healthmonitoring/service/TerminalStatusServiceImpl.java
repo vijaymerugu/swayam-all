@@ -62,35 +62,35 @@ public class TerminalStatusServiceImpl implements TerminalStatusService {
 				.map(TerminalStatusDto::new);
 
 		for (TerminalStatusDto dto : entities) {
-			    logger.info("entities terminal status===" + entities.getContent());
-				logger.info("=terminalStatus=====kioskId=======" + dto.getKioskId());
+			//    logger.info("entities terminal status===" + entities.getContent());
+			//	logger.info("=terminalStatus=====kioskId=======" + dto.getKioskId());
 				kioskMastlist = kioskMasterRepo.findByKioskId(dto.getKioskId());
-				logger.info("kioskId=list zise===" + kioskMastlist.size());
+			//	logger.info("kioskId=list zise===" + kioskMastlist.size());
                 
 			  for (KioskBranchMaster kioskBranchMast : kioskMastlist) {
-					logger.info("SRNO=========" + kioskBranchMast.getKioskSerialNo());
+				//	logger.info("SRNO=========" + kioskBranchMast.getKioskSerialNo());
 					dto.setKioskSrNo(kioskBranchMast.getKioskSerialNo());
-					logger.info("kioskId==:: " + kioskBranchMast.getKioskId());
+				//	logger.info("kioskId==:: " + kioskBranchMast.getKioskId());
 					dto.setKioskId(kioskBranchMast.getKioskId());
 					dto.setBranchCode(kioskBranchMast.getBranchCode());
 					
 				}
 			  
-			  logger.info("dto.getKioskId()-------------"+dto.getKioskId());
+		//	  logger.info("dto.getKioskId()-------------"+dto.getKioskId());
 			   List<BranchMaster> branchMastList = branchMasterRepo.findAllByBranchCode(dto.getBranchCode());
-				 logger.info("branchMastList==========" + branchMastList.size());
+			//	 logger.info("branchMastList==========" + branchMastList.size());
 				for (BranchMaster branchMast : branchMastList) {
-					logger.info("Br Code====" + branchMast.getBranchCode());
-					logger.info("Circle====" + branchMast.getCircle());
+				//	logger.info("Br Code====" + branchMast.getBranchCode());
+				//	logger.info("Circle====" + branchMast.getCircle());
 					dto.setBranchCode(branchMast.getBranchCode());
 					dto.setCircle(branchMast.getCircle());
 				}
 			  
 						
 			    cmfNameList = terminalStatusRepo.findByKisoskId(dto.getKioskId());
-				logger.info("CMF User==" + cmfNameList);
+			//	logger.info("CMF User==" + cmfNameList);
 			    dto.setCmf(cmfNameList);	
-				logger.info("dto::::" + dto);
+			//	logger.info("dto::::" + dto);
 			}
 		
 		return entities;
@@ -143,48 +143,48 @@ public class TerminalStatusServiceImpl implements TerminalStatusService {
 
 	@Override
 	public Page<TerminalStatusDto> findPaginatedCount(int page, int size, String type) {
-          logger.info("findPaginatedCount Service=====type"+type);
+    //      logger.info("findPaginatedCount Service=====type"+type);
           Page<TerminalStatusDto> entities =null;
           Page<TerminalStatusDto> terminalEntities =null;
 
        if(type.equals("NoOfRedPVSRed")){
 		 entities = terminalStatusRepositoryPaging.findByPbPrinterStatus(PageRequest.of(page, size),"Red");
-		logger.info("entities::::::::::"+entities.getContent());
+	//	logger.info("entities::::::::::"+entities.getContent());
 		
 		terminalEntities=getAllTerminalStatusOfDto(entities);
 		
        }else  if(type.equals("NoOfGreenPVSGreen")){
    		 entities = terminalStatusRepositoryPaging.findByPbPrinterStatus(PageRequest.of(page, size),"Green");
-   		logger.info("entities::::::::::"+entities.getContent());
+   	//	logger.info("entities::::::::::"+entities.getContent());
    		
    		terminalEntities=getAllTerminalStatusOfDto(entities);
    		
           } else if(type.equals("NoOfGreyPVSGrey")){
    		entities = terminalStatusRepositoryPaging.findByPbPrinterStatus(PageRequest.of(page, size),"Grey");
-   		logger.info("entities::::::::::"+entities.getContent());
+   	//	logger.info("entities::::::::::"+entities.getContent());
           
    		terminalEntities=getAllTerminalStatusOfDto(entities);
        }
 	
     else if(type.equals("NoOfRedCARTRed")){
 		entities = terminalStatusRepositoryPaging.findByCartridgeStatus(PageRequest.of(page, size),"Red");
-		logger.info("entities::::::::::"+entities.getContent());
+	//	logger.info("entities::::::::::"+entities.getContent());
 		terminalEntities=getAllTerminalStatusOfDto(entities);
        }
     else if(type.equals("NoOfGreenCARTGreen")){
 		entities = terminalStatusRepositoryPaging.findByCartridgeStatus(PageRequest.of(page, size),"Green");
-		logger.info("entities::::::::::"+entities.getContent());
+	//	logger.info("entities::::::::::"+entities.getContent());
 		terminalEntities=getAllTerminalStatusOfDto(entities);
        }
     else if(type.equals("NoOfGreyCARTGrey")){
 		entities = terminalStatusRepositoryPaging.findByCartridgeStatus(PageRequest.of(page, size),"Grey");
-		logger.info("entities::::::::::"+entities.getContent());
+	//	logger.info("entities::::::::::"+entities.getContent());
 		terminalEntities=getAllTerminalStatusOfDto(entities);
        }
        
     else if(type.equals("NoOfRedANTRed")){
 		entities = terminalStatusRepositoryPaging.findByAntivirusStatus(PageRequest.of(page, size),"Red");
-		logger.info("entities::::::::::"+entities.getContent());
+	//	logger.info("entities::::::::::"+entities.getContent());
 		terminalEntities=getAllTerminalStatusOfDto(entities);
 		
        }
@@ -192,33 +192,33 @@ public class TerminalStatusServiceImpl implements TerminalStatusService {
        
     else if(type.equals("NoOfGreenANTGreen")){
 		entities = terminalStatusRepositoryPaging.findByAntivirusStatus(PageRequest.of(page, size),"Green");
-		logger.info("entities::::::::::"+entities.getContent());
+	//	logger.info("entities::::::::::"+entities.getContent());
 		terminalEntities=getAllTerminalStatusOfDto(entities);
        }
        
     else if(type.equals("NoOfGreyANTGrey")){
 		entities = terminalStatusRepositoryPaging.findByAntivirusStatus(PageRequest.of(page, size),"Grey");
-		logger.info("entities::::::::::"+entities.getContent());
+	//	logger.info("entities::::::::::"+entities.getContent());
 		terminalEntities=getAllTerminalStatusOfDto(entities);
        }
     else if(type.equals("NoOfRedAPPSRed")){
 		entities = terminalStatusRepositoryPaging.findByAplicationStatus(PageRequest.of(page, size),"Red");
-		logger.info("entities::::::::::"+entities.getContent());
+	//	logger.info("entities::::::::::"+entities.getContent());
 		terminalEntities=getAllTerminalStatusOfDto(entities);
        }
     else if(type.equals("NoOfGreenAPPSGreen")){
 		entities = terminalStatusRepositoryPaging.findByAplicationStatus(PageRequest.of(page, size),"Green");
-		logger.info("entities::::::::::"+entities.getContent());
+	//	logger.info("entities::::::::::"+entities.getContent());
 		terminalEntities=getAllTerminalStatusOfDto(entities);
        }
     else if(type.equals("NoOfGreyAPPSGrey")){
 		entities = terminalStatusRepositoryPaging.findByAplicationStatus(PageRequest.of(page, size),"Grey");
-		logger.info("entities::::::::::"+entities.getContent());
+	//	logger.info("entities::::::::::"+entities.getContent());
 		terminalEntities=getAllTerminalStatusOfDto(entities);
        }
        else{
     	   		entities = terminalStatusRepositoryPaging.findByAplicationStatus(PageRequest.of(page, size),type);
-    	   		logger.info("entities::::::::::"+entities.getContent());
+    	   //		logger.info("entities::::::::::"+entities.getContent());
     	   		terminalEntities=getAllTerminalStatusOfDto(entities);
        }
        
@@ -232,35 +232,35 @@ public class TerminalStatusServiceImpl implements TerminalStatusService {
 		String cmfNameList = null;
 		
 		for (TerminalStatusDto dto : entities) {
-		    logger.info("entities terminal status===" + entities.getContent());
-			logger.info("=terminalStatus=====kioskId=======" + dto.getKioskId());
+	//	    logger.info("entities terminal status===" + entities.getContent());
+	//		logger.info("=terminalStatus=====kioskId=======" + dto.getKioskId());
 			kioskMastlist = kioskMasterRepo.findByKioskId(dto.getKioskId());
-			logger.info("kioskId=list zise===" + kioskMastlist.size());
+	//		logger.info("kioskId=list zise===" + kioskMastlist.size());
             
 		  for (KioskBranchMaster kioskBranchMast : kioskMastlist) {
-				logger.info("SRNO=========" + kioskBranchMast.getKioskSerialNo());
+		//		logger.info("SRNO=========" + kioskBranchMast.getKioskSerialNo());
 				dto.setKioskSrNo(kioskBranchMast.getKioskSerialNo());
-				logger.info("kioskId==:: " + kioskBranchMast.getKioskId());
+		//		logger.info("kioskId==:: " + kioskBranchMast.getKioskId());
 				dto.setKioskId(kioskBranchMast.getKioskId());
 				dto.setBranchCode(kioskBranchMast.getBranchCode());
 				
 			}
 		  
-		  logger.info("dto.getKioskId()-------------"+dto.getKioskId());
+	//	  logger.info("dto.getKioskId()-------------"+dto.getKioskId());
 		   List<BranchMaster> branchMastList = branchMasterRepo.findAllByBranchCode(dto.getBranchCode());
-			 logger.info("branchMastList==========" + branchMastList.size());
+	//		 logger.info("branchMastList==========" + branchMastList.size());
 			for (BranchMaster branchMast : branchMastList) {
-				logger.info("Br Code====" + branchMast.getBranchCode());
-				logger.info("Circle====" + branchMast.getCircle());
+	//			logger.info("Br Code====" + branchMast.getBranchCode());
+	//			logger.info("Circle====" + branchMast.getCircle());
 				dto.setBranchCode(branchMast.getBranchCode());
 				dto.setCircle(branchMast.getCircle());
 			}
 		  
 					
 		    cmfNameList = terminalStatusRepo.findByKisoskId(dto.getKioskId());
-			logger.info("CMF User==" + cmfNameList);
+	//		logger.info("CMF User==" + cmfNameList);
 		    dto.setCmf(cmfNameList);	
-			logger.info("dto::::" + dto);
+	//		logger.info("dto::::" + dto);
 		}
 	return entities;
 		

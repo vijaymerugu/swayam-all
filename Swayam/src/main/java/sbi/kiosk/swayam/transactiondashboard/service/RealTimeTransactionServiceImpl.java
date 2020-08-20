@@ -33,7 +33,7 @@ public class RealTimeTransactionServiceImpl implements RealTimeTransactionServic
 	@Override
 	public Page<RealTimeTransaction> findPaginated(int page, int size, String fromdate) {
       
-		logger.info("findPaginatedFromToDate Start----from---"+fromdate);
+		logger.info("findPaginatedFromToDate Start----from---");
 		// Page<RealTimeTransaction>  entities =	realTimeTxnRepositoryPaging.findByFromDate(PageRequest.of(page, size),fromdate);
 		//logger.info("entities==date wise==="+entities.getContent());
 		 List<RealTimeTransaction> list=new ArrayList<RealTimeTransaction>(); 
@@ -45,7 +45,7 @@ public class RealTimeTransactionServiceImpl implements RealTimeTransactionServic
 			 curDate.setTime(curDate.getTime()-24*60*60*1000); 
 			 passedDate=sdf.format(curDate);
 			 
-			logger.info("date===========::"+passedDate);		 
+		//	logger.info("date===========::");		 
 			/*StoredProcedureQuery nearByEntities= em.createNamedStoredProcedureQuery("SP_REAL_TIME_PROC");
 	        nearByEntities.setParameter("fromdate_param", date);
 	       // nearByEntities.setParameter("todate", "20-05-12");
@@ -55,13 +55,13 @@ public class RealTimeTransactionServiceImpl implements RealTimeTransactionServic
 			 SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
 			 Date curDate=new Date();
 			 passedDate=sdf.format(curDate);
-			 logger.info("Else If===todayDate===========::"+passedDate);			 
+		//	 logger.info("Else If===todayDate===========::");			 
 		}else{
 				 SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
 				 Date curDate=new Date();
 				 passedDate=sdf.format(curDate);
 				//String todayDate=sdf.format(curDate);
-				logger.info("Else ===todayDate===========::"+passedDate);
+			//	logger.info("Else ===todayDate===========::"+passedDate);
 		}
 		 Page<RealTimeTransaction> pageEntity = realTimeTxnRepositoryPaging.findByFromDate(passedDate, PageRequest.of(page, size));					
 		return pageEntity;

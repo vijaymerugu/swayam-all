@@ -35,7 +35,7 @@ Logger logger = LoggerFactory.getLogger(ErrorReportingContoller.class);
 	
 	@RequestMapping("td/noOfErrorsKiosk")
 	public ModelAndView noOfErrorsKiosk(@RequestParam("kioskId") String kioskId) {
-		logger.info("noOfErrorsKiosk=========="+kioskId);
+	//	logger.info("noOfErrorsKiosk=========="+kioskId);
 		ModelAndView mav = new ModelAndView("errorSummary");
 		return mav;
 	}
@@ -48,13 +48,13 @@ Logger logger = LoggerFactory.getLogger(ErrorReportingContoller.class);
 		
 		  dateFrame.setFromDate(fromDate); dateFrame.setToDate(toDate);
 		  
-		  logger.info("Inside ZeroTransactionKiosksController From date from jsp: "
+	/*	  logger.info("Inside ZeroTransactionKiosksController From date from jsp: "
 		  +dateFrame.getFromDate());
 		  logger.info("Inside ZeroTransactionKiosksController To date from jsp: "
-		  +dateFrame.getToDate());
+		  +dateFrame.getToDate()); 
 		 
 		  
-		logger.info("resultPage==" + resultPage.getNumberOfElements());
+		logger.info("resultPage==" + resultPage.getNumberOfElements()); */
 		if (page > resultPage.getTotalPages()) {
 			// throw new MyResourceNotFoundException();
 		}
