@@ -1,6 +1,7 @@
 var app = angular.module('daErrorTypeWiseUptimeModule', ['chart.js']);
 
-app.controller('daErrorTypeWiseUptimeController', ['$scope','$filter','daErrorTypeWiseUptimeService', function ($scope, $filter,daErrorTypeWiseUptimeService) {
+app.controller('daErrorTypeWiseUptimeController', ['$scope','$interval','$http','daErrorTypeWiseUptimeService', 
+	function ($scope, $interval, $http, daErrorTypeWiseUptimeService) {
 	
 		$scope.errorTypeList = [{
   		    'name': 'Printing',
@@ -24,20 +25,40 @@ app.controller('daErrorTypeWiseUptimeController', ['$scope','$filter','daErrorTy
     		    'value': 'Hardware'
   		  }];
 
-  		//$scope.selectedErrorType = {'name': 'Error1','value':'Error1'},
   		$scope.selectedErrorType = {
   			     'errorType': $scope.errorTypeList[0]
   			  };
 	
 	// function to change data on dropdown selection.
 	$scope.selectedItemChanged = function(){
-		loadApiDataByErrorType();
+		callDaErrorTypeWiseUptimeService();
 		}
+	
+	this.$onInit = function() {
+	    // this will kill all intervals and timeouts too in 1 seconds. 
+	    var killId = setTimeout(function() {
+	      for (var i = killId; i > 0; i--) clearInterval(i)
+	    }, 1000);
+    };
 
-		loadApiDataByErrorType();
-		
-		function loadApiDataByErrorType(){
-			daErrorTypeWiseUptimeService.loadApiData($scope.selectedErrorType.errorType.value).success(function(response){
+  //getting auto refresh time value from property file
+	$http({
+		method: 'GET',
+		url: 'da/getChartAutoRefreshTime'
+		}).then(function success(response) {
+			$scope.autoRefreshTime=response.data;
+			
+			var id1 = setInterval(function() { 
+				callDaErrorTypeWiseUptimeService();
+			}, $scope.autoRefreshTime);			
+		}, function error(response) {
+			console.log('error occured while getting refresh time.');
+		});
+
+		//On Page Load API Called.
+		callDaErrorTypeWiseUptimeService();
+		function callDaErrorTypeWiseUptimeService(){
+			daErrorTypeWiseUptimeService.loadErrorTypeWiseUptimeApiData($scope.selectedErrorType.errorType.value).success(function(response){
 				
 				   $scope.apiResponse = response;
 				   // Buiding Data & Options for Chart
@@ -50,9 +71,11 @@ app.controller('daErrorTypeWiseUptimeController', ['$scope','$filter','daErrorTy
 						$('.submain').append('<div class="chartDiv"></div>');
 						$(".chartDiv").append("<table><tr>");
 						let filterdResponse = $scope.apiResponse.filter(function (e){
-							return e.errorType == $scope.selectedErrorType.errorType.value;
+							if(e != null){
+								return e.errorType == $scope.selectedErrorType.errorType.value;
+							}
 						});
-						console.log('filterdResponse:',filterdResponse);
+
 						for(var i=0; i<filterdResponse.length; i++){
 							if (filterdResponse[i] != null) {
 
@@ -65,7 +88,7 @@ app.controller('daErrorTypeWiseUptimeController', ['$scope','$filter','daErrorTy
 								
 								// Preparing Data to display in chart
 								let rowData=[filterdResponse[i].percentageOfTickets, filterdResponse[i].otherErrorTickets];
-								tempData.push({rowData});
+								tempData.push({"rowData" : rowData});
 								
 								// doughnut chart data
 								  var data = {
@@ -102,14 +125,26 @@ app.controller('daErrorTypeWiseUptimeController', ['$scope','$filter','daErrorTy
 								    onAnimationComplete: function() {
 								    this.showTooltip(this.segments, true);
 								      },
-								    legend: {
-								      display: false,
-								      position: "bottom",
-								      labels: {
-								        fontColor: "#333",
-								        fontSize: 16
-								      }
-								    }
+								      plugins: {
+								          labels: {
+								            render: 'percentage',
+								            fontColor: ['black','black'],
+								            precision: 2,
+								            // fontSize: 12,
+								            fontStyle: "bold"
+								          }
+								        },
+								        tooltips: {
+									          callbacks: {
+									              label: function(tooltipItem, data) {
+									                    var label = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index] || '';
+									                    if (label) {
+									                        label = label.toFixed(2);
+									                    }
+									                    return label;
+									              }
+									          }
+									     }
 								  };
 									
 								// create Chart class object
@@ -131,19 +166,14 @@ app.controller('daErrorTypeWiseUptimeController', ['$scope','$filter','daErrorTy
 		
 }]);
 
-
-
 app.service('daErrorTypeWiseUptimeService',['$http', function ($http) {
-// alert("123");
-function loadApiData(errorType) {
-	console.log('error param in loadapidata:',errorType);
+function loadErrorTypeWiseUptimeApiData(errorType) {
         return  $http({
           method: 'GET',
           url: 'da/getErrorTypeWiseUpTime?callCategory='+errorType
         });
     }
     return {
-    	loadApiData:loadApiData
+    	loadErrorTypeWiseUptimeApiData:loadErrorTypeWiseUptimeApiData
     };
-    
 }]);

@@ -1,6 +1,6 @@
 var app = angular.module('daVendorWiseUptimeModule', ['chart.js']);
 
-app.controller('daVendorWiseUptimeController', ['$scope','$filter','daVendorWiseUptimeService', function ($scope, $filter,daVendorWiseUptimeService) {
+app.controller('daVendorWiseUptimeController', ['$scope','$interval','$http','daVendorWiseUptimeService', function ($scope, $interval, $http, daVendorWiseUptimeService) {
 
 	$scope.vendorList = [{
 	    'name': 'LIPI',
@@ -13,22 +13,43 @@ app.controller('daVendorWiseUptimeController', ['$scope','$filter','daVendorWise
 	    'value': 'CMS'
 	  }];
 	
-	$scope.selectedVendor = {'name': 'LIPI','value':'LIPI'},
 	$scope.selectedVendor = {
 		     'vendor': $scope.vendorList[0]
 		  };
-	
+
 	// function to change data on dropdown selection.
 	$scope.selectedItemChanged = function(){
-		loadApiDataByVendor();
+		callDaVendorWiseUptimeService();
 		}
+	
 
-		loadApiDataByVendor();
+	this.$onInit = function() {
+	    // this will kill all intervals and timeouts too in 1 seconds. 
+	    var killId = setTimeout(function() {
+	      for (var i = killId; i > 0; i--) clearInterval(i)
+	    }, 1000);
+    };
+	
+	//getting auto refresh time value from property file
+	$http({
+		method: 'GET',
+		url: 'da/getChartAutoRefreshTime'
+		}).then(function success(response) {
+			$scope.autoRefreshTime=response.data;
+			
+			var id1 = setInterval(function() { 
+			callDaVendorWiseUptimeService();
+			}, $scope.autoRefreshTime);			
+		}, function error(response) {
+			console.log('error occured while getting refresh time.');
+		});
 		
-		function loadApiDataByVendor(){
-			daVendorWiseUptimeService.loadApiData($scope.selectedVendor.vendor.value).success(function(response){
-				   $scope.apiResponse = response;
-				   //Buiding Data & Options for Chart
+		//On Page Load API Called.
+		callDaVendorWiseUptimeService();
+		function callDaVendorWiseUptimeService(){
+			daVendorWiseUptimeService.loadVendorWiseUptimeApiData($scope.selectedVendor.vendor.value).success(function(response){
+				   $scope.vendorWiseApiResponse = response;
+				   // Buiding Data & Options for Chart
 					buildDoughnutDataAndOptions($scope);
 					
 					function buildDoughnutDataAndOptions($scope){
@@ -37,25 +58,26 @@ app.controller('daVendorWiseUptimeController', ['$scope','$filter','daVendorWise
 						$(".chartDiv").remove();
 						$('.submain').append('<div class="chartDiv"></div>');
 						$(".chartDiv").append("<table><tr>");
-						let filterdResponse = $scope.apiResponse.filter(function (e){
-							return e.vendorName == $scope.selectedVendor.vendor.value;
+						let filterdResponse = $scope.vendorWiseApiResponse.filter(function (e){
+							if(e != null){
+								return e.vendorName == $scope.selectedVendor.vendor.value;
+							}
 						});
-						console.log('filterdResponse:',filterdResponse);
 						for(var i=0; i<filterdResponse.length; i++){
 							if (filterdResponse[i] != null) {
 
-								//Creating dynamic <td> to draw Chart
+								// Creating dynamic <td> to draw Chart
 								var str="<td><canvas id='doughnut"+nonNullCounter+"'></canvas></td>";
 								$(".chartDiv").append(str);
 								if(nonNullCounter % 3 == 0){
 									$(".chartDiv").append("<br/>");
 								}
 
-								//Preparing Data to display in chart
+								// Preparing Data to display in chart
 								let rowData=[filterdResponse[i].availableKiosksPercent,filterdResponse[i].nonAvailableKiosksPercent];
-								tempData.push({rowData});
+								tempData.push({"rowData" : rowData});
 
-								//doughnut chart data
+								// doughnut chart data
 								  var data = {
 								    labels: ["Total Operational Kiosks", "Total Non-Operational Kiosks"],
 								    datasets: [
@@ -75,7 +97,7 @@ app.controller('daVendorWiseUptimeController', ['$scope','$filter','daVendorWise
 								    ]
 								  };
 								  
-									//options
+									// options
 								  var options = {
 								    responsive: true,
 								    title: {
@@ -90,27 +112,40 @@ app.controller('daVendorWiseUptimeController', ['$scope','$filter','daVendorWise
 								    onAnimationComplete: function() {
 								    this.showTooltip(this.segments, true);
 								      },
-								    legend: {
-								      display: false,
-								      position: "bottom",
-								      labels: {
-								        fontColor: "#333",
-								        fontSize: 16
-								      }
-								    }
+								      plugins: {
+								          labels: {
+								            render: 'percentage',
+								            fontColor: ['black','black'],
+								            precision: 2,
+								            // fontSize: 12,
+								            fontStyle: "bold"
+								          }
+								        },
+								        tooltips: {
+									          callbacks: {
+									              label: function(tooltipItem, data) {
+									                    var label = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index] || '';
+									                    if (label) {
+									                        label = label.toFixed(2);
+									                    }
+									                    return label;
+									              }
+									          }
+									     }
 								  };
 									
-								//create Chart class object
+								// create Chart class object
 								  var canvas = document.getElementById('doughnut'+nonNullCounter);
 								  doughnutChart = Chart.Doughnut(canvas,{
 										data:data,
 									  options:options
 									});
 								
-								  //This counter is used to count non null counter of loop.  
+								  // This counter is used to count non null
+									// counter of loop.
 								  nonNullCounter++;
 							}
-						}//end for loop
+						}// end for loop
 						$(".chartDiv").append("</tr></table>");
 					}
 			   });
@@ -118,19 +153,15 @@ app.controller('daVendorWiseUptimeController', ['$scope','$filter','daVendorWise
 		
 }]);
 
-
-
 app.service('daVendorWiseUptimeService',['$http', function ($http) {
-//alert("123");
-function loadApiData(vendor) {
-	console.log('vendor in loadapidata:',vendor);
+function loadVendorWiseUptimeApiData(vendor) {
         return  $http({
           method: 'GET',
           url: 'da/getVendorWiseUpTime?vendor='+vendor
         });
     }
     return {
-    	loadApiData:loadApiData
+    	loadVendorWiseUptimeApiData:loadVendorWiseUptimeApiData
     };
     
 }]);

@@ -37,7 +37,7 @@ public class ViewResolverController {
 		ModelAndView mav = new ModelAndView("userkioskmapping");
 		return mav;
 	}
-	
+	 
 	@RequestMapping("km/cmscmfmapping")
 	public ModelAndView cmsCmfkMapping() {		
 		
@@ -188,6 +188,70 @@ public class ViewResolverController {
 	public ModelAndView headerTemplate() {		
 		
 		ModelAndView mav = new ModelAndView("header-template");
+		return mav;
+	}
+	
+	@RequestMapping("da/availability")
+	@PreAuthorize("hasPermission('daAvailability','READ')")
+	public ModelAndView dataAnalyserAvailability(ModelAndView mav) {
+	
+		mav.setViewName("daAvailability");
+		return mav;
+	}
+	
+	@RequestMapping("da/vendorWiseUpTime")
+	@PreAuthorize("hasPermission('daVendorWiseUpTime','READ')")
+	public ModelAndView dataAnalyserVendorWiseUpTime(ModelAndView mav) {
+	
+		mav.setViewName("daVendorWiseUpTime");
+		return mav;
+	}
+	
+	@RequestMapping("da/errorTypeWiseUpTime")
+	@PreAuthorize("hasPermission('daErrorTypeWiseUpTime','READ')")
+	public ModelAndView dataAnalyserErrorTypeWiseUpTime(ModelAndView mav) {
+	
+		mav.setViewName("daErrorTypeWiseUpTime");
+		return mav;
+	}
+	
+	@RequestMapping("da/summaryOfDownKiosks")
+	@PreAuthorize("hasPermission('daSummaryOfDownKiosks','READ')")
+	public ModelAndView dataAnalyserSummaryOfDownKiosks(ModelAndView mav) {
+	
+		mav.setViewName("daSummaryOfDownKiosks");
+		return mav;
+	}
+	
+	@RequestMapping("da/TATOfDownKiosks")
+	@PreAuthorize("hasPermission('daTATOfDownKiosks','READ')")
+	public ModelAndView dataAnalyserTATOfDownKiosks(ModelAndView mav) {
+	
+		mav.setViewName("daTATOfDownKiosks");
+		return mav;
+	}
+	
+	@RequestMapping("da/cumulativeDataCC")
+	@PreAuthorize("hasPermission('daCumulativeDataCC','READ')")
+	public ModelAndView dataAnalyserCumulativeDataCC(ModelAndView mav) {
+	
+		mav.setViewName("daCumulativeDataCC");
+		return mav;
+	}
+	
+	@RequestMapping("da/cumulativeCircleData")
+	@PreAuthorize("hasPermission('daCumulativeCircleData','READ')")
+	public ModelAndView dataAnalyserCumulativeCircleData(ModelAndView mav) {
+	
+		mav.setViewName("daCumulativeCircleData");
+		return mav;
+	}
+	
+	@RequestMapping("da/userWiseData")
+	@PreAuthorize("hasPermission('daUserWiseData','READ')")
+	public ModelAndView dataAnalyserUserWiseData(ModelAndView mav) {
+	
+		mav.setViewName("daUserWiseData");
 		return mav;
 	}
 

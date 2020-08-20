@@ -8,6 +8,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,10 +35,14 @@ import sbi.kiosk.swayam.dataanalyser.service.DataAnalyserService;
  */
 
 @RestController
+@PropertySource("classpath:application.properties")
 public class DataAnalyserController {
 
 	@Autowired
 	DataAnalyserService dataAnalyserService;
+	
+	@Autowired
+    private Environment env;
 	
 	//-----------Data Analalysis---------------------
 	
@@ -170,4 +176,13 @@ public class DataAnalyserController {
 		return respEntity;
 	}
 	
+	//-----------------Read Auto Refresh Time----------------
+	
+	@RequestMapping(value = "da/getChartAutoRefreshTime", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<Object> getChartAutoRefreshTime(ModelAndView model, HttpServletRequest request) {
+		ResponseEntity<Object> respEntity = ResponseEntity.ok(env.getProperty("da_chart_auto_refresh_time"));
+		//model.addObject("getUserWiseZeroTxnKiosksData", respEntity);
+		//model.addObject("getUserWiseZeroTxnKiosksData", respEntity);
+		return respEntity;
+	}
 }

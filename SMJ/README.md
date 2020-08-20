@@ -1,4 +1,4 @@
-# demo-scheduler
+# SMJ
 Spring Boot task scheduler example 
 
 

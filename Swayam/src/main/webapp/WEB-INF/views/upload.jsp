@@ -3,7 +3,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -108,10 +108,16 @@
             success: function(data){
             	resp= data;  
                 //  alert(resp) ;    	 	        	
-            	// $("#para").html(resp);
-	        	 $("#para").html(resp+" Data Uploaded Successfully"); 
-	     		 modal.style.display = "block"; 
-	     		window.open("resources/download/"+data+".xlsx" , '_blank');  
+            	// $("#para").html(resp);	        	 
+	     		if(data == 'Data Not Uploaded'){ 
+	     			$("#para").html("Data Not Uploaded-View downloded file with empty columns"); 
+		     		 modal.style.display = "block"; 
+		     		window.open("resources/download/Holiday_Calendar.xlsx" , '_blank');    
+	     		}
+	     		else{
+	     			$("#para").html("Holiday Calendar Data Uploaded Successfully"); 
+		     		 modal.style.display = "block"; 
+		     	} 
 	     	//	alert(data1);         
           
             }
@@ -143,9 +149,16 @@
             	resp= data;  
             	//alert(resp) ;    	 	        	
 	        	// $("#para").html(resp);
-	        	 $("#para").html(resp+" Data Uploaded Successfully"); 
-	     		 modal.style.display = "block"; 
-	     		window.open("resources/download/"+data+".xlsx" , '_blank');  
+	        	 
+	     		if(data == 'Data Not Uploaded'){ 
+	     			$("#para").html("Data Not Uploaded-View downloded file with empty columns"); 
+		     		 modal.style.display = "block"; 
+	     			window.open("resources/download/Kiosk_CMF.xlsx" , '_blank');  
+	     		}
+	     		else{
+	     			$("#para").html("Kiosk Details Data Uploaded Successfully"); 
+		     		 modal.style.display = "block"; 
+		     	}
 	     		//alert(data1);          
           
             }
@@ -176,11 +189,17 @@
             success: function(data){
             	resp= data;  
             	// alert(resp) ;    	 	        	
-	        	// $("#para").html(resp);
-	        	 $("#para").html(resp+" Data Uploaded Successfully"); 
-	     		 modal.style.display = "block"; 
-	     		window.open("resources/download/"+data+".xlsx" , '_blank');  
-	     		// alert(data1);   
+	        	// $("#para").html(resp);	        	 
+	     		// alert(data1); 
+	     		if(data == 'Data Not Uploaded'){ 
+	     			$("#para").html("Data Not Uploaded-View downloded file with empty columns"); 
+		     		 modal.style.display = "block"; 
+		     		window.open("resources/download/Kiosk_Branch_Master.xlsx" , '_blank');    
+	     		}
+	     		else{
+	     			$("#para").html("Kiosk CMF Data Uploaded Successfully"); 
+		     		 modal.style.display = "block"; 
+		     	}  
 	        	            
           
             }
@@ -212,11 +231,16 @@
             	resp= data;  
             	
             //	alert(resp) ;    	 	        	
-	        	// $("#para").html(resp);
-	        	 $("#para").html(resp+" Data Uploaded Successfully"); 
-	     		 modal.style.display = "block"; 
-	     		window.open("resources/download/"+data+".xlsx" , '_blank');  
-	     		// alert(data1);         
+	        	// $("#para").html(resp);	        	 
+	     		if(data == 'Data Not Uploaded'){ 
+	     			$("#para").html("Data Not Uploaded-View downloded file with empty columns"); 
+		     		 modal.style.display = "block"; 
+		     		window.open("resources/download/BranchMaster.xlsx" , '_blank');    
+	     		}
+	     		else{
+	     			$("#para").html("Branch Master Data Uploaded Successfully"); 
+		     		 modal.style.display = "block"; 
+		     	}          
           
             }
         });
@@ -381,5 +405,5 @@ input[type=button], input[type=submit], input[type=reset] {
 
 
 </body>
-<sec:csrfInput />  
+<input type="hidden" name="_csrf" value="<%=session.getAttribute("csrfToken")%>"> 
 </html>

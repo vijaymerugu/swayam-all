@@ -1,6 +1,6 @@
 var app = angular.module('daAvailabilityModule', ['chart.js',]);
 
-app.controller('daAvailabilityController', ['$scope','$filter','daAvailabilityService', function ($scope, $filter,daAvailabilityService) {
+app.controller('daAvailabilityController', ['$scope','daAvailabilityService', function ($scope, daAvailabilityService) {
 
 
 	daAvailabilityService.loadApiData().success(function(response){
@@ -12,7 +12,7 @@ app.controller('daAvailabilityController', ['$scope','$filter','daAvailabilitySe
 			var nonNullCounter = 1;
 			let tempData=[];
 			$(".chartDiv").remove();
-			$('.submain').append('<div class="chartDiv"></div>');
+			$('.submain').append('<div class="chartDiv" style="float:left"></div>');
 			$(".chartDiv").append("<table><tr>");
 			
 			for(var i=0; i<$scope.apiResponse.length; i++){
@@ -28,7 +28,7 @@ app.controller('daAvailabilityController', ['$scope','$filter','daAvailabilitySe
 
 					//Preparing Data to display in chart
 					let rowData=[$scope.apiResponse[i].availableKiosksPercent, $scope.apiResponse[i].nonAvailableKiosksPercent];
-					tempData.push({rowData});
+					tempData.push({"rowData" : rowData});
 
 					//doughnut chart data
 					  var data = {
@@ -91,10 +91,7 @@ app.controller('daAvailabilityController', ['$scope','$filter','daAvailabilitySe
    });
 }]);
 
-
-
 app.service('daAvailabilityService',['$http', function ($http) {
-//alert("123");
 function loadApiData() {
         return  $http({
           method: 'GET',

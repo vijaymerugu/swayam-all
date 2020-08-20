@@ -4,7 +4,7 @@
 	pageEncoding="ISO-8859-1" import="java.util.Date"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -634,6 +634,10 @@ $(document).ready(function(){
 	        	type:"POST",
 	        	url:"km/addUsersLA",
 	        	data:formData,
+	        	headers: 
+                {
+                    'X-CSRF-TOKEN': $('input[name="_csrf"]').attr('value')
+                },
 	         success: function(data){
 	        	 resp=data;       	 	        	 
 	        	// $("#para").html("User: "+resp+ " has been successfully created");
@@ -799,7 +803,7 @@ $(document).ready(function(){
 					
 					</tr>
 				</table>
-			<sec:csrfInput />  
+			 
 			</form:form>
 
 
@@ -844,5 +848,5 @@ $(document).ready(function(){
 
 </script>	
 </body>
-
+<input type="hidden" name="_csrf" value="<%=session.getAttribute("csrfToken")%>">
 </html>

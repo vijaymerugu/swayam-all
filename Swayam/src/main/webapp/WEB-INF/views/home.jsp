@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="sbi.kiosk.swayam.common.dto.UserDto" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!Doctype html>
 <html>
 <head>
@@ -52,10 +52,10 @@
 		<div class="inlineHomeMain">
 			<img src="resources/img/sbi.png">
 		</div>
-		<table cellspacing="0">
+		<table cellspacing="0px;">
 			<tr>
 				<table style="top: 0px; width: 1179px; height: 47px;"
-					cellspacing="0">
+					cellspacing="0px;">
 					<tr>
 						<td
 							style="left: 187px; width: 910px; background: #280071; color: #FFFFFF"
@@ -171,5 +171,5 @@
 <body>
 <div id="contentHomeApp">
 </div>
-<sec:csrfInput />  
+ 
 </html>

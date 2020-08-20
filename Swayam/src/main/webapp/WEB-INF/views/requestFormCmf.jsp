@@ -1,4 +1,4 @@
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -544,6 +544,10 @@ function fromValidation(){
 	        	type:"POST",
 	        	url:"hm/addRequest",
 	        	data:formData,
+	        	headers: 
+                {
+                    'X-CSRF-TOKEN': $('input[name="_csrf"]').attr('value')
+                },
 	         success: function(data){
 	        	 resp=data;   
 	        	 //alert(44);
@@ -732,5 +736,5 @@ $(document).ready(function(){
 
 </script>	
 </body>
-<sec:csrfInput />  
+<input type="hidden" name="_csrf" value="<%=session.getAttribute("csrfToken")%>"> 
 </html>

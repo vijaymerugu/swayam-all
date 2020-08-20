@@ -1,4 +1,4 @@
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -200,5 +200,5 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
   }); */
 </script>
 </body>
-<sec:csrfInput />  
+ 
 </html>

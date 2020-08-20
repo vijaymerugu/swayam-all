@@ -15,10 +15,11 @@
 	<div class="main" ng-app="daVendorWiseUptimeModule" id="appId">
 		<div ng-controller="daVendorWiseUptimeController as vm">
 			<div class="submain">
-				<h5>Vendor-wise Uptime (in %)</h5>
 				<div id="filters">
-					<p style="float: left">
-						<span>Vendor:</span> <select ng-model="selectedVendor.vendor"
+					<h5>Vendor-wise Uptime (in %)</h5>
+					<p>
+						<span>Vendor:</span> <select id="vendor"
+							ng-model="selectedVendor.vendor"
 							ng-change="selectedItemChanged()"
 							ng-options="vendor as vendor.name for vendor in vendorList"></select>
 					</p>
