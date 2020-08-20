@@ -53,12 +53,12 @@ public class LoginController{
 		
 		try {
 		String pfId = jwtTokenUtil.extractUsername(token);
-	//	logger.info("Inside /authenticateUser?token"+token+ " USER_ID "+pfId);
+		logger.info("Inside /authenticateUser?token"+token+ " USER_ID "+pfId);
 		UserDto userObj = loginService.getRoleByUsername(pfId);
 		session.setAttribute("pfId", userObj.getPfId());
 		session.setAttribute("userObj", userObj);
 		session.setAttribute("csrfToken", UUID.randomUUID().toString());
-	//	logger.info("Session Val" + session.getAttribute("pfId"));
+		logger.info("Session Val" + session.getAttribute("pfId"));
 		
 		auditLogger.setPath("/authenticateUser");
 		auditLogger.setUser_Id(pfId);
@@ -124,7 +124,7 @@ public class LoginController{
 	public List<MenuMasterDto> getMenu(HttpSession session) {		
 		UserDto userObj =(UserDto) session.getAttribute("userObj");
 		//session.setAttribute("username", username);
-	//	logger.info("Session Val1111::: "+ session.getAttribute("pfId"));
+		logger.info("Session Val1111::: "+ session.getAttribute("pfId"));
 		return loginService.getMenusByUserRole(userObj.getRole());
 		//ModelAndView mav = new ModelAndView("home");
 		//return mav;		
