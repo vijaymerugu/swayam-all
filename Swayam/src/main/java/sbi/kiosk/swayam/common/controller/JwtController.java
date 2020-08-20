@@ -70,7 +70,7 @@ public class JwtController {
 		
 		//System.out.println("header " + authenticationRequest.getUSER_ID());
 		
-		logger.info("Inside /getToken "+ userID);
+	//	logger.info("Inside /getToken "+ userID);
 		
 		auditLogger.setPath("/getToken");
 		auditLogger.setUser_Id(userID);
@@ -93,19 +93,19 @@ public class JwtController {
 
 		} catch (InternalAuthenticationServiceException e) {
 			logger.info("Failed", e.getLocalizedMessage());
-			logger.info("/getToken filed "+ userID);
-			logger.info("JWT token " +jwt);
+	//		logger.info("/getToken filed "+ userID);
+	//		logger.info("JWT token " +jwt);
 			auditLogger.setStatus("Failed");
 			auditLogger.setToken(jwt);
 			audit.save(auditLogger);
 			return ResponseEntity.ok(new AuthenticationReponse("FAIL", jwt));
 
 		}catch (Exception e) {
-			logger.info("/getToken filed "+ userID);
+		//	logger.info("/getToken filed "+ userID);
 			logger.info("Failed "+ e.getLocalizedMessage());
 		}
-		logger.info("/getToken Success "+ userID);
-		logger.info("JWT token " +jwt );
+	//	logger.info("/getToken Success "+ userID);
+	//	logger.info("JWT token " +jwt );
 		audit.save(auditLogger);
 		
 		Cookie myCookie =  new Cookie("JSESSIONID", req.getSession().getId());
