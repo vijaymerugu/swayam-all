@@ -9,6 +9,7 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -42,7 +43,20 @@ public class AppFilter implements Filter {
 	        res.setHeader("X-XSS-Protection", "1; mode=block");
 	        //res.setHeader("Content-Security-Policy", "default-src 'self'");
 	        String sessionid = req.getSession().getId();
-	        res.setHeader("SET-COOKIE", "JSESSIONID=" + sessionid + "; HttpOnly; Secure");
+	        
+	        
+	        if ("POST".equals(req.getMethod()) && "/getToken".equals(req.getServletPath())){
+	        	Cookie myCookie =  new Cookie("JSESSIONID", sessionid);
+	   		 	myCookie.setPath("/getToken");
+	   		 	myCookie.setDomain(req.getServerName());	
+	   		    myCookie.setSecure(true);
+	   		    myCookie.setHttpOnly(true);
+	   		 	res.addCookie(myCookie);	
+	   		    res.setHeader("SET-COOKIE", "JSESSIONID=" + sessionid + "; HttpOnly; Secure; Path=/getToken; Domain= " + req.getServerName() + "");
+	        }
+	        else {
+	        	res.setHeader("SET-COOKIE", "JSESSIONID=" + sessionid + "; HttpOnly; Secure; Domain= " + req.getServerName() + "");
+	        }	        
 	        //res.setHeader("Refresh", "60; URL=/SMT/");
 
 	        //System.out.println(
