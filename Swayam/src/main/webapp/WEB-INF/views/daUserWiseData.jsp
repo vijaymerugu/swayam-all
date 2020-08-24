@@ -16,8 +16,8 @@
 	border-radius: 1px;
 	border: 1px solid #73AD21;
 	/* padding: 1px; */
-	width: 500px;
-	height: 500px;
+	width: 650px;
+	height: 800px;
 }
 
 .chartHeighWidth {
@@ -54,7 +54,7 @@
 									<br />
 								</div>
 								<div id="tableDiv">
-									<table align="center" border="1">
+									<table align="left" style="margin-left:15px" border="1">
 										<tr>
 											<th>User</th>
 											<th>Total Operational Kiosks (No.)</th>
@@ -69,8 +69,8 @@
 										</tr>
 										<tr>
 											<td align="left"><b>{{apiResponse1[apiResponse1.length-1].gtLabel}}</b></td>
-											<td align="right"><b>{{apiResponse1[apiResponse1.length-1].gtOperationalKiosks | number: 2}}</b></td>
-											<td align="right"><b>{{apiResponse1[apiResponse1.length-1].gtAllKiosks | number: 2}}</b></td>
+											<td align="right"><b>{{apiResponse1[apiResponse1.length-1].gtOperationalKiosks}}</b></td>
+											<td align="right"><b>{{apiResponse1[apiResponse1.length-1].gtAllKiosks}}</b></td>
 											<td align="right"><b>{{apiResponse1[apiResponse1.length-1].gtOperationalKiosksPercent | number: 2}}</b></td>
 										</tr>
 									</table>
@@ -88,7 +88,7 @@
 									<br />
 								</div>
 								<div id="tableDiv">
-									<table border="1" align="center">
+									<table border="1" align="left" style="margin-left:15px">
 										<tr>
 											<th>User</th>
 											<th>Zero Transaction Kiosks (No.)</th>
@@ -103,8 +103,8 @@
 										</tr>
 										<tr>
 											<td align="left"><b>{{apiResponse2[apiResponse2.length-1].gtLabel}}</b></td>
-											<td align="right"><b>{{apiResponse2[apiResponse2.length-1].gtOperationalKiosks | number: 2}}</b></td>
-											<td align="right"><b>{{apiResponse2[apiResponse2.length-1].gtAllKiosks | number: 2}}</b></td>
+											<td align="right"><b>{{apiResponse2[apiResponse2.length-1].gtOperationalKiosks}}</b></td>
+											<td align="right"><b>{{apiResponse2[apiResponse2.length-1].gtAllKiosks}}</b></td>
 											<td align="right"><b>{{apiResponse2[apiResponse2.length-1].gtOperationalKiosksPercent | number: 2}}</b></td>
 										</tr>
 									</table>

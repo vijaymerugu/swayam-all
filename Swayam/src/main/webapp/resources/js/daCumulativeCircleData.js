@@ -334,11 +334,13 @@ app.controller('daCumulativeCircleDataController', ['$scope','$interval','$http'
 				
 			
 				$scope.labels4 = ["1 day", "2 - 5 days", "1 week", "1 - 2 weeks", "Greater than 2 weeks"];
-				  $scope.colors4=['#A0B421',
-			        	'#D7FF33',
-			        	'#FFE933',
-			        	'#FF6433',
-			        	'#ED402A'];
+				  $scope.colors4=[
+						'#A0B421',
+						'#33B2FF',
+						'#FFE933',
+						'#DB23F5',
+						'#ED402A'
+			        	];
 
 				for(var i=0; i<$scope.apiResponse4.length; i++){
 					if ($scope.apiResponse4[i] !== null) {
@@ -418,7 +420,7 @@ app.controller('daCumulativeCircleDataController', ['$scope','$interval','$http'
 				    });
 				
 				  $scope.labels5 = ["Total Open Calls", "Total Closed Calls"];
-				  $scope.colors5=['#A0B421','#ED402A'];
+				  $scope.colors5=['#ED402A','#A0B421'];
 
 				
 				for(var i=0; i<$scope.apiResponse5.length; i++){

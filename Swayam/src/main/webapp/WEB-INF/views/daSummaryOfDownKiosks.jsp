@@ -18,9 +18,9 @@
 				<h5>Summary of Down Kiosks</h5>
 				<div id="filters">
 					<p style="text-align: center">
-						<span style="background-color: #A0B421">&nbsp;&nbsp;&nbsp;</span>&nbsp;Total Open Calls
+						<span style="background-color: #ED402A">&nbsp;&nbsp;&nbsp;</span>&nbsp;Total Open Calls
 						<span style="display: inline-block; margin-left: 40px;"></span>
-						<span style="background-color: #ED402A">&nbsp;&nbsp;&nbsp;</span>&nbsp;Total Closed Calls
+						<span style="background-color: #A0B421">&nbsp;&nbsp;&nbsp;</span>&nbsp;Total Closed Calls
 					</p>
 				</div>
 			</div>
