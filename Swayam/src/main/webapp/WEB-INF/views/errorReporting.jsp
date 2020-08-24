@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
 <script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment-with-locales.min.js"></script>
 <script	src="resources/js/angular.1.5.6.min.js"></script>
- <script src="resources/js/transaction-summry-app.js"></script>
+ <script src="resources/js/transaction-error-reporting-app.js"></script>
 <script	src="resources/js/angular.1.5.6.min.js"></script>
 <link rel="stylesheet" href="resources/css/grid-style.css"/>
 <link rel="stylesheet" href="resources/css/body-page.css"/>
