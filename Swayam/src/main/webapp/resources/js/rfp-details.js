@@ -68,7 +68,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	        console.log("user RfpNo" + user.rfpNo);
 	        console.log("RfpId " + user.rfpId);
 	      
-	        RfpUpdateService.update(user,id).then(function (d) {
+	        RfpUpdateService.update(user).then(function (d) {
 	            
 	        	console.log("Inside Success");
 	            
@@ -77,6 +77,23 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	        	alert("Failed to update");
 	        });
 	    };
+	    
+	    
+	    $scope.resetPositions=function(){
+	    	   
+	    	$scope.selectedRfpNo='';
+	    	$scope.selectedRfpid='';
+	    	$scope.selectedVendor='';
+	    	$scope.selectedkcost='';
+	    	$scope.selectedAMCcost='';
+	    	$scope.selectedCPenalty='';
+	    	$scope.selectedDMU='';
+	    	$scope.selectedDMUR='';
+	    	$scope.selectedDCT='';
+	    	$scope.selectedMP='';
+				
+	       }
+
 	    
 	    
 	    $scope.searchPostion = function (selectedRfpNo,selectedRfpid,selectedVendor,selectedkcost,
@@ -105,10 +122,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	     	   });
 	        	
 	        	
-	        /*    $scope.alerts.push({
-	                msg: 'Data saved successfully',
-	                type: 'success'
-	            });*/
+	       
 	        }, function (d) {
 	        	alert("Failed to Add");
 	        });
@@ -194,7 +208,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		        	
 		        	
 		        	$scope.gridOptions.data.splice(index, 1);
-		        	alert("Succfully deleted");
+		        	alert("Successfully deleted");
 		        	
 		        /*    $scope.alerts.push({
 		                msg: 'Data saved successfully',
@@ -219,8 +233,11 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		useExternalPagination: true,
 		
 	      columnDefs: [
-	    	  { name: 'rfpNo', displayName: 'RFP RefNO.', field: "rfpNo" },
+	    	 
 	          { name: 'rfpId', displayName: 'RFP Id',field: "rfpId"},
+	          { name: 'rfpNo', displayName: 'RFP RefNO.', field: "rfpNo",
+	    		  cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div '+ 
+	             	 ' ng-if="row.entity.editrow"><input type="text" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width: 140},
 	          { name: 'vendor', displayName: 'Vendor' ,field: "vendor", 
 	        	  cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div '+ 
 	             	 ' ng-if="row.entity.editrow"><input type="text" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width: 140},
@@ -306,10 +323,10 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	   // var add={};
 		 
 
-		    res.update = function(user,id) {
+		    res.update = function(user) {
 		    	 return $http({
 			            method: 'POST',
-			            url: 'rf/add',
+			            url: 'rf/update',
 			            data: user
 			        });
 		    }
@@ -317,7 +334,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		    res.addRfp= function(user) {
 		    	 return $http({
 			            method: 'POST',
-			            url: 'rf/update',
+			            url: 'rf/add',
 			            data: user
 			        });
 		    }

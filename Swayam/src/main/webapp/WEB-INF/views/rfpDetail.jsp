@@ -120,7 +120,7 @@
 <div class="main" ng-app="app" id="appId">
 <div ng-controller="RfpCtrl as vm">
  <div>
- 		<form> 
+ 		<form > 
 		<div class="tb-bk">
    <table>				
         <tr>
@@ -174,7 +174,7 @@
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
-                       <input type="text" ng-model="selectedkcost" name="kcost" 
+                       <input type="number" min="0"  step="0.01"  ng-model="selectedkcost" name="kcost" 
                          placeholder="" required/>
                     </div>
                 </div>
@@ -186,7 +186,7 @@
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
-                       <input type="text" ng-model="selectedAMCcost" name="amccost" 
+                       <input type="number" min="0"  step="0.01"  ng-model="selectedAMCcost" name="amccost" 
                          placeholder="" required/>
                     </div>
                 </div>
@@ -198,7 +198,7 @@
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
-                      <input type="text" ng-model="selectedCPenalty" name="cpenalty" 
+                      <input type="number" ng-model="selectedCPenalty" name="cpenalty" 
                          placeholder="" required/>
                     </div>
                 </div>                                
@@ -215,7 +215,7 @@
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
-                        <input type="text" ng-model="selectedDMU" name="dmu" 
+                        <input type="number" ng-model="selectedDMU" name="dmu" 
                          placeholder="" required/>
                     </div>
                 </div>                                
@@ -227,7 +227,7 @@
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
-                        <input type="text" ng-model="selectedDMUR" name="dmur" 
+                        <input type="number" ng-model="selectedDMUR" name="dmur" 
                          placeholder="" required/>
                     </div>
                 </div>                                
@@ -240,7 +240,7 @@
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
-                      <input type="text" ng-model="selectedDCT" name="cdt" 
+                      <input type="number" ng-model="selectedDCT" name="cdt" 
                          placeholder="" required/>
                     </div>
                 </div>
@@ -256,7 +256,7 @@
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
-                      <input type="text" ng-model="selectedMP" name="mp" 
+                      <input type="number" ng-model="selectedMP" name="mp" 
                          placeholder="" required/>
                     </div>
                 </div>
@@ -267,10 +267,10 @@
                     <div class="col-xs-6"></div>
                     <div class="col-xs-6">
                          <div class="text-right" style="width: 80%;" >
-                             <button  id="btnReset" ng-click="">Reset</button>							
+                             <button  id="btnReset" ng-click="resetPositions()">Reset</button>							
 			                 <button  ng-click="searchPostion(selectedRfpNo,selectedRfpid,selectedVendor,selectedkcost,
 					selectedAMCcost,selectedCPenalty,selectedDMU,selectedDMUR,selectedDCT,selectedMP)">Add</button>
-							 <!-- <button  type="submit" id="submit">Generate</button> -->
+						<!-- 	  <input  type="submit" id="submit" value="Generate"/> -->
                          </div>
                     </div>
                 </div>
@@ -340,12 +340,18 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
 <script type="text/javascript">
     $(function () {
         $("#btnReset").bind("click", function () {
-            $("#circle")[0].selectedIndex = "";            
-            $("#state")[0].selectedIndex = "";
+        	
+        	$('input[name=rfpno').val('');
+        	$('input[name=rfpid').val('');
+        	$('input[name=kcost').val('');
+        	$('input[name=amccost').val('');
+        	$('input[name=cpenalty').val('');
+        	$('input[name=dmu').val('');
+        	$('input[name=dmur').val('');
+        	$('input[name=cdt').val('');
+        	$('input[name=mp').val('');
             $("#vendor")[0].selectedIndex = "";
-            $("#year")[0].selectedIndex = "";
-            $("#timeperiod")[0].selectedIndex = "";
-            $("#refno")[0].selectedIndex = "";
+           
         });
     });
 </script>
