@@ -104,6 +104,12 @@
 					$scope.loadHomeBodyPage = function(url){
 						if(url != undefined){							
 							$("#contentHomeApp").load(url);
+							//DO NOT DELETE THIS CODE. 
+							//This will kill all intervals and timeouts too in 1 seconds of Data Analyser. 
+						    var killId = setTimeout(function() {
+						      for (var i = killId; i > 0; i--) clearInterval(i)
+						    }, 1000);		
+						    //END HERE.
 						}						
 					}
 					
