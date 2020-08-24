@@ -34,9 +34,15 @@ import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
+import sbi.kiosk.swayam.billingpayment.repository.BillingPenaltyRepository;
+import sbi.kiosk.swayam.billingpayment.repository.InvoiceCompareRepository;
+import sbi.kiosk.swayam.billingpayment.repository.InvoiceGenerationRepository;
 import sbi.kiosk.swayam.common.constants.Constants;
+import sbi.kiosk.swayam.common.dto.BillingPenaltyDto;
 import sbi.kiosk.swayam.common.dto.DownTimeDto;
 import sbi.kiosk.swayam.common.dto.ErrorReportingDto;
+import sbi.kiosk.swayam.common.dto.InvoiceCompareDto;
+import sbi.kiosk.swayam.common.dto.InvoiceGenerationDto;
 import sbi.kiosk.swayam.common.dto.KioskBranchMasterUserDto;
 import sbi.kiosk.swayam.common.dto.RealTimeTransactionDto;
 import sbi.kiosk.swayam.common.dto.TicketCentorDto;
@@ -45,10 +51,13 @@ import sbi.kiosk.swayam.common.dto.TransactionDashBoardDto;
 import sbi.kiosk.swayam.common.dto.UserDto;
 import sbi.kiosk.swayam.common.dto.UserManagementDto;
 import sbi.kiosk.swayam.common.dto.ZeroTransactionKiosksDto;
+import sbi.kiosk.swayam.common.entity.BillingPenaltyEntity;
 import sbi.kiosk.swayam.common.entity.BranchMaster;
 import sbi.kiosk.swayam.common.entity.DateFrame;
 import sbi.kiosk.swayam.common.entity.DownTime;
 import sbi.kiosk.swayam.common.entity.ErrorReporting;
+import sbi.kiosk.swayam.common.entity.InvoiceCompare;
+import sbi.kiosk.swayam.common.entity.InvoiceGeneration;
 import sbi.kiosk.swayam.common.entity.RealTimeTransaction;
 import sbi.kiosk.swayam.common.entity.Supervisor;
 import sbi.kiosk.swayam.common.entity.SwayamMigrationSummary;
@@ -61,6 +70,7 @@ import sbi.kiosk.swayam.common.repository.SupervisorRepository;
 import sbi.kiosk.swayam.common.repository.UserRepository;
 import sbi.kiosk.swayam.common.repository.UserRepositoryPaging;
 import sbi.kiosk.swayam.common.utils.ObjectMapperUtils;
+import sbi.kiosk.swayam.healthmonitoring.model.BillingPaymentReport;
 import sbi.kiosk.swayam.healthmonitoring.model.DowntimeReport;
 import sbi.kiosk.swayam.healthmonitoring.model.TicketHistoryReport;
 import sbi.kiosk.swayam.healthmonitoring.repository.DowntimePagingRepository;
@@ -130,6 +140,20 @@ public class JasperServiceImpl implements JasperService {
 	DowntimeReport downtimeReport;
 	@Autowired
 	DowntimePagingRepository downTimePagingRepo;
+	
+	
+	 @Autowired
+	 BillingPaymentReport report;
+	 
+	 
+	 @Autowired
+	 BillingPenaltyRepository bpRepository;
+	 
+	 @Autowired
+	 InvoiceGenerationRepository IgRepository;
+	 
+	 @Autowired
+	 InvoiceCompareRepository icRepository;
 		
 	 
 
@@ -251,6 +275,49 @@ public class JasperServiceImpl implements JasperService {
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
 				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 				filename = "TransactionSummary_" + timeStamp + ".pdf";
+				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+			}else if(identifyPage.equals("bpReport")) {
+				logger.info("PDF File bpReport !!");
+				
+				List<BillingPenaltyDto> list = findBillingPenaltyReport();
+				File file = ResourceUtils.getFile(jrxmlPath + "bpPenalty.jrxml");
+				InputStream input = new FileInputStream(file);
+				jasperReport = JasperCompileManager.compileReport(input);
+				source = new JRBeanCollectionDataSource(list);
+				Map<String, Object> parameters = new HashMap<>();
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "BillingPenalty_" + timeStamp + ".pdf";
+				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+			}else if(identifyPage.equals("invoiceReport")) {
+				logger.info("PDF File InvoiceGenarationReport !!");
+				
+				
+				List<InvoiceGenerationDto> list = findInvoiceGenerationReport();
+				File file = ResourceUtils.getFile(jrxmlPath + "invoiceReport.jrxml");
+				InputStream input = new FileInputStream(file);
+				jasperReport = JasperCompileManager.compileReport(input);
+				source = new JRBeanCollectionDataSource(list);
+				Map<String, Object> parameters = new HashMap<>();
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "InvoiceGeneration_" + timeStamp + ".pdf";
+				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+			}
+			
+			else if(identifyPage.equals("invoiceCompareReport")) {
+				logger.info("PDF File InvoiceCompareReport !!");
+				
+				
+				List<InvoiceCompareDto> list = findInvoiceCompareReport();
+				File file = ResourceUtils.getFile(jrxmlPath + "invoiceCompareReport.jrxml");
+				InputStream input = new FileInputStream(file);
+				jasperReport = JasperCompileManager.compileReport(input);
+				source = new JRBeanCollectionDataSource(list);
+				Map<String, Object> parameters = new HashMap<>();
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "InvoiceCompare_" + timeStamp + ".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 			}
 
@@ -476,6 +543,47 @@ public class JasperServiceImpl implements JasperService {
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
 				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 				filename = "TransactionSummary_" + timeStamp + ".xlsx";
+				xlsx(jasperPrint, filename);
+			}else if(identifyPage.equals("bpReport")) {
+				logger.info("Excel File bpReport !!");
+				
+				List<BillingPenaltyDto> list = findBillingPenaltyReport();
+				File file = ResourceUtils.getFile(jrxmlPath + "bpPenalty.jrxml");
+				InputStream input = new FileInputStream(file);
+				jasperReport = JasperCompileManager.compileReport(input);
+				source = new JRBeanCollectionDataSource(list);
+				Map<String, Object> parameters = new HashMap<>();
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "BillingPenalty_" + timeStamp + ".xlsx";
+				xlsx(jasperPrint, filename);
+			}else if(identifyPage.equals("invoiceReport")) {
+				logger.info("Excel File InvoiceGenarationReport !!");
+				
+				List<InvoiceGenerationDto> list = findInvoiceGenerationReport();
+				File file = ResourceUtils.getFile(jrxmlPath + "invoiceReport.jrxml");
+				InputStream input = new FileInputStream(file);
+				jasperReport = JasperCompileManager.compileReport(input);
+				source = new JRBeanCollectionDataSource(list);
+				Map<String, Object> parameters = new HashMap<>();
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "InvoiceGeneration_" + timeStamp + ".xlsx";
+				xlsx(jasperPrint, filename);
+			}
+			else if(identifyPage.equals("invoiceCompareReport")) {
+				logger.info("Excel File InvoiceCompareReport !!");
+				
+				
+				List<InvoiceCompareDto> list = findInvoiceCompareReport();
+				File file = ResourceUtils.getFile(jrxmlPath + "invoiceCompareReport.jrxml");
+				InputStream input = new FileInputStream(file);
+				jasperReport = JasperCompileManager.compileReport(input);
+				source = new JRBeanCollectionDataSource(list);
+				Map<String, Object> parameters = new HashMap<>();
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "InvoiceCompare_" + timeStamp + ".xlsx";
 				xlsx(jasperPrint, filename);
 			}
 
@@ -1014,6 +1122,180 @@ public class JasperServiceImpl implements JasperService {
 		  logger.info("PDF entities "+entities);
 		  return entities; 
 		  }
+	
+	
+	@Override
+	public List<BillingPenaltyDto> findBillingPenaltyReport() {
+		logger.info("Inside==Jasper====findBillingPenaltyReport===========");
+		logger.info(report.getCircle());
+		logger.info(report.getState());
+		logger.info(report.getRpfNumber());
+		logger.info(report.getVendor());
+		logger.info(report.getTimePeiod());
+		
+		String circle =null;
+		String vendor =null;
+		String state=null;
+		String rpfNumber=null;
+		String timePeriod= null;
+		
+		
+		if((report.getCircle()!= "") && (report.getState()!= "") 
+				&& (report.getRpfNumber()!= "") && (report.getVendor()!= "") ) {
+			circle =report.getCircle();
+			vendor =report.getVendor();
+			state=report.getState();
+			rpfNumber=report.getRpfNumber();
+			timePeriod= report.getTimePeiod();
+			
+		}
+		
+		String quarter= timePeriod.substring(0, 2);
+		String finacialYear= timePeriod.substring(3);
+		
+		List<BillingPenaltyEntity> list =null;
+		
+		if (state.equals("0")) {
+
+			if (rpfNumber.equalsIgnoreCase("1")) {
+				list =bpRepository.findbyWithoutStateFilterReport(circle, quarter,finacialYear, vendor);
+
+			} else {
+				
+				list=bpRepository.findbyFilterRfpWithoutStateReport(circle, quarter,finacialYear, vendor, rpfNumber);
+			}
+
+		} else {
+			if (rpfNumber.equalsIgnoreCase("1")) {
+				list=bpRepository.findbyFilterReport(circle, state, quarter,finacialYear, vendor);
+				
+			} else {
+				list= bpRepository.findbyFilterWithRFPReport(circle, state, quarter,finacialYear, vendor, rpfNumber);
+			}
+
+		}
+  
+		
+		List<BillingPenaltyDto> entities = ObjectMapperUtils.mapAll(list, BillingPenaltyDto.class);
+ 
+		
+		return entities;
+	}
+
+	@Override
+	public List<InvoiceGenerationDto> findInvoiceGenerationReport() {
+		logger.info("Inside==Jasper====findInvoiceGenerationReport===========");
+		logger.info(report.getCircle());
+		logger.info(report.getState());
+		logger.info(report.getRpfNumber());
+		logger.info(report.getVendor());
+		logger.info(report.getTimePeiod());
+		
+		String circle =null;
+		String vendor =null;
+		String state=null;
+		String rpfNumber=null;
+		String timePeriod= null;
+		
+		
+		if((report.getCircle()!= "") && (report.getState()!= "") 
+				&& (report.getRpfNumber()!= "") && (report.getVendor()!= "") ) {
+			circle =report.getCircle();
+			vendor =report.getVendor();
+			state=report.getState();
+			rpfNumber=report.getRpfNumber();
+			timePeriod= report.getTimePeiod();
+			
+		}
+		
+		String quarter= timePeriod.substring(0, 2);
+		String finacialYear= timePeriod.substring(3);
+		
+		List<InvoiceGeneration> list =null;
+		
+		if (state.equals("0")) {
+
+			if (rpfNumber.equalsIgnoreCase("1")) {
+				list =IgRepository.findbyWithoutStateFilterReport(circle, quarter,finacialYear, vendor);
+
+			} else {
+				
+				list=IgRepository.findbyFilterRfpWithoutStateReport(circle, quarter,finacialYear, vendor, rpfNumber);
+			}
+
+		} else {
+			if (rpfNumber.equalsIgnoreCase("1")) {
+				list=IgRepository.findbyFilterReport(circle, state, quarter,finacialYear, vendor);
+				
+			} else {
+				list= IgRepository.findbyFilterWithRFPReport(circle, state, quarter,finacialYear, vendor, rpfNumber);
+			}
+
+		}
+  
+		
+		List<InvoiceGenerationDto> entities = ObjectMapperUtils.mapAll(list, InvoiceGenerationDto.class);
+ 
+		
+		return entities;
+	}
+
+	@Override
+	public List<InvoiceCompareDto> findInvoiceCompareReport() {
+		logger.info("Inside==Jasper====findInvoiceGenerationReport===========");
+		logger.info(report.getCircle());
+		logger.info(report.getState());
+		logger.info(report.getRpfNumber());
+		logger.info(report.getVendor());
+		logger.info(report.getTimePeiod());
+		
+		String circle =null;
+		String vendor =null;
+		String state=null;
+		String rpfNumber=null;
+		String timePeriod= null;
+		
+		
+		if((report.getCircle()!= "") && (report.getState()!= "") 
+				&& (report.getRpfNumber()!= "") && (report.getVendor()!= "") ) {
+			circle =report.getCircle();
+			vendor =report.getVendor();
+			state=report.getState();
+			rpfNumber=report.getRpfNumber();
+			timePeriod= report.getTimePeiod();
+			
+		}
+		String quarter= timePeriod.substring(0, 2);
+		String finacialYear= timePeriod.substring(3);
+		List<InvoiceCompare> list =null;
+		
+		if (state.equals("0")) {
+
+			if (rpfNumber.equalsIgnoreCase("1")) {
+				list =icRepository.findbyWithoutStateFilterReport(circle, quarter,finacialYear, vendor);
+
+			} else {
+				
+				list=icRepository.findbyFilterRfpWithoutStateReport(circle, quarter,finacialYear, vendor, rpfNumber);
+			}
+
+		} else {
+			if (rpfNumber.equalsIgnoreCase("1")) {
+				list=icRepository.findbyFilterReport(circle, state, quarter,finacialYear, vendor);
+				
+			} else {
+				list= icRepository.findbyFilterWithRFPReport(circle, state, quarter,finacialYear, vendor, rpfNumber);
+			}
+
+		}
+  
+		
+		List<InvoiceCompareDto> entities = ObjectMapperUtils.mapAll(list, InvoiceCompareDto.class);
+ 
+		
+		return entities;
+	}
+	
 	
 
 }
