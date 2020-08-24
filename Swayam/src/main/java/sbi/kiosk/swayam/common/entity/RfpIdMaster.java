@@ -12,12 +12,13 @@ import lombok.Data;
 @Table(name="TBL_RFP_DETAILS")
 public class RfpIdMaster {
 	
-	@Id	
+	@Id
+	@Column(name="RFP_ID")
+	private String rfpId;
+	
 	@Column(name="RFP_NO")
 	private String rfpNo;
 	
-	@Column(name="RFP_ID")
-	private String rfpId;
 
 	@Column(name="VENDOR")
 	private String vendor;
