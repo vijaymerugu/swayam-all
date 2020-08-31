@@ -18,7 +18,10 @@ public class ManualTicketCallLogDto {
 	private String contactNo;
 	private String kioskError;
 	private String comment;
-	private String status="P";
+	//private String status="P";
+	
+	private String status=null;
+	private String subCategory;
 	
 	
 	

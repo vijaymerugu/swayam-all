@@ -1,0 +1,150 @@
+package sbi.kiosk.swayam.healthmonitoring.repository;
+
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import sbi.kiosk.swayam.common.entity.DownTime;
+
+@Repository
+public interface DowntimePagingRepository extends PagingAndSortingRepository<DownTime, String>{
+
+	@Query(value = "select km.KIOSK_ID,km.VENDOR,bm.CRCL_NAME,bm.NETWORK,bm.MODULE,bm.BRANCH_CODE,\r\n" + 
+			"dt.DOWNTIME_HRS from  TBL_KIOSK_MASTER km inner JOIN TBL_BRANCH_MASTER bm \r\n" + 
+			"on km.BRANCH_CODE=bm.BRANCH_CODE inner join TBL_DOWNTIME dt  \r\n" + 
+			"on km.KIOSK_ID=dt.KIOSK_ID ",nativeQuery = true)
+	Page<DownTime> findAll( Pageable pageable);
+	
+
+	
+	@Query(value =
+					
+//			"SELECT CRCL_NAME, NETWORK, MODULE, BRANCH.BRANCH_CODE,KIOSK_ID, KIOSK.VENDOR, USERNAME AS CMS_CMF, 0 AS TOTAL_OPERATING_HRS,"
+//			+ " SUM(DT.DOWNTIME_HRS) AS TOTAL_DOWNTIME	FROM TBL_KIOSK_MASTER KIOSK	JOIN TBL_BRANCH_MASTER BRANCH "
+//			+ " ON BRANCH.BRANCH_CODE=KIOSK.BRANCH_CODE	JOIN TBL_DOWNTIME DT	ON KIOSK.KIOSK_ID=DT.KIOSK_ID"
+//			+ "	JOIN TBL_USER_KIOSK_MAPPING UKM ON UKM.KIOSK_ID=KIOSK.KIOSK_ID	JOIN TBL_USER USR ON USR.PF_ID=UKM.PF_ID"
+//			+ "	 WHERE"
+//			+ "	BRANCH.CRCL_NAME LIKE %?1% "
+//			+ "	AND KIOSK.VENDOR LIKE %?2% "
+//			+ "	AND UKM.PF_ID LIKE %?3% "
+//			+ "	AND DT.START_DTTM=?4 "
+//			+ "	AND DT.END_DTTM=?5 "
+//			+ "	GROUP BY CRCL_NAME, NETWORK, MODULE, BRANCH.BRANCH_CODE, KIOSK_ID,KIOSK.VENDOR, USERNAME,DT.DOWNTIME_HRS"
+//			
+			
+			"SELECT KIOSK.circle, concat('NET-0',substr(NETWORK,1,1)) as NETWORK, MODULE, BRANCH.BRANCH_CODE, KIOSK.KIOSK_ID,KIOSK.VENDOR, USERNAME AS CMS_CMF, "
+			 +"	(((to_date(?1, 'dd-mm-yyyy') - to_date( ?2, 'dd-mm-yyyy'))-(select count(*) as holidays from "
+			+ " TBL_BRANCH_HOLIDAY   where circle=KIOSK.circle and to_date(HOLIDAY_DATE, 'dd-mm-yyyy') "
+			 + " between to_date(?2, 'dd-mm-yyyy') and TO_DATE( ?1,'dd-mm-yyyy')))*8)  AS TOTAL_OPERATING_HRS, "
+			+ " (SELECT nvl(SUM(dt.DOWNTIME_HRS),0) FROM TBL_DOWNTIME dt WHERE dt.KIOSK_ID=KIOSK.KIOSK_ID) AS TOTAL_DOWNTIME "
+			+ " FROM TBL_KIOSK_MASTER KIOSK	JOIN TBL_BRANCH_MASTER BRANCH ON BRANCH.BRANCH_CODE=KIOSK.BRANCH_CODE "
+			+ " JOIN TBL_USER_KIOSK_MAPPING UKM ON UKM.KIOSK_ID=KIOSK.KIOSK_ID 	JOIN TBL_USER USR ON USR.PF_ID=UKM.PF_ID "
+			+ "	 WHERE "
+			+ "	KIOSK.circle LIKE %?3% "
+			+ "	AND KIOSK.VENDOR LIKE %?4% "
+			+ "	AND UKM.PF_ID LIKE %?5% "
+		    + " GROUP BY KIOSK.circle, NETWORK, MODULE, BRANCH.BRANCH_CODE,KIOSK.KIOSK_ID, KIOSK.VENDOR, USERNAME "
+			
+			
+			,nativeQuery = true,
+			
+			countQuery = 						
+		  "	SELECT count(KIOSK.KIOSK_ID) FROM TBL_KIOSK_MASTER KIOSK JOIN TBL_BRANCH_MASTER BRANCH "
+		 + " ON BRANCH.BRANCH_CODE=KIOSK.BRANCH_CODE  JOIN TBL_DOWNTIME DT ON KIOSK.KIOSK_ID=DT.KIOSK_ID "
+			+ "	JOIN TBL_USER_KIOSK_MAPPING UKM ON UKM.KIOSK_ID=KIOSK.KIOSK_ID	JOIN TBL_USER USR ON USR.PF_ID=UKM.PF_ID "
+			+ "	 WHERE"
+			+ "	KIOSK.circle LIKE %?3% "
+			+ "	AND KIOSK.VENDOR LIKE %?4% "
+			+ "	AND UKM.PF_ID LIKE %?5% "
+			//+ "	AND DT.START_DTTM=?4 "
+		//	+ "	AND DT.END_DTTM=?5 "
+			+ "	GROUP BY KIOSK.circle, NETWORK, MODULE, BRANCH.BRANCH_CODE,KIOSK_ID, KIOSK.VENDOR, USERNAME,DT.DOWNTIME_HRS" )
+	
+	Page<DownTime> findAllByFilter( String selectedToDateId, String selectedFromDateId, String selectedCircelId,
+			String selectedVendorId ,String selectedCmsCmfId, Pageable pageable);
+	
+	
+	@Query(value = "select USERNAME from tbl_User where pf_id in(select pf_id from tbl_User_Kiosk_Mapping where KIOSK_ID=:kioskId )",nativeQuery = true)
+         String  findByKioskId(@Param("kioskId") String kioskId);
+	
+	@Query(value = "select USERNAME from tbl_User where pf_id in(select pf_id from tbl_User_Kiosk_Mapping) ",nativeQuery = true)
+    List<String>  findAllCmfCmsUser();
+	
+	
+	
+
+//	@Query(value=" select CIRCLE, DOWNTIME.KIOSK_ID, (((to_date(:toDate, 'dd-mm-yyyy') - to_date(:fromDate, 'dd-mm-yyyy'))-(select count(*) as holidays"
+//			+ " from TBL_BRANCH_HOLIDAY where 	circle=kioskmst.circle and to_date(HOLIDAY_DATE, 'DD-MON-YY')"
+//			+ " between to_date(:fromDate, 'DD-mm-YY') and TO_DATE(:toDate,'DD-mm-YY')))*8) AS TOTAL_WORKING_HRS"
+//			+ "	FROM TBL_DOWNTIME DOWNTIME, TBL_KIOSK_MASTER kioskmst	GROUP BY CIRCLE, DOWNTIME.KIOSK_ID",nativeQuery = true)
+//			List<DowntimeModel>  findByHolidayDate(@Param("fromDate") String fromDate,@Param("toDate") String toDate);
+
+			
+			
+			  @Query(value="SELECT DOWNTIME.KIOSK_ID, SUM(DOWNTIME_HRS) AS TOTAL_DOWNTIME	FROM TBL_DOWNTIME DOWNTIME, "
+			  + "TBL_KIOSK_MASTER kioskmst WHERE DOWNTIME.KIOSK_ID =kioskmst.KIOSK_ID"
+			  + "	AND START_DTTM>=to_date(:startDate, 'dd-mm-yyyy') "
+			  + " and END_DTTM<=TO_DATE(:endDate,'dd-mm-yyyy') GROUP BY DOWNTIME.KIOSK_ID " ,nativeQuery = true,
+			  countQuery = "SELECT count(DOWNTIME.KIOSK_ID) FROM TBL_DOWNTIME DOWNTIME, "
+					  + "TBL_KIOSK_MASTER kioskmst WHERE DOWNTIME.KIOSK_ID =kioskmst.KIOSK_ID"
+					  + " AND START_DTTM>=to_date(:startDate, 'dd-mm-yyyy') "
+					  + " and END_DTTM<=TO_DATE(:endDate,'dd-mm-yyyy') GROUP BY DOWNTIME.KIOSK_ID ")
+			  
+			  List<DownTime> findByFilter(@Param("startDate")  Date startDate,@Param("endDate")  Date endDate, Pageable pageable);
+			 
+	
+	
+				@Query(value =
+						
+//						"SELECT CRCL_NAME, NETWORK, MODULE, BRANCH.BRANCH_CODE,KIOSK_ID, KIOSK.VENDOR, USERNAME AS CMS_CMF, 0 AS TOTAL_OPERATING_HRS,"
+//						+ " SUM(DT.DOWNTIME_HRS) AS TOTAL_DOWNTIME	FROM TBL_KIOSK_MASTER KIOSK	JOIN TBL_BRANCH_MASTER BRANCH "
+//						+ " ON BRANCH.BRANCH_CODE=KIOSK.BRANCH_CODE	JOIN TBL_DOWNTIME DT	ON KIOSK.KIOSK_ID=DT.KIOSK_ID"
+//						+ "	JOIN TBL_USER_KIOSK_MAPPING UKM ON UKM.KIOSK_ID=KIOSK.KIOSK_ID	JOIN TBL_USER USR ON USR.PF_ID=UKM.PF_ID"
+//						+ "	 WHERE"
+//						+ "	BRANCH.CRCL_NAME LIKE %?1% "
+//						+ "	AND KIOSK.VENDOR LIKE %?2% "
+//						+ "	AND UKM.PF_ID LIKE %?3% "
+//						+ "	AND DT.START_DTTM=?4 "
+//						+ "	AND DT.END_DTTM=?5 "
+//						+ "	GROUP BY CRCL_NAME, NETWORK, MODULE, BRANCH.BRANCH_CODE, KIOSK_ID,KIOSK.VENDOR, USERNAME,DT.DOWNTIME_HRS"
+//						
+						
+						"SELECT KIOSK.circle, concat('NET-0',substr(NETWORK,1,1)) as NETWORK, MODULE, BRANCH.BRANCH_CODE, KIOSK.KIOSK_ID,KIOSK.VENDOR, USERNAME AS CMS_CMF, "
+						 +"	(((to_date(?1, 'dd-mm-yyyy') - to_date( ?2, 'dd-mm-yyyy'))-(select count(*) as holidays from "
+						+ " TBL_BRANCH_HOLIDAY   where circle=KIOSK.circle and to_date(HOLIDAY_DATE, 'dd-mm-yyyy') "
+						 + " between to_date(?2, 'dd-mm-yyyy') and TO_DATE( ?1,'dd-mm-yyyy')))*8)  AS TOTAL_OPERATING_HRS, "
+						+ " (SELECT nvl(SUM(dt.DOWNTIME_HRS),0) FROM TBL_DOWNTIME dt WHERE dt.KIOSK_ID=KIOSK.KIOSK_ID) AS TOTAL_DOWNTIME "
+						+ " FROM TBL_KIOSK_MASTER KIOSK	JOIN TBL_BRANCH_MASTER BRANCH ON BRANCH.BRANCH_CODE=KIOSK.BRANCH_CODE "
+						+ " JOIN TBL_USER_KIOSK_MAPPING UKM ON UKM.KIOSK_ID=KIOSK.KIOSK_ID 	JOIN TBL_USER USR ON USR.PF_ID=UKM.PF_ID "
+						+ "	 WHERE "
+						+ "	KIOSK.circle LIKE %?3% "
+						+ "	AND KIOSK.VENDOR LIKE %?4% "
+						+ "	AND UKM.PF_ID LIKE %?5% "
+					    + " GROUP BY KIOSK.circle, NETWORK, MODULE, BRANCH.BRANCH_CODE,KIOSK.KIOSK_ID, KIOSK.VENDOR, USERNAME "
+						
+						
+						,nativeQuery = true,
+						
+						countQuery = 						
+					  "	SELECT count(KIOSK.KIOSK_ID) FROM TBL_KIOSK_MASTER KIOSK JOIN TBL_BRANCH_MASTER BRANCH "
+					 + " ON BRANCH.BRANCH_CODE=KIOSK.BRANCH_CODE  JOIN TBL_DOWNTIME DT ON KIOSK.KIOSK_ID=DT.KIOSK_ID "
+						+ "	JOIN TBL_USER_KIOSK_MAPPING UKM ON UKM.KIOSK_ID=KIOSK.KIOSK_ID	JOIN TBL_USER USR ON USR.PF_ID=UKM.PF_ID "
+						+ "	 WHERE"
+						+ "	KIOSK.circle LIKE %?3% "
+						+ "	AND KIOSK.VENDOR LIKE %?4% "
+						+ "	GROUP BY KIOSK.circle, NETWORK, MODULE, BRANCH.BRANCH_CODE,KIOSK_ID, KIOSK.VENDOR, USERNAME,DT.DOWNTIME_HRS" )
+				
+				List<DownTime> findAllByFilterDTimeReports( String selectedToDateId,
+						 String selectedFromDateId, String selectedCircelId,
+						String selectedVendorId ,
+						String selectedCmsCmfId);
+			  
+			  
+			  
+}

@@ -34,21 +34,34 @@ import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
+import sbi.kiosk.swayam.billingpayment.repository.BillingPenaltyRepository;
+import sbi.kiosk.swayam.billingpayment.repository.InvoiceCompareRepository;
+import sbi.kiosk.swayam.billingpayment.repository.InvoiceGenerationRepository;
 import sbi.kiosk.swayam.common.constants.Constants;
+import sbi.kiosk.swayam.common.dto.BillingPenaltyDto;
+import sbi.kiosk.swayam.common.dto.DownTimeDto;
 import sbi.kiosk.swayam.common.dto.ErrorReportingDto;
+import sbi.kiosk.swayam.common.dto.InvoiceCompareDto;
+import sbi.kiosk.swayam.common.dto.InvoiceGenerationDto;
 import sbi.kiosk.swayam.common.dto.KioskBranchMasterUserDto;
 import sbi.kiosk.swayam.common.dto.RealTimeTransactionDto;
 import sbi.kiosk.swayam.common.dto.TicketCentorDto;
+import sbi.kiosk.swayam.common.dto.TicketHistoryDto;
 import sbi.kiosk.swayam.common.dto.TransactionDashBoardDto;
 import sbi.kiosk.swayam.common.dto.UserDto;
 import sbi.kiosk.swayam.common.dto.UserManagementDto;
 import sbi.kiosk.swayam.common.dto.ZeroTransactionKiosksDto;
+import sbi.kiosk.swayam.common.entity.BillingPenaltyEntity;
 import sbi.kiosk.swayam.common.entity.BranchMaster;
 import sbi.kiosk.swayam.common.entity.DateFrame;
+import sbi.kiosk.swayam.common.entity.DownTime;
 import sbi.kiosk.swayam.common.entity.ErrorReporting;
+import sbi.kiosk.swayam.common.entity.InvoiceCompare;
+import sbi.kiosk.swayam.common.entity.InvoiceGeneration;
 import sbi.kiosk.swayam.common.entity.RealTimeTransaction;
 import sbi.kiosk.swayam.common.entity.Supervisor;
 import sbi.kiosk.swayam.common.entity.SwayamMigrationSummary;
+import sbi.kiosk.swayam.common.entity.TicketHistory;
 import sbi.kiosk.swayam.common.entity.User;
 import sbi.kiosk.swayam.common.entity.UserKioskMapping;
 import sbi.kiosk.swayam.common.entity.ZeroTransactionKiosks;
@@ -57,7 +70,12 @@ import sbi.kiosk.swayam.common.repository.SupervisorRepository;
 import sbi.kiosk.swayam.common.repository.UserRepository;
 import sbi.kiosk.swayam.common.repository.UserRepositoryPaging;
 import sbi.kiosk.swayam.common.utils.ObjectMapperUtils;
+import sbi.kiosk.swayam.healthmonitoring.model.BillingPaymentReport;
+import sbi.kiosk.swayam.healthmonitoring.model.DowntimeReport;
+import sbi.kiosk.swayam.healthmonitoring.model.TicketHistoryReport;
+import sbi.kiosk.swayam.healthmonitoring.repository.DowntimePagingRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.TicketCentorRepository;
+import sbi.kiosk.swayam.healthmonitoring.repository.TicketHistoryPagingRepository;
 import sbi.kiosk.swayam.kioskmanagement.repository.BranchMasterRepository;
 import sbi.kiosk.swayam.kioskmanagement.repository.UserKioskMappingRepository;
 import sbi.kiosk.swayam.transactiondashboard.repository.ErrorReportingRepositoryPaging;
@@ -113,6 +131,31 @@ public class JasperServiceImpl implements JasperService {
 	ErrorReportingRepositoryPaging errorReportingRepositoryPaging;
 	
 	 @Autowired DateFrame dateFrame;
+	 
+    @Autowired
+	TicketHistoryReport ticketHistoryReport;
+	@Autowired
+	TicketHistoryPagingRepository ticketHistoryPagingRepo;
+	@Autowired
+	DowntimeReport downtimeReport;
+	@Autowired
+	DowntimePagingRepository downTimePagingRepo;
+	
+	
+	 @Autowired
+	 BillingPaymentReport report;
+	 
+	 
+	 @Autowired
+	 BillingPenaltyRepository bpRepository;
+	 
+	 @Autowired
+	 InvoiceGenerationRepository IgRepository;
+	 
+	 @Autowired
+	 InvoiceCompareRepository icRepository;
+		
+	 
 
 	public static HttpSession session() {
 		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
@@ -129,8 +172,8 @@ public class JasperServiceImpl implements JasperService {
 		try {
 			jrxmlPath = jrxmlPath.replaceAll(">", "");
 			reportPath = reportPath.replaceAll(">", "");
-			logger.info("jrxmlPath " + jrxmlPath);
-			logger.info("reportPath " + reportPath);
+		//	logger.info("jrxmlPath " + jrxmlPath);
+		//	logger.info("reportPath " + reportPath);
 			if (identifyPage.equals("userListSA")) {
 				List<UserManagementDto> list = findUsersBySA();
 				File file = ResourceUtils.getFile(jrxmlPath + "usersListSA.jrxml");
@@ -233,6 +276,49 @@ public class JasperServiceImpl implements JasperService {
 				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 				filename = "TransactionSummary_" + timeStamp + ".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+			}else if(identifyPage.equals("bpReport")) {
+				logger.info("PDF File bpReport !!");
+				
+				List<BillingPenaltyDto> list = findBillingPenaltyReport();
+				File file = ResourceUtils.getFile(jrxmlPath + "bpPenalty.jrxml");
+				InputStream input = new FileInputStream(file);
+				jasperReport = JasperCompileManager.compileReport(input);
+				source = new JRBeanCollectionDataSource(list);
+				Map<String, Object> parameters = new HashMap<>();
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "BillingPenalty_" + timeStamp + ".pdf";
+				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+			}else if(identifyPage.equals("invoiceReport")) {
+				logger.info("PDF File InvoiceGenarationReport !!");
+				
+				
+				List<InvoiceGenerationDto> list = findInvoiceGenerationReport();
+				File file = ResourceUtils.getFile(jrxmlPath + "invoiceReport.jrxml");
+				InputStream input = new FileInputStream(file);
+				jasperReport = JasperCompileManager.compileReport(input);
+				source = new JRBeanCollectionDataSource(list);
+				Map<String, Object> parameters = new HashMap<>();
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "InvoiceGeneration_" + timeStamp + ".pdf";
+				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+			}
+			
+			else if(identifyPage.equals("invoiceCompareReport")) {
+				logger.info("PDF File InvoiceCompareReport !!");
+				
+				
+				List<InvoiceCompareDto> list = findInvoiceCompareReport();
+				File file = ResourceUtils.getFile(jrxmlPath + "invoiceCompareReport.jrxml");
+				InputStream input = new FileInputStream(file);
+				jasperReport = JasperCompileManager.compileReport(input);
+				source = new JRBeanCollectionDataSource(list);
+				Map<String, Object> parameters = new HashMap<>();
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "InvoiceCompare_" + timeStamp + ".pdf";
+				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 			}
 
 			else if (identifyPage.equals("realTimeToday")) {
@@ -304,6 +390,35 @@ public class JasperServiceImpl implements JasperService {
 				filename = "ErrorReporting_" + timeStamp + ".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 			}
+			else if (identifyPage.equals("tiketHistory")) {
+				logger.info("PDF File tiketHistory !!");
+
+				List<TicketHistoryDto> list = findTicketHistoryReport();
+				File file = ResourceUtils.getFile(jrxmlPath + "ticketHistory.jrxml");
+				InputStream input = new FileInputStream(file);
+				jasperReport = JasperCompileManager.compileReport(input);
+				source = new JRBeanCollectionDataSource(list);
+				Map<String, Object> parameters = new HashMap<>();
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "TicketHistory_" + timeStamp + ".pdf";
+				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+			}
+			else if (identifyPage.equals("downTime")) {
+				logger.info("PDF File DownTime !!");
+
+				List<DownTimeDto> list = findDownTimeReport();
+				File file = ResourceUtils.getFile(jrxmlPath + "downTime.jrxml");
+				InputStream input = new FileInputStream(file);
+				jasperReport = JasperCompileManager.compileReport(input);
+				source = new JRBeanCollectionDataSource(list);
+				Map<String, Object> parameters = new HashMap<>();
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "DownTime_" + timeStamp + ".pdf";
+				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+			}
+			 
 
 			// xlsx(jasperPrint);
 			logger.info("PDF File Generated !!");
@@ -325,8 +440,8 @@ public class JasperServiceImpl implements JasperService {
 		String filename = null;
 
 		try {
-			logger.info("jrxmlPath " + jrxmlPath);
-			logger.info("reportPath " + reportPath);
+		//	logger.info("jrxmlPath " + jrxmlPath);
+		//	logger.info("reportPath " + reportPath);
 			if (identifyPage.equals("userListSA")) {
 				List<UserManagementDto> list = findUsersBySA();
 				File file = ResourceUtils.getFile(jrxmlPath + "usersListSA.jrxml");
@@ -429,6 +544,47 @@ public class JasperServiceImpl implements JasperService {
 				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 				filename = "TransactionSummary_" + timeStamp + ".xlsx";
 				xlsx(jasperPrint, filename);
+			}else if(identifyPage.equals("bpReport")) {
+				logger.info("Excel File bpReport !!");
+				
+				List<BillingPenaltyDto> list = findBillingPenaltyReport();
+				File file = ResourceUtils.getFile(jrxmlPath + "bpPenalty.jrxml");
+				InputStream input = new FileInputStream(file);
+				jasperReport = JasperCompileManager.compileReport(input);
+				source = new JRBeanCollectionDataSource(list);
+				Map<String, Object> parameters = new HashMap<>();
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "BillingPenalty_" + timeStamp + ".xlsx";
+				xlsx(jasperPrint, filename);
+			}else if(identifyPage.equals("invoiceReport")) {
+				logger.info("Excel File InvoiceGenarationReport !!");
+				
+				List<InvoiceGenerationDto> list = findInvoiceGenerationReport();
+				File file = ResourceUtils.getFile(jrxmlPath + "invoiceReport.jrxml");
+				InputStream input = new FileInputStream(file);
+				jasperReport = JasperCompileManager.compileReport(input);
+				source = new JRBeanCollectionDataSource(list);
+				Map<String, Object> parameters = new HashMap<>();
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "InvoiceGeneration_" + timeStamp + ".xlsx";
+				xlsx(jasperPrint, filename);
+			}
+			else if(identifyPage.equals("invoiceCompareReport")) {
+				logger.info("Excel File InvoiceCompareReport !!");
+				
+				
+				List<InvoiceCompareDto> list = findInvoiceCompareReport();
+				File file = ResourceUtils.getFile(jrxmlPath + "invoiceCompareReport.jrxml");
+				InputStream input = new FileInputStream(file);
+				jasperReport = JasperCompileManager.compileReport(input);
+				source = new JRBeanCollectionDataSource(list);
+				Map<String, Object> parameters = new HashMap<>();
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "InvoiceCompare_" + timeStamp + ".xlsx";
+				xlsx(jasperPrint, filename);
 			}
 
 			else if (identifyPage.equals("realTimeToday")) {
@@ -499,6 +655,36 @@ public class JasperServiceImpl implements JasperService {
 				filename = "ErrorReporting_" + timeStamp + ".xlsx";
 				xlsx(jasperPrint, filename);
 			}
+			
+			else if (identifyPage.equals("tiketHistory")) {
+				logger.info("PDF File tiketHistory !!");
+
+				List<TicketHistoryDto> list = findTicketHistoryReport();
+				File file = ResourceUtils.getFile(jrxmlPath + "ticketHistory.jrxml");
+				InputStream input = new FileInputStream(file);
+				jasperReport = JasperCompileManager.compileReport(input);
+				source = new JRBeanCollectionDataSource(list);
+				Map<String, Object> parameters = new HashMap<>();
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "TicketHistory_" + timeStamp + ".xlsx";
+				xlsx(jasperPrint, filename);
+			}
+			else if (identifyPage.equals("downTime")) {
+				logger.info("Excel File downTime !!");
+
+				List<DownTimeDto> list = findDownTimeReport();
+				File file = ResourceUtils.getFile(jrxmlPath + "downTime.jrxml");
+				InputStream input = new FileInputStream(file);
+				jasperReport = JasperCompileManager.compileReport(input);
+				source = new JRBeanCollectionDataSource(list);
+				Map<String, Object> parameters = new HashMap<>();
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "DownTime_" + timeStamp + ".xlsx";
+				xlsx(jasperPrint, filename);
+			}
+			
 			logger.info("Excel File Generated !!");
 			return filename;
 
@@ -759,16 +945,16 @@ public class JasperServiceImpl implements JasperService {
 				 fromdate = sdf.format(curDate);
 				 todate = sdf.format(curDate);
 				 
-				 logger.info("Inside findAllTransactionSummary===========Current==========From date: "+fromdate);
-				 logger.info("Inside findAllTransactionSummary===========Current==========To date: "+todate);
+			//	 logger.info("Inside findAllTransactionSummary===========Current==========From date: "+fromdate);
+			//	 logger.info("Inside findAllTransactionSummary===========Current==========To date: "+todate);
 	//	  }
 		  if((dateFrame.getFromDate().isEmpty()== false) && (dateFrame.getToDate().isEmpty()== false)) 
 		  {
 			   fromdate = dateFrame.getFromDate();
 			   todate = dateFrame.getToDate();
 			   
-			   logger.info("Inside findAllTransactionSummary===========TimeFrame==========From date: "+fromdate);
-			   logger.info("Inside findAllTransactionSummary===========TimeFrame==========To date: "+todate);
+			//   logger.info("Inside findAllTransactionSummary===========TimeFrame==========From date: "+fromdate);
+			//   logger.info("Inside findAllTransactionSummary===========TimeFrame==========To date: "+todate);
 		  }
 		
 		logger.info("Inside==Jasper====findAllTransactionSummary=======after date setting====");
@@ -783,7 +969,7 @@ public class JasperServiceImpl implements JasperService {
 	public List<RealTimeTransactionDto> findAllDateWiseRealtimeTxn(String fromdate) {
 		logger.info("Inside==Jasper====findAllDateWiseRealtimeTxn===========");
 		List<RealTimeTransaction> list = realTimeTxnRepositoryPaging.findByDate(fromdate);
-		logger.info("Inside==Jasper=list=" + list);
+	//	logger.info("Inside==Jasper=list=" + list);
 		List<RealTimeTransactionDto> entities = ObjectMapperUtils.mapAll(list, RealTimeTransactionDto.class);
 		return entities;
 	}
@@ -791,8 +977,8 @@ public class JasperServiceImpl implements JasperService {
 	@Override
 	public List<ZeroTransactionKiosksDto> findAllZeroTxnKoisk(String fromdate, String todate) {
 		logger.info("Inside==Jasper====findAllZeroTxnKoisk===========");
-		logger.info("Inside==Jasper====findAllZeroTxnKoisk=========== From date: "+dateFrame.getFromDate());
-		  logger.info("Inside==Jasper====findAllZeroTxnKoisk===========To date: "+dateFrame.getToDate());
+		//logger.info("Inside==Jasper====findAllZeroTxnKoisk=========== From date: "+dateFrame.getFromDate());
+		//  logger.info("Inside==Jasper====findAllZeroTxnKoisk===========To date: "+dateFrame.getToDate());
 		 
 		  if((dateFrame.getFromDate()!= "") && (dateFrame.getToDate()!= "")) {
 				
@@ -809,10 +995,7 @@ public class JasperServiceImpl implements JasperService {
 	public List<ErrorReportingDto> findAllErrorReprting(String fromdate, String todate) {
 		logger.info("Inside==Jasper====findAllErrorReprting===========");
 		
-		  logger.info("Inside==Jasper====findAllZeroTxnKoisk=========== From date: "
-		  +dateFrame.getFromDate());
-		  logger.info("Inside==Jasper====findAllZeroTxnKoisk===========To date: "
-		  +dateFrame.getToDate());
+		
 		  
 		  if((dateFrame.getFromDate()!= "") && (dateFrame.getToDate()!= "")) {
 		  
@@ -822,5 +1005,297 @@ public class JasperServiceImpl implements JasperService {
 		List<ErrorReportingDto> entities = ObjectMapperUtils.mapAll(list, ErrorReportingDto.class);
 		return entities;
 	}
+	
+	
+
+	  @Override 
+	  public List<TicketHistoryDto> findTicketHistoryReport() {
+	  logger.info("Inside==Jasper====findTicketHistoryReport===========");
+	  logger.info(ticketHistoryReport.getKisokId());
+	  logger.info(ticketHistoryReport.getCircle());
+	  logger.info(ticketHistoryReport.getBranchCode());
+	  logger.info(ticketHistoryReport.getCall_log_date());
+	  logger.info(ticketHistoryReport.getCall_closed_date());
+	  logger.info(ticketHistoryReport.getVendor());
+	  logger.info(ticketHistoryReport.getCallCategory());
+	  logger.info(ticketHistoryReport.getCallSubCategory());
+	  
+	  String kioskId=ticketHistoryReport.getKisokId(); String circle =ticketHistoryReport.getCircle();
+	  String branch=ticketHistoryReport.getBranchCode();  String  callLogDate=ticketHistoryReport.getCall_log_date(); 
+	  String callClosedDate=ticketHistoryReport.getCall_closed_date(); 
+	  String vendor =ticketHistoryReport.getVendor(); String  category=ticketHistoryReport.getCallCategory();
+	  String subCategory=ticketHistoryReport.getCallSubCategory();
+	  
+		if (ticketHistoryReport.getKisokId().equals("undefined")) {
+			kioskId="";
+		}
+		if (ticketHistoryReport.getCircle().equals("0") || ticketHistoryReport.getCircle().equals("undefined")) {
+			circle="";
+			
+		}
+		if(ticketHistoryReport.getBranchCode().equals("undefined")) {
+			branch="";
+		}
+		
+		
+		if(ticketHistoryReport.getCall_log_date().isEmpty()) {
+			callLogDate="";
+		}
+		if(ticketHistoryReport.getCall_closed_date().isEmpty()) {
+			callClosedDate="";
+		}
+		
+		if (ticketHistoryReport.getVendor().equals("0") || ticketHistoryReport.getVendor().equals("undefined")) {
+			vendor = "";
+		}
+		if(ticketHistoryReport.getCallCategory().equals("0") || ticketHistoryReport.getCallCategory().equals("undefined")) {
+			category ="";
+		}
+		
+		if(ticketHistoryReport.getCallSubCategory().equals("0") || ticketHistoryReport.getCallSubCategory().equals("undefined")) {
+			subCategory="";
+		}
+
+		/*
+		 * kioskId = ticketHistoryReport.getKisokId(); circle =
+		 * ticketHistoryReport.getCircle(); branch = ticketHistoryReport.getBranch();
+		 * callLogDate = ticketHistoryReport.getCall_log_date(); callClosedDate =
+		 * ticketHistoryReport.getCall_closed_date(); vendor =
+		 * ticketHistoryReport.getVendor(); category =
+		 * ticketHistoryReport.getCallCategory(); subCategory =
+		 * ticketHistoryReport.getCallSubCategory();
+		 */
+	  
+	  List<TicketHistory> list = null;
+	  logger.info("Start....");
+	  list=ticketHistoryPagingRepo.findbyFilterAndReport(kioskId, callLogDate, category, branch, callClosedDate, 
+			                   subCategory, circle, vendor);
+	  
+	  List<TicketHistoryDto> entities = ObjectMapperUtils.mapAll(list,TicketHistoryDto.class);
+	  logger.info("entities======pdf======="+entities);
+	  
+	  return entities; 
+	  }
+	  
+	  
+	  
+
+	@Override
+	public List<DownTimeDto> findDownTimeReport() {
+		 logger.info("Inside==Jasper====findTicketHistoryReport===========");
+		  logger.info(downtimeReport.getCircle());
+		  logger.info(downtimeReport.getCmsCmf());
+		  logger.info(downtimeReport.getVendor());
+		  logger.info(downtimeReport.getFromDate());
+		  logger.info(downtimeReport.getToDate());
+		  
+		  String circle =downtimeReport.getCircle();
+		  String cmsCmf=downtimeReport.getCmsCmf(); 
+		  String vendor =downtimeReport.getVendor();
+		  String fromDate=downtimeReport.getFromDate(); 
+		  String toDate=downtimeReport.getToDate();
+			  
+				
+				if (downtimeReport.getCircle().equals("0") || downtimeReport.getCircle().equals("undefined")) {
+					circle="";
+					
+				}
+				if(downtimeReport.getCmsCmf().equals("0") || downtimeReport.getCmsCmf().equals("undefined") ) {
+					cmsCmf="";
+				}
+				if(downtimeReport.getFromDate().isEmpty()) {
+					fromDate="";
+				}
+				
+				
+				if(downtimeReport.getToDate().isEmpty()) {
+					toDate="";
+				}
+				
+				if (downtimeReport.getVendor().equals("0") || downtimeReport.getVendor().equals("undefined")) {
+					vendor = "";
+				}
+				
+		  List<DownTime> list = null;
+		  list=downTimePagingRepo.findAllByFilterDTimeReports(toDate, fromDate, circle,vendor ,cmsCmf);
+		  List<DownTimeDto> entities = ObjectMapperUtils.mapAll(list, DownTimeDto.class);
+		  logger.info("PDF entities "+entities);
+		  return entities; 
+		  }
+	
+	
+	@Override
+	public List<BillingPenaltyDto> findBillingPenaltyReport() {
+		logger.info("Inside==Jasper====findBillingPenaltyReport===========");
+		logger.info(report.getCircle());
+		logger.info(report.getState());
+		logger.info(report.getRpfNumber());
+		logger.info(report.getVendor());
+		logger.info(report.getTimePeiod());
+		
+		String circle =null;
+		String vendor =null;
+		String state=null;
+		String rpfNumber=null;
+		String timePeriod= null;
+		
+		
+		if((report.getCircle()!= "") && (report.getState()!= "") 
+				&& (report.getRpfNumber()!= "") && (report.getVendor()!= "") ) {
+			circle =report.getCircle();
+			vendor =report.getVendor();
+			state=report.getState();
+			rpfNumber=report.getRpfNumber();
+			timePeriod= report.getTimePeiod();
+			
+		}
+		
+		String quarter= timePeriod.substring(0, 2);
+		String finacialYear= timePeriod.substring(3);
+		
+		List<BillingPenaltyEntity> list =null;
+		
+		if (state.equals("0")) {
+
+			if (rpfNumber.equalsIgnoreCase("1")) {
+				list =bpRepository.findbyWithoutStateFilterReport(circle, quarter,finacialYear, vendor);
+
+			} else {
+				
+				list=bpRepository.findbyFilterRfpWithoutStateReport(circle, quarter,finacialYear, vendor, rpfNumber);
+			}
+
+		} else {
+			if (rpfNumber.equalsIgnoreCase("1")) {
+				list=bpRepository.findbyFilterReport(circle, state, quarter,finacialYear, vendor);
+				
+			} else {
+				list= bpRepository.findbyFilterWithRFPReport(circle, state, quarter,finacialYear, vendor, rpfNumber);
+			}
+
+		}
+  
+		
+		List<BillingPenaltyDto> entities = ObjectMapperUtils.mapAll(list, BillingPenaltyDto.class);
+ 
+		
+		return entities;
+	}
+
+	@Override
+	public List<InvoiceGenerationDto> findInvoiceGenerationReport() {
+		logger.info("Inside==Jasper====findInvoiceGenerationReport===========");
+		logger.info(report.getCircle());
+		logger.info(report.getState());
+		logger.info(report.getRpfNumber());
+		logger.info(report.getVendor());
+		logger.info(report.getTimePeiod());
+		
+		String circle =null;
+		String vendor =null;
+		String state=null;
+		String rpfNumber=null;
+		String timePeriod= null;
+		
+		
+		if((report.getCircle()!= "") && (report.getState()!= "") 
+				&& (report.getRpfNumber()!= "") && (report.getVendor()!= "") ) {
+			circle =report.getCircle();
+			vendor =report.getVendor();
+			state=report.getState();
+			rpfNumber=report.getRpfNumber();
+			timePeriod= report.getTimePeiod();
+			
+		}
+		
+		String quarter= timePeriod.substring(0, 2);
+		String finacialYear= timePeriod.substring(3);
+		
+		List<InvoiceGeneration> list =null;
+		
+		if (state.equals("0")) {
+
+			if (rpfNumber.equalsIgnoreCase("1")) {
+				list =IgRepository.findbyWithoutStateFilterReport(circle, quarter,finacialYear, vendor);
+
+			} else {
+				
+				list=IgRepository.findbyFilterRfpWithoutStateReport(circle, quarter,finacialYear, vendor, rpfNumber);
+			}
+
+		} else {
+			if (rpfNumber.equalsIgnoreCase("1")) {
+				list=IgRepository.findbyFilterReport(circle, state, quarter,finacialYear, vendor);
+				
+			} else {
+				list= IgRepository.findbyFilterWithRFPReport(circle, state, quarter,finacialYear, vendor, rpfNumber);
+			}
+
+		}
+  
+		
+		List<InvoiceGenerationDto> entities = ObjectMapperUtils.mapAll(list, InvoiceGenerationDto.class);
+ 
+		
+		return entities;
+	}
+
+	@Override
+	public List<InvoiceCompareDto> findInvoiceCompareReport() {
+		logger.info("Inside==Jasper====findInvoiceGenerationReport===========");
+		logger.info(report.getCircle());
+		logger.info(report.getState());
+		logger.info(report.getRpfNumber());
+		logger.info(report.getVendor());
+		logger.info(report.getTimePeiod());
+		
+		String circle =null;
+		String vendor =null;
+		String state=null;
+		String rpfNumber=null;
+		String timePeriod= null;
+		
+		
+		if((report.getCircle()!= "") && (report.getState()!= "") 
+				&& (report.getRpfNumber()!= "") && (report.getVendor()!= "") ) {
+			circle =report.getCircle();
+			vendor =report.getVendor();
+			state=report.getState();
+			rpfNumber=report.getRpfNumber();
+			timePeriod= report.getTimePeiod();
+			
+		}
+		String quarter= timePeriod.substring(0, 2);
+		String finacialYear= timePeriod.substring(3);
+		List<InvoiceCompare> list =null;
+		
+		if (state.equals("0")) {
+
+			if (rpfNumber.equalsIgnoreCase("1")) {
+				list =icRepository.findbyWithoutStateFilterReport(circle, quarter,finacialYear, vendor);
+
+			} else {
+				
+				list=icRepository.findbyFilterRfpWithoutStateReport(circle, quarter,finacialYear, vendor, rpfNumber);
+			}
+
+		} else {
+			if (rpfNumber.equalsIgnoreCase("1")) {
+				list=icRepository.findbyFilterReport(circle, state, quarter,finacialYear, vendor);
+				
+			} else {
+				list= icRepository.findbyFilterWithRFPReport(circle, state, quarter,finacialYear, vendor, rpfNumber);
+			}
+
+		}
+  
+		
+		List<InvoiceCompareDto> entities = ObjectMapperUtils.mapAll(list, InvoiceCompareDto.class);
+ 
+		
+		return entities;
+	}
+	
+	
 
 }

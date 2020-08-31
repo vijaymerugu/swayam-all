@@ -27,6 +27,7 @@ import sbi.kiosk.swayam.kioskmanagement.controller.UserManagementController;
 
 @RestController
 @RequestMapping(value = "/", method = { RequestMethod.POST, RequestMethod.GET })
+//@PreAuthorize("hasPermission('HMmanualTicketCallLog','READ')")
 public class ManualCallLogController {
 	
 	Logger logger = LoggerFactory.getLogger(ManualCallLogController.class);
@@ -54,11 +55,11 @@ public class ManualCallLogController {
 		String complaintId = manualTicketService.createManualTicket(manualTicketCallLogDto);
 		
 
-		SimpleDateFormat date = new SimpleDateFormat("dd/MM/YY");
-		String date1 = date.format(new Date());
-		String d = date1.replace("/", "");
+		//SimpleDateFormat date = new SimpleDateFormat("dd/MM/YY");
+		//String date1 = date.format(new Date());
+		//String d = date1.replace("/", "");
 		
-		ResponseEntity<String> entiry = ResponseEntity.ok(d + "" + complaintId);
+		ResponseEntity<String> entiry = ResponseEntity.ok(complaintId);
 		return entiry;
 	}
 

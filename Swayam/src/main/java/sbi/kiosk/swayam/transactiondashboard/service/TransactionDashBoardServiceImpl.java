@@ -36,27 +36,20 @@ public class TransactionDashBoardServiceImpl implements TransactionDashBoardServ
 	public Page<SwayamMigrationSummary> findPaginated(int page, int size,String fromdate,String todate) {
 	   // Page<SwayamMigrationSummary>  entities = transactionDashBoardRepositoryPaging.findAll(PageRequest.of(page, size));
 			//.map(VmMigrationSummary::new);
-		logger.info("entities=Swayam Migrartion 555555555555=fromdate::="+fromdate);
-		logger.info("entities=Swayam Migrartion 2222222=todate::="+todate);
+		
 		if((fromdate ==null || fromdate.isEmpty()) && (todate ==null || todate.isEmpty())){
-			//SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
-			//Date curDate=new Date();
-			//fromdate=sdf.format(curDate);
-			//todate=sdf.format(curDate);
-			
-			
+				
 			SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
 			 Date curDate=new Date();
 			 curDate.setTime(curDate.getTime()-48*60*60*1000); 
 			 String passedDate=sdf.format(curDate);
-			 logger.info("sdfsf "+passedDate);
+		
 			fromdate=passedDate;
 			todate=passedDate;
 			 Page<SwayamMigrationSummary> pageSummary1=transactionDashBoardRepositoryPaging.findByDate(fromdate, todate, PageRequest.of(page, size));
 			 return pageSummary1;
 		}else {
-		 logger.info("fromdate22222222   "+fromdate);
-		 logger.info("todate6666666666   "+todate);
+		
 		  Page<SwayamMigrationSummary> pageSummary= transactionDashBoardRepositoryPaging.findByDate(fromdate, todate, PageRequest.of(page, size));			
 		  return pageSummary;
 		}
