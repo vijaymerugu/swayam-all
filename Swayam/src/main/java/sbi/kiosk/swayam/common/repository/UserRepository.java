@@ -44,4 +44,8 @@ public interface UserRepository extends CrudRepository<User, String>{
     
     List<User> findByCircleAndEnabledAndRoleNotIn(@Param("circle") String circle,@Param("enabled") String enabled,@Param("role") List<String> role);
 
+    @Query(value = "select * from tbl_User where pf_id in(select pf_id from tbl_User_Kiosk_Mapping) ",nativeQuery = true)
+    List<User>  findAllCmfCmsUser();
+	
+    
 }

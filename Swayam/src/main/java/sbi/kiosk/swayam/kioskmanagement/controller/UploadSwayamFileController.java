@@ -64,7 +64,7 @@ public class UploadSwayamFileController  {
 	@PreAuthorize("hasPermission('UPDuploadHolidayCalendar','CREATE')")
 	public ResponseEntity<String> upload(@RequestParam("myFile") List<MultipartFile> files) {
 		List<FileInfo> uploadedFiles = new ArrayList<FileInfo>();
-		logger.info("files"+files);
+	//	logger.info("files"+files);
 		
 		
 		
@@ -76,8 +76,8 @@ public class UploadSwayamFileController  {
 					File destinationFile = new File(path);
 					file.transferTo(destinationFile);
 					uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
-					logger.info("uploadedFiles" + uploadedFiles);
-					logger.info("name"+destinationFile.getName());
+				//	logger.info("uploadedFiles" + uploadedFiles);
+				//	logger.info("name"+destinationFile.getName());
 						
 				}
 
@@ -90,7 +90,7 @@ public class UploadSwayamFileController  {
 		ModelAndView modelAndView = new ModelAndView("upload");
 		modelAndView.addObject("files", uploadedFiles);
 		 String name1 = uploadedFiles.get(0).getName();
-			logger.info("name1"+name1);
+		//	logger.info("name1"+name1);
 		File dir = new File(uploadpath);
 				//new File(rootPath + File.separator + "src\\main\\webapp\\WEB-INF\\uploaded");
 		if (!dir.exists())
@@ -99,7 +99,7 @@ public class UploadSwayamFileController  {
 		// Create the file on server
 		File serverFile = new File(dir.getAbsolutePath() + File.separator + name1);
 
-		logger.info("Server File Location=" + serverFile.getAbsolutePath());
+	//	logger.info("Server File Location=" + serverFile.getAbsolutePath());
 		String path = serverFile.getAbsolutePath();
 		String result = uploadService.uploadHolidayCalendarInformation(path);
 		//String result = uploadService.uploadKioskCMFInformation(path);
@@ -115,7 +115,7 @@ public class UploadSwayamFileController  {
 	@PreAuthorize("hasPermission('UPDuploadKioskDetails','CREATE')")
 	public ResponseEntity<String> uploadKioskDetails(@RequestParam("KioskFile") List<MultipartFile> files) {
 		List<FileInfo> uploadedFiles = new ArrayList<FileInfo>();
-		logger.info("files"+files);
+	//	logger.info("files"+files);
 		
 		if (!files.isEmpty()) {
 			try {
@@ -125,8 +125,8 @@ public class UploadSwayamFileController  {
 					File destinationFile = new File(path);
 					file.transferTo(destinationFile);
 					uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
-					logger.info("uploadedFiles" + uploadedFiles);
-					logger.info("name"+destinationFile.getName());	
+				//	logger.info("uploadedFiles" + uploadedFiles);
+				//	logger.info("name"+destinationFile.getName());	
 				}
 
 			} catch (Exception e) {
@@ -137,17 +137,17 @@ public class UploadSwayamFileController  {
 		ModelAndView modelAndView = new ModelAndView("upload");
 		modelAndView.addObject("files", uploadedFiles);
 		 String name1 = uploadedFiles.get(0).getName();
-		 logger.info("name1"+name1);
+		// logger.info("name1"+name1);
 		File dir = new File(uploadpath);
 				//new File(rootPath + File.separator + "src\\main\\webapp\\WEB-INF\\uploaded");
 		if (!dir.exists())
 			dir.mkdirs();
 		File serverFile = new File(dir.getAbsolutePath() + File.separator + name1);
 
-		logger.info("Server File Location=" + serverFile.getAbsolutePath());
+	//	logger.info("Server File Location=" + serverFile.getAbsolutePath());
 		String path = serverFile.getAbsolutePath();
 		String result = uploadService.uploadKioskCMFInformation(path);
-		logger.info("result=" + result);
+	//	logger.info("result=" + result);
 		ResponseEntity<String> entity = ResponseEntity.ok(result);
 		return entity;
 	}
@@ -158,19 +158,19 @@ public class UploadSwayamFileController  {
 	public ResponseEntity<String> uploadKioskInformation(@RequestParam("CMFFile") List<MultipartFile> files) {
 		logger.info("==uploadKioskInformation================");
 		List<FileInfo> uploadedFiles = new ArrayList<FileInfo>();	
-		logger.info("files"+files);
+	//	logger.info("files"+files);
 		if (!files.isEmpty()) {
 			try {
 				for (MultipartFile file : files) {
 					String path = context.getRealPath("/resources/upload") + File.separator
 							+ file.getOriginalFilename();
-					logger.info("==CONTEXT PATH========"+context.getRealPath("/WEB-INF/upload"));
-					logger.info("==PATH================"+path);
+				//	logger.info("==CONTEXT PATH========"+context.getRealPath("/WEB-INF/upload"));
+				//	logger.info("==PATH================"+path);
 					File destinationFile = new File(path);
 					file.transferTo(destinationFile);
 					uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
-					logger.info("=====uploadedFiles=====" + uploadedFiles);
-					logger.info("=====DESTINATION=======name"+destinationFile.getName());
+				//	logger.info("=====uploadedFiles=====" + uploadedFiles);
+				//	logger.info("=====DESTINATION=======name"+destinationFile.getName());
 				
 						
 				}
@@ -184,7 +184,7 @@ public class UploadSwayamFileController  {
 		ModelAndView modelAndView = new ModelAndView("upload");
 		modelAndView.addObject("files", uploadedFiles);
 		 String name1 = uploadedFiles.get(0).getName();
-		 logger.info("=====name1========"+name1);
+	//	 logger.info("=====name1========"+name1);
 		File dir = new File(uploadpath);
 				
 		if (!dir.exists())
@@ -193,7 +193,7 @@ public class UploadSwayamFileController  {
 		// Create the file on server
 		File serverFile = new File(dir.getAbsolutePath() + File.separator + name1);
 
-		logger.info("Server File Location=====" + serverFile.getAbsolutePath());
+	//	logger.info("Server File Location=====" + serverFile.getAbsolutePath());
 		String path = serverFile.getAbsolutePath();
 		
 		String result = uploadService.uploadKioskInformation(path);
@@ -207,7 +207,7 @@ public class UploadSwayamFileController  {
 	@PreAuthorize("hasPermission('UPDuploadCBSbrhm','CREATE')")
 	public ResponseEntity<String> uploadCBSbrhm(@RequestParam("BMFile") List<MultipartFile> files) {
 		List<FileInfo> uploadedFiles = new ArrayList<FileInfo>();	
-		logger.info("files"+files);
+	//	logger.info("files"+files);
 		if (!files.isEmpty()) {
 			try {
 				for (MultipartFile file : files) {
@@ -216,8 +216,8 @@ public class UploadSwayamFileController  {
 					File destinationFile = new File(path);
 					file.transferTo(destinationFile);
 					uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
-					logger.info("uploadedFiles" + uploadedFiles);
-					logger.info("name"+destinationFile.getName());
+			//		logger.info("uploadedFiles" + uploadedFiles);
+			//		logger.info("name"+destinationFile.getName());
 						
 				}
 
@@ -230,7 +230,7 @@ public class UploadSwayamFileController  {
 		ModelAndView modelAndView = new ModelAndView("upload");
 		modelAndView.addObject("files", uploadedFiles);
 		 String name1 = uploadedFiles.get(0).getName();
-		 logger.info("name1"+name1);
+	//	 logger.info("name1"+name1);
 		
 		File dir = new File(uploadpath);
 				
@@ -240,7 +240,7 @@ public class UploadSwayamFileController  {
 		// Create the file on server
 		File serverFile = new File(dir.getAbsolutePath() + File.separator + name1);
 
-		logger.info("Server File Location=" + serverFile.getAbsolutePath());
+	//	logger.info("Server File Location=" + serverFile.getAbsolutePath());
 		String path = serverFile.getAbsolutePath();
 		
 		String result = uploadService.uploadCBSbrhmInformation(path);

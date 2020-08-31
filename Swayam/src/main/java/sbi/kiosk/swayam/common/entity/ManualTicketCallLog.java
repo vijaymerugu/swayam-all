@@ -38,6 +38,11 @@ public class ManualTicketCallLog extends Common {
 	@Column(name="STATUS")
 	private String status;
 	
+	//
+	
+	@Column(name="CALL_SUBCATEGORY")
+	private String subCategory;
+	
 		
 	
 }

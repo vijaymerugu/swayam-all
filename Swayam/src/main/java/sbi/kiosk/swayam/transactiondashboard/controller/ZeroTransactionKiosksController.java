@@ -46,9 +46,7 @@ public class ZeroTransactionKiosksController {
 	public Page<ZeroTransactionKiosks> findPaginated(
 		      @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("type") String type, @RequestParam("fromDate") String fromDate, @RequestParam("toDate") String toDate) {
 		 
-		logger.info("type=========Yogesh========="+type);
-		logger.info("From Date--- "+fromDate);
-		logger.info("To Date----- "+toDate);
+		
 		Page<ZeroTransactionKiosks> resultPage = null;
 		
 		if(fromDate.equals("undefined") || toDate.equals("undefined")) {		
@@ -56,11 +54,10 @@ public class ZeroTransactionKiosksController {
 			toDate="";
 		}
 			
-		  dateFrame.setFromDate(fromDate); dateFrame.setToDate(toDate);
+		  dateFrame.setFromDate(fromDate); 
+		  dateFrame.setToDate(toDate);
 		  
-		  logger.info("Inside ZeroTransactionKiosksController From date from jsp: "+dateFrame.getFromDate());
-		  logger.info("Inside ZeroTransactionKiosksController To date from jsp: "+dateFrame.getToDate());
-		  
+		 		  
 	      resultPage = zeroTransactionKiosksService.findPaginatedByDate(page, size, fromDate, toDate);
 		
 		    if (page > resultPage.getTotalPages()){

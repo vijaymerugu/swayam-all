@@ -2,11 +2,18 @@
   package sbi.kiosk.swayam.common.service;
   
   import java.util.List;
-  
-  import sbi.kiosk.swayam.common.dto.ErrorReportingDto; import
+
+import sbi.kiosk.swayam.common.dto.BillingPenaltyDto;
+import sbi.kiosk.swayam.common.dto.DownTimeDto;
+import sbi.kiosk.swayam.common.dto.ErrorReportingDto;
+import sbi.kiosk.swayam.common.dto.InvoiceCompareDto;
+import sbi.kiosk.swayam.common.dto.InvoiceGenerationDto;
+import
   sbi.kiosk.swayam.common.dto.KioskBranchMasterUserDto; import
   sbi.kiosk.swayam.common.dto.RealTimeTransactionDto; import
-  sbi.kiosk.swayam.common.dto.TicketCentorDto; import
+  sbi.kiosk.swayam.common.dto.TicketCentorDto;
+import sbi.kiosk.swayam.common.dto.TicketHistoryDto;
+import
   sbi.kiosk.swayam.common.dto.TransactionDashBoardDto; import
   sbi.kiosk.swayam.common.dto.UserManagementDto; import
   sbi.kiosk.swayam.common.dto.ZeroTransactionKiosksDto;
@@ -42,6 +49,17 @@
   todate);
   
   List<ErrorReportingDto> findAllErrorReprting(String fromdate, String todate);
+
+	List<DownTimeDto> findDownTimeReport();
+
+	List<TicketHistoryDto> findTicketHistoryReport();
+
+	List<BillingPenaltyDto> findBillingPenaltyReport();
+
+	List<InvoiceGenerationDto> findInvoiceGenerationReport();
+
+	List<InvoiceCompareDto> findInvoiceCompareReport();
+
   
   }
  

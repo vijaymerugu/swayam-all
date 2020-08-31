@@ -38,11 +38,15 @@ public class TransactionDashBoardController {
 		
 		  dateFrame.setFromDate(fromdate); dateFrame.setToDate(todate);
 		  
-		  logger.info("Inside TransactionDashboardController From date from jsp: "+dateFrame.getFromDate());
-		  logger.info("Inside TransactionDashboardController To date from jsp: "+dateFrame.getToDate());
+			/*
+			 * logger.info("Inside TransactionDashboardController From date from jsp: "
+			 * +dateFrame.getFromDate());
+			 * logger.info("Inside TransactionDashboardController To date from jsp: "
+			 * +dateFrame.getToDate());
+			 */
 		 
 		
-		logger.info("resultPage==" + resultPage.getNumberOfElements());
+	//	logger.info("resultPage==" + resultPage.getNumberOfElements());
 		if (page > resultPage.getTotalPages()) {
 			// throw new MyResourceNotFoundException();
 		}

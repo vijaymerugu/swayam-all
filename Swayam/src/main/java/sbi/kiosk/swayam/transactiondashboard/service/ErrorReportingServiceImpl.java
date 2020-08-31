@@ -23,8 +23,8 @@ public class ErrorReportingServiceImpl implements ErrorReportingService {
 
 	@Override
 	public Page<ErrorReporting> findPaginated(int page, int size, String fromDate, String toDate) {
-		logger.info("ErrorReportingServiceImpl Started() fromDate:: "+fromDate);
-		logger.info("ErrorReportingServiceImpl Started() toDate::"+toDate);
+		//logger.info("ErrorReportingServiceImpl Started() fromDate:: "+fromDate);
+		//logger.info("ErrorReportingServiceImpl Started() toDate::"+toDate);
 		//List<ErrorReporting> errorRepoList = nearByEntities(fromDate, toDate);
 		if((fromDate ==null || fromDate.isEmpty()) && (toDate ==null || toDate.isEmpty()) || (fromDate.equalsIgnoreCase("undefined") || fromDate.equalsIgnoreCase("undefined"))){
 			SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
@@ -33,7 +33,7 @@ public class ErrorReportingServiceImpl implements ErrorReportingService {
 			toDate=sdf.format(curDate);
 		}
 		  Page<ErrorReporting> pageErrorReporting= errorReportingRepo.findByDate(fromDate, toDate, PageRequest.of(page, size));			
-		  logger.info("pageErrorReporting"+pageErrorReporting);
+		//  logger.info("pageErrorReporting"+pageErrorReporting);
 		  return pageErrorReporting;
 	}
 	

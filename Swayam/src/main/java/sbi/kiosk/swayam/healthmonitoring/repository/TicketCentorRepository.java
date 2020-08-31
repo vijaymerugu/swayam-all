@@ -111,4 +111,13 @@ public Page<TicketCentor> findAllByRisk(@Param("high") String high,@Param("mediu
 	    
 	    @Query(value="select * from TBL_TICKET_CENTRE WHERE KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_KIOSK_MASTER WHERE CIRCLE=:circle)", nativeQuery = true)
 		List<TicketCentor> findAllListByCircle(@Param("circle") String circle);
+	    
+	    //
+	    
+	    @Query(value="select kiosk_id from tbl_ticket_centre tc where tc.kiosk_id=:kiosk_id and tc.CALL_SUBCATEGORY=:subCategory and tc.STATUS_OF_COMPLAINT=:status ",nativeQuery=true)
+		public String findByKisokIdAndCallSubCategoryAndStatus(@Param("kiosk_id") String kisokid,@Param("subCategory") String subCategory,@Param("status") String status);
+	    
+	    @Query(value="select kiosk_id from tbl_ticket_centre tc where tc.kiosk_id=:kiosk_id and tc.CALL_SUBCATEGORY=:subCategory ",nativeQuery=true)
+		public String findByKisokIdAndCallSubCategory(@Param("kiosk_id") String kisokid,@Param("subCategory") String subCategory);
+	    
 }
