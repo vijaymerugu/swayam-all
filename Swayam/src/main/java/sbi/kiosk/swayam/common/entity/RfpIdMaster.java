@@ -12,6 +12,7 @@ import lombok.Data;
 @Table(name="TBL_RFP_DETAILS")
 public class RfpIdMaster {
 	
+	
 	@Id
 	@Column(name="RFP_ID")
 	private String rfpId;

@@ -5,7 +5,6 @@
 <script src="resources/js/jquery.3.4.1.min.js"></script>
 <script src="resources/js/bootstrap.3.4.1.min.js"></script>
 <link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
-
 <script
 	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
 <script src="resources/js/billing-payment.js"></script>

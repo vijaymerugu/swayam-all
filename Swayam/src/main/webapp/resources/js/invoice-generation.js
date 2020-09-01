@@ -18,7 +18,6 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 				selectedRfpID="";
 				
 	       }
-
 	   //Years Load
 	   $scope.LoadYear=function(){
 		var year = new Date().getFullYear();
@@ -90,13 +89,13 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 			$scope.LoadDropDown = function(type, value) {
 				switch (type) {
 				default:
-					$scope.SelectedCircleId = 0;
-					$scope.CircelDefaultLabel = "Loading.....";
+//					$scope.SelectedCircleId = 0;
+//					$scope.CircelDefaultLabel = "Loading.....";
 					$scope.Circle = null;
 					break;
 				case "circleId":
                     $scope.SelectedStateId = 0;
-                    $scope.StateDefaultLabel = "Loading.....";
+                    //$scope.StateDefaultLabel = "Loading.....";
                     $scope.States = null;
                     break;
 				}
@@ -112,15 +111,15 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 					console.log("Done....." + value)
 					switch (type) {
 					default:
-						$scope.SelectedCircelId = 0;
-						$scope.CircleDefaultLabel = "Select Circle";
+//						$scope.SelectedCircelId = 0;
+//						$scope.CircleDefaultLabel = "Select Circle";
 						$scope.Circles = data;
 						break;
 					case "circleId":
 						$scope.SelectedStateId = 0;
 						//$scope.StateDefaultLabel = "";
 						if (data.length > 0) {
-							$scope.StateDefaultLabel = "Select State";
+							//$scope.StateDefaultLabel = "Select State";
 							$http({
 								method : "get",
 								url : 'bp/getstate',
@@ -283,7 +282,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	          { name: 'quarterId', displayName: 'TIME PERIOD' },
 	          { name: 'spareParts', displayName: 'AMC/SPARE PARTS(A)' },
 	          { name: 'penalty', displayName: 'PENALTY(B)' },
-	          { name: 'invoiceAmount', displayName: 'INVOICE AMOUNT (c=A-B)' },
+	          { name: 'invoiceAmount', displayName: 'INVOICE AMOUNT (C=A-B)' },
 	          { name: 'corrections', displayName: 'CORRECTIONS' },
 	          { name: 'finalAmount', displayName: 'FINAL AMOUNT(C+D)' }
 	          

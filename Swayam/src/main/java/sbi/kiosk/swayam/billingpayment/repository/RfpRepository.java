@@ -13,7 +13,7 @@ import sbi.kiosk.swayam.common.entity.RfpIdMaster;
 @Repository
 public interface RfpRepository extends CrudRepository<RfpIdMaster, String>,
 					PagingAndSortingRepository<RfpIdMaster, String>  {
-	
+
 	/*
 	 * @Query(value = "select * from TBL_RFP_DETAILS", nativeQuery = true)
 	 * List<RfpIdMaster> findRfId();

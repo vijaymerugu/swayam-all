@@ -1,5 +1,7 @@
 package sbi.kiosk.swayam.billingpayment.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,54 +16,65 @@ import sbi.kiosk.swayam.common.entity.InvoiceGeneration;
 @Service
 public class InvoiceCompareServices implements InvoiceCompareService{
 	
+	Logger logger = LoggerFactory.getLogger(InvoiceCompareServices.class);
 	
 	@Autowired
-	InvoiceCompareRepository invoiceCompareRepository;
-	
+	InvoiceCompareRepository invoiceCompareRepository;	
 	
 	@Override
 	public Page<InvoiceCompare> findPageByFilterIc(int page, int size, String type, String selectedCircelId,
 			String selectedStateId, String quterTimePeriod, String selectedVendorId, String selectedRfpID) {
-		System.out.println("Inside findPageByFilterIc");
-		String quarter= quterTimePeriod.substring(0, 2);
-		String finacialYear= quterTimePeriod.substring(3);
-		System.out.println("Quater "+ quarter);
-		System.out.println("finacialYear "+ finacialYear);
-		Page<InvoiceCompare> entities;
+	
+		logger.info("Inside findPageByFilterIc "); 
+		String quarter =null;
+		String finacialYear= null;
+		Page<InvoiceCompare> entities=null;
+		if(quterTimePeriod!="") {
+		quarter= quterTimePeriod.substring(0, 2);
+		finacialYear= quterTimePeriod.substring(3);
+		
+		
+		
 		if(selectedRfpID.equalsIgnoreCase("1")){
-			System.out.println("findPageByFilterIc selectedRfpID "+ selectedRfpID);
+			//System.out.println("findPageByFilterIc selectedRfpID "+ selectedRfpID);
 			
 			entities =
 					invoiceCompareRepository.findbyFilter(selectedCircelId, selectedStateId,
 							quarter,finacialYear, selectedVendorId, PageRequest.of(page, size));
 		}else {
-			System.out.println("findPageByFilterIc else selectedRfpID "+ selectedRfpID);
+			//System.out.println("findPageByFilterIc else selectedRfpID "+ selectedRfpID);
 			entities = invoiceCompareRepository.findbyFilterWithRFP(selectedCircelId, selectedStateId, 
 					quarter,finacialYear, selectedVendorId, selectedRfpID, PageRequest.of(page, size));
 		}
-		
-		System.out.println("Inside findPaginatedByFilter " +entities);
+		}
+		//System.out.println("Inside findPaginatedByFilter " +entities);
 		return entities;
 	}
 
 	@Override
 	public Page<InvoiceCompare> findPageWithoutStateIc(int page, int size, String type, String selectedCircelId,
 			String quterTimePeriod, String selectedVendorId, String selectedRfpID) {
-		System.out.println("Inside findPaginatedWithoutState" +selectedRfpID);
-		String quarter= quterTimePeriod.substring(0, 2);
-		String finacialYear= quterTimePeriod.substring(3);
-		//System.out.println("Quater "+ quarter);
-		//System.out.println("finacialYear "+ finacialYear);
-		Page<InvoiceCompare> entities;
+		//System.out.println("Inside findPaginatedWithoutState" +selectedRfpID);
+		logger.info("Inside findPageWithoutStateIc "); 
+		String quarter =null;
+		String finacialYear= null;
+		Page<InvoiceCompare> entities=null;
+		if(quterTimePeriod!="") {
+		quarter= quterTimePeriod.substring(0, 2);
+		finacialYear= quterTimePeriod.substring(3);
+	
+		
 		if(selectedRfpID.equalsIgnoreCase("1")){
-			System.out.println("findPageWithoutStateIc selectedRfpID "+ selectedRfpID);
+			//System.out.println("findPageWithoutStateIc selectedRfpID "+ selectedRfpID);
 			entities =invoiceCompareRepository.findbyWithoutStateFilter(selectedCircelId, quarter,finacialYear, selectedVendorId, PageRequest.of(page, size));
 		}else {
-			System.out.println("findPageWithoutStateIc else selectedRfpID "+ selectedRfpID);
+			//System.out.println("findPageWithoutStateIc else selectedRfpID "+ selectedRfpID);
 			entities =invoiceCompareRepository.findbyFilterRfpWithoutState(selectedCircelId, quarter,finacialYear, selectedVendorId, selectedRfpID, PageRequest.of(page, size));
 
 		}
-		System.out.println("Inside findPaginatedWithoutState " +entities);
+		
+		}
+		//System.out.println("Inside findPaginatedWithoutState " +entities);
 		return entities;
 	}
 	

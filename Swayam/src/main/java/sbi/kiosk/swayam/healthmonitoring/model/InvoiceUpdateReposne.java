@@ -10,7 +10,6 @@ public class InvoiceUpdateReposne {
 	private String messgae;
 	
 	
-	
 	public InvoiceUpdateReposne() {
 		// TODO Auto-generated constructor stub
 	}

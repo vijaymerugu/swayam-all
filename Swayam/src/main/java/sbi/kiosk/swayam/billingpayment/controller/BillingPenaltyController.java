@@ -1,17 +1,12 @@
 package sbi.kiosk.swayam.billingpayment.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import sbi.kiosk.swayam.billingpayment.repository.BranchStateRepository;
 import sbi.kiosk.swayam.billingpayment.repository.InvoiceCorrectionRepository;
 import sbi.kiosk.swayam.billingpayment.repository.RfpRepository;
@@ -33,7 +27,6 @@ import sbi.kiosk.swayam.common.dto.InvoiceSummaryDto;
 import sbi.kiosk.swayam.common.entity.BillingPenaltyEntity;
 import sbi.kiosk.swayam.common.entity.InvoiceCompare;
 import sbi.kiosk.swayam.common.entity.InvoiceGeneration;
-import sbi.kiosk.swayam.common.entity.RfpIdMaster;
 import sbi.kiosk.swayam.common.repository.BillingCircleRepository;
 import sbi.kiosk.swayam.healthmonitoring.model.BillingPaymentReport;
 import sbi.kiosk.swayam.healthmonitoring.model.InvoiceUpdateReposne;
@@ -180,8 +173,7 @@ public class BillingPenaltyController {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		String json = gson.toJson(vendorRepository.findAll());
 		logger.info("cites "+ json);
-		 
-		
+	
 		return ResponseEntity.ok(json);
 		
 		
@@ -210,8 +202,8 @@ public class BillingPenaltyController {
 		      @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("type") String type, @RequestParam("selectedCircelId")
 		      String selectedCircelId, @RequestParam("selectedStateId") String selectedStateId,
 		      @RequestParam("quterTimePeriod") String quterTimePeriod,@RequestParam("selectedVendorId") String selectedVendorId,@RequestParam("selectedRfpID") String selectedRfpID) {
-		 
-		logger.info("type=========Sharan========="+type);
+		logger.info("Inside findPaginated"); 
+		logger.info("type=================="+type);
 		logger.info("selectedCircelId--- "+selectedCircelId);
 		logger.info("selectedStateId---- "+selectedStateId);
 		logger.info("quterTimePeriod---- "+quterTimePeriod);
@@ -221,10 +213,11 @@ public class BillingPenaltyController {
 		
 	
 		
-		String quarter= quterTimePeriod.substring(0, 2);
-		String finacialYear= quterTimePeriod.substring(3);
-		System.out.println("Quater "+ quarter);
-		System.out.println("finacialYear "+ finacialYear);
+		/*
+		 * String quarter= quterTimePeriod.substring(0, 2); String finacialYear=
+		 * quterTimePeriod.substring(3); System.out.println("Quater "+ quarter);
+		 * System.out.println("finacialYear "+ finacialYear);
+		 */
 		
 		report.setCircle(selectedCircelId);
 		report.setState(selectedStateId);
@@ -255,11 +248,12 @@ public class BillingPenaltyController {
 			resultPage = 
 					billingPenaltyService.findPaginatedByFilter(page, size, type, selectedCircelId, selectedStateId, quterTimePeriod, selectedVendorId,selectedRfpID);
 		}
-		    if (page > resultPage.getTotalPages()){
-		            //throw new MyResourceNotFoundException();
-		        }
+		/*
+		 * if (page > resultPage.getTotalPages()){ //throw new
+		 * MyResourceNotFoundException(); }
+		 */
 		    
-		   System.out.println("resultPage Content"+resultPage.getContent());
+		  // System.out.println("resultPage Content"+resultPage.getContent());
 		  return resultPage;
 	}
 	
@@ -269,13 +263,14 @@ public class BillingPenaltyController {
 		      @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("type") String type, @RequestParam("selectedCircelId")
 		      String selectedCircelId, @RequestParam("selectedStateId") String selectedStateId,
 		      @RequestParam("quterTimePeriod") String quterTimePeriod,@RequestParam("selectedVendorId") String selectedVendorId,@RequestParam("selectedRfpID") String selectedRfpID) {
-		 
-		logger.info("type=========Sharan========="+type);
+		logger.info("Inside findPaginatedIg"); 
+		logger.info("type=================="+type);
 		logger.info("selectedCircelId--- "+selectedCircelId);
 		logger.info("selectedStateId---- "+selectedStateId);
 		logger.info("quterTimePeriod---- "+quterTimePeriod);
 		logger.info("selectedVendorId--- "+selectedVendorId);
 		logger.info("selectedRfpID--- "+selectedRfpID);
+		
 		report.setCircle(selectedCircelId);
 		report.setState(selectedStateId);
 		report.setTimePeiod(quterTimePeriod);
@@ -302,11 +297,7 @@ public class BillingPenaltyController {
 			resultPage = 
 					billingPenaltyService.findPageByFilterIg(page, size, type, selectedCircelId, selectedStateId, quterTimePeriod, selectedVendorId,selectedRfpID);
 		}
-		    if (page > resultPage.getTotalPages()){
-		            //throw new MyResourceNotFoundException();
-		        }
-		    
-		   System.out.println("resultPage Content"+resultPage.getContent());
+		  
 		  return resultPage;
 	}
 	
@@ -316,8 +307,8 @@ public class BillingPenaltyController {
 		      @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("type") String type, @RequestParam("selectedCircelId")
 		      String selectedCircelId, @RequestParam("selectedStateId") String selectedStateId,
 		      @RequestParam("quterTimePeriod") String quterTimePeriod,@RequestParam("selectedVendorId") String selectedVendorId,@RequestParam("selectedRfpID") String selectedRfpID) {
-		 
-		logger.info("type=========Sharan========="+type);
+		logger.info("Inside findPaginatedIc");
+		logger.info("type=================="+type);
 		logger.info("selectedCircelId--- "+selectedCircelId);
 		logger.info("selectedStateId---- "+selectedStateId);
 		logger.info("quterTimePeriod---- "+quterTimePeriod);
@@ -330,7 +321,7 @@ public class BillingPenaltyController {
 		report.setVendor(selectedVendorId);
 		report.setRpfNumber(selectedRfpID);
 		
-		System.out.println("Check ");
+		//System.out.println("Check ");
 		
 		Page<InvoiceCompare> resultPage = null;
 		
@@ -339,6 +330,7 @@ public class BillingPenaltyController {
 			quterTimePeriod.equals("undefined")  ||
 			selectedVendorId.equals("undefined")
 			) {		
+			
 			selectedCircelId="";
 			selectedStateId="";
 			quterTimePeriod="";
@@ -353,11 +345,7 @@ public class BillingPenaltyController {
 			resultPage = 
 					invoiceCompareService.findPageByFilterIc(page, size, type, selectedCircelId, selectedStateId, quterTimePeriod, selectedVendorId,selectedRfpID);
 		}
-		    if (page > resultPage.getTotalPages()){
-		            //throw new MyResourceNotFoundException();
-		        }
-		    
-		   System.out.println("resultPage Content"+resultPage.getContent());
+		 
 		  return resultPage;
 	}
 	
@@ -367,8 +355,8 @@ public class BillingPenaltyController {
 		      @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("type") String type, @RequestParam("selectedCircelId")
 		      String selectedCircelId, @RequestParam("selectedStateId") String selectedStateId,
 		      @RequestParam("quterTimePeriod") String quterTimePeriod) {
-		 
-		logger.info("type=========Sharan========="+type);
+		logger.info("Inside findPaginatedIS");
+		logger.info("type=================="+type);
 		logger.info("selectedCircelId--- "+selectedCircelId);
 		logger.info("selectedStateId---- "+selectedStateId);
 		logger.info("quterTimePeriod---- "+quterTimePeriod);
@@ -403,10 +391,8 @@ public class BillingPenaltyController {
 //			resultPage = invoiceSummaryRepository.
 //					findbyFilter(selectedCircelId, selectedStateId, quterTimePeriod,  PageRequest.of(page, size));
 		}
-		    if (page > resultPage.getTotalPages()){
-		            //throw new MyResourceNotFoundException();
-		        }
-		    System.out.println("resultPage Content invoiceSummary "+resultPage.getContent());
+		   
+		   // System.out.println("resultPage Content invoiceSummary "+resultPage.getContent());
 		  return resultPage;
 	}
 	
@@ -418,21 +404,13 @@ public class BillingPenaltyController {
 			@RequestParam("quarter") String quarter,@RequestParam("yearid") String yearid)
 			throws Exception {
 		
+		logger.info("Inside updateCorrections");
 		
-
-		/*
-		 * double correction = invoiceUpdateRequest.getCorrections(); String kisokId=
-		 * invoiceUpdateRequest.getKisokId(); String kisokSerialNumber=
-		 * invoiceUpdateRequest.getKioskSerialNumber();
-		 */
-		System.out.println("correction "+ Corrections );
-		System.out.println("kisokId "+ kisokId);
-		System.out.println("kisokSerialNumber "+ kioskSerialNumber);
-		System.out.println("Remarks "+ remarks);
 		
 		int status = invoiceCorrectionRepository.
 				updateInvoiceCorrection(Corrections, kisokId, kioskSerialNumber,remarks,quarter,yearid);
-		System.out.println("Status " + status);
+		//System.out.println("Status " + status);
+		logger.info("Status " + status);
 		
 		if(status==1) {
 			return ResponseEntity.ok(new InvoiceUpdateReposne("Sucess", "Data Saved Successfully"));
@@ -443,58 +421,5 @@ public class BillingPenaltyController {
 
 	}
 	
-	 @RequestMapping(value = "rf/update", method = RequestMethod.POST)
-	    public ResponseEntity<RfpIdMaster> updateRfpDetails(@RequestBody RfpIdMaster user) {
-	        System.out.println("Updating RF " + user.getRfpId());
-	         
-	      
-	        		//rfpRepository.findById(id);
-	        	try {
-	        		rfpRepository.save(user);
-	   	         
-	        	}catch (Exception e) {
-					e.printStackTrace();
-				}
-	        
-			
-	        return new ResponseEntity<>(HttpStatus.OK);
-	    }
-	 
-	 
-	 @RequestMapping(value = "rf/add", method = RequestMethod.POST)
-	    public ResponseEntity<RfpIdMaster> addRfpDetails(@RequestBody RfpIdMaster user) {
-	        System.out.println("Updating RF " + user.getRfpId());
-	         
-	      
-	        		//rfpRepository.findById(id);
-	        	try {
-	        		rfpRepository.save(user);
-	   	         
-	        	}catch (Exception e) {
-					e.printStackTrace();
-				}
-	        
-			
-	        return new ResponseEntity<>(HttpStatus.OK);
-	    }
-	 
-	 
-	 @RequestMapping(value = "rf/delete", method = RequestMethod.POST)
-	    public ResponseEntity<RfpIdMaster> deleteRfp(@RequestBody RfpIdMaster user) {
-	        System.out.println("Updating RF " + user.getRfpId());
-	         
-	      
-	        		//rfpRepository.findById(id);
-	        	try {
-	        		rfpRepository.delete(user);
-	   	         
-	        	}catch (Exception e) {
-					e.printStackTrace();
-				}
-	        
-			
-	        return new ResponseEntity<>(HttpStatus.OK);
-	    }
-	 
-
+	
 }

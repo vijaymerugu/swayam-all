@@ -13,7 +13,6 @@
 <script src="resources/js/bootstrap.3.1.1.min.js"></script>
 <link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
 
-
 <link rel="stylesheet" href="resources/css/grid-style.css"/>
 <link rel="stylesheet" href="resources/css/body-page.css"/>
 <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script>
@@ -22,6 +21,7 @@
   	
 <link href="resources/css/menu.css" rel="stylesheet" type="text/css">	
 <link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
 <script src="resources/js/angular.js"></script>
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>

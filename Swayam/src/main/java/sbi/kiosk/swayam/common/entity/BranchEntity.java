@@ -17,7 +17,6 @@ public class BranchEntity {
 	private Integer brId;
 	
 	
-
 	@Column(name="CIRCLE")
 	private String circle;
 	

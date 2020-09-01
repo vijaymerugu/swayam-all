@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="resources/css/grid-style.css"/>
 <link rel="stylesheet" href="resources/css/body-page.css"/>
 
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
 <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script> 
 <link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/>

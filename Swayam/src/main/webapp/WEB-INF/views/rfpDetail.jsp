@@ -19,13 +19,16 @@
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
  -->
 <link rel="stylesheet" href="resources/css/font-awesome.min.css">
-
+ 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="resources/css/style.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- <script src='https://kit.fontawesome.com/a076d05399.js'></script> -->
 <script src="resources/js/a076d05399.js"></script>
+<!-- <script src="resources/js/angular-route.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+
 
 <script src="resources/js/angular.js"></script>
     <script src="resources/js/angular-touch.js"></script>
@@ -56,7 +59,7 @@
     font-weight: 600;
     font-size: 12px;
         }
-        .tb-bk table tr td button {
+        .tb-bk  table tr td button {
         background-color: #fdd209;
     color: #2f246c;
     border: none;
@@ -119,8 +122,12 @@
 
 <div class="main" ng-app="app" id="appId">
 <div ng-controller="RfpCtrl as vm">
+<%-- <input type="hidden" name="_csrf" ng-model="csrf"  value="<%=session.getAttribute("csrfToken")%>">  --%>
+ <input type="hidden" ng-init="csrf ='<%=session.getAttribute("csrfToken")%>'" >
+
  <div>
- 		<form > 
+ 		<form name="rfpForm"  ng-submit="searchPostion(selectedRfpNo,selectedRfpid,selectedVendor,selectedkcost,
+					selectedAMCcost,selectedCPenalty,selectedDMU,selectedDMUR,selectedDCT,selectedMP)"> 
 		<div class="tb-bk">
    <table>				
         <tr>
@@ -131,7 +138,7 @@
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
-                        <input type="text" ng-model="selectedRfpNo" name="rfpno" 
+                        <input type="text" maxlength="23" ng-model="selectedRfpNo" name="rfpno" 
                          placeholder="" required/>
                     </div>
                 </div>
@@ -143,7 +150,7 @@
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
-                         <input type="text" ng-model="selectedRfpid" name="rfpid" 
+                         <input type="text"  ng-model="selectedRfpid" name="rfpid" 
                          placeholder="" required/>
                     </div>
                 </div>                                
@@ -159,7 +166,7 @@
                     <div class="col-xs-6">
                     <select id="vendor"  name="Vendor" ng-model="selectedVendor" required>
 									<option value=""></option> 
-									<option ng-repeat="item in Vendors" value="{{item.vendorId}}">{{item.vendor}}</option>
+									<option ng-repeat="item in Vendors" value="{{item.vendor}}">{{item.vendor}}</option>
 								</select>
                     </div>
                 </div>
@@ -174,7 +181,7 @@
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
-                       <input type="number" min="0"  step="0.01"  ng-model="selectedkcost" name="kcost" 
+                       <input type="number" min="0" max="99999.99" step="0.01"  ng-model="selectedkcost" name="kcost" 
                          placeholder="" required/>
                     </div>
                 </div>
@@ -186,7 +193,7 @@
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
-                       <input type="number" min="0"  step="0.01"  ng-model="selectedAMCcost" name="amccost" 
+                       <input type="number" min="0" max="999.99" step="0.01"  ng-model="selectedAMCcost" name="amccost" 
                          placeholder="" required/>
                     </div>
                 </div>
@@ -198,7 +205,7 @@
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
-                      <input type="number" ng-model="selectedCPenalty" name="cpenalty" 
+                      <input type="number" min="0" max="999"  ng-model="selectedCPenalty" name="cpenalty" 
                          placeholder="" required/>
                     </div>
                 </div>                                
@@ -215,7 +222,7 @@
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
-                        <input type="number" ng-model="selectedDMU" name="dmu" 
+                        <input type="number" min="0" max="12"  ng-model="selectedDMU" name="dmu" 
                          placeholder="" required/>
                     </div>
                 </div>                                
@@ -227,7 +234,7 @@
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
-                        <input type="number" ng-model="selectedDMUR" name="dmur" 
+                        <input type="number" min="0" max="12"  ng-model="selectedDMUR" name="dmur" 
                          placeholder="" required/>
                     </div>
                 </div>                                
@@ -240,7 +247,7 @@
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
-                      <input type="number" ng-model="selectedDCT" name="cdt" 
+                      <input type="number" min="0" max="100" ng-model="selectedDCT" name="cdt" 
                          placeholder="" required/>
                     </div>
                 </div>
@@ -256,8 +263,9 @@
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
-                      <input type="number" ng-model="selectedMP" name="mp" 
+                      <input type="number" min="0" max="9999" ng-model="selectedMP" name="mp" 
                          placeholder="" required/>
+                        
                     </div>
                 </div>
 			</td>
@@ -268,9 +276,9 @@
                     <div class="col-xs-6">
                          <div class="text-right" style="width: 80%;" >
                              <button  id="btnReset" ng-click="resetPositions()">Reset</button>							
-			                 <button  ng-click="searchPostion(selectedRfpNo,selectedRfpid,selectedVendor,selectedkcost,
-					selectedAMCcost,selectedCPenalty,selectedDMU,selectedDMUR,selectedDCT,selectedMP)">Add</button>
-						<!-- 	  <input  type="submit" id="submit" value="Generate"/> -->
+			                <!--  <button  type="submit" ng-click="searchPostion(selectedRfpNo,selectedRfpid,selectedVendor,selectedkcost,
+					selectedAMCcost,selectedCPenalty,selectedDMU,selectedDMUR,selectedDCT,selectedMP)">Add</button> -->
+							  <button type="submit" id="submit">Add</button>
                          </div>
                     </div>
                 </div>
@@ -285,11 +293,11 @@
 	
 	
 	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle, No Of Branches, Kiosks, Txns, etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">
-		<span style="float:right">
+		<!-- <span style="float:right">
 		<a class="openpdfonclick"><img src="resources/img/pdf.svg"></a>
 		<a class="openxlonclick"><img src="resources/img/excel.svg"></a>
 		&nbsp;&nbsp;&nbsp;
-		</span>	
+		</span> -->	
 		<br/>
 		
 		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test"></div>
@@ -303,10 +311,11 @@
 	
 <script>
 angular.bootstrap(document.getElementById("appId"), ['app']);
+/* angular.module("app").constant("CSRF_TOKEN", '{{ csrf_token() }}') */
 </script>
 
 
- <script type="text/javascript">
+<!--  <script type="text/javascript">
       
       $(document).ready(function(){
 
@@ -335,7 +344,7 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
     		
     		
       
-      </script>
+      </script> -->
 
 <script type="text/javascript">
     $(function () {
@@ -358,4 +367,5 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
 
 
 </body>
+
 </html>
