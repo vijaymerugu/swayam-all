@@ -7,32 +7,15 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import sbi.kiosk.swayam.common.entity.BranchEntity;
-import sbi.kiosk.swayam.common.entity.BranchMaster;
-
+import sbi.kiosk.swayam.common.entity.State;
 
 @Repository
-public interface BranchStateRepository extends CrudRepository<BranchEntity, Integer>{
+public interface BranchStateRepository extends CrudRepository<State, String>{
 	
 	
-	@Query(value = "select * from TBL_BRANCH_MASTER u where  u.CRCL_CODE=:crclCode", 
+	@Query(value = "select DISTINCT u.stat_code, u.stat_desc from TBL_BRANCH_MASTER u where u.CRCL_CODE=:crclCode", 
 			nativeQuery = true)
-	List<BranchEntity> findByCirclehCode(@Param("crclCode") String circleCode);
-	
-	
-	/*
-	 * @Query(value =
-	 * "select STAT_CODE, STAT_DESC from TBL_BRANCH_MASTER u where  u.CRCL_CODE=:crclCode"
-	 * , nativeQuery = true) List<Object[]> findByCirclehCode(@Param("crclCode")
-	 * String circleCode);
-	 */
-	 
-	/*
-	 * 
-	 * @Query(value =
-	 * "select STAT_CODE, STAT_DESC from TBL_BRANCH_MASTER u where  u.CRCL_CODE=:crclCode"
-	 * , nativeQuery = true) List<BranchEntity>
-	 * findByCirclehCode(@Param("circleCode") String circleCode);
-	 */
+	List<State> findByCirclehCode(@Param("crclCode") String circleCode);
+
 
 }

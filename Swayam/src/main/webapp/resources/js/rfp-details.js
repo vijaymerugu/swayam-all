@@ -1,11 +1,13 @@
-var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter', 'ui.grid.resizeColumns']);
+var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter', 'ui.grid.resizeColumns']);
 
-	app.controller('RfpCtrl', ['$scope','$filter','$http','$window','RfpService','RfpUpdateService',function ($scope, $filter, $http, $window,RfpService,RfpUpdateService) {
+
+	app.controller('RfpCtrl', ['$scope','$filter','$http','$window','$route','RfpService','RfpUpdateService',function ($scope, $filter, $http, $window,$route,RfpService,RfpUpdateService) {
 	   var paginationOptions = {
 	     pageNumber: 1,
 		 pageSize: 20,
 		 sort: null
 	   };
+	   
 	  // var self = this;
 	   $scope.LoadVendor=function(){
 		   $http({
@@ -24,9 +26,9 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 			});
 		   
 	   }
-	   
+	  
 	   $scope.LoadVendor();
-	   
+	   console.log("Session CSRF Outide  "+ $scope.csrf);
 	   
 	   var counttype = "";
 			var fromDate = "";
@@ -67,14 +69,20 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	        
 	        console.log("user RfpNo" + user.rfpNo);
 	        console.log("RfpId " + user.rfpId);
-	      
-	        RfpUpdateService.update(user).then(function (d) {
+	        
+	        console.log("Session CSRF "+ $scope.csrf);
+	        
+	        RfpUpdateService.update(user,$scope.csrf).then(function (d) {
 	            
 	        	console.log("Inside Success");
 	            
 	            alert("Updated Successfully");
+	          //  $window.location.reload(); 
+	            location.reload()
+	            
 	        }, function (d) {
 	        	alert("Failed to update");
+	        	//$window.location.reload(); 
 	        });
 	    };
 	    
@@ -108,23 +116,26 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	        
 	        console.log("user RfpNo" + user.rfpNo);
 	        console.log("RfpId " + user.rfpId);
-	      
-	        RfpUpdateService.addRfp(user).then(function (d) {
+	        console.log("Session CSRF "+ $scope.csrf);
+	        RfpUpdateService.addRfp(user,$scope.csrf).then(function (d) {
 	            
-	        	console.log("Successfully Added");
-	        	alert("Successfully Added");
+	        	console.log("Successfully Added " + d.status);
 	        	
-	        	 RfpService.getUsers(paginationOptions.pageNumber,
+	        	alert("Successfully Added");
+	        	 //$window.location.reload(); 
+	        	location.reload();
+	        	/* RfpService.getUsers(paginationOptions.pageNumber,
 	     				paginationOptions.pageSize, counttype).success(function(data) {
 	     					
 	     			$scope.gridOptions.data = data.content;
 	     			$scope.gridOptions.totalItems = data.totalElements;
-	     	   });
-	        	
-	        	
+	     			
+	     			
+	     	   });*/
 	       
 	        }, function (d) {
 	        	alert("Failed to Add");
+	        	// $window.location.reload();
 	        });
 	    };
 	 
@@ -202,13 +213,17 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	    		        companyPermDntmSrHrs:row.companyPermDntmSrHrs,companyPermDntmPct:row.companyPermDntmPct,
 	    		        maxPenaltyPct:row.maxPenaltyPct};
 	    	  
-	    	  RfpUpdateService.deleteRFP(user).then(function (d) {
+	    	  console.log("Session CSRF "+ $scope.csrf);
+	    	  
+	    	  RfpUpdateService.deleteRFP(user,$scope.csrf).then(function (d) {
 		            
 		        	console.log("Inside Success ");
 		        	
 		        	
 		        	$scope.gridOptions.data.splice(index, 1);
 		        	alert("Successfully deleted");
+		        	//$route.reload(); 
+		        	location.reload();
 		        	
 		        /*    $scope.alerts.push({
 		                msg: 'Data saved successfully',
@@ -216,13 +231,8 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		            });*/
 		        }, function (d) {
 		        	alert("failed to delete row");
+		        
 		        });
-	    	  
-	    	  
-	    	  
-	    	  
-	    	  
-	    	  
 	    	  
 	    	};
 	   
@@ -323,28 +333,40 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	   // var add={};
 		 
 
-		    res.update = function(user) {
+		    res.update = function(user,header) {
 		    	 return $http({
 			            method: 'POST',
 			            url: 'rf/update',
-			            data: user
+			            data: user,
+			            headers: 
+		                {
+		                    'X-CSRF-TOKEN':header
+		                }
 			        });
 		    }
 		    
-		    res.addRfp= function(user) {
+		    res.addRfp= function(user,header) {
 		    	 return $http({
 			            method: 'POST',
 			            url: 'rf/add',
-			            data: user
+			            data: user,
+			            headers: 
+		                {
+		                    'X-CSRF-TOKEN': header
+		                }
 			        });
 		    }
 		    
 		    
-		    res.deleteRFP= function(user) {
+		    res.deleteRFP= function(user,header) {
 		    	 return $http({
 			            method: 'POST',
 			            url: 'rf/delete',
-			            data: user
+			            data: user,
+			            headers: 
+		                {
+		                    'X-CSRF-TOKEN': header
+		                }
 			        });
 		    }
 		    

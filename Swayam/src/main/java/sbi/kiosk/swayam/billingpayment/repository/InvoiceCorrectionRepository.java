@@ -12,6 +12,7 @@ import sbi.kiosk.swayam.common.entity.Invoice;
 @Repository
 public interface InvoiceCorrectionRepository extends CrudRepository<Invoice, String> {
 		
+	
 		@Modifying
 		@Transactional
 		@Query(value = "UPDATE 	TBL_INVOICE i SET i.CORRECTION_AMT=:correction,i.FINAL_AMT = (i.INVOICE_AMT) + (:correction),i.REMARKS=:remarks "

@@ -13,8 +13,7 @@ public class RfpDetailsImpl implements RfpdeatailsService {
 	
 	@Autowired
 	RfpRepository rfpReposisory;
-	
-	
+		
 	@Override
 	public Page<RfpIdMaster> findPageWithRfpDetail(int page, int size, String type) {
 		Page<RfpIdMaster> entities = rfpReposisory.findAll(PageRequest.of(page, size));

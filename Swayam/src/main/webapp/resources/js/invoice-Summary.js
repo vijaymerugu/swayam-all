@@ -26,8 +26,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	    $scope.Years = range;
 	   }
 	   
-	  
-				   
+	  		   
 	   var counttype = "";
 			var fromDate = "";
 			var toDate = "";

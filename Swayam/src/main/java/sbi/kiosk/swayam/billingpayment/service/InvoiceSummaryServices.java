@@ -2,6 +2,8 @@ package sbi.kiosk.swayam.billingpayment.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,22 +19,19 @@ import sbi.kiosk.swayam.common.entity.InvoiceSummaryEntity;
 @Service
 public class InvoiceSummaryServices implements InvoiceSummaryService {
 	
+	Logger logger = LoggerFactory.getLogger(InvoiceSummaryServices.class);
 	
-	
-	  @Autowired 
-	  InvoiceSummaryRepository isRepository;
+	 @Autowired 
+	 InvoiceSummaryRepository isRepository;
 	 
-	
-	
-	
 	@Override
 	public Page<InvoiceSummaryDto> findPageByFilterIs(int page, int size, String type, String selectedCircelId,
 			String selectedStateId, String quterTimePeriod) {
-		
+		logger.info("Inside findPageByFilterIs "); 
 		Page<InvoiceSummaryDto> entity = isRepository.findbyFilter
 				(selectedCircelId, selectedStateId, quterTimePeriod, PageRequest.of(page, size)).map(InvoiceSummaryDto::new);
 		//Page<InvoiceSummaryDto> entity = repo3.findbyFilter(selectedCircelId, selectedStateId, quterTimePeriod, PageRequest.of(page, size)).map(InvoiceSummaryDto::new);
-		System.out.println("Inside findPageByFilterIs " + entity.getContent());
+		
 		return entity;
 	}
 	
@@ -40,20 +39,23 @@ public class InvoiceSummaryServices implements InvoiceSummaryService {
 	@Override
 	public Page<InvoiceSummaryDto> findPageWithoutStateIs(int page, int size, String type, String selectedCircelId,
 			String quterTimePeriod) {
-		
+		logger.info("Inside findPageWithoutStateIs ");
 		  Page<InvoiceSummaryDto> entity = isRepository.findbyWithoutStateFilter
 				  	(selectedCircelId, quterTimePeriod, PageRequest.of(page, size)).map(InvoiceSummaryDto::new);
 		 
 		//Page<InvoiceSummaryDto> entity = repo3.findbyWithoutStateFilter(selectedCircelId, quterTimePeriod,  PageRequest.of(page, size)).map(InvoiceSummaryDto::new);
-		System.out.println("Inside findPageWithoutStateIs " + entity.getContent());
 		
-		List<InvoiceSummaryEntity> listEntity = 
-				isRepository.findbyWithoutStateFilterReport(selectedCircelId, quterTimePeriod);
+		
+			/*
+			 * List<InvoiceSummaryEntity> listEntity =
+			 * isRepository.findbyWithoutStateFilterReport(selectedCircelId,
+			 * quterTimePeriod);
+			 */
 	
 		
 		//List<InvoiceSummaryEntity> listEntity=isRepo.findSummary(selectedCircelId, quterTimePeriod);
 		
-		System.out.println("Inside findPageWithoutStateIs List Entity  " + listEntity);
+		//System.out.println("Inside findPageWithoutStateIs List Entity  " + listEntity);
 		
 		return entity;
 	}

@@ -8,6 +8,7 @@ import lombok.Data;
 
 public class BillingPaymentReport {
 	
+	
 	private String circle;
 	private String state;
 	private String vendor;

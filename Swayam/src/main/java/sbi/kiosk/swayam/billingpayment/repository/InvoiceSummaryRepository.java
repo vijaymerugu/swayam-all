@@ -17,7 +17,6 @@ public interface InvoiceSummaryRepository extends PagingAndSortingRepository<Inv
 	
 	
 	
-	
 	@Query(value = 
 			"SELECT DISTINCT \r\n" + 
 			"    INV.FIN_YR,\r\n" + 

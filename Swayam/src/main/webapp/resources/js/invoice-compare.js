@@ -20,8 +20,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 				
 	       }
 
-	   
-	   
+	   	   
 	   //Years Load
 	   $scope.LoadYear=function(){
 		var year = new Date().getFullYear();
@@ -93,13 +92,13 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 			$scope.LoadDropDown = function(type, value) {
 				switch (type) {
 				default:
-					$scope.SelectedCircleId = 0;
-					$scope.CircelDefaultLabel = "Loading.....";
+//					$scope.SelectedCircleId = 0;
+//					$scope.CircelDefaultLabel = "Loading.....";
 					$scope.Circle = null;
 					break;
 				case "circleId":
                     $scope.SelectedStateId = 0;
-                    $scope.StateDefaultLabel = "Loading.....";
+                   // $scope.StateDefaultLabel = "Loading.....";
                     $scope.States = null;
                     break;
 				}
@@ -115,15 +114,15 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 					console.log("Done....." + value)
 					switch (type) {
 					default:
-						$scope.SelectedCircelId = 0;
-						$scope.CircleDefaultLabel = "Select Circle";
+//						$scope.SelectedCircelId = 0;
+//						$scope.CircleDefaultLabel = "Select Circle";
 						$scope.Circles = data;
 						break;
 					case "circleId":
 						$scope.SelectedStateId = 0;
 						//$scope.StateDefaultLabel = "";
 						if (data.length > 0) {
-							$scope.StateDefaultLabel = "Select State";
+//							$scope.StateDefaultLabel = "Select State";
 							$http({
 								method : "get",
 								url : 'bp/getstate',
@@ -373,7 +372,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	          {
                   name: "Corrections", displayName: "CORRECTIONS", field: "Corrections",
                   cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div '+ 
-                	 ' ng-if="row.entity.editrow"><input type="number" min="0" value="42" step="0.01"  style="height:30px" ng-model="MODEL_COL_FIELD"</div>', width: 140
+                	 ' ng-if="row.entity.editrow"><input type="number" min="0"  step="0.01"  style="height:30px" ng-model="MODEL_COL_FIELD"</div>', width: 140
               },
               {
                   name: "Remarks", displayName: "REMARKS", field: "Remarks",
