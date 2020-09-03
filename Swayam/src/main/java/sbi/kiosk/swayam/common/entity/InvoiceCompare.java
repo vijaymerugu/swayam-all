@@ -27,13 +27,12 @@ public class InvoiceCompare  {
 	private String quarterId;
 	@Column(name="FIN_YR")
 	private String year;
-	@Column(name="RFP_REF_NO")
+	@Column(name="RFP_NO")
 	private String rpfRefNumber;
 	@Column(name="INVOICE_AMT")
 	private Float invoiceAmountSBI;
 	@Column(name="INVO_AMT")
-	private Float invoiceAmountVendor;
-	
+	private Float invoiceAmountVendor;	
 	@Column(name="DIFFERENCE")
 	private Float difference;
 	

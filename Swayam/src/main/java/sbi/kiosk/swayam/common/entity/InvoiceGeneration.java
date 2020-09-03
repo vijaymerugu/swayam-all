@@ -25,7 +25,7 @@ public class InvoiceGeneration {
 	private String year;
 	@Column(name="QTR_ID")
 	private String quarterId;
-	@Column(name="RFP_REF_NO")
+	@Column(name="RFP_NO")
 	private String rpfRefNumber;
 	@Column(name="SPARE_PARTS")
 	private String spareParts;
