@@ -37,7 +37,7 @@ public class BillingPenaltyEntity implements Serializable {
 	private Integer finalDowntime;
 	@Column(name="PENALTY_AMT")
 	private Float penalty;
-	@Column(name="RFP_REF_NO")
+	@Column(name="RFP_NO")
 	private String prfRefNumber;
 	
 

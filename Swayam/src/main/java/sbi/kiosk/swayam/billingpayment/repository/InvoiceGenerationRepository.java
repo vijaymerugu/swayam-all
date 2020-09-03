@@ -16,22 +16,22 @@ import sbi.kiosk.swayam.common.entity.InvoiceGeneration;
 public interface InvoiceGenerationRepository extends PagingAndSortingRepository<InvoiceGeneration, String> {
 	
 	
-	@Query(value = "select s1.RFP_REF_NO,s1.VENDOR,  s2.CRCL_NAME, s2.STAT_DESC, s3.KIOSK_ID, \r\n" + 
-			"s3.KIOSK_SERIAL_NO,s3.QTR_ID,s3.FIN_YR,s3.PENALTY_AMT,(s3.SPARE_PARTS_COST + s3.AMC_COST) as SPARE_PARTS, s3.INVOICE_AMT,  \r\n" + 
-			"s3.CORRECTION_AMT,s3.FINAL_AMT \r\n" + 
-			"from TBL_INVOICE s3\r\n" + 
-			"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
-			"ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO\r\n" + 
-			"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
-			"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
-			"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-			"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
-			"where \r\n" + 
-			"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
-			"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
-			"s2.STAT_CODE=:selectedStateId AND\r\n" + 
-			"s3.FIN_YR=:finacialYear AND\r\n" + 
-			"s3.QTR_ID=:quterTimePeriod",nativeQuery = true,
+	@Query(value = "select s5.RFP_NO,s1.VENDOR,  s2.CRCL_NAME, s2.STAT_DESC, s3.KIOSK_ID,  \r\n" + 
+			"			s3.KIOSK_SERIAL_NO,s3.QTR_ID,s3.FIN_YR,s3.PENALTY_AMT,(s3.SPARE_PARTS_COST + s3.AMC_COST) as SPARE_PARTS, s3.INVOICE_AMT,   \r\n" + 
+			"			s3.CORRECTION_AMT,s3.FINAL_AMT  \r\n" + 
+			"			from TBL_INVOICE s3 \r\n" + 
+			"			INNER JOIN TBL_KIOSK_MASTER s1 \r\n" + 
+			"			ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
+			"			INNER JOIN TBL_VENDOR_DETAILS s4 \r\n" + 
+			"			ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
+			"			INNER JOIN TBL_BRANCH_MASTER s2 \r\n" + 
+			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+			"			where  \r\n" + 
+			"			s4.VENDOR_ID=:selectedVendorId AND \r\n" + 
+			"			s2.CRCL_CODE=:selectedCircelId AND  \r\n" + 
+			"			s2.STAT_CODE=:selectedStateId AND \r\n" + 
+			"			s3.FIN_YR=:finacialYear AND \r\n" + 
+			"			s3.QTR_ID=:quterTimePeriod",nativeQuery = true,
 			countQuery = "select count(s3.KIOSK_SERIAL_NO)\r\n" + 
 					"from TBL_INVOICE s3\r\n" + 
 					"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
@@ -39,8 +39,8 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 					"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
 					"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-					"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
-					"where \r\n" + 
+					"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+					" where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
 					"s2.STAT_CODE=:selectedStateId AND\r\n" + 
@@ -53,7 +53,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 	
 	
 	
-	@Query(value = "select s1.RFP_REF_NO,s1.VENDOR,  s2.CRCL_NAME, s2.STAT_DESC, s3.KIOSK_ID, \r\n" + 
+	@Query(value = "select s5.RFP_NO,s1.VENDOR,  s2.CRCL_NAME, s2.STAT_DESC, s3.KIOSK_ID, \r\n" + 
 			"s3.KIOSK_SERIAL_NO,s3.QTR_ID,s3.FIN_YR,s3.PENALTY_AMT,(s3.SPARE_PARTS_COST + s3.AMC_COST) as SPARE_PARTS, s3.INVOICE_AMT,  \r\n" + 
 			"s3.CORRECTION_AMT,s3.FINAL_AMT \r\n" + 
 			"from TBL_INVOICE s3\r\n" + 
@@ -62,8 +62,8 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 			"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
 			"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 			"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-			"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
-			"where \r\n" + 
+			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+			" where \r\n" + 
 			"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 			"s2.CRCL_CODE=:selectedCircelId AND \r\n" +
 			"s3.FIN_YR=:finacialYear AND\r\n" + 
@@ -75,8 +75,8 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 					"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
 					"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-					"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
-					"where \r\n" + 
+					"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+					" where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n" +
 					"s3.FIN_YR=:finacialYear AND\r\n" + 
@@ -87,7 +87,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
     @Param("selectedVendorId") String selectedVendorId,Pageable pageable);
 	
 	
-	@Query(value = "select s1.RFP_REF_NO,s1.VENDOR,  s2.CRCL_NAME, s2.STAT_DESC, s3.KIOSK_ID, \r\n" + 
+	@Query(value = "select s5.RFP_NO,s1.VENDOR,  s2.CRCL_NAME, s2.STAT_DESC, s3.KIOSK_ID, \r\n" + 
 			"s3.KIOSK_SERIAL_NO,s3.QTR_ID,s3.FIN_YR,s3.PENALTY_AMT,(s3.SPARE_PARTS_COST + s3.AMC_COST) as SPARE_PARTS, s3.INVOICE_AMT,  \r\n" + 
 			"s3.CORRECTION_AMT,s3.FINAL_AMT \r\n" + 
 			"from TBL_INVOICE s3\r\n" + 
@@ -96,14 +96,14 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 			"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
 			"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 			"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-			"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
-			"where \r\n" + 
+			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+			" where \r\n" + 
 			"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 			"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
 			"s2.STAT_CODE=:selectedStateId AND\r\n" + 
 			"s3.FIN_YR=:finacialYear AND\r\n" + 
 			"s3.QTR_ID=:quterTimePeriod AND\r\n" + 
-			"s1.RFP_REF_NO=:selectedRfpID",nativeQuery = true,
+			"s5.RFP_NO=:selectedRfpID",nativeQuery = true,
 			countQuery = "select count(s3.KIOSK_SERIAL_NO)\r\n" + 
 					"from TBL_INVOICE s3\r\n" + 
 					"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
@@ -111,20 +111,20 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 					"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
 					"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-					"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
-					"where \r\n" + 
+					"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+					" where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
 					"s2.STAT_CODE=:selectedStateId AND\r\n" + 
 					"s3.FIN_YR=:finacialYear AND\r\n" + 
 					"s3.QTR_ID=:quterTimePeriod AND\r\n" + 
-					"s1.RFP_REF_NO=:selectedRfpID")
+					"s5.RFP_NO=:selectedRfpID")
 	Page<InvoiceGeneration> findbyFilterWithRFP(@Param("selectedCircelId")
     String selectedCircelId, @Param("selectedStateId") String selectedStateId,
     @Param("quterTimePeriod") String quterTimePeriod,@Param("finacialYear")String finacialYear,
     @Param("selectedVendorId") String selectedVendorId, @Param("selectedRfpID")String selectedRfpID, Pageable pageable);
 	
-	@Query(value = "select s1.RFP_REF_NO,s1.VENDOR,  s2.CRCL_NAME, s2.STAT_DESC, s3.KIOSK_ID, \r\n" + 
+	@Query(value = "select s5.RFP_NO,s1.VENDOR,  s2.CRCL_NAME, s2.STAT_DESC, s3.KIOSK_ID, \r\n" + 
 			"s3.KIOSK_SERIAL_NO,s3.QTR_ID,s3.FIN_YR,s3.PENALTY_AMT,(s3.SPARE_PARTS_COST + s3.AMC_COST) as SPARE_PARTS, s3.INVOICE_AMT,  \r\n" + 
 			"s3.CORRECTION_AMT,s3.FINAL_AMT \r\n" + 
 			"from TBL_INVOICE s3\r\n" + 
@@ -133,13 +133,13 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 			"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
 			"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 			"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-			"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
-			"where \r\n" + 
+			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+			" where \r\n" + 
 			"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 			"s2.CRCL_CODE=:selectedCircelId AND \r\n"+
 			"s3.FIN_YR=:finacialYear AND\r\n" + 
 			"s3.QTR_ID=:quterTimePeriod AND\r\n" + 
-			"s1.RFP_REF_NO=:selectedRfpID",nativeQuery = true,
+			"s5.RFP_NO=:selectedRfpID",nativeQuery = true,
 			countQuery = "select count(s3.KIOSK_SERIAL_NO)\r\n" + 
 					"from TBL_INVOICE s3\r\n" + 
 					"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
@@ -147,20 +147,20 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 					"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
 					"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-					"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
-					"where \r\n" + 
+					"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+					" where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n"+
 					"s3.FIN_YR=:finacialYear AND\r\n" + 
 					"s3.QTR_ID=:quterTimePeriod AND\r\n" + 
-					"s1.RFP_REF_NO=:selectedRfpID")
+					"s5.RFP_NO=:selectedRfpID")
 	Page<InvoiceGeneration> findbyFilterRfpWithoutState(@Param("selectedCircelId")
     String selectedCircelId,
     @Param("quterTimePeriod") String quterTimePeriod,@Param("finacialYear")String finacialYear,
     @Param("selectedVendorId") String selectedVendorId, @Param("selectedRfpID")String selectedRfpID, Pageable pageable);
 	
 	
-	@Query(value = "select s1.RFP_REF_NO,s1.VENDOR,  s2.CRCL_NAME, s2.STAT_DESC, s3.KIOSK_ID, \r\n" + 
+	@Query(value = "select s5.RFP_NO,s1.VENDOR,  s2.CRCL_NAME, s2.STAT_DESC, s3.KIOSK_ID, \r\n" + 
 			"s3.KIOSK_SERIAL_NO,s3.QTR_ID,s3.FIN_YR,s3.PENALTY_AMT,(s3.SPARE_PARTS_COST + s3.AMC_COST) as SPARE_PARTS, s3.INVOICE_AMT,  \r\n" + 
 			"s3.CORRECTION_AMT,s3.FINAL_AMT \r\n" + 
 			"from TBL_INVOICE s3\r\n" + 
@@ -169,9 +169,9 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 			"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
 			"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 			"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-			"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
-			"where \r\n" + 
-			"where \r\n" + 
+			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+			" where \r\n" + 
+			" where \r\n" + 
 			"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 			"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
 			"s2.STAT_CODE=:selectedStateId AND\r\n" + 
@@ -184,8 +184,8 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 					"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
 					"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-					"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
-					"where \r\n" + 
+					"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+					" where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
 					"s2.STAT_CODE=:selectedStateId AND\r\n" + 
@@ -198,7 +198,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 	
 	
 	
-	@Query(value = "select s1.RFP_REF_NO,s1.VENDOR,  s2.CRCL_NAME, s2.STAT_DESC, s3.KIOSK_ID, \r\n" + 
+	@Query(value = "select s5.RFP_NO,s1.VENDOR,  s2.CRCL_NAME, s2.STAT_DESC, s3.KIOSK_ID, \r\n" + 
 			"s3.KIOSK_SERIAL_NO,s3.QTR_ID,s3.FIN_YR,s3.PENALTY_AMT,(s3.SPARE_PARTS_COST + s3.AMC_COST) as SPARE_PARTS, s3.INVOICE_AMT,  \r\n" + 
 			"s3.CORRECTION_AMT,s3.FINAL_AMT \r\n" + 
 			"from TBL_INVOICE s3\r\n" + 
@@ -207,8 +207,8 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 			"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
 			"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 			"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-			"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
-			"where \r\n" + 
+			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+			" where \r\n" + 
 			"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 			"s2.CRCL_CODE=:selectedCircelId AND \r\n" +
 			"s3.FIN_YR=:finacialYear AND\r\n" + 
@@ -220,8 +220,8 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 					"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
 					"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-					"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
-					"where \r\n" + 
+					"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+					" where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n" +
 					"s3.FIN_YR=:finacialYear AND\r\n" + 
@@ -232,7 +232,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
     @Param("selectedVendorId") String selectedVendorId);
 	
 	
-	@Query(value = "select s1.RFP_REF_NO,s1.VENDOR,  s2.CRCL_NAME, s2.STAT_DESC, s3.KIOSK_ID, \r\n" + 
+	@Query(value = "select s5.RFP_NO,s1.VENDOR,  s2.CRCL_NAME, s2.STAT_DESC, s3.KIOSK_ID, \r\n" + 
 			"s3.KIOSK_SERIAL_NO,s3.QTR_ID,s3.FIN_YR,s3.PENALTY_AMT,(s3.SPARE_PARTS_COST + s3.AMC_COST) as SPARE_PARTS, s3.INVOICE_AMT,  \r\n" + 
 			"s3.CORRECTION_AMT,s3.FINAL_AMT \r\n" + 
 			"from TBL_INVOICE s3\r\n" + 
@@ -241,14 +241,14 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 			"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
 			"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 			"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-			"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
-			"where \r\n" + 
+			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+			" where \r\n" + 
 			"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 			"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
 			"s2.STAT_CODE=:selectedStateId AND\r\n" + 
 			"s3.FIN_YR=:finacialYear AND\r\n" + 
 			"s3.QTR_ID=:quterTimePeriod AND\r\n" + 
-			"s1.RFP_REF_NO=:selectedRfpID",nativeQuery = true,
+			"s5.RFP_NO=:selectedRfpID",nativeQuery = true,
 			countQuery = "select count(s3.KIOSK_SERIAL_NO)\r\n" + 
 					"from TBL_INVOICE s3\r\n" + 
 					"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
@@ -256,20 +256,20 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 					"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
 					"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-					"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
-					"where \r\n" + 
+					"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+					" where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
 					"s2.STAT_CODE=:selectedStateId AND\r\n" + 
 					"s3.FIN_YR=:finacialYear AND\r\n" + 
 					"s3.QTR_ID=:quterTimePeriod AND\r\n" + 
-					"s1.RFP_REF_NO=:selectedRfpID")
+					"s5.RFP_NO=:selectedRfpID")
 	List<InvoiceGeneration> findbyFilterWithRFPReport(@Param("selectedCircelId")
     String selectedCircelId, @Param("selectedStateId") String selectedStateId,
     @Param("quterTimePeriod") String quterTimePeriod,@Param("finacialYear")String finacialYear,
     @Param("selectedVendorId") String selectedVendorId, @Param("selectedRfpID")String selectedRfpID);
 	
-	@Query(value = "select s1.RFP_REF_NO,s1.VENDOR,  s2.CRCL_NAME, s2.STAT_DESC, s3.KIOSK_ID, \r\n" + 
+	@Query(value = "select s5.RFP_NO,s1.VENDOR,  s2.CRCL_NAME, s2.STAT_DESC, s3.KIOSK_ID, \r\n" + 
 			"s3.KIOSK_SERIAL_NO,s3.QTR_ID,s3.FIN_YR,s3.PENALTY_AMT,(s3.SPARE_PARTS_COST + s3.AMC_COST) as SPARE_PARTS, s3.INVOICE_AMT,  \r\n" + 
 			"s3.CORRECTION_AMT,s3.FINAL_AMT \r\n" + 
 			"from TBL_INVOICE s3\r\n" + 
@@ -278,13 +278,13 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 			"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
 			"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 			"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-			"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
-			"where \r\n" + 
+			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+			" where \r\n" + 
 			"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 			"s2.CRCL_CODE=:selectedCircelId AND \r\n"+
 			"s3.FIN_YR=:finacialYear AND\r\n" + 
 			"s3.QTR_ID=:quterTimePeriod AND\r\n" + 
-			"s1.RFP_REF_NO=:selectedRfpID",nativeQuery = true,
+			"s5.RFP_NO=:selectedRfpID",nativeQuery = true,
 			countQuery = "select count(s3.KIOSK_SERIAL_NO)\r\n" + 
 					"from TBL_INVOICE s3\r\n" + 
 					"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
@@ -292,13 +292,13 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 					"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
 					"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-					"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
-					"where \r\n" + 
+					"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+					" where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n"+
 					"s3.FIN_YR=:finacialYear AND\r\n" + 
 					"s3.QTR_ID=:quterTimePeriod AND\r\n" + 
-					"s1.RFP_REF_NO=:selectedRfpID")
+					"s5.RFP_NO=:selectedRfpID")
 	List<InvoiceGeneration> findbyFilterRfpWithoutStateReport(@Param("selectedCircelId")
     String selectedCircelId,
     @Param("quterTimePeriod") String quterTimePeriod,@Param("finacialYear")String finacialYear,
