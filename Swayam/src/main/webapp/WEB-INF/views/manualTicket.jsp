@@ -488,14 +488,16 @@ function saveform(){
 		var resp='';
 	    circle=document.getElementById("circle1");
 		console.log("circle :"+circle);
+		
 			var formData=$("#form").serialize();
 			      
-	        $.ajax({
+	          $.ajax({
 	        	type:"POST",
 	        	url:"manualTicketForm",
 	        	data:formData,
 	        	headers: 
                 {
+	        		 
                     'X-CSRF-TOKEN': $('input[name="_csrf"]').attr('value')
                 },
 	         success: function(data){
@@ -504,7 +506,9 @@ function saveform(){
 	 	        	modal.style.display = "block";
 	        	 
 	         }
-	        });
+	        }); 
+	        
+	
 }   
 }
 
@@ -556,14 +560,18 @@ function displayErrorsOnPage() {
 function cloesBox(){
 	var modal = document.getElementById("myModal");
 	 modal.style.display = "none";
-	 $('#form')[0].reset();
+	 
+	 $("#contentHomeApp").load('hm/manualTicket');
+	
+	
+	/*  $('#form')[0].reset();
 	 $("#brCode").html("");
 	 $("#vendor1").html("");
 	 $("#kioskId1").html("");
 	 $("#circle").html("");
 	 $("#contactPerson1").html("");
 	 $("#contactNo1").html("");
-	 $("#branchName2").html("");
+	 $("#branchName2").html(""); */
 }
 </script>
 <body background="color:white">
@@ -734,7 +742,10 @@ function cloesBox(){
 	</div>
 	
 </body>
+
+
 <input type="hidden" name="_csrf" value="<%=session.getAttribute("csrfToken")%>"> 
+
 </html>
 
 
