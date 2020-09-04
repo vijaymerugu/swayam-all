@@ -37,12 +37,14 @@ import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
 import sbi.kiosk.swayam.billingpayment.repository.BillingPenaltyRepository;
 import sbi.kiosk.swayam.billingpayment.repository.InvoiceCompareRepository;
 import sbi.kiosk.swayam.billingpayment.repository.InvoiceGenerationRepository;
+import sbi.kiosk.swayam.billingpayment.repository.InvoiceSummaryRepository;
 import sbi.kiosk.swayam.common.constants.Constants;
 import sbi.kiosk.swayam.common.dto.BillingPenaltyDto;
 import sbi.kiosk.swayam.common.dto.DownTimeDto;
 import sbi.kiosk.swayam.common.dto.ErrorReportingDto;
 import sbi.kiosk.swayam.common.dto.InvoiceCompareDto;
 import sbi.kiosk.swayam.common.dto.InvoiceGenerationDto;
+import sbi.kiosk.swayam.common.dto.InvoiceSummaryDto;
 import sbi.kiosk.swayam.common.dto.KioskBranchMasterUserDto;
 import sbi.kiosk.swayam.common.dto.RealTimeTransactionDto;
 import sbi.kiosk.swayam.common.dto.TicketCentorDto;
@@ -58,6 +60,7 @@ import sbi.kiosk.swayam.common.entity.DownTime;
 import sbi.kiosk.swayam.common.entity.ErrorReporting;
 import sbi.kiosk.swayam.common.entity.InvoiceCompare;
 import sbi.kiosk.swayam.common.entity.InvoiceGeneration;
+import sbi.kiosk.swayam.common.entity.InvoiceSummaryEntity;
 import sbi.kiosk.swayam.common.entity.RealTimeTransaction;
 import sbi.kiosk.swayam.common.entity.Supervisor;
 import sbi.kiosk.swayam.common.entity.SwayamMigrationSummary;
@@ -154,8 +157,9 @@ public class JasperServiceImpl implements JasperService {
 	 
 	 @Autowired
 	 InvoiceCompareRepository icRepository;
-		
-	 
+	
+	 @Autowired
+	 InvoiceSummaryRepository isRepository;
 
 	public static HttpSession session() {
 		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
@@ -318,6 +322,20 @@ public class JasperServiceImpl implements JasperService {
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
 				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 				filename = "InvoiceCompare_" + timeStamp + ".pdf";
+				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+			}else if(identifyPage.equals("invoiceSummaryReport")) {
+				logger.info("PDF File InvoiceSummaryReport !!");
+				
+				
+				List<InvoiceSummaryDto> list = findInvoiceSummaryReport();
+				File file = ResourceUtils.getFile(jrxmlPath + "invoiceSummary.jrxml");
+				InputStream input = new FileInputStream(file);
+				jasperReport = JasperCompileManager.compileReport(input);
+				source = new JRBeanCollectionDataSource(list);
+				Map<String, Object> parameters = new HashMap<>();
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "InvoiceSummary_" + timeStamp + ".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 			}
 
@@ -584,6 +602,20 @@ public class JasperServiceImpl implements JasperService {
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
 				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 				filename = "InvoiceCompare_" + timeStamp + ".xlsx";
+				xlsx(jasperPrint, filename);
+			}else if(identifyPage.equals("invoiceSummaryReport")) {
+				logger.info("Excel File InvoiceSummaryReport !!");
+				
+				
+				List<InvoiceSummaryDto> list = findInvoiceSummaryReport();
+				File file = ResourceUtils.getFile(jrxmlPath + "invoiceSummary.jrxml");
+				InputStream input = new FileInputStream(file);
+				jasperReport = JasperCompileManager.compileReport(input);
+				source = new JRBeanCollectionDataSource(list);
+				Map<String, Object> parameters = new HashMap<>();
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "InvoiceSummary_" + timeStamp + ".xlsx";
 				xlsx(jasperPrint, filename);
 			}
 
@@ -1292,6 +1324,42 @@ public class JasperServiceImpl implements JasperService {
 		
 		List<InvoiceCompareDto> entities = ObjectMapperUtils.mapAll(list, InvoiceCompareDto.class);
  
+		
+		return entities;
+	}
+
+	@Override
+	public List<InvoiceSummaryDto> findInvoiceSummaryReport() {
+		logger.info("Inside==Jasper====findInvoiceGenerationReport===========");
+		logger.info(report.getCircle());
+		logger.info(report.getState());
+		logger.info(report.getTimePeiod());
+		String circle =null;
+		String state=null;
+		String timePeriod= null;
+		if((report.getCircle()!= "") && (report.getState()!= "")  && (report.getVendor()!= "") ) {
+			circle =report.getCircle();
+			state=report.getState();
+			timePeriod= report.getTimePeiod();
+			
+		}
+		
+		List<InvoiceSummaryEntity> list =null;
+		
+	if(state.equals("0"))	{
+			
+			
+			list = isRepository.findbyWithoutStateFilterReport(circle, timePeriod);
+			
+			}else{
+			
+			
+				
+			list = isRepository.findbyFilterReport(circle, state, timePeriod);
+		}
+		  
+		
+	List<InvoiceSummaryDto> entities = ObjectMapperUtils.mapAll(list, InvoiceSummaryDto.class);
 		
 		return entities;
 	}

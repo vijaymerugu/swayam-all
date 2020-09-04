@@ -8,6 +8,7 @@ import sbi.kiosk.swayam.common.dto.DownTimeDto;
 import sbi.kiosk.swayam.common.dto.ErrorReportingDto;
 import sbi.kiosk.swayam.common.dto.InvoiceCompareDto;
 import sbi.kiosk.swayam.common.dto.InvoiceGenerationDto;
+import sbi.kiosk.swayam.common.dto.InvoiceSummaryDto;
 import
   sbi.kiosk.swayam.common.dto.KioskBranchMasterUserDto; import
   sbi.kiosk.swayam.common.dto.RealTimeTransactionDto; import
@@ -59,7 +60,10 @@ import
 	List<InvoiceGenerationDto> findInvoiceGenerationReport();
 
 	List<InvoiceCompareDto> findInvoiceCompareReport();
-
+	
+	List<InvoiceSummaryDto> findInvoiceSummaryReport();
+	
+	
   
   }
  

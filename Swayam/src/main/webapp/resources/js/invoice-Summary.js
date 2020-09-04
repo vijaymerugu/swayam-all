@@ -8,7 +8,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	   };
 	   
 	   //Years Load
-	   $scope.LoadYear=function(){
+	  /* $scope.LoadYear=function(){
 		var year = new Date().getFullYear();
 		   //var year = "2020"
 	    var range = [];
@@ -24,7 +24,25 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	    
 	    console.log("Range "+ range)
 	    $scope.Years = range;
-	   }
+	   }*/
+	   
+	   $scope.LoadYear=function(){
+			var year = new Date().getFullYear();
+			   //var year = "2020"
+		    var range = [];
+		    //range.push(year);
+		    for (var i = 1; i <100; i++) {
+		    	var selectYear = ((year-10) + i);
+		    	
+		    	var second=selectYear+1;
+		    	var modifiedyear = (selectYear)+"-"+(second);
+		    	
+		        range.push(modifiedyear);
+		    }
+		    
+		    console.log("Range "+ range)
+		    $scope.Years = range;
+		   }
 	   
 	  		   
 	   var counttype = "";
@@ -217,35 +235,42 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		headerTemplate: 'km/headerTemplate',
 		  superColDefs: [{
 	          name: 'front',
-	          displayName: ''
+	          displayName: '',
+	         
 	      }, {
 	          name: 'InvoiceAmount',
-	          displayName: 'Invoice Amount'
+	          displayName: 'Invoice Amount',
+	        	 
 	      }, {
 	          name: 'Penalty',
-	          displayName: 'Penalty'
+	          displayName: 'Penalty',
+	        	  
 	      }, {
 	          name: 'BilledAmount',
-	          displayName: 'Billed Amount'
+	          displayName: 'Billed Amount',
+	          
+	      },{
+	          name: 'back',
+	          displayName: ''
 	      }],
 		
 	      columnDefs: [
 	          { name: 'year', displayName: 'Year' ,superCol: 'front' },
 	          { name: 'vendor', displayName: 'Vendor',superCol: 'front' },
-	          { name: 'circleName', displayName: 'Circle' ,superCol: 'front' },
-	          { name: 'state', displayName: 'State' ,superCol: 'front' },
-	          { name: 'q1Im', displayName: 'Q1',superCol: 'InvoiceAmount'  },
-	          { name: 'q2Im', displayName: 'Q2',superCol: 'InvoiceAmount'  },
-	          { name: 'q3Im', displayName: 'Q3',superCol: 'InvoiceAmount' },
-	          { name: 'q4Im', displayName: 'Q4' ,superCol: 'InvoiceAmount'},
-	          { name: 'q1P', displayName: 'Q1' ,superCol: 'Penalty' },
-	          { name: 'q2P', displayName: 'Q2' ,superCol: 'Penalty' },
-	          { name: 'q3P', displayName: 'Q3' ,superCol: 'Penalty' },
-	          { name: 'q4P', displayName: 'Q4' ,superCol: 'Penalty' },
-	          { name: 'q1Ba', displayName: 'Q1' ,superCol: 'BilledAmount' },
-	          { name: 'q2Ba', displayName: 'Q2' ,superCol: 'BilledAmount' },
-	          { name: 'q3Ba', displayName: 'Q3' ,superCol: 'BilledAmount' },
-	          { name: 'q4Ba', displayName: 'Q4' ,superCol: 'BilledAmount' }
+	          { name: 'circleName', displayName: 'Circle' ,superCol: 'front'  },
+	          { name: 'state', displayName: 'State' ,superCol: 'front'  },
+	          { name: 'q1Im', displayName: 'Q1   ',superCol: 'InvoiceAmount'   },
+	          { name: 'q2Im', displayName: 'Q2   ',superCol: 'InvoiceAmount'   },
+	          { name: 'q3Im', displayName: 'Q3   ',superCol: 'InvoiceAmount'  },
+	          { name: 'q4Im', displayName: 'Q4   ' ,superCol: 'InvoiceAmount' },
+	          { name: 'q1P', displayName: 'Q1    ' ,superCol: 'Penalty'  },
+	          { name: 'q2P', displayName: 'Q2    ' ,superCol: 'Penalty'  },
+	          { name: 'q3P', displayName: 'Q3    ' ,superCol: 'Penalty'  },
+	          { name: 'q4P', displayName: 'Q4    ' ,superCol: 'Penalty'  },
+	          { name: 'q1Ba', displayName: 'Q1   ' ,superCol: 'BilledAmount'  },
+	          { name: 'q2Ba', displayName: 'Q2   ' ,superCol: 'BilledAmount'  },
+	          { name: 'q3Ba', displayName: 'Q3   ' ,superCol: 'BilledAmount'  },
+	          { name: 'q4Ba', displayName: 'Q4' ,superCol: 'BilledAmount'  }
 	          
 	    ],
 	    onRegisterApi: function(gridApi) {
