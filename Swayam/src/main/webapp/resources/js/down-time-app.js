@@ -89,6 +89,18 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 		//};
 
 		//$scope.reset('');
+		
+		
+		  $scope.resetPositions=function(){
+			   console.log("Inside resetPositions ");
+	    	   	$scope.SelectedCircelId =''; 
+	    	   	$scope.SelectedVendorId ='';
+	    	   	$scope.SelectedCmsCmfId ='';
+	    	    $scope.SelectedFromDateId ='';
+	    	   	$scope.SelectedToDateId ='';
+				
+	       }
+       
 	  
 		$scope.searchPositions = function(CircelId,VendorId,CmsCmfId,FromDateId,ToDateId) {
 			
