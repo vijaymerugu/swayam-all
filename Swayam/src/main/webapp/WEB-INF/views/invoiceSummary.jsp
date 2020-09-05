@@ -78,7 +78,7 @@
         span.pull-right {
         padding:5px 10px;
         }
-         /*  .ui-grid-header-cell-label {
+          .ui-grid-header-cell-label {
 		display:inline-block;
 		white-space:initial;
 		}
@@ -106,7 +106,7 @@
   			white-space: normal;
   			padding: 2px;
   			word-break: break-word;
-			}  */
+			}  
     </style>
 	
 </head>
@@ -193,7 +193,11 @@
 	
 	
 	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle, No Of Branches, Kiosks, Txns, etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">
-		
+			<span style="float:right">
+		<a class="openpdfonclick"><img src="resources/img/pdf.svg"></a>
+		<a class="openxlonclick"><img src="resources/img/excel.svg"></a>
+		&nbsp;&nbsp;&nbsp;
+		</span>
 		<br/>
 		
 		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test"></div>
@@ -209,14 +213,44 @@
         $("#btnReset").bind("click", function () {
             $("#circle")[0].selectedIndex = "";            
             $("#state")[0].selectedIndex = "0";
-            $("#vendor")[0].selectedIndex = "";
+        
             $("#year")[0].selectedIndex = "";
-            $("#timeperiod")[0].selectedIndex = "";
-            $("#refno")[0].selectedIndex = "";
+            
+           
             console.log("Inside reset jquery ");
         });
     }); 
-</script>	
+</script>
+<script type="text/javascript">
+      
+      $(document).ready(function(){
+
+    	    $(".openpdfonclick").click(function(){
+    	    	
+    	        $.ajax({
+    	            url: 'report?page=invoiceSummaryReport&type=pdf',
+    	            type: 'GET',   
+    	            success: function(data){
+    	            	console.log(data);
+    	            	window.open("resources/download/"+data , '_blank');  
+    	            }
+    	        });
+    	    });
+    	    $(".openxlonclick").click(function(){    	
+    	        $.ajax({
+    	            url: 'report?page=invoiceSummaryReport&type=excel',
+    	            type: 'GET',   
+    	            success: function(data){
+    	            	console.log(data);
+    	            	window.open("resources/download/"+data , '_blank');  
+    	            }
+    	        });
+    	    });
+    	}); 
+    		
+    		
+      
+      </script>	
 	
 <script>
 angular.bootstrap(document.getElementById("appId"), ['app']);

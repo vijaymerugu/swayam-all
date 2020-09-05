@@ -23,7 +23,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	   }*/
 	   
 	   //Years Load
-	   $scope.LoadYear=function(){
+	/*   $scope.LoadYear=function(){
 		var year = new Date().getFullYear();
 		   //var year = "2020"
 	    var range = [];
@@ -39,7 +39,26 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	    
 	    console.log("Range "+ range)
 	    $scope.Years = range;
-	   }
+	   }*/
+       
+       
+       $scope.LoadYear=function(){
+			var year = new Date().getFullYear();
+			   //var year = "2020"
+		    var range = [];
+		    //range.push(year);
+		    for (var i = 1; i <100; i++) {
+		    	var selectYear = ((year-10) + i);
+		    	
+		    	var second=selectYear+1;
+		    	var modifiedyear = (selectYear)+"-"+(second);
+		    	
+		        range.push(modifiedyear);
+		    }
+		    
+		    console.log("Range "+ range)
+		    $scope.Years = range;
+		   }
 	   
 	   //Load Vendor
 	   $scope.LoadVendor=function(){
