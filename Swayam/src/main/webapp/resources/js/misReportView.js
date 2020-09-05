@@ -160,8 +160,9 @@ misReportViewService2.loadAvailableColumns()
 		        	}
 		        	
 		        });
-				callMisReportData($('#datepickerFromDate').val(), $('#datepickerToDate').val(), $scope.selectedGroupingCriteria.criteria.value,
-									selectedColumnIndexes, $scope.selectedReportType.reportType.value);
+				callMisReportData($('#datepickerFromDate').val(), $('#datepickerToDate').val(),
+						$scope.selectedGroupingCriteria.criteria.value, $scope.selectedGroupingCriteria.criteria.name,
+						selectedColumnIndexes, $scope.selectedReportType.reportType.value);
 			}
 		}//End of Valid Date Else
 		
@@ -180,10 +181,13 @@ misReportViewService2.loadAvailableColumns()
 		$scope.selectedReportType = {
 			     'reportType': $scope.reportTypeList[0]
 		};
+		$scope.allColumns = {};
+		callAvailableColumns();
+
 	};
 	//Start of loadMisReportData service
-	function callMisReportData(fromDate, toDate, groupingCriteria, selectedColumnIndexes, reportType){
-		misReportViewService3.loadMisReportData(fromDate, toDate, groupingCriteria, selectedColumnIndexes, reportType)
+	function callMisReportData(fromDate, toDate, groupingCriteriaId, groupingCriteriaName, selectedColumnIndexes, reportType){
+		misReportViewService3.loadMisReportData(fromDate, toDate, groupingCriteriaId, groupingCriteriaName, selectedColumnIndexes, reportType)
 		.success(function(response, status, headers, config){
 
 			var filename = "";
@@ -225,11 +229,12 @@ app.service('misReportViewService2',['$http', function ($http) {
 	};
 }]);
 app.service('misReportViewService3',['$http', function ($http) {
-    function loadMisReportData(fromDate, toDate, groupingCriteria, selectedColumnIndexes, reportType) {
+    function loadMisReportData(fromDate, toDate, groupingCriteriaId, groupingCriteriaName, selectedColumnIndexes, reportType) {
         return  $http({
           method: 'GET',
           url: 'mis/generate-report?fromDate='+fromDate+'&toDate='+toDate
-          +'&groupingCriteria='+groupingCriteria+'&selectedColumnIndexes='+selectedColumnIndexes+'&reportType='+reportType,
+          +'&groupingCriteriaId='+groupingCriteriaId+'&groupingCriteriaName='+groupingCriteriaName
+          +'&selectedColumnIndexes='+selectedColumnIndexes+'&reportType='+reportType,
           responseType: 'blob'
         });
     }

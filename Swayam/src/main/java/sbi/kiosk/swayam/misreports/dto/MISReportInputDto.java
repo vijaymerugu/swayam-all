@@ -1,6 +1,3 @@
-/**
- * 
- */
 package sbi.kiosk.swayam.misreports.dto;
 
 import lombok.Data;
@@ -15,17 +12,18 @@ public class MISReportInputDto {
 	public MISReportInputDto() {
 	}
 
-	public MISReportInputDto(String fromDate, String toDate, Integer groupingCriteria, String selectedColumnIndexes, String reportType) {
+	public MISReportInputDto(String fromDate, String toDate, Integer groupingCriteriaId, String groupingCriteriaName, String selectedColumnIndexes, String reportType) {
 		this.fromDate = fromDate;
 		this.toDate = toDate;
-		this.groupingCriteria = groupingCriteria;
+		this.groupingCriteriaId = groupingCriteriaId;
 		this.selectedColumnIndexes = selectedColumnIndexes;
 		this.reportType = reportType;
 	}
 
 	private String fromDate;
 	private String toDate;
-	private Integer groupingCriteria;
+	private Integer groupingCriteriaId;
+	private String groupingCriteriaName;
 	private String selectedColumnIndexes;
 	private String reportType;
 

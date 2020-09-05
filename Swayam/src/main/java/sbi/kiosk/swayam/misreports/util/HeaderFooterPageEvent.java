@@ -23,6 +23,7 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
 	private String generatedOnDate;
 	private String fromDate;
 	private String toDate;
+	private String groupingCriteria;
 
     public void onStartPage(PdfWriter writer, Document document) {
     	float headerFontSize = 12f;
@@ -34,6 +35,7 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
     	float generatedOnLeftMargin = document.left();
     	float fromDateLeftMargin = generatedOnLeftMargin + 130;
     	float toDateLeftMargin = fromDateLeftMargin + 130;
+    	float groupingCriteriaLeftMargin = toDateLeftMargin + 130;
     	
         PdfContentByte cb = writer.getDirectContent();
         ColumnText.showTextAligned(cb, Element.ALIGN_CENTER, new Phrase(getReportHeader(), reportHeaderFont),
@@ -47,6 +49,9 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
         		document.top() + 3, 0);
         ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase("To Date: "+ getToDate(),reportfiltersFont),
         		toDateLeftMargin,
+        		document.top() + 3, 0);
+        ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, new Phrase("Grouping Criteria: "+ getGroupingCriteria(),reportfiltersFont),
+        		groupingCriteriaLeftMargin,
         		document.top() + 3, 0);
     }
 }

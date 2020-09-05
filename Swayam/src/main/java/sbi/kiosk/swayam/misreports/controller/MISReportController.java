@@ -2,6 +2,9 @@ package sbi.kiosk.swayam.misreports.controller;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -16,8 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import sbi.kiosk.swayam.common.entity.MISAvailableColumns;
 import sbi.kiosk.swayam.common.entity.MISGroupingCriteria;
+import sbi.kiosk.swayam.common.entity.MISReportData;
 import sbi.kiosk.swayam.misreports.dto.MISReportInputDto;
-import sbi.kiosk.swayam.misreports.dto.MISReportOutputDto;
 import sbi.kiosk.swayam.misreports.service.MISReporterService;
 import sbi.kiosk.swayam.misreports.util.GenerateExcelReport;
 import sbi.kiosk.swayam.misreports.util.GeneratePdfReport;
@@ -34,28 +37,35 @@ public class MISReportController {
 
 	@RequestMapping(value = "mis/generate-report", method = RequestMethod.GET)
 	  public InputStreamResource getMisReportData (
-			  String fromDate, String toDate, String groupingCriteria, String selectedColumnIndexes,
+			  String fromDate, String toDate, String groupingCriteriaId, String groupingCriteriaName, String selectedColumnIndexes,
 			  String reportType, HttpServletResponse response) throws IOException {
 	      	
 			MISReportInputDto misReportInputDto = new MISReportInputDto();
 			misReportInputDto.setFromDate(fromDate);
 			misReportInputDto.setToDate(toDate);
-			misReportInputDto.setGroupingCriteria(Integer.parseInt(groupingCriteria));
+			misReportInputDto.setGroupingCriteriaId(Integer.parseInt(groupingCriteriaId));
+			misReportInputDto.setGroupingCriteriaName(groupingCriteriaName);
 			misReportInputDto.setSelectedColumnIndexes(selectedColumnIndexes);
 			misReportInputDto.setReportType(reportType);
 			
-			List<MISReportOutputDto> misReportOutputDto = (List<MISReportOutputDto>) misReportService.getMisReportData(misReportInputDto);
+			List<MISReportData> misReportDataList = (List<MISReportData>) misReportService.getMisReportData(misReportInputDto);
 			ByteArrayInputStream bis = null;
 			InputStreamResource resource = null;
+			String fileName = "MIS_"+fromDate.replace("-", "").substring(0,6)+"_"
+					+toDate.replace("-", "").substring(0,6)+"_"
+					+(new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0,6);
+			List<String> selectedColumnList = Arrays.asList(misReportInputDto.getSelectedColumnIndexes().split(","));
 			if(reportType.equalsIgnoreCase("PDF")) {
 				response.setContentType("application/pdf");
-		      	response.setHeader("Content-Disposition", "attachment; filename=\"MIS Report.pdf\"");
-		      	bis = GeneratePdfReport.getMisReport(misReportInputDto, misReportOutputDto);
+				
+				//MIS_FromDate_ToDate_GeneratedDate.Ex: MIS_010920_020920_040920
+		      	response.setHeader("Content-Disposition", "attachment; filename=\""+fileName+".pdf\"");
+		      	bis = GeneratePdfReport.getMisReport(misReportInputDto, misReportDataList, selectedColumnList);
 				resource = new InputStreamResource(bis);
 			}else if(reportType.equalsIgnoreCase("EXCEL")) {
 				response.setContentType("application/vnd.ms-excel");
-		      	response.setHeader("Content-Disposition", "attachment; filename=\"MIS Report.xlsx\"");
-		      	bis = GenerateExcelReport.getMisReport(misReportInputDto, misReportOutputDto);
+		      	response.setHeader("Content-Disposition", "attachment; filename=\""+fileName+".xlsx\"");
+		      	bis = GenerateExcelReport.getMisReport(misReportInputDto, misReportDataList, selectedColumnList);
 				resource = new InputStreamResource(bis);
 			}
 			

@@ -20,16 +20,17 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import sbi.kiosk.swayam.common.entity.MISReportData;
 import sbi.kiosk.swayam.misreports.dto.MISReportInputDto;
-import sbi.kiosk.swayam.misreports.dto.MISReportOutputDto;
 
 /**
  * @author vmph2371481
  *
  */
 public class GeneratePdfReport {
-	
-	public static ByteArrayInputStream getMisReport(MISReportInputDto misReportInputDto, List<MISReportOutputDto> misReportOutputDtoList) {
+
+	public static ByteArrayInputStream getMisReport(MISReportInputDto misReportInputDto,
+			List<MISReportData> misReportDataList, List<String> selectedColumnList) {
 
 		Document document = new Document();
 		document.setPageSize(PageSize.A4.rotate());
@@ -39,162 +40,218 @@ public class GeneratePdfReport {
 		try {
 			PdfWriter writer = PdfWriter.getInstance(document, out);
 			Rectangle rect = new Rectangle(30, 30, 550, 800);
-	        writer.setBoxSize("art", rect);
-	        HeaderFooterPageEvent event = new HeaderFooterPageEvent();
-	        event.setReportHeader("MIS Report");
-	        event.setGeneratedOnDate((new SimpleDateFormat("dd-MM-yyyy")).format(new Date()));
-	        event.setFromDate(misReportInputDto.getFromDate());
-	        event.setToDate(misReportInputDto.getToDate());
-	        writer.setPageEvent(event);
+			writer.setBoxSize("art", rect);
+			HeaderFooterPageEvent event = new HeaderFooterPageEvent();
+			event.setReportHeader("MIS Report");
+			event.setGeneratedOnDate((new SimpleDateFormat("dd-MM-yyyy")).format(new Date()));
+			event.setFromDate(misReportInputDto.getFromDate());
+			event.setToDate(misReportInputDto.getToDate());
+			event.setGroupingCriteria(misReportInputDto.getGroupingCriteriaName());
+			writer.setPageEvent(event);
 
-	        int selectedColsCount = misReportInputDto.getSelectedColumnIndexes().split(",").length;
-			PdfPTable table = new PdfPTable(selectedColsCount + 1);
+			int selectedColsCount = misReportInputDto.getSelectedColumnIndexes().split(",").length;
+			PdfPTable table;
+			if(misReportInputDto.getGroupingCriteriaId() == 2) {
+				table = new PdfPTable(selectedColsCount + 2);	
+			} else if(misReportInputDto.getGroupingCriteriaId() == 4) {
+				table = new PdfPTable(selectedColsCount + 3);	
+			} else {
+				table = new PdfPTable(selectedColsCount + 1);
+			}
+			
 			table.setWidthPercentage(100);
 
 			Font headFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, fontSize);
 			Font dataFont = FontFactory.getFont(FontFactory.HELVETICA, fontSize);
 			PdfPCell hcell;
-			
-			if(misReportOutputDtoList != null && misReportOutputDtoList.size() > 0) {
-				
-				if(misReportOutputDtoList.get(0).getSelectedGroup() != null) {
-					hcell = new PdfPCell(new Phrase("Group Type", headFont));
+
+			if (misReportDataList != null && misReportDataList.size() > 0) {
+
+				hcell = new PdfPCell(new Phrase(getGroupNameById(misReportInputDto.getGroupingCriteriaId()), headFont));
+				hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+				table.addCell(hcell);
+
+				if (misReportInputDto.getGroupingCriteriaId() == 2) {
+					hcell = new PdfPCell(new Phrase("Circle Name", headFont));
 					hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 					table.addCell(hcell);
 				}
-				if(misReportOutputDtoList.get(0).getSwayamTransaction()!=null) {
+				if (misReportInputDto.getGroupingCriteriaId() == 4) {
+					hcell = new PdfPCell(new Phrase("Branch Code", headFont));
+					hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.addCell(hcell);
+
+					hcell = new PdfPCell(new Phrase("Vendor Name", headFont));
+					hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.addCell(hcell);
+				}
+				if (selectedColumnList.contains("1")) {
 					hcell = new PdfPCell(new Phrase("Swayam Transactions", headFont));
 					hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(hcell);		
+					table.addCell(hcell);
 				}
-				if(misReportOutputDtoList.get(0).getBranchCounter() != null) {
+				if (selectedColumnList.contains("2")) {
 					hcell = new PdfPCell(new Phrase("Branch Counter Transactions", headFont));
 					hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(hcell);		
+					table.addCell(hcell);
 				}
-				if(misReportOutputDtoList.get(0).getMigrationPercent() != null) {
+				if (selectedColumnList.contains("3")) {
 					hcell = new PdfPCell(new Phrase("Migration %", headFont));
 					hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(hcell);		
+					table.addCell(hcell);
 				}
-				if(misReportOutputDtoList.get(0).getUptimePercent() != null) {
+				if (selectedColumnList.contains("4")) {
 					hcell = new PdfPCell(new Phrase("Uptime %", headFont));
 					hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(hcell);		
+					table.addCell(hcell);
 				}
-				if(misReportOutputDtoList.get(0).getNoOfKiosks() != null) {
+				if (selectedColumnList.contains("5")) {
 					hcell = new PdfPCell(new Phrase("No. of kiosks", headFont));
 					hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(hcell);		
+					table.addCell(hcell);
 				}
-				if(misReportOutputDtoList.get(0).getTotalDowntime() != null) {
+				if (selectedColumnList.contains("6")) {
 					hcell = new PdfPCell(new Phrase("Total downtime", headFont));
 					hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(hcell);		
+					table.addCell(hcell);
 				}
-				if(misReportOutputDtoList.get(0).getOnSiteOffSite() != null) {
+				if (selectedColumnList.contains("7")) {
 					hcell = new PdfPCell(new Phrase("Onsite / Offsite", headFont));
 					hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(hcell);		
+					table.addCell(hcell);
 				}
-				if(misReportOutputDtoList.get(0).getStandaloneTTW() != null) {
+				if (selectedColumnList.contains("8")) {
 					hcell = new PdfPCell(new Phrase("Standalone / TTW", headFont));
 					hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(hcell);		
+					table.addCell(hcell);
 				}
-				if(misReportOutputDtoList.get(0).getNoOfRequestRaised() != null) {
+				if (selectedColumnList.contains("9")) {
 					hcell = new PdfPCell(new Phrase("No. of requests raised", headFont));
 					hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(hcell);		
+					table.addCell(hcell);
 				}
-				if(misReportOutputDtoList.get(0).getTypeOfRequest() != null) {
+				if (selectedColumnList.contains("10")) {
 					hcell = new PdfPCell(new Phrase("Type of requests", headFont));
 					hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(hcell);		
+					table.addCell(hcell);
 				}
-				if(misReportOutputDtoList.get(0).getTatOfRequestCompletion() != null) {
+				if (selectedColumnList.contains("11")) {
 					hcell = new PdfPCell(new Phrase("TAT of request completion", headFont));
 					hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(hcell);		
+					table.addCell(hcell);
 				}
-				
-			for (MISReportOutputDto misReportOutputDto : misReportOutputDtoList) {
 
-				PdfPCell cell;
-				if(misReportOutputDto.getSelectedGroup() != null) {
-					cell = new PdfPCell(new Phrase(misReportOutputDto.getSelectedGroup(), dataFont));
-					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(cell);		
-				}
-				if(misReportOutputDto.getSwayamTransaction() != null) {
-					cell = new PdfPCell(new Phrase(misReportOutputDto.getSwayamTransaction(), dataFont));
-					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(cell);		
-				}
-				if(misReportOutputDto.getBranchCounter() != null) {
-					cell = new PdfPCell(new Phrase(misReportOutputDto.getBranchCounter(), dataFont));
-					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(cell);		
-				}
-				if(misReportOutputDto.getMigrationPercent() != null) {
-					cell = new PdfPCell(new Phrase(misReportOutputDto.getMigrationPercent().toString(), dataFont));
-					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(cell);		
-				}
-				if(misReportOutputDto.getUptimePercent() != null) {
-					cell = new PdfPCell(new Phrase(misReportOutputDto.getUptimePercent().toString(), dataFont));
-					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(cell);		
-				}
-				if(misReportOutputDto.getNoOfKiosks() != null) {
-					cell = new PdfPCell(new Phrase(misReportOutputDto.getNoOfKiosks().toString(), dataFont));
-					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(cell);		
-				}
-				if(misReportOutputDto.getTotalDowntime() != null) {
-					cell = new PdfPCell(new Phrase(misReportOutputDto.getTotalDowntime(), dataFont));
-					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(cell);	
-				}
-				if(misReportOutputDto.getOnSiteOffSite() != null) {
-					cell = new PdfPCell(new Phrase(misReportOutputDto.getOnSiteOffSite(), dataFont));
-					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(cell);	
-				}
-				if(misReportOutputDto.getStandaloneTTW() != null) {
-					cell = new PdfPCell(new Phrase(misReportOutputDto.getStandaloneTTW(), dataFont));
-					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(cell);			
-				}
-				if(misReportOutputDto.getNoOfRequestRaised() != null) {
-					cell = new PdfPCell(new Phrase(misReportOutputDto.getNoOfRequestRaised().toString(), dataFont));
+				for (MISReportData misReportData : misReportDataList) {
+
+					PdfPCell cell;
+					cell = new PdfPCell(new Phrase(misReportData.getSelectedGroup(), dataFont));
 					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 					table.addCell(cell);
-				}
-				if(misReportOutputDto.getTypeOfRequest() != null) {
-					cell = new PdfPCell(new Phrase(misReportOutputDto.getTypeOfRequest(), dataFont));
-					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(cell);		
-				}
-				if(misReportOutputDto.getTatOfRequestCompletion() != null) {
-					cell = new PdfPCell(new Phrase(misReportOutputDto.getTatOfRequestCompletion(), dataFont));
-					cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(cell);
+
+					if (misReportInputDto.getGroupingCriteriaId() == 2) {
+						cell = new PdfPCell(new Phrase(misReportData.getCircleName(), dataFont));
+						cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+						cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+						table.addCell(cell);
+
+					}
+					if (misReportInputDto.getGroupingCriteriaId() == 4) {
+						cell = new PdfPCell(new Phrase(misReportData.getBranchCode(), dataFont));
+						cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+						cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+						table.addCell(cell);
+
+						cell = new PdfPCell(new Phrase(misReportData.getVendorName(), dataFont));
+						cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+						cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+						table.addCell(cell);
+					}
+					if (selectedColumnList.contains("1")) {
+						cell = new PdfPCell(new Phrase(misReportData.getSwayamTransaction() != null
+								? misReportData.getSwayamTransaction().toString()
+								: null, dataFont));
+						cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+						cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+						table.addCell(cell);
+					}
+					if (selectedColumnList.contains("2")) {
+						cell = new PdfPCell(new Phrase(
+								misReportData.getBranchCounter() != null ? misReportData.getBranchCounter().toString()
+										: null,
+								dataFont));
+						cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+						cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+						table.addCell(cell);
+					}
+					if (selectedColumnList.contains("3")) {
+						cell = new PdfPCell(new Phrase(misReportData.getMigrationPercent() != null
+								? misReportData.getMigrationPercent().toString()
+								: null, dataFont));
+						cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+						cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+						table.addCell(cell);
+					}
+					if (selectedColumnList.contains("4")) {
+						cell = new PdfPCell(new Phrase(
+								misReportData.getUptimePercent() != null ? misReportData.getUptimePercent().toString()
+										: null,
+								dataFont));
+						cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+						cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+						table.addCell(cell);
+					}
+					if (selectedColumnList.contains("5")) {
+						cell = new PdfPCell(new Phrase(
+								misReportData.getNoOfKiosks() != null ? misReportData.getNoOfKiosks().toString() : null,
+								dataFont));
+						cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+						cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+						table.addCell(cell);
+					}
+					if (selectedColumnList.contains("6")) {
+						cell = new PdfPCell(new Phrase(
+								misReportData.getTotalDowntime() != null ? misReportData.getTotalDowntime().toString()
+										: null,
+								dataFont));
+						cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+						cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+						table.addCell(cell);
+					}
+					if (selectedColumnList.contains("7")) {
+						cell = new PdfPCell(new Phrase(misReportData.getOnSiteOffSite(), dataFont));
+						cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+						cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+						table.addCell(cell);
+					}
+					if (selectedColumnList.contains("8")) {
+						cell = new PdfPCell(new Phrase(misReportData.getStandaloneTTW(), dataFont));
+						cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+						cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+						table.addCell(cell);
+					}
+					if (selectedColumnList.contains("9")) {
+						cell = new PdfPCell(new Phrase(misReportData.getNoOfRequestRaised() != null
+								? misReportData.getNoOfRequestRaised().toString()
+								: null, dataFont));
+						cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+						cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+						table.addCell(cell);
+					}
+					if (selectedColumnList.contains("10")) {
+						cell = new PdfPCell(new Phrase(misReportData.getTypeOfRequest(), dataFont));
+						cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+						cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+						table.addCell(cell);
+					}
+					if (selectedColumnList.contains("11")) {
+						cell = new PdfPCell(new Phrase(misReportData.getTatOfRequestCompletion(), dataFont));
+						cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+						cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+						table.addCell(cell);
+					}
 				}
 			}
-		}
 			document.open();
 			document.add(table);
 			document.close();
@@ -205,5 +262,19 @@ public class GeneratePdfReport {
 		}
 
 		return new ByteArrayInputStream(out.toByteArray());
+	}
+
+	public static String getGroupNameById(int groupId) {
+		String groupName = null;
+		if (groupId == 1) {
+			groupName = "Circle Name";
+		} else if (groupId == 2) {
+			groupName = "Branch Code";
+		} else if (groupId == 3) {
+			groupName = "Vendor Name";
+		} else if (groupId == 4) {
+			groupName = "Kiosk ID";
+		}
+		return groupName;
 	}
 }

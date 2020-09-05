@@ -12,10 +12,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.poi.ss.usermodel.BorderStyle;
-/**
- * @author vmph2371481
- *
- */
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
@@ -26,17 +22,22 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import sbi.kiosk.swayam.common.entity.MISReportData;
 import sbi.kiosk.swayam.misreports.dto.MISReportInputDto;
-import sbi.kiosk.swayam.misreports.dto.MISReportOutputDto;
+
+/**
+ * @author vmph2371481
+ *
+ */
 
 public class GenerateExcelReport {
 
 	public static ByteArrayInputStream getMisReport(MISReportInputDto misReportInputDto,
-			List<MISReportOutputDto> misReportOutputDtoList) {
+			List<MISReportData> misReportDataList, List<String> selectedColumnList) {
 
 		List<String> headerList = new ArrayList<>();
 		List<Object> dataList = new ArrayList<>();
-		
+
 		int selectedColsCount = misReportInputDto.getSelectedColumnIndexes().split(",").length;
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 
@@ -102,8 +103,9 @@ public class GenerateExcelReport {
 
 		int allCol = selectedColsCount + 1;
 		int midCol = allCol / 2;
-		if(selectedColsCount == 1) midCol = 0;
-		
+		if (selectedColsCount == 1)
+			midCol = 0;
+
 		Row headerRow = sheet.createRow(0);
 		Cell headerCell = headerRow.createCell(0);
 		headerCell.setCellValue("MIS Report");
@@ -118,7 +120,6 @@ public class GenerateExcelReport {
 		Cell filterCellValue1 = filterRow1.createCell(midCol + 1);
 		filterCellValue1.setCellValue((new SimpleDateFormat("dd-MM-yyyy")).format(new Date()));
 		filterCellValue1.setCellStyle(filterValueStyle);
-
 
 		Row filterRow2 = sheet.createRow(3);
 
@@ -140,127 +141,151 @@ public class GenerateExcelReport {
 		filterCellValue3.setCellValue(misReportInputDto.getToDate());
 		filterCellValue3.setCellStyle(filterValueStyle);
 
-		
-		//Adding Report merging sections
-		// Syntax: parameters(first row, last row, first column, last column)
-		
-		// Adding header merge region
-		sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, allCol - 1));
-		// Adding blank row merge region
-		sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, allCol - 1));
+		Row filterRow4 = sheet.createRow(5);
 
-		if(selectedColsCount != 1) {
+		Cell filterCellLabel4 = filterRow4.createCell(0);
+		filterCellLabel4.setCellValue("Grouping Criteria:");
+		filterCellLabel4.setCellStyle(filterLabelStyle);
+
+		Cell filterCellValue4 = filterRow4.createCell(midCol + 1);
+		filterCellValue4.setCellValue(misReportInputDto.getGroupingCriteriaName());
+		filterCellValue4.setCellStyle(filterValueStyle);
+
+		// Adding Report merging sections
+		// Syntax: parameters(first row, last row, first column, last column)
+
+		// Adding header merge region
+		sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, allCol));
+		// Adding blank row merge region
+		sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, allCol));
+
+		if (selectedColsCount != 1) {
 			// Adding Generated on filter merge region
 			sheet.addMergedRegion(new CellRangeAddress(2, 2, 0, midCol));
-			sheet.addMergedRegion(new CellRangeAddress(2, 2, midCol + 1, allCol - 1));
+			sheet.addMergedRegion(new CellRangeAddress(2, 2, midCol + 1, allCol));
 
 			// Adding From Date filter merge region
 			sheet.addMergedRegion(new CellRangeAddress(3, 3, 0, midCol));
-			sheet.addMergedRegion(new CellRangeAddress(3, 3, midCol + 1, allCol - 1));
+			sheet.addMergedRegion(new CellRangeAddress(3, 3, midCol + 1, allCol));
 
 			// Adding To Date filter merge region
 			sheet.addMergedRegion(new CellRangeAddress(4, 4, 0, midCol));
-			sheet.addMergedRegion(new CellRangeAddress(4, 4, midCol + 1, allCol - 1));
+			sheet.addMergedRegion(new CellRangeAddress(4, 4, midCol + 1, allCol));
 
-		} 
-		
+			// Adding Grouping Criteria filter merge region
+			sheet.addMergedRegion(new CellRangeAddress(5, 5, 0, midCol));
+			sheet.addMergedRegion(new CellRangeAddress(5, 5, midCol + 1, allCol));
+		}
+
 		// Adding Blank Row
-		sheet.addMergedRegion(new CellRangeAddress(5, 5, 0, allCol - 1));
+		sheet.addMergedRegion(new CellRangeAddress(6, 6, 0, allCol));
 
-		
 		Map<Integer, Object[]> data = new LinkedHashMap<Integer, Object[]>();
-		if (misReportOutputDtoList != null && misReportOutputDtoList.size() > 0) {
+		if (misReportDataList != null && misReportDataList.size() > 0) {
 
-			if (misReportOutputDtoList.get(0).getSelectedGroup() != null) {
-				headerList.add("Group Type");
+			headerList.add(getGroupNameById(misReportInputDto.getGroupingCriteriaId()));
+
+			if (misReportInputDto.getGroupingCriteriaId() == 2) {
+				headerList.add("Circle Name");
 			}
-			if (misReportOutputDtoList.get(0).getSwayamTransaction() != null) {
+			if (misReportInputDto.getGroupingCriteriaId() == 4) {
+				headerList.add("Branch Code");
+				headerList.add("Vendor Name");
+			}
+			if (selectedColumnList.contains("1")) {
 				headerList.add("Swayam Transactions");
 			}
-			if (misReportOutputDtoList.get(0).getBranchCounter() != null) {
+			if (selectedColumnList.contains("2")) {
 				headerList.add("Branch Counter Transactions");
 			}
-			if (misReportOutputDtoList.get(0).getMigrationPercent() != null) {
+			if (selectedColumnList.contains("3")) {
 				headerList.add("Migration %");
 			}
-			if (misReportOutputDtoList.get(0).getUptimePercent() != null) {
+			if (selectedColumnList.contains("4")) {
 				headerList.add("Uptime %");
 			}
-			if (misReportOutputDtoList.get(0).getNoOfKiosks() != null) {
+			if (selectedColumnList.contains("5")) {
 				headerList.add("No. of kiosks");
 			}
-			if (misReportOutputDtoList.get(0).getTotalDowntime() != null) {
+			if (selectedColumnList.contains("6")) {
 				headerList.add("Total downtime");
 			}
-			if (misReportOutputDtoList.get(0).getOnSiteOffSite() != null) {
+			if (selectedColumnList.contains("7")) {
 				headerList.add("Onsite / Offsite");
 			}
-			if (misReportOutputDtoList.get(0).getStandaloneTTW() != null) {
+			if (selectedColumnList.contains("8")) {
 				headerList.add("Standalone / TTW");
 			}
-			if (misReportOutputDtoList.get(0).getNoOfRequestRaised() != null) {
+			if (selectedColumnList.contains("9")) {
 				headerList.add("No. of requests raised");
 			}
-			if (misReportOutputDtoList.get(0).getTypeOfRequest() != null) {
+			if (selectedColumnList.contains("10")) {
 				headerList.add("Type of requests");
 			}
-			if (misReportOutputDtoList.get(0).getTatOfRequestCompletion() != null) {
+			if (selectedColumnList.contains("11")) {
 				headerList.add("TAT of request completion");
 			}
 
 			data.put(0, headerList.toArray());
 
-			for (int i = 0; i < misReportOutputDtoList.size(); i++) {
+			for (int i = 0; i < misReportDataList.size(); i++) {
 				dataList = new ArrayList<>();
-				if (misReportOutputDtoList.get(i).getSelectedGroup() != null) {
-					dataList.add(misReportOutputDtoList.get(i).getSelectedGroup());
+				dataList.add(misReportDataList.get(i).getSelectedGroup());
+
+				if (misReportInputDto.getGroupingCriteriaId() == 2) {
+					dataList.add(misReportDataList.get(i).getCircleName());
 				}
-				if (misReportOutputDtoList.get(i).getSwayamTransaction() != null) {
-					dataList.add(misReportOutputDtoList.get(i).getSwayamTransaction());
+				if (misReportInputDto.getGroupingCriteriaId() == 4) {
+					dataList.add(misReportDataList.get(i).getBranchCode());
+					dataList.add(misReportDataList.get(i).getVendorName());
 				}
-				if (misReportOutputDtoList.get(i).getBranchCounter() != null) {
-					dataList.add(misReportOutputDtoList.get(i).getBranchCounter());
+
+				if (selectedColumnList.contains("1")) {
+					dataList.add(misReportDataList.get(i).getSwayamTransaction());
 				}
-				if (misReportOutputDtoList.get(i).getMigrationPercent() != null) {
-					dataList.add(misReportOutputDtoList.get(i).getMigrationPercent());
+				if (selectedColumnList.contains("2")) {
+					dataList.add(misReportDataList.get(i).getBranchCounter());
 				}
-				if (misReportOutputDtoList.get(i).getUptimePercent() != null) {
-					dataList.add(misReportOutputDtoList.get(i).getUptimePercent());
+				if (selectedColumnList.contains("3")) {
+					dataList.add(misReportDataList.get(i).getMigrationPercent());
 				}
-				if (misReportOutputDtoList.get(i).getNoOfKiosks() != null) {
-					dataList.add(misReportOutputDtoList.get(i).getNoOfKiosks());
+				if (selectedColumnList.contains("4")) {
+					dataList.add(misReportDataList.get(i).getUptimePercent());
 				}
-				if (misReportOutputDtoList.get(i).getTotalDowntime() != null) {
-					dataList.add(misReportOutputDtoList.get(i).getTotalDowntime());
+				if (selectedColumnList.contains("5")) {
+					dataList.add(misReportDataList.get(i).getNoOfKiosks());
 				}
-				if (misReportOutputDtoList.get(i).getOnSiteOffSite() != null) {
-					dataList.add(misReportOutputDtoList.get(i).getOnSiteOffSite());
+				if (selectedColumnList.contains("6")) {
+					dataList.add(misReportDataList.get(i).getTotalDowntime());
 				}
-				if (misReportOutputDtoList.get(i).getStandaloneTTW() != null) {
-					dataList.add(misReportOutputDtoList.get(i).getStandaloneTTW());
+				if (selectedColumnList.contains("7")) {
+					dataList.add(misReportDataList.get(i).getOnSiteOffSite());
 				}
-				if (misReportOutputDtoList.get(i).getNoOfRequestRaised() != null) {
-					dataList.add(misReportOutputDtoList.get(i).getNoOfRequestRaised());
+				if (selectedColumnList.contains("8")) {
+					dataList.add(misReportDataList.get(i).getStandaloneTTW());
 				}
-				if (misReportOutputDtoList.get(i).getTypeOfRequest() != null) {
-					dataList.add(misReportOutputDtoList.get(i).getTypeOfRequest());
+				if (selectedColumnList.contains("9")) {
+					dataList.add(misReportDataList.get(i).getNoOfRequestRaised());
 				}
-				if (misReportOutputDtoList.get(i).getTatOfRequestCompletion() != null) {
-					dataList.add(misReportOutputDtoList.get(i).getTatOfRequestCompletion());
+				if (selectedColumnList.contains("10")) {
+					dataList.add(misReportDataList.get(i).getTypeOfRequest());
+				}
+				if (selectedColumnList.contains("11")) {
+					dataList.add(misReportDataList.get(i).getTatOfRequestCompletion());
 				}
 				data.put(i + 1, dataList.toArray());
 			}
 		}
 
 		Set<Integer> keyset = data.keySet();
-		int rownum = 6;
+		int rownum = 7;
 		for (Integer key : keyset) {
 			Row row = sheet.createRow(rownum++);
 			Object[] objArr = data.get(key);
 			int cellnum = 0;
 			for (Object obj : objArr) {
 				Cell cell = row.createCell(cellnum++);
-				if (cell.getRowIndex() == 6) {
+				if (cell.getRowIndex() == 7) {
 					cell.setCellStyle(dataHeaderStyle);
 				} else {
 					cell.setCellStyle(dataBodyStyle);
@@ -288,6 +313,20 @@ public class GenerateExcelReport {
 		}
 
 		return new ByteArrayInputStream(out.toByteArray());
+	}
+
+	public static String getGroupNameById(int groupId) {
+		String groupName = null;
+		if (groupId == 1) {
+			groupName = "Circle Name";
+		} else if (groupId == 2) {
+			groupName = "Branch Code";
+		} else if (groupId == 3) {
+			groupName = "Vendor Name";
+		} else if (groupId == 4) {
+			groupName = "Kiosk ID";
+		}
+		return groupName;
 	}
 
 }
