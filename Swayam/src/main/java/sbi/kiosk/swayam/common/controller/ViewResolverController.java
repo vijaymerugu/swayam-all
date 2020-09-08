@@ -254,5 +254,13 @@ public class ViewResolverController {
 		mav.setViewName("daUserWiseData");
 		return mav;
 	}
+	
+	@RequestMapping("mis-report/view")
+	@PreAuthorize("hasPermission('misReportView','READ')")
+	public ModelAndView misReportView(ModelAndView mav) {
+	
+		mav.setViewName("misReportView");
+		return mav;
+	}
 
 }
