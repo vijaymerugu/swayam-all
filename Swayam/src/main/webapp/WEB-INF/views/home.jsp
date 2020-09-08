@@ -15,14 +15,13 @@
 
 <link rel="stylesheet" href="resources/css/grid-style.css"/>
 <link rel="stylesheet" href="resources/css/body-page.css"/>
-<script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script>
-<script	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
+<!-- <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script>
+<script	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script> -->
+
+<script src="resources/js/ui-grid.js"></script>
+<script src="resources/js/ui-grid.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
- 
- 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-		
+  	
 <link href="resources/css/menu.css" rel="stylesheet" type="text/css">	
 <link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
@@ -58,14 +57,14 @@
 		</div>
 		<table cellspacing="0px;">
 			<tr>
-				<table style="top: 0px; width: 1179px; height: 47px;"
+				<table style="top: 0px; width: 90%; height: 47px;"
 					cellspacing="0px;">
 					<tr>
 						<td
-							style="left: 187px; width: 910px; background: #280071; color: #FFFFFF"
+							style="left: 187px; width: 85%; background: #280071; color: #FFFFFF"
 							align="center"><b>Swayam Monitoring Tool</b></td>
 						<td
-							style="width: 269px; background: #FDD209; color: #000000; align: center"
+							style="width: 200%; background: #FDD209; color: #000000; align: center"
 							align="center"><b>Welcome <%=username%></b> 
 							<br /> <b> <%=pfId%> </b>&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout">Log Out</a></td>
 					</tr>
