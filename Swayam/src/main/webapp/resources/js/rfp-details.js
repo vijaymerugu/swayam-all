@@ -26,6 +26,12 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.pagination','ngAni
 			});
 		   
 	   }
+	   
+	   $scope.loadHomeBodyPageForm = function(){	
+				var str ='bp/rfpdetail'
+				$("#contentHomeApp").load(str);
+									
+		}
 	  
 	   $scope.LoadVendor();
 	   console.log("Session CSRF Outide  "+ $scope.csrf);
@@ -77,11 +83,14 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.pagination','ngAni
 	        	console.log("Inside Success");
 	            
 	            alert("Updated Successfully");
+	            $scope.loadHomeBodyPageForm();
 	          //  $window.location.reload(); 
-	            location.reload()
+	           // location.reload()
+	            
 	            
 	        }, function (d) {
 	        	alert("Failed to update");
+	        	$scope.loadHomeBodyPageForm();
 	        	//$window.location.reload(); 
 	        });
 	    };
@@ -122,8 +131,9 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.pagination','ngAni
 	        	console.log("Successfully Added " + d.status);
 	        	
 	        	alert("Successfully Added");
+	        	$scope.loadHomeBodyPageForm();
 	        	 //$window.location.reload(); 
-	        	location.reload();
+	        	//location.reload();
 	        	/* RfpService.getUsers(paginationOptions.pageNumber,
 	     				paginationOptions.pageSize, counttype).success(function(data) {
 	     					
@@ -135,7 +145,9 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.pagination','ngAni
 	       
 	        }, function (d) {
 	        	alert("Failed to Add");
+	        	$scope.loadHomeBodyPageForm();
 	        	// $window.location.reload();
+	        	 
 	        });
 	    };
 	 
@@ -222,8 +234,10 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.pagination','ngAni
 		        	
 		        	$scope.gridOptions.data.splice(index, 1);
 		        	alert("Successfully deleted");
+		        	$scope.loadHomeBodyPageForm();
 		        	//$route.reload(); 
-		        	location.reload();
+		        	//location.reload();
+		        	
 		        	
 		        /*    $scope.alerts.push({
 		                msg: 'Data saved successfully',
@@ -231,6 +245,7 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.pagination','ngAni
 		            });*/
 		        }, function (d) {
 		        	alert("failed to delete row");
+		        	$scope.loadHomeBodyPageForm();
 		        
 		        });
 	    	  

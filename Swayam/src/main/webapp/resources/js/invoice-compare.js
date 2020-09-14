@@ -18,6 +18,16 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	    	   	$scope.SelectedVendorId='';
 				selectedRfpID="";
 				
+				InvoiceCompareService.getUsers(paginationOptions.pageNumber,
+						paginationOptions.pageSize, counttype,
+						selectedCircelId,selectedStateId,
+						quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
+							console.log("data3 " + data);
+					$scope.gridOptions.data = data.content;
+					$scope.gridOptions.totalItems = data.totalElements;
+
+	 	 	   });  
+				
 	       }
 
 	   	   
@@ -256,16 +266,29 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	   $scope.refresh = function()
 	   {  	
 		   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
-		 	   UserManagementService.getUsers(paginationOptions.pageNumber,
-		 			   paginationOptions.pageSize,counttype,fromDate,toDate).success(function(data){
-		 				   
-		 		  $scope.gridOptions.data = data.content;
-		 	 	  $scope.gridOptions.totalItems = data.totalElements;
-		 	   });	   
+		   		InvoiceCompareService.getUsers(paginationOptions.pageNumber,
+						paginationOptions.pageSize, counttype,
+						selectedCircelId,selectedStateId,
+						quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
+							console.log("data3 " + data);
+					$scope.gridOptions.data = data.content;
+					$scope.gridOptions.totalItems = data.totalElements;
+
+	 	 	   });  
 		 		   
 		 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
-		 	  
-		 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
+		 	    	
+		 	   	InvoiceCompareService.getUsers(paginationOptions.pageNumber,
+						paginationOptions.pageSize, counttype,
+						selectedCircelId,selectedStateId,
+						quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
+							console.log("data3 " + data);
+					$scope.gridOptions.data = data.content;
+					$scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);
+					$scope.gridOptions.totalItems = data.totalElements;
+
+	 	 	   });
+		 		   		   
 		 		   
 		 	    }else{
 		 	    	InvoiceCompareService.getUsers(paginationOptions.pageNumber,
