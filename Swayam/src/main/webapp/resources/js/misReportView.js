@@ -107,13 +107,11 @@ app.controller('misReportViewController', ['$scope','misReportViewService1', 'mi
 		}
 	function callOnGroupingCriteriaChanged(){
 		//fetching all columns list
-		console.log('value:', $scope.selectedGroupingCriteria.criteria.value);
-		console.log('name', $scope.selectedGroupingCriteria.criteria.name);
 		getRemoveIdsByGroupCriteria($scope.selectedGroupingCriteria.criteria.value);
 		callAvailableColumns($scope.removeIds);
 	}
 	
-$scope.allColumns = {};
+
 function callAvailableColumns(removeIds){
 misReportViewService2.loadAvailableColumns(removeIds)
 .success(function(response){
@@ -123,8 +121,7 @@ misReportViewService2.loadAvailableColumns(removeIds)
 			$scope.allColumns[""+i+""] = {"id": value.columnId, "text": value.columnName}
 			i++;
 		});
-		//making deep copy of all colums
-		$scope.deepCloneAllColumnsObj = $.extend(true, {}, $scope.allColumns);
+		console.log("all columns:",$scope.allColumns);
 		//Available Columns
 		$scope.options = {
 	    	data: $scope.allColumns
@@ -186,7 +183,7 @@ misReportViewService2.loadAvailableColumns(removeIds)
 			} else {
 				var lastKey = Object.keys($scope.resultList.data).reverse()[0];
 				var lastValue = $scope.resultList.data[lastKey].id;
-				var selectedColumnIndexes=null;
+				var selectedColumnIndexes='';
 				// ITERATE THROUGH ITEMS IN OBJECT.
 		        angular.forEach($scope.resultList.data, function (value, key) {
 		        	if(value.id != lastValue) {
