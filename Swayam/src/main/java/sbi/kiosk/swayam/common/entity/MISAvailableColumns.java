@@ -21,7 +21,7 @@ public class MISAvailableColumns {
 	
 	@Id
 	@Column(name="COLUMN_ID")
-	private Integer columnId;
+	private String columnId;
 	
 	@Column(name="COLUMN_NAME")
 	private String columnName;

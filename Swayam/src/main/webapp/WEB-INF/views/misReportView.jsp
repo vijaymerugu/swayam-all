@@ -52,6 +52,7 @@
 					<div class="col-sm-2">
 						<select id="groupingCriteria"
 							ng-model="selectedGroupingCriteria.criteria"
+							ng-change="onGroupingCriteriaChanged()"
 							ng-options="criteria as criteria.name for criteria in groupingCriteriaList"></select>
 					</div>
 					<div class="col-sm-1">From Date:</div>
