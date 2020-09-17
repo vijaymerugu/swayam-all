@@ -79,8 +79,8 @@ public class MISReportController {
 	}
 	
 	@RequestMapping(value = "mis/get-available-columns", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<List<MISAvailableColumns>> getMISAvailableColumns(ModelAndView model) {
-		ResponseEntity<List<MISAvailableColumns>> respEntity = ResponseEntity.ok(misReportService.getMISAvailableColumns());
+	public ResponseEntity<List<MISAvailableColumns>> getMISAvailableColumns(String removeIds) {
+		ResponseEntity<List<MISAvailableColumns>> respEntity = ResponseEntity.ok(misReportService.loadMISColumnsFromGroupId(removeIds));
 		return respEntity;
 	}
 }

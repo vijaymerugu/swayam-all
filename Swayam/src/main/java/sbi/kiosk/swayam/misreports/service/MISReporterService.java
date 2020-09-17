@@ -17,6 +17,6 @@ public interface MISReporterService {
 
 	List<MISGroupingCriteria> getMISGroupingCriteria();
 	
-	List<MISAvailableColumns> getMISAvailableColumns();
+	List<MISAvailableColumns> loadMISColumnsFromGroupId(String removeIds);
 
 }

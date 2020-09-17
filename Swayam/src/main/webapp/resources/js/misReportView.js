@@ -62,10 +62,17 @@ function PickList() {
 
 app.controller('misReportViewController', ['$scope','misReportViewService1', 'misReportViewService2', 'misReportViewService3',
                                  function ($scope, misReportViewService1, misReportViewService2, misReportViewService3) {
-
-//Grouping Criteria List
+	
 	$scope.groupingCriteriaList = [];
-	callGroupingCriteriaList();
+	$scope.removeIds;
+	//loading MIS Available columns on page load by group Id
+	this.$onInit = function() {
+		callGroupingCriteriaList();
+		getRemoveIdsByGroupCriteria(1);
+		callAvailableColumns($scope.removeIds);
+	};
+	
+	//Grouping Criteria List
 	function callGroupingCriteriaList(){
 	misReportViewService1.loadGroupingCriteriaList()
 	.success(function(response){
@@ -77,18 +84,44 @@ app.controller('misReportViewController', ['$scope','misReportViewService1', 'mi
 			  };
 	});
 }
+	function getRemoveIdsByGroupCriteria(groupCriteriaId) {
+		if(groupCriteriaId == 1) {
+			//hide 7-Onsite / Offsite, 8-Standalone / TTW, 10-Type of requests
+			$scope.removeIds = "7,8,10";
+		} else if(groupCriteriaId == 2) {
+			//hide 7-Onsite / Offsite, 8-Standalone / TTW, 10-Type of requests
+			$scope.removeIds = "7,8,10";
+		} else if(groupCriteriaId == 3) {
+			//hide 2-Branch Counter Transactions, 3-Migration %, 7-Onsite / Offsite, 8-Standalone / TTW, 10-Type of requests, 11-TAT of request completion.
+			$scope.removeIds = "2,3,7,8,10,11";
+		} else if(groupCriteriaId == 4) {
+			//hide 2-Branch Counter Transactions, 3-Migration %, 5-No. of kiosks, 10-Type of requests
+			$scope.removeIds = "2,3,5,10";
+		} 
+		return $scope.removeIds;
+	}
 	
-$scope.allColumns = {};
-callAvailableColumns();
-function callAvailableColumns(){
-misReportViewService2.loadAvailableColumns()
+	// function to change MIS available columns on grouping criteria selection.
+	$scope.onGroupingCriteriaChanged = function(){
+		callOnGroupingCriteriaChanged();
+		}
+	function callOnGroupingCriteriaChanged(){
+		//fetching all columns list
+		getRemoveIdsByGroupCriteria($scope.selectedGroupingCriteria.criteria.value);
+		callAvailableColumns($scope.removeIds);
+	}
+	
+
+function callAvailableColumns(removeIds){
+misReportViewService2.loadAvailableColumns(removeIds)
 .success(function(response){
-		$scope.allCols = {};
+		$scope.allColumns = {};
 		var i = 1;
 		angular.forEach(response, function(value, key){
 			$scope.allColumns[""+i+""] = {"id": value.columnId, "text": value.columnName}
 			i++;
 		});
+		console.log("all columns:",$scope.allColumns);
 		//Available Columns
 		$scope.options = {
 	    	data: $scope.allColumns
@@ -150,7 +183,7 @@ misReportViewService2.loadAvailableColumns()
 			} else {
 				var lastKey = Object.keys($scope.resultList.data).reverse()[0];
 				var lastValue = $scope.resultList.data[lastKey].id;
-				var selectedColumnIndexes=null;
+				var selectedColumnIndexes='';
 				// ITERATE THROUGH ITEMS IN OBJECT.
 		        angular.forEach($scope.resultList.data, function (value, key) {
 		        	if(value.id != lastValue) {
@@ -182,7 +215,7 @@ misReportViewService2.loadAvailableColumns()
 			     'reportType': $scope.reportTypeList[0]
 		};
 		$scope.allColumns = {};
-		callAvailableColumns();
+		callAvailableColumns($scope.selectedGroupingCriteria.criteria.value);
 
 	};
 	//Start of loadMisReportData service
@@ -218,10 +251,10 @@ app.service('misReportViewService1',['$http', function ($http) {
 	};
 }]);
 app.service('misReportViewService2',['$http', function ($http) {
-	function loadAvailableColumns() {
+	function loadAvailableColumns(removeIds) {
 	    return  $http({
 	      method: 'GET',
-	      url: 'mis/get-available-columns'
+	      url: 'mis/get-available-columns?removeIds='+removeIds
 	    });
 	}
 	return {

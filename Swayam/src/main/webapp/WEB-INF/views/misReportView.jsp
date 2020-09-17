@@ -8,9 +8,9 @@
 <script src="resources/js/bootstrap.3.4.1.min.js"></script>
 <!-- Include Date Range Picker -->
 <script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+	src="resources/js/bootstrap-datepicker.min.js"></script>
 <link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+	href="resources/css/bootstrap-datepicker3.css" />
 <script src="resources/js/misReportView.js"></script>
 <script src="resources/js/FileSaver.js"></script>
 <script src="resources/js/angular.js"></script>
@@ -52,6 +52,7 @@
 					<div class="col-sm-2">
 						<select id="groupingCriteria"
 							ng-model="selectedGroupingCriteria.criteria"
+							ng-change="onGroupingCriteriaChanged()"
 							ng-options="criteria as criteria.name for criteria in groupingCriteriaList"></select>
 					</div>
 					<div class="col-sm-1">From Date:</div>

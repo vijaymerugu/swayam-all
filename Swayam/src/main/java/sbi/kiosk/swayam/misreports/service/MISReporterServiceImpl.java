@@ -1,6 +1,7 @@
 package sbi.kiosk.swayam.misreports.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -63,9 +64,12 @@ public class MISReporterServiceImpl implements MISReporterService {
 	}
 
 	@Override
-	public List<MISAvailableColumns> getMISAvailableColumns() {
+	public List<MISAvailableColumns> loadMISColumnsFromGroupId(String removeIds) {
 		try {
-			return (List<MISAvailableColumns>) mISAvailableColumnsRepository.findAll();
+			List<String> removeIdList = new ArrayList<>();
+			removeIdList = Arrays.asList(removeIds.split(",")) ;
+			List<MISAvailableColumns> list1 = mISAvailableColumnsRepository.findByColumnIdNotIn(removeIdList);
+			return list1;
 		} catch (Exception e) {
 			logger.error("Exception in getMISAvailableColumns:" + e.getMessage());
 			return new ArrayList<MISAvailableColumns>();
