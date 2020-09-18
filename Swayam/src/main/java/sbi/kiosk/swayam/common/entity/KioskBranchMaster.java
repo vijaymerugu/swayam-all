@@ -14,7 +14,7 @@ import sbi.kiosk.swayam.common.dto.KioskBranchMasterUserDto;
 @Data
 @Entity
 @Table(name="TBL_KIOSK_MASTER")
-public class KioskBranchMaster {
+public class KioskBranchMaster extends Common{
 	public KioskBranchMaster(){
 		
 	}
@@ -31,7 +31,8 @@ public class KioskBranchMaster {
 		this.address = dto.getAddress();
 		this.branchCode = dto.getBranchCode();
 		this.kioskSerialNo = dto.getKioskSerialNo();
-		this.installationStatus = dto.getInstallationStatus();
+		//this.installationStatus = dto.getInstallationStatus();
+	   // this.refId=dto.getRefId();
 	}
 
 	
@@ -41,8 +42,8 @@ public class KioskBranchMaster {
 	@Column(name="ID")
 	private Integer id;
 	
-	@Column(name="SR_NO")
-	private String srNo;
+	//@Column(name="SR_NO")
+	//private String srNo;
 	
 	@Column(name="KIOSK_ID")
 	private String kioskId;
@@ -83,10 +84,29 @@ public class KioskBranchMaster {
 	@Column(name="OS")		
 	private String os;
 
-	@Column(name="MAKE")	
-	private String make;
+	//@Column(name="MAKE")	
+	//private String make;
 	
 	@Column(name="INSTALLATION_STATUS")
 	private String installationStatus;
+	
+	@Column(name="RFP_ID")	
+	private String refId;
 
+	@Column(name="INSTALLATION_TYPE")	
+	private String installationType;
+	
+	
+	
+	
+	
+	
+	/*@Column(name="CREATED_BY")	
+	private String  createdBy;
+    
+    @Column(name="CREATED_DATE")	
+    private String  mody
+    @Column(name="MODIFIED_DATE")	
+    private Date MODIFIED_DATE*/
+	
 }
