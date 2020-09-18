@@ -25,7 +25,8 @@ $(document).ready(function(){
  
     <meta http-equiv="x-ua-compatible" content="IE=edge">
 <link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
-<script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment-with-locales.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment-with-locales.min.js"></script> -->
+<script src="resources/js/moment-with-locales.min.js"></script>
 <script src="resources/js/angular.1.5.6.min.js"></script>
 <script src="resources/js/ticket-history-app.js"></script>
 <script src="resources/js/angular.1.5.6.min.js"></script>
@@ -38,7 +39,27 @@ $(document).ready(function(){
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
 
-
+    <script src="resources/js/jquery.3.4.1.min.js"></script>
+<script src="resources/js/bootstrap.3.4.1.min.js"></script>
+<!-- Include Date Range Picker -->
+<script type="text/javascript"
+	src="resources/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet"
+	href="resources/css/bootstrap-datepicker3.css" />
+    
+ <script>
+	$(document).ready(function() {
+		var datePickerOptions = { changeYear: true, 
+								  changeMonth: true,
+								  autoclose: true,
+								  endDate : '+0d',
+								  format : 'dd-mm-yyyy',
+								  orientation : "top"
+								  }
+      	
+		$('#datepickerFromDate,#datepickerToDate').datepicker(datePickerOptions);
+	});
+</script> 
 
 
 
@@ -150,7 +171,7 @@ $(document).ready(function(){
                     </div>
                     
                     <div class="col-xs-6">
-                      <input type="date" id="datepickerFromDate" name="SelectedCallLogDateId" class="datepicker" readonly="readonly"  ng-model="SelectedCallLogDateId" placeholder="dd-mm-yyyy" required maxlength="10"/>
+                      <input type="text" id="datepickerFromDate" name="SelectedCallLogDateId" class="datepicker" readonly="readonly"  ng-model="SelectedCallLogDateId" placeholder="dd-mm-yyyy" required maxlength="10"/>
                        <!--  <select i name="callLogDate" ng-model="SelectedCallLogDateId">
                        
 									<option value="0">Select CallLog Date</option>
@@ -200,7 +221,7 @@ $(document).ready(function(){
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
-                     <input type="date" id="datepickerToDate" name="SelectedCallClosedDateId" readonly="readonly"  class="datepicker" ng-model="SelectedCallClosedDateId" placeholder="dd-mm-yyyy" required maxlength="10"/>
+                     <input type="text" id="datepickerToDate" name="SelectedCallClosedDateId" readonly="readonly"  class="datepicker" ng-model="SelectedCallClosedDateId" placeholder="dd-mm-yyyy" required maxlength="10"/>
                        <!--  <select name="State" ng-model="SelectedCallClosedDateId">
 									<option value="0">Select Closed Date</option>
 									<option ng-model="datepickerFromDate"><span id="datepickerFromDate"></span></option>

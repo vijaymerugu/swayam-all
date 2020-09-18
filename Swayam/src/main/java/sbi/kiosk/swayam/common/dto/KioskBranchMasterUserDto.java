@@ -20,6 +20,8 @@ public class KioskBranchMasterUserDto {
 		this.branchCode = master.getBranchCode();
 		this.kioskSerialNo = master.getKioskSerialNo();
 		this.installationStatus = master.getInstallationStatus();
+		this.refId=master.getRefId();
+		this.installationType=master.getInstallationType();
 	}
 	
 	private Integer id;
@@ -60,5 +62,6 @@ public class KioskBranchMasterUserDto {
 	private String username;
 	
 	private String circle;
-
+	private String refId;
+	private String installationType;
 }

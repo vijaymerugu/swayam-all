@@ -416,8 +416,9 @@ public class UploadServiceImpl implements UploadService {
 					entity.setKioskSerialNo(lidtDto1.getKioskSerialNumber());// 6
 					entity.setKioskIp(lidtDto1.getKioskIPAddress());// 7
 					entity.setOs(lidtDto1.getoS());// 8
-					entity.setMake(lidtDto1.getMake());// 9
-					entity.setVendor(lidtDto1.getVendor());// 10
+					/* Commented for Kiosk Branch Master entity change
+					 * entity.setMake(lidtDto1.getMake());// 9
+					 */					entity.setVendor(lidtDto1.getVendor());// 10
 					entity.setInstallationDate(lidtDto1.getInstallationDate());
 					entity.setKioskMacAddress(lidtDto1.getKioskMacAddress());
 					entity.setSiteType(lidtDto1.getSiteType());
@@ -471,7 +472,8 @@ public class UploadServiceImpl implements UploadService {
 						|| checkNullKioskMacAddress.get().trim().equals("") || checkNullBranchCode.get().trim().equals("") || checkNullKioskSerialNumber.get().trim().equals("")
 						|| checkNulloS.get().trim().equals("")) {
 					entity = new KioskBranchMaster();
-					entity.setSrNo(entity.getSrNo());
+					/* Commented for Kiosk Branch Master entity change
+					 * entity.setSrNo(entity.getSrNo()); */
 					entity.setCircle(lidtDto1.getCircle());// 2
 					entity.setBranchName(lidtDto1.getBranchName());// 3
 					entity.setBranchCode(lidtDto1.getBranchCode());// 4
@@ -479,8 +481,9 @@ public class UploadServiceImpl implements UploadService {
 					entity.setKioskSerialNo(lidtDto1.getKioskSerialNumber());// 6
 					entity.setKioskIp(lidtDto1.getKioskIPAddress());// 7
 					entity.setOs(lidtDto1.getoS());// 8
-					entity.setMake(lidtDto1.getMake());// 9
-					entity.setVendor(lidtDto1.getVendor());// 10
+					/* Commented for Kiosk Branch Master entity change
+					 * entity.setMake(lidtDto1.getMake());// 9
+					 */					entity.setVendor(lidtDto1.getVendor());// 10
 					entity.setInstallationDate(lidtDto1.getInstallationDate());
 					entity.setKioskMacAddress(lidtDto1.getKioskMacAddress());
 					entity.setSiteType(lidtDto1.getSiteType());
@@ -572,7 +575,8 @@ public class UploadServiceImpl implements UploadService {
 	            row.createCell(cellIndex++).setCellValue(entity.getCircle());
 	            row.createCell(cellIndex++).setCellValue(entity.getBranchName());
 	            row.createCell(cellIndex++).setCellValue(entity.getOs());
-	            row.createCell(cellIndex++).setCellValue(entity.getMake());
+				/* Commented for Kiosk Branch Master entity change
+				 * row.createCell(cellIndex++).setCellValue(entity.getMake()); */
 	            row.createCell(cellIndex++).setCellValue(entity.getInstallationStatus());
 	
 	        }

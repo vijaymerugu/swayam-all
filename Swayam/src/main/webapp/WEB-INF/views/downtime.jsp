@@ -73,7 +73,8 @@ $("searchPositions").on('click',function() {
     
     <meta http-equiv="x-ua-compatible" content="IE=edge">
 <link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
-<script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment-with-locales.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment-with-locales.min.js"></script> -->
+<script src="resources/js/moment-with-locales.min.js"></script>
 <script src="resources/js/angular.1.5.6.min.js"></script>
 <script src="resources/js/down-time-app.js"></script>
 <script src="resources/js/angular.1.5.6.min.js"></script>
@@ -87,9 +88,27 @@ $("searchPositions").on('click',function() {
     <script src="resources/js/angular-aria.js"></script>
     
     
+    <script src="resources/js/jquery.3.4.1.min.js"></script>
+<script src="resources/js/bootstrap.3.4.1.min.js"></script>
+<!-- Include Date Range Picker -->
+<script type="text/javascript"
+	src="resources/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet"
+	href="resources/css/bootstrap-datepicker3.css" />
     
-    
-    
+ <script>
+	$(document).ready(function() {
+		var datePickerOptions = { changeYear: true, 
+								  changeMonth: true,
+								  autoclose: true,
+								  endDate : '+0d',
+								  format : 'dd-mm-yyyy',
+								  orientation : "top"
+								  }
+      	
+		$('#datepickerFromDate,#datepickerToDate').datepicker(datePickerOptions);
+	});
+</script>   
     
     
 <!--     <meta http-equiv="x-ua-compatible" content="IE=edge">
@@ -246,7 +265,7 @@ input:valid {
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
-                     <input type="date" id="datepickerFromDate" name="SelectedFromDateId" class="datepicker"  readonly="readonly" 
+                     <input type="text" id="datepickerFromDate" name="SelectedFromDateId" class="datepicker"  readonly="readonly" 
                       ng-model="SelectedFromDateId" placeholder="dd-mm-yyyy" maxlength="10" required pattern="[Bb]anana|[Cc]herry" />
                       </div>
                       
@@ -259,7 +278,7 @@ input:valid {
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
-                    <input type="date" id="datepickerToDate" name="SelectedToDateId" class="datepicker" readonly="readonly" 
+                    <input type="text" id="datepickerToDate" name="SelectedToDateId" class="datepicker" readonly="readonly" 
                      ng-model="SelectedToDateId" placeholder="dd-mm-yyyy" maxlength="10" required pattern="[dd]-|[mm]-[yyyy]" />
                      </div>
                 </div>
@@ -310,9 +329,9 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
 </script>
 <script type="text/javascript">
 $(document).ready(function(){
-	var datePickerOptions = { changeYear: true, changeMonth: true,autoclose: true,maxDate: new Date(), dateFormat:'dd-mm-yy'}
+	/* var datePickerOptions = { changeYear: true, changeMonth: true,autoclose: true,maxDate: new Date(), dateFormat:'dd-mm-yy'}
 	
-    $( ".datepicker" ).datepicker(datePickerOptions);
+    $( ".datepicker" ).datepicker(datePickerOptions); */
     $(".openpdfonclick").click(function(){
     	
         $.ajax({
