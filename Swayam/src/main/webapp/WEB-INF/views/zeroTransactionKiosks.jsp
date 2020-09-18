@@ -5,9 +5,9 @@
 
 
 
-<meta http-equiv="x-ua-compatible" content="IE=edge">
+<meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
 <link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
-<script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment-with-locales.min.js"></script>
+<script src="resources/js/moment-with-locales.min.js"></script>
 <script	src="resources/js/angular.1.5.6.min.js"></script>
  <script src="resources/js/zero-transaction-kiosks.js"></script>
 <script	src="resources/js/angular.1.5.6.min.js"></script>
@@ -15,10 +15,32 @@
 <link rel="stylesheet" href="resources/css/body-page.css"/>
 <link rel="stylesheet" href="resources/css/style.css">
 
+<script src="resources/js/jquery.3.4.1.min.js"></script>
+<script src="resources/js/bootstrap.3.4.1.min.js"></script>
+<!-- Include Date Range Picker -->
+<script type="text/javascript"
+	src="resources/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet"
+	href="resources/css/bootstrap-datepicker3.css" />
+
 <script src="resources/js/angular.js"></script>
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
+
+<script>
+	$(document).ready(function() {
+		var datePickerOptions = { changeYear: true, 
+				  changeMonth: true,
+				  autoclose: true,
+				  endDate : '+0d',
+				  format : 'dd-mm-yyyy',
+				  orientation : "top"
+				  }
+	
+  	    $( ".datepicker" ).datepicker(datePickerOptions);
+	});
+</script>
 
 </head>
 <body>
@@ -32,9 +54,9 @@
  <div>
 				<table class="" style="border: 1px solid #eee;">
 					<div>
-					 	<br /> From Date: <input type="date" id="datepickerFromDate" name="input1" readonly="readonly" class="datepicker" ng-model="searchDateStart" placeholder="dd-mm-yyyy" required maxlength="10"/>  
+					 	<br /> From Date: <input type="text" id="datepickerFromDate" name="input1" readonly="readonly" class="datepicker" ng-model="searchDateStart" placeholder="dd-mm-yyyy" required maxlength="10"/>  
 							
-							To Date : <input type="date" id="datepickerToDate" name="input2" readonly="readonly" class="datepicker" ng-model="searchDateEnd"  placeholder="dd-mm-yyyy" required maxlength="10" />
+							To Date : <input type="text" id="datepickerToDate" name="input2" readonly="readonly" class="datepicker" ng-model="searchDateEnd"  placeholder="dd-mm-yyyy" required maxlength="10" />
 						<button type="button" ng-click="searchPositions(searchDateStart,searchDateEnd) ">Generate</button>
 
 
@@ -109,9 +131,9 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
       
       $(document).ready(function(){
 
-    	  var datePickerOptions = { changeYear: true, changeMonth: true,autoclose: true,maxDate: new Date(), dateFormat:'dd-mm-yy'}
+    	 /*  var datePickerOptions = { changeYear: true, changeMonth: true,autoclose: true,maxDate: new Date(), dateFormat:'dd-mm-yy'}
     	  	
-    		$( ".datepicker" ).datepicker(datePickerOptions);
+    		$( ".datepicker" ).datepicker(datePickerOptions); */
     	  
     	    $(".openpdfonclick").click(function(){
     	    	
