@@ -57,12 +57,12 @@
 					</div>
 					<div class="col-sm-1">From Date:</div>
 					<div class="col-sm-2">
-						<input type="date" id="datepickerFromDate" name="input1" 
+						<input type="text" id="datepickerFromDate" name="input1" 
 							readonly="readonly" placeholder="dd-mm-yyyy" required maxlength="10" />
 					</div>
 					<div class="col-sm-1">To Date:</div>
 					<div class="col-sm-2">
-						<input type="date" id="datepickerToDate" name="input2" 
+						<input type="text" id="datepickerToDate" name="input2" 
 							readonly="readonly" placeholder="dd-mm-yyyy" required maxlength="10" />
 					</div>
 					<div class="col-sm-1"></div>
