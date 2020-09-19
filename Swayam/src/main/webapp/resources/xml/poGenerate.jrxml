@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.14.0.final using JasperReports Library version 6.14.0-2ab0d8625be255bf609c78e1181801213e51db8f  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="employee-rpt" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="ed1abd67-4f10-4dae-9540-1e756eed90d9">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.export.pdf.size.page.to.content" value="true"/>
+	<field name="poId" class="java.lang.Integer"/>
+	<field name="allocId" class="java.lang.Integer"/>
+	<field name="poNumber" class="java.lang.Integer"/>
+	<field name="rfpRefNo" class="java.lang.String"/>
+	<field name="vendorId" class="java.lang.Integer"/>
+	<field name="vendor" class="java.lang.String"/>
+	<field name="crclCode" class="java.lang.Integer"/>
+	<field name="address" class="java.lang.String"/>
+	<field name="contactName" class="java.lang.String"/>
+	<field name="circle" class="java.lang.String"/>
+	<field name="allocatedQuantity" class="java.lang.Long"/>
+	<field name="poQuantity" class="java.lang.Long"/>
+	<field name="remainingQuantity" class="java.lang.Long"/>
+	<field name="poDate" class="java.lang.String"/>
+	<field name="status" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	
+	<title>
+		<band height="401" splitType="Stretch">
+			<textField>
+				<reportElement x="30" y="80" width="190" height="80" uuid="920f750c-eace-4361-84be-45f5e1ab0358"/>
+				<textElement markup="none">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{address} == null?"":$F{address}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="30" y="170" width="120" height="22" uuid="936bbded-b4a1-4216-8b9a-83e99aa8694c"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Ref No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="160" y="200" width="90" height="20" uuid="6daecf31-5c10-46b4-9f51-551f63040690"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[KIND ATTN: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="230" y="200" width="100" height="20" uuid="8cfc4771-7da2-43a0-a7cb-32bdb1919b56"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contactName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="30" y="230" width="100" height="20" uuid="dd0c162f-2f26-4f91-bc51-ea9592aa3af5"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dear Sir,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="340" width="490" height="50" uuid="217637e3-63ce-454a-9c59-bff7c4168d16"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[1. With reference to above RFP, we place the Purchase Order (PO) for delivery, installation (including SIS works, if any), commissioning and maintenance of SWAYAM Kiosks as per the table below:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="281" width="490" height="59" uuid="a05dfb63-e9b6-40b7-b65b-1c6d91235242"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[REQUEST FOR PROPOSAL FOR PROCUREMENT, INSTALLATION, COMMISSIONING AND MAINTENANCE OF SWAYAM KIOSKS, i.e. BARCODE BASED PASSBOOK PRINTING KIOSKS]]></text>
+			</staticText>
+			<textField pattern="dd-MM-yyyy">
+				<reportElement x="360" y="170" width="110" height="22" uuid="88e0d3be-529a-4798-be1b-ef46a9383e79"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Dated "+new SimpleDateFormat("dd-MM-yyyy").format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="30" y="260" width="190" height="21" uuid="43197fd8-f284-4557-b256-8072661dd3f1"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["PURCHASE ORDER (PO): "+ $F{poNumber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="260" width="210" height="20" uuid="cfb71c1f-b187-41a8-b9c9-dfb4beabfc94"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["RFP NO. "+ $F{rfpRefNo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yy">
+				<reportElement x="420" y="260" width="100" height="20" uuid="4610e132-a0f2-433e-ac69-26085c7a93ae"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["DATED "+$F{poDate}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="30" y="0" width="180" height="50" uuid="489d33d1-9110-497f-9722-7b518d8ce6dc"/>
+				<imageExpression><![CDATA["C:/Users/Sharan/Pictures/1.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="360" y="0" width="160" height="50" uuid="180a1b68-ddfb-456b-8208-9e5c98e6a718"/>
+				<imageExpression><![CDATA["C:/Users/Sharan/Pictures/2.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="80" y="10" width="200" height="20" uuid="0ef72172-b578-4e11-8184-12d676847beb"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[CIRCLE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="10" width="200" height="20" uuid="2c832086-6650-48d4-8a64-94d0a6e47c65"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[PO QUANTITY]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField>
+				<reportElement x="80" y="0" width="200" height="17" uuid="c304f305-2697-443e-9070-54419b4af3d6"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{circle} == null?"":$F{circle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="0" width="200" height="17" uuid="75d388c1-a172-497f-bebb-fed1f616578e"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{poQuantity} == null?"":$F{poQuantity}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="310" splitType="Stretch">
+			<staticText>
+				<reportElement x="30" y="20" width="490" height="32" uuid="c868a6fa-3e99-4576-beee-11d80eebf245"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[2. Please adhere to the timelines for delivery and installation of SWAYAM kiosks to the locations in Annexure – A as mentioned in the SLA.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="100" width="490" height="30" uuid="6f1118e0-e126-4285-b918-e2ac0505b064"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[4. Please acknowledge and provide acceptance through return mail / letter head within two days from the date of receipt of this Purchase Order.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="150" width="100" height="20" uuid="e3983bcf-ed34-4d28-a3ef-9fab2469913a"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Yours faithfully,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="200" width="320" height="14" uuid="8784cede-ac17-472e-acaf-06d7f0b7379e"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dy. General Manager (Implementation & Rollout)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="60" width="490" height="30" uuid="a9a8cb46-cc1d-45d3-ad74-ea544d72d9d8"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[3. In case of non-adherence of timelines, appropriate penalty will be levied as per the terms and conditions mentioned in the SLA.]]></text>
+			</staticText>
+			<image>
+				<reportElement x="110" y="240" width="340" height="50" uuid="b8ec7c3c-66f7-463d-981a-86a96d4973e3"/>
+				<imageExpression><![CDATA["C:/Users/Sharan/Pictures/4.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</columnFooter>
+</jasperReport>
