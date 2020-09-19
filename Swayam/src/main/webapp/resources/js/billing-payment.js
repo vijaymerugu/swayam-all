@@ -264,6 +264,16 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		    	   	$scope.SelectedVendorId='';
 					selectedRfpID="";
 					
+					BillingPenaltyService.getUsers(paginationOptions.pageNumber,
+							paginationOptions.pageSize, counttype,
+							selectedCircelId,selectedStateId,
+							quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
+							
+						$scope.gridOptions.data = data.content;
+						$scope.gridOptions.totalItems = data.totalElements;
+
+		 	 	   });
+					
 		       }
 	 
 	   
@@ -286,18 +296,34 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	   $scope.refresh = function()
 	   {  	
 		   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
-		 	   UserManagementService.getUsers(paginationOptions.pageNumber,
-		 			   paginationOptions.pageSize,counttype,fromDate,toDate).success(function(data){
-		 				   
-		 		  $scope.gridOptions.data = data.content;
-		 	 	  $scope.gridOptions.totalItems = data.totalElements;
-		 	   });	   
+		   		console.log("Inside null "+$scope.searchText)
+		   		BillingPenaltyService.getUsers(paginationOptions.pageNumber,
+						paginationOptions.pageSize, counttype,
+						selectedCircelId,selectedStateId,
+						quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
+							console.log("data3 " + data);
+					$scope.gridOptions.data = data.content;
+					$scope.gridOptions.totalItems = data.totalElements;
+
+	 	 	   });	   
 		 		   
 		 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
-		 	  
-		 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
+		 	    	console.log("Inside not null " + $scope.searchText);
+		 	    	BillingPenaltyService.getUsers(paginationOptions.pageNumber,
+							paginationOptions.pageSize, counttype,
+							selectedCircelId,selectedStateId,
+							quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
+								console.log("data3 " + data);
+						$scope.gridOptions.data = data.content;
+						$scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);	
+						$scope.gridOptions.totalItems = data.totalElements;
+
+		 	 	   });
+		 		   	   
 		 		   
 		 	    }else{
+		 	    	console.log("Inside else " + $scope.searchText);
+		 	    	
 		 	    	BillingPenaltyService.getUsers(paginationOptions.pageNumber,
 							paginationOptions.pageSize, counttype,
 							selectedCircelId,selectedStateId,
