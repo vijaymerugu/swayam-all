@@ -65,10 +65,187 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.pagination','ngAni
 	        
 	        $scope.gridOptions.data[index].editrow = false;
 	        
+	        
 	        var user={rfpNo:row.rfpNo,rfpId:row.rfpId,vendor:row.vendor,kisokCost:row.kisokCost,amcCost:row.amcCost	
 	        ,companyPenaltyHour:row.companyPenaltyHour,companyPermDntmMuHrs:row.companyPermDntmMuHrs,
 	        companyPermDntmSrHrs:row.companyPermDntmSrHrs,companyPermDntmPct:row.companyPermDntmPct,
 	        maxPenaltyPct:row.maxPenaltyPct};
+	        
+	        var status=0;
+	        var i=0;
+	        var j= 0;
+	        var validations=new Array();
+	        validations[j]="Failed to Update Null/Invalid data";
+	        j++;
+	        console.log("Vendor Data  "+ $scope.Vendors);
+	        angular.forEach(user, function (value, key) {
+	        	console.log("key "+key+" value "+value);
+	        	i++;
+	        	
+	        	if(i==1){
+	        		var regvalue = value.match(/^[A-Z]{3}\:[A-Z]{2}\:[A-Z]{3}\:[A-Z]{2}\:\d{2}\-\d{2}\:[0-9]{3}$/);
+	        		if(regvalue==null){
+	        			validations[j]="Invalid rfp data (valid format eg:SBI:AC:ECR:RB:17-18:972)";
+	        			j++;
+	        			status=2;
+	        		}
+	   
+	        		
+	        		console.log("regvalue" + regvalue);
+	        	}else if(i==3){
+	        		//var regvalue = value.match(/^[A-Z]$/);
+	        		var first = angular.uppercase(value); 
+	        		console.log("first "+first);
+	        		var flag= false;
+	        		var vend =[];
+	        		 angular.forEach($scope.Vendors, function (value1, key) {
+	        			 console.log("vendorkey "+key+" Vendor value "+value1.vendor);
+	        			 var second = angular.uppercase(value1.vendor);
+	        			 console.log("second "+second); 
+	        			 vend.push(value1.vendor);
+	 	        		
+	        			 if(angular.equals(first, second)){
+	        				 
+	        				 
+	        				 
+	        				 flag = true;
+	        				/* validations[j]=first+" Invalid Vendor";
+	 	        			j++;
+	 	        			status=2;*/
+	        			 }
+	        			 
+	        		  });
+	        		 
+	        		 console.log("flag "+flag);
+	        		
+	        		 if(flag == false){
+        				 validations[j]=first+" Invalid Vendor (List of valid vendors("+vend+")";
+	 	        			j++;
+	 	        			status=2;
+        			 }
+	        		
+	        	}else if(i>3){
+	        		
+	        		 var check = angular.isNumber(value);
+				     console.log("Check for integer " + check);
+	        		
+	        		if(value ==null || value ==undefined || value =='' || check==false){
+		        		
+	        			if(i==4){
+	        				validations[j]="Cost of kiosk data is NULL/Not a number";
+			        		j++;	
+	        				
+	        			}else if(i==5){
+	        				validations[j]="Cost of AMC is NULL/Invalid";
+			        		j++;
+	        				
+	        			}else if(i==6){
+	        				validations[j]="Complaint Penalty /hr is NULL/Not a number";
+			        		j++;
+	        				
+	        			}else if(i==7){
+	        				validations[j]="Permissible Downtime in Metro/urban(in hrs) is NULL/Not a number";
+			        		j++;
+	        				
+	        			}else if(i==8){
+	        				validations[j]="Permissible Downtime in Semi-Urban/Rural(in hrs) is NULL/Not a number";
+			        		j++;
+	        				
+	        			}else if(i==9){
+	        				validations[j]="Circle Permissible Downtime(in %) is NULL/Not a number";
+			        		j++;
+	        				
+	        			}else if(i==10){
+	        				validations[j]="Maximum Penalty(in %) is NULL/Not a number";
+			        		j++;
+	        				
+	        			}
+	        			
+	        			
+	        			
+	        			
+		        		
+		        		status=2;
+		        	}else{
+		        		
+		        		if(i==4){
+		        			
+		        			if(value>9999.99){
+		        				
+	        				validations[j]=key+"Cost of kiosk <=9999.99";
+			        		j++;
+			        		status=2;
+		        			}
+	        				
+	        			}else if(i==5){
+	        				if(value>999.99){
+		        				
+		        				validations[j]=key+"Cost of AMC <=999.99";
+				        		j++;
+				        		status=2;
+			        			}
+	        			}else if(i==6){
+	        				if(value>999){
+		        				
+		        				validations[j]=key+"Complaint Penalty /hr <=999";
+				        		j++;
+				        		status=2;
+			        			}
+	        				
+	        			}else if(i==7){
+	        				if(value>12){
+		        				
+		        				validations[j]=key+"Permissible Downtime in Metro/urban(in hrs) <=12";
+				        		j++;
+				        		status=2;
+			        			}
+	        				
+	        			}else if(i==8){
+	        				if(value>12){
+		        				
+		        				validations[j]=key+"Permissible Downtime in Semi-Urban/Rural(in hrs) <=12";
+				        		j++;
+				        		status=2;
+			        			}
+	        				
+	        			}else if(i==9){
+	        				if(value>100){
+		        				
+		        				validations[j]=key+"Circle Permissible Downtime(in %) <=100";
+				        		j++;
+				        		status=2;
+			        			}
+	        				
+	        			}else if(i==10){
+	        				if(value>100){
+		        				
+		        				validations[j]=key+"Maximum Penalty(in %) <=100";
+				        		j++;
+				        		status=2;
+			        			}
+	        				
+	        			}
+		        		
+		        		
+		        	}
+		        	
+		 
+				     
+	        		
+	        	}
+	       	
+	        	
+	        	
+			    
+			  
+	        	
+	        });
+	        
+	        console.log("status "+status);
+	        
+	        if(status==0){
+	        	
+	       
 		    
 	        var id=row.rfpId;
 	        
@@ -93,6 +270,18 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.pagination','ngAni
 	        	$scope.loadHomeBodyPageForm();
 	        	//$window.location.reload(); 
 	        });
+	        
+	        
+	        }else if(status==1){
+	        	
+	        	alert("Failed to Update null value");
+	        }else if(status==2){
+	        	
+	        	//alert("Invalid Data Failed to upload");
+	        	alert(validations.join("\n"));
+	        	$scope.loadHomeBodyPageForm();
+	        	
+	        }
 	    };
 	    
 	    
@@ -168,16 +357,27 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.pagination','ngAni
 	   $scope.refresh = function()
 	   {  	
 		   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
-		 	   UserManagementService.getUsers(paginationOptions.pageNumber,
-		 			   paginationOptions.pageSize,counttype,fromDate,toDate).success(function(data){
-		 				   
-		 		  $scope.gridOptions.data = data.content;
-		 	 	  $scope.gridOptions.totalItems = data.totalElements;
-		 	   });	   
+		   		RfpService.getUsers(paginationOptions.pageNumber,
+						paginationOptions.pageSize, counttype).success(function(data) {
+							console.log("data3 " + data);
+					$scope.gridOptions.data = data.content;
+					$scope.gridOptions.totalItems = data.totalElements;
+
+	 	 	   });	   
 		 		   
 		 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
 		 	  
-		 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
+		 	    	RfpService.getUsers(paginationOptions.pageNumber,
+							paginationOptions.pageSize, counttype).success(function(data) {
+								console.log("data3 " + data);
+						$scope.gridOptions.data = data.content;
+						 $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);
+						$scope.gridOptions.totalItems = data.totalElements;
+
+		 	 	   });
+		 	    	
+		 	    	
+		 		  	   
 		 		   
 		 	    }else{
 		 	    	RfpService.getUsers(paginationOptions.pageNumber,
@@ -293,13 +493,13 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.pagination','ngAni
                   cellTemplate: '<div><button ng-show="!row.entity.editrow" class="btn primary" ng-click="grid.appScope.edit(row.entity)"><i class="fa fa-edit"></i></button>' +  //Edit Button
                                  '<button ng-show="row.entity.editrow" class="btn primary" ng-click="grid.appScope.saveRow(row.entity)"><i class="fa fa-floppy-o"></i></button>' +//Save Button
                                  '<button ng-show="row.entity.editrow" class="btn primary" ng-click="grid.appScope.cancelEdit(row.entity)"><i class="fa fa-times"></i></button>' + //Cancel Button
-                                 '</div>', width: 100
+                                 '</div>', width: 140
               },
               {
                   name: 'Delete Action', field: 'delete', enableFiltering: false, enableSorting: false,
                   cellTemplate: '<div>'+
                                  '<button class="btn primary" ng-click="grid.appScope.deleteRow(row.entity)"><i class="fa fa-trash"></i></button>' + //delete Button
-                                 '</div>', width: 100
+                                 '</div>', width: 140
               }
 	          
 	          

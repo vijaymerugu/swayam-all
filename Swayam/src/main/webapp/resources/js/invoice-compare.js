@@ -342,6 +342,16 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		        //Remove the edit mode when user click on Save button
 		        $scope.gridOptions.data[index].editrow = false;
 
+		        
+		        var check = angular.isNumber(row.Corrections);
+		        console.log("Check for integer " + check);
+		        
+		        
+		        
+		        if(check==true){
+		        	
+		      
+		        
 		        //Assign the updated value to Customer object
 		    /*    $scope.Invoice.Corrections = row.Corrections;
 		        $scope.Invoice.remarks = row.Remarks;
@@ -372,6 +382,11 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		        }, function (d) {
 		        	alert("Failed to save");
 		        });
+		        
+		        }else{
+		        	
+		        	alert("Correction Value Must Be Integer");
+		        }
 		    };
 	   
 	   $scope.gridOptions = {

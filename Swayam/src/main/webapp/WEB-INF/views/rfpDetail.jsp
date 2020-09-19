@@ -1,39 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
+<!--  <link rel="stylesheet" href="resources/css/ui-grid.group.min.css">  -->
+<!-- <script src="resources/js/ui-grid.js"></script> 
+<link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/>  -->
+<!-- <script src="resources/js/moment-with-locales.min.js"></script> -->
 <script	src="resources/js/angular.1.5.6.min.js"></script>
+<script src="resources/js/rfp-details.js"></script>
+<script	src="resources/js/angular.1.5.6.min.js"></script>
+<link rel="stylesheet" href="resources/css/grid-style.css"/>
+<link rel="stylesheet" href="resources/css/body-page.css"/>
+<link rel="stylesheet" href="resources/css/style.css">
+
+<link rel="stylesheet" href="resources/css/font-awesome.min.css"/> 
+
+<script src="resources/js/a076d05399.js"></script>
+<script src="resources/js/angular-route.js"></script>
+<script src="resources/js/angular-route.min.js"></script>
 <script src="resources/js/jquery.3.4.1.min.js"></script>
 <script src="resources/js/bootstrap.3.4.1.min.js"></script>
-<link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
+<!-- Include Date Range Picker -->
+<script type="text/javascript"
+	src="resources/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet"
+	href="resources/css/bootstrap-datepicker3.css" />
+	
+<script src="resources/js/angular.js"></script>
+    <script src="resources/js/angular-touch.js"></script>
+    <script src="resources/js/angular-animate.js"></script>
+    <script src="resources/js/angular-aria.js"></script>
+
+
+<!-- <script	src="resources/js/angular.1.5.6.min.js"></script>
+<script src="resources/js/jquery.3.4.1.min.js"></script>
+<script src="resources/js/bootstrap.3.4.1.min.js"></script>
+ <link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
+ <link rel="stylesheet" href="resources/css/ui-grid.group.min.css"> 
 
 <script
-	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
+	src="resources/js/ui-grid.min.js"></script>
 <script src="resources/js/rfp-details.js"></script>
 <script	src="resources/js/angular.1.5.6.min.js"></script>
 <link rel="stylesheet" href="resources/css/grid-style.css"/>
 <link rel="stylesheet" href="resources/css/body-page.css"/>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
-<script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script> 
-<link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/>
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
- -->
+ <link rel="stylesheet" href="resources/css/bootstrap.min.css">  
+<script src="resources/js/ui-grid.js"></script> 
+<link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/> 
+
 <link rel="stylesheet" href="resources/css/font-awesome.min.css">
  
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+ <link rel="stylesheet" href="resources/css/jquery-ui.css"> 
 <link rel="stylesheet" href="resources/css/style.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<!-- <script src='https://kit.fontawesome.com/a076d05399.js'></script> -->
+<script src="resources/js/jquery-1.12.4.js"></script>
+<script src="resources/js/jquery-ui.js"></script>
+
 <script src="resources/js/a076d05399.js"></script>
-<!-- <script src="resources/js/angular-route.js"></script> -->
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+<script src="resources/js/angular-route.js"></script>
+<script src="resources/js/angular-route.min.js"></script>
 
 
 <script src="resources/js/angular.js"></script>
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
-    <script src="resources/js/angular-aria.js"></script>
+    <script src="resources/js/angular-aria.js"></script> -->
 <style>
         .tb-bk {
             background: #f3f7fa;
@@ -247,7 +278,7 @@
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
-                      <input type="number" min="0" max="100" ng-model="selectedDCT" name="cdt" 
+                      <input type="number" min="0" max="100"  ng-model="selectedDCT" name="cdt" 
                          placeholder="" required/>
                     </div>
                 </div>
@@ -263,7 +294,7 @@
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
-                      <input type="number" min="0" max="9999" ng-model="selectedMP" name="mp" 
+                      <input type="number" min="0" max="100"  ng-model="selectedMP" name="mp" 
                          placeholder="" required/>
                         
                     </div>
