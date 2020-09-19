@@ -1,34 +1,39 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ page import="sbi.kiosk.swayam.common.dto.UserDto" %>
+<%@ page import="sbi.kiosk.swayam.common.dto.UserDto"%>
 
 <!Doctype html>
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<script	src="resources/js/angular.1.5.6.min.js"></script>
+<script src="resources/js/angular.1.5.6.min.js"></script>
 <script src="resources/js/jquery.3.4.1.min.js"></script>
 <!-- <script src="resources/js/bootstrap.3.4.1.min.js"></script> -->
 <script src="resources/js/bootstrap.3.1.1.min.js"></script>
 <link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
 
-<link rel="stylesheet" href="resources/css/grid-style.css"/>
-<link rel="stylesheet" href="resources/css/body-page.css"/>
+<link rel="stylesheet" href="resources/css/grid-style.css" />
+<link rel="stylesheet" href="resources/css/body-page.css" />
+<link rel="stylesheet" href="resources/css/notification.css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
+
 <!-- <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script>
 <script	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script> -->
 
 <script src="resources/js/ui-grid.js"></script>
 <script src="resources/js/ui-grid.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  	
-<link href="resources/css/menu.css" rel="stylesheet" type="text/css">	
-<link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<link href="resources/css/menu.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
 <script src="resources/js/angular.js"></script>
-    <script src="resources/js/angular-touch.js"></script>
-    <script src="resources/js/angular-animate.js"></script>
-    <script src="resources/js/angular-aria.js"></script>
+<script src="resources/js/angular-touch.js"></script>
+<script src="resources/js/angular-animate.js"></script>
+<script src="resources/js/angular-aria.js"></script>
 </head>
 <body style="background: #EFF3F6; margin: 0px; padding: 0px">
 	<div id="mainMenuHome" ng-app="HomeApp" ng-controller="menuController">
@@ -36,21 +41,20 @@
 			UserDto userObj = (UserDto) session.getAttribute("userObj");
 			//String firstName = "";
 			//String lastName="";
-			String username="";
-			String pfId="";
+			String username = "";
+			String pfId = "";
 			/* if(userObj.getFirstName() !=null){
 				firstName = userObj.getFirstName();
 			}
 			if(userObj.getLastName() !=null){
 				lastName = userObj.getLastName();
 			} */
-			if(userObj.getUsername() !=null){
+			if (userObj.getUsername() != null) {
 				username = userObj.getUsername();
 			}
-			if(userObj.getPfId() !=null){
+			if (userObj.getPfId() != null) {
 				pfId = userObj.getPfId();
 			}
-			
 		%>
 		<div class="inlineHomeMain">
 			<img src="resources/img/sbi.png">
@@ -65,15 +69,41 @@
 							align="center"><b>Swayam Monitoring Tool</b></td>
 						<td
 							style="width: 200%; background: #FDD209; color: #000000; align: center"
-							align="center"><b>Welcome <%=username%></b> 
-							<br /> <b> <%=pfId%> </b>&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout">Log Out</a></td>
+							align="center">
+							<b>Welcome <%=username%></b>
+							
+							<br /> <b> <%=pfId%>
+						</b>&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout">Log Out</a>
+						<ul id="nav">
+								<li id="notification_li"><span id="notification_count" ng-bind="unReadNotificationCount"></span>
+
+									<a href="#" id="notificationLink"><i class="fa fa-bell"></i></a>
+
+									<div id="notificationContainer">
+										<div id="notificationsBody" class="notifications">
+											<ul>
+												<li data-ng-repeat="notification in notifications">
+												<a ng-if="notification.status =='N'" style="color:#0000CD; text-decoration: none;" href="#"  ng-click="updateMessage(notification)">{{notification.message}}</a>
+												<a ng-if="notification.status =='Y'" style="color:#00008B; text-decoration: none;" href="#"  ng-click="updateMessage(notification)">{{notification.message}}</a>
+												</li>
+											</ul>
+										</div>
+										<!-- <div id="notificationFooter">
+											<a href="#" id='AddNew' data-ng-click="addNotification()">Add
+												New Message</a>
+
+										</div>
+ -->									</div></li>
+							</ul>
+						
+						</td>
 					</tr>
 				</table>
 			</tr>
 			<tr>
 				<td>
-					<!--    @* Here first of all we will create a ng-template *@--> 
-				<script	type="text/ng-template" id="menu">
+					<!--    @* Here first of all we will create a ng-template *@--> <script
+						type="text/ng-template" id="menu">
             <a ng-click="loadHomeBodyPage(menu.url)">{{menu.name}}</a>
            
             <ul ng-if="(SiteMenu | filter:{parentId : menu.id}).length > 0" class="submenu">
@@ -95,35 +125,63 @@
 
 
 	<c:set var="base" value="${pageContext.request.contextPath}" />
-	
+
 
 	<script>
-	//angular.bootstrap(document.getElementById("appId"), ['app']);
+		//angular.bootstrap(document.getElementById("appId"), ['app']);
 		var appHome = angular.module('HomeApp', []);
 		appHome.controller('menuController', [ '$scope', '$http',
 				function($scope, $http) {
 					$scope.SiteMenu = [];
-					
-					$scope.loadHomeBodyPage = function(url){
-						if(url != undefined){							
+					$scope.notifications = [];
+					$scope.updatedNotifications = [];
+					$scope.unReadNotificationCount = 0;
+					$scope.loadHomeBodyPage = function(url) {
+						if (url != undefined) {
 							$("#contentHomeApp").load(url);
 							//DO NOT DELETE THIS CODE. 
 							//This will kill all intervals and timeouts too in 1 seconds of Data Analyser. 
-						    var killId = setTimeout(function() {
-						      for (var i = killId; i > 0; i--) clearInterval(i)
-						    }, 1000);		
-						    //END HERE.
-						}						
+							var killId = setTimeout(function() {
+								for (var i = killId; i > 0; i--)
+									clearInterval(i)
+							}, 1000);
+							//END HERE.
+						}
 					}
-					
+
 					$http.get('common/menu').then(function(data) {
 						$scope.SiteMenu = data.data;
 					}, function(error) {
 						alert('Error');
 					})
-				} ]);		
-		
-		
+
+					
+					loadNotificationMessages();
+					function loadNotificationMessages(){
+						$scope.unReadNotificationCount = 0;
+						$http.get('notify/get?userId='+<%=pfId%>).then(function(data) {
+							$scope.notifications = data.data;
+							angular.forEach($scope.notifications, function(value, key) {
+								if(value.status == 'N'){
+									$scope.unReadNotificationCount++;
+								}
+							});
+						}, function(error) {
+							console.log('Error in loadNotificationMessages');
+						});	
+					}
+									
+				 $scope.updateMessage = function(notification) {
+					 $http.get('notify/update?notifyId='+notification.notifyId+'&status=Y').then(function(data) {
+							$scope.updatedNotifications = data.data;
+							loadNotificationMessages();
+						}, function(error) {
+							console.log('Error in updateMessage');
+						});	
+				 };
+					
+				} ]);
+
 		var ddmenuitem = 0;
 		function jsddm_open() {
 			jsddm_close();
@@ -134,11 +192,17 @@
 			if (ddmenuitem)
 				ddmenuitem.css('display', 'none');
 		}
-		$(document).ready(function() {
+		$(document)
+				.ready(
+						function() {
 							//$('#topnav > ul > li').bind('click', jsddm_open)   
 							$('#topnav > ul').on('click', 'li', jsddm_open)
 							//$('#topnav > ul > li > a').click(function(ev){
-							$('#topnav > ul').on('click','li > a',function(ev) {
+							$('#topnav > ul')
+									.on(
+											'click',
+											'li > a',
+											function(ev) {
 												if ($(this).hasClass('current')) {
 													ev.preventDefault();
 												}
@@ -165,10 +229,29 @@
 																'active');
 													}
 												}
-											});						
-														
-							});
+											});
 							
+							//Loading Notification Message on Page Load
+							$("#notificationLink").click(function () {
+        $("#notificationContainer").fadeToggle(300);
+        //$("#notification_count").fadeOut("slow");
+        $('#notificationLink > i.fa-bell').addClass('fa-bell-o');
+        $('#notificationLink > i.fa-bell').removeClass('fa-bell');
+        return false;
+    });
+
+    //Document Click hiding the popup 
+    $(document).click(function () {
+        $("#notificationContainer").hide();
+    });
+
+    //Popup on click
+    $("#notificationContainer").click(function () {
+        return false;
+    });
+
+
+						});
 	</script>
 
 </body>
@@ -178,7 +261,5 @@
 
 <html lang="en">
 <body>
-<div id="contentHomeApp">
-</div>
- 
+	<div id="contentHomeApp"></div>
 </html>
