@@ -68,8 +68,14 @@ public class MISReporterServiceImpl implements MISReporterService {
 		try {
 			List<String> removeIdList = new ArrayList<>();
 			removeIdList = Arrays.asList(removeIds.split(",")) ;
-			List<MISAvailableColumns> list1 = mISAvailableColumnsRepository.findByColumnIdNotIn(removeIdList);
-			return list1;
+			List<MISAvailableColumns> misAvailableColumnsList = mISAvailableColumnsRepository.findByColumnIdNotIn(removeIdList);
+			int i=1;
+			for(MISAvailableColumns misAvailableColumns : misAvailableColumnsList) {
+				misAvailableColumns.setColumnId(""+i);
+				i++;
+			}
+			
+			return misAvailableColumnsList;
 		} catch (Exception e) {
 			logger.error("Exception in getMISAvailableColumns:" + e.getMessage());
 			return new ArrayList<MISAvailableColumns>();
