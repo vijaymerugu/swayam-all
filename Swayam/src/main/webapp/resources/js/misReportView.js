@@ -13,7 +13,6 @@ function PickList() {
         },
         templateUrl: 'component/pickListTmpl.html',
     	link: function(scope, element, attrs) {
-        
         	var opts = angular.extend({}, defaults, scope.options);
 			
             //var $el = $(element).multiselect(opts); // jquery plugin not required
@@ -67,11 +66,14 @@ app.controller('misReportViewController', ['$scope','misReportViewService1', 'mi
 	$scope.removeIds;
 	//loading MIS Available columns on page load by group Id
 	this.$onInit = function() {
+		loadInitData();
+	};
+	
+	function loadInitData() {
 		callGroupingCriteriaList();
 		getRemoveIdsByGroupCriteria(1);
 		callAvailableColumns($scope.removeIds);
-	};
-	
+	}
 	//Grouping Criteria List
 	function callGroupingCriteriaList(){
 	misReportViewService1.loadGroupingCriteriaList()
@@ -107,6 +109,7 @@ app.controller('misReportViewController', ['$scope','misReportViewService1', 'mi
 		}
 	function callOnGroupingCriteriaChanged(){
 		//fetching all columns list
+		$scope.resultList.data = {};
 		getRemoveIdsByGroupCriteria($scope.selectedGroupingCriteria.criteria.value);
 		callAvailableColumns($scope.removeIds);
 	}
@@ -121,7 +124,6 @@ misReportViewService2.loadAvailableColumns(removeIds)
 			$scope.allColumns[""+i+""] = {"id": value.columnId, "text": value.columnName}
 			i++;
 		});
-		console.log("all columns:",$scope.allColumns);
 		//Available Columns
 		$scope.options = {
 	    	data: $scope.allColumns
@@ -209,13 +211,15 @@ misReportViewService2.loadAvailableColumns(removeIds)
 		$scope.selectedGroupingCriteria = {
 			     'criteria': $scope.groupingCriteriaList[0]
 		};
-		$scope.resultList = {
-	    };
+		$scope.resultList.data = {};
+		/*angular.forEach($scope.resultList.data, function (value, key) {
+			delete $scope.resultList.data[key];	
+		});*/
 		$scope.selectedReportType = {
 			     'reportType': $scope.reportTypeList[0]
 		};
-		$scope.allColumns = {};
-		callAvailableColumns($scope.selectedGroupingCriteria.criteria.value);
+		getRemoveIdsByGroupCriteria($scope.selectedGroupingCriteria.criteria.value);
+		callAvailableColumns($scope.removeIds);
 
 	};
 	//Start of loadMisReportData service
