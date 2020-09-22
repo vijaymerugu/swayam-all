@@ -47,9 +47,9 @@ public class UserManagementController {
 			UserDto user = (UserDto) session.getAttribute("userObj");
 			List<UserManagementDto> userList = userService.findAllUsers(user);
 			model.addObject("usersList", userList);
-			if (user.getRole().equals("CC")) {
-				model.setViewName("userlistView");
-			} else if (user.getRole().equals("LA")) {
+			/* Commented on 22-09-2020 
+			 * if (user.getRole().equals("CC")) { model.setViewName("userlistView"); } else
+			 */ if (user.getRole().equals("LA")) {
 				int cmsCount=userService.findCMSCountByCircle();
 				//int circleCountByRole=userService.findCircleCountByRole(user.getCircle());
 				//int ccCount=userService.findCCCount();
@@ -179,6 +179,7 @@ public class UserManagementController {
 	
 
 	
+
 	@RequestMapping(value = { "km/addUser" })
 	@PreAuthorize("hasPermission('UMkmaddUser','CREATE')")
 	public ModelAndView addUser(ModelAndView model, @ModelAttribute("addUser") AddUserDto addUser,HttpServletRequest request) {

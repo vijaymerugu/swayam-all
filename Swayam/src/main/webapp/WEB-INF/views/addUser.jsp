@@ -15,6 +15,7 @@
 
 <script src="resources/js/angular.1.5.6.min.js"></script>
 <script src="resources/js/jquery.3.4.1.min.js"></script>
+<script src="resources/js/jquery-3.4.1.js"></script>
 <script src="resources/js/bootstrap.3.4.1.min.js"></script>
 <link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
 
@@ -470,6 +471,7 @@ $(document).ready(function(){
 	function cloesBox() {
 		var modal = document.getElementById("myModal");
 		modal.style.display = "none";
+		
 	}
 
 	
@@ -552,9 +554,9 @@ $(document).ready(function(){
 				        	url:"km/getByPfIdSA/"+$("#pfId").val(),
 				        	async:false,
 				            success: function(data){
-				            	console.log("inside data");
+				            	
 				        	    respos=data;
-				        	 console.log("response "+respos);
+				        	
 				        	 if(data !=''){
 				        		 $("#pfId12").html(data);
 					          }				        	 
@@ -602,7 +604,7 @@ $(document).ready(function(){
 	
 	function saveform() {
 		//  ("123");
-		//debugger;
+	//	debugger;
 		
 		 var errorlist=fromValidation();
 		 //  (errorlist);
@@ -621,24 +623,26 @@ $(document).ready(function(){
 				$("#reportingAuthorityEmail12").html("");
 				$("#role12").html("");
 				$("#circle12").html("");
-		
+			//	debugger;
 		var modal = document.getElementById("myModal");
 		var span = document.getElementsByClassName("close")[0];
 		var resp = '';
 		var formData = $("#form").serialize();
-		
+		console.log("csrf: "+ $('input[name="_csrf"]').attr('value'));
 		
 		 $.ajax({
 	        	type:"POST",
 	        	url:"km/addUsers",
+	        
 	        	data:formData,
+	        	
 	        	headers: 
                 {
                     'X-CSRF-TOKEN': $('input[name="_csrf"]').attr('value')
                 },
 	         success: function(data){
 	        	 resp=data;       	 	        	 
-	        	/*  $("#para").html("User: "+resp+ " has been successfully Created"); */
+	        	 /*  $("#para").html("User: "+resp+ " has been successfully Created");  */
 	        	 $("#para").html(resp);
 	     		 modal.style.display = "block";
 	        	 
@@ -655,7 +659,7 @@ $(document).ready(function(){
 </script>
 
 
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.4.1.js"></script> -->
 
 
 </head>
@@ -834,6 +838,8 @@ $(document).ready(function(){
 			<p id="para" align="center"></p>
 			<p align="center">
 			<button class="openFinalPopup">OK</button>
+
+			
 			</p>
 		</div>
 	</div>
@@ -843,10 +849,10 @@ $(document).ready(function(){
 	
 	
 	<script>
-$(document).ready(function(){
+$(document).ready(function(){ 
     $('.openFinalPopup').on('click',function(){      
         
-    	$("#contentHomeApp").load('km/userList');    	
+    	$("#contentHomeApp").load("km/userList");    	
        
     }); 
     
