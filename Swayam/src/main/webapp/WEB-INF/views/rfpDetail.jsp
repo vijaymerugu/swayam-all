@@ -2,13 +2,38 @@
 <html lang="en">
 <head>
 <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
-<!--  <link rel="stylesheet" href="resources/css/ui-grid.group.min.css">  -->
-<!-- <script src="resources/js/ui-grid.js"></script> 
-<link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/>  -->
-<!-- <script src="resources/js/moment-with-locales.min.js"></script> -->
+<link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
+
+
+<script src="resources/js/rfp-details.js"></script>
+<script	src="resources/js/angular.1.5.6.min.js"></script>
+<link rel="stylesheet" href="resources/css/grid-style.css"/>
+<link rel="stylesheet" href="resources/css/body-page.css"/>
+<link rel="stylesheet" href="resources/css/style.css">
+
+<link rel="stylesheet" href="resources/css/font-awesome.min.css"/> 
+
+<script src="resources/js/a076d05399.js"></script>
+
+<script src="resources/js/jquery.3.4.1.min.js"></script>
+<script src="resources/js/bootstrap.3.4.1.min.js"></script>
+
+
+	
+<script src="resources/js/angular.js"></script>
+    <script src="resources/js/angular-touch.js"></script>
+    <script src="resources/js/angular-animate.js"></script>
+    <script src="resources/js/angular-aria.js"></script>
+
+
+
+
+<!-- 
 <script	src="resources/js/angular.1.5.6.min.js"></script>
 <script src="resources/js/rfp-details.js"></script>
 <script	src="resources/js/angular.1.5.6.min.js"></script>
+<link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
+
 <link rel="stylesheet" href="resources/css/grid-style.css"/>
 <link rel="stylesheet" href="resources/css/body-page.css"/>
 <link rel="stylesheet" href="resources/css/style.css">
@@ -20,7 +45,7 @@
 <script src="resources/js/angular-route.min.js"></script>
 <script src="resources/js/jquery.3.4.1.min.js"></script>
 <script src="resources/js/bootstrap.3.4.1.min.js"></script>
-<!-- Include Date Range Picker -->
+Include Date Range Picker
 <script type="text/javascript"
 	src="resources/js/bootstrap-datepicker.min.js"></script>
 <link rel="stylesheet"
@@ -30,41 +55,9 @@
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
+ -->
 
 
-<!-- <script	src="resources/js/angular.1.5.6.min.js"></script>
-<script src="resources/js/jquery.3.4.1.min.js"></script>
-<script src="resources/js/bootstrap.3.4.1.min.js"></script>
- <link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
- <link rel="stylesheet" href="resources/css/ui-grid.group.min.css"> 
-
-<script
-	src="resources/js/ui-grid.min.js"></script>
-<script src="resources/js/rfp-details.js"></script>
-<script	src="resources/js/angular.1.5.6.min.js"></script>
-<link rel="stylesheet" href="resources/css/grid-style.css"/>
-<link rel="stylesheet" href="resources/css/body-page.css"/>
-
- <link rel="stylesheet" href="resources/css/bootstrap.min.css">  
-<script src="resources/js/ui-grid.js"></script> 
-<link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/> 
-
-<link rel="stylesheet" href="resources/css/font-awesome.min.css">
- 
- <link rel="stylesheet" href="resources/css/jquery-ui.css"> 
-<link rel="stylesheet" href="resources/css/style.css">
-<script src="resources/js/jquery-1.12.4.js"></script>
-<script src="resources/js/jquery-ui.js"></script>
-
-<script src="resources/js/a076d05399.js"></script>
-<script src="resources/js/angular-route.js"></script>
-<script src="resources/js/angular-route.min.js"></script>
-
-
-<script src="resources/js/angular.js"></script>
-    <script src="resources/js/angular-touch.js"></script>
-    <script src="resources/js/angular-animate.js"></script>
-    <script src="resources/js/angular-aria.js"></script> -->
 <style>
         .tb-bk {
             background: #f3f7fa;
@@ -177,7 +170,7 @@
 	        <td>
                 <div class="row">
                     <div class="col-xs-6 lb">
-                        <span class="text-left">RFP Id<b></b></span>
+                        <span class="text-left">RFP Id<b>*</b></span>
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
