@@ -6,23 +6,7 @@
 <html lang="en">
 <head>
 
-<script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
 
-    <link rel="stylesheet" type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-datepicker3.min.css">
-
-     <script>
-$(document).ready(function(){
-    $(function () {
-    
-    	$('#datepickerFromDate,#datepickerToDate').datepicker({ changeYear: true, changeMonth: true,autoclose: true,maxDate: new Date(), dateFormat:'dd-mm-yy'});
-		
-    });
-    
-});
-			
-</script>  
 
 <script type="text/javascript">
 
@@ -35,8 +19,99 @@ $("searchPositions").on('click',function() {
 
 </script>
 
+
+<!-- <meta http-equiv="x-ua-compatible" content="IE=edge">
+
+<script	src="resources/js/angular.1.5.6.min.js"></script>
+<script src="resources/js/jquery.3.4.1.min.js"></script>
+<script src="resources/js/bootstrap.3.4.1.min.js"></script>
+<link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
+<script	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
+<script src="resources/js/down-time-app.js"></script>
+<script	src="resources/js/angular.1.5.6.min.js"></script>
+<link rel="stylesheet" href="resources/css/grid-style.css"/>
+<link rel="stylesheet" href="resources/css/body-page.css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
+<script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script> 
+<link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="resources/css/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="resources/js/angular.js"></script>
+    <script src="resources/js/angular-touch.js"></script>
+    <script src="resources/js/angular-animate.js"></script>
+    <script src="resources/js/angular-aria.js"></script> -->
+    <!-- new -->
+    
+    
+    
+<!-- <meta http-equiv="x-ua-compatible" content="IE=edge">
+<link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
+<script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment-with-locales.min.js"></script>
+<script	src="resources/js/angular.1.5.6.min.js"></script>
+<script src="resources/js/down-time-app.js"></script>
+<script	src="resources/js/angular.1.5.6.min.js"></script>
+<link rel="stylesheet" href="resources/css/grid-style.css"/>
+<link rel="stylesheet" href="resources/css/body-page.css"/>
+<link rel="stylesheet" href="resources/css/style.css">
+
+<script src="resources/js/angular.js"></script>
+    <script src="resources/js/angular-touch.js"></script>
+    <script src="resources/js/angular-animate.js"></script>
+    <script src="resources/js/angular-aria.js"></script>
+     -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     <meta http-equiv="x-ua-compatible" content="IE=edge">
+<link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
+<!-- <script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment-with-locales.min.js"></script> -->
+<script src="resources/js/moment-with-locales.min.js"></script>
+<script src="resources/js/angular.1.5.6.min.js"></script>
+<script src="resources/js/down-time-app.js"></script>
+<script src="resources/js/angular.1.5.6.min.js"></script>
+<link rel="stylesheet" href="resources/css/grid-style.css"/>
+<link rel="stylesheet" href="resources/css/body-page.css"/>
+<link rel="stylesheet" href="resources/css/style.css">
+
+<script src="resources/js/angular.js"></script>
+    <script src="resources/js/angular-touch.js"></script>
+    <script src="resources/js/angular-animate.js"></script>
+    <script src="resources/js/angular-aria.js"></script>
+    
+    
+    <script src="resources/js/jquery.3.4.1.min.js"></script>
+<script src="resources/js/bootstrap.3.4.1.min.js"></script>
+<!-- Include Date Range Picker -->
+<script type="text/javascript"
+	src="resources/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet"
+	href="resources/css/bootstrap-datepicker3.css" />
+    
+ <script>
+	$(document).ready(function() {
+		var datePickerOptions = { changeYear: true, 
+								  changeMonth: true,
+								  autoclose: true,
+								  endDate : '+0d',
+								  format : 'dd-mm-yyyy',
+								  orientation : "top"
+								  }
+      	
+		$('#datepickerFromDate,#datepickerToDate').datepicker(datePickerOptions);
+	});
+</script>   
+    
+    
+<!--     <meta http-equiv="x-ua-compatible" content="IE=edge">
 
 <script	src="resources/js/angular.1.5.6.min.js"></script>
 <script src="resources/js/jquery.3.4.1.min.js"></script>
@@ -61,7 +136,9 @@ $("searchPositions").on('click',function() {
     
     <script src="static/jquery-1.9.1.min.js"></script>      
 <script src="static/jquery-migrate-1.1.1.min.js"></script>
-<script src="static/jquery.mobile-1.3.1.min.js"></script>
+<script src="static/jquery.mobile-1.3.1.min.js"></script> -->
+
+
     <style>
         .tb-bk {
             background: #f3f7fa;
@@ -188,7 +265,7 @@ input:valid {
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
-                     <input type="date" id="datepickerFromDate" name="SelectedFromDateId" readonly="readonly" 
+                     <input type="text" id="datepickerFromDate" name="SelectedFromDateId" class="datepicker"  readonly="readonly" 
                       ng-model="SelectedFromDateId" placeholder="dd-mm-yyyy" maxlength="10" required pattern="[Bb]anana|[Cc]herry" />
                       </div>
                       
@@ -201,7 +278,7 @@ input:valid {
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
-                    <input type="date" id="datepickerToDate" name="SelectedToDateId" readonly="readonly" 
+                    <input type="text" id="datepickerToDate" name="SelectedToDateId" class="datepicker" readonly="readonly" 
                      ng-model="SelectedToDateId" placeholder="dd-mm-yyyy" maxlength="10" required pattern="[dd]-|[mm]-[yyyy]" />
                      </div>
                 </div>
@@ -211,7 +288,8 @@ input:valid {
                     <div class="col-xs-6"></div>
                     <div class="col-xs-6">
                          <div class="text-right" style="width: 80%;" >
-                              <button  id="btnReset" ng-click="">Reset</button> 
+                             <!--  <button  id="btnReset" ng-click="">Reset</button> --> 
+                               <button id="btnReset"  ng-click="resetPositions()">Reset</button>	
                             <!-- <input type="reset" value="Reset form">	 -->						
 			                 <button   ng-click="searchPositions(SelectedCircelId,SelectedVendorId,SelectedCmsCmf,SelectedFromDateId,SelectedToDateId)" >Generate</button>
                          </div>
@@ -251,7 +329,9 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
 </script>
 <script type="text/javascript">
 $(document).ready(function(){
-
+	/* var datePickerOptions = { changeYear: true, changeMonth: true,autoclose: true,maxDate: new Date(), dateFormat:'dd-mm-yy'}
+	
+    $( ".datepicker" ).datepicker(datePickerOptions); */
     $(".openpdfonclick").click(function(){
     	
         $.ajax({

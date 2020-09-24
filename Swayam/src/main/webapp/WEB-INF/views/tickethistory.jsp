@@ -5,13 +5,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
 
-    <link rel="stylesheet" type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-datepicker3.min.css">
-
-     <script>
+  <!--    <script>
 $(document).ready(function(){
     $(function () {
     
@@ -21,9 +16,54 @@ $(document).ready(function(){
     
 });
 			
-</script>  
+</script>   -->
 
-<meta http-equiv="x-ua-compatible" content="IE=edge">
+
+
+
+
+ 
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+<link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
+<!-- <script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment-with-locales.min.js"></script> -->
+<script src="resources/js/moment-with-locales.min.js"></script>
+<script src="resources/js/angular.1.5.6.min.js"></script>
+<script src="resources/js/ticket-history-app.js"></script>
+<script src="resources/js/angular.1.5.6.min.js"></script>
+<link rel="stylesheet" href="resources/css/grid-style.css"/>
+<link rel="stylesheet" href="resources/css/body-page.css"/>
+<link rel="stylesheet" href="resources/css/style.css">
+
+<script src="resources/js/angular.js"></script>
+    <script src="resources/js/angular-touch.js"></script>
+    <script src="resources/js/angular-animate.js"></script>
+    <script src="resources/js/angular-aria.js"></script>
+
+    <script src="resources/js/jquery.3.4.1.min.js"></script>
+<script src="resources/js/bootstrap.3.4.1.min.js"></script>
+<!-- Include Date Range Picker -->
+<script type="text/javascript"
+	src="resources/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet"
+	href="resources/css/bootstrap-datepicker3.css" />
+    
+ <script>
+	$(document).ready(function() {
+		var datePickerOptions = { changeYear: true, 
+								  changeMonth: true,
+								  autoclose: true,
+								  endDate : '+0d',
+								  format : 'dd-mm-yyyy',
+								  orientation : "top"
+								  }
+      	
+		$('#datepickerFromDate,#datepickerToDate').datepicker(datePickerOptions);
+	});
+</script> 
+
+
+
+<!-- <meta http-equiv="x-ua-compatible" content="IE=edge">
 
 <script	src="resources/js/angular.1.5.6.min.js"></script>
 <script src="resources/js/jquery.3.4.1.min.js"></script>
@@ -31,7 +71,6 @@ $(document).ready(function(){
 <link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
 <script	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
 <script src="resources/js/ticket-history-app.js"></script>
-<script	src="resources/js/angular.1.5.6.min.js"></script>
 <link rel="stylesheet" href="resources/css/grid-style.css"/>
 <link rel="stylesheet" href="resources/css/body-page.css"/>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
@@ -44,7 +83,7 @@ $(document).ready(function(){
 <script src="resources/js/angular.js"></script>
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
-    <script src="resources/js/angular-aria.js"></script>
+    <script src="resources/js/angular-aria.js"></script> -->
      
    <!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
     
@@ -106,7 +145,7 @@ $(document).ready(function(){
 <div class="main" ng-app="app" id="appId">
 <div ng-controller="UserManagementCtrl as vm">
  <div>
- <form>
+ <form name="myForm" id="myForm">
 		<div class="tb-bk">
    <table>	
    
@@ -132,7 +171,7 @@ $(document).ready(function(){
                     </div>
                     
                     <div class="col-xs-6">
-                      <input type="date" id="datepickerFromDate" name="SelectedCallLogDateId" readonly="readonly"  ng-model="SelectedCallLogDateId" placeholder="dd-mm-yyyy" required maxlength="10"/>
+                      <input type="text" id="datepickerFromDate" name="SelectedCallLogDateId" class="datepicker" readonly="readonly"  ng-model="SelectedCallLogDateId" placeholder="dd-mm-yyyy" required maxlength="10"/>
                        <!--  <select i name="callLogDate" ng-model="SelectedCallLogDateId">
                        
 									<option value="0">Select CallLog Date</option>
@@ -182,7 +221,7 @@ $(document).ready(function(){
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
-                     <input type="date" id="datepickerToDate" name="SelectedCallClosedDateId" readonly="readonly"  ng-model="SelectedCallClosedDateId" placeholder="dd-mm-yyyy" required maxlength="10"/>
+                     <input type="text" id="datepickerToDate" name="SelectedCallClosedDateId" readonly="readonly"  class="datepicker" ng-model="SelectedCallClosedDateId" placeholder="dd-mm-yyyy" required maxlength="10"/>
                        <!--  <select name="State" ng-model="SelectedCallClosedDateId">
 									<option value="0">Select Closed Date</option>
 									<option ng-model="datepickerFromDate"><span id="datepickerFromDate"></span></option>
@@ -242,9 +281,9 @@ $(document).ready(function(){
                     <div class="col-xs-6"></div>
                     <div class="col-xs-6">
                          <div class="text-right" style="width: 80%;" >
-                        <!--   <button  id="btnReset" ng-click="">Reset</button>	 -->
-                           <button  id="btnReset" ng-click="Reset(kioskId,SelectedCallLogDateId,SelectedCategoryId,
-							SelectedCircelId,SelectedCallClosedDateId,SelectedSubCategoryId,branchCode,SelectedVendorId)">Reset</button>
+                        <button id="btnReset"  ng-click="resetPositions()">Reset</button>	
+                          <!--  <button  id="btnReset" ng-click="Reset(kioskId,SelectedCallLogDateId,SelectedCategoryId,
+							SelectedCircelId,SelectedCallClosedDateId,SelectedSubCategoryId,branchCode,SelectedVendorId)">Reset</button> -->
 			                 <button  ng-click="searchPositions(kioskId,SelectedCallLogDateId,SelectedCategoryId,
 							SelectedCircelId,SelectedCallClosedDateId,SelectedSubCategoryId,branchCode,SelectedVendorId)">Generate</button>
                          </div>
@@ -284,6 +323,10 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
 <script type="text/javascript">
 $(document).ready(function(){
 
+	  var datePickerOptions = { changeYear: true, changeMonth: true,autoclose: true,maxDate: new Date(), dateFormat:'dd-mm-yy'}
+    	
+	    $( ".datepicker" ).datepicker(datePickerOptions);
+	    
     $(".openpdfonclick").click(function(){
     	
         $.ajax({
@@ -331,11 +374,20 @@ $(document).ready(function(){
 
     $(function () {
         $("#btnReset").bind("click", function () {
-           $("#kioskId").val('');   
-           $("#branchId").val('');   
+          // $("#kioskId").val('');   
+          // $("#branchId").val('');   
+         //  $("#kioskId").prop('selectedIndex', ""); 
+          //  $("#branchId").prop('selectedIndex', ""); 
+          //  $("#kioskId").value = '';
+           // $("#branchId").value = '';
+       //  document.getElementById("kioskId").value = '';
+         //document.getElementById("branchId").value = '';
+        // $("#branchId").prop('selectedIndex', ""); 
+          $('input[name=kioskId').val('');
+          $('input[name=branchId').val('');
           // $("#circle")[0].val(''); 
            //$("#circle").val('');   
-           $("#circle").prop('selectedIndex', "")          
+           $("#circle").prop('selectedIndex', "");          
           // $("#category")[0].selectedIndex = null;
            $("#category").prop('selectedIndex', "");
           // $("#subCategory")[0].selectedIndex = '';

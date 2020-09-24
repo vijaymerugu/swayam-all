@@ -908,12 +908,13 @@ public class JasperServiceImpl implements JasperService {
 				}
 			}
 
-			if (dto.getBranchCode() != null) {
-				BranchMaster branchMaster = branchMasterRepository.findByBranchCode(dto.getBranchCode());
-				if (branchMaster != null && branchMaster.getCircle() != null && branchMaster.getCircle() != "") {
-					dto.setCircle(branchMaster.getCircle());
-				}
-			}
+			
+			  if (dto.getBranchCode() != null) { BranchMaster branchMaster =
+			  branchMasterRepository.findByBranchCode(dto.getBranchCode()); if
+			  (branchMaster != null && branchMaster.getCircleName() != null &&
+			  branchMaster.getCircleName() != "") { dto.setCircle(branchMaster.getCircleName()); }
+			  }
+			 
 		}
 		return entities;
 	}
@@ -935,12 +936,13 @@ public class JasperServiceImpl implements JasperService {
 				}
 			}
 
-			if (dto.getBranchCode() != null) {
-				BranchMaster branchMaster = branchMasterRepository.findByBranchCode(dto.getBranchCode());
-				if (branchMaster != null && branchMaster.getCircle() != null && branchMaster.getCircle() != "") {
-					dto.setCircle(branchMaster.getCircle());
-				}
-			}
+			
+			  if (dto.getBranchCode() != null) { BranchMaster branchMaster =
+			  branchMasterRepository.findByBranchCode(dto.getBranchCode()); if
+			  (branchMaster != null && branchMaster.getCircleName() != null &&
+			  branchMaster.getCircleName() != "") { dto.setCircle(branchMaster.getCircleName()); }
+			  }
+			 
 		}
 		return entities;
 	}

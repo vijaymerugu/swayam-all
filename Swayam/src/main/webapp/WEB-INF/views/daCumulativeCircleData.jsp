@@ -16,8 +16,8 @@
 	 border-radius: 1px;
 	 border: 1px solid #73AD21;
 	/* padding: 1px; */
-	width: 500px;
-  	height: 500px;
+	width: 650px;
+  	height: 800px;
 }
 .chartHeighWidth {
 	/* width: 200px;
@@ -52,7 +52,7 @@
 									<br/>
 								</div>
 								<div id="tableDiv">
-									<table align="center" border="1">
+									<table align="left" style="margin-left:15px" border="1">
 										<tr>
 											<th>Circle</th>
 											<th>Total Operational Kiosks (No.)</th>
@@ -67,8 +67,8 @@
 										</tr>
 										<tr>
 											<td align="left"><b>{{apiResponse1[apiResponse1.length-1].gtLabel}}</b></td>
-											<td align="right"><b>{{apiResponse1[apiResponse1.length-1].gtOperationalKiosks | number: 2}}</b></td>
-											<td align="right"><b>{{apiResponse1[apiResponse1.length-1].gtTotalKiosks | number: 2}}</b></td>
+											<td align="right"><b>{{apiResponse1[apiResponse1.length-1].gtOperationalKiosks}}</b></td>
+											<td align="right"><b>{{apiResponse1[apiResponse1.length-1].gtTotalKiosks}}</b></td>
 											<td align="right"><b>{{apiResponse1[apiResponse1.length-1].gtAvailabilityPercent | number: 2}}</b></td>
 										</tr>
 									</table>
@@ -86,7 +86,7 @@
 									<br/>
 								</div>
 								<div id="tableDiv">
-									<table border="1" align="center">
+									<table border="1" align="left" style="margin-left:15px">
 										<tr>
 											<th>Vendor</th>
 											<th>Total Operational Kiosks (No.)</th>
@@ -101,8 +101,8 @@
 										</tr>
 										<tr>
 											<td align="left"><b>{{apiResponse2[apiResponse2.length-1].gtLabel}}</b></td>
-											<td align="right"><b>{{apiResponse2[apiResponse2.length-1].gtOperationalKiosks | number: 2}}</b></td>
-											<td align="right"><b>{{apiResponse2[apiResponse2.length-1].gtTotalKiosks | number: 2}}</b></td>
+											<td align="right"><b>{{apiResponse2[apiResponse2.length-1].gtOperationalKiosks}}</b></td>
+											<td align="right"><b>{{apiResponse2[apiResponse2.length-1].gtTotalKiosks}}</b></td>
 											<td align="right"><b>{{apiResponse2[apiResponse2.length-1].gtAvailabilityPercent | number: 2}}</b></td>
 										</tr>
 									</table>
@@ -122,7 +122,7 @@
 													<br/>
 								</div>
 								<div id="tableDiv">
-									<table border="1" align="center">
+									<table border="1" align="left" style="margin-left:15px">
 										<tr>
 											<th>Error Type</th>
 											<th>Open Tickets</th>
@@ -137,8 +137,8 @@
 										</tr>
 										<tr>
 											<td align="left"><b>{{apiResponse3[apiResponse3.length-1].gtLabel}}</b></td>
-											<td align="right"><b>{{apiResponse3[apiResponse3.length-1].gtErrorWiseTotalOpenTickets | number: 2}}</b></td>
-											<td align="right"><b>{{apiResponse3[apiResponse3.length-1].gtAllTickets | number: 2}}</b></td>
+											<td align="right"><b>{{apiResponse3[apiResponse3.length-1].gtErrorWiseTotalOpenTickets}}</b></td>
+											<td align="right"><b>{{apiResponse3[apiResponse3.length-1].gtAllTickets}}</b></td>
 											<td align="right"><b>{{apiResponse3[apiResponse3.length-1].gtErrorWiseTotalOpenTicketsPercent | number: 2}}</b></td>
 										</tr>
 									</table>
@@ -156,7 +156,7 @@
 									<br/>
 								</div>
 								<div id="tableDiv">
-									<table border="1" align="center">
+									<table border="1" align="left" style="margin-left:15px">
 										<tr>
 											<th>TAT</th>
 											<th>Total Open Calls</th>
@@ -194,7 +194,7 @@
 									<br/>
 								</div>
 								<div id="tableDiv">
-									<table border="1" align="center">
+									<table border="1" align="left" style="margin-left:15px">
 										<tr>
 											<th>Circle</th>
 											<th>Open Calls</th>
@@ -210,8 +210,8 @@
 										</tr>
 										<tr>
 											<td align="left"><b>{{apiResponse5[apiResponse5.length-1].gtLabel}}</b></td>
-											<td align="right"><b>{{apiResponse5[apiResponse5.length-1].gtOpenTickets | number: 2}}</b></td>
-											<td align="right"><b>{{apiResponse5[apiResponse5.length-1].gtAllTickets | number: 2}}</b></td>
+											<td align="right"><b>{{apiResponse5[apiResponse5.length-1].gtOpenTickets}}</b></td>
+											<td align="right"><b>{{apiResponse5[apiResponse5.length-1].gtAllTickets}}</b></td>
 											<td align="right"><b>{{apiResponse5[apiResponse5.length-1].gtOpenTicketsPercent | number: 2}}</b></td>
 										</tr>
 									</table>

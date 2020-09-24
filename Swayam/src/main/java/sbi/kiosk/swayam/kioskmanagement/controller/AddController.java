@@ -31,14 +31,14 @@ public class AddController {
 		return entity;
 	}
 	
-	@PostMapping("km/addUsers")
-	@PreAuthorize("hasPermission('ACkmaddUserData','CREATE')")
+	 @PostMapping("km/addUsers") 
+
+//	@PreAuthorize("hasPermission('ACkmaddUserData','CREATE')")
 	public ResponseEntity<String> addUserData(ModelAndView model,@ModelAttribute("addUser") AddUserDto addUser,HttpServletRequest request,RedirectAttributes redirectAttributes) {
 		ResponseEntity<String> entity=null;
 		String addUserResut=null;
 		
 		
-
 		if ((request.getParameter("checkAction") != null) && !request.getParameter("checkAction").isEmpty()
 				&& (request.getParameter("checkAction").equalsIgnoreCase("Edit"))) {
 			addUser.setUserId(Integer.parseInt(request.getParameter("userId")));

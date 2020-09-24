@@ -64,7 +64,7 @@ public interface DowntimePagingRepository extends PagingAndSortingRepository<Dow
 			+ "	AND UKM.PF_ID LIKE %?5% "
 			//+ "	AND DT.START_DTTM=?4 "
 		//	+ "	AND DT.END_DTTM=?5 "
-			+ "	GROUP BY KIOSK.circle, NETWORK, MODULE, BRANCH.BRANCH_CODE,KIOSK_ID, KIOSK.VENDOR, USERNAME,DT.DOWNTIME_HRS" )
+			+ "	GROUP BY KIOSK.circle, NETWORK, MODULE, BRANCH.BRANCH_CODE,KIOSK.KIOSK_ID, KIOSK.VENDOR, USERNAME,DT.DOWNTIME_HRS" )
 	
 	Page<DownTime> findAllByFilter( String selectedToDateId, String selectedFromDateId, String selectedCircelId,
 			String selectedVendorId ,String selectedCmsCmfId, Pageable pageable);
@@ -138,7 +138,7 @@ public interface DowntimePagingRepository extends PagingAndSortingRepository<Dow
 						+ "	 WHERE"
 						+ "	KIOSK.circle LIKE %?3% "
 						+ "	AND KIOSK.VENDOR LIKE %?4% "
-						+ "	GROUP BY KIOSK.circle, NETWORK, MODULE, BRANCH.BRANCH_CODE,KIOSK_ID, KIOSK.VENDOR, USERNAME,DT.DOWNTIME_HRS" )
+						+ "	GROUP BY KIOSK.circle, NETWORK, MODULE, BRANCH.BRANCH_CODE,KIOSK.KIOSK_ID, KIOSK.VENDOR, USERNAME,DT.DOWNTIME_HRS" )
 				
 				List<DownTime> findAllByFilterDTimeReports( String selectedToDateId,
 						 String selectedFromDateId, String selectedCircelId,

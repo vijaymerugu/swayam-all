@@ -36,4 +36,10 @@ public class HolidayCalendar {
 	@Column(name="STATE")
 	private String state;
 	
+	@Column(name="FIN_YR")
+	private String finYr;
+	
+	@Column(name="QUARTER")
+	private String quarter;
+	
 }

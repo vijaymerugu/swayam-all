@@ -62,12 +62,12 @@ app.controller('daSummaryOfDownKiosksController', ['$scope','$interval','$http',
 					        label: "TAT of Down Kiosks",
 					        data: tempData[nonNullCounter-1].rowData,
 					        backgroundColor: [
-					        	'#A0B421',
-					        	'#ED402A'
+					        	'#ED402A',
+					        	'#A0B421'
 					        ],
 					        borderColor: [
-					        	'#A0B421',
-					        	'#ED402A'
+					        	'#ED402A',
+					        	'#A0B421'
 					        ],
 					        borderWidth: [1, 1]
 					      }

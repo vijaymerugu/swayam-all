@@ -1,9 +1,32 @@
 var app = angular.module('daAvailabilityModule', ['chart.js',]);
 
-app.controller('daAvailabilityController', ['$scope','daAvailabilityService', function ($scope, daAvailabilityService) {
+app.controller('daAvailabilityController', ['$scope', '$interval', '$http', 'daAvailabilityService', function ($scope, $interval, $http, daAvailabilityService) {
 
+	this.$onInit = function() {
+	    // this will kill all intervals and timeouts too in 1 seconds. 
+	    var killId = setTimeout(function() {
+	      for (var i = killId; i > 0; i--) clearInterval(i)
+	    }, 1000);
+    };
 
-	daAvailabilityService.loadApiData().success(function(response){
+  //getting auto refresh time value from property file
+	$http({
+		method: 'GET',
+		url: 'da/getChartAutoRefreshTime'
+		}).then(function success(response) {
+			$scope.autoRefreshTime=response.data;
+			
+			var id1 = setInterval(function() { 
+				callDaAvailabilityService();
+			}, $scope.autoRefreshTime);			
+		}, function error(response) {
+			console.log('error occured while getting refresh time.');
+		});
+	
+	//On Page Load API Called.
+	callDaAvailabilityService();
+	function callDaAvailabilityService() {
+	   daAvailabilityService.loadApiData().success(function(response){
 	   $scope.apiResponse = response;
 	   //Buiding Data & Options for Chart
 		buildDoughnutDataAndOptions($scope);
@@ -89,6 +112,7 @@ app.controller('daAvailabilityController', ['$scope','daAvailabilityService', fu
 			$(".chartDiv").append("</tr></table>");
 		}
    });
+}
 }]);
 
 app.service('daAvailabilityService',['$http', function ($http) {

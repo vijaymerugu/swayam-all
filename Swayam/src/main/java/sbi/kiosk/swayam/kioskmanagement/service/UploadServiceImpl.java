@@ -122,81 +122,83 @@ public class UploadServiceImpl implements UploadService {
 								dto.setSrNo(cell.getStringCellValue());
 
 							}*/
-							if (String.valueOf(cell.getColumnIndex()).equals("0")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("1")) {
 
 								dto.setKioskID(cell.getStringCellValue());
 
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("1")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("2")) {
 
 								dto.setVendor(cell.getStringCellValue());
 
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("2")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("3")) {
 								String cellValueStr = objDefaultFormat.formatCellValue(cell, objFormulaEvaluator);	
 								dto.setInstallationDate(cellValueStr);
 
 							}
 
-							if (String.valueOf(cell.getColumnIndex()).equals("3")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("4")) {
 
 								dto.setKioskIPAddress(cell.getStringCellValue());
 
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("4")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("5")) {
 
 								dto.setKioskMacAddress(cell.getStringCellValue());
 
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("5")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("6")) {
 
 								dto.setSiteType(cell.getStringCellValue());
 
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("6")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("7")) {
 
 								dto.setLocation(cell.getStringCellValue());
 
 							}
 
-							if (String.valueOf(cell.getColumnIndex()).equals("7")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("8")) {
 
 								dto.setAddress(cell.getStringCellValue());
 
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("8")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("9")) {
 
 								dto.setBranchCode(cell.getStringCellValue());
 
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("9")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("10")) {
 
 								dto.setKioskSerialNumber(cell.getStringCellValue());
 
 							}
 
-							if (String.valueOf(cell.getColumnIndex()).equals("10")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("11")) {
 
 								dto.setCircle(cell.getStringCellValue());
 
 							}
 
-							if (String.valueOf(cell.getColumnIndex()).equals("11")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("12")) {
 
 								dto.setBranchName(cell.getStringCellValue());
 
 							}
 
-							if (String.valueOf(cell.getColumnIndex()).equals("12")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("13")) {
 
 								dto.setoS(cell.getStringCellValue());
 							}
 
-							if (String.valueOf(cell.getColumnIndex()).equals("13")) {
-
-								dto.setMake(cell.getStringCellValue());
-
-							}
+							/*
+							 * if (String.valueOf(cell.getColumnIndex()).equals("14")) {
+							 * 
+							 * dto.setMake(cell.getStringCellValue());
+							 * 
+							 * }
+							 */
 
 							if (String.valueOf(cell.getColumnIndex()).equals("14")) {
 
@@ -204,6 +206,16 @@ public class UploadServiceImpl implements UploadService {
 
 							}
 
+							if (String.valueOf(cell.getColumnIndex()).equals("19")) { System.out.println("i m a string");
+
+								dto.setRfpID(cell.getStringCellValue());
+
+							}
+							if (String.valueOf(cell.getColumnIndex()).equals("20")) {
+
+								dto.setInstallationType(cell.getStringCellValue());
+
+							}
 							/*
 							 * for (HashMap.Entry<Integer, String> entry : map.entrySet()) { Integer key =
 							 * entry.getKey(); Object value = entry.getValue();
@@ -221,85 +233,97 @@ public class UploadServiceImpl implements UploadService {
 						if (!(String.valueOf(cell.getRow().getRowNum()).equals("0"))) {
 							
 							
-							if (String.valueOf(cell.getColumnIndex()).equals("0")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("1")) {
 
 								dto.setKioskID((String.valueOf((int)cell.getNumericCellValue())));
 
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("1")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("2")) {
 
 								dto.setVendor((String.valueOf((int)cell.getNumericCellValue())));
 
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("2")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("3")) {
 								String cellValueStr = objDefaultFormat.formatCellValue(cell, objFormulaEvaluator);	
 								dto.setInstallationDate(cellValueStr);
 
 							}
 
-							if (String.valueOf(cell.getColumnIndex()).equals("3")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("4")) {
 
 								dto.setKioskIPAddress((String.valueOf((int)cell.getNumericCellValue())));
 
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("4")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("5")) {
 
 								dto.setKioskMacAddress((String.valueOf((int)cell.getNumericCellValue())));
 
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("5")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("6")) {
 
 								dto.setSiteType((String.valueOf((int)cell.getNumericCellValue())));
 
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("6")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("7")) {
 
 								dto.setLocation((String.valueOf((int)cell.getNumericCellValue())));
 
 							}
 
-							if (String.valueOf(cell.getColumnIndex()).equals("7")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("8")) {
 
 								dto.setAddress((String.valueOf((int)cell.getNumericCellValue())));
 
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("8")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("9")) {
 
 								dto.setBranchCode((String.valueOf((int)cell.getNumericCellValue())));
 
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("9")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("10")) {
 
 								dto.setKioskSerialNumber((String.valueOf((int)cell.getNumericCellValue())));
 
 							}
 
-							if (String.valueOf(cell.getColumnIndex()).equals("10")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("11")) {
 
 								dto.setCircle((String.valueOf((int)cell.getNumericCellValue())));
 
 							}
 
-							if (String.valueOf(cell.getColumnIndex()).equals("11")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("12")) {
 
 								dto.setBranchName((String.valueOf((int)cell.getNumericCellValue())));
 
 							}
 
-							if (String.valueOf(cell.getColumnIndex()).equals("12")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("13")) {
 
 								dto.setoS((String.valueOf((int)cell.getNumericCellValue())));
 							}
 
-							if (String.valueOf(cell.getColumnIndex()).equals("13")) {
-
-								dto.setMake((String.valueOf((int)cell.getNumericCellValue())));
-
-							}
+							/*
+							 * if (String.valueOf(cell.getColumnIndex()).equals("14")) {
+							 * 
+							 * dto.setMake((String.valueOf((int)cell.getNumericCellValue())));
+							 * 
+							 * }
+							 */
 
 							if (String.valueOf(cell.getColumnIndex()).equals("14")) {
 
 								dto.setInstallationStatus((String.valueOf((int)cell.getNumericCellValue())));
+
+							}
+							if (String.valueOf(cell.getColumnIndex()).equals("19")) { System.out.println("i m a number");
+
+								dto.setRfpID((String.valueOf((int)cell.getNumericCellValue())));
+
+							}
+							if (String.valueOf(cell.getColumnIndex()).equals("20")) {
+
+								dto.setInstallationType((String.valueOf((int)cell.getNumericCellValue())));
 
 							}
 							
@@ -409,21 +433,36 @@ public class UploadServiceImpl implements UploadService {
 					// entity.setSrNo(Long.parseLong(lidtDto1.getSrNo().substring(0,
 					// lidtDto1.getSrNo().length() - 2)));//1
 					//entity.setSrNo(entity.getSrNo());
-					entity.setCircle(lidtDto1.getCircle());// 2
-					entity.setBranchName(lidtDto1.getBranchName());// 3
-					entity.setBranchCode(lidtDto1.getBranchCode());// 4
-					entity.setKioskId(lidtDto1.getKioskID());// 5
-					entity.setKioskSerialNo(lidtDto1.getKioskSerialNumber());// 6
-					entity.setKioskIp(lidtDto1.getKioskIPAddress());// 7
-					entity.setOs(lidtDto1.getoS());// 8
-					entity.setMake(lidtDto1.getMake());// 9
-					entity.setVendor(lidtDto1.getVendor());// 10
-					entity.setInstallationDate(lidtDto1.getInstallationDate());
-					entity.setKioskMacAddress(lidtDto1.getKioskMacAddress());
-					entity.setSiteType(lidtDto1.getSiteType());
-					entity.setLocation(lidtDto1.getLocation());
-					entity.setAddress(lidtDto1.getAddress());
-					entity.setInstallationStatus(lidtDto1.getInstallationStatus());
+					///////////////////////
+					entity.setKioskId(lidtDto1.getKioskID());//1
+					entity.setVendor(lidtDto1.getVendor());//2
+					
+					////////////////////////////
+					entity.setInstallationDate(lidtDto1.getInstallationDate());//3
+					entity.setKioskIp(lidtDto1.getKioskIPAddress());// 4
+					entity.setKioskMacAddress(lidtDto1.getKioskMacAddress());//5
+					entity.setSiteType(lidtDto1.getSiteType());//6
+					entity.setLocation(lidtDto1.getLocation());//7
+					entity.setAddress(lidtDto1.getAddress());//8
+					entity.setBranchCode(lidtDto1.getBranchCode());// 9
+					entity.setKioskSerialNo(lidtDto1.getKioskSerialNumber());// 10
+					entity.setCircle(lidtDto1.getCircle());// 11
+					entity.setBranchName(lidtDto1.getBranchName());// 12
+					entity.setOs(lidtDto1.getoS());// 13
+					entity.setInstallationStatus(lidtDto1.getInstallationStatus());//14
+					entity.setRefId(lidtDto1.getRfpID());//19
+					entity.setInstallationType(lidtDto1.getInstallationType());//20
+					
+					
+					
+					/* Commented for Kiosk Branch Master entity change
+					 * entity.setMake(lidtDto1.getMake());// 9
+					 */					
+					
+					
+					
+					
+					
 					listEntity.add(entity);
 				}
 				count++;
@@ -471,22 +510,26 @@ public class UploadServiceImpl implements UploadService {
 						|| checkNullKioskMacAddress.get().trim().equals("") || checkNullBranchCode.get().trim().equals("") || checkNullKioskSerialNumber.get().trim().equals("")
 						|| checkNulloS.get().trim().equals("")) {
 					entity = new KioskBranchMaster();
-					entity.setSrNo(entity.getSrNo());
-					entity.setCircle(lidtDto1.getCircle());// 2
-					entity.setBranchName(lidtDto1.getBranchName());// 3
-					entity.setBranchCode(lidtDto1.getBranchCode());// 4
-					entity.setKioskId(lidtDto1.getKioskID());// 5
-					entity.setKioskSerialNo(lidtDto1.getKioskSerialNumber());// 6
-					entity.setKioskIp(lidtDto1.getKioskIPAddress());// 7
-					entity.setOs(lidtDto1.getoS());// 8
-					entity.setMake(lidtDto1.getMake());// 9
-					entity.setVendor(lidtDto1.getVendor());// 10
-					entity.setInstallationDate(lidtDto1.getInstallationDate());
-					entity.setKioskMacAddress(lidtDto1.getKioskMacAddress());
-					entity.setSiteType(lidtDto1.getSiteType());
-					entity.setLocation(lidtDto1.getLocation());
-					entity.setAddress(lidtDto1.getAddress());
-					entity.setInstallationStatus(lidtDto1.getInstallationStatus());
+					/* Commented for Kiosk Branch Master entity change
+					 * entity.setSrNo(entity.getSrNo()); */
+					entity.setKioskId(lidtDto1.getKioskID());//1
+					entity.setVendor(lidtDto1.getVendor());//2
+					
+					entity.setInstallationDate(lidtDto1.getInstallationDate());//3
+					entity.setKioskIp(lidtDto1.getKioskIPAddress());// 4
+					entity.setKioskMacAddress(lidtDto1.getKioskMacAddress());//5
+					entity.setSiteType(lidtDto1.getSiteType());//6
+					entity.setLocation(lidtDto1.getLocation());//7
+					entity.setAddress(lidtDto1.getAddress());//8
+					entity.setBranchCode(lidtDto1.getBranchCode());// 9
+					entity.setKioskSerialNo(lidtDto1.getKioskSerialNumber());// 10
+					entity.setCircle(lidtDto1.getCircle());// 11
+					entity.setBranchName(lidtDto1.getBranchName());// 12
+					entity.setOs(lidtDto1.getoS());// 13
+					entity.setInstallationStatus(lidtDto1.getInstallationStatus());//14
+					entity.setRefId(lidtDto1.getRfpID());//19
+					entity.setInstallationType(lidtDto1.getInstallationType());//20
+					
 					listEntity1.add(entity);
 					//KioskBranchMasterxlsx(listEntity1);
 
@@ -531,7 +574,7 @@ public class UploadServiceImpl implements UploadService {
         String filename = "Kiosk_Branch_Master.xlsx";
 		XSSFSheet sheet = workbook1.createSheet("Kiosh_BranchMaster");
 		String[] columns = {"Kiosk_ID","Vendor","InstallationDate","KioskIp","KioskMacAddress","SiteType","Location","Address",
-				            "BranchCode","KioskSerialNo","Circle","BRANCH_NAME","Os","Make","InstallationStatus"};
+				            "BranchCode","KioskSerialNo","Circle","BRANCH_NAME","Os","Make","InstallationStatus","RFP_ID","INSTALLATION_TYPE"};
 
 		 Font headerFont = workbook1.createFont();
 	        headerFont.setBold(true);
@@ -572,8 +615,11 @@ public class UploadServiceImpl implements UploadService {
 	            row.createCell(cellIndex++).setCellValue(entity.getCircle());
 	            row.createCell(cellIndex++).setCellValue(entity.getBranchName());
 	            row.createCell(cellIndex++).setCellValue(entity.getOs());
-	            row.createCell(cellIndex++).setCellValue(entity.getMake());
+				/* Commented for Kiosk Branch Master entity change
+				 * row.createCell(cellIndex++).setCellValue(entity.getMake()); */
 	            row.createCell(cellIndex++).setCellValue(entity.getInstallationStatus());
+	            row.createCell(cellIndex++).setCellValue(entity.getRefId());
+	            row.createCell(cellIndex++).setCellValue(entity.getInstallationType());
 	
 	        }
 		
@@ -634,105 +680,119 @@ public class UploadServiceImpl implements UploadService {
 
 						if (!(String.valueOf(cell.getRow().getRowNum()).equals("0"))) {
 
-							if (String.valueOf(cell.getColumnIndex()).equals("0")) {
-								dto.setBranchCode(cell.getStringCellValue());
-							}
+							/*
+							 * if (String.valueOf(cell.getColumnIndex()).equals("0")) {
+							 * dto.setBranchCode(cell.getStringCellValue()); } if
+							 * (String.valueOf(cell.getColumnIndex()).equals("1")) {
+							 * dto.setBranchName(cell.getStringCellValue()); } if
+							 * (String.valueOf(cell.getColumnIndex()).equals("2")) {
+							 * dto.setcRCLCode((String.valueOf(cell.getStringCellValue()))); }
+							 */
+							
 							if (String.valueOf(cell.getColumnIndex()).equals("1")) {
-								dto.setBranchName(cell.getStringCellValue());
-							}
-							if (String.valueOf(cell.getColumnIndex()).equals("2")) {
-								dto.setcRCLCode((String.valueOf(cell.getStringCellValue())));
-							}
-							if (String.valueOf(cell.getColumnIndex()).equals("3")) {
 								dto.setcRCLName((String.valueOf(cell.getStringCellValue())));
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("4")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("2")) {
 								dto.setNetwork((String.valueOf(cell.getStringCellValue())));
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("5")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("3")) {
 								dto.setModCode((String.valueOf(cell.getStringCellValue())));
 							}
 
-							if (String.valueOf(cell.getColumnIndex()).equals("6")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("4")) {
 								dto.setModule(cell.getStringCellValue());
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("7")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("5")) {
 								dto.setRegion(cell.getStringCellValue());
 							}
+							
+							if (String.valueOf(cell.getColumnIndex()).equals("6")) {
+								dto.setBranchCode(cell.getStringCellValue());
+							}
+							
+							if (String.valueOf(cell.getColumnIndex()).equals("7")) {
+								dto.setBranchName(cell.getStringCellValue());
+							}
 							if (String.valueOf(cell.getColumnIndex()).equals("8")) {
-								dto.setPopGroup(cell.getStringCellValue());
+								dto.setcRCLCode((String.valueOf(cell.getStringCellValue())));
 							}
 							if (String.valueOf(cell.getColumnIndex()).equals("9")) {
+								dto.setPopGroup(cell.getStringCellValue());
+							}
+							
+							if (String.valueOf(cell.getColumnIndex()).equals("10")) {
 								dto.setPopDesc(cell.getStringCellValue());
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("10")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("11")) {
 								dto.setOpenCloseStatu(cell.getStringCellValue());
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("11")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("12")) {
 								dto.setOpendt(cell.getStringCellValue());
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("12")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("13")) {
 								dto.setStatCode(cell.getStringCellValue());
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("13")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("14")) {
 								dto.setStateDesc(cell.getStringCellValue());
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("14")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("15")) {
 								dto.setDistCode(cell.getStringCellValue());
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("15")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("16")) {
 								dto.setDistDesc(cell.getStringCellValue());
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("16")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("17")) {
 								dto.setAddress1(cell.getStringCellValue());
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("17")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("18")) {
 								dto.setAddress2(cell.getStringCellValue());
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("18")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("19")) {
 								dto.setAddress3(cell.getStringCellValue());
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("19")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("20")) {
 								dto.setAddress4(cell.getStringCellValue());
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("20")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("21")) {
 								dto.setPinCode(cell.getStringCellValue());
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("21")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("22")) {
 								dto.setStdCode(cell.getStringCellValue());
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("22")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("23")) {
 								dto.setPhone(cell.getStringCellValue());
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("23")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("24")) {
 								dto.setMicrCode(cell.getStringCellValue());
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("24")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("25")) {
 								dto.setIfsc(cell.getStringCellValue());
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("25")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("26")) {
 								dto.setEmail(cell.getStringCellValue());
 							}
 
-							if (String.valueOf(cell.getColumnIndex()).equals("26")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("27")) {
 								dto.setBranchMgrName(cell.getStringCellValue());
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("27")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("28")) {
 								dto.setBranchMgrMobileNo(cell.getStringCellValue());
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("28")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("29")) {
 								dto.setBusinessHrs(cell.getStringCellValue());
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("29")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("30")) {
 								dto.setOfficeType(cell.getStringCellValue());
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("30")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("31")) {
 								dto.setOfficeDesc(cell.getStringCellValue());
 							}
+							
 							/*
 							 * if (String.valueOf(cell.getColumnIndex()).equals("31")) {
 							 * dto.setModCode(cell.getStringCellValue()); }
 							 */
+							 
 
 							break;
 
@@ -741,96 +801,166 @@ public class UploadServiceImpl implements UploadService {
 					case NUMERIC:
 						if (!(String.valueOf(cell.getRow().getRowNum()).equals("0"))) {
 							
-							  if (String.valueOf(cell.getColumnIndex()).equals("0")) {
-							  dto.setBranchCode((String.valueOf((int)cell.getNumericCellValue()))); }
-							  
-								if (String.valueOf(cell.getColumnIndex()).equals("2")) {
-									dto.setcRCLCode((String.valueOf((int)cell.getNumericCellValue())));
-								}
-								
-								if (String.valueOf(cell.getColumnIndex()).equals("4")) {
-									dto.setNetwork((String.valueOf((int)cell.getNumericCellValue())));
-								}
-								if (String.valueOf(cell.getColumnIndex()).equals("5")) {
-									dto.setModCode((String.valueOf((int)cell.getNumericCellValue())));
-								}
+							/*
+							 * if (String.valueOf(cell.getColumnIndex()).equals("0")) {
+							 * dto.setBranchCode((String.valueOf((int)cell.getNumericCellValue()))); }
+							 * 
+							 * if (String.valueOf(cell.getColumnIndex()).equals("2")) {
+							 * dto.setcRCLCode((String.valueOf((int)cell.getNumericCellValue()))); }
+							 * 
+							 * if (String.valueOf(cell.getColumnIndex()).equals("4")) {
+							 * dto.setNetwork((String.valueOf((int)cell.getNumericCellValue()))); } if
+							 * (String.valueOf(cell.getColumnIndex()).equals("5")) {
+							 * dto.setModCode((String.valueOf((int)cell.getNumericCellValue()))); }
+							 * 
+							 * if (String.valueOf(cell.getColumnIndex()).equals("6")) {
+							 * dto.setModule((String.valueOf((int)cell.getNumericCellValue()))); } if
+							 * (String.valueOf(cell.getColumnIndex()).equals("7")) {
+							 * dto.setRegion((String.valueOf((int)cell.getNumericCellValue()))); } if
+							 * (String.valueOf(cell.getColumnIndex()).equals("8")) {
+							 * dto.setPopGroup((String.valueOf((int)cell.getNumericCellValue()))); } if
+							 * (String.valueOf(cell.getColumnIndex()).equals("9")) {
+							 * dto.setPopDesc((String.valueOf((int)cell.getNumericCellValue()))); } if
+							 * (String.valueOf(cell.getColumnIndex()).equals("10")) {
+							 * dto.setOpenCloseStatu((String.valueOf((int)cell.getNumericCellValue()))); }
+							 * if (String.valueOf(cell.getColumnIndex()).equals("11")) {
+							 * dto.setOpendt((String.valueOf((int)cell.getNumericCellValue()))); } if
+							 * (String.valueOf(cell.getColumnIndex()).equals("12")) {
+							 * dto.setStatCode((String.valueOf((int)cell.getNumericCellValue()))); } if
+							 * (String.valueOf(cell.getColumnIndex()).equals("13")) {
+							 * dto.setStateDesc((String.valueOf((int)cell.getNumericCellValue()))); } if
+							 * (String.valueOf(cell.getColumnIndex()).equals("14")) {
+							 * dto.setDistCode((String.valueOf((int)cell.getNumericCellValue()))); } if
+							 * (String.valueOf(cell.getColumnIndex()).equals("15")) {
+							 * dto.setDistDesc((String.valueOf((int)cell.getNumericCellValue()))); } if
+							 * (String.valueOf(cell.getColumnIndex()).equals("16")) {
+							 * dto.setAddress1((String.valueOf((int)cell.getNumericCellValue()))); } if
+							 * (String.valueOf(cell.getColumnIndex()).equals("17")) {
+							 * dto.setAddress2((String.valueOf((int)cell.getNumericCellValue()))); } if
+							 * (String.valueOf(cell.getColumnIndex()).equals("18")) {
+							 * dto.setAddress3((String.valueOf((int)cell.getNumericCellValue()))); } if
+							 * (String.valueOf(cell.getColumnIndex()).equals("19")) {
+							 * dto.setAddress4((String.valueOf((int)cell.getNumericCellValue()))); } if
+							 * (String.valueOf(cell.getColumnIndex()).equals("20")) {
+							 * dto.setPinCode((String.valueOf((int)cell.getNumericCellValue()))); } if
+							 * (String.valueOf(cell.getColumnIndex()).equals("21")) {
+							 * dto.setStdCode((String.valueOf((int)cell.getNumericCellValue()))); } if
+							 * (String.valueOf(cell.getColumnIndex()).equals("22")) {
+							 * dto.setPhone((String.valueOf((int)cell.getNumericCellValue()))); } if
+							 * (String.valueOf(cell.getColumnIndex()).equals("23")) {
+							 * dto.setMicrCode((String.valueOf((int)cell.getNumericCellValue()))); } if
+							 * (String.valueOf(cell.getColumnIndex()).equals("24")) {
+							 * dto.setIfsc((String.valueOf((int)cell.getNumericCellValue()))); } if
+							 * (String.valueOf(cell.getColumnIndex()).equals("25")) {
+							 * dto.setEmail((String.valueOf((int)cell.getNumericCellValue()))); }
+							 * 
+							 * if (String.valueOf(cell.getColumnIndex()).equals("26")) {
+							 * dto.setBranchMgrName((String.valueOf((int)cell.getNumericCellValue()))); } if
+							 * (String.valueOf(cell.getColumnIndex()).equals("27")) {
+							 * dto.setBranchMgrMobileNo((String.valueOf((int)cell.getNumericCellValue())));
+							 * } if (String.valueOf(cell.getColumnIndex()).equals("28")) {
+							 * dto.setBusinessHrs((String.valueOf((int)cell.getNumericCellValue()))); } if
+							 * (String.valueOf(cell.getColumnIndex()).equals("29")) {
+							 * dto.setOfficeType((String.valueOf((int)cell.getNumericCellValue()))); } if
+							 * (String.valueOf(cell.getColumnIndex()).equals("30")) {
+							 * dto.setOfficeDesc((String.valueOf((int)cell.getNumericCellValue()))); }
+							 */
+							
+							        if (String.valueOf(cell.getColumnIndex()).equals("1")) {
+								       dto.setcRCLName((String.valueOf((int)cell.getNumericCellValue()))); }
+								  
+									if (String.valueOf(cell.getColumnIndex()).equals("2")) {
+										dto.setNetwork((String.valueOf((int)cell.getNumericCellValue())));
+									}
+									if (String.valueOf(cell.getColumnIndex()).equals("3")) {
+										dto.setModCode((String.valueOf((int)cell.getNumericCellValue())));
+									}
 
-								if (String.valueOf(cell.getColumnIndex()).equals("6")) {
-									dto.setModule((String.valueOf((int)cell.getNumericCellValue())));
-								}
-								if (String.valueOf(cell.getColumnIndex()).equals("7")) {
-									dto.setRegion((String.valueOf((int)cell.getNumericCellValue())));
-								}
-								if (String.valueOf(cell.getColumnIndex()).equals("8")) {
-									dto.setPopGroup((String.valueOf((int)cell.getNumericCellValue())));
-								}
-								if (String.valueOf(cell.getColumnIndex()).equals("9")) {
-									dto.setPopDesc((String.valueOf((int)cell.getNumericCellValue())));
-								}
-								if (String.valueOf(cell.getColumnIndex()).equals("10")) {
-									dto.setOpenCloseStatu((String.valueOf((int)cell.getNumericCellValue())));
-								}
-								if (String.valueOf(cell.getColumnIndex()).equals("11")) {
-									dto.setOpendt((String.valueOf((int)cell.getNumericCellValue())));
-								}
-								if (String.valueOf(cell.getColumnIndex()).equals("12")) {
-									dto.setStatCode((String.valueOf((int)cell.getNumericCellValue())));
-								}
-								if (String.valueOf(cell.getColumnIndex()).equals("13")) {
-									dto.setStateDesc((String.valueOf((int)cell.getNumericCellValue())));
-								}
-								if (String.valueOf(cell.getColumnIndex()).equals("14")) {
-									dto.setDistCode((String.valueOf((int)cell.getNumericCellValue())));
-								}
-								if (String.valueOf(cell.getColumnIndex()).equals("15")) {
-									dto.setDistDesc((String.valueOf((int)cell.getNumericCellValue())));
-								}
-								if (String.valueOf(cell.getColumnIndex()).equals("16")) {
-									dto.setAddress1((String.valueOf((int)cell.getNumericCellValue())));
-								}
-								if (String.valueOf(cell.getColumnIndex()).equals("17")) {
-									dto.setAddress2((String.valueOf((int)cell.getNumericCellValue())));
-								}
-								if (String.valueOf(cell.getColumnIndex()).equals("18")) {
-									dto.setAddress3((String.valueOf((int)cell.getNumericCellValue())));
-								}
-								if (String.valueOf(cell.getColumnIndex()).equals("19")) {
-									dto.setAddress4((String.valueOf((int)cell.getNumericCellValue())));
-								}
-								if (String.valueOf(cell.getColumnIndex()).equals("20")) {
-									dto.setPinCode((String.valueOf((int)cell.getNumericCellValue())));
-								}
-								if (String.valueOf(cell.getColumnIndex()).equals("21")) {
-									dto.setStdCode((String.valueOf((int)cell.getNumericCellValue())));
-								}
-								if (String.valueOf(cell.getColumnIndex()).equals("22")) {
-									dto.setPhone((String.valueOf((int)cell.getNumericCellValue())));
-								}
-								if (String.valueOf(cell.getColumnIndex()).equals("23")) {
-									dto.setMicrCode((String.valueOf((int)cell.getNumericCellValue())));
-								}
-								if (String.valueOf(cell.getColumnIndex()).equals("24")) {
-									dto.setIfsc((String.valueOf((int)cell.getNumericCellValue())));
-								}
-								if (String.valueOf(cell.getColumnIndex()).equals("25")) {
-									dto.setEmail((String.valueOf((int)cell.getNumericCellValue())));
-								}
+									if (String.valueOf(cell.getColumnIndex()).equals("4")) {
+										dto.setModule((String.valueOf((int)cell.getNumericCellValue())));
+									}
+									if (String.valueOf(cell.getColumnIndex()).equals("5")) {
+										dto.setRegion((String.valueOf((int)cell.getNumericCellValue())));
+									}
+									if (String.valueOf(cell.getColumnIndex()).equals("6")) {
+										dto.setBranchCode((String.valueOf((int)cell.getNumericCellValue())));
+									}
+									if (String.valueOf(cell.getColumnIndex()).equals("7")) {
+										dto.setBranchName((String.valueOf((int)cell.getNumericCellValue())));
+									}
+									if (String.valueOf(cell.getColumnIndex()).equals("8")) {
+										dto.setcRCLCode((String.valueOf((int)cell.getNumericCellValue())));
+									}
+									if (String.valueOf(cell.getColumnIndex()).equals("9")) {
+										dto.setPopGroup((String.valueOf((int)cell.getNumericCellValue())));
+									}
+									if (String.valueOf(cell.getColumnIndex()).equals("10")) {
+										dto.setPopDesc((String.valueOf((int)cell.getNumericCellValue())));
+									}
+									if (String.valueOf(cell.getColumnIndex()).equals("11")) {
+										dto.setOpenCloseStatu((String.valueOf((int)cell.getNumericCellValue())));
+									}
+									if (String.valueOf(cell.getColumnIndex()).equals("12")) {
+										dto.setOpendt((String.valueOf((int)cell.getNumericCellValue())));
+									}
+									if (String.valueOf(cell.getColumnIndex()).equals("13")) {
+										dto.setStatCode((String.valueOf((int)cell.getNumericCellValue())));
+									}
+									if (String.valueOf(cell.getColumnIndex()).equals("14")) {
+										dto.setStateDesc((String.valueOf((int)cell.getNumericCellValue())));
+									}
+									if (String.valueOf(cell.getColumnIndex()).equals("15")) {
+										dto.setDistCode((String.valueOf((int)cell.getNumericCellValue())));
+									}
+									if (String.valueOf(cell.getColumnIndex()).equals("16")) {
+										dto.setDistDesc((String.valueOf((int)cell.getNumericCellValue())));
+									}
+									if (String.valueOf(cell.getColumnIndex()).equals("17")) {
+										dto.setAddress1((String.valueOf((int)cell.getNumericCellValue())));
+									}
+									if (String.valueOf(cell.getColumnIndex()).equals("18")) {
+										dto.setAddress2((String.valueOf((int)cell.getNumericCellValue())));
+									}
+									if (String.valueOf(cell.getColumnIndex()).equals("19")) {
+										dto.setAddress3((String.valueOf((int)cell.getNumericCellValue())));
+									}
+									if (String.valueOf(cell.getColumnIndex()).equals("20")) {
+										dto.setAddress4((String.valueOf((int)cell.getNumericCellValue())));
+									}
+									if (String.valueOf(cell.getColumnIndex()).equals("21")) {
+										dto.setPinCode((String.valueOf((int)cell.getNumericCellValue())));
+									}
+									if (String.valueOf(cell.getColumnIndex()).equals("22")) {
+										dto.setStdCode((String.valueOf((int)cell.getNumericCellValue())));
+									}
+									if (String.valueOf(cell.getColumnIndex()).equals("23")) {
+										dto.setPhone((String.valueOf((int)cell.getNumericCellValue())));
+									}
+									if (String.valueOf(cell.getColumnIndex()).equals("24")) {
+										dto.setMicrCode((String.valueOf((int)cell.getNumericCellValue())));
+									}
+									if (String.valueOf(cell.getColumnIndex()).equals("25")) {
+										dto.setIfsc((String.valueOf((int)cell.getNumericCellValue())));
+									}
+									if (String.valueOf(cell.getColumnIndex()).equals("26")) {
+										dto.setEmail((String.valueOf((int)cell.getNumericCellValue())));
+									}
 
-								if (String.valueOf(cell.getColumnIndex()).equals("26")) {
-									dto.setBranchMgrName((String.valueOf((int)cell.getNumericCellValue())));
-								}
-								if (String.valueOf(cell.getColumnIndex()).equals("27")) {
-									dto.setBranchMgrMobileNo((String.valueOf((int)cell.getNumericCellValue())));
-								}
-								if (String.valueOf(cell.getColumnIndex()).equals("28")) {
-									dto.setBusinessHrs((String.valueOf((int)cell.getNumericCellValue())));
-								}
-								if (String.valueOf(cell.getColumnIndex()).equals("29")) {
-									dto.setOfficeType((String.valueOf((int)cell.getNumericCellValue())));
-								}
-								if (String.valueOf(cell.getColumnIndex()).equals("30")) {
-									dto.setOfficeDesc((String.valueOf((int)cell.getNumericCellValue())));
-								}
+									if (String.valueOf(cell.getColumnIndex()).equals("27")) {
+										dto.setBranchMgrName((String.valueOf((int)cell.getNumericCellValue())));
+									}
+									if (String.valueOf(cell.getColumnIndex()).equals("28")) {
+										dto.setBranchMgrMobileNo((String.valueOf((int)cell.getNumericCellValue())));
+									}
+									if (String.valueOf(cell.getColumnIndex()).equals("29")) {
+										dto.setBusinessHrs((String.valueOf((int)cell.getNumericCellValue())));
+									}
+									if (String.valueOf(cell.getColumnIndex()).equals("30")) {
+										dto.setOfficeType((String.valueOf((int)cell.getNumericCellValue())));
+									}
+									if (String.valueOf(cell.getColumnIndex()).equals("31")) {
+										dto.setOfficeDesc((String.valueOf((int)cell.getNumericCellValue())));
+									}
 
 							
 							break;
@@ -960,7 +1090,7 @@ public class UploadServiceImpl implements UploadService {
 					entity.setBranchMgrName(listDto1.getBranchMgrName());
 					entity.setBranchMgrMobileNo(listDto1.getBranchMgrMobileNo());
 					entity.setCircleName(listDto1.getcRCLName());
-					entity.setCircle(listDto1.getcRCLCode());
+				//	entity.setCircle(listDto1.getcRCLCode());
 					entity.setRegion(listDto1.getRegion());
 					entity.setBusinessHrs(listDto1.getBusinessHrs());
 					// entity.setDistCode(listDto1.getDistCode().substring(0,
@@ -1061,7 +1191,7 @@ public class UploadServiceImpl implements UploadService {
 					entity.setBranchMgrName(listDto1.getBranchMgrName());
 					entity.setBranchMgrMobileNo(listDto1.getBranchMgrMobileNo());
 					entity.setCircleName(listDto1.getcRCLName());
-					entity.setCircle(listDto1.getcRCLCode());
+				//	entity.setCircle(listDto1.getcRCLCode());
 					entity.setRegion(listDto1.getRegion());
 					entity.setBusinessHrs(listDto1.getBusinessHrs());
 					entity.setDistCode(listDto1.getDistCode());
@@ -1248,25 +1378,31 @@ public class UploadServiceImpl implements UploadService {
 
 					if (!(String.valueOf(cell.getRow().getRowNum()).equals("0"))) {
 
-						if (String.valueOf(cell.getColumnIndex()).equals("0")) {
+						if (String.valueOf(cell.getColumnIndex()).equals("1")) {
 							String cellValueStr = objDefaultFormat.formatCellValue(cell, objFormulaEvaluator);
 							dto.setHolidayDate(cellValueStr);
 						}
 
-						if (String.valueOf(cell.getColumnIndex()).equals("1")) {
+						if (String.valueOf(cell.getColumnIndex()).equals("2")) {
 							dto.setDay(cell.getStringCellValue());
 						}
 
-						if (String.valueOf(cell.getColumnIndex()).equals("2")) {
+						if (String.valueOf(cell.getColumnIndex()).equals("3")) {
 							dto.setName(cell.getStringCellValue());
 						}
 
-						if (String.valueOf(cell.getColumnIndex()).equals("3")) {
+						if (String.valueOf(cell.getColumnIndex()).equals("4")) {
 							dto.setCircle(cell.getStringCellValue());
 						}
 
-						if (String.valueOf(cell.getColumnIndex()).equals("4")) {
+						if (String.valueOf(cell.getColumnIndex()).equals("5")) {
 							dto.setState(cell.getStringCellValue());
+						}
+						if (String.valueOf(cell.getColumnIndex()).equals("6")) {
+							dto.setFinYr(cell.getStringCellValue());
+						}
+						if (String.valueOf(cell.getColumnIndex()).equals("7")) {
+							dto.setQuarter(cell.getStringCellValue());
 						}
 
 					}
@@ -1290,6 +1426,8 @@ public class UploadServiceImpl implements UploadService {
 					entity.setName(lidtDto1.getName());// null
 					entity.setCircle(lidtDto1.getCircle());
 					entity.setState(lidtDto1.getState());
+					entity.setFinYr(lidtDto1.getFinYr());
+					entity.setQuarter(lidtDto1.getQuarter());
 					listEntity.add(entity);
 				}
 				count++;
@@ -1317,6 +1455,8 @@ public class UploadServiceImpl implements UploadService {
 					entity.setName(lidtDto1.getName());// null
 					entity.setCircle(lidtDto1.getCircle());
 					entity.setState(lidtDto1.getState());
+					entity.setFinYr(lidtDto1.getFinYr());
+					entity.setQuarter(lidtDto1.getQuarter());
 					listEntity1.add(entity);
 					//HolidayCalendarxlsx(listEntity1);
 
@@ -1360,7 +1500,7 @@ public class UploadServiceImpl implements UploadService {
 		XSSFWorkbook workbook1 = new XSSFWorkbook();
         String filename ="Holiday_Calendar.xlsx" ;
 		XSSFSheet sheet = workbook1.createSheet("HolidayCalendar");
-		String[] columns = {"Date", "Day","Name","Circle","State"};
+		String[] columns = {"Date", "Day","Name","Circle","State","FIN_YR","QUARTER"};
 		
 		Font headerFont = workbook1.createFont();
         headerFont.setBold(true);
@@ -1439,10 +1579,10 @@ public class UploadServiceImpl implements UploadService {
 						if (!(String.valueOf(cell.getRow().getRowNum()).equals("0"))) {
 						
 
-							if (String.valueOf(cell.getColumnIndex()).equals("0")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("1")) {
 								dto.setCmfPfId(cell.getStringCellValue());
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("1")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("2")) {
 							
 								dto.setKioskId(cell.getStringCellValue());
 							}
@@ -1451,11 +1591,11 @@ public class UploadServiceImpl implements UploadService {
 						break;
 					case NUMERIC:
 						if (!(String.valueOf(cell.getRow().getRowNum()).equals("0"))) {
-							if (String.valueOf(cell.getColumnIndex()).equals("0")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("1")) {
 							
 								dto.setCmfPfId((String.valueOf((int)cell.getNumericCellValue())));
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("1")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("2")) {
 							
 								dto.setKioskId((String.valueOf((int)cell.getNumericCellValue())));
 							}

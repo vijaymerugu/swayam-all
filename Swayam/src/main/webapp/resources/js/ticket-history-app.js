@@ -95,31 +95,20 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
        $scope.LoadCategory();
 	   // $scope.LoadDate();
 	   
+
 	   
-	   $scope.Reset = function(kioskId,CallLogDateId,CategoryId,CircelId,CallClosedDateId,SubCategoryId,BranchId,VendorId) {
-	   
-	   console.log("CircelId " + CircelId);
-				selectedKioskId=kioskId;
-				selectedCallLogDateId=CallLogDateId;
-				selectedCategoryId=CategoryId;
-				selectedCircelId = CircelId;
-				selectedCallClosedDateId=CallClosedDateId;
-				selectedSubCategoryId=SubCategoryId;
-				selectedBranchCode=BranchId;
-			    selectedVendorId=VendorId;
-			    
-			     selectedKioskId="";
-				selectedCallLogDateId="";
-				selectedCategoryId="";
-				selectedCircelId = "";
-				selectedCallClosedDateId="";
-				selectedSubCategoryId="";
-				selectedBranchCode="";
-			    selectedVendorId="";
-			    
-			    
-	   
-	   }
+	   $scope.resetPositions=function(){
+		        console.log("Inside resetPositions ");
+				$scope.kioskId ='';
+				$scope.branchCode ='';	
+				$scope.SelectedCallLogDateId ='';
+		    	$scope.SelectedCategoryId ='';		
+		    	$scope.SelectedCircelId =''; 
+		    	$scope.SelectedCallClosedDateId ='';
+		    	$scope.SelectedSubCategoryId ='';
+		    	
+		    	$scope.SelectedVendorId ='';
+		       }
 	   
 	   
 		

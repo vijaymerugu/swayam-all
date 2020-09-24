@@ -15,7 +15,7 @@ public class BranchMasterDto {
 	
 	public BranchMasterDto(BranchMaster branchMaster) {
 		this.brId = branchMaster.getBrId();
-		this.circle = branchMaster.getCircle();
+		//this.circle = branchMaster.getCircle();
 		this.circleName = branchMaster.getCircleName();
 		this.network = branchMaster.getNetwork();
 		this.module = branchMaster.getModule();
@@ -51,7 +51,7 @@ public class BranchMasterDto {
 
 
 	private Integer brId;
-	private String circle;
+	//private String circle;
 	private String circleName;
 	private String network;
 	private String module;

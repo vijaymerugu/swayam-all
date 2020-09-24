@@ -21,11 +21,11 @@
 					<p style="text-align: center">
 						<span style="background-color: #A0B421">&nbsp;&nbsp;&nbsp;</span>&nbsp;1 day
 						<span style="display: inline-block; margin-left: 40px;"></span>
-						<span style="background-color: #D7FF33">&nbsp;&nbsp;&nbsp;</span>&nbsp;2 - 5 days
+						<span style="background-color: #33B2FF">&nbsp;&nbsp;&nbsp;</span>&nbsp;2 - 5 days
 						<span style="display: inline-block; margin-left: 40px;"></span>
 						<span style="background-color: #FFE933">&nbsp;&nbsp;&nbsp;</span>&nbsp;1 week
 						<span style="display: inline-block; margin-left: 40px;"></span>
-						<span style="background-color: #FF6433">&nbsp;&nbsp;&nbsp;</span>&nbsp;1 - 2 weeks
+						<span style="background-color: #DB23F5">&nbsp;&nbsp;&nbsp;</span>&nbsp;1 - 2 weeks
 						<span style="display: inline-block; margin-left: 40px;"></span>
 						<span style="background-color: #ED402A">&nbsp;&nbsp;&nbsp;</span>&nbsp;Greater than 2 weeks
 					</p>

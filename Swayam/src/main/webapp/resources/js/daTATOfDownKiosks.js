@@ -65,16 +65,16 @@ app.controller('daTATOfDownKiosksController', ['$scope','$interval','$http','daT
 					        data: tempData[nonNullCounter-1].rowData,
 					        backgroundColor: [
 					        	'#A0B421',
-					        	'#D7FF33',
+					        	'#33B2FF',
 					        	'#FFE933',
-					        	'#FF6433',
+					        	'#DB23F5',
 					        	'#ED402A'
 					        ],
 					        borderColor: [
 					        	'#A0B421',
-					        	'#D7FF33',
+					        	'#33B2FF',
 					        	'#FFE933',
-					        	'#FF6433',
+					        	'#DB23F5',
 					        	'#ED402A'
 					        ],
 					        borderWidth: [1, 1]

@@ -13,6 +13,7 @@
 <script src="resources/js/bootstrap.3.1.1.min.js"></script>
 <link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
 
+
 <!-- <link rel="stylesheet" href="resources/css/grid-style.css" /> -->
 <link rel="stylesheet" href="resources/css/body-page.css" />
  <link rel="stylesheet" href="resources/css/notification.css" /> 
@@ -24,6 +25,7 @@
 
 <!-- <script src="resources/js/ui-grid.js"></script>
 <script src="resources/js/ui-grid.min.js"></script> -->
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
@@ -92,6 +94,7 @@
 										<!-- <div id="notificationFooter">
 											<a href="#" id='AddNew' data-ng-click="addNotification()">Add
 												New Message</a>
+
 										</div>
  -->									</div></li>
 							</ul>
@@ -148,11 +151,13 @@
 							//END HERE.
 						}
 					}
+
 					$http.get('common/menu').then(function(data) {
 						$scope.SiteMenu = data.data;
 					}, function(error) {
 						alert('Error');
 					})
+
 					
 					loadNotificationMessages();
 					function loadNotificationMessages(){
@@ -179,6 +184,7 @@
 				 };
 					
 				} ]);
+
 		var ddmenuitem = 0;
 		function jsddm_open() {
 			jsddm_close();
@@ -233,14 +239,17 @@
         $('#notificationLink > i.fa-bell').removeClass('fa-bell');
         return false;
     });
+
     //Document Click hiding the popup 
     $(document).click(function () {
         $("#notificationContainer").hide();
     });
+
     //Popup on click
     $("#notificationContainer").click(function () {
         return false;
     });
+
 						});
 	</script>
 
@@ -252,4 +261,6 @@
 <html lang="en">
 <body>
 	<div id="contentHomeApp"></div>
+
 </html>
+
