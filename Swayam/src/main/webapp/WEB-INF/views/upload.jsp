@@ -92,7 +92,7 @@
         var fd = new FormData();
          var files = $('#myFile')[0].files[0];
         fd.append('myFile',files);
-        console.log("2"+fd);
+        console.log("2"+fd); 
         $.ajax({
             url: 'uploadHolidayCalendar',
             type: 'post',
@@ -156,7 +156,8 @@
 	     			window.open("resources/download/Kiosk_CMF.xlsx" , '_blank');  
 	     		}
 	     		else{
-	     			$("#para").html("Kiosk Details Data Uploaded Successfully"); 
+	     			$("#para").html("Kiosk CMF Data Uploaded Successfully"); 
+	     			
 		     		 modal.style.display = "block"; 
 		     	}
 	     		//alert(data1);          
@@ -197,7 +198,7 @@
 		     		window.open("resources/download/Kiosk_Branch_Master.xlsx" , '_blank');    
 	     		}
 	     		else{
-	     			$("#para").html("Kiosk CMF Data Uploaded Successfully"); 
+	     			$("#para").html("Kiosk Details Data Uploaded Successfully"); 
 		     		 modal.style.display = "block"; 
 		     	}  
 	        	            
@@ -209,7 +210,7 @@
  
   $(document).ready(function(){
 
-    $(".openPopupAssignCBS").click(function(){
+    $(".openPopupAssignCBS").click(function(){ 
     	var modal = document.getElementById("myModal");
         var fd = new FormData();
          var files = $('#BMFile')[0].files[0];
@@ -264,9 +265,9 @@ input[type=button], input[type=submit], input[type=reset] {
 	color: black;
 	padding: 6px 12px;
 	text-decoration: none;
-	margin: 4px 2px;
+	margin: 1px 45px;
 	cursor: pointer;
-} -->
+} 
 </style>
 
 <style>
@@ -284,6 +285,7 @@ input[type=button], input[type=submit], input[type=reset] {
   float: left;
   width: 15%;
   padding: 1px;
+  margin:10px 13px;
 }
 
 .columnSubmit {
