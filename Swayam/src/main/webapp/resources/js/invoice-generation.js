@@ -15,6 +15,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	    	   	$scope.SelectedQuarterId='';
 	    	   	$scope.SelectedYearId ='';
 	    	   	$scope.SelectedVendorId='';
+	    	   	$scope.RfpId='';
 				selectedRfpID="";
 				
 				InvoiceGenerationService
@@ -161,6 +162,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 							}).success(function(data, status) {
 								console.log("Done Inside comm/getcities .....")
 								$scope.States = data;
+								$scope.SelectedStateId = "";
 								console.log("data...." +data)
 							}).error(function(data, status) {
 								console.log("error....." + value)
@@ -220,7 +222,23 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 				else{
 					selectedRfpID= RfpId;
 					console.log("Inside else RfID " + selectedRfpID);
-				}	
+				}
+				
+				
+
+				if(typeof StateId === 'undefined') {
+					
+					selectedStateId= "0";
+					console.log("Inside if RfID " + selectedStateId);
+				}else if(StateId==''){
+					selectedStateId= "0";
+					console.log("Inside else if RfID " + selectedStateId);
+					
+				}
+				else{
+					selectedStateId= StateId;
+					console.log("Inside else RfID " + selectedStateId);
+				}
 				
 				quterTimePeriod=(selectedQuarterId.toUpperCase())+'-'+selectedYearId;
 				console.log("selectedCircelId " + selectedCircelId);
@@ -360,7 +378,6 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	          url: 'invoicegenaration/get?page='+pageNumber+
 	     '&size='+size+'&type='+counttype+'&selectedCircelId='+selectedCircelId+'&selectedStateId='+selectedStateId+
 	          '&quterTimePeriod='+quterTimePeriod+'&selectedVendorId='+selectedVendorId+'&selectedRfpID='+selectedRfpID
-	          
 	         
 	        });
 	    }

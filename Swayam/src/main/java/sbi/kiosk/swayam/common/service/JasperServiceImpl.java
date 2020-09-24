@@ -284,6 +284,14 @@ public class JasperServiceImpl implements JasperService {
 				logger.info("PDF File bpReport !!");
 				
 				List<BillingPenaltyDto> list = findBillingPenaltyReport();
+				
+				if(list.isEmpty()) {
+					
+					
+					return filename;
+				}else {
+					
+				
 				File file = ResourceUtils.getFile(jrxmlPath + "bpPenalty.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
@@ -293,11 +301,17 @@ public class JasperServiceImpl implements JasperService {
 				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 				filename = "BillingPenalty_" + timeStamp + ".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+				}
 			}else if(identifyPage.equals("invoiceReport")) {
 				logger.info("PDF File InvoiceGenarationReport !!");
 				
 				
 				List<InvoiceGenerationDto> list = findInvoiceGenerationReport();
+				if(list.isEmpty()) {
+					
+					
+					return filename;
+				}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "invoiceReport.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
@@ -307,13 +321,19 @@ public class JasperServiceImpl implements JasperService {
 				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 				filename = "InvoiceGeneration_" + timeStamp + ".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+				}
 			}
 			
 			else if(identifyPage.equals("invoiceCompareReport")) {
 				logger.info("PDF File InvoiceCompareReport !!");
-				
-				
 				List<InvoiceCompareDto> list = findInvoiceCompareReport();
+				if(list.isEmpty()) {
+					
+					
+					return filename;
+				}else {
+				
+				
 				File file = ResourceUtils.getFile(jrxmlPath + "invoiceCompareReport.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
@@ -323,11 +343,17 @@ public class JasperServiceImpl implements JasperService {
 				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 				filename = "InvoiceCompare_" + timeStamp + ".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+				}
 			}else if(identifyPage.equals("invoiceSummaryReport")) {
 				logger.info("PDF File InvoiceSummaryReport !!");
-				
-				
 				List<InvoiceSummaryDto> list = findInvoiceSummaryReport();
+				if(list.isEmpty()) {
+					
+					
+					return filename;
+				}else {
+				
+				
 				File file = ResourceUtils.getFile(jrxmlPath + "invoiceSummary.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
@@ -337,6 +363,7 @@ public class JasperServiceImpl implements JasperService {
 				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 				filename = "InvoiceSummary_" + timeStamp + ".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+				}
 			}
 
 			else if (identifyPage.equals("realTimeToday")) {
@@ -566,6 +593,11 @@ public class JasperServiceImpl implements JasperService {
 				logger.info("Excel File bpReport !!");
 				
 				List<BillingPenaltyDto> list = findBillingPenaltyReport();
+				if(list.isEmpty()) {
+					
+					
+					return filename;
+				}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "bpPenalty.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
@@ -575,10 +607,16 @@ public class JasperServiceImpl implements JasperService {
 				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 				filename = "BillingPenalty_" + timeStamp + ".xlsx";
 				xlsx(jasperPrint, filename);
+				}
 			}else if(identifyPage.equals("invoiceReport")) {
 				logger.info("Excel File InvoiceGenarationReport !!");
 				
 				List<InvoiceGenerationDto> list = findInvoiceGenerationReport();
+				if(list.isEmpty()) {
+					
+					
+					return filename;
+				}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "invoiceReport.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
@@ -588,12 +626,18 @@ public class JasperServiceImpl implements JasperService {
 				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 				filename = "InvoiceGeneration_" + timeStamp + ".xlsx";
 				xlsx(jasperPrint, filename);
+				}
 			}
 			else if(identifyPage.equals("invoiceCompareReport")) {
 				logger.info("Excel File InvoiceCompareReport !!");
 				
 				
 				List<InvoiceCompareDto> list = findInvoiceCompareReport();
+				if(list.isEmpty()) {
+					
+					
+					return filename;
+				}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "invoiceCompareReport.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
@@ -603,11 +647,17 @@ public class JasperServiceImpl implements JasperService {
 				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 				filename = "InvoiceCompare_" + timeStamp + ".xlsx";
 				xlsx(jasperPrint, filename);
+			}
 			}else if(identifyPage.equals("invoiceSummaryReport")) {
 				logger.info("Excel File InvoiceSummaryReport !!");
 				
 				
 				List<InvoiceSummaryDto> list = findInvoiceSummaryReport();
+				if(list.isEmpty()) {
+					
+					
+					return filename;
+				}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "invoiceSummary.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
@@ -617,6 +667,7 @@ public class JasperServiceImpl implements JasperService {
 				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 				filename = "InvoiceSummary_" + timeStamp + ".xlsx";
 				xlsx(jasperPrint, filename);
+				}
 			}
 
 			else if (identifyPage.equals("realTimeToday")) {
@@ -1206,11 +1257,23 @@ public class JasperServiceImpl implements JasperService {
 			}
 
 		}
-  
 		
-		List<BillingPenaltyDto> entities = ObjectMapperUtils.mapAll(list, BillingPenaltyDto.class);
- 
+		System.out.println("List ----" + list);
 		
+		System.out.println(list.isEmpty());
+		List<BillingPenaltyDto> entities = null;
+		
+		/*
+		 * if(list.isEmpty()) {
+		 * 
+		 * return entities; }else {
+		 * 
+		 * entities = ObjectMapperUtils.mapAll(list, BillingPenaltyDto.class);
+		 * 
+		 * }
+		 */
+		
+		entities = ObjectMapperUtils.mapAll(list, BillingPenaltyDto.class);
 		return entities;
 	}
 
@@ -1330,14 +1393,14 @@ public class JasperServiceImpl implements JasperService {
 
 	@Override
 	public List<InvoiceSummaryDto> findInvoiceSummaryReport() {
-		logger.info("Inside==Jasper====findInvoiceGenerationReport===========");
+		logger.info("Inside==Jasper====findInvoiceSummaryReport===========");
 		logger.info(report.getCircle());
 		logger.info(report.getState());
 		logger.info(report.getTimePeiod());
 		String circle =null;
 		String state=null;
 		String timePeriod= null;
-		if((report.getCircle()!= "") && (report.getState()!= "")  && (report.getVendor()!= "") ) {
+		if((report.getCircle()!= "") && (report.getTimePeiod()!= "") ) {
 			circle =report.getCircle();
 			state=report.getState();
 			timePeriod= report.getTimePeiod();
