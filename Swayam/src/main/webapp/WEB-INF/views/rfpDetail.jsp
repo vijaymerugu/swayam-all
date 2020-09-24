@@ -162,8 +162,12 @@ Include Date Range Picker
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
-                        <input type="text" maxlength="23" ng-model="selectedRfpNo" name="rfpno" 
-                         placeholder="" required/>
+                        <input type="text" maxlength="23" ng-model="selectedRfpNo" name="rfpno" ng-pattern="/^[A-Z]{3}\:[A-Z]{2}\:[A-Z]{3}\:[A-Z]{2}\:\d{2}\-\d{2}\:[0-9]{3}$/"  
+                          placeholder="" required/>
+                    </div>
+                    <div class="col-xs-6">
+                    <span ng-show="rfpForm.rfpno.$error.pattern">Valid format required!</span>
+                    <span ng-show="rfpForm.rfpno..$error.required">eg:SBI:AC:ECR:RB:17-18:972</span>
                     </div>
                 </div>
 	        </td>
@@ -174,7 +178,7 @@ Include Date Range Picker
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
-                         <input type="text"  ng-model="selectedRfpid" name="rfpid" 
+                         <input type="number" min="0" max="99" ng-model="selectedRfpid" name="rfpid" 
                          placeholder="" required/>
                     </div>
                 </div>                                
