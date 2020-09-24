@@ -184,12 +184,12 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 			 }
 		 }
 		 
-		 if(dto.getBranchCode() !=null){
-			 BranchMaster branchMaster	 = branchMasterRepository.findByBranchCode(dto.getBranchCode());
-			 if(branchMaster !=null && branchMaster.getCircle() !=null && branchMaster.getCircle() !=""){
-				 dto.setCircle(branchMaster.getCircle());
-			 }
-		 }
+			
+			  if(dto.getBranchCode() !=null){ BranchMaster branchMaster =
+			  branchMasterRepository.findByBranchCode(dto.getBranchCode()); if(branchMaster
+			  !=null && branchMaster.getCircleName() !=null && branchMaster.getCircleName() !=""){
+			  dto.setCircle(branchMaster.getCircleName()); } }
+			 
 	 }
 	 
 	 
@@ -216,12 +216,12 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 			 }
 		 }
 		 
-		 if(dto.getBranchCode() !=null){
-			 BranchMaster branchMaster	 = branchMasterRepository.findByBranchCode(dto.getBranchCode());
-			 if(branchMaster !=null && branchMaster.getCircle() !=null && branchMaster.getCircle() !=""){
-				 dto.setCircle(branchMaster.getCircle());
-			 }
-		 }
+			
+			  if(dto.getBranchCode() !=null){ BranchMaster branchMaster =
+			  branchMasterRepository.findByBranchCode(dto.getBranchCode()); if(branchMaster
+			  !=null && branchMaster.getCircleName() !=null && branchMaster.getCircleName() !=""){
+			  dto.setCircle(branchMaster.getCircleName()); } }
+			 
 	 }
 	 
 	 
@@ -268,12 +268,12 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 			 }
 		 }
 		 
-		 if(dto.getBranchCode() !=null){
-			 BranchMaster branchMaster	 = branchMasterRepository.findByBranchCode(dto.getBranchCode());
-			 if(branchMaster !=null && branchMaster.getCircle() !=null && branchMaster.getCircle() !=""){
-				 dto.setCircle(branchMaster.getCircle());
-			 }
-		 }
+			
+			  if(dto.getBranchCode() !=null){ BranchMaster branchMaster =
+			  branchMasterRepository.findByBranchCode(dto.getBranchCode()); if(branchMaster
+			  !=null && branchMaster.getCircleName() !=null && branchMaster.getCircleName() !=""){
+			  dto.setCircle(branchMaster.getCircleName()); } }
+			 
 	 }
 	 
 
@@ -319,12 +319,12 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 			 }
 		 }
 		 
-		 if(dto.getBranchCode() !=null){
-			 BranchMaster branchMaster	 = branchMasterRepository.findByBranchCode(dto.getBranchCode());
-			 if(branchMaster !=null && branchMaster.getCircle() !=null && branchMaster.getCircle() !=""){
-				 dto.setCircle(branchMaster.getCircle());
-			 }
-		 }
+			
+			  if(dto.getBranchCode() !=null){ BranchMaster branchMaster =
+			  branchMasterRepository.findByBranchCode(dto.getBranchCode()); if(branchMaster
+			  !=null && branchMaster.getCircleName() !=null && branchMaster.getCircleName() !=""){
+			  dto.setCircle(branchMaster.getCircleName()); } }
+			 
 	 }
 	 
 
@@ -341,9 +341,10 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 		KioskBranchMasterUserDto dto = new KioskBranchMasterUserDto(entity);
 		if(entity.getBranchCode() !=null){
 		 BranchMaster branchMaster	 = branchMasterRepository.findByBranchCode(entity.getBranchCode());
-		 if(branchMaster !=null && branchMaster.getCircle() !=null && branchMaster.getCircle() !=""){
-			 dto.setCircle(branchMaster.getCircle());
-		 }
+			
+			  if(branchMaster !=null && branchMaster.getCircleName() !=null &&
+			  branchMaster.getCircleName() !=""){ dto.setCircle(branchMaster.getCircleName()); }
+			 
 		}
 		
 		return dto;

@@ -18,6 +18,21 @@ public class KioskDto {
 	private String oS;	
 	private String make;
 	private String installationStatus;
+	private String rfpID;
+	private String installationType;
+	
+	public String getRfpID() {
+		return rfpID;
+	}
+	public void setRfpID(String rfpID) {
+		this.rfpID = rfpID;
+	}
+	public String getInstallationType() {
+		return installationType;
+	}
+	public void setInstallationType(String installationType) {
+		this.installationType = installationType;
+	}
 	public String getSrNo() {
 		return srNo;
 	}

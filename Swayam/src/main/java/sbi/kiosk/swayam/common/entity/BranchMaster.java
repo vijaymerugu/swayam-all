@@ -13,7 +13,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name="TBL_BRANCH_MASTER")
-public class BranchMaster {
+public class BranchMaster extends Common{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_TBL_BRANCH_MASTER")
@@ -21,14 +21,15 @@ public class BranchMaster {
 	@Column(name="BR_ID")
 	private Integer brId;
 	
-	@Column(name="CIRCLE")
-	private String circle;
+//	@Column(name="CIRCLE")
+//	private String circle;
 	
 	@Column(name="CRCL_NAME")
 	private String circleName;
 	
 	@Column(name="NETWORK")
 	private String network;
+	
 	
 	@Column(name="MODULE")
 	private String module;

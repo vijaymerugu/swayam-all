@@ -30,6 +30,8 @@ import org.springframework.web.servlet.ModelAndView;
 import sbi.kiosk.swayam.common.dto.FileInfo;
 import sbi.kiosk.swayam.healthmonitoring.controller.TicketCentorController;
 import sbi.kiosk.swayam.kioskmanagement.service.UploadService;
+import java.nio.file.Path; 
+import java.nio.file.Paths; 
 
 @RestController
 @RequestMapping("/")
@@ -71,8 +73,17 @@ public class UploadSwayamFileController  {
 		if (!files.isEmpty()) {
 			try {
 				for (MultipartFile file : files) {
+					
+					/*
+					 * String path = context.getRealPath("/resources/upload") + File.separator +
+					 * file.getOriginalFilename();
+					 */
+					String fileName = file.getOriginalFilename();
+					 Path paths = Paths.get(fileName); 
+					 Path orgFileName = paths.getFileName(); 
+					
 					String path = context.getRealPath("/resources/upload") + File.separator
-							+ file.getOriginalFilename();
+							+ orgFileName;
 					File destinationFile = new File(path);
 					file.transferTo(destinationFile);
 					uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
@@ -120,8 +131,16 @@ public class UploadSwayamFileController  {
 		if (!files.isEmpty()) {
 			try {
 				for (MultipartFile file : files) {
+					/*
+					 * String path = context.getRealPath("/resources/upload") + File.separator +
+					 * file.getOriginalFilename();
+					 */
+					String fileName = file.getOriginalFilename();
+					 Path paths = Paths.get(fileName); 
+					 Path orgFileName = paths.getFileName(); 
+					
 					String path = context.getRealPath("/resources/upload") + File.separator
-							+ file.getOriginalFilename();
+							+ orgFileName;
 					File destinationFile = new File(path);
 					file.transferTo(destinationFile);
 					uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
@@ -144,7 +163,7 @@ public class UploadSwayamFileController  {
 			dir.mkdirs();
 		File serverFile = new File(dir.getAbsolutePath() + File.separator + name1);
 
-	//	logger.info("Server File Location=" + serverFile.getAbsolutePath());
+		logger.info("Server File Location=" + serverFile.getAbsolutePath());
 		String path = serverFile.getAbsolutePath();
 		String result = uploadService.uploadKioskCMFInformation(path);
 	//	logger.info("result=" + result);
@@ -162,8 +181,16 @@ public class UploadSwayamFileController  {
 		if (!files.isEmpty()) {
 			try {
 				for (MultipartFile file : files) {
+					/*
+					 * String path = context.getRealPath("/resources/upload") + File.separator +
+					 * file.getOriginalFilename();
+					 */
+					String fileName = file.getOriginalFilename();
+					 Path paths = Paths.get(fileName); 
+					 Path orgFileName = paths.getFileName(); 
+					
 					String path = context.getRealPath("/resources/upload") + File.separator
-							+ file.getOriginalFilename();
+							+ orgFileName;
 				//	logger.info("==CONTEXT PATH========"+context.getRealPath("/WEB-INF/upload"));
 				//	logger.info("==PATH================"+path);
 					File destinationFile = new File(path);
@@ -211,8 +238,16 @@ public class UploadSwayamFileController  {
 		if (!files.isEmpty()) {
 			try {
 				for (MultipartFile file : files) {
+					/*
+					 * String path = context.getRealPath("/resources/upload") + File.separator +
+					 * file.getOriginalFilename();
+					 */
+					String fileName = file.getOriginalFilename();
+					 Path paths = Paths.get(fileName); 
+					 Path orgFileName = paths.getFileName(); 
+					
 					String path = context.getRealPath("/resources/upload") + File.separator
-							+ file.getOriginalFilename();
+							+ orgFileName;
 					File destinationFile = new File(path);
 					file.transferTo(destinationFile);
 					uploadedFiles.add(new FileInfo(destinationFile.getName(), path));

@@ -14,7 +14,27 @@ public class HolidayCalendarDto {
     private String circle;
 	
 	private String state;
+	
+	private String finYr;
+	
+	private String quarter;
 
+
+	public String getFinYr() {
+		return finYr;
+	}
+
+	public void setFinYr(String finYr) {
+		this.finYr = finYr;
+	}
+
+	public String getQuarter() {
+		return quarter;
+	}
+
+	public void setQuarter(String quarter) {
+		this.quarter = quarter;
+	}
 
 	public String getHolidayDate() {
 		return holidayDate;
