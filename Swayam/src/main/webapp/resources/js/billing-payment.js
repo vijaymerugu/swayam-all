@@ -9,37 +9,8 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	   
 	   $scope.cacheKeys = [];
        $scope.cacheData = '';
-       $scope.cacheObject = $cacheFactory("newCacheInstance");
-	   
-/*   //Years Load
-	   $scope.LoadYear=function(){
-		var year = new Date().getFullYear();
-	    var range = [];
-	    //range.push(year);
-	    for (var i = 1; i <100; i++) {
-	        range.push((year-30) + i);
-	    }
-	    $scope.Years = range;
-	   }*/
-	   
-	   //Years Load
-	/*   $scope.LoadYear=function(){
-		var year = new Date().getFullYear();
-		   //var year = "2020"
-	    var range = [];
-	    //range.push(year);
-	    for (var i = 1; i <100; i++) {
-	    	var selectYear = ((year-30) + i);
-	    	var second = ((selectYear+1).toString()).substring(2);
-	    	
-	    	var modifiedyear = (selectYear)+"-"+(second);
-	    	
-	        range.push(modifiedyear);
-	    }
-	    
-	    console.log("Range "+ range)
-	    $scope.Years = range;
-	   }*/
+     //  $scope.cacheObject = $cacheFactory("newCacheInstance");
+	
        
        
        $scope.LoadYear=function(){
@@ -155,10 +126,12 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 							}).success(function(data, status) {
 								console.log("Done Inside comm/getcities .....")
 								$scope.States = data;
+								$scope.SelectedStateId = "";
+							
 								console.log("data...." +data)
 							}).error(function(data, status) {
 								console.log("error....." + value)
-								$window.alert(data.Message);
+								//$window.alert(data.Message);
 							});
 							
 						}
@@ -166,7 +139,8 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 					
 					}
 				}).error(function(data, status) {
-					$window.alert(data.Message);
+					console.log("error1....." + value)
+					//$window.alert(data.Message);
 				});
 			};    
        $scope.LoadDropDown('', 0);
@@ -202,7 +176,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 				
 				selectedCircelId = CircelId;
 				
-				selectedStateId = StateId;
+				//selectedStateId = StateId;
 				selectedQuarterId = QuarterId;
 				selectedYearId = YearId;
 				selectedVendorId= VendorId
@@ -219,7 +193,21 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 				else{
 					selectedRfpID= RfpId;
 					console.log("Inside else RfID " + selectedRfpID);
-				}	
+				}
+				
+				if(typeof StateId === 'undefined') {
+					
+					selectedStateId= "0";
+					console.log("Inside if RfID " + selectedStateId);
+				}else if(StateId==''){
+					selectedStateId= "0";
+					console.log("Inside else if RfID " + selectedStateId);
+					
+				}
+				else{
+					selectedStateId= StateId;
+					console.log("Inside else RfID " + selectedStateId);
+				}
 				
 				quterTimePeriod=(selectedQuarterId.toUpperCase())+'-'+selectedYearId;
 				console.log("selectedCircelId " + selectedCircelId);
@@ -262,6 +250,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		    	   	$scope.SelectedQuarterId='';
 		    	   	$scope.SelectedYearId ='';
 		    	   	$scope.SelectedVendorId='';
+		    	   	$scope.RfpId='';
 					selectedRfpID="";
 					
 					BillingPenaltyService.getUsers(paginationOptions.pageNumber,

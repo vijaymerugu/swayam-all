@@ -71,7 +71,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 						$scope.SelectedStateId = 0;
 						//$scope.StateDefaultLabel = "";
 						if (data.length > 0) {
-							$scope.StateDefaultLabel = "Select State";
+							//$scope.StateDefaultLabel = "Select State";
 							$http({
 								method : "get",
 								url : 'bp/getstate',
@@ -84,10 +84,11 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 							}).success(function(data, status) {
 								console.log("Done Inside comm/getcities .....")
 								$scope.States = data;
+								$scope.SelectedStateId = "";
 								console.log("data...." +data)
 							}).error(function(data, status) {
 								console.log("error....." + value)
-								$window.alert(data.Message);
+								//$window.alert(data.Message);
 							});
 							
 						}
@@ -95,7 +96,8 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 					
 					}
 				}).error(function(data, status) {
-					$window.alert(data.Message);
+					console.log("error2....." + value)
+					//$window.alert(data.Message);
 				});
 			};    
        $scope.LoadDropDown('', 0);
@@ -132,12 +134,23 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 				
 				selectedCircelId = CircelId;
 				
-				selectedStateId = StateId;
+				//selectedStateId = StateId;
 				
 				selectedYearId = YearId;
 				
-				
-				
+				if(typeof StateId === 'undefined') {
+					
+					selectedStateId= "0";
+					console.log("Inside if RfID " + selectedStateId);
+				}else if(StateId==''){
+					selectedStateId= "0";
+					console.log("Inside else if RfID " + selectedStateId);
+					
+				}
+				else{
+					selectedStateId = StateId;
+					console.log("Inside else RfID " + selectedStateId);
+				}
 				quterTimePeriod=selectedYearId;
 				
 				
@@ -237,22 +250,24 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		  superColDefs: [{
 	          name: 'front',
 	          displayName: '',
+	          
 	         
 	      }, {
 	          name: 'InvoiceAmount',
-	          displayName: 'Invoice Amount',
+	          displayName: 'Invoice Amount'
 	        	 
 	      }, {
 	          name: 'Penalty',
-	          displayName: 'Penalty',
+	          displayName: 'Penalty'
 	        	  
 	      }, {
 	          name: 'BilledAmount',
-	          displayName: 'Billed Amount',
+	          displayName: 'Billed Amount'
 	          
-	      },{
+	      }, {
 	          name: 'back',
 	          displayName: ''
+	          
 	      }],
 		
 	      columnDefs: [

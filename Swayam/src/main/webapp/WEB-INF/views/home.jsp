@@ -13,16 +13,19 @@
 <script src="resources/js/bootstrap.3.1.1.min.js"></script>
 <link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
 
-<link rel="stylesheet" href="resources/css/grid-style.css" />
+
+<!-- <link rel="stylesheet" href="resources/css/grid-style.css" /> -->
 <link rel="stylesheet" href="resources/css/body-page.css" />
-<link rel="stylesheet" href="resources/css/notification.css" />
+ <link rel="stylesheet" href="resources/css/notification.css" /> 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
 
-<!-- <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script>
-<script	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script> -->
+<!--  <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script> -->
+<!-- <script	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>  -->
+<script	src="resources/js/ui-grid.min-1.js"></script> 
 
-<script src="resources/js/ui-grid.js"></script>
-<script src="resources/js/ui-grid.min.js"></script>
+<!-- <script src="resources/js/ui-grid.js"></script>
+<script src="resources/js/ui-grid.min.js"></script> -->
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
@@ -187,7 +190,6 @@
 			jsddm_close();
 			ddmenuitem = $(this).find('ul.submenu').css('display', 'block');
 		}
-
 		function jsddm_close() {
 			if (ddmenuitem)
 				ddmenuitem.css('display', 'none');
@@ -206,7 +208,6 @@
 												if ($(this).hasClass('current')) {
 													ev.preventDefault();
 												}
-
 												if ($(this).attr('class') != 'active') {
 													if ($(this).text() == 'KIOSK MANAGEMENT'
 															|| $(this).text() == 'TRANSACTION DASHBOARD'
@@ -214,7 +215,6 @@
 															|| $(this).text() == 'DATA ANALYSER'
 															|| $(this).text() == 'MIS REPORTS'
 															|| $(this).text() == 'BILLING AND PAYMENTS') {
-
 														$('#topnav ul li a')
 																.removeClass(
 																		'active');
@@ -250,7 +250,6 @@
         return false;
     });
 
-
 						});
 	</script>
 
@@ -262,4 +261,6 @@
 <html lang="en">
 <body>
 	<div id="contentHomeApp"></div>
+
 </html>
+

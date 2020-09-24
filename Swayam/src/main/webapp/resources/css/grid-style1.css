@@ -1,0 +1,15 @@
+.ui-grid-header-canvas{
+  text-align: left;
+  background-color: #00BFFF;
+  color: white;
+}
+.ui-grid-top-panel{    
+  text-align: left;
+  background-color: #00BFFF;
+  color: white;
+}
+.paginategrid {
+font-family: "Trebuchet MS", Arial, Helvetica, sans-serif !important;
+  border-collapse: collapse !important;
+  width: 100% !important;
+}
