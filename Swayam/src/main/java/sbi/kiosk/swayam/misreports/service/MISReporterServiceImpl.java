@@ -74,7 +74,6 @@ public class MISReporterServiceImpl implements MISReporterService {
 				misAvailableColumns.setColumnId(""+i);
 				i++;
 			}
-			
 			return misAvailableColumnsList;
 		} catch (Exception e) {
 			logger.error("Exception in getMISAvailableColumns:" + e.getMessage());
