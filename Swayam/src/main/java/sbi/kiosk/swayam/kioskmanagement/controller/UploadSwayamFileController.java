@@ -63,7 +63,7 @@ public class UploadSwayamFileController  {
 	@Autowired
 	ServletContext context;
 	@RequestMapping(value = "uploadHolidayCalendar", method = RequestMethod.POST)
-	@PreAuthorize("hasPermission('UPDuploadHolidayCalendar','CREATE')")
+//	@PreAuthorize("hasPermission('UPDuploadHolidayCalendar','CREATE')")
 	public ResponseEntity<String> upload(@RequestParam("myFile") List<MultipartFile> files) {
 		List<FileInfo> uploadedFiles = new ArrayList<FileInfo>();
 	//	logger.info("files"+files);
@@ -123,7 +123,7 @@ public class UploadSwayamFileController  {
 	}
 // 2 KioskCMF 
 	@RequestMapping(value = "uploadKioskDetails", method = RequestMethod.POST)
-	@PreAuthorize("hasPermission('UPDuploadKioskDetails','CREATE')")
+	//@PreAuthorize("hasPermission('UPDuploadKioskDetails','CREATE')")
 	public ResponseEntity<String> uploadKioskDetails(@RequestParam("KioskFile") List<MultipartFile> files) {
 		List<FileInfo> uploadedFiles = new ArrayList<FileInfo>();
 	//	logger.info("files"+files);
@@ -173,7 +173,7 @@ public class UploadSwayamFileController  {
 	
 // 3 KioskInformation
 	@RequestMapping(value = "uploadKioskCMF", method = RequestMethod.POST)
-	@PreAuthorize("hasPermission('UPDuploadKioskCMF','CREATE')")
+//	@PreAuthorize("hasPermission('UPDuploadKioskCMF','CREATE')")
 	public ResponseEntity<String> uploadKioskInformation(@RequestParam("CMFFile") List<MultipartFile> files) {
 		logger.info("==uploadKioskInformation================");
 		List<FileInfo> uploadedFiles = new ArrayList<FileInfo>();	
