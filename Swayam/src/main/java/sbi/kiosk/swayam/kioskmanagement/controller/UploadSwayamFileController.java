@@ -231,7 +231,7 @@ public class UploadSwayamFileController  {
 	}
 // 4 uploadCBSbrhm
 	@RequestMapping(value = "uploadCBSbrhm", method = RequestMethod.POST)
-	@PreAuthorize("hasPermission('UPDuploadCBSbrhm','CREATE')")
+	//@PreAuthorize("hasPermission('UPDuploadCBSbrhm','CREATE')")
 	public ResponseEntity<String> uploadCBSbrhm(@RequestParam("BMFile") List<MultipartFile> files) {
 		List<FileInfo> uploadedFiles = new ArrayList<FileInfo>();	
 	//	logger.info("files"+files);
