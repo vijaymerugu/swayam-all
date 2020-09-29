@@ -219,7 +219,6 @@ public class UploadSwayamFileController  {
 
 		// Create the file on server
 		File serverFile = new File(dir.getAbsolutePath() + File.separator + name1);
-
 	//	logger.info("Server File Location=====" + serverFile.getAbsolutePath());
 		String path = serverFile.getAbsolutePath();
 		

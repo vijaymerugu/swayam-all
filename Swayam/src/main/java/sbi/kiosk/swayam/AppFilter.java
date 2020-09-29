@@ -55,8 +55,7 @@ public class AppFilter implements Filter {
 	   		    res.setHeader("SET-COOKIE", "JSESSIONID=" + sessionid + "; HttpOnly; Secure; Path=/getToken; Domain= " + req.getServerName() + "");
 	        }
 	        else {
-	        	
-	        	res.setHeader("SET-COOKIE", "JSESSIONID=" + sessionid + "; HttpOnly; Secure; Path=req.getContextPath(); Domain= " + req.getServerName() + "");
+	        	  res.setHeader("SET-COOKIE", "JSESSIONID=" + sessionid + "; HttpOnly; Secure; Path=req.getContextPath(); Domain= " + req.getServerName() + "");
 	        }	        
 	        //res.setHeader("Refresh", "60; URL=/SMT/");
 
