@@ -7,7 +7,7 @@ public class InvoiceUpdateReposne {
 	
 	
 	private String status;
-	private String messgae;
+	private String message;
 	
 	
 	public InvoiceUpdateReposne() {
@@ -15,11 +15,11 @@ public class InvoiceUpdateReposne {
 	}
 
 
-	public InvoiceUpdateReposne(String status, String messgae) {
+	public InvoiceUpdateReposne(String status, String message) {
 		super();
 		
 		this.status = status;
-		this.messgae = messgae;
+		this.message = message;
 		
 	}
 
