@@ -4,12 +4,14 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -65,27 +67,41 @@ public class RfpController {
 	
 	@RequestMapping(value = "rf/update", method = RequestMethod.POST)
 	//@PreAuthorize("hasPermission('UpdateRFP','CREATE')")
-    public ResponseEntity<RfpResponse> updateRfpDetails(@RequestBody RfpIdMaster user) {
-        System.out.println("Updating RF " + user.getRfpId());
-        rfpRepository.save(user);
+    public ResponseEntity<RfpResponse> updateRfpDetails(@Valid @RequestBody RfpIdMaster user, BindingResult result) {
+       // System.out.println("Updating RF " + user.getRfpId());
+
+		if(result.hasErrors()) {
+			
+			return ResponseEntity.ok(new RfpResponse("Server side validation fail"));
+			
+		}else {
+			rfpRepository.save(user);
+		}
+        
         return ResponseEntity.ok(new RfpResponse("RfId "+user.getRfpId()+" Updated Successfully"));
     }
  
  
 	@RequestMapping(value = "rf/add", method = RequestMethod.POST)
 	//@PreAuthorize("hasPermission('AddRFP','CREATE')")
-    public ResponseEntity<RfpResponse> addRfpDetails(@RequestBody RfpIdMaster user) {
+    public ResponseEntity<RfpResponse> addRfpDetails(@Valid @RequestBody RfpIdMaster user, BindingResult result) {
         System.out.println("Adding RF " + user.getRfpId());
         
         	Optional<RfpIdMaster> check = rfpRepository.findById(user.getRfpId());
         	if(check.isPresent()) {
-        		System.out.println("Inside check "+ check.isPresent());
+        	//	System.out.println("Inside check "+ check.isPresent());
         		
         		return ResponseEntity.ok(new RfpResponse("RfId "+user.getRfpId()+" Already Present"));
         		
         	}else {
-        	
+        		
+        		if(result.hasErrors()) {
+        			return ResponseEntity.ok(new RfpResponse("Server side validation fail"));
+        			
+        		}else {
         		rfpRepository.save(user);
+        		
+        		}
         		
         	}
         	return ResponseEntity.ok(new RfpResponse("RfId "+user.getRfpId()+" Added Successfully"));

@@ -405,18 +405,35 @@ public class BillingPenaltyController {
 			throws Exception {
 		
 		logger.info("Inside updateCorrections");
-		
-		
-		int status = invoiceCorrectionRepository.
-				updateInvoiceCorrection(Corrections, kisokId, kioskSerialNumber,remarks,quarter,yearid);
-		//System.out.println("Status " + status);
-		logger.info("Status " + status);
-		
-		if(status==1) {
-			return ResponseEntity.ok(new InvoiceUpdateReposne("Sucess", "Data Saved Successfully"));
-		}else{
-			return ResponseEntity.ok(new InvoiceUpdateReposne("fail","Data not updated pleae try"));
+		if(Corrections>=0) {
+			
+			int status = invoiceCorrectionRepository.
+					updateInvoiceCorrection(Corrections, kisokId, kioskSerialNumber,remarks,quarter,yearid);
+			//System.out.println("Status " + status);
+			logger.info("Status " + status);
+			
+			return ResponseEntity.ok(new InvoiceUpdateReposne("Success", "Correction Updated Successfully"));
+			
+			/*
+			 * if(status==1) { return ResponseEntity.ok(new InvoiceUpdateReposne("Sucess",
+			 * "Data Saved Successfully")); }else{ return ResponseEntity.ok(new
+			 * InvoiceUpdateReposne("fail","Data not updated pleae try")); }
+			 */
+			
+		}else {
+			return ResponseEntity.ok(new InvoiceUpdateReposne("Fail","Correction must be positive Integer"));
 		}
+		
+		/*
+		 * int status = invoiceCorrectionRepository.
+		 * updateInvoiceCorrection(Corrections, kisokId,
+		 * kioskSerialNumber,remarks,quarter,yearid); //System.out.println("Status " +
+		 * status); logger.info("Status " + status);
+		 * 
+		 * if(status==1) { return ResponseEntity.ok(new InvoiceUpdateReposne("Sucess",
+		 * "Data Saved Successfully")); }else{ return ResponseEntity.ok(new
+		 * InvoiceUpdateReposne("fail","Data not updated pleae try")); }
+		 */
 		
 
 	}
