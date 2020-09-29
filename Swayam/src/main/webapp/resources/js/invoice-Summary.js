@@ -6,25 +6,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		 pageSize: 20,
 		 sort: null
 	   };
-	   
-	   //Years Load
-	  /* $scope.LoadYear=function(){
-		var year = new Date().getFullYear();
-		   //var year = "2020"
-	    var range = [];
-	    //range.push(year);
-	    for (var i = 1; i <100; i++) {
-	    	var selectYear = ((year-30) + i);
-	    	var second = ((selectYear+1).toString()).substring(2);
-	    	
-	    	var modifiedyear = (selectYear)+"-"+(second);
-	    	
-	        range.push(modifiedyear);
-	    }
-	    
-	    console.log("Range "+ range)
-	    $scope.Years = range;
-	   }*/
+	
 	   
 	   $scope.LoadYear=function(){
 			var year = new Date().getFullYear();
@@ -59,13 +41,13 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 			$scope.LoadDropDown = function(type, value) {
 				switch (type) {
 				default:
-					$scope.SelectedCircleId = 0;
-					$scope.CircelDefaultLabel = "Loading.....";
+					//$scope.SelectedCircleId = 0;
+					//$scope.CircelDefaultLabel = "Loading.....";
 					$scope.Circle = null;
 					break;
 				case "circleId":
                     $scope.SelectedStateId = 0;
-                    $scope.StateDefaultLabel = "Loading.....";
+        //            $scope.StateDefaultLabel = "Loading.....";
                     $scope.States = null;
                     break;
 				}
@@ -81,15 +63,15 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 					console.log("Done....." + value)
 					switch (type) {
 					default:
-						$scope.SelectedCircelId = 0;
-						$scope.CircleDefaultLabel = "Select Circle";
+						//$scope.SelectedCircelId = 0;
+						//$scope.CircleDefaultLabel = "Select Circle";
 						$scope.Circles = data;
 						break;
 					case "circleId":
 						$scope.SelectedStateId = 0;
 						//$scope.StateDefaultLabel = "";
 						if (data.length > 0) {
-							$scope.StateDefaultLabel = "Select State";
+							//$scope.StateDefaultLabel = "Select State";
 							$http({
 								method : "get",
 								url : 'bp/getstate',
@@ -102,10 +84,11 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 							}).success(function(data, status) {
 								console.log("Done Inside comm/getcities .....")
 								$scope.States = data;
+								$scope.SelectedStateId = "";
 								console.log("data...." +data)
 							}).error(function(data, status) {
 								console.log("error....." + value)
-								$window.alert(data.Message);
+								//$window.alert(data.Message);
 							});
 							
 						}
@@ -113,7 +96,8 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 					
 					}
 				}).error(function(data, status) {
-					$window.alert(data.Message);
+					console.log("error2....." + value)
+					//$window.alert(data.Message);
 				});
 			};    
        $scope.LoadDropDown('', 0);
@@ -130,6 +114,17 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	    	   	$scope.SelectedStateId ='';
 	    	
 	    	   	$scope.SelectedYearId ='';
+	    	   	quterTimePeriod='';
+	    	   	
+	    		InvoiceSummaryService
+				.getUsers(paginationOptions.pageNumber,
+						paginationOptions.pageSize, counttype,
+						selectedCircelId,selectedStateId,
+						quterTimePeriod).success(function(data) {
+							console.log("data1 " + data);
+					$scope.gridOptions.data = data.content;
+					$scope.gridOptions.totalItems = data.totalElements;
+				});   
 	    	  
 				
 	       }
@@ -139,12 +134,23 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 				
 				selectedCircelId = CircelId;
 				
-				selectedStateId = StateId;
+				//selectedStateId = StateId;
 				
 				selectedYearId = YearId;
 				
-				
-				
+				if(typeof StateId === 'undefined') {
+					
+					selectedStateId= "0";
+					console.log("Inside if RfID " + selectedStateId);
+				}else if(StateId==''){
+					selectedStateId= "0";
+					console.log("Inside else if RfID " + selectedStateId);
+					
+				}
+				else{
+					selectedStateId = StateId;
+					console.log("Inside else RfID " + selectedStateId);
+				}
 				quterTimePeriod=selectedYearId;
 				
 				
@@ -186,45 +192,53 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	   $scope.refresh = function()
 	   {  	
 		   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
-		 	   UserManagementService.getUsers(paginationOptions.pageNumber,
-		 			   paginationOptions.pageSize,counttype,fromDate,toDate).success(function(data){
-		 				   
-		 		  $scope.gridOptions.data = data.content;
-		 	 	  $scope.gridOptions.totalItems = data.totalElements;
-		 	   });	   
+		   		InvoiceSummaryService
+				.getUsers(paginationOptions.pageNumber,
+						paginationOptions.pageSize, counttype,
+						selectedCircelId,selectedStateId,
+						quterTimePeriod).success(function(data) {
+							console.log("data1 " + data);
+					$scope.gridOptions.data = data.content;
+					$scope.gridOptions.totalItems = data.totalElements;
+				});   
 		 		   
 		 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
-		 	  
-		 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
-		 		   
-		 	    }else{
-		 	    	InvoiceSummaryService.getUsers(paginationOptions.pageNumber,
+		 	    	
+		 	    	InvoiceSummaryService
+					.getUsers(paginationOptions.pageNumber,
 							paginationOptions.pageSize, counttype,
 							selectedCircelId,selectedStateId,
-							selectedVendorId).success(function(data) {
-								console.log("data3 " + data);
+							quterTimePeriod).success(function(data) {
+								console.log("data1 " + data);
+								$scope.gridOptions.data = data.content;
+								$scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
+								$scope.gridOptions.totalItems = data.totalElements;
+					});
+		 		  
+		 		   
+		 	    }else{
+		 	    	InvoiceSummaryService
+					.getUsers(paginationOptions.pageNumber,
+							paginationOptions.pageSize, counttype,
+							selectedCircelId,selectedStateId,
+							quterTimePeriod).success(function(data) {
+								console.log("data1 " + data);
 						$scope.gridOptions.data = data.content;
 						$scope.gridOptions.totalItems = data.totalElements;
-
-		 	 	   });
+					});
 		 	    }
 		    };
 
-	/*  InvoiceSummaryService.getUsers(paginationOptions.pageNumber,
-				paginationOptions.pageSize, counttype,
-				selectedCircelId,selectedStateId,
-				quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
-					console.log("data " + data);
-			$scope.gridOptions.data = data.content;
-			$scope.gridOptions.totalItems = data.totalElements;
-	   });*/
+		    InvoiceSummaryService
+			.getUsers(paginationOptions.pageNumber,
+					paginationOptions.pageSize, counttype,
+					selectedCircelId,selectedStateId,
+					quterTimePeriod).success(function(data) {
+				$scope.gridOptions.data = data.content;
+				$scope.gridOptions.totalItems = data.totalElements;
+			});
 	   
-/*	   $scope.loadHomeBodyPageForms = function(url){	   
-			if(url != undefined){	
-				var str ='td/drillDownNetwork?circleName='+url+'&fromDate='+fromDate+'&toDate='+toDate;
-				$("#contentHomeApp").load(str);
-			}						
-		}*/
+
 	   
 	   $scope.gridOptions = {
 	    paginationPageSizes: [20, 30, 40],
@@ -236,22 +250,24 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		  superColDefs: [{
 	          name: 'front',
 	          displayName: '',
+	          
 	         
 	      }, {
 	          name: 'InvoiceAmount',
-	          displayName: 'Invoice Amount',
+	          displayName: 'Invoice Amount'
 	        	 
 	      }, {
 	          name: 'Penalty',
-	          displayName: 'Penalty',
+	          displayName: 'Penalty'
 	        	  
 	      }, {
 	          name: 'BilledAmount',
-	          displayName: 'Billed Amount',
+	          displayName: 'Billed Amount'
 	          
-	      },{
+	      }, {
 	          name: 'back',
 	          displayName: ''
+	          
 	      }],
 		
 	      columnDefs: [
@@ -278,15 +294,19 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	        gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
 	          paginationOptions.pageNumber = newPage;
 	          paginationOptions.pageSize = pageSize;
-	          InvoiceSummaryService.getUsers(paginationOptions.pageNumber,
+	          console.log("selectedCircelId " + selectedCircelId);
+				console.log("selectedStateId " + selectedStateId);
+				
+				console.log("quterTimePeriod " + quterTimePeriod);
+				InvoiceSummaryService
+				.getUsers(paginationOptions.pageNumber,
 						paginationOptions.pageSize, counttype,
 						selectedCircelId,selectedStateId,
-						selectedVendorId).success(function(data) {
+						quterTimePeriod).success(function(data) {
 							console.log("data4 " + data);
 					$scope.gridOptions.data = data.content;
 					$scope.gridOptions.totalItems = data.totalElements;
-
-	          });
+				});
 	        });
 	     }
 	  };

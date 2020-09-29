@@ -15,7 +15,19 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	    	   	$scope.SelectedQuarterId='';
 	    	   	$scope.SelectedYearId ='';
 	    	   	$scope.SelectedVendorId='';
+	    	   	$scope.RfpId='';
 				selectedRfpID="";
+				
+				InvoiceGenerationService
+				.getUsers(paginationOptions.pageNumber,
+						paginationOptions.pageSize, counttype,
+						selectedCircelId,selectedStateId,
+						quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
+							console.log("data1 " + data);
+					$scope.gridOptions.data = data.content;
+					$scope.gridOptions.totalItems = data.totalElements;
+				});
+				
 				
 	       }
 	  /* //Years Load
@@ -150,6 +162,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 							}).success(function(data, status) {
 								console.log("Done Inside comm/getcities .....")
 								$scope.States = data;
+								$scope.SelectedStateId = "";
 								console.log("data...." +data)
 							}).error(function(data, status) {
 								console.log("error....." + value)
@@ -209,7 +222,23 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 				else{
 					selectedRfpID= RfpId;
 					console.log("Inside else RfID " + selectedRfpID);
-				}	
+				}
+				
+				
+
+				if(typeof StateId === 'undefined') {
+					
+					selectedStateId= "0";
+					console.log("Inside if RfID " + selectedStateId);
+				}else if(StateId==''){
+					selectedStateId= "0";
+					console.log("Inside else if RfID " + selectedStateId);
+					
+				}
+				else{
+					selectedStateId= StateId;
+					console.log("Inside else RfID " + selectedStateId);
+				}
 				
 				quterTimePeriod=(selectedQuarterId.toUpperCase())+'-'+selectedYearId;
 				console.log("selectedCircelId " + selectedCircelId);
@@ -251,16 +280,29 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	   $scope.refresh = function()
 	   {  	
 		   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
-		 	   UserManagementService.getUsers(paginationOptions.pageNumber,
-		 			   paginationOptions.pageSize,counttype,fromDate,toDate).success(function(data){
-		 				   
-		 		  $scope.gridOptions.data = data.content;
-		 	 	  $scope.gridOptions.totalItems = data.totalElements;
-		 	   });	   
+		   		InvoiceGenerationService.getUsers(paginationOptions.pageNumber,
+						paginationOptions.pageSize, counttype,
+						selectedCircelId,selectedStateId,
+						quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
+							console.log("data3 " + data);
+					$scope.gridOptions.data = data.content;
+					$scope.gridOptions.totalItems = data.totalElements;
+
+	 	 	   });   
 		 		   
 		 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
-		 	  
-		 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
+		 	    	
+		 	   	InvoiceGenerationService.getUsers(paginationOptions.pageNumber,
+						paginationOptions.pageSize, counttype,
+						selectedCircelId,selectedStateId,
+						quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
+							
+					$scope.gridOptions.data = data.content;
+					$scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
+					$scope.gridOptions.totalItems = data.totalElements;
+
+	 	 	   });
+		 		   
 		 		   
 		 	    }else{
 		 	    	InvoiceGenerationService.getUsers(paginationOptions.pageNumber,
@@ -336,7 +378,6 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	          url: 'invoicegenaration/get?page='+pageNumber+
 	     '&size='+size+'&type='+counttype+'&selectedCircelId='+selectedCircelId+'&selectedStateId='+selectedStateId+
 	          '&quterTimePeriod='+quterTimePeriod+'&selectedVendorId='+selectedVendorId+'&selectedRfpID='+selectedRfpID
-	          
 	         
 	        });
 	    }

@@ -3,8 +3,10 @@ package sbi.kiosk.swayam.misreports.util;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,6 +22,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import sbi.kiosk.swayam.common.entity.MISAvailableColumns;
 import sbi.kiosk.swayam.common.entity.MISReportData;
 import sbi.kiosk.swayam.misreports.dto.MISReportInputDto;
 
@@ -30,8 +33,8 @@ import sbi.kiosk.swayam.misreports.dto.MISReportInputDto;
 public class GeneratePdfReport {
 
 	public static ByteArrayInputStream getMisReport(MISReportInputDto misReportInputDto,
-			List<MISReportData> misReportDataList, List<String> selectedColumnList) {
-
+			List<MISReportData> misReportDataList, List<String> selectedColumnIndexList, List<MISAvailableColumns> columnListByGroupId) {
+		List<String> selectedColumnNameList = new ArrayList<>();
 		Document document = new Document();
 		document.setPageSize(PageSize.A4.rotate());
 		float fontSize = 6.7f;
@@ -85,60 +88,16 @@ public class GeneratePdfReport {
 					hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 					table.addCell(hcell);
 				}
-				if (selectedColumnList.contains("1")) {
-					hcell = new PdfPCell(new Phrase("Swayam Transactions", headFont));
-					hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(hcell);
-				}
-				if (selectedColumnList.contains("2")) {
-					hcell = new PdfPCell(new Phrase("Branch Counter Transactions", headFont));
-					hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(hcell);
-				}
-				if (selectedColumnList.contains("3")) {
-					hcell = new PdfPCell(new Phrase("Migration %", headFont));
-					hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(hcell);
-				}
-				if (selectedColumnList.contains("4")) {
-					hcell = new PdfPCell(new Phrase("Uptime %", headFont));
-					hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(hcell);
-				}
-				if (selectedColumnList.contains("5")) {
-					hcell = new PdfPCell(new Phrase("No. of kiosks", headFont));
-					hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(hcell);
-				}
-				if (selectedColumnList.contains("6")) {
-					hcell = new PdfPCell(new Phrase("Total downtime", headFont));
-					hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(hcell);
-				}
-				if (selectedColumnList.contains("7")) {
-					hcell = new PdfPCell(new Phrase("Onsite / Offsite", headFont));
-					hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(hcell);
-				}
-				if (selectedColumnList.contains("8")) {
-					hcell = new PdfPCell(new Phrase("Standalone / TTW", headFont));
-					hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(hcell);
-				}
-				if (selectedColumnList.contains("9")) {
-					hcell = new PdfPCell(new Phrase("No. of requests raised", headFont));
-					hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(hcell);
-				}
-				if (selectedColumnList.contains("10")) {
-					hcell = new PdfPCell(new Phrase("Type of requests", headFont));
-					hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(hcell);
-				}
-				if (selectedColumnList.contains("11")) {
-					hcell = new PdfPCell(new Phrase("TAT of request completion", headFont));
-					hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
-					table.addCell(hcell);
+				
+				for(String index : selectedColumnIndexList) {
+					for(MISAvailableColumns column : columnListByGroupId) {
+						if(index.equals(column.getColumnId())) {
+							hcell = new PdfPCell(new Phrase(column.getColumnName(), headFont));
+							hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+							table.addCell(hcell);
+							selectedColumnNameList.add(column.getColumnName());
+						}
+					}
 				}
 
 				for (MISReportData misReportData : misReportDataList) {
@@ -167,7 +126,7 @@ public class GeneratePdfReport {
 						cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 						table.addCell(cell);
 					}
-					if (selectedColumnList.contains("1")) {
+					if (selectedColumnNameList.contains("Swayam Transactions")) {
 						cell = new PdfPCell(new Phrase(misReportData.getSwayamTransaction() != null
 								? misReportData.getSwayamTransaction().toString()
 								: null, dataFont));
@@ -175,7 +134,7 @@ public class GeneratePdfReport {
 						cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 						table.addCell(cell);
 					}
-					if (selectedColumnList.contains("2")) {
+					if (selectedColumnNameList.contains("Branch Counter Transactions")) {
 						cell = new PdfPCell(new Phrase(
 								misReportData.getBranchCounter() != null ? misReportData.getBranchCounter().toString()
 										: null,
@@ -184,7 +143,7 @@ public class GeneratePdfReport {
 						cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 						table.addCell(cell);
 					}
-					if (selectedColumnList.contains("3")) {
+					if (selectedColumnNameList.contains("Migration %")) {
 						cell = new PdfPCell(new Phrase(misReportData.getMigrationPercent() != null
 								? misReportData.getMigrationPercent().toString()
 								: null, dataFont));
@@ -192,7 +151,7 @@ public class GeneratePdfReport {
 						cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 						table.addCell(cell);
 					}
-					if (selectedColumnList.contains("4")) {
+					if (selectedColumnNameList.contains("Uptime %")) {
 						cell = new PdfPCell(new Phrase(
 								misReportData.getUptimePercent() != null ? misReportData.getUptimePercent().toString()
 										: null,
@@ -201,7 +160,7 @@ public class GeneratePdfReport {
 						cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 						table.addCell(cell);
 					}
-					if (selectedColumnList.contains("5")) {
+					if (selectedColumnNameList.contains("No. of kiosks")) {
 						cell = new PdfPCell(new Phrase(
 								misReportData.getNoOfKiosks() != null ? misReportData.getNoOfKiosks().toString() : null,
 								dataFont));
@@ -209,7 +168,7 @@ public class GeneratePdfReport {
 						cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 						table.addCell(cell);
 					}
-					if (selectedColumnList.contains("6")) {
+					if (selectedColumnNameList.contains("Total downtime")) {
 						cell = new PdfPCell(new Phrase(
 								misReportData.getTotalDowntime() != null ? misReportData.getTotalDowntime().toString()
 										: null,
@@ -218,19 +177,19 @@ public class GeneratePdfReport {
 						cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 						table.addCell(cell);
 					}
-					if (selectedColumnList.contains("7")) {
+					if (selectedColumnNameList.contains("Onsite / Offsite")) {
 						cell = new PdfPCell(new Phrase(misReportData.getOnSiteOffSite(), dataFont));
 						cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 						cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 						table.addCell(cell);
 					}
-					if (selectedColumnList.contains("8")) {
+					if (selectedColumnNameList.contains("Installation Type")) {
 						cell = new PdfPCell(new Phrase(misReportData.getStandaloneTTW(), dataFont));
 						cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 						cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 						table.addCell(cell);
 					}
-					if (selectedColumnList.contains("9")) {
+					if (selectedColumnNameList.contains("No. of requests raised")) {
 						cell = new PdfPCell(new Phrase(misReportData.getNoOfRequestRaised() != null
 								? misReportData.getNoOfRequestRaised().toString()
 								: null, dataFont));
@@ -238,13 +197,13 @@ public class GeneratePdfReport {
 						cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 						table.addCell(cell);
 					}
-					if (selectedColumnList.contains("10")) {
+					if (selectedColumnNameList.contains("Type of requests")) {
 						cell = new PdfPCell(new Phrase(misReportData.getTypeOfRequest(), dataFont));
 						cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 						cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 						table.addCell(cell);
 					}
-					if (selectedColumnList.contains("11")) {
+					if (selectedColumnNameList.contains("TAT of request completion")) {
 						cell = new PdfPCell(new Phrase(misReportData.getTatOfRequestCompletion(), dataFont));
 						cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 						cell.setHorizontalAlignment(Element.ALIGN_CENTER);
