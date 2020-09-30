@@ -19,8 +19,12 @@
  <link rel="stylesheet" href="resources/css/notification.css" /> 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
 
-<!--  <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script> -->
-<!-- <script	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>  -->
+
+ <script src="resources/js/ui-grid.js"></script>
+<script	src="resources/js/ui-grid.min.js"></script> 
+
+<!--  <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script>
+<script	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>  -->
 <script	src="resources/js/ui-grid.min-1.js"></script> 
 
 <!-- <script src="resources/js/ui-grid.js"></script>
