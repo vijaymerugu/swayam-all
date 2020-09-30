@@ -17,6 +17,7 @@
 <!-- <link rel="stylesheet" href="resources/css/grid-style.css" /> -->
 <link rel="stylesheet" href="resources/css/body-page.css" />
  <link rel="stylesheet" href="resources/css/notification.css" /> 
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
 
 
@@ -25,18 +26,20 @@
 
 <!--  <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script>
 <script	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>  -->
+
 <script	src="resources/js/ui-grid.min-1.js"></script> 
 
 <!-- <script src="resources/js/ui-grid.js"></script>
 <script src="resources/js/ui-grid.min.js"></script> -->
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
+<!-- <link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+<link rel="stylesheet" href="resources/css/bootstrap.min.css">
 <link href="resources/css/menu.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css" />
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+<!-- <script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script> -->
+  <script src="resources/js/angular-route.min.js"></script>
 <script src="resources/js/angular.js"></script>
 <script src="resources/js/angular-touch.js"></script>
 <script src="resources/js/angular-animate.js"></script>
@@ -267,4 +270,3 @@
 	<div id="contentHomeApp"></div>
 
 </html>
-

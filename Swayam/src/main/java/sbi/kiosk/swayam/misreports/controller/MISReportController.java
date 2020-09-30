@@ -38,7 +38,7 @@ public class MISReportController {
 	@RequestMapping(value = "mis/generate-report", method = RequestMethod.GET)
 	  public InputStreamResource getMisReportData (
 			  String fromDate, String toDate, String groupingCriteriaId, String groupingCriteriaName, String selectedColumnIndexes,
-			  String reportType, HttpServletResponse response) throws IOException {
+			  String reportType, String removeIds, HttpServletResponse response) throws IOException {
 	      	
 			MISReportInputDto misReportInputDto = new MISReportInputDto();
 			misReportInputDto.setFromDate(fromDate);
@@ -54,18 +54,19 @@ public class MISReportController {
 			String fileName = "MIS_"+fromDate.replace("-", "").substring(0,6)+"_"
 					+toDate.replace("-", "").substring(0,6)+"_"
 					+(new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0,6);
-			List<String> selectedColumnList = Arrays.asList(misReportInputDto.getSelectedColumnIndexes().split(","));
+			List<String> selectedColumnIndexList = Arrays.asList(misReportInputDto.getSelectedColumnIndexes().split(","));
+			List<MISAvailableColumns> columnListByGroupId = misReportService.loadMISColumnsFromGroupId(removeIds);
 			if(reportType.equalsIgnoreCase("PDF")) {
 				response.setContentType("application/pdf");
 				
 				//MIS_FromDate_ToDate_GeneratedDate.Ex: MIS_010920_020920_040920
 		      	response.setHeader("Content-Disposition", "attachment; filename=\""+fileName+".pdf\"");
-		      	bis = GeneratePdfReport.getMisReport(misReportInputDto, misReportDataList, selectedColumnList);
+		      	bis = GeneratePdfReport.getMisReport(misReportInputDto, misReportDataList, selectedColumnIndexList, columnListByGroupId);
 				resource = new InputStreamResource(bis);
 			}else if(reportType.equalsIgnoreCase("EXCEL")) {
 				response.setContentType("application/vnd.ms-excel");
 		      	response.setHeader("Content-Disposition", "attachment; filename=\""+fileName+".xlsx\"");
-		      	bis = GenerateExcelReport.getMisReport(misReportInputDto, misReportDataList, selectedColumnList);
+		      	bis = GenerateExcelReport.getMisReport(misReportInputDto, misReportDataList, selectedColumnIndexList, columnListByGroupId);
 				resource = new InputStreamResource(bis);
 			}
 			

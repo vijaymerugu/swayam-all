@@ -22,6 +22,11 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+
+import sbi.kiosk.swayam.common.entity.MISAvailableColumns;
 import sbi.kiosk.swayam.common.entity.MISReportData;
 import sbi.kiosk.swayam.misreports.dto.MISReportInputDto;
 
@@ -33,8 +38,8 @@ import sbi.kiosk.swayam.misreports.dto.MISReportInputDto;
 public class GenerateExcelReport {
 
 	public static ByteArrayInputStream getMisReport(MISReportInputDto misReportInputDto,
-			List<MISReportData> misReportDataList, List<String> selectedColumnList) {
-
+			List<MISReportData> misReportDataList, List<String> selectedColumnIndexList, List<MISAvailableColumns> columnListByGroupId) {
+		List<String> selectedColumnNameList = new ArrayList<>();
 		List<String> headerList = new ArrayList<>();
 		List<Object> dataList = new ArrayList<>();
 
@@ -192,38 +197,13 @@ public class GenerateExcelReport {
 				headerList.add("Branch Code");
 				headerList.add("Vendor Name");
 			}
-			if (selectedColumnList.contains("1")) {
-				headerList.add("Swayam Transactions");
-			}
-			if (selectedColumnList.contains("2")) {
-				headerList.add("Branch Counter Transactions");
-			}
-			if (selectedColumnList.contains("3")) {
-				headerList.add("Migration %");
-			}
-			if (selectedColumnList.contains("4")) {
-				headerList.add("Uptime %");
-			}
-			if (selectedColumnList.contains("5")) {
-				headerList.add("No. of kiosks");
-			}
-			if (selectedColumnList.contains("6")) {
-				headerList.add("Total downtime");
-			}
-			if (selectedColumnList.contains("7")) {
-				headerList.add("Onsite / Offsite");
-			}
-			if (selectedColumnList.contains("8")) {
-				headerList.add("Standalone / TTW");
-			}
-			if (selectedColumnList.contains("9")) {
-				headerList.add("No. of requests raised");
-			}
-			if (selectedColumnList.contains("10")) {
-				headerList.add("Type of requests");
-			}
-			if (selectedColumnList.contains("11")) {
-				headerList.add("TAT of request completion");
+			for(String index : selectedColumnIndexList) {
+				for(MISAvailableColumns column : columnListByGroupId) {
+					if(index.equals(column.getColumnId())) {
+						headerList.add(column.getColumnName());
+						selectedColumnNameList.add(column.getColumnName());
+					}
+				}
 			}
 
 			data.put(0, headerList.toArray());
@@ -240,37 +220,37 @@ public class GenerateExcelReport {
 					dataList.add(misReportDataList.get(i).getVendorName());
 				}
 
-				if (selectedColumnList.contains("1")) {
+				if (selectedColumnNameList.contains("Swayam Transactions")) {
 					dataList.add(misReportDataList.get(i).getSwayamTransaction());
 				}
-				if (selectedColumnList.contains("2")) {
+				if (selectedColumnNameList.contains("Branch Counter Transactions")) {
 					dataList.add(misReportDataList.get(i).getBranchCounter());
 				}
-				if (selectedColumnList.contains("3")) {
+				if (selectedColumnNameList.contains("Branch Counter Transactions")) {
 					dataList.add(misReportDataList.get(i).getMigrationPercent());
 				}
-				if (selectedColumnList.contains("4")) {
+				if (selectedColumnNameList.contains("Uptime %")) {
 					dataList.add(misReportDataList.get(i).getUptimePercent());
 				}
-				if (selectedColumnList.contains("5")) {
+				if (selectedColumnNameList.contains("No. of kiosks")) {
 					dataList.add(misReportDataList.get(i).getNoOfKiosks());
 				}
-				if (selectedColumnList.contains("6")) {
+				if (selectedColumnNameList.contains("Total downtime")) {
 					dataList.add(misReportDataList.get(i).getTotalDowntime());
 				}
-				if (selectedColumnList.contains("7")) {
+				if (selectedColumnNameList.contains("Onsite / Offsite")) {
 					dataList.add(misReportDataList.get(i).getOnSiteOffSite());
 				}
-				if (selectedColumnList.contains("8")) {
+				if (selectedColumnNameList.contains("Installation Type")) {
 					dataList.add(misReportDataList.get(i).getStandaloneTTW());
 				}
-				if (selectedColumnList.contains("9")) {
+				if (selectedColumnNameList.contains("No. of requests raised")) {
 					dataList.add(misReportDataList.get(i).getNoOfRequestRaised());
 				}
-				if (selectedColumnList.contains("10")) {
+				if (selectedColumnNameList.contains("Type of requests")) {
 					dataList.add(misReportDataList.get(i).getTypeOfRequest());
 				}
-				if (selectedColumnList.contains("11")) {
+				if (selectedColumnNameList.contains("TAT of request completion")) {
 					dataList.add(misReportDataList.get(i).getTatOfRequestCompletion());
 				}
 				data.put(i + 1, dataList.toArray());
