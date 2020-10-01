@@ -65,20 +65,14 @@ public class DownTimeServiceImpl implements DowntimeService {
 			logger.info("selectedCmsCmfId--------3---------"+selectedCmsCmfId);
 			logger.info("selectedFromDateId--------4---------"+selectedFromDateId);
 			logger.info("selectedToDateId--------5---------"+selectedToDateId);
-			
+			if(selectedToDateId.isEmpty() || !selectedFromDateId.isEmpty() || !selectedCircelId.isEmpty() || !selectedVendorId.isEmpty() 
+					|| !selectedCmsCmfId.isEmpty() || !selectedCmsCmfId.isEmpty() || !selectedVendorId.isEmpty() || !selectedCircelId.isEmpty()){
 			pageEntity=downtimePagingRepo.findAllByFilter(selectedToDateId,selectedFromDateId, selectedCircelId, selectedVendorId,
 					 selectedCmsCmfId, PageRequest.of(page, size)).map(DownTimeDto::new);
-			
-			/*
-			 * if(pageEntity!=null) {
-			 * 
-			 * //List<DowntimeModel> list=downtimePagingRepo.findByHolidayDate("01-07-2020",
-			 * "10-07-2020"); //logger.info("list:::"+list); for(DownTimeDto
-			 * downTimeDto:pageEntity) {
-			 * 
-			 * String userName=downtimePagingRepo.findByKioskId(downTimeDto.getKisokId());
-			 * logger.info("userName:::"+userName); downTimeDto.setCmsCmf(userName); } }
-			 */
+			}else{
+				pageEntity=downtimePagingRepo.findAllByFilter(selectedToDateId,selectedFromDateId, selectedCircelId, selectedVendorId,
+						 selectedCmsCmfId, PageRequest.of(page, size)).map(DownTimeDto::new);
+			}
 			
 			logger.info("pageEntity:::"+pageEntity);
 		} catch (Exception e) {

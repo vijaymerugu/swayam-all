@@ -1022,7 +1022,7 @@ public class JasperServiceImpl implements JasperService {
 		String fromdate = "";
 		String todate = "";
 		
-	/*	  if((dateFrame.getFromDate()== "") && (dateFrame.getToDate()== "")) {*/
+		  if((dateFrame.getFromDate()== "") && (dateFrame.getToDate()== "")) {
 			
 			  SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 				Date curDate = new Date();
@@ -1141,7 +1141,7 @@ public class JasperServiceImpl implements JasperService {
 			subCategory="";
 		}
 
-		/*
+		
 		 * kioskId = ticketHistoryReport.getKisokId(); circle =
 		 * ticketHistoryReport.getCircle(); branch = ticketHistoryReport.getBranch();
 		 * callLogDate = ticketHistoryReport.getCall_log_date(); callClosedDate =
@@ -1149,7 +1149,7 @@ public class JasperServiceImpl implements JasperService {
 		 * ticketHistoryReport.getVendor(); category =
 		 * ticketHistoryReport.getCallCategory(); subCategory =
 		 * ticketHistoryReport.getCallSubCategory();
-		 */
+		 
 	  
 	  List<TicketHistory> list = null;
 	  logger.info("Start....");
@@ -1265,7 +1265,7 @@ public class JasperServiceImpl implements JasperService {
 		System.out.println(list.isEmpty());
 		List<BillingPenaltyDto> entities = null;
 		
-		/*
+		
 		 * if(list.isEmpty()) {
 		 * 
 		 * return entities; }else {
@@ -1273,7 +1273,7 @@ public class JasperServiceImpl implements JasperService {
 		 * entities = ObjectMapperUtils.mapAll(list, BillingPenaltyDto.class);
 		 * 
 		 * }
-		 */
+		 
 		
 		entities = ObjectMapperUtils.mapAll(list, BillingPenaltyDto.class);
 		return entities;

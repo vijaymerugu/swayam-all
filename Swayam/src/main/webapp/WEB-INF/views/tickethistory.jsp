@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ page trimDirectiveWhitespaces="true" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,47 +20,60 @@ $(document).ready(function(){
 </script>   -->
 
 
-
-
-
- 
-    <meta http-equiv="x-ua-compatible" content="IE=edge">
-<link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
-<!-- <script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment-with-locales.min.js"></script> -->
-<script src="resources/js/moment-with-locales.min.js"></script>
-<script src="resources/js/angular.1.5.6.min.js"></script>
+<!-- 
+<script	src="resources/js/angular.1.5.6.min.js"></script>
+<script src="resources/js/jquery.3.4.1.min.js"></script>
+<script src="resources/js/bootstrap.3.4.1.min.js"></script>
+<link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
+<script src="resources/js/bootstrap-datepicker.min.js"></script>
+<script src="resources/css/bootstrap-datepicker3.css"></script>
+<script
+	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
 <script src="resources/js/ticket-history-app.js"></script>
-<script src="resources/js/angular.1.5.6.min.js"></script>
+<script	src="resources/js/angular.1.5.6.min.js"></script>
 <link rel="stylesheet" href="resources/css/grid-style.css"/>
 <link rel="stylesheet" href="resources/css/body-page.css"/>
-<link rel="stylesheet" href="resources/css/style.css">
 
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
+<script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script> 
+<link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="resources/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="resources/css/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<script src="resources/js/a076d05399.js"></script>
+  
 <script src="resources/js/angular.js"></script>
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
-    <script src="resources/js/angular-aria.js"></script>
+    <script src="resources/js/angular-aria.js"></script> -->
 
-    <script src="resources/js/jquery.3.4.1.min.js"></script>
-<script src="resources/js/bootstrap.3.4.1.min.js"></script>
-<!-- Include Date Range Picker -->
-<script type="text/javascript"
-	src="resources/js/bootstrap-datepicker.min.js"></script>
-<link rel="stylesheet"
-	href="resources/css/bootstrap-datepicker3.css" />
-    
- <script>
-	$(document).ready(function() {
-		var datePickerOptions = { changeYear: true, 
-								  changeMonth: true,
-								  autoclose: true,
-								  endDate : '+0d',
-								  format : 'dd-mm-yyyy',
-								  orientation : "top"
-								  }
-      	
-		$('#datepickerFromDate,#datepickerToDate').datepicker(datePickerOptions);
-	});
-</script> 
+ 
+<meta http-equiv="x-ua-compatible" content="IE=edge">
+<link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
+<script
+	src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment-with-locales.min.js"></script>
+<script src="resources/js/angular.1.5.6.min.js"></script>
+<script src="resources/js/bootstrap-datepicker.min.js"></script>
+<script src="resources/css/bootstrap-datepicker3.css"></script>
+<!--  <script src="resources/js/ui-grid.js"></script>
+<script src="resources/js/ui-grid.min.js"></script>  -->
+<script src="resources/js/ticket-history-app.js"></script>
+<link rel="stylesheet" href="resources/css/grid-style.css" />
+<link rel="stylesheet" href="resources/css/body-page.css" />
+<link rel="stylesheet" href="resources/css/style.css">
+
+<script src="resources/js/angular.js"></script>
+<script src="resources/js/angular-touch.js"></script>
+<script src="resources/js/angular-animate.js"></script>
+<script src="resources/js/angular-aria.js"></script> 
+
+
 
 
 
@@ -87,7 +101,7 @@ $(document).ready(function(){
      
    <!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
     
-        <style>
+       <style>
         .tb-bk {
             background: #f3f7fa;
         }
@@ -136,6 +150,40 @@ $(document).ready(function(){
         span.pull-right {
         padding:5px 10px;
         }
+         .ui-grid-header-cell-label {
+		display:inline-block;
+		white-space:initial;
+		}
+		
+		
+		.wrap-text .ui-grid-cell-contents {
+ 		 white-space:normal;
+		}
+
+		[ui-grid-row] {
+  		display: table-row;
+		}
+
+		.ui-grid-row, .ui-grid-cell {
+  		height: auto!important;
+		}
+
+			.ui-grid-cell {
+  			float: none;
+  			display: table-cell;
+			} 
+		
+		
+			.ui-grid-header-cell, .ui-grid-cell-contents {
+  			white-space: normal;
+  			padding: 2px;
+  			word-break: break-word;
+			}
+        option:empty
+          {
+           display:none;
+          }
+        
     </style>
    
 
@@ -158,7 +206,7 @@ $(document).ready(function(){
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
-                        <input type="text" id="kioskId" name="kioskId" ng-model="kioskId" maxlength="15"  onkeypress="return validateCode(this);" />
+                        <input type="text" class="form-group" id="kioskId" name="kioskId" ng-model="kioskId" maxlength="15"  onkeypress="return validateCode(this);" />
                     </div>
                 </div>                              
 			</td>	
@@ -171,7 +219,7 @@ $(document).ready(function(){
                     </div>
                     
                     <div class="col-xs-6">
-                      <input type="text" id="datepickerFromDate" name="SelectedCallLogDateId" class="datepicker" readonly="readonly"  ng-model="SelectedCallLogDateId" placeholder="dd-mm-yyyy" required maxlength="10"/>
+                      <input type="text" id="datepickerFromDate" name="SelectedCallLogDateId" class="datepicker" readonly="readonly"  ng-model="SelectedCallLogDateId" placeholder="dd-mm-yyyy" maxlength="10"/>
                        <!--  <select i name="callLogDate" ng-model="SelectedCallLogDateId">
                        
 									<option value="0">Select CallLog Date</option>
@@ -189,10 +237,11 @@ $(document).ready(function(){
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
-                        <select id="category" name="Category" ng-model="SelectedCategoryId">
-									<option value="0">Select Category</option>
+                        <select id="category" class="form-group" name="Category" ng-model="SelectedCategoryId">
+								 <option value="" style="padding-top: 0px;">Select Category</option> 
 									<option ng-repeat="item in Categorys" value="{{item.category}}">{{item.category}}</option>
 							</select>
+							
                     </div>
                 </div>                                
 	        </td>
@@ -209,7 +258,7 @@ $(document).ready(function(){
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
-                        <input type="text" id="branchId" name="branchId" ng-model="branchCode" maxlength="5"  onkeypress="return isNumberKey(event,this.id)" />
+                        <input type="text" class="form-group" id="branchId" name="branchId" ng-model="branchCode" maxlength="5"  onkeypress="return isNumberKey(event,this.id)" />
                     </div>
                 </div>                              
 			</td>	
@@ -221,7 +270,7 @@ $(document).ready(function(){
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
-                     <input type="text" id="datepickerToDate" name="SelectedCallClosedDateId" readonly="readonly"  class="datepicker" ng-model="SelectedCallClosedDateId" placeholder="dd-mm-yyyy" required maxlength="10"/>
+                     <input type="text" id="datepickerToDate" name="SelectedCallClosedDateId" readonly="readonly"  class="datepicker" ng-model="SelectedCallClosedDateId" placeholder="dd-mm-yyyy"  maxlength="10"/>
                        <!--  <select name="State" ng-model="SelectedCallClosedDateId">
 									<option value="0">Select Closed Date</option>
 									<option ng-model="datepickerFromDate"><span id="datepickerFromDate"></span></option>
@@ -236,8 +285,8 @@ $(document).ready(function(){
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
-                        <select id="subCategory" name="SubCategory" ng-model="SelectedSubCategoryId">
-									<option value="0">Select SubCategory</option>
+                        <select id="subCategory"  class="form-group" name="SubCategory" ng-model="SelectedSubCategoryId">
+									<option value="">Select SubCategory</option>
 									<option ng-repeat="item in Categorys" value="{{item.subCategory}}">{{item.subCategory}}</option>
 							</select>
                     </div>
@@ -252,8 +301,8 @@ $(document).ready(function(){
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
-                        <select id="circle" name="Circle" ng-model="SelectedCircelId" required>
-									<option value="0">Select Circle</option>
+                        <select id="circle" class="form-group" name="Circle" ng-model="SelectedCircelId">
+									<option value="">Select Circle</option>
 									<option ng-repeat="item in Circles" value="{{item.circleName}}">{{item.circleName}}</option>
 							</select>
                     </div>
@@ -263,12 +312,12 @@ $(document).ready(function(){
 			<td>
                 <div class="row">
                     <div class="col-xs-6 lb">
-                        <span class="text-left">Vendor<b>*</b></span>
+                        <span class="text-left">Vendor</span>
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
-                       <select id="vendor" name="Vendor" ng-model="SelectedVendorId" required>
-									<option value="0">Select Vendor</option>
+                       <select id="vendor"  class="form-group" name="Vendor" ng-model="SelectedVendorId">
+									<option value="">Select Vendor</option> 
 									<option value="CMS">CMS</option>
 									<option value="LIPI">LIPI</option>
 									<option value="FORBES">FORBES</option>
@@ -301,7 +350,7 @@ $(document).ready(function(){
 		<div class="submain">
 	
 	
-	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Username, First Name, Last Name, Mail Id, Circle etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">
+	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle,KioskId,Vendor,BranchCode,Vendor etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">
 		<span style="float:right">
 		<a class="openpdfonclick"><img src="resources/img/pdf.svg"></a>
 		<a class="openxlonclick"><img src="resources/img/excel.svg"></a>
@@ -323,9 +372,18 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
 <script type="text/javascript">
 $(document).ready(function(){
 
-	  var datePickerOptions = { changeYear: true, changeMonth: true,autoclose: true,maxDate: new Date(), dateFormat:'dd-mm-yy'}
-    	
-	    $( ".datepicker" ).datepicker(datePickerOptions);
+	    //var datePickerOptions = { changeYear: true, changeMonth: true,autoclose: true,maxDate: new Date(), dateFormat:'dd-mm-yy'}
+	    //$( ".datepicker" ).datepicker(datePickerOptions);
+	    
+	    
+		$('#datepickerFromDate,#datepickerToDate').datepicker({
+			changeYear : true,
+			changeMonth : true,
+			autoclose : true,
+			endDate : '+0d',
+			format : 'dd-mm-yyyy',
+			orientation : "top"
+		});
 	    
     $(".openpdfonclick").click(function(){
     	
@@ -333,8 +391,14 @@ $(document).ready(function(){
             url: 'report?page=tiketHistory&type=pdf',
             type: 'GET',   
             success: function(data){
-            	console.log(data);
-            	window.open("resources/download/"+data , '_blank');  
+            	if(data.includes(".pdf")){
+            		console.log("PDF Data1" + data);
+            		window.open("resources/download/"+data , '_blank'); 
+            		
+            	}else{
+            		console.log("PDF Data" + data);
+            		alert("No Data to Export");
+            	}  
             }
         });
     });
@@ -343,8 +407,14 @@ $(document).ready(function(){
             url: 'report?page=tiketHistory&type=excel',
             type: 'GET',   
             success: function(data){
-            	console.log(data);
-            	window.open("resources/download/"+data , '_blank');  
+            	if(data.includes(".xlsx")){
+            		console.log("Excel Data1" + data);
+            		window.open("resources/download/"+data , '_blank'); 
+            		
+            	}else{
+            		console.log("Excel Data" + data);
+            		alert("No Data to Export");
+            	}  
             }
         });
     });

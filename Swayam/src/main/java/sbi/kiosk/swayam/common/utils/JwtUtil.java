@@ -1,4 +1,4 @@
-package sbi.kiosk.swayam.common.utils;
+/*package sbi.kiosk.swayam.common.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -54,3 +54,4 @@ public class JwtUtil {
 		return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
 	}
 }
+*/

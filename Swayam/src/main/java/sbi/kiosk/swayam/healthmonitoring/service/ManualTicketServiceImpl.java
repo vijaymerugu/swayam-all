@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import sbi.kiosk.swayam.common.constants.ExceptionConstants;
+import sbi.kiosk.swayam.common.dto.AlertDto;
 import sbi.kiosk.swayam.common.dto.CallTypeDto;
 import sbi.kiosk.swayam.common.dto.ManualTicketCallLogDto;
 import sbi.kiosk.swayam.common.entity.KioskBranchMaster;
@@ -19,6 +20,7 @@ import sbi.kiosk.swayam.common.entity.ManualTicketCallLog;
 import sbi.kiosk.swayam.common.entity.User;
 import sbi.kiosk.swayam.common.exception.ManualTicketNotFoudException;
 import sbi.kiosk.swayam.common.repository.UserRepository;
+import sbi.kiosk.swayam.common.utils.SMSSender;
 import sbi.kiosk.swayam.healthmonitoring.repository.BranchMasterRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.CallTypeRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.KioskMasterRepo;
@@ -141,8 +143,32 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 					String createdDate = date1.replace("/", "");
 					complaintId = "INC" + createdDate + id;
 					manualEnity.setComplaintId(complaintId);
-					manualTicketCallLogRepo.save(manualEnity);
+					manualEnity=manualTicketCallLogRepo.save(manualEnity);
 					//manualTicketCallLogRepo.updateComplaintId(complaintId, manualTicketCallLogDto.getKioskId());
+					SMSSender sms=new SMSSender();
+					if(manualEnity.getStatus().equalsIgnoreCase("Active")){
+						//send alert to userid
+						SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.YYYY HH::MM");
+						String dateTime = sdf.format(new Date());
+						AlertDto alertDto=new AlertDto();
+						alertDto.setKioskSrNo(manualEnity.getKioskSrNo());
+						alertDto.setCallLogId(complaintId);
+						alertDto.setMobileNo(manualTicketCallLogDto.getContactNo());
+						alertDto.setBranchCode(manualTicketCallLogDto.getBranchCode());
+						alertDto.setSenderId(manualEnity.getCreatedBy());
+						alertDto.setDateTime(dateTime);
+						
+						String result=sms.sendSms(alertDto, "", "", "");
+						
+						if(result!=null && !result.isEmpty() && result.equalsIgnoreCase("Success")){
+							
+						}
+						
+						
+						
+					}else{
+						//send fail to userid
+					}
 					return id;
 				}
 			} else {
@@ -152,9 +178,35 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 				complaintId = "INC" + createdDate + manual_call_log_id;
 				String kisokId = manualTicketCallLogDto.getKioskId();
 				manualEnity.setComplaintId(complaintId);
-				manualTicketCallLogRepo.save(manualEnity);
+				//manualTicketCallLogRepo.save(manualEnity);
+				manualEnity=manualTicketCallLogRepo.save(manualEnity);
 				//manualTicketCallLogRepo.updateComplaintId(complaintId, kisokId);
 				//return manual_call_log_id;
+				
+				SMSSender sms=new SMSSender();
+				if(manualEnity.getStatus().equalsIgnoreCase("Active")){
+					//send alert to userid
+					SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.YYYY HH::MM");
+					String dateTime = sdf.format(new Date());
+					AlertDto alertDto=new AlertDto();
+					alertDto.setKioskSrNo(manualEnity.getKioskSrNo());
+					alertDto.setCallLogId(complaintId);
+					alertDto.setMobileNo(manualTicketCallLogDto.getContactNo());
+					alertDto.setBranchCode(manualTicketCallLogDto.getBranchCode());
+					alertDto.setSenderId(manualEnity.getCreatedBy());
+					alertDto.setDateTime(dateTime);
+					
+					String result=sms.sendSms(alertDto, "", "", "");
+					
+					if(result!=null && !result.isEmpty() && result.equalsIgnoreCase("Success")){
+						
+					}
+					
+					
+					
+				}else{
+					//send fail to userid
+				}
 				complaintId = "Your complaint '"+complaintId+"` has been successfully registered";
 			}
 			

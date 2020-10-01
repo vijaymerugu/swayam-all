@@ -95,7 +95,21 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
        $scope.LoadCategory();
 	   // $scope.LoadDate();
 	   
-
+       function stringToDate(_date,_format,_delimiter) {
+	        var formatLowerCase=_format.toLowerCase();
+	        var formatItems=formatLowerCase.split(_delimiter);
+	        var dateItems=_date.split(_delimiter);
+	        var monthIndex=formatItems.indexOf("mm");
+	        var dayIndex=formatItems.indexOf("dd");
+	        var yearIndex=formatItems.indexOf("yyyy");
+	        var year = parseInt(dateItems[yearIndex]); 
+	        // adjust for 2 digit year
+	        if (year < 100) { year += 2000; }
+	        var month=parseInt(dateItems[monthIndex]);
+	        month-=1;
+	        var formatedDate = new Date(year,month,dateItems[dayIndex]);
+	        return formatedDate;
+	}
 	   
 	   $scope.resetPositions=function(){
 		        console.log("Inside resetPositions ");
@@ -136,7 +150,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 				
 				
 		       // debugger; 
-		        selectedCallLogDateId = $("#datepickerFromDate").val();
+		       /* selectedCallLogDateId = $("#datepickerFromDate").val();
 		        selectedCallClosedDateId = $("#datepickerToDate").val();
 		        
 		        var $from=$("#datepickerFromDate").datepicker('getDate');
@@ -145,11 +159,25 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 		       	{
 		        		alert("from date shouldn't greater than To date");
 		        		$("#datepickerFromDate").focus();
-		        	}
+		        	}*/
+				
+
+				/*if($('#datepickerFromDate').val() == '') {
+					alert('From date can not be null.');
+				}else if($('#datepickerToDate').val() == ''){
+					alert('To date can not be null.');
+				}else {*/
+					
+				var fromDate = stringToDate($('#datepickerFromDate').val(), 'dd-mm-yyyy', '-');
+				var toDate = stringToDate($('#datepickerToDate').val(), 'dd-mm-yyyy', '-');
+				
+				if (fromDate > toDate){
+					alert('From date must be smaller than To date.');
+				} else {
 
 				UserManagementService
 						.getUsers(paginationOptions.pageNumber,paginationOptions.pageSize, counttype,selectedKioskId,
-						selectedCallLogDateId,selectedCategoryId,selectedCircelId,selectedCallClosedDateId,selectedSubCategoryId,
+								$('#datepickerFromDate').val(),selectedCategoryId,selectedCircelId,$('#datepickerToDate').val(),selectedSubCategoryId,
 						selectedBranchCode,selectedVendorId).success(function(data) {
 							console.log("data1 " + data);
 							$scope.gridOptions.data = data.content;
@@ -157,8 +185,8 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 						});
 			}
 			
-			
-			
+				}
+		//}
 		
 	   
 	   
@@ -207,7 +235,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 				useExternalPagination: true,
 				
 				    columnDefs: [			   
-				     { name: 'kisokId', displayName: 'Kisok Id'  },   
+				     { name: 'kisokId', displayName: 'Kiosk Id'  },   
 				     { name: 'circle', displayName: 'Circle'  },
 				     { name: 'branchCode', displayName: 'Branch Code'  },
 				     { name: 'call_log_date',headerCellTemplate: '<div>Call Log<br/>Date</div>',type: 'date',cellFilter: 'date:"yy-mm-dd"'   },  	
@@ -246,6 +274,8 @@ app.service('UserManagementService',['$http', function ($http) {
 						selectedBranchCode,selectedVendorId) {
 		//alert("selectedKioskId==="+selectedKioskId);
 		//alert("selectedBranchId==="+selectedBranchId);
+		console.log("selectedCallLogDateId " + selectedCallLogDateId);
+	    console.log("selectedCallClosedDateId " + selectedCallClosedDateId);
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({
           method: 'GET',

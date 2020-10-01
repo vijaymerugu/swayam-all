@@ -102,7 +102,7 @@
 
                 </textElement>
 
-                <text><![CDATA[Network]]></text>
+                <text><![CDATA[NW]]></text>
 
             </staticText>
 
@@ -130,7 +130,7 @@
 
                 </textElement>
 
-                <text><![CDATA[Module]]></text>
+                <text><![CDATA[Mod]]></text>
 
             </staticText>
 

@@ -75,10 +75,17 @@ public class TicketHistoryServiceImpl implements TicketHistoryService {
 					selectedCircelId="";	
 				}
 				
+				if(!selectedKioskId.isEmpty() || !selectedCallLogDateId.isEmpty() || !selectedCategoryId.isEmpty() || !selectedCallClosedDateId.isEmpty() 
+						|| !selectedSubCategoryId.isEmpty() || !selectedBranchCode.isEmpty() || !selectedVendorId.isEmpty() || !selectedCircelId.isEmpty()){
+				
 				logger.info("selectedCallLogDateId==Service====="+selectedCallLogDateId);
 				pageEntity =ticketHistoryPagingRepo.findbyFilter(selectedKioskId,selectedCallLogDateId,selectedCategoryId,selectedBranchCode,selectedCallClosedDateId,selectedSubCategoryId,
 						    selectedCircelId,selectedVendorId, PageRequest.of(page, size)).map(TicketHistoryDto::new);
-			
+				}else{
+					logger.info("selectedCallLogDateId==Service====="+selectedCallLogDateId);
+					pageEntity =ticketHistoryPagingRepo.findbyFilter(selectedKioskId,selectedCallLogDateId,selectedCategoryId,selectedBranchCode,selectedCallClosedDateId,selectedSubCategoryId,
+							    selectedCircelId,selectedVendorId, PageRequest.of(page, size)).map(TicketHistoryDto::new);
+				}
 			logger.info("pageEntity::::::::::"+pageEntity);
 		} catch (Exception e) {
 			//e.printStackTrace();

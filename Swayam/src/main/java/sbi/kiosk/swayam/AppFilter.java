@@ -43,20 +43,22 @@ public class AppFilter implements Filter {
 	        res.setHeader("X-XSS-Protection", "1; mode=block");
 	        //res.setHeader("Content-Security-Policy", "default-src 'self'");
 	        String sessionid = req.getSession().getId();
+	        if(res!=null){
+	        	res.setHeader("SET-COOKIE", "JSESSIONID=" + sessionid + "; HttpOnly; Secure; Domain= " + req.getServerName() + "");	
+	        }
 	        
-	        
-	        if ("POST".equals(req.getMethod()) && "/getToken".equals(req.getServletPath())){
+	       /* if ("POST".equals(req.getMethod()) && "/getToken".equals(req.getServletPath())){
 	        	Cookie myCookie =  new Cookie("JSESSIONID", sessionid);
 	   		 	myCookie.setPath("/getToken");
 	   		 	myCookie.setDomain(req.getServerName());	
 	   		    myCookie.setSecure(true);
 	   		    myCookie.setHttpOnly(true);
 	   		 	res.addCookie(myCookie);	
-	   		    res.setHeader("SET-COOKIE", "JSESSIONID=" + sessionid + "; HttpOnly; Secure; Path=/getToken; Domain= " + req.getServerName() + "");
+	   		    ///res.setHeader("SET-COOKIE", "JSESSIONID=" + sessionid + "; HttpOnly; Secure; Path=/getToken; Domain= " + req.getServerName() + "");
 	        }
 	        else {
-	        	res.setHeader("SET-COOKIE", "JSESSIONID=" + sessionid + "; HttpOnly; Secure; Domain= " + req.getServerName() + "");
-	        }	        
+	        	//res.setHeader("SET-COOKIE", "JSESSIONID=" + sessionid + "; HttpOnly; Secure; Domain= " + req.getServerName() + "");
+	        }	*/        
 	        //res.setHeader("Refresh", "60; URL=/SMT/");
 
 	        //System.out.println(
@@ -64,7 +66,7 @@ public class AppFilter implements Filter {
 	        	//chain.doFilter(request, response);
 	        //System.out.println(
 	          //"Logging Response :{}");
-	        if ("POST".equals(req.getMethod()) && !"/getToken".equals(req.getServletPath())){
+	       /* if ("POST".equals(req.getMethod()) && !"/getToken".equals(req.getServletPath())){
 	        	
 		        String csrfToken = req.getHeader("X-CSRF-TOKEN");
 		        if (csrfToken ==null || csrfToken.isEmpty()) {
@@ -86,8 +88,8 @@ public class AppFilter implements Filter {
             } 
 	        else {
             	chain.doFilter(request, response);
-            }   
-
+            }   */
+	        chain.doFilter(request, response);
 	}
 
 	@Override

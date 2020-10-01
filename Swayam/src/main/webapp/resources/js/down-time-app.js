@@ -17,7 +17,8 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 		var selectedFromDateId="";
 		var selectedToDateId =""; 
 		
-			
+			/*---
+			new js
 		
 	   
 	   $scope.getCountType = function(type){
@@ -45,8 +46,8 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 				$scope.CmsCmfUsers = data;
 				
 				console.log("CmsCmfUsers....." + data);
-				$scope.SelectedCmsCmfUsers = 0;
-				$scope.CmsCmfUsersDefaultLabel = "Select CMS/CMS";
+				//$scope.SelectedCmsCmfUsers = 0;
+				//$scope.CmsCmfUsersDefaultLabel = "Select CMS/CMS";
 			}).error(function(data, status) {
 				console.log("Unable to load the CmsCmfUsers" +  data + " Status " + status);
 			});
@@ -67,8 +68,8 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 				    $scope.Circles = data;
 					console.log("Done.....");
 					
-						$scope.SelectedCircelId = 0;
-						$scope.CircleDefaultLabel = "Select Circle";
+						//$scope.SelectedCircelId = 0;
+						//$scope.CircleDefaultLabel = "Select Circle";
 						$scope.Circles = data;
 											
 						}).error(function(data, status) {
@@ -91,16 +92,34 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 		//$scope.reset('');
 		
 		
+		 function stringToDate(_date,_format,_delimiter) {
+		        var formatLowerCase=_format.toLowerCase();
+		        var formatItems=formatLowerCase.split(_delimiter);
+		        var dateItems=_date.split(_delimiter);
+		        var monthIndex=formatItems.indexOf("mm");
+		        var dayIndex=formatItems.indexOf("dd");
+		        var yearIndex=formatItems.indexOf("yyyy");
+		        var year = parseInt(dateItems[yearIndex]); 
+		        // adjust for 2 digit year
+		        if (year < 100) { year += 2000; }
+		        var month=parseInt(dateItems[monthIndex]);
+		        month-=1;
+		        var formatedDate = new Date(year,month,dateItems[dayIndex]);
+		        return formatedDate;
+		}
 		  $scope.resetPositions=function(){
 			   console.log("Inside resetPositions ");
-	    	   	$scope.SelectedCircelId =''; 
-	    	   	$scope.SelectedVendorId ='';
-	    	   	$scope.SelectedCmsCmfId ='';
-	    	    $scope.SelectedFromDateId ='';
-	    	   	$scope.SelectedToDateId ='';
-				
+			   console.log('before SelectedCircelId:', $scope.SelectedCircelId);
+			   $scope.selectedCircelId =''; 
+			   $scope.selectedVendorId ='';
+			   $scope.selectedCmsCmfId ='';
+			   $scope.selectedFromDateId ='';
+			   $scope.selectedToDateId ='';
+	    	    $scope.LoadDropDown('', 0);
+	   		    $scope.LoadDropCmsCmf();
+	   		    loadGrid();
 	       }
-       
+    
 	  
 		$scope.searchPositions = function(CircelId,VendorId,CmsCmfId,FromDateId,ToDateId) {
 			
@@ -275,4 +294,272 @@ app.service('UserManagementService',['$http', function ($http) {
     };
 	
 }]);
+*/
+		
+		 $scope.getCountType = function(type){
+				
+			   $scope.counttype=type;
+			   UserManagementService.getUsers(paginationOptions.pageNumber,
+					   paginationOptions.pageSize, $scope.counttype).success(function(data){
+						   
+							  $scope.gridOptions.data = data.content;
+						 	  $scope.gridOptions.totalItems = data.totalElements;
+						   });
+			}
+		   
+		    //Load Call Type
+		   $scope.LoadDropCmsCmf=function(){
+			   $http({
+					method : "GET",
+					url : 'hm/getCmsCmf',
+					dataType : 'json',
+					data : {},
+					headers : {
+						"Content-Type" : "application/json"
+					}
+				}).success(function(data, status){
+					$scope.CmsCmfUsers = data;
+					
+					console.log("CmsCmfUsers....." + data);
+					$scope.SelectedCmsCmfUsers = 0;
+					$scope.CmsCmfUsersDefaultLabel = "Select CMS/CMS";
+				}).error(function(data, status) {
+					console.log("Unable to load the CmsCmfUsers" +  data + " Status " + status);
+				});
+		   }
+		   
+		    $scope.LoadDropDown = function() {
+				   //   alert("11");
+								
+					$http({
+						method : "GET",
+						url : 'hm/getBycircle',
+						dataType : 'json',
+						data : {},
+						headers : {
+							"Content-Type" : "application/json"
+						}
+					}).success(function(data, status) {
+					    $scope.Circles = data;
+						console.log("Done.....");
+						
+							//$scope.SelectedCircelId = 0;
+							//$scope.CircleDefaultLabel = "Select Circle";
+							//$scope.Circles = data;
+												
+							}).error(function(data, status) {
+									console.log("error....." + value)
+									$window.alert(data.Message);
+								});
+													
+				}; 
+			
+			 $scope.LoadDropDown('', 0);
+			 $scope.LoadDropCmsCmf();
+			 
+			 
+			 
+			//$scope.reset = function(CircelId,VendorId,CmsCmfId,FromDateId,ToDateId) {
+			//alert("REST");
+			//	$scope.reset = angular.copy();
+			//};
+
+			//$scope.reset('');
+			
+			 function stringToDate(_date,_format,_delimiter) {
+			        var formatLowerCase=_format.toLowerCase();
+			        var formatItems=formatLowerCase.split(_delimiter);
+			        var dateItems=_date.split(_delimiter);
+			        var monthIndex=formatItems.indexOf("mm");
+			        var dayIndex=formatItems.indexOf("dd");
+			        var yearIndex=formatItems.indexOf("yyyy");
+			        var year = parseInt(dateItems[yearIndex]); 
+			        // adjust for 2 digit year
+			        if (year < 100) { year += 2000; }
+			        var month=parseInt(dateItems[monthIndex]);
+			        month-=1;
+			        var formatedDate = new Date(year,month,dateItems[dayIndex]);
+			        return formatedDate;
+			}
+			  $scope.resetPositions=function(){
+				   console.log("Inside resetPositions ");
+				   console.log('before SelectedCircelId:', $scope.SelectedCircelId);
+				   $scope.selectedCircelId =''; 
+				   $scope.selectedVendorId ='';
+				   $scope.selectedCmsCmfId ='';
+				   $scope.selectedFromDateId ='';
+				   $scope.selectedToDateId ='';
+		    	    $scope.LoadDropDown('', 0);
+		   		    $scope.LoadDropCmsCmf();
+		   		    loadGrid();
+		       }
+	       
+		  
+			$scope.searchPositions = function(CircelId,VendorId,CmsCmfId,FromDateId,ToDateId) {
+				
+			     //  alert("CircelId==="+CircelId);
+			    //    alert("FromDateId==="+FromDateId);
+					console.log("FromDateId " + FromDateId);
+					
+					//if((FromDateId==null || FromDateId=='undefined') && (ToDateId==null || ToDateId=='undefined')){
+					
+	  		//}else{
+	  		
+					$scope.selectedCircelId = CircelId;
+					$scope.selectedVendorId=VendorId;
+					$scope.selectedCmsCmfId=CmsCmfId;
+					//selectedToDateId=ToDateId;
+					//selectedFromDateId=FromDateId;
+					
+					$scope.selectedFromDateId=FromDateId;
+					$scope.selectedToDateId=ToDateId;
+			//}
+					
+					
+					
+				    console.log("selectedCircelId " + $scope.selectedCircelId);
+				    console.log("selectedVendorId " + $scope.selectedVendorId);
+					console.log("selectedCmsCmfId " + $scope.selectedCmsCmfId);
+					console.log("selectedFromDateId " + $scope.selectedFromDateId);
+					console.log("selectedToDateId " + $scope.selectedToDateId);
+					
+					if($('#datepickerFromDate').val() == '' || $('#datepickerToDate').val() == '') {
+						alert('From date & To date can not be null.');
+					} else {
+						
+					var fromDate = stringToDate($('#datepickerFromDate').val(), 'dd-mm-yyyy', '-');
+					var toDate = stringToDate($('#datepickerToDate').val(), 'dd-mm-yyyy', '-');
+					
+					if (fromDate > toDate){
+						alert('From date must be smaller than To date.');
+					} else {
+			    	   
+			         	UserManagementService
+							.getUsers(paginationOptions.pageNumber,paginationOptions.pageSize, $scope.counttype,$scope.selectedCircelId,
+									$scope.selectedVendorId,$scope.selectedCmsCmfId,$('#datepickerFromDate').val(),$('#datepickerToDate').val()).success(function(data) {
+								console.log("data1 " + data);
+								$scope.gridOptions.data = data.content;
+								$scope.gridOptions.totalItems = data.totalElements;
+							});
+			         	}
+			         	
+		    	   }
+			        
+			      //  if(selectedFromDateId!=null && !selectedFromDateId=='' && !selectedFromDateId=="" && !selectedFromDateId=='undefined'){
+			    	
+
+					
+				}
+			
+			loadGrid();
+			function loadGrid(){
+				   console.log("loadGrid:::", paginationOptions.pageNumber,
+						   paginationOptions.pageSize,  $scope.counttype, $scope.selectedCircelId,
+						   $scope.selectedVendorId, $scope.selectedCmsCmfId, $scope.selectedFromDateId, $scope.selectedToDateId);
+				  UserManagementService.getUsers( paginationOptions.pageNumber,
+						  paginationOptions.pageSize,  $scope.counttype, $scope.selectedCircelId,
+						  $scope.selectedVendorId, $scope.selectedCmsCmfId, $scope.selectedFromDateId, $scope.selectedToDateId).success(function(data){
+					  $scope.gridOptions.data = data.content;
+					  $scope.gridOptions.totalItems = data.totalElements;
+				});
+			  }
+				
+			
+			
+		   
+		   $scope.refresh = function()
+		   {  	
+			   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
+			 	   UserManagementService.getUsers(paginationOptions.pageNumber,
+			 			   paginationOptions.pageSize, counttype,selectedCircelId,
+							selectedVendorId,selectedCmsCmfId,selectedFromDateId,selectedToDateId).success(function(data){
+			 		  $scope.gridOptions.data = data.content;
+			 	 	  $scope.gridOptions.totalItems = data.totalElements;
+			 	   });	   
+			 		   
+			 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
+			 	  
+			 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
+			 		   
+			 	    }else{
+			 	    	UserManagementService.getUsers(paginationOptions.pageNumber,
+			 	 			   paginationOptions.pageSize, counttype,selectedCircelId,
+							selectedVendorId,selectedCmsCmfId,selectedFromDateId,selectedToDateId).success(function(data){
+			 	 		  $scope.gridOptions.data = data.content;
+			 	 	 	  $scope.gridOptions.totalItems = data.totalElements;
+			 	 	   });
+			 	    }
+			    };
+		   
+		   
+		  /* UserManagementService.getUsers(paginationOptions.pageNumber,
+				   paginationOptions.pageSize, counttype,selectedCircelId,
+							selectedVendorId,selectedCmsCmfId,selectedFromDateId,selectedToDateId).success(function(data){
+			  $scope.gridOptions.data = data.content;
+		 	  $scope.gridOptions.totalItems = data.totalElements;
+		   });*/
+		   
+		   
+		   
+		   
+		   $scope.gridOptions = {
+				    paginationPageSizes: [20, 30, 40],
+				    paginationPageSize: paginationOptions.pageSize,
+				    enableColumnMenus:false,
+					useExternalPagination: true,
+					
+					    columnDefs: [		
+					     { name: 'circle', displayName: 'Circle'  },	
+					     { name: 'network', displayName: 'NW'  }, 
+					     { name: 'module', displayName: 'Mod'  },  
+					     { name: 'branchCode', displayName: 'Branch Code '  },   
+					     { name: 'kioskId', displayName: 'Kiosk Id'  },   
+					     { name: 'vendor', displayName: 'Vendor'  },
+					     { name: 'cmsCmf',displayName: 'CMS/CMF'},
+					     { name: 'totalOperatingHours',headerCellTemplate: '<div>Total Operating<br/>Hours</div>' },  
+					     { name: 'totalDowntime',headerCellTemplate: '<div>Total<br/>Downtime</div>' }, 	
+					    ],
+				    onRegisterApi: function(gridApi) {
+				        $scope.gridApi = gridApi;
+				        gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
+				          paginationOptions.pageNumber = newPage;
+				          paginationOptions.pageSize = pageSize;
+				          UserManagementService.getUsers(newPage,pageSize, counttype,selectedCircelId,
+							selectedVendorId,selectedCmsCmfId,selectedFromDateId,selectedToDateId).success(function(data){
+				        	  $scope.gridOptions.data = data.content;
+				         	  $scope.gridOptions.totalItems = data.totalElements;
+				          });
+				        });
+				     }
+				  };
+		   
+		   
+		}]);
+
+
+
+
+
+
+	app.service('UserManagementService',['$http', function ($http) {
+		
+		function getUsers(pageNumber,size, counttype,selectedCircelId,
+							selectedVendorId,selectedCmsCmfId,selectedFromDateId,selectedToDateId) {
+		//	alert("selectedFromDateId"+selectedFromDateId);
+			pageNumber = pageNumber > 0?pageNumber - 1:0;
+	        return  $http({
+	          method: 'GET',
+	          url: 'hm/downtime/get?page='+pageNumber+'&size='+size+'&type='+counttype
+	          +'&selectedCircelId='+selectedCircelId
+	          +'&selectedVendorId='+selectedVendorId
+	          +'&selectedCmsCmfId='+selectedCmsCmfId
+	          +'&selectedFromDateId='+selectedFromDateId
+	          +'&selectedToDateId='+selectedToDateId
+	        });
+	    }
+	    return {
+	    	getUsers:getUsers
+	    };
+		
+	}]);
 

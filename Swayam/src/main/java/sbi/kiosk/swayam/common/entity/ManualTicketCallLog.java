@@ -43,6 +43,7 @@ public class ManualTicketCallLog extends Common {
 	@Column(name="CALL_SUBCATEGORY")
 	private String subCategory;
 	
-		
+	@Column(name="KIOSK_SERIAL_NO")
+	private String kioskSrNo;	
 	
 }

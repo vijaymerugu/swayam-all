@@ -1,4 +1,4 @@
-package sbi.kiosk.swayam.common.filter;
+/*package sbi.kiosk.swayam.common.filter;
 
 import java.io.IOException;
 
@@ -37,11 +37,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		/*
+		
 		 * final String authorizationHeader =
 		 * request.getHeader("Authorization"); System.out.println("header " +
 		 * authorizationHeader);
-		 */
+		 
 		logger.info("Inside the JwtRequest Filter");
 
 		final String QueryString = request.getQueryString();
@@ -50,7 +50,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		String username = null;
 		String jwt = null;
 
-		/*
+		
 		 * if (authorizationHeader != null &&
 		 * authorizationHeader.startsWith("Bearer ")) {
 		 * 
@@ -58,12 +58,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		 * jwtUtil.extractUsername(jwt);
 		 * 
 		 * }
-		 */
+		 
 
 		if (QueryString != null && QueryString.contains("token=")) {
 
 			jwt = QueryString.substring(6);
-			logger.info("Token = " + jwt);
+			//logger.info("Token = " + jwt);
 
 			try {
 
@@ -100,3 +100,4 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 	}
 
 }
+*/
