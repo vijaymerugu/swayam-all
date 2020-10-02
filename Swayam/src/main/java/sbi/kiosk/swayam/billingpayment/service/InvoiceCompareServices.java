@@ -33,16 +33,14 @@ public class InvoiceCompareServices implements InvoiceCompareService{
 		quarter= quterTimePeriod.substring(0, 2);
 		finacialYear= quterTimePeriod.substring(3);
 		
-		
-		
 		if(selectedRfpID.equalsIgnoreCase("1")){
-			//System.out.println("findPageByFilterIc selectedRfpID "+ selectedRfpID);
+			
 			
 			entities =
 					invoiceCompareRepository.findbyFilter(selectedCircelId, selectedStateId,
 							quarter,finacialYear, selectedVendorId, PageRequest.of(page, size));
 		}else {
-			//System.out.println("findPageByFilterIc else selectedRfpID "+ selectedRfpID);
+			
 			entities = invoiceCompareRepository.findbyFilterWithRFP(selectedCircelId, selectedStateId, 
 					quarter,finacialYear, selectedVendorId, selectedRfpID, PageRequest.of(page, size));
 		}

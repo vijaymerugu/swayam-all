@@ -52,8 +52,7 @@ public class RfpController {
 			
 			model.setViewName("rfpDetail");
 			
-		} catch (Exception e) {
-			
+		} catch (Exception e) {			
 			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
 		return model;
@@ -77,7 +76,7 @@ public class RfpController {
        // System.out.println("Updating RF " + user.getRfpId());
 		logger.info("Inside Update Rfp Details");
 		if(result.hasErrors()) {
-			logger.error("Validation Fail updateRfpDetails");
+			logger.error("Validation Fail updateRfpDetails " + result.getAllErrors());
 			return ResponseEntity.ok(new RfpResponse("Server side validation fail"));
 			
 		}else {
@@ -103,8 +102,8 @@ public class RfpController {
         	}else {
         		
         		if(result.hasErrors()) {
-        			System.out.println("Error " + result.getAllErrors());
-        			logger.error("Validation Fail Update Rfp Details");
+        			//System.out.println("Error " + result.getAllErrors());
+        			logger.error("Validation Fail Update Rfp Details " + result.getAllErrors());
         			return ResponseEntity.ok(new RfpResponse("Server side validation fail"));
         			
         		}else {

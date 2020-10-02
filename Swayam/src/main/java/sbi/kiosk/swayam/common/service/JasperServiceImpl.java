@@ -1395,7 +1395,7 @@ public class JasperServiceImpl implements JasperService {
 
 	@Override
 	public List<InvoiceSummaryDto> findInvoiceSummaryReport() {
-		logger.info("Inside==Jasper====findInvoiceSummaryReport===========");
+		logger.info("Inside==Jasper====findInvoiceSummaryReport==========");
 //		logger.info(report.getCircle());
 //		logger.info(report.getState());
 //		logger.info(report.getTimePeiod());

@@ -36,8 +36,7 @@ public class BillingPenaltyService  implements PenaltyServices{
 		Page<BillingPenaltyEntity> entities = null;
 		String quarter =null;
 		String finacialYear= null;
-		try {
-			
+		try {			
 		if(quterTimePeriod!="") {
 		quarter= quterTimePeriod.substring(0, 2);
 		finacialYear= quterTimePeriod.substring(3);

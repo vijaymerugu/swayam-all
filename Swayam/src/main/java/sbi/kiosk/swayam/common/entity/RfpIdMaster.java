@@ -83,20 +83,7 @@ public class RfpIdMaster {
 	@Column(name="MAX_PENALTY_PCT")
 	private Integer maxPenaltyPct;
 	
-	/*
-	 * public RfpIdMaster() { // TODO Auto-generated constructor stub }
-	 * 
-	 * 
-	 * public RfpIdMaster(String rfpId, String rfpNo, String vendor, double
-	 * kisokCost, double amcCost, double companyPenaltyHour, double
-	 * companyPermDntmMuHrs, double companyPermDntmSrHrs, double companyPermDntmPct,
-	 * double maxPenaltyPct) { super(); this.rfpId = rfpId; this.rfpNo = rfpNo;
-	 * this.vendor = vendor; this.kisokCost = kisokCost; this.amcCost = amcCost;
-	 * this.companyPenaltyHour = companyPenaltyHour; this.companyPermDntmMuHrs =
-	 * companyPermDntmMuHrs; this.companyPermDntmSrHrs = companyPermDntmSrHrs;
-	 * this.companyPermDntmPct = companyPermDntmPct; this.maxPenaltyPct =
-	 * maxPenaltyPct; }
-	 */
+
 	
 	
 

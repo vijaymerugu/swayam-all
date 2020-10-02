@@ -5,8 +5,7 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.pagination','ngAni
 	     pageNumber: 1,
 		 pageSize: 20,
 		 sort: null
-	   };
-	   
+	   }; 
 	  // var self = this;
 	   $scope.LoadVendor=function(){
 		   $http({

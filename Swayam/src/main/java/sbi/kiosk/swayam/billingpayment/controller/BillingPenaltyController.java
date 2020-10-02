@@ -82,8 +82,8 @@ public class BillingPenaltyController {
 			model.setViewName("billingPenalty");
 			
 		} catch (Exception e) {
-			e.printStackTrace();
-			//logger.error("Exception "+ExceptionConstants.EXCEPTION);
+			//e.printStackTrace();
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
 		return model;
 	}

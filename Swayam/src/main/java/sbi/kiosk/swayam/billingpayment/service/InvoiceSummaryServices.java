@@ -19,7 +19,7 @@ import sbi.kiosk.swayam.common.entity.InvoiceSummaryEntity;
 @Service
 public class InvoiceSummaryServices implements InvoiceSummaryService {
 	
-	Logger logger =  LoggerFactory.getLogger(InvoiceSummaryServices.class);
+	Logger logger = LoggerFactory.getLogger(InvoiceSummaryServices.class);
 	
 	 @Autowired 
 	 InvoiceSummaryRepository isRepository;
