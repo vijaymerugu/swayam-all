@@ -131,9 +131,9 @@
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
-                        <select id="circle" name="Circle" ng-model="SelectedCircelId"
+                        <select id="circle" class="form-group" name="Circle" ng-model="SelectedCircelId"
 								ng-change="LoadDropDown('circleId',SelectedCircelId)" required>
-									<option value=""></option>
+									  <option value="" selected>--Select Circle--</option>
 									<option ng-repeat="item in Circles" value="{{item.circleCode}}">{{item.circleName}}</option>
 							</select>
                     </div>
@@ -146,8 +146,8 @@
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
-                        <select id="state" name="State" ng-model="SelectedStateId">
-									<option value="0"></option>
+                        <select id="state"  class="form-group" name="State" ng-model="SelectedStateId">
+									 <option value="" selected>--Select State--</option> 
 									<option ng-repeat="item in States" value="{{item.statCode}}">{{item.statDesc}}</option>
 							</select>
                     </div>
@@ -160,8 +160,8 @@
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
-                       <select id="vendor"  name="Vendor" ng-model="SelectedVendorId" required>
-									<option value=""></option> 
+                       <select id="vendor"   class="form-group" name="Vendor" ng-model="SelectedVendorId" required>
+									 <option value="" selected>--Select Vendor--</option>  
 									<option ng-repeat="item in Vendors" value="{{item.vendorId}}">{{item.vendor}}</option>
 								</select>
                     </div>
@@ -176,8 +176,8 @@
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
-                       <select id="year" name="Year" ng-model="SelectedYearId" required>
-									 <option value=""></option> 
+                       <select id="year"  class="form-group" name="Year" ng-model="SelectedYearId" required>
+									  <option value="" selected>--Select Year--</option>  
 									<option ng-repeat="year in Years" value="{{year}}">{{year}}</option>
 							</select>
                     </div>
@@ -191,8 +191,8 @@
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
-                       <select id="timeperiod" name="TimePeriod" ng-model="SelectedQuarterId" required>
-                       				 <option value=""></option> 
+                       <select id="timeperiod"  class="form-group" name="TimePeriod" ng-model="SelectedQuarterId" required>
+                       				 <option value="" selected>--Select Time Period--</option> 
 									<option value="Q1">Q1(Apr-Jun)</option>
 									<option value="Q2">Q2(Jul-Sep)</option>
 									<option value="Q3">Q3(Oct-Dec)</option>
@@ -208,8 +208,8 @@
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
-                       <select id="refno" name="RefNo" ng-model="RfpId">
-									<option value="1"></option>
+                       <select id="refno"  class="form-group" name="RefNo" ng-model="RfpId">
+									 <option value="">--Select Rfp.No.--</option> 
 									<option ng-repeat="item in Rfpids" value="{{item.rfpNo}}">{{item.rfpNo}}</option>
 								</select>
                     </div>
@@ -232,7 +232,7 @@
                 </div>
 			</td>
         </tr>			   
-			</table> 
+			</table>
 		</div>
 		</form>
 		</div> 
@@ -277,8 +277,14 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
     	            url: 'report?page=invoiceCompareReport&type=pdf',
     	            type: 'GET',   
     	            success: function(data){
-    	            	console.log(data);
-    	            	window.open("resources/download/"+data , '_blank');  
+    	            	if(data.includes(".pdf")){
+    	            		console.log("PDF Data1" + data);
+    	            		window.open("resources/download/"+data , '_blank'); 
+    	            		
+    	            	}else{
+    	            		console.log("PDF Data" + data);
+    	            		alert("No Data to Export");
+    	            	}
     	            }
     	        });
     	    });
@@ -287,8 +293,14 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
     	            url: 'report?page=invoiceCompareReport&type=excel',
     	            type: 'GET',   
     	            success: function(data){
-    	            	console.log(data);
-    	            	window.open("resources/download/"+data , '_blank');  
+    	            	if(data.includes(".xlsx")){
+    	            		console.log("PDF Data1" + data);
+    	            		window.open("resources/download/"+data , '_blank'); 
+    	            		
+    	            	}else{
+    	            		console.log("PDF Data" + data);
+    	            		alert("No Data to Export");
+    	            	} 
     	            }
     	        });
     	    });

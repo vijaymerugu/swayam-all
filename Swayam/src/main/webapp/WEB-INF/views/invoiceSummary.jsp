@@ -3,35 +3,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
+
+<meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
+
 <script	src="resources/js/angular.1.5.6.min.js"></script>
-<script src="resources/js/jquery.3.4.1.min.js"></script>
-<script src="resources/js/bootstrap.3.4.1.min.js"></script>
-<link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
+<!-- <link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css"> -->
 
-<script
-	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
-<script src="resources/js/invoice-Summary.js"></script>
-<script	src="resources/js/angular.1.5.6.min.js"></script>
-<link rel="stylesheet" href="resources/css/grid-style.css"/>
-<link rel="stylesheet" href="resources/css/body-page.css"/>
+<link rel="stylesheet" href="resources/css/ui-grid.min.css"/> 
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
-<script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script> 
-<link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/>
+ <link rel="stylesheet" href="resources/css/ui-grid.min-1.css"> 
 
+<!-- 
+  <link rel="stylesheet" href="http://cdn.rawgit.com/angular-ui/ui-grid.info/gh-pages/release/3.0.0-rc.20/ui-grid.min.css">
+   
+ -->
+ <script data-require="jquery@2.1.3" data-semver="2.1.3" src="resources/js/jquery-2.1.3.min.js"></script>
+     <!-- <script data-require="jquery@2.1.3" data-semver="2.1.3" src="http://code.jquery.com/jquery-2.1.3.min.js"></script>  -->
+<!--     <script src="https://code.angularjs.org/1.4.0/angular.js"></script> -->
+ <!--    <script src="http://cdn.rawgit.com/angular-ui/ui-grid.info/gh-pages/release/3.0.0-rc.21/ui-grid.min.js"></script> -->
+
+ <script src="resources/js/invoice-Summary.js"></script>   
+
+<link rel="stylesheet" href="resources/css/grid-style1.css"/>
+
+<!-- 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="resources/css/style.css">
+
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+ -->
 <script src="resources/js/angular.js"></script>
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
+
+
 <style>
         .tb-bk {
-            background: #f3f7fa;
         }
             .tb-bk table tr td {
             width:33.33%;padding: 5px;
@@ -78,7 +87,7 @@
         span.pull-right {
         padding:5px 10px;
         }
-          .ui-grid-header-cell-label {
+        /*   .ui-grid-header-cell-label {
 		display:inline-block;
 		white-space:initial;
 		}
@@ -88,7 +97,7 @@
  		 white-space:normal;
 		}
 
-		[ui-grid-row] {
+	 	[ui-grid-row] {
   		display: table-row;
 		}
 
@@ -99,14 +108,13 @@
 			.ui-grid-cell {
   			float: none;
   			display: table-cell;
-			} 
+			}  */
 		
 		
-			.ui-grid-header-cell, .ui-grid-cell-contents {
+		/* 	.ui-grid-header-cell, .ui-grid-cell-contents {
   			white-space: normal;
-  			padding: 2px;
   			word-break: break-word;
-			}  
+			}  */  
     </style>
 	
 </head>
@@ -131,7 +139,7 @@
                     </div>
                     <div class="col-xs-6">
                        <select id="year" name="Year" ng-model="SelectedYearId" required>
-									<option value=""></option>
+									 <option value="" selected>--Select Year--</option>  
 									<option ng-repeat="year in Years" value="{{year}}">{{year}}</option>
 							</select>
                     </div>
@@ -144,9 +152,9 @@
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
-                        <select id="circle"  name="Circle" ng-model="SelectedCircelId"
+                        <select id="circle" class="form-group" name="Circle" ng-model="SelectedCircelId"
 								ng-change="LoadDropDown('circleId',SelectedCircelId)" required>
-									<option value=""></option>
+									 <option value="" selected>--Select Circle--</option> 
 									<option ng-repeat="item in Circles" value="{{item.circleCode}}">{{item.circleName}}</option>
 							</select>
                     </div>
@@ -160,7 +168,7 @@
                     </div>
                     <div class="col-xs-6">
                         <select id="state" name="State" ng-model="SelectedStateId">
-									<option value="0"></option>
+									   <option value="" selected>--Select State--</option> 
 									<option ng-repeat="item in States" value="{{item.statCode}}">{{item.statDesc}}</option>
 							</select>
                     </div>
@@ -200,7 +208,7 @@
 		</span>
 		<br/>
 		
-		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test"></div>
+		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns  id="test"></div>
 		
         
     </div>
@@ -208,6 +216,10 @@
     
 	</div>
 </div>
+<script>
+angular.bootstrap(document.getElementById("appId"), ['app']);
+</script>
+
 <script type="text/javascript">
      $(function () {
         $("#btnReset").bind("click", function () {
@@ -231,8 +243,16 @@
     	            url: 'report?page=invoiceSummaryReport&type=pdf',
     	            type: 'GET',   
     	            success: function(data){
-    	            	console.log(data);
-    	            	window.open("resources/download/"+data , '_blank');  
+    	            	 if(data.includes(".pdf")){
+    	            		console.log("PDF Data1" + data);
+    	            		window.open("resources/download/"+data , '_blank'); 
+    	            		
+    	            	}else{
+    	            		console.log("PDF Data" + data);
+    	            		alert("No Data to Export");
+    	            	} 
+    	            	/* console.log("PDF Data1" + data);
+    	            	window.open("resources/download/"+data , '_blank');  */
     	            }
     	        });
     	    });
@@ -241,8 +261,17 @@
     	            url: 'report?page=invoiceSummaryReport&type=excel',
     	            type: 'GET',   
     	            success: function(data){
-    	            	console.log(data);
-    	            	window.open("resources/download/"+data , '_blank');  
+    	            	 if(data.includes(".xlsx")){
+    	            		console.log("PDF Data1" + data);
+    	            		window.open("resources/download/"+data , '_blank'); 
+    	            		
+    	            	}else{
+    	            		console.log("PDF Data" + data);
+    	            		alert("No Data to Export");
+    	            	}  
+    	            	
+    	            	/*  console.log("xsxl Data1" + data);
+    	            	window.open("resources/download/"+data , '_blank');  */
     	            }
     	        });
     	    });
@@ -252,9 +281,7 @@
       
       </script>	
 	
-<script>
-angular.bootstrap(document.getElementById("appId"), ['app']);
-</script>
+
 
 
 </body>

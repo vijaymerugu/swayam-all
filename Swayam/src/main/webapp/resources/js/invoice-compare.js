@@ -16,30 +16,23 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	    	   	$scope.SelectedQuarterId='';
 	    	   	$scope.SelectedYearId ='';
 	    	   	$scope.SelectedVendorId='';
+	    	   	$scope.RfpId='';
 				selectedRfpID="";
+				
+				InvoiceCompareService.getUsers(paginationOptions.pageNumber,
+						paginationOptions.pageSize, counttype,
+						selectedCircelId,selectedStateId,
+						quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
+							console.log("data3 " + data);
+					$scope.gridOptions.data = data.content;
+					$scope.gridOptions.totalItems = data.totalElements;
+
+	 	 	   });  
 				
 	       }
 
 	   	   
-	   //Years Load
-	 /*  $scope.LoadYear=function(){
-		var year = new Date().getFullYear();
-		   //var year = "2020"
-	    var range = [];
-	    //range.push(year);
-	    for (var i = 1; i <100; i++) {
-	    	var selectYear = ((year-30) + i);
-	    	var second = ((selectYear+1).toString()).substring(2);
-	    	
-	    	var modifiedyear = (selectYear)+"-"+(second);
-	    	
-	        range.push(modifiedyear);
-	    }
-	    
-	    console.log("Range "+ range)
-	    $scope.Years = range;
-	   }
-	   */
+	
 	   
 	   
 	   $scope.LoadYear=function(){
@@ -155,6 +148,8 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 							}).success(function(data, status) {
 								console.log("Done Inside comm/getcities .....")
 								$scope.States = data;
+								
+								$scope.SelectedStateId = "";
 								console.log("data...." +data)
 							}).error(function(data, status) {
 								console.log("error....." + value)
@@ -197,7 +192,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 				
 				selectedCircelId = CircelId;
 				
-				selectedStateId = StateId;
+				//selectedStateId = StateId;
 				selectedQuarterId = QuarterId;
 				selectedYearId = YearId;
 				selectedVendorId= VendorId
@@ -214,7 +209,22 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 				else{
 					selectedRfpID= RfpId;
 					console.log("Inside else RfID " + selectedRfpID);
-				}	
+				}
+				
+				
+				if(typeof StateId === 'undefined') {
+					
+					selectedStateId= "0";
+					console.log("Inside if RfID " + selectedStateId);
+				}else if(StateId==''){
+					selectedStateId= "0";
+					console.log("Inside else if RfID " + selectedStateId);
+					
+				}
+				else{
+					selectedStateId= StateId;
+					console.log("Inside else RfID " + selectedStateId);
+				}
 				
 				quterTimePeriod=(selectedQuarterId.toUpperCase())+'-'+selectedYearId;
 				console.log("selectedCircelId " + selectedCircelId);
@@ -256,16 +266,29 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	   $scope.refresh = function()
 	   {  	
 		   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
-		 	   UserManagementService.getUsers(paginationOptions.pageNumber,
-		 			   paginationOptions.pageSize,counttype,fromDate,toDate).success(function(data){
-		 				   
-		 		  $scope.gridOptions.data = data.content;
-		 	 	  $scope.gridOptions.totalItems = data.totalElements;
-		 	   });	   
+		   		InvoiceCompareService.getUsers(paginationOptions.pageNumber,
+						paginationOptions.pageSize, counttype,
+						selectedCircelId,selectedStateId,
+						quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
+							console.log("data3 " + data);
+					$scope.gridOptions.data = data.content;
+					$scope.gridOptions.totalItems = data.totalElements;
+
+	 	 	   });  
 		 		   
 		 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
-		 	  
-		 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
+		 	    	
+		 	   	InvoiceCompareService.getUsers(paginationOptions.pageNumber,
+						paginationOptions.pageSize, counttype,
+						selectedCircelId,selectedStateId,
+						quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
+							console.log("data3 " + data);
+					$scope.gridOptions.data = data.content;
+					$scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);
+					$scope.gridOptions.totalItems = data.totalElements;
+
+	 	 	   });
+		 		   		   
 		 		   
 		 	    }else{
 		 	    	InvoiceCompareService.getUsers(paginationOptions.pageNumber,
@@ -304,10 +327,10 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		        //Use that to set the editrow attrbute value to false
 		        $scope.gridOptions.data[index].editrow = false;
 		        //Display Successfull message after save
-		        $scope.alerts.push({
+		      /*  $scope.alerts.push({
 		            msg: 'Row editing cancelled',
 		            type: 'info'
-		        });
+		        });*/
 		    };
 		    
 		    
@@ -337,6 +360,16 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		        //Remove the edit mode when user click on Save button
 		        $scope.gridOptions.data[index].editrow = false;
 
+		        
+		        var check = angular.isNumber(row.Corrections);
+		        console.log("Check for integer " + check);
+		        
+		        
+		        
+		        if(check==true){
+		        	
+		      
+		        
 		        //Assign the updated value to Customer object
 		    /*    $scope.Invoice.Corrections = row.Corrections;
 		        $scope.Invoice.remarks = row.Remarks;
@@ -360,13 +393,18 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		            //Display Successfull message after save
 		        	console.log("Inside Success " + d);
 		        	alert("Data saved successfully");
-		            $scope.alerts.push({
+		          /*  $scope.alerts.push({
 		                msg: 'Data saved successfully',
 		                type: 'success'
-		            });
+		            });*/
 		        }, function (d) {
 		        	alert("Failed to save");
 		        });
+		        
+		        }else{
+		        	
+		        	alert("Correction Value Must Be Integer");
+		        }
 		    };
 	   
 	   $scope.gridOptions = {
@@ -444,31 +482,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	        });
 	    }
 		
-		
-		  
-		
-	 
-	/*    
-	    var res = {};
-	    
-	    res.SaveCustomer = function ($scope) {
-	        return $http({
-	            method: 'POST',
-	            data: $scope.Invoice,
-	            url: 'ic/UpdateCorrection'
-	        });
-	    }
-	    
-	    function saveCorrection(Corrections,remarks,rpfRefNumber,
-        		kioskSerialNumber,kisokId) {
-	        return $http({
-	            method: 'GET',
-	     
-	            url: 'ic/UpdateCorrection?Corrections='+Corrections+'&remarks='
-	            +remarks+'&rpfRefNumber='+rpfRefNumber+'&kioskSerialNumber='
-	            +kioskSerialNumber+'&kisokId='+kisokId
-	        });
-	    }*/
+	
 	    
 	    return {
 	    	getUsers:getUsers,
@@ -481,13 +495,6 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	//Factory
 	app.factory('InvoiceCorrectionService', function ($http) {
 	    var res = {};
-	  /*  res.GetCustomer = function () {
-	        return $http({
-	            method: 'GET',
-	            dataType: 'jsonp',
-	            url: 'api/Customer/GetCustomer'
-	        });
-	    }*/
 
 	    res.saveCorrection = function (Corrections,remarks,rpfRefNumber,
         		kioskSerialNumber,kisokId,quarter,yearid) {
