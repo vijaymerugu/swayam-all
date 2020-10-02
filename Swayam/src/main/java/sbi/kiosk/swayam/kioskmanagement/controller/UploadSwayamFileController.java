@@ -392,7 +392,8 @@ public class UploadSwayamFileController {
 		// File("/home/webadmin/wls/oracle/config/domains/TEST/servers/AdminServer/tmp/_WL_user/SMT2/pl2f58/public/resources/upload/");
 		if (!dir.exists())
 			dir.mkdirs();
-
+		
+		
 		// Create the file on server
 		File serverFile = new File(dir.getAbsolutePath() + File.separator + name1);
 
