@@ -16,7 +16,7 @@ import sbi.kiosk.swayam.common.entity.InvoiceGeneration;
 @Service
 public class InvoiceCompareServices implements InvoiceCompareService{
 	
-	Logger logger = LoggerFactory.getLogger(InvoiceCompareServices.class);
+	Logger logger =LoggerFactory.getLogger(InvoiceCompareServices.class);
 	
 	@Autowired
 	InvoiceCompareRepository invoiceCompareRepository;	
@@ -33,16 +33,14 @@ public class InvoiceCompareServices implements InvoiceCompareService{
 		quarter= quterTimePeriod.substring(0, 2);
 		finacialYear= quterTimePeriod.substring(3);
 		
-		
-		
 		if(selectedRfpID.equalsIgnoreCase("1")){
-			//System.out.println("findPageByFilterIc selectedRfpID "+ selectedRfpID);
+			
 			
 			entities =
 					invoiceCompareRepository.findbyFilter(selectedCircelId, selectedStateId,
 							quarter,finacialYear, selectedVendorId, PageRequest.of(page, size));
 		}else {
-			//System.out.println("findPageByFilterIc else selectedRfpID "+ selectedRfpID);
+			
 			entities = invoiceCompareRepository.findbyFilterWithRFP(selectedCircelId, selectedStateId, 
 					quarter,finacialYear, selectedVendorId, selectedRfpID, PageRequest.of(page, size));
 		}
@@ -54,7 +52,7 @@ public class InvoiceCompareServices implements InvoiceCompareService{
 	@Override
 	public Page<InvoiceCompare> findPageWithoutStateIc(int page, int size, String type, String selectedCircelId,
 			String quterTimePeriod, String selectedVendorId, String selectedRfpID) {
-		//System.out.println("Inside findPaginatedWithoutState" +selectedRfpID);
+		
 		logger.info("Inside findPageWithoutStateIc "); 
 		String quarter =null;
 		String finacialYear= null;
@@ -74,7 +72,7 @@ public class InvoiceCompareServices implements InvoiceCompareService{
 		}
 		
 		}
-		//System.out.println("Inside findPaginatedWithoutState " +entities);
+		
 		return entities;
 	}
 	
