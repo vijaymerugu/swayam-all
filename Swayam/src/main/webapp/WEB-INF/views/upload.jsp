@@ -10,6 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 
+
 <link rel="stylesheet" href="resources/css/ui-grid.min.css"/>
 
 <script	src="resources/js/angular.1.5.6.min.js"></script>

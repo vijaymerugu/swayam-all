@@ -87,12 +87,14 @@ public class UploadServiceImpl implements UploadService {
 			 */
 
 			inputStream = new FileInputStream(path);
+			logger.info("7 A.file read successfully!! "+ path);
 			// new File("C:\\Users\\Admin\\Downloads\\Swayam_Kiosk_Information.xlsx"));
 
 			// -------By Ankur END---------------------------
 
 			workbook = new XSSFWorkbook(inputStream);
 
+			logger.info("7 B.workbook parsing started!!");
 			// By Ankur 28-04-2020-----------STARTS---------
 
 			/* HashMap<Integer,String> map = map=new HashMap<Integer,String>(); */
@@ -206,7 +208,7 @@ public class UploadServiceImpl implements UploadService {
 
 							}
 
-							if (String.valueOf(cell.getColumnIndex()).equals("19")) { System.out.println("i m a string");
+							if (String.valueOf(cell.getColumnIndex()).equals("19")) { 
 
 								dto.setRfpID(cell.getStringCellValue());
 
@@ -539,12 +541,13 @@ public class UploadServiceImpl implements UploadService {
 			if(listEntity1 !=null && listEntity1.size() > 0)
 			{	
 				KioskBranchMasterxlsx(listEntity1);
+				logger.info("Kiosk Details Data Not Uploaded");
 				return "Data Not Uploaded";
 			}
 			else {
 				Iterable<KioskBranchMaster> result = kioskMasterManagementRepository.saveAll(listEntity);
 				if (result != null)
-					//return "Kiosk Details Uploaded Successfully";
+					logger.info("Kiosk Details Uploaded Successfully");
 					return "Kiosk_Branch_Master";			
 			}
 			
@@ -650,8 +653,9 @@ public class UploadServiceImpl implements UploadService {
 			// String CBSBrhmFilepath = rb.getString(path);
 
 			inputStream = new FileInputStream(new File(path));
+			logger.info("7 A.file read successfully!!");
 			workbook = new XSSFWorkbook(inputStream);
-
+			logger.info("7 B.workbook parsing started!!");
 			// List<String> errorList = new ArrayList<String>();
 
 			// -------By Ankur END---------------------------
@@ -1221,13 +1225,15 @@ public class UploadServiceImpl implements UploadService {
 			}
 			if(listEntity1 !=null && listEntity1.size() > 0)
 			{	
+				
 				branchmasterxlsx(listEntity1);
+				logger.info("Data Not Uploaded");
 				return "Data Not Uploaded";
 			}
 			else {
 				Iterable<BranchMaster> result =	branchMasterRepository.saveAll(listEntity);
 				if(result != null) {
-			//	return "Branch Master Data Uploaded Successfully";
+					logger.info( "Branch Master Data Uploaded Successfully");
 				return "BranchMaster";
 			}
 			
@@ -1349,10 +1355,11 @@ public class UploadServiceImpl implements UploadService {
 			// String holidayCalendarFilePath = rb.getString("CBSBrhmFilepath");
 			// String holidayCalendarFilePath = rb.getString(path);
 			inputStream = new FileInputStream(new File(path));
-
+			logger.info("7 A.file read successfully!! "+ path);
 			// -------By Ankur END---------------------------
 
 			workbook = new XSSFWorkbook(inputStream);
+			logger.info("7 B.workbook parsing started!!");
 			// HashMap<Integer,String> map=null;  
 			org.apache.poi.ss.usermodel.Sheet firstSheet = workbook.getSheetAt(0);
 
@@ -1466,12 +1473,13 @@ public class UploadServiceImpl implements UploadService {
 			if(listEntity1 !=null && listEntity1.size() > 0)
 			{   
 				HolidayCalendarxlsx(listEntity1);
+				logger.info("Holiday Calendar Data Not Uploaded");
 				return "Data Not Uploaded";
 			}
 			else {
 				Iterable<HolidayCalendar> result = holidayCalendarRepository.saveAll(listEntity);
 				if (result != null)
-				//	return "Holiday Calendar Data Uploaded Successfully";
+				logger.info("Holiday Calendar Data Uploaded Successfully");
 					return "Holiday_Calendar";
 			}
 		}
@@ -1552,7 +1560,9 @@ public class UploadServiceImpl implements UploadService {
 		try {
 
 			inputStream = new FileInputStream(new File(path));
+			logger.info("7 A.file read successfully!! "+ path);
 			workbook = new XSSFWorkbook(inputStream);
+			logger.info("7 B.workbook parsing started!!");
 			/* HashMap<Integer,String> map=null; */
 			org.apache.poi.ss.usermodel.Sheet firstSheet = workbook.getSheetAt(0);
 
@@ -1644,12 +1654,13 @@ public class UploadServiceImpl implements UploadService {
 			if(listEntity1 !=null && listEntity1.size() > 0)
 			{	
 				emptyxlsx(listEntity1);
+				logger.info("Kiosk_CMF Data Not Uploaded");
 				return "Data Not Uploaded";
 			}
 			else {
 				Iterable<UserKioskMapping> result = kioskCMFRepository.saveAll(listEntity);
 				if (result != null)
-				//	return "Kiosk_CMF Data Uploaded Successfully";
+				logger.info("Kiosk_CMF Data Uploaded Successfully");
 					return "Kiosk_CMF";
 			}
 			

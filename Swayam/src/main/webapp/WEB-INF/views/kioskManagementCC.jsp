@@ -62,8 +62,8 @@
 					<tr
 						style="color: #000000; font-size: 12px; font-weight: bold; width: 119px;" >
 						<th colspan="4" style="text-align: -webkit-center;">NO OF KIOSKS</th>
-						<th colspan="3" style="text-align: centor;">VENDOR 1 ROLLOUT</th>
-						<th colspan="3" style="text-align: centor;">VENDOR 2 ROLLOUT</th>
+						<th colspan="3" style="text-align: centor;">CMS ROLLOUT</th>
+						<th colspan="3" style="text-align: centor;">LIP ROLLOUT</th>
 						<th colspan="3" style="text-align: centor;">ASSIGNED KIOSKS</th>
 					</tr>
 
