@@ -197,7 +197,7 @@ misReportViewService2.loadAvailableColumns(removeIds)
 		        });
 				callMisReportData($('#datepickerFromDate').val(), $('#datepickerToDate').val(),
 						$scope.selectedGroupingCriteria.criteria.value, $scope.selectedGroupingCriteria.criteria.name,
-						selectedColumnIndexes, $scope.selectedReportType.reportType.value);
+						selectedColumnIndexes, $scope.selectedReportType.reportType.value, $scope.removeIds);
 			}
 		}//End of Valid Date Else
 		
@@ -223,8 +223,8 @@ misReportViewService2.loadAvailableColumns(removeIds)
 
 	};
 	//Start of loadMisReportData service
-	function callMisReportData(fromDate, toDate, groupingCriteriaId, groupingCriteriaName, selectedColumnIndexes, reportType){
-		misReportViewService3.loadMisReportData(fromDate, toDate, groupingCriteriaId, groupingCriteriaName, selectedColumnIndexes, reportType)
+	function callMisReportData(fromDate, toDate, groupingCriteriaId, groupingCriteriaName, selectedColumnIndexes, reportType, removeIds){
+		misReportViewService3.loadMisReportData(fromDate, toDate, groupingCriteriaId, groupingCriteriaName, selectedColumnIndexes, reportType, removeIds)
 		.success(function(response, status, headers, config){
 
 			var filename = "";
@@ -266,12 +266,12 @@ app.service('misReportViewService2',['$http', function ($http) {
 	};
 }]);
 app.service('misReportViewService3',['$http', function ($http) {
-    function loadMisReportData(fromDate, toDate, groupingCriteriaId, groupingCriteriaName, selectedColumnIndexes, reportType) {
+    function loadMisReportData(fromDate, toDate, groupingCriteriaId, groupingCriteriaName, selectedColumnIndexes, reportType, removeIds) {
         return  $http({
           method: 'GET',
           url: 'mis/generate-report?fromDate='+fromDate+'&toDate='+toDate
           +'&groupingCriteriaId='+groupingCriteriaId+'&groupingCriteriaName='+groupingCriteriaName
-          +'&selectedColumnIndexes='+selectedColumnIndexes+'&reportType='+reportType,
+          +'&selectedColumnIndexes='+selectedColumnIndexes+'&reportType='+reportType+'&removeIds='+removeIds,
           responseType: 'blob'
         });
     }

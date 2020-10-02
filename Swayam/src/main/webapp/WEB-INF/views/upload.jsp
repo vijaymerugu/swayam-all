@@ -10,22 +10,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 
-<link rel="stylesheet"
-	href="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css">
+<link rel="stylesheet" href="resources/css/ui-grid.min.css"/>
 
 <script	src="resources/js/angular.1.5.6.min.js"></script>
 <script src="resources/js/jquery.3.4.1.min.js"></script>
 <script src="resources/js/bootstrap.3.4.1.min.js"></script>
  <link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css"> 
-
-
-
 <link rel="stylesheet" href="resources/css/grid-style.css"/>
 <link rel="stylesheet" href="resources/css/body-page.css"/>  
-<script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script>
-<script	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  	-->
+ <script src="resources/js/ui-grid.js"></script>
+<script	src="resources/js/ui-grid.min.js"></script>
+
 <link href="resources/css/menu.css" rel="stylesheet" type="text/css">	
 <script src="resources/js/angular.js"></script>
     <script src="resources/js/angular-touch.js"></script>
