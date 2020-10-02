@@ -41,8 +41,6 @@ public class CommaSeparated {
 	
 	@Autowired
 	SwayanTxnReportRepository swayanTxnReportRepository;
-	//@Autowired
-	//MyProcedureScheduler myProcedureScheduler ;
 
 	public void fileRead(String path) {
 
@@ -53,12 +51,12 @@ public class CommaSeparated {
 		try {
 			String strLine;
 			File filePath = getLastModified(path);
-			logger.info("filepath" + filePath);
+			//logger.info("filepath" + filePath);
 
 			br = new BufferedReader(new FileReader(filePath));
-
+			//System.out.println("===========================branch txn read file start==============================" + new Date());
 			while ((strLine = br.readLine()) != null) {
-				logger.info("strLine" + strLine);
+				//logger.info("strLine" + strLine);
 				if (count != 0) {
 
 					String rep = strLine.replaceAll("\"", "");
@@ -72,14 +70,14 @@ public class CommaSeparated {
 					 */
 
 					BranchTransactionDayDto dto = new BranchTransactionDayDto();
-					dto.setCircleName(data[0]);
-					dto.setModuleName(data[1]);
+					dto.setCircleName(data[0].trim());
+					dto.setModuleName(data[1].trim());
 					dto.setNetworkName(data[2].trim());
-					dto.setRegionName(data[3]);
-					dto.setBranchNo(data[4]);
-					dto.setBranchName(data[5]);
-					dto.setLastPbkdate(data[6]);
-					dto.setNoOfAccounts(data[7]);
+					dto.setRegionName(data[3].trim());
+					dto.setBranchNo(data[4].trim());
+					dto.setBranchName(data[5].trim());
+					dto.setLastPbkdate(data[6].trim());
+					dto.setNoOfAccounts(data[7].trim());
 					listDto.add(dto);
 
 				}
@@ -108,9 +106,10 @@ public class CommaSeparated {
 
 		BranchTransactionDayEntity entity = null;
 		List<BranchTransactionDayEntity> listentity = new ArrayList<BranchTransactionDayEntity>();
-		logger.info("listp" + listp);
+		//logger.info("listp" + listp);
 
 		try {
+			//System.out.println("===========================branch txn list start==============================" + new Date());
 			for (BranchTransactionDayDto lidtDto1 : listp) {
 
 				entity = new BranchTransactionDayEntity();
@@ -125,9 +124,11 @@ public class CommaSeparated {
 				listentity.add(entity);
 
 			}
+			logger.info("=================Branch TXN Daily Upload Stat=================="+ new Date());
 			//branchTransactionRepository.deleteAll();
 			branchTransactionRepository.saveAll(listentity);
-
+			//System.out.println("===========================branch txn save end==============================" + new Date());
+			logger.info("=================Branch TXN Daily Upload Finish=================="+ new Date());
 		} catch (Exception e) {
 			logger.error("Exception "+ e.getMessage());
 		}
@@ -143,12 +144,12 @@ public class CommaSeparated {
 		try {
 			String strLine;
 			File filePath = getLastModified(path);
-			logger.info("filepath" + filePath);
+			//logger.info("filepath" + filePath);
 
 			br = new BufferedReader(new FileReader(filePath));
-
+			//System.out.println("===========================swayam txn read file start==============================" + new Date());
 			while ((strLine = br.readLine()) != null) {
-				logger.info("strLine" + strLine);
+				//logger.info("strLine" + strLine);
 				//if (count != 0) {
 
 					String rep = strLine.replaceAll("\"", "");
@@ -165,22 +166,23 @@ public class CommaSeparated {
 					SwayamTransactionhourlyDto dto = new SwayamTransactionhourlyDto();
 					// dto.setId(count);// 0
 					// System.out.println("getid"+dto.getId());
-					dto.setUniqueReferenceNo(data[0]);// 1
-					dto.setRequestDateTime(data[1]);// 2
-					dto.setRequestingBranch(data[2]);// 3
-					dto.setKioskId(data[3]);// 4
-					dto.setResponseDateTime(data[4]);// 5
-					dto.setAcknowledgeDateTime(data[5]);// 6
-					dto.setResponseCode(data[6]);// 7
-					dto.setErrorCode(data[7]);// 8
-					dto.setErrorDesc(data[8]);// 9
-					dto.setStatus(data[9]);// 10
-					dto.setBarcode(data[10]);// 11
+					dto.setUniqueReferenceNo(data[0].trim());// 1
+					dto.setRequestDateTime(data[1].trim());// 2
+					dto.setRequestingBranch(data[2].trim());// 3
+					dto.setKioskId(data[3].trim());// 4
+					dto.setResponseDateTime(data[4].trim());// 5
+					dto.setAcknowledgeDateTime(data[5].trim());// 6
+					dto.setResponseCode(data[6].trim());// 7
+					dto.setErrorCode(data[7].trim());// 8
+					dto.setErrorDesc(data[8].trim());// 9
+					dto.setStatus(data[9].trim());// 10
+					dto.setBarcode(data[10].trim());// 11
 					listDto.add(dto);
 
 				//}
 				count++;
 			}
+			//System.out.println("===========================swayam txn read file end==============================" + new Date());
 			//System.out.println(listDto + "size of array" + listDto.size());
 			parseDatahour(listDto);
 
@@ -209,8 +211,8 @@ public class CommaSeparated {
 
 			SwayamTranactionhourEntity entity = null;
 			List<SwayamTranactionhourEntity> listentity = new ArrayList<SwayamTranactionhourEntity>();
-			logger.info("listp" + listDto);
-
+			//logger.info("listp" + listDto);
+			//System.out.println("===========================swayam txn list start==============================" + new Date());
 			try {
 				for (SwayamTransactionhourlyDto lidtDto1 : listDto) {
 					passedDate = lidtDto1.getRequestDateTime();
@@ -228,8 +230,11 @@ public class CommaSeparated {
 					entity.setBarcode(lidtDto1.getBarcode());
 					listentity.add(entity);
 				}
+				logger.info("=================Swayam TXN Daily Upload Start=================="+ new Date());
 				swayamTranactionhourRepository.deleteByRequestDateTime(passedDate);
 				swayamTranactionhourRepository.saveAll(listentity);
+				//System.out.println("===========================swayam txn end==============================" + new Date());
+				logger.info("=================Swayam TXN Daily Upload Finish=================="+ new Date());
 				executprodure(passedDate);
 			} catch (Exception e) {
 				logger.info("Exception is "+e.getMessage());
@@ -262,12 +267,14 @@ public class CommaSeparated {
 	public void executprodure(String passedDate)
 	{
 		try {
+		logger.info("=================Swayam TXN Report Upload Start=================="+ new Date());
 		swayanTxnReportRepository.deleteByTxnDate(passedDate);
 		StoredProcedureQuery nearByEntities= em.createNamedStoredProcedureQuery("SP_SWAYAM_TXN_REPORT");
 		nearByEntities.setParameter("txnDate", passedDate); 
 		nearByEntities.execute();
-		logger.info("nearByEntities"+nearByEntities);
+		//logger.info("nearByEntities"+nearByEntities);
 		// nearByEntities.setParameter("fromdate_param", dateFormat1);
+		logger.info("=================Swayam TXN Report Upload Finish=================="+ new Date());
 		}
 		catch(Exception e) {			
 			logger.error("Exception in executprodure is "+e.getMessage());
