@@ -33,7 +33,7 @@ import sbi.kiosk.swayam.transactiondashboard.controller.DrillDownController;
 @RestController
 public class RfpController {
 	
-	Logger logger = LoggerFactory.getLogger(RfpController.class);
+	Logger logger =LoggerFactory.getLogger(RfpController.class);
 	
 	@Autowired
 	RfpRepository rfpRepository;

@@ -16,7 +16,7 @@ import sbi.kiosk.swayam.common.entity.InvoiceGeneration;
 @Service
 public class InvoiceCompareServices implements InvoiceCompareService{
 	
-	Logger logger = LoggerFactory.getLogger(InvoiceCompareServices.class);
+	Logger logger =LoggerFactory.getLogger(InvoiceCompareServices.class);
 	
 	@Autowired
 	InvoiceCompareRepository invoiceCompareRepository;	

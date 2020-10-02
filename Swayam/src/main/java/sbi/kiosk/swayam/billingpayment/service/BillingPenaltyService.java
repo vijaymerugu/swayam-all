@@ -18,7 +18,7 @@ import sbi.kiosk.swayam.common.entity.InvoiceGeneration;
 @Service
 public class BillingPenaltyService  implements PenaltyServices{
 	
-	Logger logger = LoggerFactory.getLogger(BillingPenaltyService.class);
+	Logger logger =LoggerFactory.getLogger(BillingPenaltyService.class);
 	
 	@Autowired
 	BillingPenaltyRepository billingPenaltyRepository;

@@ -1,6 +1,5 @@
 var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter', 'ui.grid.resizeColumns']);
 
-
 	app.controller('RfpCtrl', ['$scope','$filter','$http','$window','$route','RfpService','RfpUpdateService',function ($scope, $filter, $http, $window,$route,RfpService,RfpUpdateService) {
 	   var paginationOptions = {
 	     pageNumber: 1,

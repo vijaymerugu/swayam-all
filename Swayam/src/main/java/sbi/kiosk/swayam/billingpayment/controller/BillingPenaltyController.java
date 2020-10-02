@@ -37,7 +37,7 @@ import sbi.kiosk.swayam.healthmonitoring.model.InvoiceUpdateReposne;
 @RestController
 public class BillingPenaltyController {
 	
-	Logger logger = LoggerFactory.getLogger(BillingPenaltyController.class);
+	Logger logger =  LoggerFactory.getLogger(BillingPenaltyController.class);
 	
 	@Autowired
 	BillingCircleRepository circleRepository;
