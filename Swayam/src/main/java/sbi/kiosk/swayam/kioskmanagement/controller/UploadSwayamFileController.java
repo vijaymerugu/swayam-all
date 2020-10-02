@@ -363,7 +363,6 @@ public class UploadSwayamFileController {
 					logger.info("3.name============= " + destinationFile.getName());
 					file.transferTo(destinationFile);
 					logger.info("4.File Transfer done!!!!!!!!!");
-
 					// String path =
 					// "/home/webadmin/wls/oracle/config/domains/TEST/servers/AdminServer/tmp/_WL_user/SMT2/pl2f58/public/resources/upload/"
 					// + orgFileName_brmas ;
