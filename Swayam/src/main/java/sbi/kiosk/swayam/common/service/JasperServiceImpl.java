@@ -1168,12 +1168,12 @@ public class JasperServiceImpl implements JasperService {
 	@Override
 	public List<DownTimeDto> findDownTimeReport() {
 		 logger.info("Inside==Jasper====findTicketHistoryReport===========");
-		  logger.info(downtimeReport.getCircle());
-		  logger.info(downtimeReport.getCmsCmf());
-		  logger.info(downtimeReport.getVendor());
-		  logger.info(downtimeReport.getFromDate());
-		  logger.info(downtimeReport.getToDate());
-		  
+//		  logger.info(downtimeReport.getCircle());
+//		  logger.info(downtimeReport.getCmsCmf());
+//		  logger.info(downtimeReport.getVendor());
+//		  logger.info(downtimeReport.getFromDate());
+//		  logger.info(downtimeReport.getToDate());
+	  
 		  String circle =downtimeReport.getCircle();
 		  String cmsCmf=downtimeReport.getCmsCmf(); 
 		  String vendor =downtimeReport.getVendor();
@@ -1212,11 +1212,11 @@ public class JasperServiceImpl implements JasperService {
 	@Override
 	public List<BillingPenaltyDto> findBillingPenaltyReport() {
 		logger.info("Inside==Jasper====findBillingPenaltyReport===========");
-		logger.info(report.getCircle());
-		logger.info(report.getState());
-		logger.info(report.getRpfNumber());
-		logger.info(report.getVendor());
-		logger.info(report.getTimePeiod());
+//		logger.info(report.getCircle());
+//		logger.info(report.getState());
+//		logger.info(report.getRpfNumber());
+//		logger.info(report.getVendor());
+//		logger.info(report.getTimePeiod());
 		
 		String circle =null;
 		String vendor =null;
@@ -1282,11 +1282,11 @@ public class JasperServiceImpl implements JasperService {
 	@Override
 	public List<InvoiceGenerationDto> findInvoiceGenerationReport() {
 		logger.info("Inside==Jasper====findInvoiceGenerationReport===========");
-		logger.info(report.getCircle());
-		logger.info(report.getState());
-		logger.info(report.getRpfNumber());
-		logger.info(report.getVendor());
-		logger.info(report.getTimePeiod());
+//		logger.info(report.getCircle());
+//		logger.info(report.getState());
+//		logger.info(report.getRpfNumber());
+//		logger.info(report.getVendor());
+//		logger.info(report.getTimePeiod());
 		
 		String circle =null;
 		String vendor =null;
@@ -1339,12 +1339,12 @@ public class JasperServiceImpl implements JasperService {
 
 	@Override
 	public List<InvoiceCompareDto> findInvoiceCompareReport() {
-		logger.info("Inside==Jasper====findInvoiceGenerationReport===========");
-		logger.info(report.getCircle());
-		logger.info(report.getState());
-		logger.info(report.getRpfNumber());
-		logger.info(report.getVendor());
-		logger.info(report.getTimePeiod());
+		logger.info("Inside==Jasper====findInvoiceCompareReport===========");
+//		logger.info(report.getCircle());
+//		logger.info(report.getState());
+//		logger.info(report.getRpfNumber());
+//		logger.info(report.getVendor());
+//		logger.info(report.getTimePeiod());
 		
 		String circle =null;
 		String vendor =null;
@@ -1396,9 +1396,9 @@ public class JasperServiceImpl implements JasperService {
 	@Override
 	public List<InvoiceSummaryDto> findInvoiceSummaryReport() {
 		logger.info("Inside==Jasper====findInvoiceSummaryReport===========");
-		logger.info(report.getCircle());
-		logger.info(report.getState());
-		logger.info(report.getTimePeiod());
+//		logger.info(report.getCircle());
+//		logger.info(report.getState());
+//		logger.info(report.getTimePeiod());
 		String circle =null;
 		String state=null;
 		String timePeriod= null;

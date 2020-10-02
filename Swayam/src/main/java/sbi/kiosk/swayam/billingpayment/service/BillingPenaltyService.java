@@ -58,7 +58,7 @@ public class BillingPenaltyService  implements PenaltyServices{
 		
 		}
 	}catch (NullPointerException e) {
-		logger.info("Exceprtion quaterperiod undefined");
+		logger.error("Exception quaterperiod undefined");
 	}
 		return entities;
 	}
@@ -94,7 +94,7 @@ public class BillingPenaltyService  implements PenaltyServices{
 		//System.out.println("Inside findPaginatedWithoutState " +entities);
 		
 		}catch (NullPointerException e) {
-			logger.info("Exceprtion quaterperiod undefined");
+			logger.error("Exception quaterperiod undefined");
 		}
 		return entities;
 	}
@@ -127,7 +127,7 @@ public class BillingPenaltyService  implements PenaltyServices{
 		
 		}
 		}catch (NullPointerException e) {
-			logger.info("Exceprtion quaterperiod undefined");
+			logger.error("Exception quaterperiod undefined");
 		}
 		//System.out.println("Inside findPaginatedByFilter " +entities);
 		return entities;

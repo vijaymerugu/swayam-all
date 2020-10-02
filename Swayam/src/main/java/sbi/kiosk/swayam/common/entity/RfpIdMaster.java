@@ -30,6 +30,7 @@ public class RfpIdMaster {
 	
 	@NotNull
 	@Size(min = 23 ,max = 23, message="Please enter correct format {min}-{max} character")
+	@Pattern(regexp="^[A-Z]{3}\\:[A-Z]{2}\\:[A-Z]{3}\\:[A-Z]{2}\\:\\d{2}\\-\\d{2}\\:[0-9]{3}$",message="length must be 23") 
 	@Column(name="RFP_NO")
 	private String rfpNo;
 	
@@ -37,14 +38,14 @@ public class RfpIdMaster {
 	@Column(name="VENDOR")
 	private String vendor;
 
-	@DecimalMin(value = "0.0", inclusive = false)
-	@DecimalMax(value = "9999.99", inclusive = false)
-	@Digits(integer=4, fraction=2)
+	@DecimalMin(value = "0.0", inclusive = true)
+	@DecimalMax(value = "99999.99", inclusive = true)
+	@Digits(integer=5, fraction=2)
 	@Column(name="KIOSK_COST")
 	private BigDecimal kisokCost;
 	
-	@DecimalMin(value = "0.0", inclusive = false)
-	@DecimalMax(value = "999.99", inclusive = false)
+	@DecimalMin(value = "0.0", inclusive = true)
+	@DecimalMax(value = "999.99", inclusive = true)
 	@Digits(integer=3, fraction=2)
 	@Column(name="AMC_COST")
 	private BigDecimal amcCost;

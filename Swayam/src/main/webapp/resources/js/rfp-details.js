@@ -130,7 +130,9 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.pagination','ngAni
 				     console.log("Check for integer " + check);
 	        		
 	        		if(value ==null || value ==undefined || value =='' || check==false){
-		        		
+	        			console.log("Value--------"+value);
+	        			if(value!=0){
+	        			
 	        			if(i==4){
 	        				validations[j]="Cost of kiosk data is NULL/Not a number";
 			        		j++;	
@@ -164,15 +166,17 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.pagination','ngAni
 	        			
 	        			
 	        			
+	        				status=2;
+	        			}
 		        		
-		        		status=2;
+		        		
 		        	}else{
 		        		
 		        		if(i==4){
 		        			
-		        			if(value>9999.99 || value<0 ){
+		        			if(value>99999.99 || value<0 ){
 		        				
-	        				validations[j]=key+"0<= Cost of kiosk <=9999.99";
+	        				validations[j]=key+"0<= Cost of kiosk <=99999.99";
 			        		j++;
 			        		status=2;
 		        			}

@@ -54,7 +54,7 @@ public class InvoiceCompareServices implements InvoiceCompareService{
 	@Override
 	public Page<InvoiceCompare> findPageWithoutStateIc(int page, int size, String type, String selectedCircelId,
 			String quterTimePeriod, String selectedVendorId, String selectedRfpID) {
-		//System.out.println("Inside findPaginatedWithoutState" +selectedRfpID);
+		
 		logger.info("Inside findPageWithoutStateIc "); 
 		String quarter =null;
 		String finacialYear= null;
@@ -74,7 +74,7 @@ public class InvoiceCompareServices implements InvoiceCompareService{
 		}
 		
 		}
-		//System.out.println("Inside findPaginatedWithoutState " +entities);
+		
 		return entities;
 	}
 	
