@@ -303,8 +303,8 @@ $(document).ready(function(){
 	
 	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Username, First Name, Last Name, Mail Id, Circle etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">
 		<span style="float:right">
-		<a class="openpdfonclick"><img src="resources/img/pdf.svg"></a>
-		<a class="openxlonclick"><img src="resources/img/excel.svg"></a>
+		<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
+		<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>
 		&nbsp;&nbsp;&nbsp;
 		</span>		
 		<br/>

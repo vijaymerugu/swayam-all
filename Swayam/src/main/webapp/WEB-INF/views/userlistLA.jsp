@@ -11,12 +11,12 @@
 <script src="resources/js/bootstrap.3.4.1.min.js"></script>
 <link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
 
-<script	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
-
+<!-- <script	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script> -->
+<script	src="resources/js/ui-grid.min.js"></script>
 <link rel="stylesheet" href="resources/css/grid-style.css"/>
 <link rel="stylesheet" href="resources/css/body-page.css"/>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
-<script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script> 
+<link rel="stylesheet" href="resources/css/bootstrap.min.css"> 
+<script src="resources/js/ui-grid.js"></script> 
 <link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/>
 <script src="resources/js/angular.js"></script>
     <script src="resources/js/angular-touch.js"></script>
@@ -27,20 +27,20 @@
 
 <!--  lll-->
 
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+ <script src="resources/js/jquery.min.js"></script>
+  <script src="resources/js/bootstrap.min.js"></script>
 
 
 <link rel="stylesheet"
-	href="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css">
+	href="resources/css/ui-grid.min.css">
 	
-	<link rel="stylesheet"
-	href="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css">
+<!-- 	<link rel="stylesheet"
+	href="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css"> -->
 <script
-	src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	src="resources/js/angular.min.js"></script>
+	<link rel="stylesheet" href="resources/css/bootstrap.min.css">
 <script
-	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
+	src="resources/js/ui-grid.min.js"></script>
 	
 	
 
@@ -57,7 +57,7 @@
 <div class="main" ng-app="app" id="appId">
 <div ng-controller="UserManagementCtrl as vm">
 <%-- <a  href="${pageContext.request.contextPath}/km/addUser" align="right">AddUser</a> --%>
-<div style="text-align: right;float: right;"><a class="openFinalPopup"><img src="resources/img/plus.png">&nbsp;AddUser</a></div>
+<div style="text-align: right;float: right;"><a class="openFinalPopup" style="cursor: hand;cursor: pointer;"><img src="resources/img/plus.png">&nbsp;AddUser</a></div>
 <div>
 <table class="table1" style="border: 1px solid #eee;">
 
@@ -86,8 +86,8 @@
 	
 	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Username, First Name, Last Name, Mail Id, Circle etc." style="font-size: 12px" size="150" height="80" id="input" class="form-group has-search">
 	<span style="float:right">
-		<a class="openpdfonclick"><img src="resources/img/pdf.svg"></a>
-		<a class="openxlonclick"><img src="resources/img/excel.svg"></a>
+		<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
+		<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>
 		&nbsp;&nbsp;&nbsp;
 	</span>		
 	

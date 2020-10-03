@@ -150,8 +150,8 @@ Include Date Range Picker
  <input type="hidden" ng-init="csrf ='<%=session.getAttribute("csrfToken")%>'" >
 
  <div>
- 		<form name="rfpForm"  ng-submit="searchPostion(selectedRfpNo,selectedRfpid,selectedVendor,selectedkcost,
-					selectedAMCcost,selectedCPenalty,selectedDMU,selectedDMUR,selectedDCT,selectedMP)"> 
+ 		<form name="rfpForm"   ng-submit="searchPostion(selectedRfpNo,selectedRfpid,selectedVendor,selectedkcost,
+					selectedAMCcost,selectedCPenalty,selectedDMU,selectedDMUR,selectedDCT,selectedMP)" autocomplete="off"> 
 		<div class="tb-bk">
    <table>				
         <tr>
@@ -163,7 +163,7 @@ Include Date Range Picker
                     </div>
                     <div class="col-xs-6">
                         <input type="text" maxlength="23" ng-model="selectedRfpNo" name="rfpno" ng-pattern="/^[A-Z]{3}\:[A-Z]{2}\:[A-Z]{3}\:[A-Z]{2}\:\d{2}\-\d{2}\:[0-9]{3}$/"  
-                          placeholder="" required/>
+                          placeholder="" autocomplete="off" required/>
                     </div>
                     <div class="col-xs-6">
                     <span ng-show="rfpForm.rfpno.$error.pattern">Valid format required!</span>
@@ -179,7 +179,7 @@ Include Date Range Picker
                     </div>
                     <div class="col-xs-6">
                          <input type="number" min="0" max="99" ng-model="selectedRfpid" name="rfpid" 
-                         placeholder="" required/>
+                         placeholder="" autocomplete="off" required/>
                     </div>
                 </div>                                
 	        </td>
@@ -210,7 +210,7 @@ Include Date Range Picker
                     </div>
                     <div class="col-xs-6">
                        <input type="number" min="0" max="99999.99" step="0.01"  ng-model="selectedkcost" name="kcost" 
-                         placeholder="" required/>
+                         placeholder="" autocomplete="off" required/>
                     </div>
                 </div>
 			</td>
@@ -222,7 +222,7 @@ Include Date Range Picker
                     </div>
                     <div class="col-xs-6">
                        <input type="number" min="0" max="999.99" step="0.01"  ng-model="selectedAMCcost" name="amccost" 
-                         placeholder="" required/>
+                         placeholder="" autocomplete="off" required/>
                     </div>
                 </div>
 			</td>
@@ -234,7 +234,7 @@ Include Date Range Picker
                     </div>
                     <div class="col-xs-6">
                       <input type="number" min="0" max="999"  ng-model="selectedCPenalty" name="cpenalty" 
-                         placeholder="" required/>
+                         placeholder="" autocomplete="off" required/>
                     </div>
                 </div>                                
 			</td>
@@ -251,7 +251,7 @@ Include Date Range Picker
                     </div>
                     <div class="col-xs-6">
                         <input type="number" min="0" max="12"  ng-model="selectedDMU" name="dmu" 
-                         placeholder="" required/>
+                         placeholder="" autocomplete="off" required/>
                     </div>
                 </div>                                
 	        </td>
@@ -263,7 +263,7 @@ Include Date Range Picker
                     </div>
                     <div class="col-xs-6">
                         <input type="number" min="0" max="12"  ng-model="selectedDMUR" name="dmur" 
-                         placeholder="" required/>
+                         placeholder="" autocomplete="off" required/>
                     </div>
                 </div>                                
 	        </td>
@@ -276,7 +276,7 @@ Include Date Range Picker
                     </div>
                     <div class="col-xs-6">
                       <input type="number" min="0" max="100"  ng-model="selectedDCT" name="cdt" 
-                         placeholder="" required/>
+                         placeholder="" autocomplete="off" required/>
                     </div>
                 </div>
 			</td>
@@ -292,7 +292,7 @@ Include Date Range Picker
                     </div>
                     <div class="col-xs-6">
                       <input type="number" min="0" max="100"  ng-model="selectedMP" name="mp" 
-                         placeholder="" required/>
+                         placeholder="" autocomplete="off" required/>
                         
                     </div>
                 </div>
@@ -303,10 +303,10 @@ Include Date Range Picker
                     <div class="col-xs-6"></div>
                     <div class="col-xs-6">
                          <div class="text-right" style="width: 80%;" >
-                             <button  id="btnReset" ng-click="resetPositions()">Reset</button>							
+                             <button  id="btnReset" ng-click="resetPositions()" style="cursor: hand;cursor: pointer;">Reset</button>							
 			                <!--  <button  type="submit" ng-click="searchPostion(selectedRfpNo,selectedRfpid,selectedVendor,selectedkcost,
 					selectedAMCcost,selectedCPenalty,selectedDMU,selectedDMUR,selectedDCT,selectedMP)">Add</button> -->
-							  <button type="submit" id="submit">Add</button>
+							  <button type="submit" id="submit" style="cursor: hand;cursor: pointer;">Add</button>
                          </div>
                     </div>
                 </div>
@@ -322,8 +322,8 @@ Include Date Range Picker
 	
 	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle, No Of Branches, Kiosks, Txns, etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">
 		<!-- <span style="float:right">
-		<a class="openpdfonclick"><img src="resources/img/pdf.svg"></a>
-		<a class="openxlonclick"><img src="resources/img/excel.svg"></a>
+		<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
+		<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>
 		&nbsp;&nbsp;&nbsp;
 		</span> -->	
 		<br/>
