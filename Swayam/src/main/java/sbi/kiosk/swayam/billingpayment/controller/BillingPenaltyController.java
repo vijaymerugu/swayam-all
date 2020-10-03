@@ -23,6 +23,7 @@ import sbi.kiosk.swayam.billingpayment.repository.VendorRepository;
 import sbi.kiosk.swayam.billingpayment.service.BillingPenaltyService;
 import sbi.kiosk.swayam.billingpayment.service.InvoiceCompareServices;
 import sbi.kiosk.swayam.billingpayment.service.InvoiceSummaryServices;
+import sbi.kiosk.swayam.common.constants.ExceptionConstants;
 import sbi.kiosk.swayam.common.dto.InvoiceSummaryDto;
 import sbi.kiosk.swayam.common.entity.BillingPenaltyEntity;
 import sbi.kiosk.swayam.common.entity.InvoiceCompare;
@@ -36,7 +37,7 @@ import sbi.kiosk.swayam.healthmonitoring.model.InvoiceUpdateReposne;
 @RestController
 public class BillingPenaltyController {
 	
-	Logger logger = LoggerFactory.getLogger(BillingPenaltyController.class);
+	Logger logger =  LoggerFactory.getLogger(BillingPenaltyController.class);
 	
 	@Autowired
 	BillingCircleRepository circleRepository;
@@ -81,8 +82,8 @@ public class BillingPenaltyController {
 			model.setViewName("billingPenalty");
 			
 		} catch (Exception e) {
-			e.printStackTrace();
-			//logger.error("Exception "+ExceptionConstants.EXCEPTION);
+			//e.printStackTrace();
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
 		return model;
 	}
@@ -96,8 +97,8 @@ public class BillingPenaltyController {
 			model.setViewName("invoiceGeneration");
 			
 		} catch (Exception e) {
-			e.printStackTrace();
-			//logger.error("Exception "+ExceptionConstants.EXCEPTION);
+			
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
 		return model;
 	}
@@ -112,8 +113,8 @@ public class BillingPenaltyController {
 			model.setViewName("invoiceCompare");
 			
 		} catch (Exception e) {
-			e.printStackTrace();
-			//logger.error("Exception "+ExceptionConstants.EXCEPTION);
+		
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
 		return model;
 	}
@@ -127,8 +128,8 @@ public class BillingPenaltyController {
 			model.setViewName("invoiceSummary");
 			
 		} catch (Exception e) {
-			e.printStackTrace();
-			//logger.error("Exception "+ExceptionConstants.EXCEPTION);
+			
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
 		return model;
 	}
@@ -142,7 +143,7 @@ public class BillingPenaltyController {
 		//circleRepo.findAll();
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		 String json = gson.toJson(circleRepository.findAll());
-		logger.info("circles "+ json);
+		//logger.info("circles "+ json);
 		 
 		
 		return ResponseEntity.ok(json);
@@ -158,7 +159,7 @@ public class BillingPenaltyController {
 		//circleRepo.findAll();
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		 String json = gson.toJson(stateRepository.findByCirclehCode(circleID));
-		logger.info("cites "+ json);
+		//logger.info("cites "+ json);
 		 
 		
 		return ResponseEntity.ok(json);
@@ -172,7 +173,7 @@ public class BillingPenaltyController {
 		//circleRepo.findAll();
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		String json = gson.toJson(vendorRepository.findAll());
-		logger.info("cites "+ json);
+		//logger.info("cites "+ json);
 	
 		return ResponseEntity.ok(json);
 		
@@ -181,14 +182,14 @@ public class BillingPenaltyController {
 	
 	@RequestMapping(value = "bp/getRfpId", method = RequestMethod.GET)
 	public ResponseEntity<?> getRfIds(){
-		System.out.println("Inside getRfIds");
+		//System.out.println("Inside getRfIds");
 		String json =null;
 	try {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		json = gson.toJson(rfpRepository.findAll());
-		logger.info("RfpID "+ json);
+		//logger.info("RfpID "+ json);
 	}catch (Exception e) {
-		e.printStackTrace();
+		logger.error("Exception "+ExceptionConstants.EXCEPTION);
 	}
 		 
 		
@@ -203,13 +204,13 @@ public class BillingPenaltyController {
 		      String selectedCircelId, @RequestParam("selectedStateId") String selectedStateId,
 		      @RequestParam("quterTimePeriod") String quterTimePeriod,@RequestParam("selectedVendorId") String selectedVendorId,@RequestParam("selectedRfpID") String selectedRfpID) {
 		logger.info("Inside findPaginated"); 
-		logger.info("type=================="+type);
-		logger.info("selectedCircelId--- "+selectedCircelId);
-		logger.info("selectedStateId---- "+selectedStateId);
-		logger.info("quterTimePeriod---- "+quterTimePeriod);
-		logger.info("selectedVendorId--- "+selectedVendorId);
-		logger.info("selectedRfpID--- "+selectedRfpID);
-		
+//		logger.info("type=================="+type);
+//		logger.info("selectedCircelId--- "+selectedCircelId);
+//		logger.info("selectedStateId---- "+selectedStateId);
+//		logger.info("quterTimePeriod---- "+quterTimePeriod);
+//		logger.info("selectedVendorId--- "+selectedVendorId);
+//		logger.info("selectedRfpID--- "+selectedRfpID);
+	
 		
 	
 		
@@ -248,12 +249,7 @@ public class BillingPenaltyController {
 			resultPage = 
 					billingPenaltyService.findPaginatedByFilter(page, size, type, selectedCircelId, selectedStateId, quterTimePeriod, selectedVendorId,selectedRfpID);
 		}
-		/*
-		 * if (page > resultPage.getTotalPages()){ //throw new
-		 * MyResourceNotFoundException(); }
-		 */
-		    
-		  // System.out.println("resultPage Content"+resultPage.getContent());
+		
 		  return resultPage;
 	}
 	
@@ -264,12 +260,14 @@ public class BillingPenaltyController {
 		      String selectedCircelId, @RequestParam("selectedStateId") String selectedStateId,
 		      @RequestParam("quterTimePeriod") String quterTimePeriod,@RequestParam("selectedVendorId") String selectedVendorId,@RequestParam("selectedRfpID") String selectedRfpID) {
 		logger.info("Inside findPaginatedIg"); 
-		logger.info("type=================="+type);
-		logger.info("selectedCircelId--- "+selectedCircelId);
-		logger.info("selectedStateId---- "+selectedStateId);
-		logger.info("quterTimePeriod---- "+quterTimePeriod);
-		logger.info("selectedVendorId--- "+selectedVendorId);
-		logger.info("selectedRfpID--- "+selectedRfpID);
+		/*
+		 * logger.info("type=================="+type);
+		 * logger.info("selectedCircelId--- "+selectedCircelId);
+		 * logger.info("selectedStateId---- "+selectedStateId);
+		 * logger.info("quterTimePeriod---- "+quterTimePeriod);
+		 * logger.info("selectedVendorId--- "+selectedVendorId);
+		 * logger.info("selectedRfpID--- "+selectedRfpID);
+		 */
 		
 		report.setCircle(selectedCircelId);
 		report.setState(selectedStateId);
@@ -308,13 +306,14 @@ public class BillingPenaltyController {
 		      String selectedCircelId, @RequestParam("selectedStateId") String selectedStateId,
 		      @RequestParam("quterTimePeriod") String quterTimePeriod,@RequestParam("selectedVendorId") String selectedVendorId,@RequestParam("selectedRfpID") String selectedRfpID) {
 		logger.info("Inside findPaginatedIc");
-		logger.info("type=================="+type);
-		logger.info("selectedCircelId--- "+selectedCircelId);
-		logger.info("selectedStateId---- "+selectedStateId);
-		logger.info("quterTimePeriod---- "+quterTimePeriod);
-		logger.info("selectedVendorId--- "+selectedVendorId);
-		logger.info("selectedRfpID IC--- "+selectedRfpID);
-		
+		/*
+		 * logger.info("type=================="+type);
+		 * logger.info("selectedCircelId--- "+selectedCircelId);
+		 * logger.info("selectedStateId---- "+selectedStateId);
+		 * logger.info("quterTimePeriod---- "+quterTimePeriod);
+		 * logger.info("selectedVendorId--- "+selectedVendorId);
+		 * logger.info("selectedRfpID IC--- "+selectedRfpID);
+		 */
 		report.setCircle(selectedCircelId);
 		report.setState(selectedStateId);
 		report.setTimePeiod(quterTimePeriod);
@@ -356,10 +355,12 @@ public class BillingPenaltyController {
 		      String selectedCircelId, @RequestParam("selectedStateId") String selectedStateId,
 		      @RequestParam("quterTimePeriod") String quterTimePeriod) {
 		logger.info("Inside findPaginatedIS");
-		logger.info("type=================="+type);
-		logger.info("selectedCircelId--- "+selectedCircelId);
-		logger.info("selectedStateId---- "+selectedStateId);
-		logger.info("quterTimePeriod---- "+quterTimePeriod);
+		/*
+		 * logger.info("type=================="+type);
+		 * logger.info("selectedCircelId--- "+selectedCircelId);
+		 * logger.info("selectedStateId---- "+selectedStateId);
+		 * logger.info("quterTimePeriod---- "+quterTimePeriod);
+		 */
 	
 		
 		report.setCircle(selectedCircelId);
@@ -405,18 +406,35 @@ public class BillingPenaltyController {
 			throws Exception {
 		
 		logger.info("Inside updateCorrections");
-		
-		
-		int status = invoiceCorrectionRepository.
-				updateInvoiceCorrection(Corrections, kisokId, kioskSerialNumber,remarks,quarter,yearid);
-		//System.out.println("Status " + status);
-		logger.info("Status " + status);
-		
-		if(status==1) {
-			return ResponseEntity.ok(new InvoiceUpdateReposne("Sucess", "Data Saved Successfully"));
-		}else{
-			return ResponseEntity.ok(new InvoiceUpdateReposne("fail","Data not updated pleae try"));
+		if(Corrections>=0) {
+			
+			int status = invoiceCorrectionRepository.
+					updateInvoiceCorrection(Corrections, kisokId, kioskSerialNumber,remarks,quarter,yearid);
+			//System.out.println("Status " + status);
+			logger.info("Status " + status);
+			
+			return ResponseEntity.ok(new InvoiceUpdateReposne("Success", "Correction Updated Successfully"));
+			
+			/*
+			 * if(status==1) { return ResponseEntity.ok(new InvoiceUpdateReposne("Sucess",
+			 * "Data Saved Successfully")); }else{ return ResponseEntity.ok(new
+			 * InvoiceUpdateReposne("fail","Data not updated pleae try")); }
+			 */
+			
+		}else {
+			return ResponseEntity.ok(new InvoiceUpdateReposne("Fail","Correction must be positive Integer"));
 		}
+		
+		/*
+		 * int status = invoiceCorrectionRepository.
+		 * updateInvoiceCorrection(Corrections, kisokId,
+		 * kioskSerialNumber,remarks,quarter,yearid); //System.out.println("Status " +
+		 * status); logger.info("Status " + status);
+		 * 
+		 * if(status==1) { return ResponseEntity.ok(new InvoiceUpdateReposne("Sucess",
+		 * "Data Saved Successfully")); }else{ return ResponseEntity.ok(new
+		 * InvoiceUpdateReposne("fail","Data not updated pleae try")); }
+		 */
 		
 
 	}

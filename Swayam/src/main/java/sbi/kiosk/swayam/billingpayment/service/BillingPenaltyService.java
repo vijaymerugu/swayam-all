@@ -18,7 +18,7 @@ import sbi.kiosk.swayam.common.entity.InvoiceGeneration;
 @Service
 public class BillingPenaltyService  implements PenaltyServices{
 	
-	Logger logger = LoggerFactory.getLogger(BillingPenaltyService.class);
+	Logger logger =LoggerFactory.getLogger(BillingPenaltyService.class);
 	
 	@Autowired
 	BillingPenaltyRepository billingPenaltyRepository;
@@ -36,8 +36,7 @@ public class BillingPenaltyService  implements PenaltyServices{
 		Page<BillingPenaltyEntity> entities = null;
 		String quarter =null;
 		String finacialYear= null;
-		try {
-			
+		try {			
 		if(quterTimePeriod!="") {
 		quarter= quterTimePeriod.substring(0, 2);
 		finacialYear= quterTimePeriod.substring(3);
@@ -58,7 +57,7 @@ public class BillingPenaltyService  implements PenaltyServices{
 		
 		}
 	}catch (NullPointerException e) {
-		logger.info("Exceprtion quaterperiod undefined");
+		logger.error("Exception quaterperiod undefined");
 	}
 		return entities;
 	}
@@ -94,7 +93,7 @@ public class BillingPenaltyService  implements PenaltyServices{
 		//System.out.println("Inside findPaginatedWithoutState " +entities);
 		
 		}catch (NullPointerException e) {
-			logger.info("Exceprtion quaterperiod undefined");
+			logger.error("Exception quaterperiod undefined");
 		}
 		return entities;
 	}
@@ -127,7 +126,7 @@ public class BillingPenaltyService  implements PenaltyServices{
 		
 		}
 		}catch (NullPointerException e) {
-			logger.info("Exceprtion quaterperiod undefined");
+			logger.error("Exception quaterperiod undefined");
 		}
 		//System.out.println("Inside findPaginatedByFilter " +entities);
 		return entities;

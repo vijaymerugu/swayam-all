@@ -366,7 +366,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		        
 		        
 		        
-		        if(check==true){
+		        if(check==true && row.Corrections>=0){
 		        	
 		      
 		        
@@ -392,7 +392,8 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		        		kioskSerialNumber,kisokId,quarter,yearid).then(function (d) {
 		            //Display Successfull message after save
 		        	console.log("Inside Success " + d);
-		        	alert("Data saved successfully");
+		        	//alert("Data saved successfully");
+		        	alert(d.data.message);
 		          /*  $scope.alerts.push({
 		                msg: 'Data saved successfully',
 		                type: 'success'
@@ -403,7 +404,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		        
 		        }else{
 		        	
-		        	alert("Correction Value Must Be Integer");
+		        	alert("Correction must be positive Integer");
 		        }
 		    };
 	   
