@@ -50,7 +50,7 @@
 					<div>
 						<br /> From Date: <input type="text" id="datepickerFromDate" name="input1"  class="datepicker" ng-model="searchDateStart" readonly="readonly" placeholder="dd-mm-yyyy" required maxlength="10"/> 
 							To Date : <input type="text" id="datepickerToDate" name="input2" class="datepicker" ng-model="searchDateEnd" readonly="readonly" placeholder="dd-mm-yyyy" required maxlength="10" />
-						<button type="button" id="myBtn" ng-click="searchPositions(searchDateStart,searchDateEnd) ">Generate</button>
+						<button type="button" id="myBtn" ng-click="searchPositions(searchDateStart,searchDateEnd) " style="cursor: hand;cursor: pointer;">Generate</button>
 					</div>
 				</table>
 			</div>
@@ -111,8 +111,8 @@
 		<div class="submain">
 	<input class="form-group has-search" ng-model="searchText" ng-change="refresh()" placeholder="Enter Ticket Id, Kiosk Id, Branch Code, Circle etc." style="font-size: 12px" size="150" height="80" id="input">
 		<span style="float:right">
-		<a class="openpdfonclick"><img src="resources/img/pdf.svg"></a>
-		<a class="openxlonclick"><img src="resources/img/excel.svg"></a>
+		<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
+		<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>
 		&nbsp;&nbsp;&nbsp;
 		</span>		
 		<br/>

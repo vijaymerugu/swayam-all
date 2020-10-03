@@ -183,9 +183,9 @@
                     <div class="col-xs-6"></div>
                     <div class="col-xs-6">
                          <div class="text-right" style="width: 80%;" >
-                             <button id="btnReset"  ng-click="resetPositions()">Reset</button>							
+                             <button id="btnReset"  ng-click="resetPositions()" style="cursor: hand;cursor: pointer;">Reset</button>							
 			                 <button  ng-click="searchPositions(SelectedCircelId,SelectedStateId,
-							SelectedYearId)">Generate</button>
+							SelectedYearId)" style="cursor: hand;cursor: pointer;">Generate</button>
 							 <!-- <button  type="submit" id="submit">Generate</button> -->
                          </div>
                     </div>
@@ -202,8 +202,8 @@
 	
 	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle, No Of Branches, Kiosks, Txns, etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">
 			<span style="float:right">
-		<a class="openpdfonclick"><img src="resources/img/pdf.svg"></a>
-		<a class="openxlonclick"><img src="resources/img/excel.svg"></a>
+		<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
+		<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>
 		&nbsp;&nbsp;&nbsp;
 		</span>
 		<br/>

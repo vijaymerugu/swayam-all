@@ -61,7 +61,7 @@
 					<div>
 						<br /> From Date: <input type="text" id="datepickerFromDate" name="input1" class="datepicker" readonly="readonly" ng-model="searchDateStart" placeholder="dd-mm-yyyy" required maxlength="10" /> 
 							To	Date : <input type="text" id="datepickerToDate" name="input2" class="datepicker" readonly="readonly"	ng-model="searchDateEnd" placeholder="dd-mm-yyyy" required maxlength="10"  />
-						<button type="button"  ng-click="searchPositions(searchDateStart,searchDateEnd) ">Generate</button>
+						<button type="button"  ng-click="searchPositions(searchDateStart,searchDateEnd) " style="cursor: hand;cursor: pointer;">Generate</button>
 
 					</div>
 				     

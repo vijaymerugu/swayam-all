@@ -114,8 +114,7 @@
 				<td>
 					<!--    @* Here first of all we will create a ng-template *@--> <script
 						type="text/ng-template" id="menu">
-            <a ng-click="loadHomeBodyPage(menu.url)">{{menu.name}}</a>
-           
+            <a ng-click="loadHomeBodyPage(menu.url)" style="cursor: hand;cursor: pointer;">{{menu.name}}</a>
             <ul ng-if="(SiteMenu | filter:{parentId : menu.id}).length > 0" class="submenu">
                 <li ng-repeat="menu in SiteMenu | filter:{parentId : menu.id}" ng-include="'menu'"></li>
             </ul>
