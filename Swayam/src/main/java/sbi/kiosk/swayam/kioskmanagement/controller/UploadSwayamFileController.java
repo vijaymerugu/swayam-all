@@ -118,13 +118,26 @@ public class UploadSwayamFileController {
 																			 * + uploadedFiles);
 																			 */
 					
-					  logger.info("1.File Name========== "+file.getOriginalFilename());
+					/*
+					 * commented on 05-10-2020
+					 * logger.info("1.File Name========== "+file.getOriginalFilename()); String path
+					 * = "/resources/upload/" + file.getOriginalFilename();
+					 * logger.info("2.Path============ "+path); File destinationFile = new
+					 * File(path); logger.info("3.name============= "+destinationFile.getName());
+					 * file.transferTo(destinationFile);
+					 * logger.info("4.File Transfer done!!!!!!!!!"); path = uploadpath +
+					 * file.getOriginalFilename(); logger.info("5.uploadedFiles path=========== " +
+					 * path); uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
+					 * logger.info("6.uploadedFiles=========== " + uploadedFiles);
+					 */
+					
+					 logger.info("1.File Name========== "+file.getOriginalFilename());
 					  String path = "/resources/upload/"  + file.getOriginalFilename();
 					  logger.info("2.Path============ "+path);
 					  File destinationFile = new File(path); 
 					  logger.info("3.name============= "+destinationFile.getName());
-					  file.transferTo(destinationFile);
-					  logger.info("4.File Transfer done!!!!!!!!!");
+				//	  file.transferTo(destinationFile);
+				//	  logger.info("4.File Transfer done!!!!!!!!!");
 					  path = uploadpath  + file.getOriginalFilename();
 					  logger.info("5.uploadedFiles path=========== " + path);
 					  uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
@@ -218,8 +231,8 @@ public class UploadSwayamFileController {
 					  logger.info("2.Path============ "+path);
 					  File destinationFile = new File(path); 
 					  logger.info("3.name============= "+destinationFile.getName());
-					  file.transferTo(destinationFile);
-					  logger.info("4.File Transfer done!!!!!!!!!");
+					//  file.transferTo(destinationFile);
+					//  logger.info("4.File Transfer done!!!!!!!!!");
 					  path = uploadpath  + file.getOriginalFilename();
 					  logger.info("5.uploadedFiles path=========== " + path);
 					  uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
@@ -284,8 +297,8 @@ public class UploadSwayamFileController {
 					  logger.info("2.Path============ "+path);
 					  File destinationFile = new File(path); 
 					  logger.info("3.name============= "+destinationFile.getName());
-					  file.transferTo(destinationFile);
-					  logger.info("4.File Transfer done!!!!!!!!!");
+				//	  file.transferTo(destinationFile);
+				//	  logger.info("4.File Transfer done!!!!!!!!!");
 					  path = uploadpath  + file.getOriginalFilename();
 					  logger.info("5.uploadedFiles path=========== " + path);
 					  uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
@@ -366,8 +379,8 @@ public class UploadSwayamFileController {
 					  logger.info("2.Path============ "+path);
 					  File destinationFile = new File(path); 
 					  logger.info("3.name============= "+destinationFile.getName());
-					  file.transferTo(destinationFile);
-					  logger.info("4.File Transfer done!!!!!!!!!");
+				//	  file.transferTo(destinationFile);
+				//	  logger.info("4.File Transfer done!!!!!!!!!");
 					  path = uploadpath  + file.getOriginalFilename();
 					  logger.info("5.uploadedFiles path=========== " + path);
 					  uploadedFiles.add(new FileInfo(destinationFile.getName(), path));

@@ -1566,6 +1566,7 @@ public class UploadServiceImpl implements UploadService {
 			/* HashMap<Integer,String> map=null; */
 			org.apache.poi.ss.usermodel.Sheet firstSheet = workbook.getSheetAt(0);
 
+			logger.info("7 C.First worksheet fetched!!");
 			/*
 			 * DataFormatter objDefaultFormat = new DataFormatter(); FormulaEvaluator
 			 * objFormulaEvaluator = new XSSFFormulaEvaluator((XSSFWorkbook) workbook);
@@ -1573,7 +1574,7 @@ public class UploadServiceImpl implements UploadService {
 
 			Iterator<Row> iterator = firstSheet.iterator();
 			List<KioskCMFDto> lidtDto = new ArrayList<>();
-
+			int i = 0, j=0;
 			while (iterator.hasNext()) {
 				Row nextRow = iterator.next();
 				Iterator<Cell> cellIterator = nextRow.cellIterator();
@@ -1614,10 +1615,11 @@ public class UploadServiceImpl implements UploadService {
 						}
 
 					}
-					logger.info(" - ");
+					logger.info(" 1st close while loop- "+i++);
 
 				} // 1st close while loop
 				lidtDto.add(dto);
+				logger.info("2nd close while loop - "+j++);
 			} // 2nd close while loop
 
 			UserKioskMapping entity = null;
@@ -1637,11 +1639,11 @@ public class UploadServiceImpl implements UploadService {
 				Optional<String> checkNullCmfPfId = Optional.ofNullable(lidtDto1.getCmfPfId());
 				Optional<String> checkNullgetKioskId = Optional.ofNullable(lidtDto1.getKioskId());
 				if ((!checkNullgetKioskId.isPresent() || checkNullgetKioskId.get().trim().equals(""))						
-						&& (!checkNullCmfPfId.isPresent() || checkNullCmfPfId.get().trim().equals(""))) {
+						&& (!checkNullCmfPfId.isPresent() || checkNullCmfPfId.get().trim().equals(""))) { logger.info("i m inside if clause: "+ count);
 					
 				}else
 				if (!checkNullgetKioskId.isPresent() || !checkNullCmfPfId.isPresent()
-						|| checkNullgetKioskId.get().trim().equals("") || checkNullCmfPfId.get().trim().equals("")) {
+						|| checkNullgetKioskId.get().trim().equals("") || checkNullCmfPfId.get().trim().equals("")) { logger.info("i m inside else-if clause: "+ count);
 					entity = new UserKioskMapping();
 					entity.setPfId(lidtDto1.getCmfPfId());
 					entity.setKioskId(lidtDto1.getKioskId());
@@ -1669,6 +1671,7 @@ public class UploadServiceImpl implements UploadService {
 
 		catch (Exception e) {
 			logger.error("Exception "+ExceptionConstants.EXCEPTION);
+			e.printStackTrace();
 		} finally {
 			try {
 				if (workbook != null) {
@@ -1682,7 +1685,7 @@ public class UploadServiceImpl implements UploadService {
 				logger.error("Exception "+ExceptionConstants.EXCEPTION);
 			}
 		}
-		return "Data Not Uploaded";
+		return "Due to Error Data Not Uploaded";
 	}
 
 	// create xlsx file
