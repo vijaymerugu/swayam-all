@@ -1,13 +1,11 @@
 var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter', 'ui.grid.resizeColumns']);
 
-
 	app.controller('RfpCtrl', ['$scope','$filter','$http','$window','$route','RfpService','RfpUpdateService',function ($scope, $filter, $http, $window,$route,RfpService,RfpUpdateService) {
 	   var paginationOptions = {
 	     pageNumber: 1,
 		 pageSize: 20,
 		 sort: null
-	   };
-	   
+	   }; 
 	  // var self = this;
 	   $scope.LoadVendor=function(){
 		   $http({
@@ -130,7 +128,9 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.pagination','ngAni
 				     console.log("Check for integer " + check);
 	        		
 	        		if(value ==null || value ==undefined || value =='' || check==false){
-		        		
+	        			console.log("Value--------"+value);
+	        			if(value!=0){
+	        			
 	        			if(i==4){
 	        				validations[j]="Cost of kiosk data is NULL/Not a number";
 			        		j++;	
@@ -164,62 +164,64 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.pagination','ngAni
 	        			
 	        			
 	        			
+	        				status=2;
+	        			}
 		        		
-		        		status=2;
+		        		
 		        	}else{
 		        		
 		        		if(i==4){
 		        			
-		        			if(value>9999.99){
+		        			if(value>99999.99 || value<0 ){
 		        				
-	        				validations[j]=key+"Cost of kiosk <=9999.99";
+	        				validations[j]=key+"0<= Cost of kiosk <=99999.99";
 			        		j++;
 			        		status=2;
 		        			}
 	        				
 	        			}else if(i==5){
-	        				if(value>999.99){
+	        				if(value>999.99 || value<0){
 		        				
-		        				validations[j]=key+"Cost of AMC <=999.99";
+		        				validations[j]=key+" 0<= Cost of AMC <=999.99";
 				        		j++;
 				        		status=2;
 			        			}
 	        			}else if(i==6){
-	        				if(value>999){
+	        				if(value>999 || value<0){
 		        				
-		        				validations[j]=key+"Complaint Penalty /hr <=999";
+		        				validations[j]=key+"0<= Complaint Penalty /hr <=999";
 				        		j++;
 				        		status=2;
 			        			}
 	        				
 	        			}else if(i==7){
-	        				if(value>12){
+	        				if(value>12 || value<0){
 		        				
-		        				validations[j]=key+"Permissible Downtime in Metro/urban(in hrs) <=12";
+		        				validations[j]=key+"0<= Permissible Downtime in Metro/urban(in hrs) <=12";
 				        		j++;
 				        		status=2;
 			        			}
 	        				
 	        			}else if(i==8){
-	        				if(value>12){
+	        				if(value>12 || value<0){
 		        				
-		        				validations[j]=key+"Permissible Downtime in Semi-Urban/Rural(in hrs) <=12";
+		        				validations[j]=key+"0<= Permissible Downtime in Semi-Urban/Rural(in hrs) <=12";
 				        		j++;
 				        		status=2;
 			        			}
 	        				
 	        			}else if(i==9){
-	        				if(value>100){
+	        				if(value>100 || value<0){
 		        				
-		        				validations[j]=key+"Circle Permissible Downtime(in %) <=100";
+		        				validations[j]=key+"0<= Circle Permissible Downtime(in %) <=100";
 				        		j++;
 				        		status=2;
 			        			}
 	        				
 	        			}else if(i==10){
-	        				if(value>100){
+	        				if(value>100 || value<0){
 		        				
-		        				validations[j]=key+"Maximum Penalty(in %) <=100";
+		        				validations[j]=key+"0<= Maximum Penalty(in %) <=100";
 				        		j++;
 				        		status=2;
 			        			}
@@ -259,7 +261,8 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.pagination','ngAni
 	            
 	        	console.log("Inside Success");
 	            
-	            alert("Updated Successfully");
+	            //alert("Updated Successfully");
+	        	alert(d.data.status);
 	            $scope.loadHomeBodyPageForm();
 	          //  $window.location.reload(); 
 	           // location.reload()
@@ -318,8 +321,9 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.pagination','ngAni
 	        RfpUpdateService.addRfp(user,$scope.csrf).then(function (d) {
 	            
 	        	console.log("Successfully Added " + d.status);
+	        	console.log("Successfully Added " + d.data.status);
 	        	
-	        	alert("Successfully Added");
+	        	alert(d.data.status);
 	        	$scope.loadHomeBodyPageForm();
 	        	 //$window.location.reload(); 
 	        	//location.reload();
@@ -433,7 +437,8 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.pagination','ngAni
 		        	
 		        	
 		        	$scope.gridOptions.data.splice(index, 1);
-		        	alert("Successfully deleted");
+		        	//alert("Successfully deleted");
+		        	alert(d.data.status);
 		        	$scope.loadHomeBodyPageForm();
 		        	//$route.reload(); 
 		        	//location.reload();
