@@ -50,34 +50,34 @@ public class RfpIdMaster {
 	private BigDecimal amcCost;
 	
 	
-	@PositiveOrZero
+
 	@Min(0)
 	@Max(999)
 	@Column(name="COMP_PENALTY_HR")
 	private Integer companyPenaltyHour;
 	
 	
-	@PositiveOrZero
+	
 	@Min(0)
 	@Max(12)
 	@Column(name="COMP_PERM_DNTM_MU_HRS")
 	private Integer companyPermDntmMuHrs;
 	
 	
-	@PositiveOrZero
+	
 	@Min(0)
 	@Max(12)
 	@Column(name="COMP_PERM_DNTM_SR_HRS")
 	private Integer companyPermDntmSrHrs;
 	
-	@PositiveOrZero
+	
 	@Min(0)
 	@Max(100)
 	@Column(name="CRCL_PERM_DNTM_PCT")
 	private Integer companyPermDntmPct;
 	
 
-	@PositiveOrZero
+	
 	@Min(0)
 	@Max(100)
 	@Column(name="MAX_PENALTY_PCT")
