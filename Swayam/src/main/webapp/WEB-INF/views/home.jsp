@@ -82,9 +82,8 @@
 							align="center">
 							<b>Welcome <%=username%></b>
 							
-							<br /> <b> <%=pfId%>
-						</b>&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout">Log Out</a>
-						<ul id="nav">
+							<br /> 
+													<ul id="nav">
 								<li id="notification_li"><span id="notification_count" ng-bind="unReadNotificationCount"></span>
 
 									<a href="#" id="notificationLink"><i class="fa fa-bell"></i></a>
@@ -92,20 +91,17 @@
 									<div id="notificationContainer">
 										<div id="notificationsBody" class="notifications">
 											<ul>
+												<li>&nbsp;</li>
 												<li data-ng-repeat="notification in notifications">
 												<a ng-if="notification.status =='N'" style="color:#0000CD; text-decoration: none;" href="#"  ng-click="updateMessage(notification)">{{notification.message}}</a>
 												<a ng-if="notification.status =='Y'" style="color:#00008B; text-decoration: none;" href="#"  ng-click="updateMessage(notification)">{{notification.message}}</a>
 												</li>
 											</ul>
 										</div>
-										<!-- <div id="notificationFooter">
-											<a href="#" id='AddNew' data-ng-click="addNotification()">Add
-												New Message</a>
-
-										</div>
- -->									</div></li>
+									</div></li>
 							</ul>
-						
+							<b> <%=pfId%>
+						</b>&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout">Log Out</a>				
 						</td>
 					</tr>
 				</table>
