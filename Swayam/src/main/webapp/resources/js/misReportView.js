@@ -114,6 +114,14 @@ app.controller('misReportViewController', ['$scope','misReportViewService1', 'mi
 		callAvailableColumns($scope.removeIds);
 	}
 	
+	//Function to load the mis view page after post request
+	
+	   $scope.loadHomeBodyPageForm = function(){	
+			var str ='mis-report/view'
+			$("#contentHomeApp").load(str);
+								
+	}
+	
 
 function callAvailableColumns(removeIds){
 misReportViewService2.loadAvailableColumns(removeIds)
@@ -223,7 +231,52 @@ misReportViewService2.loadAvailableColumns(removeIds)
 
 	};
 	//Start of loadMisReportData service
-	function callMisReportData(fromDate, toDate, groupingCriteriaId, groupingCriteriaName, selectedColumnIndexes, reportType, removeIds){
+	function callMisReportData(fromDate, toDate, groupingCriteriaId, groupingCriteriaName, 
+			selectedColumnIndexes, reportType, removeIds){
+		console.log("Session CSRF "+ $scope.csrf);
+		
+		console.log("fromDate "+fromDate);
+		console.log("toDate "+toDate);
+		console.log("groupingCriteriaId "+groupingCriteriaId);
+		console.log("groupingCriteriaName "+groupingCriteriaName);
+		console.log("selectedColumnIndexes "+selectedColumnIndexes);
+		console.log("reportType "+reportType);
+
+		console.log("removeIds "+removeIds);
+
+
+		
+		var requestData = {fromDate:fromDate,toDate:toDate,groupingCriteriaId:groupingCriteriaId,groupingCriteriaName:groupingCriteriaName
+				,selectedColumnIndexes:selectedColumnIndexes,reportType:reportType,removeIds:removeIds}
+		
+		console.log("Request Data fromDate "+ requestData.fromDate);
+		console.log("Request Data toDate "+ requestData.toDate);
+		console.log("Request Data removeIds "+ requestData.removeIds);
+		
+		//Changes
+		misReportViewService3.loadMisReportData(requestData,$scope.csrf)
+		.success(function(response, status, headers, config){
+			
+			console.log("Response-- "+ response);
+			console.log("Response--1 "+ response.data);
+			console.log("status- "+ status);
+			var filename = "";
+		    var disposition = headers('Content-Disposition');
+		    if (disposition && disposition.indexOf('attachment') !== -1) {
+		        var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+		        var matches = filenameRegex.exec(disposition);
+		        if (matches != null && matches[1]) { 
+		          filename = matches[1].replace(/['"]/g, '');
+		          saveAs(response, filename);// This is from FileSaver.js
+		        }
+		    }
+		    $scope.loadHomeBodyPageForm();
+		});
+		
+		
+		
+		
+		/*
 		misReportViewService3.loadMisReportData(fromDate, toDate, groupingCriteriaId, groupingCriteriaName, selectedColumnIndexes, reportType, removeIds)
 		.success(function(response, status, headers, config){
 
@@ -237,7 +290,7 @@ misReportViewService2.loadAvailableColumns(removeIds)
 		          saveAs(response, filename);// This is from FileSaver.js
 		        }
 		    }
-		});
+		});*/
 	}//End of loadMisReportData service
 	}
 ]);//End of Controller
@@ -266,7 +319,7 @@ app.service('misReportViewService2',['$http', function ($http) {
 	};
 }]);
 app.service('misReportViewService3',['$http', function ($http) {
-    function loadMisReportData(fromDate, toDate, groupingCriteriaId, groupingCriteriaName, selectedColumnIndexes, reportType, removeIds) {
+   /* function loadMisReportData(fromDate, toDate, groupingCriteriaId, groupingCriteriaName, selectedColumnIndexes, reportType, removeIds) {
         return  $http({
           method: 'GET',
           url: 'mis/generate-report?fromDate='+fromDate+'&toDate='+toDate
@@ -274,7 +327,22 @@ app.service('misReportViewService3',['$http', function ($http) {
           +'&selectedColumnIndexes='+selectedColumnIndexes+'&reportType='+reportType+'&removeIds='+removeIds,
           responseType: 'blob'
         });
-    }
+    }*/
+	
+	 function loadMisReportData(requestData,header) {
+	        return  $http({
+	          method: 'POST',
+	          url: 'mis/generate-report',
+	          data: requestData,
+	          responseType: 'blob',
+	          headers: 
+              {
+                  'X-CSRF-TOKEN': header
+              }
+	        });
+	    }
+	
+	
     return {
     	loadMisReportData:loadMisReportData
     };
