@@ -12,12 +12,14 @@ public class MISReportInputDto {
 	public MISReportInputDto() {
 	}
 
-	public MISReportInputDto(String fromDate, String toDate, Integer groupingCriteriaId, String groupingCriteriaName, String selectedColumnIndexes, String reportType) {
+	public MISReportInputDto(String fromDate, String toDate, Integer groupingCriteriaId, String groupingCriteriaName, String selectedColumnIndexes, String reportType,String removeIds) {
 		this.fromDate = fromDate;
 		this.toDate = toDate;
 		this.groupingCriteriaId = groupingCriteriaId;
 		this.selectedColumnIndexes = selectedColumnIndexes;
 		this.reportType = reportType;
+		//chenges
+		this.removeIds=removeIds;
 	}
 
 	private String fromDate;
@@ -26,5 +28,8 @@ public class MISReportInputDto {
 	private String groupingCriteriaName;
 	private String selectedColumnIndexes;
 	private String reportType;
+	//Changes for observations
+	private String removeIds;
+	
 
 }

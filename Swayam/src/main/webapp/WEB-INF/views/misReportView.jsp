@@ -45,6 +45,7 @@
 	<input type="hidden" id="pfId" value="<%=pfId%>">
 	<div class="main" ng-app="misReportViewModule" id="appId">
 		<div ng-controller="misReportViewController as vm">
+		 <input type="hidden" ng-init="csrf ='<%=session.getAttribute("csrfToken")%>'" >
 			<div class="submain">
 				<div class="row">
 					<div class="col-sm-12">&nbsp;</div>
