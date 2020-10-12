@@ -564,6 +564,7 @@ public class UploadServiceImpl implements UploadService {
 
 			} catch (Exception e) {
 				logger.error("Exception "+ExceptionConstants.EXCEPTION);
+				e.printStackTrace();
 			}
 		}
 		return "Data Not Uploaded";
@@ -628,11 +629,13 @@ public class UploadServiceImpl implements UploadService {
 		
 		try {
 			// this Writes the workbook KioskC
+			logger.info("Error file path: "+reportPath1+filename);
 			FileOutputStream out = new FileOutputStream(new File(reportPath1+filename));
 			workbook1.write(out);
 			out.close();
 		} catch (Exception e) {
 			logger.error("Exception "+ExceptionConstants.EXCEPTION);
+			e.printStackTrace();
 		}
 
 	}
@@ -1251,6 +1254,7 @@ public class UploadServiceImpl implements UploadService {
 				}
 			} catch (Exception e) {
 				logger.error("Exception "+ExceptionConstants.EXCEPTION);
+				e.printStackTrace();
 			}
 		}
 		return "Data Not Uploaded";
@@ -1329,12 +1333,14 @@ public class UploadServiceImpl implements UploadService {
 		
 		try {
 			// this Writes the workbook KioskC
+			logger.info("Error file path: "+reportPath1+filename);
 			FileOutputStream out = new FileOutputStream(
 					new File(reportPath1+filename));
 			workbook1.write(out);
 			out.close();
 		} catch (Exception e) {
 			logger.error("Exception "+ExceptionConstants.EXCEPTION);
+			e.printStackTrace();
 		}
 
 	}
@@ -1486,6 +1492,7 @@ public class UploadServiceImpl implements UploadService {
 
 		catch (Exception e) {
 			logger.error("Exception "+ExceptionConstants.EXCEPTION);
+			e.printStackTrace();
 		} finally {
 			try {
 				if (workbook != null) {
@@ -1497,6 +1504,7 @@ public class UploadServiceImpl implements UploadService {
 
 			} catch (Exception e) {
 				logger.error("Exception "+ExceptionConstants.EXCEPTION);
+				e.printStackTrace();
 			}
 		}
 		return "Data Not Uploaded";
@@ -1541,12 +1549,14 @@ public class UploadServiceImpl implements UploadService {
 		
 		try {
 			// this Writes the workbook KioskC
+			logger.info("Error file path: "+reportPath1+filename);
 			FileOutputStream out = new FileOutputStream(
 					new File(reportPath1+filename));
 			workbook1.write(out);
 			out.close();
 		} catch (Exception e) {
 			logger.error("Exception "+ExceptionConstants.EXCEPTION);
+			e.printStackTrace();
 		}
 
 	}
@@ -1683,6 +1693,7 @@ public class UploadServiceImpl implements UploadService {
 
 			} catch (Exception e) {
 				logger.error("Exception "+ExceptionConstants.EXCEPTION);
+				e.printStackTrace();
 			}
 		}
 		return "Due to Error Data Not Uploaded";
@@ -1733,12 +1744,14 @@ public class UploadServiceImpl implements UploadService {
 		
 		try {
 			// this Writes the workbook KioskC  reportPath1
+			logger.info("Error file path: "+reportPath1+filename);
 			FileOutputStream out = new FileOutputStream(
 					new File(reportPath1+filename));
 			workbook1.write(out);
 			out.close();
 		} catch (Exception e) {
 			logger.error("Exception "+ExceptionConstants.EXCEPTION);
+			e.printStackTrace();
 		}
 
 	}
