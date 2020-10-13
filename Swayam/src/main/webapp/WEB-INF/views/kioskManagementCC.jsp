@@ -73,43 +73,43 @@
 				<tbody>
 					<tr align="center">
 						<td id="count1">
-						  <a ng-click="getCountType('InstalledKiosks')"><c:out value="${mapDataCount['InstalledKiosks']}"/></a>
+						  <a ng-click="getCountType('InstalledKiosks')" style="cursor: hand;cursor: pointer;"><c:out value="${mapDataCount['InstalledKiosks']}"/></a>
 						</td>
 						
 						<td id="count1">
-						 <a ng-click="getCountType('CMS')"> <c:out value="${mapDataCount['CMS']}"/></a>						
+						 <a ng-click="getCountType('CMS')" style="cursor: hand;cursor: pointer;"> <c:out value="${mapDataCount['CMS']}"/></a>						
 						</td>
 						
 						<td id="count1" style="border-right: solid 1px #0307fc;">
-						<a ng-click="getCountType('LIPI')"> <c:out value="${mapDataCount['LIPI']}"/></a>	
+						<a ng-click="getCountType('LIPI')" style="cursor: hand;cursor: pointer;"> <c:out value="${mapDataCount['LIPI']}"/></a>	
 						</td>
 
 						 <td id="count1">
-						 <a ng-click="getCountType('CMS')"> <c:out value="${mapDataCount['CMS']}"/></a>
+						 <a ng-click="getCountType('CMS')" style="cursor: hand;cursor: pointer;"> <c:out value="${mapDataCount['CMS']}"/></a>
 						 </td>
 						 
 						<td id="count1">
-						 <a ng-click="getCountType('InstalledCMSVendor')"> <c:out value="${mapDataCount['InstalledCMSVendor']}"/></a>
+						 <a ng-click="getCountType('InstalledCMSVendor')" style="cursor: hand;cursor: pointer;"> <c:out value="${mapDataCount['InstalledCMSVendor']}"/></a>
 						</td>
 						<td id="count1" style="border-right: solid 1px #0307fc;">
-						 <a ng-click="getCountType('DeleviredCMSVendor')"> <c:out value="${mapDataCount['DeleviredCMSVendor']}"/></a>
+						 <a ng-click="getCountType('DeleviredCMSVendor')" style="cursor: hand;cursor: pointer;"> <c:out value="${mapDataCount['DeleviredCMSVendor']}"/></a>
 						</td>
 						
 						<td id="count1">
-						<a ng-click="getCountType('LIPI')"> <c:out value="${mapDataCount['LIPI']}"/></a>
+						<a ng-click="getCountType('LIPI')" style="cursor: hand;cursor: pointer;"> <c:out value="${mapDataCount['LIPI']}"/></a>
 						</td>
 						<td id="count1">
-						<a ng-click="getCountType('InstalledLIPIVendor')"> <c:out value="${mapDataCount['InstalledLIPIVendor']}"/></a>
+						<a ng-click="getCountType('InstalledLIPIVendor')" style="cursor: hand;cursor: pointer;"> <c:out value="${mapDataCount['InstalledLIPIVendor']}"/></a>
 						</td>
 						<td id="count1" style="border-right: solid 1px #0307fc;">
-						<a ng-click="getCountType('DeleviredLIPIVendor')"> <c:out value="${mapDataCount['DeleviredLIPIVendor']}"/></a>
+						<a ng-click="getCountType('DeleviredLIPIVendor')" style="cursor: hand;cursor: pointer;"> <c:out value="${mapDataCount['DeleviredLIPIVendor']}"/></a>
 						</td>
 
 						<td id="count1">
-						<a ng-click="getCountType('Assigned')"> <c:out value="${mapDataCount['Assigned']}"/></a>
+						<a ng-click="getCountType('Assigned')" style="cursor: hand;cursor: pointer;"> <c:out value="${mapDataCount['Assigned']}"/></a>
 						</td>
 						<td id="count1">
-						<a ng-click="getCountType('ToBeAssigned')"> <c:out value="${mapDataCount['ToBeAssigned']}"/></a>
+						<a ng-click="getCountType('ToBeAssigned')" style="cursor: hand;cursor: pointer;"> <c:out value="${mapDataCount['ToBeAssigned']}"/></a>
 						</td>
 						
 					</tr>
