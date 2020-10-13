@@ -7,14 +7,15 @@ height: 860px;
 background: #EFF3F6 0% 0% no-repeat padding-box;
 opacity: 1;
 padding: 10px;
-overflow-y: scroll;
-overflow-x: scroll;
+/* overflow-y: scroll;
+overflow-x: scroll; */
 }
 .submain{
 top: 242px;
 left: 8px;
 width: 1352px;
-height: 519px;
+/* height: 519px; */
+height: 719px;
 background: #FFFFFF 0% 0% no-repeat padding-box;
 box-shadow: 0px 3px 6px #8D8D8D29;
 opacity: 1;
@@ -121,6 +122,7 @@ vertical-align:top;
 	border: 1px solid #EFEFEF;
 	border-radius: 26px;
 	opacity: 1;
+	cursor: pointer;
 }
 
 .Column-VerticalLine {
