@@ -205,7 +205,7 @@ Include Date Range Picker
 		<td>
                 <div class="row">
                     <div class="col-xs-6 lb">
-                        <span class="text-left">Cost of kiosk<b>*</b></span>
+                        <span class="text-left">Cost of kiosk (in Rs)<b>*</b></span>
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
@@ -217,7 +217,7 @@ Include Date Range Picker
 		 <td>
                 <div class="row">
                     <div class="col-xs-6 lb">
-                        <span class="text-left">Cost of AMC<b>*</b></span>
+                        <span class="text-left">Cost of AMC (in Rs)<b>*</b></span>
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">

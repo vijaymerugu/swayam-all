@@ -172,8 +172,10 @@ public class BillingPenaltyController {
 		
 		//circleRepo.findAll();
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		String json = gson.toJson(vendorRepository.findAll());
-		//logger.info("cites "+ json);
+		//String json = gson.toJson(vendorRepository.findAll());
+		
+		String json = gson.toJson(vendorRepository.findVendors());
+		logger.info("cites "+ json);
 	
 		return ResponseEntity.ok(json);
 		

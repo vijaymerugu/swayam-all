@@ -471,10 +471,10 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.pagination','ngAni
 	          { name: 'vendor', displayName: 'Vendor' ,field: "vendor", 
 	        	  cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div '+ 
 	             	 ' ng-if="row.entity.editrow"><input type="text" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width: 140},
-	          { name: 'kisokCost', displayName: 'Cost of Kiosk',field: "kisokCost", 
+	          { name: 'kisokCost', displayName: 'Cost of Kiosk (in Rs)',field: "kisokCost", 
 	        	  cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div '+ 
 	             	 ' ng-if="row.entity.editrow"><input type="number" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width: 140},
-	          { name: 'amcCost', displayName: 'Cost of Amc' ,field: "amcCost", 
+	          { name: 'amcCost', displayName: 'Cost of Amc (in Rs)' ,field: "amcCost", 
 	        	  cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div '+ 
 	             	 ' ng-if="row.entity.editrow"><input type="number" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width: 140},
 	          { name: 'companyPenaltyHour', displayName: 'Compaint Penalty/hour' ,field: "companyPenaltyHour", 
