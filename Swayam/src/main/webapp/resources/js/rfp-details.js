@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter', 'ui.grid.resizeColumns']);
+var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.edit','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter', 'ui.grid.resizeColumns']);
 
 	app.controller('RfpCtrl', ['$scope','$filter','$http','$window','$route','RfpService','RfpUpdateService',function ($scope, $filter, $http, $window,$route,RfpService,RfpUpdateService) {
 	   var paginationOptions = {
@@ -60,14 +60,15 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.pagination','ngAni
 	   $scope.saveRow = function (row) {
 	        //get the index of selected row 
 	        var index = $scope.gridOptions.data.indexOf(row);
-	        
+	        var  RfpDate= new Date(row.rfpDate);
+	        var  AMCDate= new Date(row.amcStartDate);
 	        $scope.gridOptions.data[index].editrow = false;
 	        
 	        
 	        var user={rfpNo:row.rfpNo,rfpId:row.rfpId,vendor:row.vendor,kisokCost:row.kisokCost,amcCost:row.amcCost	
 	        ,companyPenaltyHour:row.companyPenaltyHour,companyPermDntmMuHrs:row.companyPermDntmMuHrs,
 	        companyPermDntmSrHrs:row.companyPermDntmSrHrs,companyPermDntmPct:row.companyPermDntmPct,
-	        maxPenaltyPct:row.maxPenaltyPct};
+	        maxPenaltyPct:row.maxPenaltyPct,rfpDate:RfpDate,amcStartDate:AMCDate};
 	        
 	        var status=0;
 	        var i=0;
@@ -122,7 +123,39 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.pagination','ngAni
 	 	        			status=2;
         			 }
 	        		
-	        	}else if(i>3){
+	        	}else if(i==11){
+	        		
+	        		console.log("RFP Date value " + value);
+	        		var d = new Date();
+	        		var defult = new Date("02-01-1970");
+	        		console.log("Defult date " + defult);
+	        		console.log("Current Date " + d);
+	        		
+	        		if(value>d || value < defult){
+	        			
+	        			validations[j]="RFP Date <= current date /Required RFP Date ";
+		        		j++;
+		        		status=2;
+	        		}
+	        		
+	        	}else if(i==12){
+	        		
+	        		console.log("AMC Date value " + value);
+	        		var d = new Date();
+	        		var defult = new Date("02-01-1970");
+	        		console.log("Defult date " + defult);
+	        		console.log("Current Date " + d);
+	        		
+	        		if(value>d || value < defult){
+	        			
+	        			validations[j]="AMC Start Date <= current date /Required AMC Start Date ";
+		        		j++;
+		        		status=2;
+	        		}
+	        		
+	        	}
+	        	
+	        	else if(i>3 && i<12){
 	        		
 	        		 var check = angular.isNumber(value);
 				     console.log("Check for integer " + check);
@@ -306,14 +339,32 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.pagination','ngAni
 	    
 	    
 	    $scope.searchPostion = function (selectedRfpNo,selectedRfpid,selectedVendor,selectedkcost,
-				selectedAMCcost,selectedCPenalty,selectedDMU,selectedDMUR,selectedDCT,selectedMP) {
+				selectedAMCcost,selectedCPenalty,selectedDMU,selectedDMUR,selectedDCT,selectedMP,selectedRfpDate,selectedAmcDate) {
 	       
+	    	
+	    	var date= $("#rfpDate").val();
+	    	var date2= $("#amcDate").val();
+	    	console.log("Date2 "+ date2);
+	    	
+	    	if(!date){
+	    		alert("RFP Date Required!");
+	    	}else if(!date2){
+	    		alert("AMC Start Date Required!");
+	    		
+	    	}else{
+	    	
+	    	
+	    	var dateParts = date.split("-");
+	    	var dateParts2 = date2.split("-");
+	    	var  RfpDate= new Date(dateParts[2]+"-"+dateParts[1]+"-"+dateParts[0]);
+	    	var  AMCDate= new Date(dateParts2[2]+"-"+dateParts2[1]+"-"+dateParts2[0]);
+	
 	        
 	        var user={rfpNo:selectedRfpNo,rfpId:selectedRfpid,vendor:selectedVendor,kisokCost:selectedkcost,
 	        		amcCost:selectedAMCcost	
 	        ,companyPenaltyHour:selectedCPenalty,companyPermDntmMuHrs:selectedDMU,
 	        companyPermDntmSrHrs:selectedDMUR,companyPermDntmPct:selectedDCT,
-	        maxPenaltyPct:selectedMP};	        
+	        maxPenaltyPct:selectedMP,rfpDate:RfpDate,amcStartDate:AMCDate};	        
 	        
 	        console.log("user RfpNo" + user.rfpNo);
 	        console.log("RfpId " + user.rfpId);
@@ -342,6 +393,8 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.pagination','ngAni
 	        	// $window.location.reload();
 	        	 
 	        });
+	        
+	    	}
 	    };
 	 
 	   
@@ -493,6 +546,10 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.pagination','ngAni
 	        	  cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div '+ 
              	 ' ng-if="row.entity.editrow"><input type="number" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width: 140
 	          },
+	          { name: 'rfpDate', displayName: 'RFP Date' , type: 'date', cellFilter: 'date:"dd.MM.yyyy"',
+	        	  width: '10%' },
+	         { name: 'amcStartDate', displayName: 'AMC Start Date' , type: 'date', cellFilter: 'date:"dd.MM.yyyy"',
+		        	  width: '10%' },
 	          {
                   name: 'Actions', field: 'edit', enableFiltering: false, enableSorting: false,
                   cellTemplate: '<div><button ng-show="!row.entity.editrow" class="btn primary" ng-click="grid.appScope.edit(row.entity)"><i class="fa fa-edit"></i></button>' +  //Edit Button

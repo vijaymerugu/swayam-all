@@ -21,11 +21,15 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 
+import sbi.kiosk.swayam.billingpayment.controller.BillingPenaltyController;
+import sbi.kiosk.swayam.common.constants.ExceptionConstants;
 import sbi.kiosk.swayam.common.entity.MISAvailableColumns;
 import sbi.kiosk.swayam.common.entity.MISReportData;
 import sbi.kiosk.swayam.misreports.dto.MISReportInputDto;
@@ -36,6 +40,9 @@ import sbi.kiosk.swayam.misreports.dto.MISReportInputDto;
  */
 
 public class GenerateExcelReport {
+	
+	static Logger logger =  LoggerFactory.getLogger(GenerateExcelReport.class);
+	
 
 	public static ByteArrayInputStream getMisReport(MISReportInputDto misReportInputDto,
 			List<MISReportData> misReportDataList, List<String> selectedColumnIndexList, List<MISAvailableColumns> columnListByGroupId) {
@@ -226,7 +233,7 @@ public class GenerateExcelReport {
 				if (selectedColumnNameList.contains("Branch Counter Transactions")) {
 					dataList.add(misReportDataList.get(i).getBranchCounter());
 				}
-				if (selectedColumnNameList.contains("Branch Counter Transactions")) {
+				if (selectedColumnNameList.contains("Migration %")) {
 					dataList.add(misReportDataList.get(i).getMigrationPercent());
 				}
 				if (selectedColumnNameList.contains("Uptime %")) {
@@ -289,7 +296,8 @@ public class GenerateExcelReport {
 			workbook.write(out);
 			workbook.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			logger.error("IO Exception "+ExceptionConstants.EXCEPTION);
 		}
 
 		return new ByteArrayInputStream(out.toByteArray());
