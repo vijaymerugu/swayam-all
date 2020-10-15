@@ -68,8 +68,8 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	
     columnDefs: [
       { name: 'userId', displayName: 'Sr No'  },
-      { name: 'pfId', displayName: 'PF ID'  },
-      { name: 'username', displayName: 'Username'  },      
+      { name: 'pfId', displayName: 'PF ID / User Name'  },
+      { name: 'username', displayName: 'Employee Name'  },      
       { name: 'role', displayName: 'Role'  },
       { name: 'reportingAuthorityName', displayName: 'Reporting Authority'  }
     ],
