@@ -24,38 +24,29 @@
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
-
-
-
-
-<!-- 
-<script	src="resources/js/angular.1.5.6.min.js"></script>
-<script src="resources/js/rfp-details.js"></script>
-<script	src="resources/js/angular.1.5.6.min.js"></script>
-<link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
-
-<link rel="stylesheet" href="resources/css/grid-style.css"/>
-<link rel="stylesheet" href="resources/css/body-page.css"/>
-<link rel="stylesheet" href="resources/css/style.css">
-
-<link rel="stylesheet" href="resources/css/font-awesome.min.css"/> 
-
-<script src="resources/js/a076d05399.js"></script>
-<script src="resources/js/angular-route.js"></script>
-<script src="resources/js/angular-route.min.js"></script>
-<script src="resources/js/jquery.3.4.1.min.js"></script>
-<script src="resources/js/bootstrap.3.4.1.min.js"></script>
-Include Date Range Picker
+    
+    
+    <!-- Include Date Range Picker -->
 <script type="text/javascript"
 	src="resources/js/bootstrap-datepicker.min.js"></script>
 <link rel="stylesheet"
 	href="resources/css/bootstrap-datepicker3.css" />
 	
-<script src="resources/js/angular.js"></script>
-    <script src="resources/js/angular-touch.js"></script>
-    <script src="resources/js/angular-animate.js"></script>
-    <script src="resources/js/angular-aria.js"></script>
- -->
+	 <script>
+	$(document).ready(function() {
+		var datePickerOptions = { changeYear: true, 
+								  changeMonth: true,
+								  autoclose: true,
+								  endDate : '+0d',
+								  format : 'dd-mm-yyyy',
+								  orientation : "top",
+								  defaultDate: null
+								  }
+      	
+		$('#rfpDate').datepicker(datePickerOptions);
+		$('#amcDate').datepicker(datePickerOptions);
+	});
+</script> 
 
 
 <style>
@@ -151,7 +142,7 @@ Include Date Range Picker
 
  <div>
  		<form name="rfpForm"   ng-submit="searchPostion(selectedRfpNo,selectedRfpid,selectedVendor,selectedkcost,
-					selectedAMCcost,selectedCPenalty,selectedDMU,selectedDMUR,selectedDCT,selectedMP)" autocomplete="off"> 
+					selectedAMCcost,selectedCPenalty,selectedDMU,selectedDMUR,selectedDCT,selectedMP,selectedRfpDate,selectedAmcDate)" autocomplete="off"> 
 		<div class="tb-bk">
    <table>				
         <tr>
@@ -205,7 +196,7 @@ Include Date Range Picker
 		<td>
                 <div class="row">
                     <div class="col-xs-6 lb">
-                        <span class="text-left">Cost of kiosk<b>*</b></span>
+                        <span class="text-left">Cost of kiosk (in Rs)<b>*</b></span>
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
@@ -217,7 +208,7 @@ Include Date Range Picker
 		 <td>
                 <div class="row">
                     <div class="col-xs-6 lb">
-                        <span class="text-left">Cost of AMC<b>*</b></span>
+                        <span class="text-left">Cost of AMC (in Rs)<b>*</b></span>
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
@@ -297,7 +288,34 @@ Include Date Range Picker
                     </div>
                 </div>
 			</td>
-			<td></td>
+			<td>
+			 <div class="row">
+                    <div class="col-xs-6 lb">
+                        <span class="text-left">RFP Date<b>*</b></span>
+                        <span class="pull-right"></span>
+                    </div>
+                    <div class="col-xs-6">
+                        <input type="text" id="rfpDate" name="rfpDateId" class="datepicker" readonly="readonly"  ng-model="selectedRfpDate" placeholder="dd-mm-yyyy" required maxlength="10"/>
+                        
+                    </div>
+                </div>
+			</td>
+			<td>
+			 <div class="row">
+                    <div class="col-xs-6 lb">
+                        <span class="text-left">AMC Start Date<b>*</b></span>
+                        <span class="pull-right"></span>
+                    </div>
+                    <div class="col-xs-6">
+                        <input type="text" id="amcDate" name="amcDateId" class="datepicker" readonly="readonly"  ng-model="selectedAmcDate" placeholder="dd-mm-yyyy" required maxlength="10"/>
+                        
+                    </div>
+                </div>
+			</td>
+			 </tr>
+			 <tr>
+			 <td></td>
+			 <td></td>
             <td>
                 <div class="row">
                     <div class="col-xs-6"></div>
@@ -328,7 +346,7 @@ Include Date Range Picker
 		</span> -->	
 		<br/>
 		
-		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test"></div>
+		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns ui-grid-edit id="test"></div>
 		
         
     </div>
@@ -343,36 +361,7 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
 </script>
 
 
-<!--  <script type="text/javascript">
-      
-      $(document).ready(function(){
 
-    	    $(".openpdfonclick").click(function(){
-    	    	
-    	        $.ajax({
-    	            url: 'report?page=bpReport&type=pdf',
-    	            type: 'GET',   
-    	            success: function(data){
-    	            	console.log(data);
-    	            	window.open("resources/download/"+data , '_blank');  
-    	            }
-    	        });
-    	    });
-    	    $(".openxlonclick").click(function(){    	
-    	        $.ajax({
-    	            url: 'report?page=bpReport&type=excel',
-    	            type: 'GET',   
-    	            success: function(data){
-    	            	console.log(data);
-    	            	window.open("resources/download/"+data , '_blank');  
-    	            }
-    	        });
-    	    });
-    	}); 
-    		
-    		
-      
-      </script> -->
 
 <script type="text/javascript">
     $(function () {

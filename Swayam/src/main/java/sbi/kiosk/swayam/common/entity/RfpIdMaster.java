@@ -1,6 +1,7 @@
 package sbi.kiosk.swayam.common.entity;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -85,6 +86,10 @@ public class RfpIdMaster {
 	
 
 	
+	@Column(name = "RFP_DATE")
+	private Date rfpDate;
 	
+	@Column(name = "AMC_START_DATE")
+	private Date amcStartDate;
 
 }
