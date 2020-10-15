@@ -95,7 +95,7 @@ public class UserManagementController {
 	}
 	
 	@RequestMapping(value = { "km/userListCC" })
-	@PreAuthorize("hasPermission('UMuserListCC','CREATE')")
+//	@PreAuthorize("hasPermission('UMuserListCC','CREATE')")
 	public ModelAndView userListCC(HttpSession session) {
 		ModelAndView model = new ModelAndView("userlistCC");
 		try {			
@@ -181,7 +181,7 @@ public class UserManagementController {
 	
 
 	@RequestMapping(value = { "km/addUser" })
-	@PreAuthorize("hasPermission('UMkmaddUser','CREATE')")
+//	@PreAuthorize("hasPermission('UMkmaddUser','CREATE')")
 	public ModelAndView addUser(ModelAndView model, @ModelAttribute("addUser") AddUserDto addUser,HttpServletRequest request) {
 
 		try {

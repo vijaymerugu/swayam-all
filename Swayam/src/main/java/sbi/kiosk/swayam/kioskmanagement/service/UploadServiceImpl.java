@@ -3,7 +3,10 @@ package sbi.kiosk.swayam.kioskmanagement.service;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -440,7 +443,16 @@ public class UploadServiceImpl implements UploadService {
 					entity.setVendor(lidtDto1.getVendor());//2
 					
 					////////////////////////////
-					entity.setInstallationDate(lidtDto1.getInstallationDate());//3
+				//	entity.setInstallationDate(lidtDto1.getInstallationDate());//3
+					String sDate1=lidtDto1.getInstallationDate();
+					  
+					  logger.info("Installation date in entity format: "+sDate1); 
+					  DateFormat dateFormat  = new SimpleDateFormat("dd-MM-yyyy"); 
+					  String installationDate =  dateFormat.format(new Date());
+					  
+					  logger.info("installationDate date in String format: "+installationDate);
+					  entity.setInstallationDate(installationDate);//3
+					  
 					entity.setKioskIp(lidtDto1.getKioskIPAddress());// 4
 					entity.setKioskMacAddress(lidtDto1.getKioskMacAddress());//5
 					entity.setSiteType(lidtDto1.getSiteType());//6
@@ -1434,7 +1446,19 @@ public class UploadServiceImpl implements UploadService {
 			for (HolidayCalendarDto lidtDto1 : lidtDto) {
 				if (count != 0) {
 					entity = new HolidayCalendar();
-					entity.setHolidayDate(lidtDto1.getHolidayDate());
+					
+				//	entity.setHolidayDate(lidtDto1.getHolidayDate());
+					
+					  String sDate1=lidtDto1.getHolidayDate();
+					  
+					  logger.info("Holiday date in entity format: "+sDate1); DateFormat dateFormat
+					  = new SimpleDateFormat("dd-MM-yyyy"); String holidayDate =
+					  dateFormat.format(new Date());
+					  
+					  logger.info("Holiday date in String format: "+holidayDate);
+					  entity.setHolidayDate(holidayDate);
+					 
+					 
 					entity.setDay(lidtDto1.getDay());
 					entity.setName(lidtDto1.getName());// null
 					entity.setCircle(lidtDto1.getCircle());

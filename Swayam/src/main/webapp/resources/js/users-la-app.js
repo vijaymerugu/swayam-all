@@ -67,26 +67,26 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	
     columnDefs: [
       { name: 'userId', displayName: 'SrNo'  },
-      { name: 'pfId', displayName: 'PF ID'  },
-      { name: 'username', displayName: 'Username'  },      
+      { name: 'pfId', displayName: 'PF ID / User Name'  },
+      { name: 'username', displayName: 'Employee Name'  },      
       { name: 'role', displayName: 'Role'  },
       { name: 'noOfAssignedKiosks', displayName: 'No of Assigned Kiosks'  },
       { name: 'reportingAuthorityName', displayName: 'Reporting Authority'  },
       { name: 'Edit',
     	  exporterSuppressExport: true,
     	  headerCellTemplate: '<div></div>',
-    	  cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.userId)">Edit</a></div>'
+    	  cellTemplate: '<div class="ui-grid-cell-contents" style="cursor: hand;cursor: pointer;"><a ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.userId)">Edit</a></div>'
       },
       { name: 'Delete',
     	  exporterSuppressExport: true,
     	  headerCellTemplate: '<div></div>',
-    	  cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.loadHomeBodyPageFormsDel(row.entity.userId)">Delete</a></div>'
+    	  cellTemplate: '<div class="ui-grid-cell-contents" style="cursor: hand;cursor: pointer;"><a ng-click="grid.appScope.loadHomeBodyPageFormsDel(row.entity.userId)">Delete</a></div>'
       },
       { name: 'Assign',
     	  exporterSuppressExport: true,
     	  displayName: 'Assign Kiosk',
     	  headerCellTemplate: '<div></div>',
-          cellTemplate: '<div class="ui-grid-cell-contents" id="myBtn"><div ng-if="row.entity.role == \'CMF\' && row.entity.noOfAssignedKiosks > 0"><a data-href="km/userkioskmappingpopup?username="+{{ row.entity.userId }} data-val="{{ row.entity.pfId }}" class="openPopup">DeMap Kiosks</a></div></div>'
+          cellTemplate: '<div class="ui-grid-cell-contents" id="myBtn" style="cursor: hand;cursor: pointer;"><div ng-if="row.entity.role == \'CMF\' && row.entity.noOfAssignedKiosks > 0"><a data-href="km/userkioskmappingpopup?username="+{{ row.entity.userId }} data-val="{{ row.entity.pfId }}" class="openPopup">DeMap Kiosks</a></div></div>'
       }
     ],
     onRegisterApi: function(gridApi) {

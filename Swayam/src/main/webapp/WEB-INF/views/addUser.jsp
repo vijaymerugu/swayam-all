@@ -806,8 +806,10 @@ $(document).ready(function(){
 					<c:if test="${addUser.checkAction != 'Edit'}">	
 					 <form:hidden path="checkAction" />
 					  <form:hidden path="userId" />
-					<td><input type="reset" class="button" value="CANCEL"></td>
-                   <td><input type="button" onclick="saveform()"   class="button" value="ADD"></td>
+					<!-- <td><input type="reset" class="button" value="CANCEL"></td> -->
+					<td><button style="background-color: #f2a50a" class="openFinalPopup">CANCEL</button></td>
+				<!-- 	<td><button style="background-color: #f2a50a" class="saveformBtn">ADD</button></td> -->
+                   <td><input style="width: 80px;height: 28px;"" type="button" onclick="saveform()"   class="button" value="ADD"></td>
 					</c:if>	
 					
 						
@@ -849,6 +851,7 @@ $(document).ready(function(){
 	
 	
 	<script>
+	
 $(document).ready(function(){ 
     $('.openFinalPopup').on('click',function(){      
         
