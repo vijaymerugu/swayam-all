@@ -75,12 +75,12 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
       { name: 'Edit',
     	  exporterSuppressExport: true,
     	  headerCellTemplate: '<div></div>',
-    	  cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.userId)">Edit</a></div>'
+    	  cellTemplate: '<div class="ui-grid-cell-contents"><a style="cursor: hand; cursor: pointer;" ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.userId)">Edit</a></div>'
       },
       { name: 'Delete',
     	  exporterSuppressExport: true,
     	  headerCellTemplate: '<div></div>',
-    	  cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.loadHomeBodyPageFormsDel(row.entity.userId)">Delete</a></div>'
+    	  cellTemplate: '<div class="ui-grid-cell-contents"><a style="cursor: hand; cursor: pointer;" ng-click="grid.appScope.loadHomeBodyPageFormsDel(row.entity.userId)">Delete</a></div>'
       }
     ],
     onRegisterApi: function(gridApi) {

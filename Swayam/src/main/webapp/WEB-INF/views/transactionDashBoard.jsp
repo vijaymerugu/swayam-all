@@ -45,6 +45,7 @@
        .ui-grid-header-cell-label {
 		display:inline-block;
 		white-space:initial;
+		font-size: 15px;
 		}
 		
 		

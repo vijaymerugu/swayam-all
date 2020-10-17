@@ -447,8 +447,10 @@ public class UploadServiceImpl implements UploadService {
 					String sDate1=lidtDto1.getInstallationDate();
 					  
 					  logger.info("Installation date in entity format: "+sDate1); 
-					  DateFormat dateFormat  = new SimpleDateFormat("dd-MM-yyyy"); 
-					  String installationDate =  dateFormat.format(new Date());
+					  SimpleDateFormat formatter = new SimpleDateFormat("mm/dd/yy");
+					  Date date = formatter.parse(sDate1);
+					  
+					  String installationDate =  new SimpleDateFormat("dd-mm-yyyy").format(date);
 					  
 					  logger.info("installationDate date in String format: "+installationDate);
 					  entity.setInstallationDate(installationDate);//3
@@ -1451,10 +1453,12 @@ public class UploadServiceImpl implements UploadService {
 					
 					  String sDate1=lidtDto1.getHolidayDate();
 					  
-					  logger.info("Holiday date in entity format: "+sDate1); DateFormat dateFormat
-					  = new SimpleDateFormat("dd-MM-yyyy"); String holidayDate =
-					  dateFormat.format(new Date());
-					  
+					  logger.info("Holiday date in entity format: "+sDate1); 
+				//	  SimpleDateFormat formatter = new SimpleDateFormat("mm/dd/yyyy");
+					  SimpleDateFormat formatter = new SimpleDateFormat("dd-mm-yyyy");
+					  Date date = formatter.parse(sDate1);
+					  String holidayDate =  new SimpleDateFormat("dd-mm-yyyy").format(date);
+					   
 					  logger.info("Holiday date in String format: "+holidayDate);
 					  entity.setHolidayDate(holidayDate);
 					 
@@ -1576,6 +1580,7 @@ public class UploadServiceImpl implements UploadService {
 			logger.info("Error file path: "+reportPath1+filename);
 			FileOutputStream out = new FileOutputStream(
 					new File(reportPath1+filename));
+			
 			workbook1.write(out);
 			out.close();
 		} catch (Exception e) {
