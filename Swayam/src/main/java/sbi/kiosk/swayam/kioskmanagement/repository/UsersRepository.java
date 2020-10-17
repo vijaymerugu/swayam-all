@@ -7,11 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import sbi.kiosk.swayam.common.entity.User;
 
 @Repository
-public interface UsersRepository extends CrudRepository<User, Long> {
+public interface UsersRepository extends CrudRepository<User, Long>, PagingAndSortingRepository <User, Long> {
 	
 	@Query("FROM User where ENABLED='1' AND USERNAME !=:username")
 	List<User> findAll(@Param("username") String username);

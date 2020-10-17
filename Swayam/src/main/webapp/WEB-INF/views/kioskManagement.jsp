@@ -35,6 +35,44 @@
 <script
 	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
 	
+	<style>
+       .ui-grid-header-cell-label {
+		display:inline-block;
+		white-space:initial;
+		 font-size: 15px;
+		}
+		
+		
+		.wrap-text .ui-grid-cell-contents {
+ 		 white-space:normal;
+		}
+
+		[ui-grid-row] {
+  		display: table-row;
+		}
+
+		.ui-grid-row, .ui-grid-cell {
+  		height: auto!important;
+		}
+
+		.ui-grid-cell {
+ 			float: none;
+ 			display: table-cell;
+		} 
+	
+	
+		.ui-grid-header-cell, .ui-grid-cell-contents {
+ 			white-space: normal;
+ 			padding: 2px;
+ 			word-break: break-word;
+		}
+ 
+ 			.ui-grid-viewport {
+		    width: 1338px;
+		    height: 457px;
+		}
+</style>	
+	
 </head>
 <body>
 
@@ -43,7 +81,7 @@
 <div>
 
 			  <table class="table1"
-				style="top: 152px; left: 15px; width: 1336px; height: 190px; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1;">
+				style="top: 152px; left: 15px; width: 1350px; height: 190px; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1;">
 
 
 
