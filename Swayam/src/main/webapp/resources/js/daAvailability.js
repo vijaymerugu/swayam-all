@@ -9,6 +9,30 @@ app.controller('daAvailabilityController', ['$scope', '$interval', '$http', 'daA
 	    }, 1000);
     };
 
+
+   //get urgent active messages 
+    $scope.LoadUrgentMessages=function(){
+		   $http({
+				method : "GET",
+				url : 'da/get-urgent-messgaes',
+				dataType : 'json',
+				data : {},
+				headers : {
+					"Content-Type" : "application/json"
+				}
+			}).success(function(data, status){
+				$scope.UrgentMessages = data;
+				
+			}).error(function(data, status) {
+				console.log("Unable to load the messages" +  data + " Status " + status);
+			});
+		   
+	   }
+    
+    $scope.LoadUrgentMessages();
+    
+    
+    
   //getting auto refresh time value from property file
 	$http({
 		method: 'GET',
@@ -35,7 +59,7 @@ app.controller('daAvailabilityController', ['$scope', '$interval', '$http', 'daA
 			var nonNullCounter = 1;
 			let tempData=[];
 			$(".chartDiv").remove();
-			$('.submain').append('<div class="chartDiv" style="float:left"></div>');
+			$('.submain').append('<div class="chartDiv"></div>');
 			$(".chartDiv").append("<table><tr>");
 			
 			for(var i=0; i<$scope.apiResponse.length; i++){

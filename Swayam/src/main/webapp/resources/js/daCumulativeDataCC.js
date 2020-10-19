@@ -12,6 +12,27 @@ app.controller('daCumulativeDataCCController', ['$scope','$interval','$http','da
 	    }, 1000);
     };
     
+    //get urgent active messages 
+    $scope.LoadUrgentMessages=function(){
+		   $http({
+				method : "GET",
+				url : 'da/get-urgent-messgaes',
+				dataType : 'json',
+				data : {},
+				headers : {
+					"Content-Type" : "application/json"
+				}
+			}).success(function(data, status){
+				$scope.UrgentMessages = data;
+				
+			}).error(function(data, status) {
+				console.log("Unable to load the messages" +  data + " Status " + status);
+			});
+		   
+	   }
+    
+    $scope.LoadUrgentMessages();
+    
   //getting auto refresh time value from property file
 	$http({
 		method: 'GET',

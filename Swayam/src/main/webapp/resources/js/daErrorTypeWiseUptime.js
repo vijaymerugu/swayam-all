@@ -3,6 +3,27 @@ var app = angular.module('daErrorTypeWiseUptimeModule', ['chart.js']);
 app.controller('daErrorTypeWiseUptimeController', ['$scope','$interval','$http','daErrorTypeWiseUptimeService', 
 	function ($scope, $interval, $http, daErrorTypeWiseUptimeService) {
 	
+	//get urgent active messages 
+    $scope.LoadUrgentMessages=function(){
+		   $http({
+				method : "GET",
+				url : 'da/get-urgent-messgaes',
+				dataType : 'json',
+				data : {},
+				headers : {
+					"Content-Type" : "application/json"
+				}
+			}).success(function(data, status){
+				$scope.UrgentMessages = data;
+				
+			}).error(function(data, status) {
+				console.log("Unable to load the messages" +  data + " Status " + status);
+			});
+		   
+	   }
+    
+    $scope.LoadUrgentMessages();
+	
 		$scope.errorTypeList = [{
   		    'name': 'Printing',
   		    'value': 'Printing'
