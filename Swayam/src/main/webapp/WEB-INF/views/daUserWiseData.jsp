@@ -11,7 +11,7 @@
 <script src="resources/js/Chart.min.js"></script>
 <script src="resources/js/angular-chart.min.js"></script>
 <script src="resources/js/chartjs-plugin-labels.js"></script>
-<style type="text/css">
+<!-- <style type="text/css">
 .rcorners {
 	border-radius: 1px;
 	border: 1px solid #73AD21;
@@ -24,6 +24,59 @@
 	/* width: 200px;
   	height: 200px; */
 	
+}
+</style> -->
+
+<style type="text/css">
+.rcorners {
+
+	 border-radius: 1px;
+	 border: 1px solid #73AD21;
+	/* padding: 1px; */
+	width: 650px;
+  	height: 800px;
+}
+.chartHeighWidth {
+	/* width: 200px;
+  	height: 200px; */
+}
+
+div.absolute {
+     width: 645px;
+  	height: 795px; 
+  	overflow: scroll;
+   
+}
+
+/* .container {
+  
+} */
+
+.topright {
+  position: absolute;
+  top: 8px;
+  right: 0px;
+  font-size: 18px;
+}
+
+.submain {
+    top: 242px;
+    left: 8px;
+    width: fit-content;
+    height: fit-content;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #8D8D8D29;
+    opacity: 1;
+    padding: 7px;
+}
+
+.bullet::before {
+  content: "\2022";
+  color: #00BFFF;;
+  font-weight: bold;
+  display: inline-block; 
+  width: 1em;
+  margin-left: -1em;
 }
 </style>
 
@@ -46,7 +99,7 @@
 						<td>
 							<div class="rcorners">
 								<div id="chartDiv">
-									<h5 align="center">User-wise Down Kiosks</h5>
+									<h5 align="center" style="font-weight: bold;">User-wise Down Kiosks</h5>
 									<canvas id="doughnut1"
 										class="chart chart-doughnut chartHeighWidth"
 										chart-data="doughnutData1[0].rowData" chart-labels="labels1"
@@ -78,9 +131,24 @@
 							</div>
 						</td>
 						<td>
+						<td>
+							<div class="rcorners">
+							<div class="absolute">
+								<div><h5 align="center" style="font-weight: bold;"> Urgent Information</h5></div>
+								<ul>
+									<li class="bullet" ng-repeat="item in UrgentMessages">{{item.message}}</li>
+								</ul>
+								</div>
+							</div>
+
+						</td>
+						</td>
+						</tr>
+						<tr>
+						<td>
 							<div class="rcorners">
 								<div id="chartDiv">
-									<h5 align="center">User-wise Zero Txn Kiosks</h5>
+									<h5 align="center" style="font-weight: bold;">User-wise Zero Txn Kiosks</h5>
 									<canvas id="doughnut2"
 										class="chart chart-doughnut chartHeighWidth"
 										chart-data="doughnutData2[0].rowData" chart-labels="labels2"

@@ -11,7 +11,7 @@
 <script src="resources/js/Chart.min.js"></script>
 <script src="resources/js/angular-chart.min.js"></script>
 <script src="resources/js/chartjs-plugin-labels.js"></script>
-<style type="text/css">
+<!-- <style type="text/css">
 .rcorners {
 	 border-radius: 1px;
 	 border: 1px solid #73AD21;
@@ -22,6 +22,58 @@
 .chartHeighWidth {
 	/* width: 200px;
   	height: 200px; */
+}
+</style> -->
+<style type="text/css">
+.rcorners {
+
+	 border-radius: 1px;
+	 border: 1px solid #73AD21;
+	/* padding: 1px; */
+	width: 650px;
+  	height: 800px;
+}
+.chartHeighWidth {
+	/* width: 200px;
+  	height: 200px; */
+}
+
+div.absolute {
+     width: 645px;
+  	height: 795px; 
+  	overflow: scroll;
+   
+}
+
+/* .container {
+  
+} */
+
+.topright {
+  position: absolute;
+  top: 8px;
+  right: 0px;
+  font-size: 18px;
+}
+
+.submain {
+    top: 242px;
+    left: 8px;
+    width: fit-content;
+    height: fit-content;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #8D8D8D29;
+    opacity: 1;
+    padding: 7px;
+}
+
+.bullet::before {
+  content: "\2022";
+  color: #00BFFF;;
+  font-weight: bold;
+  display: inline-block; 
+  width: 1em;
+  margin-left: -1em;
 }
 </style>
 
@@ -44,7 +96,7 @@
 						<td>
 							<div class="rcorners">
 								<div id="chartDiv">
-									<h5 align="center">Availability (in %)</h5>
+									<h5 align="center" style="font-weight: bold;">Availability (in %)</h5>
 									<canvas id="doughnut1" class="chart chart-doughnut chartHeighWidth"
 													chart-data="doughnutData1[0].rowData"
 													chart-labels="labels1" chart-options="options1[0]"
@@ -77,6 +129,17 @@
 						</td>
 						<td>
 							<div class="rcorners">
+							<div class="absolute">
+								<div><h5 align="center" style="font-weight: bold;"> Urgent Information</h5></div>
+								<ul>
+									<li class="bullet" ng-repeat="item in UrgentMessages">{{item.message}}</li>
+								</ul>
+								</div>
+							</div>
+
+						</td>
+						<!-- <td>
+							<div class="rcorners">
 								<div id="chartDiv">
 									<h5 align="center">Vendor-wise Uptime (in %)</h5>
 									<canvas id="doughnut2" class="chart chart-doughnut chartHeighWidth"
@@ -108,13 +171,13 @@
 									</table>
 								</div>
 							</div>
-						</td>
+						</td> -->
 					</tr>
 					<tr>
 						<td>
 							<div class="rcorners">
 								<div id="chartDiv">
-									<h5 align="center">Error type-wise Uptime (in %)</h5>
+									<h5 align="center" style="font-weight: bold;">Error type-wise Uptime (in %)</h5>
 									<canvas id="doughnut3" class="chart chart-doughnut chartHeighWidth"
 													chart-data="doughnutData3[0].rowData"
 													chart-labels="labels3" chart-options="options3[0]"
@@ -148,7 +211,7 @@
 						<td>
 							<div class="rcorners">
 								<div id="chartDiv">
-									<h5 align="center">TAT of Down Kiosks</h5>
+									<h5 align="center" style="font-weight: bold;">TAT of Down Kiosks</h5>
 									<canvas id="doughnut4" class="chart chart-doughnut chartHeighWidth"
 													chart-data="doughnutData4[0].rowData"
 													chart-labels="labels4" chart-options="options4[0]"
@@ -186,7 +249,7 @@
 						<td>
 							<div class="rcorners">
 								<div id="chartDiv">
-									<h5 align="center">Summary of Down Kiosks</h5>
+									<h5 align="center" style="font-weight: bold;">Summary of Down Kiosks</h5>
 									<canvas id="doughnut5" class="chart chart-doughnut chartHeighWidth"
 													chart-data="doughnutData5[0].rowData"
 													chart-labels="labels5" chart-options="options5[0]"
@@ -213,6 +276,40 @@
 											<td align="right"><b>{{apiResponse5[apiResponse5.length-1].gtOpenTickets}}</b></td>
 											<td align="right"><b>{{apiResponse5[apiResponse5.length-1].gtAllTickets}}</b></td>
 											<td align="right"><b>{{apiResponse5[apiResponse5.length-1].gtOpenTicketsPercent | number: 2}}</b></td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</td>
+						<td>
+							<div class="rcorners">
+								<div id="chartDiv">
+									<h5 align="center" style="font-weight: bold;">Vendor-wise Uptime (in %)</h5>
+									<canvas id="doughnut2" class="chart chart-doughnut chartHeighWidth"
+													chart-data="doughnutData2[0].rowData"
+													chart-labels="labels2" chart-options="options2[0]"
+													chart-colors="colors2"> </canvas>
+									<br/>
+								</div>
+								<div id="tableDiv">
+									<table border="1" align="left" style="margin-left:15px">
+										<tr>
+											<th>Vendor</th>
+											<th>Total Operational Kiosks (No.)</th>
+											<th>Total Kiosks(No.)</th>
+											<th>Availability(in %)</th>
+										</tr>
+										<tr ng-repeat="num in apiResponse2">
+											<td align="left">{{apiResponse2[$index].vendorName}}</td>
+											<td align="right">{{apiResponse2[$index].totalOperationalKiosks}}</td>
+											<td align="right">{{apiResponse2[$index].totalKiosks}}</td>
+											<td align="right">{{apiResponse2[$index].availableKiosksPercent}}</td>
+										</tr>
+										<tr>
+											<td align="left"><b>{{apiResponse2[apiResponse2.length-1].gtLabel}}</b></td>
+											<td align="right"><b>{{apiResponse2[apiResponse2.length-1].gtOperationalKiosks}}</b></td>
+											<td align="right"><b>{{apiResponse2[apiResponse2.length-1].gtTotalKiosks}}</b></td>
+											<td align="right"><b>{{apiResponse2[apiResponse2.length-1].gtAvailabilityPercent | number: 2}}</b></td>
 										</tr>
 									</table>
 								</div>
