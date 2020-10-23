@@ -653,6 +653,21 @@ $(document).ready(function(){
 	}
 	}
 	
+	function cancelform() {
+		
+		
+		$("#emailId12").html("");
+		$("#phoneNumber12").html("");	
+		$("#pfId12").html("");	
+		$("#userName12").html("");	
+		$("#reportingAuthorityName12").html("");		
+		$("#reportingAuthorityEmail12").html("");
+		$("#role12").html("");
+		$("#circle12").html("");
+		
+    	$("#contentHomeApp").load("km/userList");  
+		
+	}
 	
 	
 	
@@ -807,7 +822,8 @@ $(document).ready(function(){
 					 <form:hidden path="checkAction" />
 					  <form:hidden path="userId" />
 					<!-- <td><input type="reset" class="button" value="CANCEL"></td> -->
-					<td><button style="background-color: #f2a50a" class="openFinalPopup">CANCEL</button></td>
+					<!-- <td><input type="button" class="button" style="background-color: #f2a50a" onclick="cancelform() value="CANCEL"></td> -->
+				<td><input style="width: 80px;height: 28px;"" type="button" onclick="cancelform()"   class="button" value="CANCEL"></td>
 				<!-- 	<td><button style="background-color: #f2a50a" class="saveformBtn">ADD</button></td> -->
                    <td><input style="width: 80px;height: 28px;"" type="button" onclick="saveform()"   class="button" value="ADD"></td>
 					</c:if>	
@@ -854,7 +870,8 @@ $(document).ready(function(){
 	
 $(document).ready(function(){ 
     $('.openFinalPopup').on('click',function(){      
-        
+      //  alert("I m here:openFinalPopup ");
+     //   debugger;
     	$("#contentHomeApp").load("km/userList");    	
        
     }); 
