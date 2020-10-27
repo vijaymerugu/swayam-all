@@ -75,11 +75,12 @@ margin:10px;
 {
  float: left;
  padding: 4px 10px;
- position: fixed;
- left: 120px;
- top: 120px;
+ position: absolute;
+ left: 0px;
+ top: 40px;
  display: none;
  color: #00537F;
+ width: 1579px;
 }
 #topnav ul li ul.submenu a
 {
