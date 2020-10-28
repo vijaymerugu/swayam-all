@@ -5,31 +5,54 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.SecondaryTable;
 import javax.persistence.SecondaryTables;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import lombok.Data;
+import sbi.kiosk.swayam.common.dto.InvoiceSummaryCompositeId;
 
 @Data
 @Entity
-public class InvoiceSummaryEntity implements Serializable {
+@IdClass(value = InvoiceSummaryCompositeId.class)
+public class InvoiceSummaryEntity{
 	
 	
 	
+
+	//private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name="STAT_DESC")
 	private String state;
 	
-	@Column(name="CRCL_NAME", unique = true)
+	@Id
+	@Column(name="CRCL_NAME")
 	private String circleName;
 	
-
-	@Column(name="FIN_YR", unique = true)
+	@Id
+	@Column(name="FIN_YR")
 	private String year;
 	
+	@Id
 	@Column(name="VENDOR")
 	private String vendor;
+	
+	/*
+	 * @Id
+	 * 
+	 * @Column(name="STAT_DESC") private String state;
+	 * 
+	 * @Column(name="CRCL_NAME") private String circleName;
+	 * 
+	 * 
+	 * @Column(name="FIN_YR") private String year;
+	 * 
+	 * @Column(name="VENDOR") private String vendor;
+	 */
+	
 	
 	
 	

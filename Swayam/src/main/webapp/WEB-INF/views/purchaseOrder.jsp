@@ -171,8 +171,11 @@
                     <div class="col-xs-6">
                     <select id="vendor"  name="Vendor" ng-model="selectedVendor" 
                     ng-change="LoadPOData(selectedVendor)"  required>
-									<option value=""></option> 
-									<option ng-repeat="item in Vendors" value="{{item.vendor}}">{{item.vendor}}</option>
+                     <option value="" selected>--Select Vendor--</option>  
+					<option ng-repeat="item in Vendors" value="{{item.vendorId}}">{{item.vendor}}</option>
+								
+									<!-- <option value=""></option> 
+									<option ng-repeat="item in Vendors" value="{{item.vendor}}">{{item.vendor}}</option> -->
 					</select>
                     </div>
                 </div>
