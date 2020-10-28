@@ -169,7 +169,6 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate','ui.
 		        console.log("Inside Get Row Data "+rows);
 		     
 		        if(rows==''){
-		        	
 		        	alert("Please select atleast one row");
 		        }else{
 		        	
