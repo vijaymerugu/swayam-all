@@ -1,703 +1,481 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="employee-rpt" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true">
-
-    <property name="ireport.zoom" value="1.0"></property>
-
-    <property name="ireport.x" value="0"></property>
-
-    <property name="ireport.y" value="0"></property>  
-<property name="net.sf.jasperreports.export.pdf.size.page.to.content" value="true"/>
-	 <field name="prfRefNumber" class="java.lang.String"></field> 
-    <field name="vendor" class="java.lang.String"></field>
-    <field name="circleName" class="java.lang.String"></field>    
-    <field name="state" class="java.lang.String"></field>
-	 <field name="kisokId" class="java.lang.String"></field>
-	<field name="kioskSerialNumber" class="java.lang.String"></field>
-	<field name="quarterId" class="java.lang.String"></field>
-    <field name="toatalhours" class="java.lang.Integer"></field>
-    <field name="downTime" class="java.lang.Integer"></field>    
-    <field name="relaxation" class="java.lang.Integer"></field>
-	<field name="finalDowntime" class="java.lang.Integer"></field>
-	<field name="penalty" class="java.lang.Float"></field>
-   
-
-  
-
-    <background>
-
-        <band splitType="Stretch"></band>
-    </background>
-	
+<!-- Created with Jaspersoft Studio version 6.14.0.final using JasperReports Library version 6.14.0-2ab0d8625be255bf609c78e1181801213e51db8f  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="employee-rpt" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="47a8141a-c098-4449-8632-796c1e37bef0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.export.pdf.size.page.to.content" value="true"/>
+	<field name="prfRefNumber" class="java.lang.String"/>
+	<field name="vendor" class="java.lang.String"/>
+	<field name="circleName" class="java.lang.String"/>
+	<field name="state" class="java.lang.String"/>
+	<field name="kisokId" class="java.lang.String"/>
+	<field name="kioskSerialNumber" class="java.lang.String"/>
+	<field name="quarterId" class="java.lang.String"/>
+	<field name="toatalhours" class="java.lang.Integer"/>
+	<field name="downTime" class="java.lang.Integer"/>
+	<field name="relaxation" class="java.lang.Integer"/>
+	<field name="finalDowntime" class="java.lang.Integer"/>
+	<field name="penalty" class="java.lang.Float"/>
+	<variable name="totalhr" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{toatalhours}]]></variableExpression>
+	</variable>
+	<variable name="dt" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{downTime}]]></variableExpression>
+	</variable>
+	<variable name="rex" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{relaxation}]]></variableExpression>
+	</variable>
+	<variable name="fd" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{finalDowntime}]]></variableExpression>
+	</variable>
+	<variable name="p" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{penalty}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
 	<title>
-
-        <band height="25" splitType="Stretch">
-
-            <staticText>
-
-                <reportElement x="64" y="0" width="481" height="25"></reportElement>
-
-                <textElement textAlignment="Center">
-
-                    <font size="15" isBold="true"></font>
-
-                </textElement>
-
-                <text><![CDATA[Billing Penalty]]></text>
-
-            </staticText>
-
-        </band>
-
-    </title>
-	
-	 <columnHeader>
-
-        <band height="61" splitType="Stretch">
-
-            <staticText>
-
-                <reportElement x="0" y="41" width="200" height="20"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-
-                </box>
-
-                <textElement textAlignment="Center">
-
-                    <font size="10" isBold="true" isItalic="false"></font>
-
-                </textElement>
-
-                <text><![CDATA[RFP REF_NO.]]></text>
-
-            </staticText>
-
-            <staticText>
-
-                <reportElement x="200" y="41" width="200" height="20"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-
-                </box>
-
-                <textElement textAlignment="Center">
-
-                    <font size="10" isBold="true" isItalic="false"></font>
-
-                </textElement>
-
-                <text><![CDATA[VENDOR]]></text>
-
-            </staticText>
-
-            <staticText>
-
-                <reportElement x="400" y="41" width="200" height="20"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-
-                </box>
-
-                <textElement textAlignment="Center">
-
-                    <font size="10" isBold="true" isItalic="false"></font>
-
-                </textElement>
-
-                <text><![CDATA[CIRCLE]]></text>
-
-            </staticText>
-
-            <staticText>
-
-                <reportElement x="600" y="41" width="200" height="20"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-
-                </box>
-
-                <textElement textAlignment="Center">
-
-                    <font size="10" isBold="true" isItalic="false"></font>
-
-                </textElement>
-
-                <text><![CDATA[STATE]]></text>
-
-            </staticText>
-
-            <staticText>
-
-                <reportElement x="800" y="41" width="200" height="20"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-                </box>
-
-                <textElement textAlignment="Center">
-
-                    <font size="10" isBold="true" isItalic="false"></font>
-
-                </textElement>
-
-                <text><![CDATA[KIOSK ID]]></text>
-
-            </staticText>
+		<band height="25" splitType="Stretch">
 			<staticText>
-
-                <reportElement x="1000" y="41" width="200" height="20"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-                </box>
-
-                <textElement textAlignment="Center">
-
-                    <font size="10" isBold="true" isItalic="false"></font>
-
-                </textElement>
-
-                <text><![CDATA[KIOSK SERIAL NO]]></text>
-
-            </staticText>
+				<reportElement x="64" y="0" width="481" height="25" uuid="6526c9b6-fa4e-45f6-91c3-9695a04c5bb7"/>
+				<textElement textAlignment="Center">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Billing Penalty]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
 			<staticText>
-
-                <reportElement x="1200" y="41" width="200" height="20"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-                </box>
-
-                <textElement textAlignment="Center">
-
-                    <font size="10" isBold="true" isItalic="false"></font>
-
-                </textElement>
-
-                <text><![CDATA[TIME PERIOD]]></text>
-
-            </staticText>
+				<reportElement x="0" y="41" width="200" height="20" uuid="eeab1869-b412-49b5-99fa-8d82ab26224d"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[RFP REF_NO.]]></text>
+			</staticText>
 			<staticText>
-
-                <reportElement x="1400" y="41" width="200" height="20"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-                </box>
-
-                <textElement textAlignment="Center">
-
-                    <font size="10" isBold="true" isItalic="false"></font>
-
-                </textElement>
-
-                <text><![CDATA[TOTAL WORKING HRS]]></text>
-
-            </staticText>
+				<reportElement x="200" y="41" width="200" height="20" uuid="1d16f58c-e4de-4dfb-bee6-6f510cbfe87a"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[VENDOR]]></text>
+			</staticText>
 			<staticText>
-
-                <reportElement x="1600" y="41" width="200" height="20"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-                </box>
-
-                <textElement textAlignment="Center">
-
-                    <font size="10" isBold="true" isItalic="false"></font>
-
-                </textElement>
-
-                <text><![CDATA[TOTAL DOWNTIME(A)]]></text>
-
-            </staticText>
+				<reportElement x="400" y="41" width="200" height="20" uuid="5624d046-8ae9-48a4-ae52-6e7fe77b3824"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[CIRCLE]]></text>
+			</staticText>
 			<staticText>
-
-                <reportElement x="1800" y="41" width="200" height="20"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-                </box>
-
-                <textElement textAlignment="Center">
-
-                    <font size="10" isBold="true" isItalic="false"></font>
-
-                </textElement>
-
-                <text><![CDATA[RELAXATION IN DOWNTIME (B)]]></text>
-
-            </staticText>
+				<reportElement x="600" y="41" width="200" height="20" uuid="6c03655c-072e-458c-837f-5205c493eade"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[STATE]]></text>
+			</staticText>
 			<staticText>
-
-                <reportElement x="2000" y="41" width="200" height="20"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-                </box>
-
-                <textElement textAlignment="Center">
-
-                    <font size="10" isBold="true" isItalic="false"></font>
-
-                </textElement>
-
-                <text><![CDATA[FINAL DOWNTIME (A-B)]]></text>
-
-            </staticText>
+				<reportElement x="800" y="41" width="200" height="20" uuid="bd40b73e-5bd0-4cf8-9645-0148d6ef2538"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[KIOSK ID]]></text>
+			</staticText>
 			<staticText>
-
-                <reportElement x="2200" y="41" width="200" height="20"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-                </box>
-
-                <textElement textAlignment="Center">
-
-                    <font size="10" isBold="true" isItalic="false"></font>
-
-                </textElement>
-
-                <text><![CDATA[PENALTY(INR)]]></text>
-
-            </staticText>
-			
-			
-
-            
-        </band>
-
-    </columnHeader>
+				<reportElement x="1000" y="41" width="200" height="20" uuid="133df025-744b-4e23-9612-3f78356563de"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[KIOSK SERIAL NO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1200" y="41" width="200" height="20" uuid="cc07a0fc-8c24-4086-8397-2c76f0f0742d"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[TIME PERIOD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1400" y="41" width="200" height="20" uuid="0f150784-e4e1-4a6d-af81-cdbd2713a4ce"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[TOTAL WORKING HRS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1600" y="41" width="200" height="20" uuid="a553e525-b916-4066-a8ed-037794dd4113"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[TOTAL DOWNTIME(A)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1800" y="41" width="200" height="20" uuid="18434ed9-dbca-43f6-936d-5ddec38d654c"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[RELAXATION IN DOWNTIME (B)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2000" y="41" width="200" height="20" uuid="749c2c38-3537-4e19-8d1c-917f545d0656"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[FINAL DOWNTIME (A-B)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2200" y="41" width="200" height="20" uuid="1c4ed591-0b19-42de-a065-28122426f89a"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[PENALTY(INR)]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
 	<detail>
-	
-
-   
-	
-
-        <band height="15" splitType="Stretch">
-
-            <textField>
-
-                <reportElement x="0" y="0" width="200" height="15"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-
-                </box>
-
-                <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
-				</textElement>
-
-                <textFieldExpression><![CDATA[$F{prfRefNumber} == null?"":$F{prfRefNumber}]]></textFieldExpression>
-
-            </textField>
-
-            <textField>
-
-                <reportElement x="200" y="0" width="200" height="15"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-
-                </box>
-
-                <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
-				</textElement>
-
-                <textFieldExpression><![CDATA[$F{vendor}  == null?"":$F{vendor}]]></textFieldExpression>
-
-            </textField>
-            <textField>
-
-                <reportElement x="400" y="0" width="200" height="15"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-
-                </box>
-
-                <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
-				</textElement>
-
-                <textFieldExpression><![CDATA[$F{circleName} == null?"":$F{circleName}]]></textFieldExpression>
-
-            </textField>
-
-            <textField>
-
-                <reportElement x="600" y="0" width="200" height="15"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-
-                </box>
-
-                <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
-				</textElement>
-
-                <textFieldExpression><![CDATA[$F{state} == null?"":$F{state}]]></textFieldExpression>
-
-            </textField>
-
-            <textField>
-
-                <reportElement x="800" y="0" width="200" height="15"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-
-                </box>
-
-                <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
-				</textElement>
-
-                <textFieldExpression><![CDATA[$F{kisokId} == null?"":$F{kisokId}]]></textFieldExpression>
-
-            </textField>
-			 <textField>
-
-                <reportElement x="1000" y="0" width="200" height="15"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-
-                </box>
-
-                <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
-				</textElement>
-
-                <textFieldExpression><![CDATA[$F{kioskSerialNumber} == null?"":$F{kioskSerialNumber}]]></textFieldExpression>
-
-            </textField>
-			 <textField>
-
-                <reportElement x="1200" y="0" width="200" height="15"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-
-                </box>
-
-                <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
-				</textElement>
-
-                <textFieldExpression><![CDATA[$F{quarterId} == null?"":$F{quarterId}]]></textFieldExpression>
-
-            </textField>
-
+		<band height="20" splitType="Stretch">
 			<textField>
-
-                <reportElement x="1400" y="0" width="200" height="15"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-
-                </box>
-
-                <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
+				<reportElement x="0" y="0" width="200" height="20" uuid="5629ef52-4bcb-41e7-b9ac-72584ad2c20e"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isItalic="false"/>
 				</textElement>
-
-                <textFieldExpression><![CDATA[$F{toatalhours}]]></textFieldExpression>
-
-            </textField>
+				<textFieldExpression><![CDATA[$F{prfRefNumber} == null?"":$F{prfRefNumber}]]></textFieldExpression>
+			</textField>
 			<textField>
-
-                <reportElement x="1600" y="0" width="200" height="15"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-
-                </box>
-
-                <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
+				<reportElement x="200" y="0" width="200" height="20" uuid="b9175f85-adbc-414d-a060-69f09f5ee194"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isItalic="false"/>
 				</textElement>
-
-                <textFieldExpression><![CDATA[$F{downTime}]]></textFieldExpression>
-
-            </textField>
+				<textFieldExpression><![CDATA[$F{vendor}  == null?"":$F{vendor}]]></textFieldExpression>
+			</textField>
 			<textField>
-
-                <reportElement x="1800" y="0" width="200" height="15"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-
-                </box>
-
-                <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
+				<reportElement x="400" y="0" width="200" height="20" uuid="8b59c599-179f-40ab-b777-c8f02d81f054"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isItalic="false"/>
 				</textElement>
-
-                <textFieldExpression><![CDATA[$F{relaxation}]]></textFieldExpression>
-
-            </textField>
+				<textFieldExpression><![CDATA[$F{circleName} == null?"":$F{circleName}]]></textFieldExpression>
+			</textField>
 			<textField>
-
-                <reportElement x="2000" y="0" width="200" height="15"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-
-                </box>
-
-                <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
+				<reportElement x="600" y="0" width="200" height="20" uuid="dd7574bf-a50e-4386-ac64-da3619c45a2b"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isItalic="false"/>
 				</textElement>
-
-                <textFieldExpression><![CDATA[$F{finalDowntime}]]></textFieldExpression>
-
-            </textField>
+				<textFieldExpression><![CDATA[$F{state} == null?"":$F{state}]]></textFieldExpression>
+			</textField>
 			<textField>
-
-                <reportElement x="2200" y="0" width="200" height="15"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-
-                </box>
-
-                <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
+				<reportElement x="800" y="0" width="200" height="20" uuid="9adf4dfc-4280-4ba7-a59e-d5461c8a0d1d"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isItalic="false"/>
 				</textElement>
-
-                <textFieldExpression><![CDATA[$F{penalty}]]></textFieldExpression>
-
-            </textField>
-
-
-
-        </band>
-
-    </detail>
-
+				<textFieldExpression><![CDATA[$F{kisokId} == null?"":$F{kisokId}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1000" y="0" width="200" height="20" uuid="7fdd213d-0e01-4318-ab25-ab7ffefad47e"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{kioskSerialNumber} == null?"":$F{kioskSerialNumber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1200" y="0" width="200" height="20" uuid="5bf1bb06-8010-4f46-bd71-b48cadd1e67e"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quarterId} == null?"":$F{quarterId}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1400" y="0" width="200" height="20" uuid="25f9cbcd-132e-4565-8cdd-93eef501eb8a"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{toatalhours}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1600" y="0" width="200" height="20" uuid="58e68b23-bad6-4dc3-9ecd-875b2c8b832b"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{downTime}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1800" y="0" width="200" height="20" uuid="66ab41d0-b8a9-49ff-ad5a-fbe2bdc135ed"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{relaxation}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2000" y="0" width="200" height="20" uuid="83994cba-4325-486d-a889-f6136cf300c9"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{finalDowntime}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2200" y="0" width="200" height="20" uuid="ec99e51b-78bb-43d5-ae52-e415a6550889"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{penalty}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="1200" y="0" width="200" height="20" uuid="d410f0c6-6cb8-4e76-9545-116ad26b5c55"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1400" y="0" width="200" height="20" uuid="0f8794a2-2566-4eff-a70c-b26b185b95c3"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalhr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1600" y="0" width="200" height="20" uuid="85ea5048-05d0-45fd-b9b8-cd121d465944"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{dt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1800" y="0" width="200" height="20" uuid="4f27efd8-f97e-4f43-bca0-f01212514808"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{rex}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2000" y="0" width="200" height="20" uuid="156ce300-592e-4218-a5e0-e6d71254f87d"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{fd}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2200" y="0" width="200" height="20" uuid="bebd5eee-927c-4a68-a90d-e9687900a587"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{p}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
 </jasperReport>

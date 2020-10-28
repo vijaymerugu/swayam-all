@@ -201,7 +201,10 @@ app.controller('daCumulativeDataCCController', ['$scope','$interval','$http','da
 		
 		//Calculating the Operational & Non-Operational Percentage
 		$scope.operationalKiosksPercent2 = ($scope.sumOfOperationalKiosks2 / $scope.sumOfAllKiosks2) * 100;
-
+//Change for percentage issue--26-10-2020
+		
+		$scope.nonOperationalKiosksPercent2= 100 - $scope.operationalKiosksPercent2;
+		
 		//Preparing Data to display in chart
 		let rowData=[$scope.operationalKiosksPercent2, $scope.nonOperationalKiosksPercent2];
 		$scope.doughnutData2.push({"rowData" : rowData});
