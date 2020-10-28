@@ -166,8 +166,15 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate','ui.
 		  
 		    $scope.getRowsData= function () {
 		        var rows = $scope.gridApi.selection.getSelectedRows();
-		        console.log("Inside Get Row Data");
+		        console.log("Inside Get Row Data "+rows);
 		     
+		        if(rows==''){
+		        	
+		        	alert("Please select atleast one row");
+		        }else{
+		        	
+		       
+		        
 		        angular.forEach(rows, function (row, key) {
 		        	//console.log("PoNumber "+row.poId);
 		        	poIdList.push(row.poId);
@@ -199,7 +206,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate','ui.
 		        });
         	
        
-		        
+		        }
 		    };
 	   
 	   $scope.gridOptions = {
