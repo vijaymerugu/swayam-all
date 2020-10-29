@@ -74,7 +74,12 @@
   			padding: 2px;
   			word-break: break-word;
 			}
-  
+  			.ui-grid, .ui-grid-viewport {
+			     height: auto !important;
+			}
+			.ui-grid-pager-panel {
+			    position: relative;
+			}
 </style>	
 
 </head>
@@ -126,7 +131,14 @@
     	            type: 'GET',   
     	            success: function(data){
     	            	console.log(data);
-    	            	window.open("resources/download/"+data , '_blank');  
+    	            	if(data.includes(".pdf")){
+    	            		console.log("PDF Data1" + data);
+    	            		window.open("resources/download/"+data , '_blank'); 
+    	            		
+    	            	}else{
+    	            		console.log("PDF Data" + data);
+    	            		alert("No Data to Export");
+    	            	} 
     	            }
     	        });
     	    });
@@ -136,7 +148,14 @@
     	            type: 'GET',   
     	            success: function(data){
     	            	console.log(data);
-    	            	window.open("resources/download/"+data , '_blank');  
+    	            	if(data.includes(".xlsx")){
+    	            		console.log("Excel Data1" + data);
+    	            		window.open("resources/download/"+data , '_blank'); 
+    	            		
+    	            	}else{
+    	            		console.log("Excel Data" + data);
+    	            		alert("No Data to Export");
+    	            	}  
     	            }
     	        });
     	    });

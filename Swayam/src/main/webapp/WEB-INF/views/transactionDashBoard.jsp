@@ -1,12 +1,11 @@
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 
-
 <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
 <link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
-<script src="resources/js/moment-with-locales.min.js"></script>
+<!-- <script src="resources/js/moment-with-locales.min.js"></script> -->
 <script	src="resources/js/angular.1.5.6.min.js"></script>
  <script src="resources/js/transaction-summry-app.js"></script>
 <script	src="resources/js/angular.1.5.6.min.js"></script>
@@ -26,6 +25,35 @@
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
+     <script>
+  $.ajax({
+  	type:"GET",
+  	url:"td/getSwayamMigrationLastUpDated",
+      success: function(data){
+    	//  alert("dddd=")
+      	console.log("inside data");
+  	    respos=data;
+  	 console.log("response "+respos);
+       $("#dateId").html(data);
+
+      }
+   	   });
+  </script>
+  
+    <script>
+  $.ajax({
+  	type:"GET",
+  	url:"td/getAllIndiaDate",
+      success: function(data){
+    	//  alert("dddd=")
+      	console.log("inside data");
+  	    respos=data;
+  	 console.log("response "+respos);
+       $("#allIndiaDateId").html(data);
+
+      }
+   	   });
+  </script>
     
 <script>
 	$(document).ready(function() {
@@ -73,7 +101,21 @@
   			word-break: break-word;
 			}
     
+          .ui-grid, .ui-grid-viewport {
+			     height: auto !important;
+			}
+			.ui-grid-pager-panel {
+			    position: relative;
+			}
 </style>
+
+<script type="text/javascript">
+$("#mySpan1").hide();
+</script>
+
+<script type="text/javascript">
+$("#mySpan").show();
+</script>
 
 </head>
 <body>
@@ -90,13 +132,16 @@
 			</div>
 			<br />
 		<table>
-  <div colspan="4" align="center" style="color: #00BFFF;font-size: 12px;font-weight: bold;"> All India branch view on <span>{{CurrentDate | date:'EEE,dd MMM, yyyy hh:mm:ss a'}}</span>  </div> 
+  <div colspan="4" align="center" style="color: #00BFFF;font-size: 12px;font-weight: bold;"> All India branch view on
+  <span  id="mySpan1"> {{allIndiaDate}} </span>
+  <span  id="mySpan">  {{CurrentDate | date:'EEE,dd MMM, yyyy hh:mm:ss a'}}</span> 
+  </div> 
 			    </table>
 			<br>	
 			<div>
 			
-			<pre align="left" style="background-color: #00BFFF;color: white;font-size:12px;font-weight: bold;">
-<span>Overall Branch Wise Swayam Transactions<span colspan="4" align="center" style="color: white;font-size: 12px;font-weight: bold;float:right; margin-right:1em">Last Updated :<span>{{CurrentDate | date:'dd:MM:yyyy'}}</span></span>
+			<pre align="left" style="background-color: #00BFFF;color: white;font-size:24px;font-weight: bold;">
+<span>Overall Branch Wise Swayam Transactions<span colspan="4" align="center" style="color: white;font-size: 24px;font-weight: bold;float:right; margin-right:1em">Last Updated :<span id="dateId"></span></span>
 </span>
 </pre>
 			
@@ -179,8 +224,15 @@
     	            url: 'report?page=transactionSummary&type=pdf ',
     	            type: 'GET',  
     	            success: function(data){
-    	            	console.log(data);
-    	            	window.open("resources/download/"+data , '_blank');  
+    	            	if(data.includes(".pdf")){
+    	            		console.log("PDF Data1" + data);
+    	            		window.open("resources/download/"+data , '_blank'); 
+    	            		
+    	            	}else{
+    	            		console.log("PDF Data" + data);
+    	            		alert("No Data to Export");
+    	            	}  
+
     	            }
     	        });
     	    });
@@ -189,8 +241,15 @@
     	            url: 'report?page=transactionSummary&type=excel',
     	            type: 'GET',   
     	            success: function(data){
-    	            	console.log(data);
-    	            	window.open("resources/download/"+data , '_blank');  
+    	            	if(data.includes(".xlsx")){
+    	            		console.log("Excel Data1" + data);
+    	            		window.open("resources/download/"+data , '_blank'); 
+    	            		
+    	            	}else{
+    	            		console.log("Excel Data" + data);
+    	            		alert("No Data to Export");
+    	            	}  
+
     	            }
     	        });
     	    });
