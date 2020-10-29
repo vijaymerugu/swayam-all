@@ -7,5 +7,6 @@ import sbi.kiosk.swayam.common.dto.ZeroTransactionKiosksDto;
 public interface ZeroTransactionKiosksService extends IOperations<ZeroTransactionKiosksDto>{
 	
 	//public List<ZeroTransactionKiosksDto> list();
+	 String findZeroTxnLastUpdatedJob() ;
 
 }

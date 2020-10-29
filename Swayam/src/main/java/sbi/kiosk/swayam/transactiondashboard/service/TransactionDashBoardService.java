@@ -6,4 +6,6 @@ import sbi.kiosk.swayam.common.entity.SwayamMigrationSummary;
 
 public interface TransactionDashBoardService {
 	Page<SwayamMigrationSummary> findPaginated(final int page, final int size,String fromdate,String todate);
+
+	String findSwayamTxnLastUpdatedJob();
 }

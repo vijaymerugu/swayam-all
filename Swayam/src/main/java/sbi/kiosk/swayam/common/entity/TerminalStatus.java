@@ -24,7 +24,7 @@ public class TerminalStatus{
 	@Column(name="CARTRIDGE_STATUS")
 	private String cartridgeStatus;
 	@Column(name="AGENT_STATUS")
-	private String antivirusStatus;
+	private String agentStatus;
 	@Column(name="APPLICATION_STATUS")
 	private String aplicationStatus;
 	@Column(name="CREATED_DTTM")
@@ -34,11 +34,12 @@ public class TerminalStatus{
 	@Column(name="LAST_FEED_DTTM")
 	private Date lastFeedDttm; 
 	@Column(name="TIME_DIFF")
-	private Date timeDiff; 
+	private String timeDiff; 
 	@Column(name="LAST_PRNT_TXN_DTTM")
 	private Date lastPrntTxnDttm;  
 	@Column(name="LAST_PM_DTTM")
 	private Date lastPmDttm;
+	
 	
 
 }

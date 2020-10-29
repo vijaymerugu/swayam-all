@@ -59,6 +59,23 @@ public class TransactionDashBoardServiceImpl implements TransactionDashBoardServ
 		
 	  }
 
+	@Override
+	public String findSwayamTxnLastUpdatedJob() {
+		
+		String swayamMigrationTxnDate=null;
+		
+		try {
+			swayamMigrationTxnDate=transactionDashBoardRepositoryPaging.findCurrentDateAuditJob();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return swayamMigrationTxnDate;
+		
+		
+		
+	}
+
 	
 	
 

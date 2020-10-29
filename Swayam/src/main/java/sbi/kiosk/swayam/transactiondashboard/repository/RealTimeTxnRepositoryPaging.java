@@ -31,4 +31,10 @@ public interface RealTimeTxnRepositoryPaging extends PagingAndSortingRepository<
     "AND to_date(STR.TXN_DATE,'dd-mm-yyyy')=to_date(:fromdate,'dd-mm-yyyy')  ORDER BY STR.TXN_DATE  DESC",nativeQuery=true,countQuery = "SELECT count(STR.BRANCH_CODE)  FROM TBL_BRANCH_MASTER BM JOIN TBL_SWAYAM_TXN_REPORT STR "
     		+ " ON BM.BRANCH_CODE = STR.BRANCH_CODE AND to_date(STR.TXN_DATE,'dd-mm-yyyy')=to_date(:fromdate,'dd-mm-yyyy')  ORDER BY STR.TXN_DATE  DESC" )
 	List<RealTimeTransaction> findByDate(@Param("fromdate") String fromdate);
+	
+	// 12c
+	//@Query(value="select to_char(end_dttm,'dd-Mon-yy hh24:mm:ss') from  tbl_audit_job where job_name='TBL_SWAYAM_TXN_DAILY'  order by end_dttm desc fetch first 1 row only ",nativeQuery = true )
+	//for 11g
+	@Query(value="select to_char(end_dttm,'dd-Mon-yy hh24:mm:ss') from  tbl_audit_job where job_name='TBL_SWAYAM_TXN_DAILY' and rownum <= 1 order by end_dttm desc ",nativeQuery = true )
+	String findCurrentDateAuditJob();
 }

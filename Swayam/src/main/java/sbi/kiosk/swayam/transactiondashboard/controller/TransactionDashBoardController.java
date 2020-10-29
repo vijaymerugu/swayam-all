@@ -1,9 +1,14 @@
 package sbi.kiosk.swayam.transactiondashboard.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,7 +41,9 @@ public class TransactionDashBoardController {
 		Page<SwayamMigrationSummary> resultPage = transactionDashBoardService.findPaginated(page, size, fromdate,todate);
 		
 		
-		  dateFrame.setFromDate(fromdate); dateFrame.setToDate(todate);
+		  dateFrame.setFromDate(fromdate);
+		  dateFrame.setToDate(todate);
+		//  String s1=getFromAndToDate(dateFrame.getFromDate(),dateFrame.getToDate());
 		  
 			/*
 			 * logger.info("Inside TransactionDashboardController From date from jsp: "
@@ -53,5 +60,17 @@ public class TransactionDashBoardController {
 
 		return resultPage;
 	}
+	
+	
+	@GetMapping("td/getSwayamMigrationLastUpDated")
+	public ResponseEntity<String>  getLastUpdatedJob() {
+		
+		 SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		 Date curDate=new Date();
+		 String lastUpdatedDate= transactionDashBoardService.findSwayamTxnLastUpdatedJob();
+		ResponseEntity<String> entity=ResponseEntity.ok(lastUpdatedDate);
+		return entity;
+	}
+	
 
 }

@@ -1,11 +1,16 @@
 package sbi.kiosk.swayam.transactiondashboard.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -65,5 +70,17 @@ public class ZeroTransactionKiosksController {
 		        }
 		  return resultPage;
 	}
+	
+	
+	@GetMapping("td/getZeroLastUpDated")
+	public ResponseEntity<String>  getLastUpdatedJob() {
+		
+		 SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		 Date curDate=new Date();
+		 String lastUpdatedDate= zeroTransactionKiosksService.findZeroTxnLastUpdatedJob();
+		ResponseEntity<String> entity=ResponseEntity.ok(lastUpdatedDate);
+		return entity;
+	}
+	
 
 }

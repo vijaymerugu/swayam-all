@@ -83,6 +83,54 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 	 }
 	 
 	 
+		/*
+		 * @Override public Page<TicketCentorDto> findPaginatedCount(int page, int
+		 * size,String type) {
+		 * 
+		 * 
+		 * Page<TicketCentorDto> entities = null;
+		 * 
+		 * if(type!=null && !type.isEmpty()){
+		 * 
+		 * if(type!=null && type.equals("High")){ entities=
+		 * ticketCentorRepo.findAll(type, PageRequest.of(page,
+		 * size)).map(TicketCentorDto::new); }else if(type!=null &&
+		 * type.equals("Medium")){ entities= ticketCentorRepo.findAll(type,
+		 * PageRequest.of(page, size)).map(TicketCentorDto::new); }else if(type!=null &&
+		 * type.equals("Low")){ entities= ticketCentorRepo.findAll(type,
+		 * PageRequest.of(page, size)).map(TicketCentorDto::new); }else if(type!=null &&
+		 * type.equals("Total")){ entities =
+		 * ticketCentorRepo.findAllByRisk("High","Medium","Low",PageRequest.of(page,
+		 * size)).map(TicketCentorDto::new); }else if(type!=null &&
+		 * type.equals("TwoToFourHrsCount")){
+		 * entities=ticketCentorAgeingRepo.findAllTicketCentor4Hour(PageRequest.of(page,
+		 * size)).map(TicketCentorDto::new); }else if(type!=null &&
+		 * type.equals("OneDaysCount")){
+		 * entities=ticketCentorAgeingRepo.findAllTicketCentor1Days(PageRequest.of(page,
+		 * size)).map(TicketCentorDto::new); }else if(type!=null &&
+		 * type.equals("ThreeDaysLessCount")){
+		 * entities=ticketCentorAgeingRepo.findAllTicketCentor3DaysLess(PageRequest.of(
+		 * page, size)).map(TicketCentorDto::new); }else if(type!=null &&
+		 * type.equals("ThreeDayGreaterCount")){
+		 * entities=ticketCentorAgeingRepo.findAllTicketCentor3DaysGreater(PageRequest.
+		 * of(page, size)).map(TicketCentorDto::new); } else{ entities =
+		 * ticketCentorRepo.findAll(PageRequest.of(page,
+		 * size)).map(TicketCentorDto::new); }
+		 * 
+		 * } else{ entities = ticketCentorRepo.findAll(PageRequest.of(page,
+		 * size)).map(TicketCentorDto::new); } for(TicketCentorDto dto:entities){
+		 * 
+		 * String kioskId=dto.getKisokId();
+		 * 
+		 * String kioskBranchMaster= kioskMasterRepo.findKioskByKioskId_circle(kioskId);
+		 * dto.setServeriry(kioskBranchMaster);
+		 * 
+		 * 
+		 * }
+		 * 
+		 * return entities; }
+		 */
+	 
 	 @Override
 	    public Page<TicketCentorDto> findPaginatedCount(int page, int size,String type) {	 
 		 
@@ -105,7 +153,8 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 			  entities=ticketCentorAgeingRepo.findAllTicketCentor1Days(PageRequest.of(page, size)).map(TicketCentorDto::new);
 		 }else if(type!=null && type.equals("ThreeDaysLessCount")){
 			 entities=ticketCentorAgeingRepo.findAllTicketCentor3DaysLess(PageRequest.of(page, size)).map(TicketCentorDto::new);
-	    }else if(type!=null && type.equals("ThreeDayGreaterCount")){
+			// entities=ticketCentorAgeingRepo.findAllTicketCentor3DaysGreater(PageRequest.of(page, size)).map(TicketCentorDto::new);
+		 }else if(type!=null && type.equals("ThreeDayGreaterCount")){
 	    	entities=ticketCentorAgeingRepo.findAllTicketCentor3DaysGreater(PageRequest.of(page, size)).map(TicketCentorDto::new);
 	    } else{
 			  entities =  ticketCentorRepo.findAll(PageRequest.of(page, size)).map(TicketCentorDto::new);
@@ -121,12 +170,10 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 			 
 			 String kioskBranchMaster= kioskMasterRepo.findKioskByKioskId_circle(kioskId);
 			 dto.setServeriry(kioskBranchMaster);
-			 
-			 
 		 }
-		
-	 	return entities;
- }
+
+			 	return entities;
+		 }
 	 
 	 @Override
 	    public Page<TicketCentorDto> findPaginatedCountByCircle(int page, int size,String type) {	 

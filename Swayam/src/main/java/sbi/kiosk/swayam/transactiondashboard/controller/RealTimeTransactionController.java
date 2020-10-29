@@ -39,11 +39,11 @@ public class RealTimeTransactionController {
 		
 		 SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 		 Date curDate=new Date();
-		 String lastUpdatedDate=sdf.format(curDate);
+		// String lastUpdatedDate=sdf.format(curDate);
 		// Map<String, String> lastUpdateDateMap=new HashMap<String, String>();
 		// lastUpdateDateMap.put("CurentDate", lastUpdatedDate);
 		//mav.addObject("lastUpdatedDate", lastUpdatedDate);
-		
+		 String lastUpdatedDate= realTimeTransactionService.findLastUpdatedRealTimeJob();
 		ResponseEntity<String> entity=ResponseEntity.ok(lastUpdatedDate);
 		return entity;
 	}
