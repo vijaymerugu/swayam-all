@@ -91,7 +91,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    	 	    }else{
    	 	    	UserManagementService.getUsers(paginationOptions.pageNumber,
    	 	    			  paginationOptions.pageSize,fromDate,toDate).success(function(data){
-   	 	    			 $scope.gridOptions.data = data.content;
+   	 	    			   $scope.gridOptions.data = data.content;
    	 	    			   $scope.gridOptions.totalItems = data.totalElements;
    	 	    			   });
    	 	    }
@@ -100,11 +100,24 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 
       UserManagementService.getUsers(paginationOptions.pageNumber,
      paginationOptions.pageSize,fromDate,toDate).success(function(data){
-    $scope.gridOptions.data = data.content;
-      $scope.gridOptions.totalItems = data.totalElements;
+     
+     if ( $scope.gridOptions.data.length==0) {
+           console.log("data=============",data);   
+           alert("No data to displayed.");
+      } else {
+           console.log("data=====else==========",data);
+     if( $scope.gridOptions.data.length>0){
+     	  
+         $scope.gridOptions.data = data.content;
+         $scope.gridOptions.totalItems = data.totalElements;
+        }
+   }
+     
+     // $scope.gridOptions.data = data.content;
+    //  $scope.gridOptions.totalItems = data.totalElements;
       });
    
-   $scope.gridOptions = {
+    $scope.gridOptions = {
 	paginationPageSizes: [20, 30, 40],
     paginationPageSize: paginationOptions.pageSize,
     enableColumnMenus:false,

@@ -49,4 +49,10 @@ public interface ZeroTransactionKiosksRepository extends PagingAndSortingReposit
 		        		+ "   and to_date(STR.TXN_DATE,'dd-mm-yyyy')<= to_date(:todate, 'dd-mm-yyyy'))")
 		        			List<ZeroTransactionKiosks> findByDateZeroTxn(@Param("fromdate") String fromdate,@Param("todate") String todate);
 	
+	// 12c
+		//@Query(value="select to_char(end_dttm,'dd-Mon-yy hh24:mm:ss') from  tbl_audit_job where job_name='TBL_SWAYAM_TXN_DAILY'  order by end_dttm desc fetch first 1 row only ",nativeQuery = true )
+		//for 11g
+		@Query(value="select to_char(end_dttm,'dd-Mon-yy hh24:mm:ss') from  tbl_audit_job where job_name='TBL_SWAYAM_TXN_DAILY' and rownum <= 1 order by end_dttm desc ",nativeQuery = true )
+		String findCurrentDateAuditJob();
+	
 }

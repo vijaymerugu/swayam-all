@@ -1,8 +1,5 @@
 package sbi.kiosk.swayam.healthmonitoring.controller;
 
-import java.util.Arrays;
-import java.util.HashMap;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -27,7 +24,6 @@ import sbi.kiosk.swayam.common.dto.RequestsDto;
 import sbi.kiosk.swayam.common.dto.RequestsManagementDto;
 import sbi.kiosk.swayam.common.validation.ValidationCommon;
 import sbi.kiosk.swayam.healthmonitoring.service.HealthMonitoringService;
-import sbi.kiosk.swayam.kioskmanagement.controller.UserManagementController;
 
 @RestController
 public class HealthMonitoringController {

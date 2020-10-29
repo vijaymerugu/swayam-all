@@ -72,8 +72,16 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 
    UserManagementService.getUsers(paginationOptions.pageNumber,
 		   paginationOptions.pageSize,yesterdayType).success(function(data){
-	  $scope.gridOptions.data = data.content;
- 	  $scope.gridOptions.totalItems = data.totalElements;
+		   
+		    if($scope.gridOptions.data.length==0){
+		      console.log("data=============",data);   
+              alert("No data to displayed.");
+		   }else{
+		    $scope.gridOptions.data = data.content;
+ 	        $scope.gridOptions.totalItems = data.totalElements;
+		   }
+	 // $scope.gridOptions.data = data.content;
+ 	 // $scope.gridOptions.totalItems = data.totalElements;
    });
    
    $scope.gridOptions = {

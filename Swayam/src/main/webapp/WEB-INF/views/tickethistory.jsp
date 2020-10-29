@@ -19,11 +19,8 @@ $(document).ready(function(){
 </script>   -->
 
 
-
-
-
  
-    <meta http-equiv="x-ua-compatible" content="IE=edge">
+ <meta http-equiv="x-ua-compatible" content="IE=edge">
 <link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
 <!-- <script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment-with-locales.min.js"></script> -->
 <script src="resources/js/moment-with-locales.min.js"></script>
@@ -334,7 +331,14 @@ $(document).ready(function(){
             type: 'GET',   
             success: function(data){
             	console.log(data);
-            	window.open("resources/download/"+data , '_blank');  
+            	if(data.includes(".pdf")){
+            		console.log("PDF Data1" + data);
+            		window.open("resources/download/"+data , '_blank'); 
+            		
+            	}else{
+            		console.log("PDF Data" + data);
+            		alert("No Data to Export");
+            	}   
             }
         });
     });
@@ -344,7 +348,14 @@ $(document).ready(function(){
             type: 'GET',   
             success: function(data){
             	console.log(data);
-            	window.open("resources/download/"+data , '_blank');  
+            	if(data.includes(".xlsx")){
+            		console.log("Excel Data1" + data);
+            		window.open("resources/download/"+data , '_blank'); 
+            		
+            	}else{
+            		console.log("Excel Data" + data);
+            		alert("No Data to Export");
+            	}    
             }
         });
     });

@@ -11,7 +11,9 @@ import sbi.kiosk.swayam.common.dto.InvoiceGenerationDto;
 import sbi.kiosk.swayam.common.dto.InvoiceSummaryDto;
 import
   sbi.kiosk.swayam.common.dto.KioskBranchMasterUserDto; import
-  sbi.kiosk.swayam.common.dto.RealTimeTransactionDto; import
+  sbi.kiosk.swayam.common.dto.RealTimeTransactionDto;
+import sbi.kiosk.swayam.common.dto.TerminalStatusDto;
+import
   sbi.kiosk.swayam.common.dto.TicketCentorDto;
 import sbi.kiosk.swayam.common.dto.TicketHistoryDto;
 import
@@ -62,6 +64,10 @@ import
 	List<InvoiceCompareDto> findInvoiceCompareReport();
 	
 	List<InvoiceSummaryDto> findInvoiceSummaryReport();
+	
+	List<TerminalStatusDto> findTerminalStatusReport();
+	
+	
 	
 	
   

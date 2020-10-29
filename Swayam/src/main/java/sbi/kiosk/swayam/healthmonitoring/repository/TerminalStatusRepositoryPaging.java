@@ -13,8 +13,8 @@ public interface TerminalStatusRepositoryPaging extends PagingAndSortingReposito
 
 	Page<TerminalStatusDto> findByCartridgeStatus(Pageable pageable, @Param("type") String type);
 
-	Page<TerminalStatusDto> findByAntivirusStatus(Pageable pageable, @Param("type") String type);
-
+	//Page<TerminalStatusDto> findByAntivirusStatus(Pageable pageable, @Param("type") String type);
+	Page<TerminalStatusDto> findByAgentStatus(Pageable pageable, @Param("type") String type);
 	Page<TerminalStatusDto> findByPbPrinterStatus(Pageable pageable, @Param("type") String type);
 
 	Page<TerminalStatusDto> findByAplicationStatus(Pageable pageable, @Param("type") String type);

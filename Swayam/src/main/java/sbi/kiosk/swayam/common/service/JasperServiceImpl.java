@@ -47,6 +47,7 @@ import sbi.kiosk.swayam.common.dto.InvoiceGenerationDto;
 import sbi.kiosk.swayam.common.dto.InvoiceSummaryDto;
 import sbi.kiosk.swayam.common.dto.KioskBranchMasterUserDto;
 import sbi.kiosk.swayam.common.dto.RealTimeTransactionDto;
+import sbi.kiosk.swayam.common.dto.TerminalStatusDto;
 import sbi.kiosk.swayam.common.dto.TicketCentorDto;
 import sbi.kiosk.swayam.common.dto.TicketHistoryDto;
 import sbi.kiosk.swayam.common.dto.TransactionDashBoardDto;
@@ -61,9 +62,11 @@ import sbi.kiosk.swayam.common.entity.ErrorReporting;
 import sbi.kiosk.swayam.common.entity.InvoiceCompare;
 import sbi.kiosk.swayam.common.entity.InvoiceGeneration;
 import sbi.kiosk.swayam.common.entity.InvoiceSummaryEntity;
+import sbi.kiosk.swayam.common.entity.KioskBranchMaster;
 import sbi.kiosk.swayam.common.entity.RealTimeTransaction;
 import sbi.kiosk.swayam.common.entity.Supervisor;
 import sbi.kiosk.swayam.common.entity.SwayamMigrationSummary;
+import sbi.kiosk.swayam.common.entity.TerminalStatus;
 import sbi.kiosk.swayam.common.entity.TicketHistory;
 import sbi.kiosk.swayam.common.entity.User;
 import sbi.kiosk.swayam.common.entity.UserKioskMapping;
@@ -77,6 +80,9 @@ import sbi.kiosk.swayam.healthmonitoring.model.BillingPaymentReport;
 import sbi.kiosk.swayam.healthmonitoring.model.DowntimeReport;
 import sbi.kiosk.swayam.healthmonitoring.model.TicketHistoryReport;
 import sbi.kiosk.swayam.healthmonitoring.repository.DowntimePagingRepository;
+import sbi.kiosk.swayam.healthmonitoring.repository.KioskMasterRepo;
+import sbi.kiosk.swayam.healthmonitoring.repository.TerminalStatusRepository;
+import sbi.kiosk.swayam.healthmonitoring.repository.TerminalStatusRepositoryPaging;
 import sbi.kiosk.swayam.healthmonitoring.repository.TicketCentorRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.TicketHistoryPagingRepository;
 import sbi.kiosk.swayam.kioskmanagement.repository.BranchMasterRepository;
@@ -120,6 +126,9 @@ public class JasperServiceImpl implements JasperService {
 
 	@Autowired
 	KioskMasterRepository kioskMasterRepo;
+	@Autowired
+	KioskMasterRepo kioskMasterRepos;
+
 
 	@Autowired
 	TransactionDashBoardRepositoryPaging transactionDashBoardRepositoryPaging;
@@ -161,6 +170,15 @@ public class JasperServiceImpl implements JasperService {
 	 @Autowired
 	 InvoiceSummaryRepository isRepository;
 
+    @Autowired
+	sbi.kiosk.swayam.healthmonitoring.repository.BranchMasterRepository branchMasterRepo;
+    @Autowired
+	TerminalStatusRepositoryPaging terminalStatusRepo;
+    
+    @Autowired
+	TerminalStatusRepository terminalStatusRepository;
+ 
+    
 	public static HttpSession session() {
 		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
 		return attr.getRequest().getSession(true); // true == allow create
@@ -180,106 +198,201 @@ public class JasperServiceImpl implements JasperService {
 		//	logger.info("reportPath " + reportPath);
 			if (identifyPage.equals("userListSA")) {
 				List<UserManagementDto> list = findUsersBySA();
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "usersListSA.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "UserList_" + timeStamp + ".pdf";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "UserList_" + timeStamp + ".pdf";
+				String fileName = "UserList_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+					}
 			} else if (identifyPage.equals("userListLA")) {
 				List<UserManagementDto> list = findPaginatedByCircle();
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "userListLA.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "UserList_" + timeStamp + ".pdf";
+			//	String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+			//	filename = "UserList_" + timeStamp + ".pdf";
+				String fileName = "UserList_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+			}
 			} else if (identifyPage.equals("kioskManagementByCircle")) {
 				List<KioskBranchMasterUserDto> list = findKiosksPaginatedByCircle();
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "kioskManagementByCircle.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "Kiosks_" + timeStamp + ".pdf";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "Kiosks_" + timeStamp + ".pdf";
+				String fileName = "Kiosks_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+			}
 			} else if (identifyPage.equals("kiosksAll")) {
 				List<KioskBranchMasterUserDto> list = findAllKiosks();
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "kioskManagementByCircle.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "Kiosks_" + timeStamp + ".pdf";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "Kiosks_" + timeStamp + ".pdf";
+				String fileName = "Kiosks_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+			}
 			} else if (identifyPage.equals("ticketCenterCC")) {
 				List<TicketCentorDto> list = findAllTickets();
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "ticketCenter.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "TicketCenter_" + timeStamp + ".pdf";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "TicketCenter_" + timeStamp + ".pdf";
+				String fileName = "TicketCenter_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+			}
 			} else if (identifyPage.equals("ticketCenterCMF")) {
 				List<TicketCentorDto> list = findAllTicketsForCmf();
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "ticketCenterCMF.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "TicketCenter_" + timeStamp + ".pdf";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "TicketCenter_" + timeStamp + ".pdf";
+				String fileName = "TicketCenter_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+					}
 			} else if (identifyPage.equals("ticketCenterCMS")) {
 				List<TicketCentorDto> list = findAllTicketsForCms();
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "ticketCenterCMF.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "TicketCenter_" + timeStamp + ".pdf";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "TicketCenter_" + timeStamp + ".pdf";
+				String fileName = "TicketCenter_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+					}
 			} else if (identifyPage.equals("ticketCenterCU")) {
 				List<TicketCentorDto> list = findAllTicketsByCircle();
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "ticketCenter.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "TicketCenter_" + timeStamp + ".pdf";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "TicketCenter_" + timeStamp + ".pdf";
+				
+				String fileName = "TicketCenter_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+					}
 			}
 
 			else if (identifyPage.equals("transactionSummary")) {
 				logger.info("PDF File TransactionSummary !!");
 				List<TransactionDashBoardDto> list = findAllTransactionSummary();
+				 if(list.isEmpty()) {
+						return filename;
+					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "transactionSummary.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "TransactionSummary_" + timeStamp + ".pdf";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "TransactionSummary_" + timeStamp + ".pdf";
+				
+				String fileName = "SwayamMigration_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".pdf";
+				//"attachment; filename=\"" + fileName + ".pdf\""
+				logger.info("PDF File filename !!"+filename);
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+					}
 			}else if(identifyPage.equals("bpReport")) {
 				logger.info("PDF File bpReport !!");
 				
@@ -298,8 +411,12 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "BillingPenalty_" + timeStamp + ".pdf";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "BillingPenalty_" + timeStamp + ".pdf";
+				String fileName = "BillingPenalty_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 				}
 			}else if(identifyPage.equals("invoiceReport")) {
@@ -318,8 +435,12 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "InvoiceGeneration_" + timeStamp + ".pdf";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "InvoiceGeneration_" + timeStamp + ".pdf";
+				String fileName = "InvoiceGeneration_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 				}
 			}
@@ -340,8 +461,12 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "InvoiceCompare_" + timeStamp + ".pdf";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "InvoiceCompare_" + timeStamp + ".pdf";
+				String fileName = "InvoiceCompare_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 				}
 			}else if(identifyPage.equals("invoiceSummaryReport")) {
@@ -360,8 +485,12 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "InvoiceSummary_" + timeStamp + ".pdf";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "InvoiceSummary_" + timeStamp + ".pdf";
+				String fileName = "InvoiceSummary_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 				}
 			}
@@ -372,15 +501,25 @@ public class JasperServiceImpl implements JasperService {
 				Date curDate = new Date();
 				String todayDate = sdf.format(curDate);
 				List<RealTimeTransactionDto> list = findAllDateWiseRealtimeTxn(todayDate);
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "realTimeToday.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "RealTimeTxnToday_" + timeStamp + ".pdf";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "RealTimeTxnToday_" + timeStamp + ".pdf";
+				String fileName = "RealTimeTxnToday_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+					}
 			} else if (identifyPage.equals("realTimeYesterday")) {
 				logger.info("PDF File RealTimeYesterday !!");
 				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -389,15 +528,25 @@ public class JasperServiceImpl implements JasperService {
 				String yesterdayDate = sdf.format(curDate);
 
 				List<RealTimeTransactionDto> list = findAllDateWiseRealtimeTxn(yesterdayDate);
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "realTimeYesterday.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "RealTimeTxnYesterday_" + timeStamp + ".pdf";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "RealTimeTxnYesterday_" + timeStamp + ".pdf";
+				String fileName = "RealTimeTxnYesterday_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+					}
 			}
 
 			else if (identifyPage.equals("zeroTxnKoisk")) {
@@ -408,15 +557,25 @@ public class JasperServiceImpl implements JasperService {
 				String todate = sdf.format(curDate);
 
 				List<ZeroTransactionKiosksDto> list = findAllZeroTxnKoisk(fromdate, todate);
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "zeroTxnKiosk.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "ZeroTxnKoisk_" + timeStamp + ".pdf";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "ZeroTxnKoisk_" + timeStamp + ".pdf";
+				String fileName = "ZeroTxnKoisk_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+					}
 			} else if (identifyPage.equals("errorReporting")) {
 				logger.info("PDF File ErrorReporting !!");
 				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -425,46 +584,105 @@ public class JasperServiceImpl implements JasperService {
 				String todate = sdf.format(curDate);
 
 				List<ErrorReportingDto> list = findAllErrorReprting(fromdate, todate);
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "errorReporting.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "ErrorReporting_" + timeStamp + ".pdf";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "ErrorReporting_" + timeStamp + ".pdf";
+				String fileName = "ErrorReporting_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+					}
 			}
 			else if (identifyPage.equals("tiketHistory")) {
 				logger.info("PDF File tiketHistory !!");
 
 				List<TicketHistoryDto> list = findTicketHistoryReport();
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "ticketHistory.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "TicketHistory_" + timeStamp + ".pdf";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "TicketHistory_" + timeStamp + ".pdf";
+				String fileName = "TicketHistory_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".pdf";
+				
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+			}
 			}
 			else if (identifyPage.equals("downTime")) {
 				logger.info("PDF File DownTime !!");
 
 				List<DownTimeDto> list = findDownTimeReport();
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "downTime.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "DownTime_" + timeStamp + ".pdf";
+			//	String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "DownTime_" + timeStamp + ".pdf";
+				String fileName = "DownTime_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
-			}
+					}
+			}else if (identifyPage.equals("terminalStatus")) {
+				
+				 logger.info("PDF File Terminal Status !!");
+
+			List<TerminalStatusDto> list = findTerminalStatusReport();
+			 logger.info("PDF File Terminal Status list !!"+list);
+			
+			
+			 if(list.isEmpty()) {
+					
+					
+					return filename;
+				}else {
+			File file = ResourceUtils.getFile(jrxmlPath + "terminalStatus.jrxml");
+			InputStream input = new FileInputStream(file);
+			jasperReport = JasperCompileManager.compileReport(input);
+			source = new JRBeanCollectionDataSource(list);
+			Map<String, Object> parameters = new HashMap<>();
+			jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+			//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+			//filename = "TerminalStatus_" + timeStamp + ".pdf";
+			String fileName = "TerminalStatus_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+					+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+					+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+			filename =fileName+".pdf";
+
+			JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+		}
 			 
 
+			}
 			// xlsx(jasperPrint);
 			logger.info("PDF File Generated !!");
 			return filename;
@@ -489,106 +707,200 @@ public class JasperServiceImpl implements JasperService {
 		//	logger.info("reportPath " + reportPath);
 			if (identifyPage.equals("userListSA")) {
 				List<UserManagementDto> list = findUsersBySA();
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "usersListSA.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "UserList_" + timeStamp + ".xlsx";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "UserList_" + timeStamp + ".xlsx";
+				String fileName = "UserList_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".xlsx";
 				xlsx(jasperPrint, filename);
+					}
 			} else if (identifyPage.equals("userListLA")) {
 				List<UserManagementDto> list = findPaginatedByCircle();
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "userListLA.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "UserList_" + timeStamp + ".xlsx";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "UserList_" + timeStamp + ".xlsx";
+				String fileName = "UserList_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".xlsx";
+
 				xlsx(jasperPrint, filename);
+					}
 			} else if (identifyPage.equals("kioskManagementByCircle")) {
 				List<KioskBranchMasterUserDto> list = findKiosksPaginatedByCircle();
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "kioskManagementByCircle.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "Kiosks_" + timeStamp + ".xlsx";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "Kiosks_" + timeStamp + ".xlsx";
+				String fileName = "Kiosks_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".xlsx";
+
 				xlsx(jasperPrint, filename);
+					}
 			} else if (identifyPage.equals("kiosksAll")) {
 				List<KioskBranchMasterUserDto> list = findAllKiosks();
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "kioskManagementByCircle.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "Kiosks_" + timeStamp + ".xlsx";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "Kiosks_" + timeStamp + ".xlsx";
+				String fileName = "Kiosks_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".xlsx";
 				xlsx(jasperPrint, filename);
+					}
 			} else if (identifyPage.equals("ticketCenterCC")) {
 				List<TicketCentorDto> list = findAllTickets();
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "ticketCenter.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "TicketCenter_" + timeStamp + ".xlsx";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "TicketCenter_" + timeStamp + ".xlsx";
+				String fileName = "TicketCenter_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".xlsx";
 				xlsx(jasperPrint, filename);
+					}
 			} else if (identifyPage.equals("ticketCenterCMF")) {
 				List<TicketCentorDto> list = findAllTicketsForCmf();
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "ticketCenterCMF.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "TicketCenter_" + timeStamp + ".xlsx";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "TicketCenter_" + timeStamp + ".xlsx";
+				String fileName = "TicketCenter_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".xlsx";
 				xlsx(jasperPrint, filename);
+					}
 			} else if (identifyPage.equals("ticketCenterCMS")) {
 				List<TicketCentorDto> list = findAllTicketsForCms();
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "ticketCenterCMF.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "TicketCenter_" + timeStamp + ".xlsx";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "TicketCenter_" + timeStamp + ".xlsx";
+				String fileName = "TicketCenter_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".xlsx";
 				xlsx(jasperPrint, filename);
+					}
 			} else if (identifyPage.equals("ticketCenterCU")) {
 				List<TicketCentorDto> list = findAllTicketsByCircle();
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "ticketCenter.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "TicketCenter_" + timeStamp + ".xlsx";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "TicketCenter_" + timeStamp + ".xlsx";
+				String fileName = "TicketCenter_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".xlsx";
 				xlsx(jasperPrint, filename);
+					}
 			}
 
 			else if (identifyPage.equals("transactionSummary")) {
 				logger.info("Excel File TransactionSummary !!");
 				List<TransactionDashBoardDto> list = findAllTransactionSummary();
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "transactionSummary.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "TransactionSummary_" + timeStamp + ".xlsx";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "TransactionSummary_" + timeStamp + ".xlsx";
+				
+				String fileName = "SwayamMigration_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName + ".xlsx";
+				
 				xlsx(jasperPrint, filename);
+					}
 			}else if(identifyPage.equals("bpReport")) {
 				logger.info("Excel File bpReport !!");
 				
@@ -604,8 +916,12 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "BillingPenalty_" + timeStamp + ".xlsx";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "BillingPenalty_" + timeStamp + ".xlsx";
+				String fileName = "BillingPenalty_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".xlsx";
 				xlsx(jasperPrint, filename);
 				}
 			}else if(identifyPage.equals("invoiceReport")) {
@@ -623,8 +939,12 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "InvoiceGeneration_" + timeStamp + ".xlsx";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "InvoiceGeneration_" + timeStamp + ".xlsx";
+				String fileName = "InvoiceGeneration_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".xlsx";
 				xlsx(jasperPrint, filename);
 				}
 			}
@@ -644,8 +964,12 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "InvoiceCompare_" + timeStamp + ".xlsx";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "InvoiceCompare_" + timeStamp + ".xlsx";
+				String fileName = "InvoiceCompare_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".xlsx";
 				xlsx(jasperPrint, filename);
 			}
 			}else if(identifyPage.equals("invoiceSummaryReport")) {
@@ -664,8 +988,12 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "InvoiceSummary_" + timeStamp + ".xlsx";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "InvoiceSummary_" + timeStamp + ".xlsx";
+				String fileName = "InvoiceSummary_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".xlsx";
 				xlsx(jasperPrint, filename);
 				}
 			}
@@ -676,15 +1004,25 @@ public class JasperServiceImpl implements JasperService {
 				Date curDate = new Date();
 				String todayDate = sdf.format(curDate);
 				List<RealTimeTransactionDto> list = findAllDateWiseRealtimeTxn(todayDate);
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "realTimeToday.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "RealTimeTxnToday_" + timeStamp + ".xlsx";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "RealTimeTxnToday_" + timeStamp + ".xlsx";
+				String fileName = "RealTimeTxnToday_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".xlsx";
 				xlsx(jasperPrint, filename);
+					}
 			} else if (identifyPage.equals("realTimeYesterday")) {
 				logger.info("Excel File RealTimeYesterday !!");
 				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -694,15 +1032,25 @@ public class JasperServiceImpl implements JasperService {
 				logger.info("Excel File RealTimeYesterday yesterdayDate::" + yesterdayDate);
 
 				List<RealTimeTransactionDto> list = findAllDateWiseRealtimeTxn(yesterdayDate);
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "realTimeYesterday.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "RealTimeTxnYesterday_" + timeStamp + ".xlsx";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "RealTimeTxnYesterday_" + timeStamp + ".xlsx";
+				String fileName = "RealTimeTxnYesterday_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".xlsx";
 				xlsx(jasperPrint, filename);
+					}
 			} else if (identifyPage.equals("zeroTxnKoisk")) {
 				logger.info("Excel File ZeroTxnKoisk !!");
 				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -711,15 +1059,26 @@ public class JasperServiceImpl implements JasperService {
 				String todate = sdf.format(curDate);
 
 				List<ZeroTransactionKiosksDto> list = findAllZeroTxnKoisk(fromdate, todate);
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "zeroTxnKiosk.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "ZeroTxnKoisk_" + timeStamp + ".xlsx";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "ZeroTxnKoisk_" + timeStamp + ".xlsx";
+				String fileName = "ZeroTxnKoisk_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".xlsx";
+
 				xlsx(jasperPrint, filename);
+					}
 			} else if (identifyPage.equals("errorReporting")) {
 				logger.info("PDF File ErrorReporting !!");
 				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -728,44 +1087,99 @@ public class JasperServiceImpl implements JasperService {
 				String todate = sdf.format(curDate);
 
 				List<ErrorReportingDto> list = findAllErrorReprting(fromdate, todate);
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "errorReporting.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "ErrorReporting_" + timeStamp + ".xlsx";
+			//	String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+			//	filename = "ErrorReporting_" + timeStamp + ".xlsx";
+				String fileName = "ErrorReporting_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".xlsx";
 				xlsx(jasperPrint, filename);
+					}
 			}
 			
 			else if (identifyPage.equals("tiketHistory")) {
 				logger.info("PDF File tiketHistory !!");
 
 				List<TicketHistoryDto> list = findTicketHistoryReport();
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "ticketHistory.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "TicketHistory_" + timeStamp + ".xlsx";
+			//	String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "TicketHistory_" + timeStamp + ".xlsx";
+				String fileName = "TicketHistory_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".xlsx";
 				xlsx(jasperPrint, filename);
+					}
 			}
 			else if (identifyPage.equals("downTime")) {
 				logger.info("Excel File downTime !!");
 
 				List<DownTimeDto> list = findDownTimeReport();
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "downTime.jrxml");
 				InputStream input = new FileInputStream(file);
 				jasperReport = JasperCompileManager.compileReport(input);
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				filename = "DownTime_" + timeStamp + ".xlsx";
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "DownTime_" + timeStamp + ".xlsx";
+				String fileName = "DownTime_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				filename =fileName+".xlsx";
 				xlsx(jasperPrint, filename);
+					}
+			}else if (identifyPage.equals("terminalStatus")) {
+			
+			 logger.info("Excel File Terminal Status !!");
+
+		List<TerminalStatusDto> list = findTerminalStatusReport();
+		 if(list.isEmpty()) {
+				
+				
+				return filename;
+			}else {
+		File file = ResourceUtils.getFile(jrxmlPath + "terminalStatus.jrxml");
+		InputStream input = new FileInputStream(file);
+		jasperReport = JasperCompileManager.compileReport(input);
+		source = new JRBeanCollectionDataSource(list);
+		Map<String, Object> parameters = new HashMap<>();
+		jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+		//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+		//filename = "TerminalStatus_" + timeStamp + ".xlsx";
+		String fileName = "TerminalStatus_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+				+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+				+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+		filename =fileName+".xlsx";
+		xlsx(jasperPrint, filename);
+	}
+			
 			}
 			
 			logger.info("Excel File Generated !!");
@@ -1427,6 +1841,81 @@ public class JasperServiceImpl implements JasperService {
 	List<InvoiceSummaryDto> entities = ObjectMapperUtils.mapAll(list, InvoiceSummaryDto.class);
 		
 		return entities;
+	}
+	
+	
+	
+	@Override
+	public List<TerminalStatusDto> findTerminalStatusReport() {
+		
+		//List<TerminalStatusDto> entities=null;
+		List<TerminalStatus> list=(List<TerminalStatus>) terminalStatusRepo.findAll();
+		
+		logger.info("Inside==Jasper====findTerminalStatusReport==========="+list);
+		
+		
+		
+		
+		List<KioskBranchMaster> kioskMastlist = null;
+		String cmfNameList = null;
+		List<TerminalStatusDto> entities =new ArrayList<>();
+		for (TerminalStatus ts : list) {
+		
+			TerminalStatusDto dto=new TerminalStatusDto();
+			//    logger.info("entities terminal status===" + entities.getContent());
+				kioskMastlist = kioskMasterRepos.findByKioskId(ts.getKioskId());
+				 logger.info("kioskMastlist===" + kioskMastlist);
+			  for (KioskBranchMaster kioskBranchMast : kioskMastlist) {
+				  dto.setKioskSrNo(kioskBranchMast.getKioskSerialNo());
+				//	logger.info("kioskId==:: " + kioskBranchMast.getKioskId());
+				  dto.setKioskId(kioskBranchMast.getKioskId());
+				  dto.setBranchCode(kioskBranchMast.getBranchCode());
+					
+				}
+			  
+		//	  logger.info("dto.getKioskId()-------------"+dto.getKioskId());
+			   List<BranchMaster> branchMastList = branchMasterRepo.findAllByBranchCode(dto.getBranchCode());
+			    logger.info("branchMastList==========" + branchMastList);
+				for (BranchMaster branchMast : branchMastList) {
+				//	logger.info("Br Code====" + branchMast.getBranchCode());
+				//	logger.info("Circle====" + branchMast.getCircle());
+					dto.setBranchCode(branchMast.getBranchCode());
+					dto.setCircle(branchMast.getCircleName());
+					//dto.setBranchCode(branchMast.getBranchCode());
+					//dto.setCircle(branchMast.getCircleName());
+				}
+			  
+				
+			    cmfNameList = terminalStatusRepository.findByKisoskId(dto.getKioskId());
+			    logger.info("CMF User==" + cmfNameList);
+			    dto.setCmf(cmfNameList);
+				logger.info("dto::::" + dto.toString());
+				
+				
+				  dto.setPbPrinterStatus(ts.getPbPrinterStatus());
+				  dto.setCartridgeStatus(ts.getCartridgeStatus());
+				  dto.setAgentStatus(ts.getAgentStatus());
+				  dto.setAplicationStatus(ts.getAplicationStatus());
+				  dto.setRmmsConnectivity(ts.getRmmsConnectivity());
+				  dto.setLastPrntTxnDttm(ts.getLastPrntTxnDttm());
+				  dto.setLastPmDttm(ts.getLastPmDttm());
+				 
+				
+				 logger.info("dto::::22222224566" + dto);
+	             
+				
+				 entities.add(dto);
+	     		//entities.add(dto);
+			}
+		
+		 logger.info("entities:::4444444444444:" + entities);
+		 entities = ObjectMapperUtils.mapAll(entities, TerminalStatusDto.class);
+         logger.info("dto11111111111::::" + entities);
+		
+		
+		logger.info("terminalStatusReport22222222::::" + entities);
+		return entities;
+		
 	}
 	
 	

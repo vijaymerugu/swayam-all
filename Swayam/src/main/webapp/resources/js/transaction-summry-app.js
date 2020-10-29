@@ -62,8 +62,9 @@ sort: null
       	
   UserManagementService.getUsers(paginationOptions.pageNumber,
   paginationOptions.pageSize,fromDate,toDate).success(function(data){
- $scope.gridOptions.data = data.content;
- $scope.gridOptions.totalItems = data.totalElements;
+      $scope.allIndiaDate = "From: " +fromDate+" ToDate: "+toDate+" CurrentDate::";
+      $scope.gridOptions.data = data.content;
+      $scope.gridOptions.totalItems = data.totalElements;
   });
  
    }
@@ -94,8 +95,33 @@ sort: null
 
    UserManagementService.getUsers(paginationOptions.pageNumber,
   paginationOptions.pageSize,fromDate,toDate).success(function(data){
- $scope.gridOptions.data = data.content;
-   $scope.gridOptions.totalItems = data.totalElements;
+  
+   
+    if ( $scope.gridOptions.data.length==0) {
+       console.log("data=============",data);   
+       //console.log("data=====length==========",$scope.gridOptions.data.length);
+       alert("No data to displayed.");
+       // $scope.noData = true;    
+      } else {
+       console.log("data=====else==========",data);
+    // otherwise the data are updated
+   
+     if( $scope.gridOptions.data.length>0){
+     	
+      // $scope.loading = false;
+      // $scope.loading = false;
+
+   
+     //   $scope.gridOptions.data= "resources/img/loader_new.gif";
+            
+         $scope.gridOptions.data = data.content;
+         $scope.gridOptions.totalItems = data.totalElements;
+        // $scope.noData = false;
+        }
+   }
+   
+  // $scope.gridOptions.data = data.content;
+  // $scope.gridOptions.totalItems = data.totalElements;
    });
    
    $scope.gridOptions = {

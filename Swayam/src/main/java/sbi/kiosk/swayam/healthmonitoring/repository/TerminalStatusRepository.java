@@ -85,5 +85,13 @@ List<BranchMaster> findAllByBranchCode(@Param("brachCode") String brachCode);
 		int findByApplicatinStatusGrey(@Param("agentStatus") String agentStatus);
 	 
 	 
-
+	 @Query(value ="SELECT count(PRINTER_STATUS) FROM TBL_TERMINAL_STATUS where PRINTER_STATUS=:agentStatus",nativeQuery=true)
+		int findByPrinterStatusRed(@Param("agentStatus") String agentStatus);
+	 
+	 @Query(value ="SELECT count(PRINTER_STATUS) FROM TBL_TERMINAL_STATUS where PRINTER_STATUS=:agentStatus",nativeQuery=true)
+		int findByPrinterStatusGreen(@Param("agentStatus") String agentStatus);
+	 
+	 @Query(value ="SELECT count(PRINTER_STATUS) FROM TBL_TERMINAL_STATUS where PRINTER_STATUS=:agentStatus",nativeQuery=true)
+		int findByPrinterStatusGrey(@Param("agentStatus") String agentStatus);
+	
 }

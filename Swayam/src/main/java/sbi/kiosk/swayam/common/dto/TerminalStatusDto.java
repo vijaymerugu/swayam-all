@@ -8,7 +8,7 @@ import sbi.kiosk.swayam.common.entity.TerminalStatus;
 @Data
 public class TerminalStatusDto {
 	
-	public TerminalStatusDto(){
+public TerminalStatusDto(){
 		
 	}
 	
@@ -21,7 +21,8 @@ public class TerminalStatusDto {
 		this.rmmsConnectivity = terminalStatus.getRmmsConnectivity();
 		this.pbPrinterStatus = terminalStatus.getPbPrinterStatus();
 		this.cartridgeStatus = terminalStatus.getCartridgeStatus();
-		this.antivirusStatus = terminalStatus.getAntivirusStatus();
+		//this.antivirusStatus = terminalStatus.getAgentStatus();
+		this.agentStatus = terminalStatus.getAgentStatus();
 		this.aplicationStatus = terminalStatus.getAplicationStatus();
 		//this.issue = terminalStatus.getIssue();
 		this.createdDttm = terminalStatus.getCreatedDttm();
@@ -39,13 +40,14 @@ public class TerminalStatusDto {
 	private String rmmsConnectivity;
 	private String pbPrinterStatus;
 	private String cartridgeStatus;
-	private String antivirusStatus;
+	//private String antivirusStatus;
+	private String agentStatus;
 	private String aplicationStatus;
 	//private String issue;
 	private Date createdDttm;  
 	private Date modifiedDttm;  
 	private Date lastFeedDttm; 
-	private Date timeDiff; 
+	private String timeDiff; 
 	private Date lastPrntTxnDttm;  
 	private Date lastPmDttm;
 
