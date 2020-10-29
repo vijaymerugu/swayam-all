@@ -20,6 +20,7 @@ opacity: 1;
  font-size: 12px;
 display: inline-block;  
 margin:10px;
+   left: 0px;
 }
 #topnav ul
 {
@@ -71,6 +72,17 @@ margin:10px;
   font-weight: 900;
   background: #00BFFF;
 }
+/* #topnav ul li ul.submenu
+{
+ float: left;
+ padding: 4px 10px;
+ position: absolute;
+ left: 0px;
+ top: 40px;
+ display: none;
+ color: #00537F;
+ width: 1579px;
+} */
 #topnav ul li ul.submenu
 {
  float: left;

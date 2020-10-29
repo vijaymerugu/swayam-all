@@ -71,6 +71,12 @@
 		    width: 1338px;
 		    height: 457px;
 		}
+		 .ui-grid, .ui-grid-viewport {
+   			  height: auto !important; 
+			}
+			.ui-grid-pager-panel {
+		     position: relative;
+			 } 
 </style>	
 	
 </head>
