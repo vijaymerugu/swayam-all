@@ -25,7 +25,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			INNER JOIN TBL_BRANCH_MASTER s2 \r\n" + 
 			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE \r\n" + 
 			"			INNER JOIN TBL_INVOICE_VENDOR s5 \r\n" + 
-			"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID\r\n" + 
+			"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID  AND s6.vendor=s1.vendor \r\n" + 
 			"			where  \r\n" + 
 			"			s4.VENDOR_ID=:selectedVendorId AND \r\n" + 
 			"			s2.CRCL_CODE=:selectedCircelId AND  \r\n" + 
@@ -41,7 +41,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
 					"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
 					"INNER JOIN TBL_INVOICE_VENDOR s5\r\n" + 
-					"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID\r\n" + 
+					"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID  AND s6.vendor=s1.vendor \r\n" + 
 					" where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
@@ -64,7 +64,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
 			"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
 			"INNER JOIN TBL_INVOICE_VENDOR s5\r\n" + 
-			"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID\r\n" + 
+			"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID  AND s6.vendor=s1.vendor \r\n" + 
 			" where \r\n" + 
 			"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 			"s2.CRCL_CODE=:selectedCircelId AND \r\n" +
@@ -79,7 +79,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
 					"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
 					"INNER JOIN TBL_INVOICE_VENDOR s5\r\n" + 
-					"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID\r\n" + 
+					"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID  AND s6.vendor=s1.vendor \r\n" + 
 					" where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n" +
@@ -100,7 +100,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
 			"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
 			"INNER JOIN TBL_INVOICE_VENDOR s5\r\n" + 
-			"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID\r\n" + 
+			"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID  AND s6.vendor=s1.vendor \r\n" + 
 			" where \r\n" + 
 			"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 			"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
@@ -117,7 +117,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
 					"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
 					"INNER JOIN TBL_INVOICE_VENDOR s5\r\n" + 
-					"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID\r\n" + 
+					"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID  AND s6.vendor=s1.vendor \r\n" + 
 					" where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
@@ -139,7 +139,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
 			"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
 			"INNER JOIN TBL_INVOICE_VENDOR s5\r\n" + 
-			"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID\r\n" + 
+			"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID  AND s6.vendor=s1.vendor \r\n" + 
 			" where \r\n" + 
 			"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 			"s2.CRCL_CODE=:selectedCircelId AND \r\n"+
@@ -155,7 +155,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
 					"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
 					"INNER JOIN TBL_INVOICE_VENDOR s5\r\n" + 
-					"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID\r\n" + 
+					"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID  AND s6.vendor=s1.vendor \r\n" + 
 					" where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n"+
@@ -177,7 +177,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
 			"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
 			"INNER JOIN TBL_INVOICE_VENDOR s5\r\n" + 
-			"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID\r\n" + 
+			"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID  AND s6.vendor=s1.vendor \r\n" + 
 			" where \r\n" + 
 			"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 			"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
@@ -193,7 +193,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
 					"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
 					"INNER JOIN TBL_INVOICE_VENDOR s5\r\n" + 
-					"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID\r\n" + 
+					"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID  AND s6.vendor=s1.vendor \r\n" + 
 					" where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
@@ -215,7 +215,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
 			"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
 			"INNER JOIN TBL_INVOICE_VENDOR s5\r\n" + 
-			"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID\r\n" + 
+			"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID  AND s6.vendor=s1.vendor \r\n" + 
 			" where \r\n" + 
 			"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 			"s2.CRCL_CODE=:selectedCircelId AND \r\n" +
@@ -230,7 +230,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
 					"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
 					"INNER JOIN TBL_INVOICE_VENDOR s5\r\n" + 
-					"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID\r\n" + 
+					"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID  AND s6.vendor=s1.vendor \r\n" + 
 					" where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n" +
@@ -251,7 +251,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
 			"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
 			"INNER JOIN TBL_INVOICE_VENDOR s5\r\n" + 
-			"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID\r\n" + 
+			"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID  AND s6.vendor=s1.vendor \r\n" + 
 			" where \r\n" + 
 			"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 			"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
@@ -268,7 +268,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
 					"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
 					"INNER JOIN TBL_INVOICE_VENDOR s5\r\n" + 
-					"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID\r\n" + 
+					"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID  AND s6.vendor=s1.vendor \r\n" + 
 					" where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
@@ -290,7 +290,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
 			"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
 			"INNER JOIN TBL_INVOICE_VENDOR s5\r\n" + 
-			"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID\r\n" + 
+			"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID  AND s6.vendor=s1.vendor \r\n" + 
 			" where \r\n" + 
 			"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 			"s2.CRCL_CODE=:selectedCircelId AND \r\n"+
@@ -306,7 +306,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
 					"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
 					"INNER JOIN TBL_INVOICE_VENDOR s5\r\n" + 
-					"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID\r\n" + 
+					"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID  AND s6.vendor=s1.vendor \r\n" + 
 					" where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n"+

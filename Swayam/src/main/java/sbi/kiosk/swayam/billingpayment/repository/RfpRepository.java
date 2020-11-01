@@ -2,6 +2,7 @@ package sbi.kiosk.swayam.billingpayment.repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
@@ -14,10 +15,12 @@ import sbi.kiosk.swayam.common.entity.RfpIdMaster;
 public interface RfpRepository extends CrudRepository<RfpIdMaster, String>,
 					PagingAndSortingRepository<RfpIdMaster, String>  {
 
+	
 	/*
-	 * @Query(value = "select * from TBL_RFP_DETAILS", nativeQuery = true)
-	 * List<RfpIdMaster> findRfId();
-	 * 
-	 * 
+	 * @Query(value = "select DISTINCT RFP_NO from TBL_RFP_DETAILS", nativeQuery =
+	 * true) List<RfpIdMaster> findRfpNumber();
 	 */
+	  
+	  
+	 
 }

@@ -25,7 +25,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 			"			INNER JOIN TBL_VENDOR_DETAILS s4 \r\n" + 
 			"			ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
 			"			INNER JOIN TBL_BRANCH_MASTER s2 \r\n" + 
-			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID AND s5.vendor=s1.vendor \r\n" + 
 			"			where  \r\n" + 
 			"			s4.VENDOR_ID=:selectedVendorId AND \r\n" + 
 			"			s2.CRCL_CODE=:selectedCircelId AND  \r\n" + 
@@ -39,7 +39,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 					"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
 					"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-					"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+					"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID AND s5.vendor=s1.vendor \r\n" + 
 					" where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
@@ -62,7 +62,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 			"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
 			"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 			"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID AND s5.vendor=s1.vendor \r\n" + 
 			" where \r\n" + 
 			"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 			"s2.CRCL_CODE=:selectedCircelId AND \r\n" +
@@ -75,7 +75,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 					"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
 					"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-					"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+					"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID AND s5.vendor=s1.vendor \r\n" + 
 					" where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n" +
@@ -96,7 +96,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 			"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
 			"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 			"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID AND s5.vendor=s1.vendor \r\n" + 
 			" where \r\n" + 
 			"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 			"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
@@ -111,7 +111,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 					"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
 					"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-					"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+					"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID AND s5.vendor=s1.vendor \r\n" + 
 					" where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
@@ -133,7 +133,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 			"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
 			"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 			"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID AND s5.vendor=s1.vendor \r\n" + 
 			" where \r\n" + 
 			"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 			"s2.CRCL_CODE=:selectedCircelId AND \r\n"+
@@ -147,7 +147,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 					"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
 					"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-					"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+					"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID AND s5.vendor=s1.vendor \r\n" + 
 					" where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n"+
@@ -169,7 +169,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 			"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
 			"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 			"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID AND s5.vendor=s1.vendor \r\n" + 
 			" where \r\n" + 
 			" where \r\n" + 
 			"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
@@ -184,7 +184,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 					"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
 					"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-					"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+					"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID AND s5.vendor=s1.vendor \r\n" + 
 					" where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
@@ -207,7 +207,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 			"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
 			"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 			"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID AND s5.vendor=s1.vendor \r\n" + 
 			" where \r\n" + 
 			"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 			"s2.CRCL_CODE=:selectedCircelId AND \r\n" +
@@ -220,7 +220,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 					"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
 					"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-					"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+					"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID AND s5.vendor=s1.vendor \r\n" + 
 					" where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n" +
@@ -241,7 +241,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 			"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
 			"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 			"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID AND s5.vendor=s1.vendor \r\n" + 
 			" where \r\n" + 
 			"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 			"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
@@ -256,7 +256,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 					"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
 					"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-					"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+					"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID AND s5.vendor=s1.vendor \r\n" + 
 					" where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
@@ -278,7 +278,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 			"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
 			"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 			"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID AND s5.vendor=s1.vendor \r\n" + 
 			" where \r\n" + 
 			"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 			"s2.CRCL_CODE=:selectedCircelId AND \r\n"+
@@ -292,7 +292,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 					"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
 					"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-					"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID\r\n" + 
+					"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID AND s5.vendor=s1.vendor \r\n" + 
 					" where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n"+

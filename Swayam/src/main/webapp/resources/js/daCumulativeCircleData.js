@@ -283,7 +283,10 @@ app.controller('daCumulativeCircleDataController', ['$scope','$interval','$http'
 
 				
 				//Preparing Data to display in chart
-				let rowData=[$scope.errorWiseTotalOpenTicketsPercent3, $scope.errorWiseTotalCloseTicketsPercent3];
+				//Sharan Change -29-10-2020
+				//let rowData=[$scope.errorWiseTotalOpenTicketsPercent3, $scope.errorWiseTotalCloseTicketsPercent3];
+				let rowData=[$scope.errorWiseTotalCloseTicketsPercent3,$scope.errorWiseTotalOpenTicketsPercent3];
+				
 				$scope.doughnutData3.push({"rowData" : rowData});
 				
 				$scope.apiResponse3.push({gtLabel:'Grand Total', gtErrorWiseTotalOpenTickets:$scope.sumOfErrorWiseTotalOpenTickets3, gtAllTickets:$scope.sumOfAllTickets3, gtErrorWiseTotalOpenTicketsPercent:$scope.errorWiseTotalOpenTicketsPercent3});
@@ -311,6 +314,9 @@ app.controller('daCumulativeCircleDataController', ['$scope','$interval','$http'
 			$scope.doughnutData4=[];
 			$scope.options4=[];
 			$scope.noOfTats=5;
+			
+			//Change Sharan
+			$scope.TotalOpenCall=0;
 			
 			$scope.getNumber = function(num) {
 			    return new Array(num);   
@@ -382,10 +388,22 @@ app.controller('daCumulativeCircleDataController', ['$scope','$interval','$http'
 						$scope.greaterThanTwoWeekPercentageArray.push($scope.apiResponse4[i].percentGreaterThanTwoWeek);
 					}
 				}//end for loop
+				
+				console.log("Total Open Call "+ $scope.TotalOpenCall);
+				
+				$scope.totalOpenCallPercentage = ($scope.TotalOpenCall / $scope.apiResponse4[0].noOfTickets) * 100;
+				console.log("Total Open Call Percentage "+ $scope.totalOpenCallPercentage);
 
 				//Preparing Data to display in chart
 				let rowData=[$scope.apiResponse4[0].percentageOfOneDays, $scope.apiResponse4[0].percentOfTwoToFiveDays, $scope.apiResponse4[0].percentageOfOneWeek, $scope.apiResponse4[0].percentOneToTwoWeek, $scope.apiResponse4[0].percentGreaterThanTwoWeek];
 				$scope.doughnutData4.push({"rowData" : rowData});
+				
+				
+//Sharan Change for Grand Total -29-10-2020
+				
+				$scope.apiResponse4.push({gtLabel:'Grand Total', 
+					gtToatalOpenCalls:$scope.TotalOpenCall,
+					gtToatalOpenCallsPct:$scope.totalOpenCallPercentage});
 			}
 	   });
 }//End of loadTATOfDownKiosksApiData service

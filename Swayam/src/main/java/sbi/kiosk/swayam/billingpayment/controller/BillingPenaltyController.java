@@ -18,7 +18,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import sbi.kiosk.swayam.billingpayment.repository.BranchStateRepository;
 import sbi.kiosk.swayam.billingpayment.repository.InvoiceCorrectionRepository;
-import sbi.kiosk.swayam.billingpayment.repository.RfpRepository;
+import sbi.kiosk.swayam.billingpayment.repository.RfpDistinctRepoitory;
 import sbi.kiosk.swayam.billingpayment.repository.VendorRepository;
 import sbi.kiosk.swayam.billingpayment.service.BillingPenaltyService;
 import sbi.kiosk.swayam.billingpayment.service.InvoiceCompareServices;
@@ -57,8 +57,12 @@ public class BillingPenaltyController {
 	@Autowired
 	InvoiceCorrectionRepository invoiceCorrectionRepository;
 	
+	/*
+	 * @Autowired RfpRepository rfpRepository;
+	 */
+	
 	@Autowired
-	RfpRepository rfpRepository;
+	RfpDistinctRepoitory rfpRepository;
 	
 	
 	
@@ -188,7 +192,8 @@ public class BillingPenaltyController {
 		String json =null;
 	try {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		json = gson.toJson(rfpRepository.findAll());
+		json = gson.toJson(rfpRepository.findRfpNumber());
+		//json = gson.toJson(rfpRepository.findAll());
 		//logger.info("RfpID "+ json);
 	}catch (Exception e) {
 		logger.error("Exception "+ExceptionConstants.EXCEPTION);
