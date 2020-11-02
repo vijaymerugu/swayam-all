@@ -21,10 +21,5 @@ public class Vendor {
 	@Column(name="COMPANY_SHORT_NM")
 	private String vendor;
 	
-	
-	
-
-	
-	
 
 }

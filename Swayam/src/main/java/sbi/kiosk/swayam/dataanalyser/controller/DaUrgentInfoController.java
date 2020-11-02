@@ -39,7 +39,7 @@ public class DaUrgentInfoController {
 			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
 	
-		System.out.println("Urgent Info " + json);
+		//System.out.println("Urgent Info " + json);
 		return ResponseEntity.ok(json);
 	}
 

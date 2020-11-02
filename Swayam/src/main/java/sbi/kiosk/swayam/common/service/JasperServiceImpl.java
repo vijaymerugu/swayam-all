@@ -199,8 +199,7 @@ public class JasperServiceImpl implements JasperService {
 			if (identifyPage.equals("userListSA")) {
 				List<UserManagementDto> list = findUsersBySA();
 				 if(list.isEmpty()) {
-						
-						
+
 						return filename;
 					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "usersListSA.jrxml");
@@ -1980,16 +1979,18 @@ public class JasperServiceImpl implements JasperService {
 		
 	if(state.equals("0"))	{
 			
-			
-			list = isRepository.findbyWithoutStateFilterReport(circle, timePeriod);
-			
+			if(circle.equals("0")) {
+				list = isRepository.findCCFilterReport(timePeriod);
+			}else {
+				list = isRepository.findbyWithoutStateFilterReport(circle, timePeriod);
+			}
+		
 			}else{
 			
 			
 				
 			list = isRepository.findbyFilterReport(circle, state, timePeriod);
 		}
-		  
 		
 	List<InvoiceSummaryDto> entities = ObjectMapperUtils.mapAll(list, InvoiceSummaryDto.class);
 		

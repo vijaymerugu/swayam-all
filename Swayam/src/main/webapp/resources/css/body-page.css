@@ -15,14 +15,25 @@ top: 242px;
 left: 8px;
 width: 1352px;
 /* height: 519px; */
-height: 719px;
+height: 870px;
+background: #FFFFFF 0% 0% no-repeat padding-box;
+box-shadow: 0px 3px 6px #8D8D8D29;
+opacity: 1;
+padding:7px;
+}
+.submain_dataanalyser{
+top: 242px;
+left: 8px;
+width: 1352px;
+/* height: 519px; */
+height: 2519px;
 background: #FFFFFF 0% 0% no-repeat padding-box;
 box-shadow: 0px 3px 6px #8D8D8D29;
 opacity: 1;
 padding:7px;
 }
 table.table1 {
-  top: 152px;
+  top: 102px;
 left: 15px;
 width: 1350px;
 height: 90px;

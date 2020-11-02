@@ -14,12 +14,14 @@ import java.util.ResourceBundle;
 import javax.servlet.http.HttpSession;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -45,7 +47,7 @@ import sbi.kiosk.swayam.common.entity.VendorMaster;
 @Service
 public class BillingServiceImpl implements BillingService {
 
-	// By Ankur 28-04-2020-----------STARTS---------
+	
 	@Autowired
 	private BillingAllocationRepository billingallocationRepository;
 	
@@ -71,17 +73,70 @@ public class BillingServiceImpl implements BillingService {
 	@SuppressWarnings("unlikely-arg-type")
 	@Override
 	public String upload(String path) {
-
-		System.out.println("inside billing upload  service...");
-			UserDto user = (UserDto) httpSession.getAttribute("userObj");
-			System.out.println("Username " + user.getUsername());
-
+	UserDto user = (UserDto) httpSession.getAttribute("userObj");
 		try {
-			
-			inputStream = new FileInputStream(new File(path));
+		inputStream = new FileInputStream(new File(path));
 
 			workbook = new XSSFWorkbook(inputStream);
 			org.apache.poi.ss.usermodel.Sheet firstSheet = workbook.getSheetAt(0);
+			
+			//Check header validation
+			Row headerRow = firstSheet.getRow(0);
+			
+			Iterator<Cell> cells = headerRow.cellIterator();
+			int header= 0;
+	        while (cells.hasNext()) {
+	            Cell cell = (Cell) cells.next();
+	            if(header==0) {
+	            	if(cell.getStringCellValue().equalsIgnoreCase("RFP_REF_NO")) {
+	            		//System.out.println("Header - 0" + cell.getStringCellValue());
+	            	}else {
+	            		return "Please Upload the valid Excel -Invalid Header";
+	            	}
+	            	
+	            	
+	            }else if(header==1) {
+	            	if(cell.getStringCellValue().equalsIgnoreCase("VENDOR_ID")) {
+	            		//System.out.println("Header - 1" + cell.getStringCellValue());
+	            	}else {
+	            		return "Please Upload the valid Excel - Invalid Header";
+	            	}
+	            	
+	            }else if(header==2) {
+	            	if(cell.getStringCellValue().equalsIgnoreCase("CRCL_CODE")) {
+	            		//System.out.println("Header - 2" + cell.getStringCellValue());
+	            	}else {
+	            		return "Please Upload the valid Excel - Invalid Header";
+	            	}
+	            	
+	            }else if(header==3) {
+	            	if(cell.getStringCellValue().equalsIgnoreCase("ALLOCATED_QUANTITY")) {
+	            		//System.out.println("Header - 3" + cell.getStringCellValue());
+	            	}else {
+	            		return "Please Upload the valid Excel - Invalid Header";
+	            	}
+	            	
+	            }else if(header==4) {
+	            	if(cell.getStringCellValue().equalsIgnoreCase("TYPE")) {
+	            		//System.out.println("Header - 4" + cell.getStringCellValue());
+	            	}else {
+	            		return "Please Upload the valid Excel - Invalid Header";
+	            	}
+	            	
+	            }else if(header==5) {
+	            	if(cell.getStringCellValue().equalsIgnoreCase("UNIT_PRICE")) {
+	            		//System.out.println("Header - 5" + cell.getStringCellValue());
+	            	}else {
+	            		return "Please Upload the valid Excel - Invalid Header";
+	            	}
+	            }else if(header==6) {
+	            	return "Please Upload the valid Excel - Invalid Header";
+	            }
+	            
+	            header++;
+	        }
+			
+			
 
 			DataFormatter objDefaultFormat = new DataFormatter();
 			FormulaEvaluator objFormulaEvaluator = new XSSFFormulaEvaluator((XSSFWorkbook) workbook);
@@ -93,10 +148,12 @@ public class BillingServiceImpl implements BillingService {
 			while (iterator.hasNext()) {
 				Row nextRow = iterator.next();
 				 if (rowNumber == 0) {
+					 
+					 
 			          rowNumber++;
 			          continue;
 			        }
-				 AllocationDto allocation = new AllocationDto();
+				AllocationDto allocation = new AllocationDto();
 				Iterator<Cell> cellIterator = nextRow.cellIterator();
 				
 				int cellIdx = 0;
@@ -106,26 +163,75 @@ public class BillingServiceImpl implements BillingService {
 					objFormulaEvaluator.evaluate(cell);
 				    switch (cell.getColumnIndex()) {
 					case 0:
+						//System.out.println(cell.getCellType());
+						
+						if(cell.getCellType().equals(CellType.STRING)) {
 						allocation.setRepRefNo(cell.getStringCellValue());
-						System.out.println(cell.getStringCellValue());
+						}else if(cell.getCellType().equals(CellType.BLANK)){
+							return "Failed - Column contain blank value -  RFP_REF_NO";
+						}
+							else {
+						
+							return "Invalid RFP_REF_NO -- "+ cell.getStringCellValue();
+						}
+						
 						break;
 						
 					case 1:
-						allocation.setVendorId((int) cell.getNumericCellValue());
-						//allocation.setVendor(map1.get(allocation.getVendorId()));
+						//System.out.println(cell.getCellType());
+						if(cell.getCellType().equals(CellType.NUMERIC)) {
+							allocation.setVendorId((int) cell.getNumericCellValue());
+							}else if(cell.getCellType().equals(CellType.BLANK)){
+								return "Failed - Column contain blank value -  VENDOR_ID";
+							}else {
+								return "Invalid VENDOR_ID -- "+cell.getStringCellValue();
+							}
+						
+						
 						break;
 					case 2:
-						allocation.setCrclCode((int) cell.getNumericCellValue());
-						//allocation.setCircle(map2.get(allocation.getCrclCode()));
+						if(cell.getCellType().equals(CellType.NUMERIC)) {
+							allocation.setCrclCode((int) cell.getNumericCellValue());
+							}else if(cell.getCellType().equals(CellType.BLANK)){
+								return "Failed - Column contain blank value -  CRCL_CODE";
+							}else {
+								return "Invalid CRCL_CODE -- "+cell.getStringCellValue();
+							}
+						
+						
 						break;
 					case 3:
-						allocation.setAllocatedQuantity((long) cell.getNumericCellValue());
+						//System.out.println(cell.getCellType());
+						if(cell.getCellType().equals(CellType.NUMERIC)) {
+							allocation.setAllocatedQuantity((long) cell.getNumericCellValue());
+							}else if(cell.getCellType().equals(CellType.BLANK)){
+								
+								return "Failed - Column contain blank value -  ALLOCATED_QUANTITY";
+						}else {
+							return "Invalid ALLOCATED_QUANTITY -- "+cell.getStringCellValue();
+							}
+						
 						break;
 					case 4:
-						allocation.setType(cell.getStringCellValue());
+						if(cell.getCellType().equals(CellType.STRING)) {
+							allocation.setType(cell.getStringCellValue());
+							}else if(cell.getCellType().equals(CellType.BLANK)){
+								return "Failed - Column contain blank value -  TYPE";
+							}else {
+								return "Invalid TYPE -- "+cell.getStringCellValue();
+							}
+						
+						
 						break;
 					case 5:
-						allocation.setUnitPrice(cell.getNumericCellValue());
+						if(cell.getCellType().equals(CellType.NUMERIC)) {
+							allocation.setUnitPrice(cell.getNumericCellValue());
+							}else if(cell.getCellType().equals(CellType.BLANK)){
+								return "Failed - Excel contain blank value -  UNIT_PRICE";
+							}else {
+								return "Invalid UNIT_PRICE -- "+cell.getStringCellValue();
+							}
+						
 						break;	
 						
 					 default:
@@ -146,12 +252,12 @@ public class BillingServiceImpl implements BillingService {
 			List<Allocation> listEntity = new ArrayList<Allocation>();
 
 			int count = 0;
-			System.out.println("allocationList outside " + allocationList);
+			//System.out.println("allocationList outside " + allocationList);
 			Iterator<AllocationDto> listDto= allocationList.iterator();
 			
 			while (listDto.hasNext()) {
 				AllocationDto allocationDto = (AllocationDto) listDto.next();
-				System.out.println("Allocation DTO "+ allocationDto);
+				//System.out.println("Allocation DTO "+ allocationDto);
 				entity = new Allocation();
 				entity.setRepRefNo(allocationDto.getRepRefNo());
 				entity.setVendorId(allocationDto.getVendorId());
@@ -164,20 +270,28 @@ public class BillingServiceImpl implements BillingService {
 				entity.setCreatedBy(user.getUsername());
 				entity.setCreatedDate(new Date());
 				listEntity.add(entity);
-				//System.out.println("Entity "+ listEntity);
+				////System.out.println("Entity "+ listEntity);
 				
 			}
 
 			Iterable<Allocation> result = repository.saveAll(listEntity);
-			//System.out.println("result" + result);
+			////System.out.println("result" + result);
 			if (result != null)
-				return "Billing_allocation";
+				return "Allocation Completed";
 		}
 
-	catch(Exception e)
-	{
-		e.printStackTrace();
-	}finally
+		
+		  catch(ConstraintViolationException e) { 
+			  System.out.println("Error -3" + e.getLocalizedMessage());
+			  return "Failed - Duplicate records";
+		  }
+		  //e.printStackTrace(); }
+		 catch (Exception e) {
+			 System.out.println("Error -1" + e.getLocalizedMessage());
+			 return "Failed - Duplicate records";
+		//e.printStackTrace();
+	}
+		finally
 	{
 		try {
 			if (workbook != null) {
@@ -188,30 +302,32 @@ public class BillingServiceImpl implements BillingService {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			 System.out.println("Error-2 " + e.getLocalizedMessage());
+			 
+			//e.printStackTrace();
 		}
 	}return"Data Not Uploaded";
 	}
 
 	public Page<BillingAllocationDto> findPaginated(final int page, final int size) {
 
-		System.out.println("page1" + page);
+		//System.out.println("page1" + page);
 		Page<BillingAllocationDto> pageDto = billingallocationRepository.findAll(PageRequest.of(page, size))
 				.map(BillingAllocationDto::new);
 
-		System.out.println("pageDto" + pageDto);
+		//System.out.println("pageDto" + pageDto);
 
 		return pageDto;
 	}
 	
 	public Page<AllocationDto> findPaginatedAllocation(final int page, final int size) {
 
-		System.out.println("findPaginatedAllocation" + page);
+		//System.out.println("findPaginatedAllocation" + page);
 		Page<AllocationDto> entityAllocation = repository.findAll(PageRequest.of(page, size))
 				.map(AllocationDto::new);
 	
 
-		System.out.println("findPaginatedAllocation" + entityAllocation);
+		//System.out.println("findPaginatedAllocation" + entityAllocation);
 
 		return entityAllocation;
 	}
@@ -219,16 +335,16 @@ public class BillingServiceImpl implements BillingService {
 	@Override
 	public BillingAllocationDto findBillingallocId(Integer allocId) {// Integer.parseInt(repRefNo)
 
-		System.out.println("allocId" + allocId);
+		//System.out.println("allocId" + allocId);
 		BillingAllocation billing = billingallocationRepository.findrepRefNo(allocId);
-		System.out.println("billing" + billing);
+		//System.out.println("billing" + billing);
 		BillingAllocationDto Dto = new BillingAllocationDto();
 		Dto.setRepRefNo(billing.getRepRefNo());
 		Dto.setVendorId(billing.getVendorId());
 		Dto.setCrclCode(billing.getCrclCode());
 		Dto.setAllocatedQuantity(billing.getAllocatedQuantity());
 		Dto.setRemainingQuantity(billing.getRemainingQuantity());
-		System.out.println("Dto" + Dto);
+		//System.out.println("Dto" + Dto);
 		return Dto;
 
 	}
@@ -239,48 +355,6 @@ public class BillingServiceImpl implements BillingService {
 		return null;
 	}
 
-	/*
-	 * @Override public String updateBillingAllocation(BillingAllocationDto dto) {
-	 * BillingAllocation entity = new BillingAllocation();
-	 * 
-	 * double intallocatedQuantity = dto.getAllocatedQuantity();
-	 * 
-	 * double intUnitPrice = dto.getUnitPrice();
-	 * 
-	 * double RemainingQuantity; RemainingQuantity = dto.getRemainingQuantity(); if
-	 * (RemainingQuantity == 0) { RemainingQuantity = intallocatedQuantity;// 100
-	 * 100
-	 * 
-	 * RemainingQuantity = RemainingQuantity - intUnitPrice; } else {
-	 * RemainingQuantity = RemainingQuantity - intUnitPrice; }
-	 * 
-	 * System.out.println("intallocatedQuantity" + intallocatedQuantity +
-	 * "intUnitPrice" + intUnitPrice + "RemainingQuantity" + RemainingQuantity);
-	 * 
-	 * entity.setRepRefNo(dto.getRepRefNo()); entity.setVendorId(dto.getVendorId());
-	 * entity.setCrclCode(dto.getCrclCode());
-	 * entity.setAllocatedQuantity(dto.getAllocatedQuantity());
-	 * entity.setUnitPrice(intUnitPrice);
-	 * entity.setRemainingQuantity(RemainingQuantity); entity.setStatus("s");
-	 * 
-	 * int allocId = 1; String status = "0";
-	 * 
-	 * BillingAllocation resultSave = billingallocationRepository.save(entity);
-	 * allocId = resultSave.getAllocId();
-	 * 
-	 * BillingPurchaseOrder entity1 = new BillingPurchaseOrder(allocId,
-	 * RemainingQuantity, "s", entity);
-	 * 
-	 * entity.setBillingPurchaseOrder(entity1);
-	 * 
-	 * BillingAllocation resultSave1 = billingallocationRepository.save(entity);
-	 * allocId = resultSave1.getAllocId(); allocId = allocId - 1;
-	 * System.out.println(allocId); billingallocationRepository.Updatestatus(status,
-	 * allocId); String refno = "successfully"; System.out.println("refno" + refno);
-	 * 
-	 * return refno;
-	 * 
-	 * }
-	 */
+	
 
 }

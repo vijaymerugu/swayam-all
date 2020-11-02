@@ -166,10 +166,16 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate','ui.
 		  
 		    $scope.getRowsData= function () {
 		        var rows = $scope.gridApi.selection.getSelectedRows();
-		        console.log("Inside Get Row Data");
+		        console.log("Inside Get Row Data "+rows);
 		     
+		        if(rows==''){
+		        	alert("Please select atleast one row");
+		        }else{
+		        	
+		       
+		        
 		        angular.forEach(rows, function (row, key) {
-		        	console.log("PoNumber "+row.poId);
+		        	//console.log("PoNumber "+row.poId);
 		        	poIdList.push(row.poId);
 		        });
 		        
@@ -180,7 +186,10 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate','ui.
 		        PurchaseCorrectionService.generatePDF(poIdList).then(function (d) {
 		        	poIdList =[];
 		        	console.log("Inside Success " + d.status);
-		        	alert("PDF Generated Successfully");
+//		        	console.log("Inside data" + d.data);
+//		        	console.log("Filename" + d.data.message);
+//		        	alert("PDF Generated Successfully");
+		        	$window.open("resources/download/"+d.data.message , '_blank');
 		        	 PurchaseOrderService.getUsers(paginationOptions.pageNumber,
 		     				paginationOptions.pageSize, counttype).success(function(data) {
 		     					console.log("data " + data);
@@ -196,7 +205,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate','ui.
 		        });
         	
        
-		        
+		        }
 		    };
 	   
 	   $scope.gridOptions = {

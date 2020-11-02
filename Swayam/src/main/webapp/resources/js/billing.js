@@ -38,6 +38,15 @@ app.controller(
 							$scope.doUploadFile = function() {
 				
 								var file = $scope.uploadedFile;
+								console.log("file " + file);
+								if(file==undefined || file == ''){
+								 
+									alert("Please choose file...")
+									
+								}else{
+									
+								
+								
 								var url = "billingallocation";
 								//alert("file" + file);
 								 console.log("Session CSRF "+ $scope.csrf);
@@ -59,16 +68,11 @@ app.controller(
 										.then(
 												function(response) {
 													$scope.uploadResult = response.data;
-													/*BillingService
-													.getUsers(paginationOptions.pageNumber,
-															paginationOptions.pageSize,
-															counttype)
-													.success(
-															function(data) {
-																$scope.gridOptions.data = data.content;
-																$scope.gridOptions.totalItems = data.totalElements;
-															});*/
-													alert("Successfully Uploaded");
+													//console.log(response.status);
+													console.log(response.data);
+													//var message = response.data;
+													alert(response.data);
+													//alert("Successfully Uploaded");
 										        	$scope.loadHomeBodyPageForm();
 
 												},
@@ -76,6 +80,9 @@ app.controller(
 													alert("Upload Failed");
 													$scope.uploadResult = response.data;
 												});
+								
+								
+								}
 							};
 
 							var paginationOptions = {
@@ -186,8 +193,14 @@ app.controller(
 							       // poNumber=row.poNumber;
 							        console.log("Allocation Id" + allocId);
 							        console.log("PO Quantity " + poQuantity);
+							        
+							        var checkPo = Number.isInteger(poQuantity);
+							        
+							        if(checkPo){
+							        	
+							        
 							      
-							        if(poQuantity<=allocatedQuantity){
+							        if(poQuantity<=remainingQuantity){
 							        	EditService.saveCorrection(allocId,allocatedQuantity,
 									        		poQuantity,remainingQuantity).then(function (d) {
 									           
@@ -207,9 +220,14 @@ app.controller(
 									        });
 							        	
 							        }else{
-							        	alert("PO Quantity greater than Allocated Quantity");
+							        	alert("MUST- PO Quantity <= Remaining Quantity");
 							        }
-							           
+							      
+							        }else{
+							        	
+							        	alert("Decimal/Negative value not allowed for PO Quantity");
+							        	
+							        }
 							       
 							    };
 							    

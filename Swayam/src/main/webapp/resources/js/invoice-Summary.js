@@ -167,9 +167,16 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 								paginationOptions.pageSize, counttype,
 								selectedCircelId,selectedStateId,
 								quterTimePeriod).success(function(data) {
-									console.log("data1 " + data);
-							$scope.gridOptions.data = data.content;
-							$scope.gridOptions.totalItems = data.totalElements;
+									console.log("Response Data " + data.totalElements);	
+									
+									if(data.totalElements==0){
+										$scope.gridOptions.data = data.content;
+										$scope.gridOptions.totalItems = data.totalElements;
+										alert("No results found for given search criteria")
+									}else{
+										$scope.gridOptions.data = data.content;
+										$scope.gridOptions.totalItems = data.totalElements;
+									}
 						});
 			}
 	 

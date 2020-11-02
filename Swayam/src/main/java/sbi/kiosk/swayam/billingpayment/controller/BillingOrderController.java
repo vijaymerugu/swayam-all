@@ -46,6 +46,7 @@ import sbi.kiosk.swayam.common.entity.BillingPurchaseOrder;
 import sbi.kiosk.swayam.common.entity.DisplayAllocation;
 import sbi.kiosk.swayam.common.repository.AllVendorRepository;
 import sbi.kiosk.swayam.common.repository.BillingCircleRepository;
+import sbi.kiosk.swayam.healthmonitoring.model.InvoiceUpdateReposne;
 
 
 @RestController
@@ -121,7 +122,7 @@ public class BillingOrderController  {
 	
 
 	  	@RequestMapping(value = "billingallocation", method = RequestMethod.POST)
-		public ResponseEntity<String> upload(@RequestParam("uploadfile") List<MultipartFile> files) {
+		public ResponseEntity<?> upload(@RequestParam("uploadfile") List<MultipartFile> files) {
 			List<FileInfo> uploadedFiles = new ArrayList<FileInfo>();
 			logger.info("files"+files);
 			
@@ -219,7 +220,10 @@ public class BillingOrderController  {
 			String result = billingService.upload(path);
 			logger.info("9.Result part done: " + result);
 			 
+			//ResponseEntity<InvoiceUpdateReposne> entity = ResponseEntity.ok(new InvoiceUpdateReposne("", result));
+			
 			ResponseEntity<String> entity = ResponseEntity.ok(result);
+
 			logger.info("10.Transfer to entity");
 			
 			return entity;

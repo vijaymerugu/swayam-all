@@ -1,11 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="s"%>
-<%@ page import = "java.util.Date" %>
-<%@ page import = "java.text.SimpleDateFormat" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 
 <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
 <link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
@@ -43,8 +40,9 @@
       }
    	   });
   </script>
-  
+
  <%--    <script>
+
   $.ajax({
   	type:"GET",
   	url:"td/getAllIndiaDate",
@@ -57,7 +55,9 @@
 
       }
    	   });
+
   </script> --%>
+
     
 <script>
 	$(document).ready(function() {
@@ -105,9 +105,16 @@
   			word-break: break-word;
 			}
     
+          .ui-grid, .ui-grid-viewport {
+			     height: auto !important;
+			}
+			.ui-grid-pager-panel {
+			    position: relative;
+			}
 </style>
 
 <script type="text/javascript">
+
 $("#myBtn").click(function(){
 	var frmDate=document.getElementById("datepickerFromDate").value;  
 	//alert(frmDate);  
@@ -117,6 +124,7 @@ $("#myBtn").click(function(){
 		$("#mySpan").hide();
 		}
 	});
+
 
 </script>
 
@@ -136,12 +144,14 @@ $("#myBtn").click(function(){
 			</div>
 			<br />
 		<table>
+
    <h1 colspan="4" align="center" style="color: #00BFFF;font-size: 12px;font-weight: bold;"> All India branch view on
     <span  id="mySpan">  {{CurrentDate | date:'EEE,dd MMM, yyyy hh:mm:ss a'}}</span> 
     <span  id="mySpan1"> {{allIndiaDate}} </span> 
   
   </h1> 
 			 
+
 			    </table>
 			<br>	
 			<div>

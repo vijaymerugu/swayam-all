@@ -233,6 +233,11 @@ div.absolute {
 											<td align="right" ng-show="labels4[$index]==='1 - 2 weeks'">{{oneToTwoWeekPercentageArray[0]}}</td>
 											<td align="right" ng-show="labels4[$index]==='Greater than 2 weeks'">{{greaterThanTwoWeekPercentageArray[0]}}</td>
 										</tr>
+										 <tr>
+											<td align="left"><b>{{apiResponse4[apiResponse4.length-1].gtLabel}}</b></td>
+											<td align="right"><b>{{apiResponse4[apiResponse4.length-1].gtToatalOpenCalls}}</b></td>
+											<td align="right"><b>{{apiResponse4[apiResponse4.length-1].gtToatalOpenCallsPct}}</b></td>
+										</tr> 
 									</table>
 								</div>
 							</div>

@@ -40,7 +40,7 @@ public class UserManagementController {
 	RoleService roleService;
 
 	@RequestMapping(value = { "km/userList" })
-	@PreAuthorize("hasPermission('UMuserList','CREATE')")
+//	@PreAuthorize("hasPermission('UMuserList','CREATE')")
 	public ModelAndView userList(ModelAndView model, HttpSession session) {
 
 		try {

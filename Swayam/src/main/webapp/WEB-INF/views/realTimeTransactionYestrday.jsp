@@ -5,6 +5,7 @@
 
 <head>
 
+
 <meta http-equiv="x-ua-compatible" content="IE=edge">
  <script src="resources/js/transaction-realtime-yesterday-app.js"></script>
 <script	src="resources/js/angular.1.5.6.min.js"></script>
@@ -78,7 +79,12 @@
   			padding: 2px;
   			word-break: break-word;
 			}
-  
+  			.ui-grid, .ui-grid-viewport {
+			     height: auto !important;
+			}
+			.ui-grid-pager-panel {
+			    position: relative;
+			}
 </style>	
 <script type="text/javascript">
 $("#myBtn").click(function(){

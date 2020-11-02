@@ -84,7 +84,12 @@
   			padding: 2px;
   			word-break: break-word;
 			}
-  
+  			.ui-grid, .ui-grid-viewport {
+			     height: auto !important;
+			}
+			.ui-grid-pager-panel {
+			    position: relative;
+			}
 </style>	
 
 <script type="text/javascript">
