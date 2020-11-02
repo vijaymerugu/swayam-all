@@ -66,5 +66,21 @@ public class RealTimeTransactionServiceImpl implements RealTimeTransactionServic
 		 Page<RealTimeTransaction> pageEntity = realTimeTxnRepositoryPaging.findByFromDate(passedDate, PageRequest.of(page, size));					
 		return pageEntity;
 	}
+	
+	
+	
+	public String findLastUpdatedRealTimeJob() {
+		String realTime=null;
+		
+		try {
+		      realTime=realTimeTxnRepositoryPaging.findCurrentDateAuditJob();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return realTime;
+	}
+	
+	
 
 }

@@ -75,7 +75,7 @@ public class LoginController{
 		}
 		
 		auditLogger.setToken(token);
-		audit.save(auditLogger);
+		//audit.save(auditLogger);
 		mav.setViewName("redirect:/home");
 		}catch(Exception e) {
 			logger.error("Invalid Token Exception():: ",e,e.getMessage());

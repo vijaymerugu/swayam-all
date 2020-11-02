@@ -67,7 +67,7 @@ public class AddController {
 	}
 	
 	@PostMapping("km/addUsersLA")
-	@PreAuthorize("hasPermission('ACkmaddUserLA','CREATE')")
+//	@PreAuthorize("hasPermission('ACkmaddUserLA','CREATE')")
 	public ResponseEntity<String> addUserLA(ModelAndView model,@ModelAttribute("addUserDto") AddUserDto addUserDto,HttpServletRequest request,RedirectAttributes redirectAttributes) {
 		ResponseEntity<String> entity=null;
 		String addUserResut=null;

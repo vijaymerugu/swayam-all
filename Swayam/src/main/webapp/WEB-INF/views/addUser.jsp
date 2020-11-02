@@ -653,6 +653,21 @@ $(document).ready(function(){
 	}
 	}
 	
+	function cancelform() {
+		
+		
+		$("#emailId12").html("");
+		$("#phoneNumber12").html("");	
+		$("#pfId12").html("");	
+		$("#userName12").html("");	
+		$("#reportingAuthorityName12").html("");		
+		$("#reportingAuthorityEmail12").html("");
+		$("#role12").html("");
+		$("#circle12").html("");
+		
+    	$("#contentHomeApp").load("km/userList");  
+		
+	}
 	
 	
 	
@@ -806,8 +821,11 @@ $(document).ready(function(){
 					<c:if test="${addUser.checkAction != 'Edit'}">	
 					 <form:hidden path="checkAction" />
 					  <form:hidden path="userId" />
-					<td><input type="reset" class="button" value="CANCEL"></td>
-                   <td><input type="button" onclick="saveform()"   class="button" value="ADD"></td>
+					<!-- <td><input type="reset" class="button" value="CANCEL"></td> -->
+					<!-- <td><input type="button" class="button" style="background-color: #f2a50a" onclick="cancelform() value="CANCEL"></td> -->
+				<td><input style="width: 80px;height: 28px;"" type="button" onclick="cancelform()"   class="button" value="CANCEL"></td>
+				<!-- 	<td><button style="background-color: #f2a50a" class="saveformBtn">ADD</button></td> -->
+                   <td><input style="width: 80px;height: 28px;"" type="button" onclick="saveform()"   class="button" value="ADD"></td>
 					</c:if>	
 					
 						
@@ -849,9 +867,11 @@ $(document).ready(function(){
 	
 	
 	<script>
+	
 $(document).ready(function(){ 
     $('.openFinalPopup').on('click',function(){      
-        
+      //  alert("I m here:openFinalPopup ");
+     //   debugger;
     	$("#contentHomeApp").load("km/userList");    	
        
     }); 

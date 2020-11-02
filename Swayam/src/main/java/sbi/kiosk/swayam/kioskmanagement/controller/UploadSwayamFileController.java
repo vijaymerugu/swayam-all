@@ -67,7 +67,7 @@ public class UploadSwayamFileController {
 //	@PreAuthorize("hasPermission('UPDuploadHolidayCalendar','CREATE')")
 	public ResponseEntity<String> upload(@RequestParam("myFile") List<MultipartFile> files) {
 		List<FileInfo> uploadedFiles = new ArrayList<FileInfo>();
-		logger.info("files" + files);
+	//	logger.info("files" + files);
 
 		logger.info("I m inside uploadHolidayCalendar");
 
@@ -75,53 +75,41 @@ public class UploadSwayamFileController {
 			try {
 				for (MultipartFile file : files) {
 
-			
-
-			
+					List<String> fileNames = new ArrayList<String>();
+					String fileName = file.getOriginalFilename();
+					fileNames.add(fileName);
+		//			logger.info("1.File Name========== "+file.getOriginalFilename());
+					File imageFile = new File(context.getRealPath("/resources/upload"));
+		//			logger.info("imageFile path: "+imageFile.getPath());
+		//			logger.info("imageFile path1: "+context.getRealPath("/resources/upload"));
 					
-				
-						///////////////////////////////////////////////////////////////////////////////
-						List<String> fileNames = new ArrayList<String>();
-						String fileName = file.getOriginalFilename();
-						fileNames.add(fileName);
-						logger.info("1.File Name========== "+file.getOriginalFilename());
-						File imageFile = new File(context.getRealPath("/resources/upload"));
-						logger.info("imageFile path: "+imageFile.getPath());
-						logger.info("imageFile path1: "+context.getRealPath("/resources/upload"));
-						
-						if (!imageFile.exists())
-						{
-						imageFile.mkdirs();
-						logger.info("Directory created!!!"+imageFile);
-						}
-						//	imageFile = new File(context.getRealPath("/resources/upload"), fileName);
-						String path = context.getRealPath("/resources/upload") + File.separator + fileName;
-						logger.info("2.Path============ "+path);
-						File destinationFile = new File(path);	
-						logger.info("3.name============= "+destinationFile.getName());
-						logger.info("//////////A.File transfer started!!!!!!!!!!!////////////////");
-						
-						file.transferTo(destinationFile);
-						logger.info("/////////////////File transfer completed: "+destinationFile.getPath());
-						logger.info("4.File Transfer done!!!!!!!!!");
-						path = uploadpath  + file.getOriginalFilename();
-						logger.info("5.uploadedFiles path=========== " + path);
-						uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
-						logger.info("6.uploadedFiles=========== " + uploadedFiles);
-						
-						////////////////////////////////////////////////////////////////////////////////
-						/*
-						 * logger.info("1.File Name========== "+file.getOriginalFilename()); String path
-						 * = "/resources/upload/" + file.getOriginalFilename();
-						 * logger.info("2.Path============ "+path); File destinationFile = new
-						 * File(path); logger.info("3.name============= "+destinationFile.getName()); //
-						 * file.transferTo(destinationFile); //
-						 * logger.info("4.File Transfer done!!!!!!!!!"); path = uploadpath +
-						 * file.getOriginalFilename(); logger.info("5.uploadedFiles path=========== " +
-						 * path); uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
-						 * logger.info("6.uploadedFiles=========== " + uploadedFiles);
-						 */
-
+					if (!imageFile.exists())
+					{
+					imageFile.mkdirs();
+//					logger.info("Directory created!!!"+imageFile);
+					}
+					//	imageFile = new File(context.getRealPath("/resources/upload"), fileName);
+					String path = context.getRealPath("/resources/upload") + File.separator + fileName;
+//					logger.info("2.Path============ "+path);
+					File destinationFile = new File(path);	
+//					logger.info("3.name============= "+destinationFile.getName());
+					logger.info("//////////A.File transfer started!!!!!!!!!!!////////////////");
+					
+				//	file.transferTo(destinationFile);
+					// read and write the file to the selected location-
+					byte[] bytes = file.getBytes();
+					Path path1 = Paths.get(uploadpath + file.getOriginalFilename());
+	//				logger.info("File write path: "+path1.toString());
+					Files.write(path1, bytes);
+					
+//					logger.info("/////////////////File transfer completed: "+path1.toString());
+					logger.info("4.File Transfer done!!!!!!!!!");
+					path = uploadpath  + file.getOriginalFilename();
+//					logger.info("5.uploadedFiles path=========== " + path);
+					uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
+//					logger.info("6.uploadedFiles=========== " + uploadedFiles);
+					
+					
 					  
 				}
 
@@ -134,7 +122,7 @@ public class UploadSwayamFileController {
 		ModelAndView modelAndView = new ModelAndView("upload");
 		modelAndView.addObject("files", uploadedFiles);
 		String name1 = uploadedFiles.get(0).getName();
-		logger.info("6.name1====== " + name1);
+//		logger.info("6.name1====== " + name1);
 		//logger.info("7.uploadpath=========== " + uploadpath);
 		File dir = new File(uploadpath);
 		
@@ -144,15 +132,12 @@ public class UploadSwayamFileController {
 		// Create the file on server
 		File serverFile = new File(dir.getAbsolutePath() + File.separator + name1);
 
-		logger.info("7.Dir AbsolutePath=============" + dir.getAbsolutePath());
+//		logger.info("7.Dir AbsolutePath=============" + dir.getAbsolutePath());
 		String path = serverFile.getAbsolutePath();
-		logger.info("7.Server File path===========" + path);
+//		logger.info("7.Server File path===========" + path);
 		String result = uploadService.uploadHolidayCalendarInformation(path);
-		// String result = uploadService.uploadKioskCMFInformation(path);
-		// String result = uploadService.uploadKioskInformation(path);
-		// String result = uploadService.uploadCBSbrhmInformation(path);
-		// modelAndView.addObject("holidayCalendarStatus", result);
-		logger.info("8.Result part done: " + result);
+		
+//		logger.info("8.Result part done: " + result);
 		ResponseEntity<String> entity = ResponseEntity.ok(result);
 		logger.info("9.Transfer to entity");
 		return entity;
@@ -163,7 +148,7 @@ public class UploadSwayamFileController {
 	// @PreAuthorize("hasPermission('UPDuploadKioskDetails','CREATE')")
 	public ResponseEntity<String> uploadKioskDetails(@RequestParam("KioskFile") List<MultipartFile> files) {
 		List<FileInfo> uploadedFiles = new ArrayList<FileInfo>();
-		logger.info("files" + files);
+	//	logger.info("files" + files);
 
 		logger.info("I m inside uploadKioskDetails");
 
@@ -171,48 +156,42 @@ public class UploadSwayamFileController {
 			try {
 				for (MultipartFile file : files) {
 					
-																
-						///////////////////////////////////////////////////////////////////////////////
-						List<String> fileNames = new ArrayList<String>();
-						String fileName = file.getOriginalFilename();
-						fileNames.add(fileName);
-						logger.info("1.File Name========== "+file.getOriginalFilename());
-						File imageFile = new File(context.getRealPath("/resources/upload"));
-						logger.info("imageFile path: "+imageFile.getPath());
-						logger.info("imageFile path1: "+context.getRealPath("/resources/upload"));
-						
-						if (!imageFile.exists())
-						{
-						imageFile.mkdirs();
-						logger.info("Directory created!!!"+imageFile);
-						}
-						//	imageFile = new File(context.getRealPath("/resources/upload"), fileName);
-						String path = context.getRealPath("/resources/upload") + File.separator + fileName;
-						logger.info("2.Path============ "+path);
-						File destinationFile = new File(path);	
-						logger.info("3.name============= "+destinationFile.getName());
-						logger.info("//////////A.File transfer started!!!!!!!!!!!////////////////");
-						
-						file.transferTo(destinationFile);
-						logger.info("/////////////////File transfer completed: "+destinationFile.getPath());
-						logger.info("4.File Transfer done!!!!!!!!!");
-						path = uploadpath  + file.getOriginalFilename();
-						logger.info("5.uploadedFiles path=========== " + path);
-						uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
-						logger.info("6.uploadedFiles=========== " + uploadedFiles);
-						
-						////////////////////////////////////////////////////////////////////////////////
-						/*
-						 * logger.info("1.File Name========== "+file.getOriginalFilename()); String path
-						 * = "/resources/upload/" + file.getOriginalFilename();
-						 * logger.info("2.Path============ "+path); File destinationFile = new
-						 * File(path); logger.info("3.name============= "+destinationFile.getName()); //
-						 * file.transferTo(destinationFile); //
-						 * logger.info("4.File Transfer done!!!!!!!!!"); path = uploadpath +
-						 * file.getOriginalFilename(); logger.info("5.uploadedFiles path=========== " +
-						 * path); uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
-						 * logger.info("6.uploadedFiles=========== " + uploadedFiles);
-						 */
+				
+					List<String> fileNames = new ArrayList<String>();
+					String fileName = file.getOriginalFilename();
+					fileNames.add(fileName);
+		//			logger.info("1.File Name========== "+file.getOriginalFilename());
+					File imageFile = new File(context.getRealPath("/resources/upload"));
+		//			logger.info("imageFile path: "+imageFile.getPath());
+		//			logger.info("imageFile path1: "+context.getRealPath("/resources/upload"));
+					
+					if (!imageFile.exists())
+					{
+					imageFile.mkdirs();
+		//			logger.info("Directory created!!!"+imageFile);
+					}
+					//	imageFile = new File(context.getRealPath("/resources/upload"), fileName);
+					String path = context.getRealPath("/resources/upload") + File.separator + fileName;
+		//			logger.info("2.Path============ "+path);
+					File destinationFile = new File(path);	
+		//			logger.info("3.name============= "+destinationFile.getName());
+					logger.info("//////////A.File transfer started!!!!!!!!!!!////////////////");
+					
+				//	file.transferTo(destinationFile);
+					// read and write the file to the selected location-
+					byte[] bytes = file.getBytes();
+					Path path1 = Paths.get(uploadpath + file.getOriginalFilename());
+		//			logger.info("File write path: "+path1.toString());
+					Files.write(path1, bytes);
+					
+			//		logger.info("/////////////////File transfer completed: "+path1.toString());
+					logger.info("4.File Transfer done!!!!!!!!!");
+					path = uploadpath  + file.getOriginalFilename();
+			//		logger.info("5.uploadedFiles path=========== " + path);
+					uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
+			//		logger.info("6.uploadedFiles=========== " + uploadedFiles);
+					
+					
 
 				}
 
@@ -224,19 +203,19 @@ public class UploadSwayamFileController {
 		ModelAndView modelAndView = new ModelAndView("upload");
 		modelAndView.addObject("files", uploadedFiles);
 		String name1 = uploadedFiles.get(0).getName();
-		logger.info("6.name1============ " + name1);
+	//	logger.info("6.name1============ " + name1);
 		// logger.info("7.uploadpath=========== "+uploadpath);
 		File dir = new File(uploadpath);
 		// new File(rootPath + File.separator + "src\\main\\webapp\\WEB-INF\\uploaded");
 		if (!dir.exists())
 			dir.mkdirs();
 		File serverFile = new File(dir.getAbsolutePath() + File.separator + name1);
-		logger.info("7.Dir AbsolutePath=============" + dir.getAbsolutePath());
+	//	logger.info("7.Dir AbsolutePath=============" + dir.getAbsolutePath());
 		
 		String path = serverFile.getAbsolutePath();
-		logger.info("8.Server File path========== " + serverFile.getAbsolutePath());
+	//	logger.info("8.Server File path========== " + serverFile.getAbsolutePath());
 		String result = uploadService.uploadKioskCMFInformation(path);
-		logger.info("9.Result part done: " + result);
+	//	logger.info("9.Result part done: " + result);
 		ResponseEntity<String> entity = ResponseEntity.ok(result);
 		logger.info("9.Transfer to entity");
 		return entity;
@@ -250,85 +229,46 @@ public class UploadSwayamFileController {
 		List<FileInfo> uploadedFiles = new ArrayList<FileInfo>();
 
 		logger.info("I m inside uploadKioskCMF");
-		logger.info("files" + files);
+	//	logger.info("files" + files);
 		if (!files.isEmpty()) {
 			try {
 				for (MultipartFile file : files) {
-					/*
-					 * String path = context.getRealPath("/resources/upload") + File.separator +
-					 * file.getOriginalFilename();
-					 */
-					/*
-					 * String fileName = file.getOriginalFilename(); Path paths =
-					 * Paths.get(fileName); Path orgFileName = paths.getFileName();
-					 * logger.info("1.File Name========== "+orgFileName);
-					 */
-					/*
-					 * commented temporarily for testing String path =
-					 * context.getRealPath("/resources/upload") + File.separator + orgFileName;
-					 */
-						///////////////////////////////////////////////////////////////////////////////
-						List<String> fileNames = new ArrayList<String>();
-						String fileName = file.getOriginalFilename();
-						fileNames.add(fileName);
-						logger.info("1.File Name========== "+file.getOriginalFilename());
-						File imageFile = new File(context.getRealPath("/resources/upload"));
-						logger.info("imageFile path: "+imageFile.getPath());
-						logger.info("imageFile path1: "+context.getRealPath("/resources/upload"));
-						
-						if (!imageFile.exists())
-						{
-						imageFile.mkdirs();
-						logger.info("Directory created!!!"+imageFile);
-						}
-						//	imageFile = new File(context.getRealPath("/resources/upload"), fileName);
-						String path = context.getRealPath("/resources/upload") + File.separator + fileName;
-						logger.info("2.Path============ "+path);
-						File destinationFile = new File(path);	
-						logger.info("3.name============= "+destinationFile.getName());
-						logger.info("//////////A.File transfer started!!!!!!!!!!!////////////////");
-						
-					//	file.transferTo(destinationFile);
-						// read and write the file to the selected location-
-						byte[] bytes = file.getBytes();
-						Path path1 = Paths.get(uploadpath + file.getOriginalFilename());
-						logger.info("File write path: "+path1.toString());
-						Files.write(path1, bytes);
-						
-						logger.info("/////////////////File transfer completed: "+path1.toString());
-						logger.info("4.File Transfer done!!!!!!!!!");
-						path = uploadpath  + file.getOriginalFilename();
-						logger.info("5.uploadedFiles path=========== " + path);
-						uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
-						logger.info("6.uploadedFiles=========== " + uploadedFiles);
-						
-						////////////////////////////////////////////////////////////////////////////////
-
-						/*
-						 * logger.info("1.File Name========== "+file.getOriginalFilename()); String path
-						 * = "/resources/upload/" + file.getOriginalFilename();
-						 * logger.info("2.Path============ "+path); File destinationFile = new
-						 * File(path); logger.info("3.name============= "+destinationFile.getName()); //
-						 * file.transferTo(destinationFile); //
-						 * logger.info("4.File Transfer done!!!!!!!!!"); path = uploadpath +
-						 * file.getOriginalFilename(); logger.info("5.uploadedFiles path=========== " +
-						 * path); uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
-						 * logger.info("6.uploadedFiles=========== " + uploadedFiles);
-						 */
-
-					/*******************************************/
-					/*
-					 * String orgFileName_kioskCMF = file.getOriginalFilename();
-					 * logger.info("1.File Name========== "+orgFileName_kioskCMF); String path =
-					 * "/resources/upload/" + orgFileName_kioskCMF ;
-					 */
-					/*************************************************/
-					/*
-					 * logger.info("2.Path============ "+path); File destinationFile = new
-					 * File(path); logger.info("3.name============= "+destinationFile.getName());
-					 * file.transferTo(destinationFile);
-					 * logger.info("4.File Transfer done!!!!!!!!!");
-					 */
+					
+					List<String> fileNames = new ArrayList<String>();
+					String fileName = file.getOriginalFilename();
+					fileNames.add(fileName);
+			//		logger.info("1.File Name========== "+file.getOriginalFilename());
+					File imageFile = new File(context.getRealPath("/resources/upload"));
+			//		logger.info("imageFile path: "+imageFile.getPath());
+			//		logger.info("imageFile path1: "+context.getRealPath("/resources/upload"));
+					
+					if (!imageFile.exists())
+					{
+					imageFile.mkdirs();
+			//		logger.info("Directory created!!!"+imageFile);
+					}
+					//	imageFile = new File(context.getRealPath("/resources/upload"), fileName);
+					String path = context.getRealPath("/resources/upload") + File.separator + fileName;
+			//		logger.info("2.Path============ "+path);
+					File destinationFile = new File(path);	
+			//		logger.info("3.name============= "+destinationFile.getName());
+					logger.info("//////////A.File transfer started!!!!!!!!!!!////////////////");
+					
+				//	file.transferTo(destinationFile);
+					// read and write the file to the selected location-
+					byte[] bytes = file.getBytes();
+					Path path1 = Paths.get(uploadpath + file.getOriginalFilename());
+			//		logger.info("File write path: "+path1.toString());
+					Files.write(path1, bytes);
+					
+			//		logger.info("/////////////////File transfer completed: "+path1.toString());
+					logger.info("4.File Transfer done!!!!!!!!!");
+					path = uploadpath  + file.getOriginalFilename();
+			//		logger.info("5.uploadedFiles path=========== " + path);
+					uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
+		//			logger.info("6.uploadedFiles=========== " + uploadedFiles);
+					
+					
 
 				}
 
@@ -341,7 +281,7 @@ public class UploadSwayamFileController {
 		ModelAndView modelAndView = new ModelAndView("upload");
 		modelAndView.addObject("files", uploadedFiles);
 		String name1 = uploadedFiles.get(0).getName();
-		logger.info("6.=====name1========" + name1);
+	//	logger.info("6.=====name1========" + name1);
 		// logger.info("7.uploadpath============= "+uploadpath);
 		File dir = new File(uploadpath);
 
@@ -350,11 +290,11 @@ public class UploadSwayamFileController {
 
 		// Create the file on server
 		File serverFile = new File(dir.getAbsolutePath() + File.separator + name1);
-		logger.info("7.Dir AbsolutePath=============" + dir.getAbsolutePath());
+	//	logger.info("7.Dir AbsolutePath=============" + dir.getAbsolutePath());
 		String path = serverFile.getAbsolutePath();
-		logger.info("8.Server File Location===========" + path);
+	//	logger.info("8.Server File Location===========" + path);
 		String result = uploadService.uploadKioskInformation(path);
-		logger.info("9.Result part done: " + result);
+//		logger.info("9.Result part done: " + result);
 
 		ResponseEntity<String> entity = ResponseEntity.ok(result);
 		logger.info("9.Transfer to entity");
@@ -366,80 +306,47 @@ public class UploadSwayamFileController {
 	// @PreAuthorize("hasPermission('UPDuploadCBSbrhm','CREATE')")
 	public ResponseEntity<String> uploadCBSbrhm(@RequestParam("BMFile") List<MultipartFile> files) {
 		List<FileInfo> uploadedFiles = new ArrayList<FileInfo>();
-		logger.info("files" + files);
+	//	logger.info("files" + files);
 		logger.info("i m inside uploadCBSbrhm");
 		if (!files.isEmpty()) {
 			try {
 				for (MultipartFile file : files) {
-					/*
-					 * String path = context.getRealPath("/resources/upload") + File.separator +
-					 * file.getOriginalFilename();
-					 */
-					/*
-					 * String fileName = file.getOriginalFilename(); Path paths =
-					 * Paths.get(fileName); Path orgFileName = paths.getFileName();
-					 * logger.info("1.File Name========== "+orgFileName);
-					 */
-					/*
-					 * commented temporarily for testing String path =
-					 * context.getRealPath("/resources/upload") + File.separator + orgFileName;
-					 */
-
-					/* String orgFileName_brmas = file.getOriginalFilename(); */
-					///////////////////////////////////////////////////////////////////////////////
+					
 					List<String> fileNames = new ArrayList<String>();
 					String fileName = file.getOriginalFilename();
 					fileNames.add(fileName);
-					 logger.info("1.File Name========== "+file.getOriginalFilename());
+			//		logger.info("1.File Name========== "+file.getOriginalFilename());
 					File imageFile = new File(context.getRealPath("/resources/upload"));
-					logger.info("imageFile path: "+imageFile.getPath());
-					logger.info("imageFile path1: "+context.getRealPath("/resources/upload"));
+		//			logger.info("imageFile path: "+imageFile.getPath());
+		//			logger.info("imageFile path1: "+context.getRealPath("/resources/upload"));
 					
-						if (!imageFile.exists())
-						{
-							imageFile.mkdirs();
-							logger.info("Directory created!!!"+imageFile);
-						}
+					if (!imageFile.exists())
+					{
+					imageFile.mkdirs();
+			//		logger.info("Directory created!!!"+imageFile);
+					}
 					//	imageFile = new File(context.getRealPath("/resources/upload"), fileName);
-						String path = context.getRealPath("/resources/upload") + File.separator + fileName;
-						logger.info("2.Path============ "+path);
-						File destinationFile = new File(path);	
-						 logger.info("3.name============= "+destinationFile.getName());
-							logger.info("//////////A.File transfer started!!!!!!!!!!!////////////////");
-							
-							file.transferTo(destinationFile);
-							logger.info("/////////////////File transfer completed: "+destinationFile.getPath());
-							logger.info("4.File Transfer done!!!!!!!!!");
-							 path = uploadpath  + file.getOriginalFilename();
-							  logger.info("5.uploadedFiles path=========== " + path);
-							  uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
-							  logger.info("6.uploadedFiles=========== " + uploadedFiles);
-		                
-					////////////////////////////////////////////////////////////////////////////////
+					String path = context.getRealPath("/resources/upload") + File.separator + fileName;
+			//		logger.info("2.Path============ "+path);
+					File destinationFile = new File(path);	
+			//		logger.info("3.name============= "+destinationFile.getName());
+					logger.info("//////////A.File transfer started!!!!!!!!!!!////////////////");
 					
+				//	file.transferTo(destinationFile);
+					// read and write the file to the selected location-
+					byte[] bytes = file.getBytes();
+					Path path1 = Paths.get(uploadpath + file.getOriginalFilename());
+			//		logger.info("File write path: "+path1.toString());
+					Files.write(path1, bytes);
 					
-				//	 logger.info("1.File Name========== "+file.getOriginalFilename());
-				//	  String path = "/resources/upload/"  + file.getOriginalFilename();
-				//	  logger.info("2.Path============ "+path);
-					//  File destinationFile = new File(path); 
-			//		  logger.info("3.name============= "+destinationFile.getName());
-				//	  file.transferTo(destinationFile);
-				//	  logger.info("4.File Transfer done!!!!!!!!!");
-				//	  path = uploadpath  + file.getOriginalFilename();
-					//  logger.info("5.uploadedFiles path=========== " + path);
-					//  uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
-					//  logger.info("6.uploadedFiles=========== " + uploadedFiles);
-					// String path =
-					// "/home/webadmin/wls/oracle/config/domains/TEST/servers/AdminServer/tmp/_WL_user/SMT2/pl2f58/public/resources/upload/"
-					// + orgFileName_brmas ;
-					/*
-					 * String path = uploadpath + orgFileName_brmas ; File destinationFile = new
-					 * File(path);
-					 */
-						/*
-						 * uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
-						 * logger.info("5.uploadedFiles=========== " + uploadedFiles);
-						 */
+			//		logger.info("/////////////////File transfer completed: "+path1.toString());
+					logger.info("4.File Transfer done!!!!!!!!!");
+					path = uploadpath  + file.getOriginalFilename();
+			//		logger.info("5.uploadedFiles path=========== " + path);
+					uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
+			//		logger.info("6.uploadedFiles=========== " + uploadedFiles);
+					
+			
 
 				}
 
@@ -452,11 +359,10 @@ public class UploadSwayamFileController {
 		ModelAndView modelAndView = new ModelAndView("upload");
 		modelAndView.addObject("files", uploadedFiles);
 		String name1 = uploadedFiles.get(0).getName();
-		logger.info("6.name1=======" + name1);
+	//	logger.info("6.name1=======" + name1);
 		// logger.info("7.uploadpath=============== "+uploadpath);
 		File dir = new File(uploadpath);
-		// File dir = new
-		// File("/home/webadmin/wls/oracle/config/domains/TEST/servers/AdminServer/tmp/_WL_user/SMT2/pl2f58/public/resources/upload/");
+		
 		if (!dir.exists())
 			dir.mkdirs();
 		
@@ -464,15 +370,12 @@ public class UploadSwayamFileController {
 		// Create the file on server
 		File serverFile = new File(dir.getAbsolutePath() + File.separator + name1);
 
-		logger.info("7.Dir AbsolutePath=============" + dir.getAbsolutePath());
+	//	logger.info("7.Dir AbsolutePath=============" + dir.getAbsolutePath());
 		String path = serverFile.getAbsolutePath();
-		// String path =
-		// "/home/webadmin/wls/oracle/config/domains/TEST/servers/AdminServer/tmp/_WL_user/SMT2/pl2f58/public/resources/upload/"+
-		// name1;
-		// String path = uploadpath + name1;
-		logger.info("8.Server File Location===========" + path);
+	
+	//	logger.info("8.Server File Location===========" + path);
 		String result = uploadService.uploadCBSbrhmInformation(path);
-		logger.info("9.Result part done: " + result);
+	//	logger.info("9.Result part done: " + result);
 
 		ResponseEntity<String> entity = ResponseEntity.ok(result);
 		logger.info("9.Transfer to entity");

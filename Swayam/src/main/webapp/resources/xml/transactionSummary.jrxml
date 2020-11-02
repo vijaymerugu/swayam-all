@@ -24,15 +24,18 @@
     <field name="lipiTxnCount" class="java.lang.Integer"></field>    
 
     <field name="forbesKioskCount" class="java.lang.Integer"></field>
-<field name="forbesTxnCount" class="java.lang.Integer"></field>
-<field name="cmsKioskCount" class="java.lang.Integer"></field>
+   <field name="forbesTxnCount" class="java.lang.Integer"></field>
+   <field name="cmsKioskCount" class="java.lang.Integer"></field>
 
     <field name="cmsTxnCount" class="java.lang.Integer"></field>
 
     <field name="manualTxn" class="java.lang.Integer"></field>    
 
     <field name="totalSwayamTxn" class="java.lang.Integer"></field>
-<field name="migrationPerc" class="java.lang.Double"></field>
+    <field name="migrationPerc" class="java.lang.Double"></field>
+   
+  
+
 
     <background>
 
@@ -54,9 +57,8 @@
                 </textElement>
 
                 <text><![CDATA[Swayam Migration Summary]]></text>
-
+                 
             </staticText>
-
         </band>
 
     </title>

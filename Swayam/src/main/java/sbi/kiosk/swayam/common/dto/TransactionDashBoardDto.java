@@ -39,6 +39,8 @@ public class TransactionDashBoardDto {
     private Integer totalSwayamTxn;
     private Integer manualTxn;
     private Double migrationPerc;  
+    
+    private String s1;  
       
       
       

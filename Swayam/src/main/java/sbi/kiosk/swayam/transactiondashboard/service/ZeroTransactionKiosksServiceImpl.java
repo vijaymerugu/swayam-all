@@ -98,4 +98,19 @@ public Page<DrillDown> findPaginatedByTxnDate(int page, int size, String type, S
 	return null;
 }
 
+@Override
+public String findZeroTxnLastUpdatedJob() {
+	// TODO Auto-	public String findCarrentRealTimeJob() {
+	String zeroTxnDate=null;
+	
+	try {
+		zeroTxnDate=zeroTransactionKiosksRepository.findCurrentDateAuditJob();
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	return zeroTxnDate;
+
+}
+
 }

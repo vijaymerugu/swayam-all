@@ -1,10 +1,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+  
+ <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ page trimDirectiveWhitespaces="true" %>
     
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
 <script	src="resources/js/angular.1.5.6.min.js"></script>
 <script src="resources/js/jquery.3.4.1.min.js"></script>
@@ -23,16 +27,10 @@
 
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-
-<link rel="stylesheet"
-	href="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css">
-	
-	<link rel="stylesheet"
-	href="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css">
+<link rel="stylesheet"	href="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css">
 <script
 	src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	
 <script
 	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
 	
@@ -48,31 +46,25 @@
 <div ng-controller="UserManagementCtrl as vm">
 
 <!--  -->
-
-
 <div>
 
 			  <table class="table1"
 				style="top: 152px; left: 15px; width: 1336px; height: 190px; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1;">
 
-
-
-
-
-
 				<thead>
-					<tr
+						<tr
 						style="color: #000000; font-size: 12px; font-weight: bold; display: inline-block; width: 100px;"
 						width="10%">
 						<th id="noOfUsers" colspan="2" align="center">Summary</th>
 					</tr>
 					<tr></tr>
 
-					<tr
+
+				<tr
 						style="color: #000000; font-size: 12px; font-weight: bold; width: 119px;" >
-						<th colspan="4" style="text-align: -webkit-center;">PB STATUS</th>
+						<th colspan="4" style="text-align: -webkit-center;">PRINTER STATUS</th>
 						<th colspan="3" style="text-align: centor;">CARTRIDGE STATUS</th>
-						<th colspan="3" style="text-align: centor;">ANTIVIRUS STATUS</th>
+						<th colspan="3" style="text-align: centor;">AGENT STATUS</th>
 						<th colspan="3" style="text-align: centor;">APPLICATION  STATUS</th>
 						
 					</tr>
@@ -83,14 +75,14 @@
 				<tbody>
 					<tr align="center">
 						<td id="count1">
-						  <a ng-click="getCountType('NoOfRedPVSRed')"><c:out value="${mapAgentStatusCount['RedCount']}"/></a></td>
+						  <a ng-click="getCountType('NoOfRedPVSRed')"><c:out value="${mapAgentStatusCount['PrinterStatusRedCount']}"/></a></td>
 						
 						<td id="count1">
-						 <a ng-click="getCountType('NoOfGreenPVSGreen')"><c:out value="${mapAgentStatusCount['GreenCount']}"/></a>  					
+						 <a ng-click="getCountType('NoOfGreenPVSGreen')"><c:out value="${mapAgentStatusCount['PrinterStatusGreenCount']}"/></a>  					
 						</td>
 						
 						<td id="count1" style="border-right: solid 1px #0307fc;">
-						<a ng-click="getCountType('NoOfGreyPVSGrey')"><c:out value="${mapAgentStatusCount['GreyCount']}"/></a></td>   
+						<a ng-click="getCountType('NoOfGreyPVSGrey')"><c:out value="${mapAgentStatusCount['PrinterStatusGreyCount']}"/></a></td>   
 
 						 <td id="count1">
 						 <a ng-click="getCountType('NoOfRedCARTRed')"><c:out value="${mapAgentStatusCount['RedCartriCount']}"/></a>
@@ -104,13 +96,13 @@
 						</td>
 						
 						<td id="count1">
-						<a ng-click="getCountType('NoOfRedANTRed')"><c:out value="${mapAgentStatusCount['RedAntivirusCount']}"/></a>
+						<a ng-click="getCountType('NoOfRedANTRed')"><c:out value="${mapAgentStatusCount['AgentStatusRedCount']}"/></a>
 						</td>
 						<td id="count1">
-						<a ng-click="getCountType('NoOfGreenANTGreen')"><c:out value="${mapAgentStatusCount['GreenAntivirusCount']}"/></a>
+						<a ng-click="getCountType('NoOfGreenANTGreen')"><c:out value="${mapAgentStatusCount['AgentStatusGreenCount']}"/></a>
 						</td>
 						<td id="count1" style="border-right: solid 1px #0307fc;">
-						<a ng-click="getCountType('NoOfGreyANTGrey')"><c:out value="${mapAgentStatusCount['GreyAntivirusCount']}"/></a>
+						<a ng-click="getCountType('NoOfGreyANTGrey')"><c:out value="${mapAgentStatusCount['AgentStatusGreyCount']}"/></a>
 						</td>
 
 						<td id="count1">
@@ -150,32 +142,66 @@
 				</tbody>
 			</table>
 		</div>
-
 <br/>
-	<br/>
-
-
-
-
-
-
-
-
-
-<br/><br/>
-		<div class="submain">
+	<div class="submain">
 	
 	<br/>
-	<br/>
 	<input  ng-model="searchText" ng-change="refresh()" placeholder="Enter Kiosk Id,Agent Status etc." style="font-size: 12px" size="150" height="80" id="input" class="form-group has-search">
-		
+		<span style="float:right">
+		<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
+		<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>
+		&nbsp;&nbsp;&nbsp;
+		</span>		
 		<br/>
 		<br/>
 		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter id="test"></div>
     </div>
 	</div>
-</div>	
+</div>		
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+	    
+    $(".openpdfonclick").click(function(){
+    	
+        $.ajax({
+            url: 'report?page=terminalStatus&type=pdf',
+            type: 'GET',   
+            success: function(data){
+            	if(data.includes(".pdf")){
+            		console.log("PDF Data1" + data);
+            		window.open("resources/download/"+data , '_blank'); 
+            		
+            	}else{
+            		console.log("PDF Data" + data);
+            		alert("No Data to Export");
+            	} 
+            }
+        });
+    });
+    $(".openxlonclick").click(function(){    	
+        $.ajax({
+            url: 'report?page=terminalStatus&type=excel',
+            type: 'GET',   
+            success: function(data){
+            	if(data.includes(".xlsx")){
+            		console.log("Excel Data1" + data);
+            		window.open("resources/download/"+data , '_blank'); 
+            		
+            	}else{
+            		console.log("Excel Data" + data);
+            		alert("No Data to Export");
+            	}  
+            }
+        });
+    });
+}); 
+	
+	
+</script>
+
 
 </body>
- 
+ <sec:csrfInput />  
 </html>

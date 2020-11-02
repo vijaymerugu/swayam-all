@@ -3,7 +3,10 @@ package sbi.kiosk.swayam.kioskmanagement.service;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -440,7 +443,26 @@ public class UploadServiceImpl implements UploadService {
 					entity.setVendor(lidtDto1.getVendor());//2
 					
 					////////////////////////////
-					entity.setInstallationDate(lidtDto1.getInstallationDate());//3
+				//	entity.setInstallationDate(lidtDto1.getInstallationDate());//3
+					String installationDate = "";
+					try {
+					String sDate1=lidtDto1.getInstallationDate();
+					  
+					  logger.info("Installation date in entity format: "+sDate1); 
+					  SimpleDateFormat formatter = new SimpleDateFormat("dd-mm-yy");
+					  Date date = formatter.parse(sDate1);
+					  
+					  installationDate =  new SimpleDateFormat("dd-mm-yyyy").format(date);
+					  
+					  logger.info("installationDate date in String format: "+installationDate);
+					  entity.setInstallationDate(installationDate);//3
+					}
+					catch (Exception e) {
+						logger.error("Exception "+ExceptionConstants.DATE_EXCEPTION);
+						installationDate = "";
+						lidtDto1.setInstallationDate("");
+						 entity.setInstallationDate(installationDate);//3
+					} 
 					entity.setKioskIp(lidtDto1.getKioskIPAddress());// 4
 					entity.setKioskMacAddress(lidtDto1.getKioskMacAddress());//5
 					entity.setSiteType(lidtDto1.getSiteType());//6
@@ -1434,7 +1456,28 @@ public class UploadServiceImpl implements UploadService {
 			for (HolidayCalendarDto lidtDto1 : lidtDto) {
 				if (count != 0) {
 					entity = new HolidayCalendar();
-					entity.setHolidayDate(lidtDto1.getHolidayDate());
+					
+				//	entity.setHolidayDate(lidtDto1.getHolidayDate());
+					String holidayDate = "";
+				try {	
+					  String sDate1=lidtDto1.getHolidayDate();
+					  
+					  logger.info("Holiday date in entity format: "+sDate1); 
+				//	  SimpleDateFormat formatter = new SimpleDateFormat("mm/dd/yyyy");
+					  SimpleDateFormat formatter = new SimpleDateFormat("dd-mm-yyyy");
+					  Date date = formatter.parse(sDate1);
+					  holidayDate =  new SimpleDateFormat("dd-mm-yyyy").format(date);
+					   
+					  logger.info("Holiday date in String format: "+holidayDate);
+					  entity.setHolidayDate(holidayDate);
+				}
+				catch (Exception e) {
+					logger.error("Exception "+ExceptionConstants.DATE_EXCEPTION);
+					holidayDate = "";
+					lidtDto1.setHolidayDate("");
+					 entity.setHolidayDate(holidayDate);//3
+				} 
+					 
 					entity.setDay(lidtDto1.getDay());
 					entity.setName(lidtDto1.getName());// null
 					entity.setCircle(lidtDto1.getCircle());
@@ -1552,6 +1595,7 @@ public class UploadServiceImpl implements UploadService {
 			logger.info("Error file path: "+reportPath1+filename);
 			FileOutputStream out = new FileOutputStream(
 					new File(reportPath1+filename));
+			
 			workbook1.write(out);
 			out.close();
 		} catch (Exception e) {

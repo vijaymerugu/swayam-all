@@ -24,6 +24,46 @@
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
+    
+    <style>
+       .ui-grid-header-cell-label {
+		display:inline-block;
+		white-space:initial;
+		 font-size: 15px;
+		}
+		
+		
+		.wrap-text .ui-grid-cell-contents {
+ 		 white-space:normal;
+		}
+
+		[ui-grid-row] {
+  		display: table-row;
+		}
+
+		.ui-grid-row, .ui-grid-cell {
+  		height: auto!important;
+		}
+
+			.ui-grid-cell {
+  			float: none;
+  			display: table-cell;
+			} 
+		
+		
+			.ui-grid-header-cell, .ui-grid-cell-contents {
+  			white-space: normal;
+  			padding: 2px;
+  			word-break: break-word;
+			}
+ 			 .ui-grid, .ui-grid-viewport {
+   			  height: auto !important; 
+			}
+			.ui-grid-pager-panel {
+		     position: relative;
+			 }
+</style>	
+    
 </head>
 <body>
 <div class="main" ng-app="app" id="appId">

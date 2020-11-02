@@ -68,19 +68,19 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 
     columnDefs: [
       { name: 'userId', displayName: 'Sr No'  },
-      { name: 'pfId', displayName: 'PF ID'  },
-      { name: 'username', displayName: 'Username'  },      
+      { name: 'pfId', displayName: 'PF ID / User name'  },
+      { name: 'username', displayName: 'Employee Name'  },      
       { name: 'role', displayName: 'Role'  },
       { name: 'reportingAuthorityName', displayName: 'Reporting Authority'  },
       { name: 'Edit',
     	  exporterSuppressExport: true,
     	  headerCellTemplate: '<div></div>',
-    	  cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.userId)">Edit</a></div>'
+    	  cellTemplate: '<div class="ui-grid-cell-contents"><a style="cursor: hand; cursor: pointer;" ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.userId)">Edit</a></div>'
       },
       { name: 'Delete',
     	  exporterSuppressExport: true,
     	  headerCellTemplate: '<div></div>',
-    	  cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.loadHomeBodyPageFormsDel(row.entity.userId)">Delete</a></div>'
+    	  cellTemplate: '<div class="ui-grid-cell-contents"><a style="cursor: hand; cursor: pointer;" ng-click="grid.appScope.loadHomeBodyPageFormsDel(row.entity.userId)">Delete</a></div>'
       }
     ],
     onRegisterApi: function(gridApi) {

@@ -5,6 +5,6 @@ public class ExceptionConstants {
 	public static final String AUTHENTICATION_ERROR = "AUTHENTICATION ERROR";
 	public static final String PARSE_EXCEPTION = "PARSE EXCEPTION";
 	public static final String EXCEPTION = "RUNTIME EXCEPTION";
-	
+	public static final String DATE_EXCEPTION = "DATE FORMAT EXCEPTION";
 	
 }

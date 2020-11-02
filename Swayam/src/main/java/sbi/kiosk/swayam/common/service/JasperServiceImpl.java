@@ -199,6 +199,7 @@ public class JasperServiceImpl implements JasperService {
 			if (identifyPage.equals("userListSA")) {
 				List<UserManagementDto> list = findUsersBySA();
 				 if(list.isEmpty()) {
+
 						return filename;
 					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "usersListSA.jrxml");
@@ -405,6 +406,7 @@ public class JasperServiceImpl implements JasperService {
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
 				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 				//filename = "BillingPenalty_" + timeStamp + ".pdf";
+
 				//Sharan Change-01-11-2020				
 				String quarter= report.getTimePeiod().substring(0, 2);
 				String finacialYear= report.getTimePeiod().substring(3);
@@ -438,6 +440,7 @@ public class JasperServiceImpl implements JasperService {
 			
 				//filename =fileName+".pdf";
 				//System.out.println("Final File Name" + filename);
+
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 				}
 			}else if(identifyPage.equals("invoiceReport")) {
@@ -454,6 +457,7 @@ public class JasperServiceImpl implements JasperService {
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
 				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 				//filename = "InvoiceGeneration_" + timeStamp + ".pdf";
+
 				
 				//Sharan Change-01-11-2020				
 				String quarter= report.getTimePeiod().substring(0, 2);
@@ -493,6 +497,7 @@ public class JasperServiceImpl implements JasperService {
 				 * "").substring(0, 6) + "_" + (new SimpleDateFormat("dd-MM-yyyy")).format(new
 				 * Date()).replace("-", "").substring(0, 6); filename =fileName+".pdf";
 				 */
+
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 				}
 			}
@@ -511,6 +516,7 @@ public class JasperServiceImpl implements JasperService {
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
 				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 				//filename = "InvoiceCompare_" + timeStamp + ".pdf";
+
 				
 				//Sharan Change-01-11-2020				
 				String quarter= report.getTimePeiod().substring(0, 2);
@@ -551,6 +557,7 @@ public class JasperServiceImpl implements JasperService {
 				 * "").substring(0, 6) + "_" + (new SimpleDateFormat("dd-MM-yyyy")).format(new
 				 * Date()).replace("-", "").substring(0, 6); filename =fileName+".pdf";
 				 */
+
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 				}
 			}else if(identifyPage.equals("invoiceSummaryReport")) {
@@ -565,6 +572,7 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+
 //				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 //				filename = "InvoiceSummary_" + timeStamp + ".pdf";
 				
@@ -582,6 +590,7 @@ public class JasperServiceImpl implements JasperService {
 				 * "").substring(0, 6) + "_" + (new SimpleDateFormat("dd-MM-yyyy")).format(new
 				 * Date()).replace("-", "").substring(0, 6); filename =fileName+".pdf";
 				 */
+
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 				}
 			}
@@ -1009,6 +1018,7 @@ public class JasperServiceImpl implements JasperService {
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
 				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 				//filename = "BillingPenalty_" + timeStamp + ".xlsx";
+
 				
 				String quarter= report.getTimePeiod().substring(0, 2);
 				String finacialYear= report.getTimePeiod().substring(3);
@@ -1049,6 +1059,7 @@ public class JasperServiceImpl implements JasperService {
 				 * "").substring(0, 6) + "_" + (new SimpleDateFormat("dd-MM-yyyy")).format(new
 				 * Date()).replace("-", "").substring(0, 6); filename =fileName+".xlsx";
 				 */
+
 				xlsx(jasperPrint, filename);
 				}
 			}else if(identifyPage.equals("invoiceReport")) {
@@ -1066,6 +1077,7 @@ public class JasperServiceImpl implements JasperService {
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
 				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 				//filename = "InvoiceGeneration_" + timeStamp + ".xlsx";
+
 				
 				//Sharan Change-01-11-2020				
 				String quarter= report.getTimePeiod().substring(0, 2);
@@ -1107,6 +1119,7 @@ public class JasperServiceImpl implements JasperService {
 				 * "").substring(0, 6) + "_" + (new SimpleDateFormat("dd-MM-yyyy")).format(new
 				 * Date()).replace("-", "").substring(0, 6); filename =fileName+".xlsx";
 				 */
+
 				xlsx(jasperPrint, filename);
 				}
 			}
@@ -1126,6 +1139,7 @@ public class JasperServiceImpl implements JasperService {
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
 				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 				//filename = "InvoiceCompare_" + timeStamp + ".xlsx";
+
 				
 				
 				//Sharan Change-01-11-2020				
@@ -1165,6 +1179,7 @@ public class JasperServiceImpl implements JasperService {
 				 * "").substring(0, 6) + "_" + (new SimpleDateFormat("dd-MM-yyyy")).format(new
 				 * Date()).replace("-", "").substring(0, 6); filename =fileName+".xlsx";
 				 */
+
 				xlsx(jasperPrint, filename);
 			}
 			}else if(identifyPage.equals("invoiceSummaryReport")) {
@@ -1183,6 +1198,7 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+
 //				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 //				filename = "InvoiceSummary_" + timeStamp + ".xlsx";
 				
@@ -1199,6 +1215,7 @@ public class JasperServiceImpl implements JasperService {
 				 * "").substring(0, 6) + "_" + (new SimpleDateFormat("dd-MM-yyyy")).format(new
 				 * Date()).replace("-", "").substring(0, 6); filename =fileName+".xlsx";
 				 */
+
 				xlsx(jasperPrint, filename);
 				}
 			}
