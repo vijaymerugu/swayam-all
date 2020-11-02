@@ -1,4 +1,7 @@
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="s"%>
+<%@ page import = "java.util.Date" %>
+<%@ page import = "java.text.SimpleDateFormat" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +9,7 @@
 
 <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
 <link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
-<script src="resources/js/moment-with-locales.min.js"></script>
+<!-- <script src="resources/js/moment-with-locales.min.js"></script> -->
 <script	src="resources/js/angular.1.5.6.min.js"></script>
  <script src="resources/js/transaction-summry-app.js"></script>
 <script	src="resources/js/angular.1.5.6.min.js"></script>
@@ -26,6 +29,35 @@
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
+     <script>
+  $.ajax({
+  	type:"GET",
+  	url:"td/getSwayamMigrationLastUpDated",
+      success: function(data){
+    	//  alert("dddd=")
+      	console.log("inside data");
+  	    respos=data;
+  	 console.log("response "+respos);
+       $("#dateId").html(data);
+
+      }
+   	   });
+  </script>
+  
+ <%--    <script>
+  $.ajax({
+  	type:"GET",
+  	url:"td/getAllIndiaDate",
+      success: function(data){
+    	//  alert("dddd=")
+      	console.log("inside data");
+  	    respos=data;
+  	 console.log("response "+respos);
+       $("#allIndiaDateId").html(data);
+
+      }
+   	   });
+  </script> --%>
     
 <script>
 	$(document).ready(function() {
@@ -75,7 +107,21 @@
     
 </style>
 
+<script type="text/javascript">
+$("#myBtn").click(function(){
+	var frmDate=document.getElementById("datepickerFromDate").value;  
+	//alert(frmDate);  
+	if (frmDate!=null)
+		{
+		$("#mySpan1").show();
+		$("#mySpan").hide();
+		}
+	});
+
+</script>
+
 </head>
+
 <body>
 <div class="main" ng-app="app" id="appId">
 <div ng-controller="UserManagementCtrl as vm">
@@ -84,19 +130,24 @@
 					<div>
 						<br /> From Date: <input type="text" id="datepickerFromDate" name="input1"  class="datepicker" ng-model="searchDateStart" readonly="readonly" placeholder="dd-mm-yyyy" required maxlength="10" style="cursor: hand;cursor: pointer;"/> 
 							To Date : <input type="text" id="datepickerToDate" name="input2" class="datepicker" ng-model="searchDateEnd" readonly="readonly" placeholder="dd-mm-yyyy" required maxlength="10" style="cursor: hand;cursor: pointer;" />
-						<button type="button" id="myBtn" ng-click="searchPositions(searchDateStart,searchDateEnd) " style="cursor: hand;cursor: pointer;">Generate</button>
+						<button type="button"    id="myBtn" ng-click="searchPositions(searchDateStart,searchDateEnd) " style="cursor: hand;cursor: pointer;">Generate</button>
 					</div>
 				</table>
 			</div>
 			<br />
 		<table>
-  <div colspan="4" align="center" style="color: #00BFFF;font-size: 12px;font-weight: bold;"> All India branch view on <span>{{CurrentDate | date:'EEE,dd MMM, yyyy hh:mm:ss a'}}</span>  </div> 
+   <h1 colspan="4" align="center" style="color: #00BFFF;font-size: 12px;font-weight: bold;"> All India branch view on
+    <span  id="mySpan">  {{CurrentDate | date:'EEE,dd MMM, yyyy hh:mm:ss a'}}</span> 
+    <span  id="mySpan1"> {{allIndiaDate}} </span> 
+  
+  </h1> 
+			 
 			    </table>
 			<br>	
 			<div>
 			
-			<pre align="left" style="background-color: #00BFFF;color: white;font-size:12px;font-weight: bold;">
-<span>Overall Branch Wise Swayam Transactions<span colspan="4" align="center" style="color: white;font-size: 12px;font-weight: bold;float:right; margin-right:1em">Last Updated :<span>{{CurrentDate | date:'dd:MM:yyyy'}}</span></span>
+			<pre align="left" style="background-color: #00BFFF;color: white;font-size:24px;font-weight: bold;">
+<span>Overall Branch Wise Swayam Transactions<span colspan="4" align="center" style="color: white;font-size: 24px;font-weight: bold;float:right; margin-right:1em">Last Updated :<span id="dateId"></span></span>
 </span>
 </pre>
 			
@@ -150,7 +201,9 @@
 		&nbsp;&nbsp;&nbsp;
 		</span>		
 		<br/>
-		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-selection ui-grid-exporter id="test"></div>
+		
+		
+		<div   ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-selection ui-grid-exporter id="test"></div>
     </div>
 </div>	
 </div>
@@ -179,8 +232,15 @@
     	            url: 'report?page=transactionSummary&type=pdf ',
     	            type: 'GET',  
     	            success: function(data){
-    	            	console.log(data);
-    	            	window.open("resources/download/"+data , '_blank');  
+    	            	if(data.includes(".pdf")){
+    	            		console.log("PDF Data1" + data);
+    	            		window.open("resources/download/"+data , '_blank'); 
+    	            		
+    	            	}else{
+    	            		console.log("PDF Data" + data);
+    	            		alert("No Data to Export");
+    	            	}  
+
     	            }
     	        });
     	    });
@@ -189,8 +249,15 @@
     	            url: 'report?page=transactionSummary&type=excel',
     	            type: 'GET',   
     	            success: function(data){
-    	            	console.log(data);
-    	            	window.open("resources/download/"+data , '_blank');  
+    	            	if(data.includes(".xlsx")){
+    	            		console.log("Excel Data1" + data);
+    	            		window.open("resources/download/"+data , '_blank'); 
+    	            		
+    	            	}else{
+    	            		console.log("Excel Data" + data);
+    	            		alert("No Data to Export");
+    	            	}  
+
     	            }
     	        });
     	    });

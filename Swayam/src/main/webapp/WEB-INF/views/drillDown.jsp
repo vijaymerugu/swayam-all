@@ -8,7 +8,7 @@
 
 <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
 <link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
-<script src="resources/js/moment-with-locales.min.js"></script>
+<!-- <script src="resources/js/moment-with-locales.min.js"></script> -->
 <script	src="resources/js/angular.1.5.6.min.js"></script>
  <script src="resources/js/drill-down.js"></script>
 <script	src="resources/js/angular.1.5.6.min.js"></script>
@@ -157,7 +157,14 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
     	            type: 'GET',   
     	            success: function(data){
     	            	console.log(data);
-    	            	window.open("resources/download/"+data , '_blank');  
+    	            	if(data.includes(".pdf")){
+    	            		console.log("PDF Data1" + data);
+    	            		window.open("resources/download/"+data , '_blank'); 
+    	            		
+    	            	}else{
+    	            		console.log("PDF Data" + data);
+    	            		alert("No Data to Export");
+    	            	}   
     	            }
     	        });
     	    });
@@ -167,7 +174,14 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
     	            type: 'GET',   
     	            success: function(data){
     	            	console.log(data);
-    	            	window.open("resources/download/"+data , '_blank');  
+    	            	if(data.includes(".xlsx")){
+    	            		console.log("Excel Data1" + data);
+    	            		window.open("resources/download/"+data , '_blank'); 
+    	            		
+    	            	}else{
+    	            		console.log("Excel Data" + data);
+    	            		alert("No Data to Export");
+    	            	}    
     	            }
     	        });
     	    });

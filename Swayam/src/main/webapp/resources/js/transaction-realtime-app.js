@@ -13,11 +13,14 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    
    var yesterdayType = "today";
    $scope.CurrentDate = new Date();
+   
+   //$scope.date = new Date();  
+   
+  
    $scope.getCountType = function(yesterday){
 	    yesterdayType=yesterday;
 	   UserManagementService.getUsers(paginationOptions.pageNumber,
 			   paginationOptions.pageSize,yesterdayType).success(function(data){
-				   
 					  $scope.gridOptions.data = data.content;
 				 	  $scope.gridOptions.totalItems = data.totalElements;
 				   });
@@ -64,16 +67,15 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 
    UserManagementService.getUsers(paginationOptions.pageNumber,
 		   paginationOptions.pageSize,yesterdayType).success(function(data){
-		   
-		   if($scope.gridOptions.data.length==0){
-		      console.log("data=============",data);   
-              alert("No data to displayed.");
+		    $scope.allIndiaDate = "Today: ";
+		  /* if(yesterdayType.equals("today")){
+		    $scope.allIndiaDate = "Today: ";
 		   }else{
-		    $scope.gridOptions.data = data.content;
- 	        $scope.gridOptions.totalItems = data.totalElements;
-		   }
+		    $scope.allIndiaDate = "Yesterday: ";
+		   }*/
 		  
-	 
+		   $scope.gridOptions.data = data.content;
+	       $scope.gridOptions.totalItems = data.totalElements;
    });
    
    $scope.gridOptions = {

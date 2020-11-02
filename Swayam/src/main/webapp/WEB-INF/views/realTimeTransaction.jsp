@@ -5,6 +5,7 @@
 <html lang="en">
 <meta http-equiv="x-ua-compatible" content="IE=edge">
 <head>
+
  <script src="resources/js/transaction-realtime-app.js"></script>
  
 <script	src="resources/js/angular.1.5.6.min.js"></script>
@@ -86,6 +87,19 @@
   
 </style>	
 
+<script type="text/javascript">
+$("#myBtn").click(function(){
+	var frmDate=document.getElementById("input").value;  
+	//alert(frmDate);  
+	if (frmDate!=null)
+		{
+		$("#mySpan1").show();
+		$("#mySpan").hide();
+		}
+	});
+
+</script>
+
 </head>
 <body>
 
@@ -93,12 +107,15 @@
 <div ng-controller="UserManagementCtrl as vm">
 
 <table>
-  <h1 colspan="4" align="center" style="color: #00BFFF;font-size: 12px;font-weight: bold;"> Real-time Swayam Transaction on <span>{{CurrentDate | date:'EEE,dd MMM, yyyy hh:mm:ss a'}}</span>  </h1> 
+  <h1 colspan="4" align="center" style="color: #00BFFF;font-size: 12px;font-weight: bold;"> Real-time Swayam Transaction on
+    <span  id="mySpan1"> {{allIndiaDate}} </span>
+     <span  id="mySpan">  {{CurrentDate | date:'EEE,dd MMM, yyyy hh:mm:ss a'}}</span>
+   </h1> 
 
     </table>
 		<table style="border-spacing: 50px;">
         <tr>
-           <td> <input value="Yesterday" class="openFinalPopup" ng-model="date" type="button" style="font-size: 20px;width: 106px;height: 30px;"/></td>
+           <td> <input id="myBtn" value="Yesterday" class="openFinalPopup" ng-model="date" type="button" style="font-size: 20px;width: 106px;height: 30px;"/></td>
         </tr>
 		</table>
 		<br/>
@@ -109,8 +126,8 @@
  <span colspan="4" align="center" style="color: white;font-size: 12px;font-weight: bold;float:right; margin-right:1em">Last Updated :<span id="dateId"></span></span> 
 </pre> -->
 
-<pre align="left" style="background-color: #00BFFF;color: white;font-size:12px;font-weight: bold;">
-     <span>Real-time Swayam Transactions<span colspan="4" align="center" style="color: white;font-size: 12px;font-weight: bold;float:right; margin-right:1em">Last Updated :<span id="dateId"></span></span>
+<pre align="left" style="background-color: #00BFFF;color: white;font-size:24px;font-weight: bold;">
+     <span>Real-time Swayam Transactions<span colspan="4" align="center" style="color: white;font-size: 24px;font-weight: bold;float:right; margin-right:1em">Last Updated :<span id="dateId"></span></span>
     </span>
 </pre>
 </div>
@@ -179,7 +196,14 @@ $(document).ready(function(){
     	            type: 'GET',   
     	            success: function(data){
     	            	console.log(data);
-    	            	window.open("resources/download/"+data , '_blank');  
+    	            	if(data.includes(".pdf")){
+    	            		console.log("PDF Data1" + data);
+    	            		window.open("resources/download/"+data , '_blank'); 
+    	            		
+    	            	}else{
+    	            		console.log("PDF Data" + data);
+    	            		alert("No Data to Export");
+    	            	}  
     	            }
     	        });
     	    });
@@ -189,7 +213,15 @@ $(document).ready(function(){
     	            type: 'GET',   
     	            success: function(data){
     	            	console.log(data);
-    	            	window.open("resources/download/"+data , '_blank');  
+    	            	if(data.includes(".xlsx")){
+    	            		console.log("Excel Data1" + data);
+    	            		window.open("resources/download/"+data , '_blank'); 
+    	            		
+    	            	}else{
+    	            		console.log("Excel Data" + data);
+    	            		alert("No Data to Export");
+    	            	}  
+   
     	            }
     	        });
     	    });

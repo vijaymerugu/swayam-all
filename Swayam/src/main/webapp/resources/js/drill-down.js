@@ -86,8 +86,14 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
     	
     	DrillDownService.getUsers(paginationOptions.pageNumber,
     			   paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
-    		  $scope.gridOptions.data = data.content;
-    	 	  $scope.gridOptions.totalItems = data.totalElements;
+    		if(data.totalElements==0){
+										$scope.gridOptions.data = data.content;
+										$scope.gridOptions.totalItems = data.totalElements;
+										alert("No results found for given search criteria")
+									}else{
+										$scope.gridOptions.data = data.content;
+										$scope.gridOptions.totalItems = data.totalElements;
+									}
     	   });
 	
    };
@@ -128,15 +134,9 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
 
    DrillDownService.getUsers(paginationOptions.pageNumber,
 		   paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
-	 if( $scope.gridOptions.data.length==0){
-		      console.log("data=============",data);   
-              alert("No data to displayed.");
-		   }else{
-		    $scope.gridOptions.data = data.content;
- 	        $scope.gridOptions.totalItems = data.totalElements;
-		   }
-	//  $scope.gridOptions.data = data.content;
- 	//  $scope.gridOptions.totalItems = data.totalElements;
+	
+	 $scope.gridOptions.data = data.content;
+ 	 $scope.gridOptions.totalItems = data.totalElements;
    });
    
    $scope.gridOptions = {

@@ -357,7 +357,7 @@ public Page<TicketCentor> findAllTicketCentor3DaysGreaterAndCMSUser(@Param("pfId
 public Page<TicketCentor> findAllTicketCentor1Days(Pageable pageable);
 
 
-@Query(value = " SELECT * from TBL_TICKET_CENTRE where (AGEING>8 and AGEING<=24) ", nativeQuery = true)
+@Query(value = " SELECT * from TBL_TICKET_CENTRE where (AGEING>=8 and AGEING<=24) ", nativeQuery = true)
 public Page<TicketCentor> findAllTicketCentor3DaysLess(Pageable pageable);
 
 

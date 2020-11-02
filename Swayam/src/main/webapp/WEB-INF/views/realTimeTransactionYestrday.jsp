@@ -4,6 +4,7 @@
 <html lang="en">
 
 <head>
+
 <meta http-equiv="x-ua-compatible" content="IE=edge">
  <script src="resources/js/transaction-realtime-yesterday-app.js"></script>
 <script	src="resources/js/angular.1.5.6.min.js"></script>
@@ -79,6 +80,18 @@
 			}
   
 </style>	
+<script type="text/javascript">
+$("#myBtn").click(function(){
+	var frmDate=document.getElementById("input").value;  
+	//alert(frmDate);  
+	if (frmDate!=null)
+		{
+		$("#mySpan1").show();
+		$("#mySpan").hide();
+		}
+	});
+
+</script>
 
 </head>
 <body>
@@ -88,17 +101,20 @@
 
 
  <table>
-  <h1 colspan="4" align="center" style="color: #00BFFF;font-size: 12px;font-weight: bold;"> Real-time Swayam Transaction on <span>{{CurrentDate | date:'EEE,dd MMM, yyyy hh:mm:ss a'}}</span> </h1> 
+   <h1 colspan="4" align="center" style="color: #00BFFF;font-size: 12px;font-weight: bold;"> Real-time Swayam Transaction on
+    <span  id="mySpan1"> {{allIndiaDate}} </span>
+     <span  id="mySpan">  {{CurrentDate | date:'EEE,dd MMM, yyyy hh:mm:ss a'}}</span>
+   </h1> 
     </table>
 
 <table>
         <tr>
-  <h1 colspan="4" align="right"><input value="Today" class="openFinalPopup" ng-model="date" type="button" style="font-size: 20px;width: 80px;height: 30px;" /></h1>   
+  <h1 colspan="4" align="right"><input id="myBtn" value="Today" class="openFinalPopup" ng-model="date" type="button" style="font-size: 20px;width: 80px;height: 30px;" /></h1>   
  </tr>
 </table>
 <div>
-	<pre align="left" style="background-color: #00BFFF;color: white;font-size:12px;font-weight: bold;">
-     <span>Real-time Swayam Transactions<span colspan="4" align="center" style="color: white;font-size: 12px;font-weight: bold;float:right; margin-right:1em">Last Updated :<span id="dateId"></span></span>
+	<pre align="left" style="background-color: #00BFFF;color: white;font-size:24px;font-weight: bold;">
+     <span>Real-time Swayam Transactions<span colspan="4" align="center" style="color: white;font-size: 24px;font-weight: bold;float:right; margin-right:1em">Last Updated :<span id="dateId"></span></span>
     </span>
 </pre>
 
@@ -171,7 +187,14 @@ $(document).ready(function(){
     	            type: 'GET',   
     	            success: function(data){
     	            	console.log(data);
-    	            	window.open("resources/download/"+data , '_blank');  
+    	            	if(data.includes(".pdf")){
+    	            		console.log("PDF Data1" + data);
+    	            		window.open("resources/download/"+data , '_blank'); 
+    	            		
+    	            	}else{
+    	            		console.log("PDF Data" + data);
+    	            		alert("No Data to Export");
+    	            	}  
     	            }
     	        });
     	    });
@@ -181,7 +204,15 @@ $(document).ready(function(){
     	            type: 'GET',   
     	            success: function(data){
     	            	console.log(data);
-    	            	window.open("resources/download/"+data , '_blank');  
+    	            	if(data.includes(".xlsx")){
+    	            		console.log("Excel Data1" + data);
+    	            		window.open("resources/download/"+data , '_blank'); 
+    	            		
+    	            	}else{
+    	            		console.log("Excel Data" + data);
+    	            		alert("No Data to Export");
+    	            	}  
+
     	            }
     	        });
     	    });

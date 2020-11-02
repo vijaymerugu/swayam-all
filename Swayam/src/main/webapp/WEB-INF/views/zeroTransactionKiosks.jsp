@@ -3,11 +3,9 @@
 <html lang="en">
 <head>
 
-
-
 <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
 <link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
-<script src="resources/js/moment-with-locales.min.js"></script>
+<!-- <script src="resources/js/moment-with-locales.min.js"></script> -->
 <script	src="resources/js/angular.1.5.6.min.js"></script>
  <script src="resources/js/zero-transaction-kiosks.js"></script>
 <script	src="resources/js/angular.1.5.6.min.js"></script>
@@ -27,6 +25,22 @@
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
+    
+      <script>
+  $.ajax({
+  	type:"GET",
+  	url:"td/getZeroLastUpDated",
+      success: function(data){
+    	//  alert("dddd=")
+      	console.log("inside data");
+  	    respos=data;
+  	 console.log("response "+respos);
+       $("#dateId").html(data);
+
+      }
+   	   });
+  </script>
+    
 
 <script>
 	$(document).ready(function() {
@@ -76,6 +90,20 @@
   
 </style>	
 
+
+<script type="text/javascript">
+$("#myBtn").click(function(){
+	var frmDate=document.getElementById("datepickerFromDate").value;  
+	//alert(frmDate);  
+	if (frmDate!=null)
+		{
+		$("#mySpan1").show();
+		$("#mySpan").hide();
+		}
+	});
+
+</script>
+
 </head>
 <body>
 
@@ -91,7 +119,7 @@
 					 	<br /> From Date: <input type="text" id="datepickerFromDate" name="input1" readonly="readonly" class="datepicker" ng-model="searchDateStart" placeholder="dd-mm-yyyy" required maxlength="10" style="cursor: hand;cursor: pointer;"/>  
 							
 							To Date : <input type="text" id="datepickerToDate" name="input2" readonly="readonly" class="datepicker" ng-model="searchDateEnd"  placeholder="dd-mm-yyyy" required maxlength="10" style="cursor: hand;cursor: pointer;" />
-						<button type="button" ng-click="searchPositions(searchDateStart,searchDateEnd) " style="cursor: hand;cursor: pointer;">Generate</button>
+						<button type="button" id="myBtn" ng-click="searchPositions(searchDateStart,searchDateEnd) " style="cursor: hand;cursor: pointer;">Generate</button>
 
 
 					</div>
@@ -101,12 +129,15 @@
 			<br />
 			
  <table>
-     <h1 colspan="4" align="center" style="color: #00BFFF;font-size: 12px;font-weight: bold;">Zero Transactions Swayam on <span>{{CurrentDate | date:'EEE,dd MMM, yyyy hh:mm:ss a'}}</span>  </h1> 
+     <h1 colspan="4" align="center" style="color: #00BFFF;font-size: 12px;font-weight: bold;">Zero Transactions Swayam on
+      <span  id="mySpan">  {{CurrentDate | date:'EEE,dd MMM, yyyy hh:mm:ss a'}}</span> 
+    <span  id="mySpan1"> {{allIndiaDate}} </span> 
+       </h1> 
 			    </table>
 			<br>	
 			<div>
-		<pre align="left" style="background-color: #00BFFF;color: white;font-size:12px;font-weight: bold;">
- <span>Zero Transactions<span colspan="4" align="center" style="color: white;font-size: 12px;font-weight: bold;float:right; margin-right:1em">Last Updated :<span>{{CurrentDate | date:'dd:MM:yyyy'}}</span></span></span>
+		<pre align="left" style="background-color: #00BFFF;color: white;font-size:24px;font-weight: bold;">
+ <span>Zero Transactions<span colspan="4" align="center" style="color: white;font-size: 24px;font-weight: bold;float:right; margin-right:1em">Last Updated :<span id="dateId"></span></span></span>
 </pre>
 			</div> 
 
@@ -176,7 +207,14 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
     	            type: 'GET',   
     	            success: function(data){
     	            	console.log(data);
-    	            	window.open("resources/download/"+data , '_blank');  
+    	            	if(data.includes(".pdf")){
+    	            		console.log("PDF Data1" + data);
+    	            		window.open("resources/download/"+data , '_blank'); 
+    	            		
+    	            	}else{
+    	            		console.log("PDF Data" + data);
+    	            		alert("No Data to Export");
+    	            	} 
     	            }
     	        });
     	    });
@@ -186,7 +224,14 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
     	            type: 'GET',   
     	            success: function(data){
     	            	console.log(data);
-    	            	window.open("resources/download/"+data , '_blank');  
+    	            	if(data.includes(".xlsx")){
+    	            		console.log("Excel Data1" + data);
+    	            		window.open("resources/download/"+data , '_blank'); 
+    	            		
+    	            	}else{
+    	            		console.log("Excel Data" + data);
+    	            		alert("No Data to Export");
+    	            	} 
     	            }
     	        });
     	    });
