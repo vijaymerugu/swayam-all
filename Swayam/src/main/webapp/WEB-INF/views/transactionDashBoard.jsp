@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,8 +40,9 @@
       }
    	   });
   </script>
-  
-    <script>
+
+ <%--    <script>
+
   $.ajax({
   	type:"GET",
   	url:"td/getAllIndiaDate",
@@ -53,7 +55,9 @@
 
       }
    	   });
-  </script>
+
+  </script> --%>
+
     
 <script>
 	$(document).ready(function() {
@@ -110,14 +114,22 @@
 </style>
 
 <script type="text/javascript">
-$("#mySpan1").hide();
-</script>
 
-<script type="text/javascript">
-$("#mySpan").show();
+$("#myBtn").click(function(){
+	var frmDate=document.getElementById("datepickerFromDate").value;  
+	//alert(frmDate);  
+	if (frmDate!=null)
+		{
+		$("#mySpan1").show();
+		$("#mySpan").hide();
+		}
+	});
+
+
 </script>
 
 </head>
+
 <body>
 <div class="main" ng-app="app" id="appId">
 <div ng-controller="UserManagementCtrl as vm">
@@ -126,16 +138,20 @@ $("#mySpan").show();
 					<div>
 						<br /> From Date: <input type="text" id="datepickerFromDate" name="input1"  class="datepicker" ng-model="searchDateStart" readonly="readonly" placeholder="dd-mm-yyyy" required maxlength="10" style="cursor: hand;cursor: pointer;"/> 
 							To Date : <input type="text" id="datepickerToDate" name="input2" class="datepicker" ng-model="searchDateEnd" readonly="readonly" placeholder="dd-mm-yyyy" required maxlength="10" style="cursor: hand;cursor: pointer;" />
-						<button type="button" id="myBtn" ng-click="searchPositions(searchDateStart,searchDateEnd) " style="cursor: hand;cursor: pointer;">Generate</button>
+						<button type="button"    id="myBtn" ng-click="searchPositions(searchDateStart,searchDateEnd) " style="cursor: hand;cursor: pointer;">Generate</button>
 					</div>
 				</table>
 			</div>
 			<br />
 		<table>
-  <div colspan="4" align="center" style="color: #00BFFF;font-size: 12px;font-weight: bold;"> All India branch view on
-  <span  id="mySpan1"> {{allIndiaDate}} </span>
-  <span  id="mySpan">  {{CurrentDate | date:'EEE,dd MMM, yyyy hh:mm:ss a'}}</span> 
-  </div> 
+
+   <h1 colspan="4" align="center" style="color: #00BFFF;font-size: 12px;font-weight: bold;"> All India branch view on
+    <span  id="mySpan">  {{CurrentDate | date:'EEE,dd MMM, yyyy hh:mm:ss a'}}</span> 
+    <span  id="mySpan1"> {{allIndiaDate}} </span> 
+  
+  </h1> 
+			 
+
 			    </table>
 			<br>	
 			<div>
@@ -195,7 +211,9 @@ $("#mySpan").show();
 		&nbsp;&nbsp;&nbsp;
 		</span>		
 		<br/>
-		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-selection ui-grid-exporter id="test"></div>
+		
+		
+		<div   ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-selection ui-grid-exporter id="test"></div>
     </div>
 </div>	
 </div>

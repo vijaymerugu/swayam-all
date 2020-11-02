@@ -208,12 +208,8 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				//filename = "UserList_" + timeStamp + ".pdf";
-				String fileName = "UserList_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
-						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
-						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
-				filename =fileName+".pdf";
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "UserList_" + timeStamp + ".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 					}
 			} else if (identifyPage.equals("userListLA")) {
@@ -229,12 +225,8 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-			//	String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-			//	filename = "UserList_" + timeStamp + ".pdf";
-				String fileName = "UserList_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
-						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
-						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
-				filename =fileName+".pdf";
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "UserList_" + timeStamp + ".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 			}
 			} else if (identifyPage.equals("kioskManagementByCircle")) {
@@ -250,12 +242,8 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				//filename = "Kiosks_" + timeStamp + ".pdf";
-				String fileName = "Kiosks_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
-						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
-						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
-				filename =fileName+".pdf";
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "Kiosks_" + timeStamp + ".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 			}
 			} else if (identifyPage.equals("kiosksAll")) {
@@ -271,12 +259,9 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				//filename = "Kiosks_" + timeStamp + ".pdf";
-				String fileName = "Kiosks_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
-						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
-						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
-				filename =fileName+".pdf";
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "Kiosks_" + timeStamp + ".pdf";
+				
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 			}
 			} else if (identifyPage.equals("ticketCenterCC")) {
@@ -292,12 +277,9 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				//filename = "TicketCenter_" + timeStamp + ".pdf";
-				String fileName = "TicketCenter_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
-						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
-						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
-				filename =fileName+".pdf";
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "TicketCenter_" + timeStamp + ".pdf";
+				
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 			}
@@ -314,12 +296,9 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				//filename = "TicketCenter_" + timeStamp + ".pdf";
-				String fileName = "TicketCenter_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
-						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
-						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
-				filename =fileName+".pdf";
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "TicketCenter_" + timeStamp + ".pdf";
+				
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 					}
@@ -336,12 +315,9 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				//filename = "TicketCenter_" + timeStamp + ".pdf";
-				String fileName = "TicketCenter_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
-						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
-						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
-				filename =fileName+".pdf";
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "TicketCenter_" + timeStamp + ".pdf";
+				
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 					}
@@ -358,13 +334,10 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				//filename = "TicketCenter_" + timeStamp + ".pdf";
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "TicketCenter_" + timeStamp + ".pdf";
 				
-				String fileName = "TicketCenter_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
-						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
-						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
-				filename =fileName+".pdf";
+				
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 					}
 			}
@@ -595,6 +568,7 @@ public class JasperServiceImpl implements JasperService {
 				}
 			}
 
+
 			else if (identifyPage.equals("realTimeToday")) {
 				logger.info("PDF File realTimeToday !!");
 				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -719,13 +693,8 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				//filename = "TicketHistory_" + timeStamp + ".pdf";
-				String fileName = "TicketHistory_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
-						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
-						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
-				filename =fileName+".pdf";
-				
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "TicketHistory_" + timeStamp + ".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 			}
 			}
@@ -771,13 +740,8 @@ public class JasperServiceImpl implements JasperService {
 			source = new JRBeanCollectionDataSource(list);
 			Map<String, Object> parameters = new HashMap<>();
 			jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-			//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-			//filename = "TerminalStatus_" + timeStamp + ".pdf";
-			String fileName = "TerminalStatus_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
-					+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
-					+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
-			filename =fileName+".pdf";
-
+			String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+			filename = "TerminalStatus_" + timeStamp + ".pdf";
 			JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 		}
 			 
@@ -818,12 +782,8 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				//filename = "UserList_" + timeStamp + ".xlsx";
-				String fileName = "UserList_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
-						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
-						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
-				filename =fileName+".xlsx";
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "UserList_" + timeStamp + ".xlsx";
 				xlsx(jasperPrint, filename);
 					}
 			} else if (identifyPage.equals("userListLA")) {
@@ -839,13 +799,8 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				//filename = "UserList_" + timeStamp + ".xlsx";
-				String fileName = "UserList_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
-						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
-						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
-				filename =fileName+".xlsx";
-
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "UserList_" + timeStamp + ".xlsx";
 				xlsx(jasperPrint, filename);
 					}
 			} else if (identifyPage.equals("kioskManagementByCircle")) {
@@ -861,13 +816,8 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				//filename = "Kiosks_" + timeStamp + ".xlsx";
-				String fileName = "Kiosks_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
-						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
-						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
-				filename =fileName+".xlsx";
-
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "Kiosks_" + timeStamp + ".xlsx";
 				xlsx(jasperPrint, filename);
 					}
 			} else if (identifyPage.equals("kiosksAll")) {
@@ -883,12 +833,8 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				//filename = "Kiosks_" + timeStamp + ".xlsx";
-				String fileName = "Kiosks_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
-						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
-						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
-				filename =fileName+".xlsx";
+			    String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "Kiosks_" + timeStamp + ".xlsx";
 				xlsx(jasperPrint, filename);
 					}
 			} else if (identifyPage.equals("ticketCenterCC")) {
@@ -904,12 +850,8 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				//filename = "TicketCenter_" + timeStamp + ".xlsx";
-				String fileName = "TicketCenter_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
-						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
-						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
-				filename =fileName+".xlsx";
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "TicketCenter_" + timeStamp + ".xlsx";
 				xlsx(jasperPrint, filename);
 					}
 			} else if (identifyPage.equals("ticketCenterCMF")) {
@@ -925,12 +867,8 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				//filename = "TicketCenter_" + timeStamp + ".xlsx";
-				String fileName = "TicketCenter_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
-						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
-						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
-				filename =fileName+".xlsx";
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "TicketCenter_" + timeStamp + ".xlsx";
 				xlsx(jasperPrint, filename);
 					}
 			} else if (identifyPage.equals("ticketCenterCMS")) {
@@ -946,12 +884,8 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				//filename = "TicketCenter_" + timeStamp + ".xlsx";
-				String fileName = "TicketCenter_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
-						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
-						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
-				filename =fileName+".xlsx";
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "TicketCenter_" + timeStamp + ".xlsx";
 				xlsx(jasperPrint, filename);
 					}
 			} else if (identifyPage.equals("ticketCenterCU")) {
@@ -967,12 +901,8 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				//filename = "TicketCenter_" + timeStamp + ".xlsx";
-				String fileName = "TicketCenter_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
-						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
-						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
-				filename =fileName+".xlsx";
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "TicketCenter_" + timeStamp + ".xlsx";
 				xlsx(jasperPrint, filename);
 					}
 			}

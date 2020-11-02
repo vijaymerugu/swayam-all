@@ -66,21 +66,17 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
     	 
     	 ZeroTransactionKiosksService.getUsers(paginationOptions.pageNumber,
      			   paginationOptions.pageSize,counttype,fromDate,toDate).success(function(data){ 
-     			    console.log("data=======length()======", $scope.gridOptions.data.length);  	
-     			    if ($scope.gridOptions.data.length==0 & $scope.gridOptions.data.length>0) {
-     			    console.log("data=======length()2======", $scope.gridOptions.data.length); 
-                     console.log("data=============",data);  				   
-					 alert("No data to displayed.");
-                  } else {
-                     console.log("data=====else==========",data);
-                     // otherwise the data are updated
-   			    // if( $scope.gridOptions.data.length>0){
-			         $scope.gridOptions.data = data.content;
-			         $scope.gridOptions.totalItems = data.totalElements;
-			       // }
-			        } 		  
-     		  //$scope.gridOptions.data = data.content;
-     	 	 // $scope.gridOptions.totalItems = data.totalElements;
+     			 console.log("data========",$scope.gridOptions.totalItems);
+     			  $scope.allIndiaDate = "From: " +fromDate+" ToDate: "+toDate; 
+     			   if(data.totalElements==0){
+										$scope.gridOptions.data = data.content;
+										$scope.gridOptions.totalItems = data.totalElements;
+										alert("No results found for given search criteria")
+									}else{
+									   
+										$scope.gridOptions.data = data.content;
+										$scope.gridOptions.totalItems = data.totalElements;
+									}
      	   });
 	}; 
    
@@ -121,17 +117,8 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
 
    ZeroTransactionKiosksService.getUsers(paginationOptions.pageNumber,
 		   paginationOptions.pageSize,counttype,fromDate,toDate).success(function(data){	
-		     if ($scope.gridOptions.data.length==0) {
-                     console.log("data=============", $scope.gridOptions.data);  				   
-					 alert("No data to displayed.");
-             } else {
-                     console.log("data=====else==========",data);
-                     // otherwise the data are updated
-   			    // if( $scope.gridOptions.data.length>0){
-			         $scope.gridOptions.data = data.content;
-			         $scope.gridOptions.totalItems = data.totalElements;
-			       // }
-			        } 		   
+		             $scope.gridOptions.data = data.content;
+			         $scope.gridOptions.totalItems = data.totalElements;	   
    });
    
    $scope.gridOptions = {

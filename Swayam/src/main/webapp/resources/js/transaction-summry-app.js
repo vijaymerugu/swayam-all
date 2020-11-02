@@ -29,7 +29,7 @@ sort: null
 
 */
      
-  $scope.CurrentDate = new Date();
+   $scope.CurrentDate = new Date();
    $scope.searchPositions= function(startDate,endDate){
 	   fromDate = $("#datepickerFromDate").val();
 	   toDate = $("#datepickerToDate").val();
@@ -62,14 +62,44 @@ sort: null
       	
   UserManagementService.getUsers(paginationOptions.pageNumber,
   paginationOptions.pageSize,fromDate,toDate).success(function(data){
-      $scope.allIndiaDate = "From: " +fromDate+" ToDate: "+toDate+" CurrentDate::";
-      $scope.gridOptions.data = data.content;
-      $scope.gridOptions.totalItems = data.totalElements;
+                 //console.log("$scope.gridOptions.data.length=============",$scope.gridOptions.data.length);
+   
+                    console.log("Response Data " + data.totalElements);	
+					$scope.allIndiaDate = "From: " +fromDate+" ToDate: "+toDate; 				
+									if(data.totalElements==0){
+										$scope.gridOptions.data = data.content;
+										$scope.gridOptions.totalItems = data.totalElements;
+										alert("No results found for given search criteria")
+									}else{
+										$scope.gridOptions.data = data.content;
+										$scope.gridOptions.totalItems = data.totalElements;
+									  
+									}
+									
+									/*
+  if(data.length==0 || data.length==null) {
+       console.log("data=============",data);   
+       //console.log("data=====length==========",$scope.gridOptions.data.length);
+       alert("No data to displayed.");
+       // $scope.noData = true;    
+      }else {
+       console.log("data=====else==========",data);
+       // otherwise the data are updated
+       $scope.allIndiaDate = "From: " +fromDate+" ToDate: "+toDate+" CurrentDate::"; 
+      // $scope.gridOptions.data = data.content;
+     //  $scope.gridOptions.totalItems = data.totalElements;
+      
+       $scope.gridOptions.data = data.content;
+       $scope.gridOptions.totalItems = data.totalElements;
+       
+        }
+        */
+      
   });
  
    }
    
-  
+   
    $scope.refresh = function()
    {  	
 	   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
@@ -94,41 +124,17 @@ sort: null
 
 
    UserManagementService.getUsers(paginationOptions.pageNumber,
-  paginationOptions.pageSize,fromDate,toDate).success(function(data){
+    paginationOptions.pageSize,fromDate,toDate).success(function(data){
   
-   
-    if ( $scope.gridOptions.data.length==0) {
-       console.log("data=============",data);   
-       //console.log("data=====length==========",$scope.gridOptions.data.length);
-       alert("No data to displayed.");
-       // $scope.noData = true;    
-      } else {
-       console.log("data=====else==========",data);
-    // otherwise the data are updated
-   
-     if( $scope.gridOptions.data.length>0){
-     	
-      // $scope.loading = false;
-      // $scope.loading = false;
-
-   
-     //   $scope.gridOptions.data= "resources/img/loader_new.gif";
-            
-         $scope.gridOptions.data = data.content;
-         $scope.gridOptions.totalItems = data.totalElements;
-        // $scope.noData = false;
-        }
-   }
-   
-  // $scope.gridOptions.data = data.content;
-  // $scope.gridOptions.totalItems = data.totalElements;
+   $scope.gridOptions.data = data.content;
+   $scope.gridOptions.totalItems = data.totalElements;
    });
    
    $scope.gridOptions = {
     paginationPageSizes: [20, 30, 40],
     paginationPageSize: paginationOptions.pageSize,
-enableColumnMenus:false,
-useExternalPagination: true,     
+    enableColumnMenus:false,
+    useExternalPagination: true,     
      
       headerTemplate: 'km/headerTemplate',
       superColDefs: [{

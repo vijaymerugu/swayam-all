@@ -6,6 +6,7 @@
 
 <head>
 
+
 <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
 <link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
 <script src="resources/js/moment-with-locales.min.js"></script>
