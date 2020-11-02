@@ -40,9 +40,19 @@ public class InvoiceSummaryServices implements InvoiceSummaryService {
 	public Page<InvoiceSummaryDto> findPageWithoutStateIs(int page, int size, String type, String selectedCircelId,
 			String quterTimePeriod) {
 		logger.info("Inside findPageWithoutStateIs ");
-		  Page<InvoiceSummaryDto> entity = isRepository.findbyWithoutStateFilter
+		System.out.println("Circle ID " + selectedCircelId );
+		 Page<InvoiceSummaryDto> entity =null;
+		
+		if(selectedCircelId.equals("0")) {
+			entity = isRepository.findCCFilter
+				  	(quterTimePeriod, PageRequest.of(page, size)).map(InvoiceSummaryDto::new);
+		}else {
+			
+		
+		  entity = isRepository.findbyWithoutStateFilter
 				  	(selectedCircelId, quterTimePeriod, PageRequest.of(page, size)).map(InvoiceSummaryDto::new);
 		 
+		}
 		//Page<InvoiceSummaryDto> entity = repo3.findbyWithoutStateFilter(selectedCircelId, quterTimePeriod,  PageRequest.of(page, size)).map(InvoiceSummaryDto::new);
 		
 		

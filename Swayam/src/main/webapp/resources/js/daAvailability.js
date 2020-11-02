@@ -112,14 +112,24 @@ app.controller('daAvailabilityController', ['$scope', '$interval', '$http', 'daA
 					    onAnimationComplete: function() {
 					    this.showTooltip(this.segments, true);
 					      },
-					    legend: {
+					      plugins: {
+					          labels: {
+					            render: 'percentage',
+					            fontColor: ['black','black'],
+					            precision: 2,
+					            // fontSize: 12,
+					            fontStyle: "bold"
+					          }
+					        }
+					  /*  legend: {
 					      display: false,
 					      position: "bottom",
 					      labels: {
 					        fontColor: "#333",
-					        fontSize: 16
+					        fontSize: 16,
+					        fontStyle: "bold"
 					      }
-					    }
+					    }*/
 					  };
 						
 					//create Chart class object

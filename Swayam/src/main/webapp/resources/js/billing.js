@@ -38,6 +38,15 @@ app.controller(
 							$scope.doUploadFile = function() {
 				
 								var file = $scope.uploadedFile;
+								console.log("file " + file);
+								if(file==undefined || file == ''){
+								 
+									alert("Please choose file...")
+									
+								}else{
+									
+								
+								
 								var url = "billingallocation";
 								//alert("file" + file);
 								 console.log("Session CSRF "+ $scope.csrf);
@@ -71,6 +80,9 @@ app.controller(
 													alert("Upload Failed");
 													$scope.uploadResult = response.data;
 												});
+								
+								
+								}
 							};
 
 							var paginationOptions = {
