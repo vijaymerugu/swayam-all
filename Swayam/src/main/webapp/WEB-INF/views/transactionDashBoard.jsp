@@ -123,13 +123,13 @@
 
 $("#myBtn").click(function(){
 	var frmDate=document.getElementById("datepickerFromDate").value;  
-	
+
 	if (frmDate!=null)
 		{
 		$("#mySpan1").show();
 		$("#mySpan").hide();
 		}
-	
+
 	});
 
 
@@ -152,7 +152,9 @@ $("#myBtn").click(function(){
 			<br />
 		<table>
 
+
    <h1 colspan="4" align="center" style="color: #00BFFF;font-size: 18px;font-weight: bold;"> All India branch view on
+
     <span  id="mySpan">  {{CurrentDate | date:'EEE,dd MMM, yyyy hh:mm:ss a'}}</span> 
     <span  id="mySpan1"> {{allIndiaDate}} </span> 
   
@@ -218,6 +220,7 @@ $("#myBtn").click(function(){
 		<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>
 		&nbsp;&nbsp;&nbsp;
 
+
 		</span>	
 		<!-- Added for loader------------- START -->	
 		<div>
@@ -231,6 +234,7 @@ $("#myBtn").click(function(){
 		</div> 
 		<!-- Added for loader------------- END -->	
 		</div>
+
     </div>
 </div>	
 </div>

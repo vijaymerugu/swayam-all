@@ -229,7 +229,7 @@ public class BillingServiceImpl implements BillingService {
 							}else if(cell.getCellType().equals(CellType.BLANK)){
 								return "Failed - Excel contain blank value -  UNIT_PRICE";
 							}else {
-								return "Please Upload valid excel -- UNIT_PRICE";
+								return "Invalid UNIT_PRICE -- "+cell.getStringCellValue();
 							}
 						
 						break;	

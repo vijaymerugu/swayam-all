@@ -75,6 +75,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 										$scope.gridOptions.totalItems = data.totalElements;
 										alert("No results found for given search criteria")
 									}else{
+
 									 
 										$scope.gridOptions.data = data.content;
 										$scope.gridOptions.totalItems = data.totalElements;
@@ -82,6 +83,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 							//  Added for loader------------- START 
 								$("#loading").hide(); 
 							//  Added for loader------------- END 
+
 							  });
 			      
       };

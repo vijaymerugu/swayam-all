@@ -65,27 +65,25 @@ sort: null
 // Added for loader------------- END
   UserManagementService.getUsers(paginationOptions.pageNumber,
   paginationOptions.pageSize,fromDate,toDate).success(function(data){
-                    
+
                     console.log("Response Data " + data.totalElements);	
 					$scope.allIndiaDate = "From: " +fromDate+" ToDate: "+toDate; 				
 									if(data.totalElements==0){
 										$scope.gridOptions.data = data.content;
 										$scope.gridOptions.totalItems = data.totalElements;
 										alert("No results found for given search criteria")
-										//  Added for loader------------- START 
-								//		$("#loading").hide(); 
-									//  Added for loader------------- END  
+
 									}else{
-									//  Added for loader------------- START 
-								//		$("#loading").hide(); 
-									//  Added for loader------------- END 
+
 										$scope.gridOptions.data = data.content;
 										$scope.gridOptions.totalItems = data.totalElements;
 									  
 									}
+
 								//  Added for loader------------- START 
 									$("#loading").hide(); 
 								//  Added for loader------------- END 
+
 									/*
   if(data.length==0 || data.length==null) {
        console.log("data=============",data);   

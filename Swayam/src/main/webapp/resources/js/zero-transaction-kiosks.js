@@ -75,6 +75,7 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
 										$scope.gridOptions.data = data.content;
 										$scope.gridOptions.totalItems = data.totalElements;
 										alert("No results found for given search criteria")
+
 										 
 									}else{
 									   
@@ -85,6 +86,7 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
      			//  Added for loader------------- START 
 					$("#loading").hide(); 
 				//  Added for loader------------- END 
+
      	   });
 	}; 
    

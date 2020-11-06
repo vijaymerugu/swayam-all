@@ -96,9 +96,11 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
 										$scope.gridOptions.data = data.content;
 										$scope.gridOptions.totalItems = data.totalElements;
 									}
+
     								//  Added for loader------------- START 
 	        						$("#loading").hide();  
 	        						// Added for loader------------- END		
+
     	   });
 	
    };
