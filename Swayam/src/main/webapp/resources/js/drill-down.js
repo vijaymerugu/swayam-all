@@ -83,7 +83,9 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
 	 	         	}
 	     	   }
 		    
-    	
+	    //  Added for loader------------- START 
+	        $("#loading").show();  
+	     // Added for loader------------- END		
     	DrillDownService.getUsers(paginationOptions.pageNumber,
     			   paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
     		if(data.totalElements==0){
@@ -94,6 +96,11 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
 										$scope.gridOptions.data = data.content;
 										$scope.gridOptions.totalItems = data.totalElements;
 									}
+
+    								//  Added for loader------------- START 
+	        						$("#loading").hide();  
+	        						// Added for loader------------- END		
+
     	   });
 	
    };

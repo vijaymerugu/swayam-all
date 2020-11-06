@@ -26,7 +26,12 @@
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
-     <script>
+    
+    <!--   Added for loader------------- START -->  
+ 
+ <!--     <script src="http://malsup.github.io/jquery.blockUI.js"></script> -->
+     <!-- Added for loader------------- END  -->  
+  <script>    
   $.ajax({
   	type:"GET",
   	url:"td/getSwayamMigrationLastUpDated",
@@ -111,18 +116,20 @@
 			.ui-grid-pager-panel {
 			    position: relative;
 			}
+
 </style>
 
 <script type="text/javascript">
 
 $("#myBtn").click(function(){
 	var frmDate=document.getElementById("datepickerFromDate").value;  
-	//alert(frmDate);  
+
 	if (frmDate!=null)
 		{
 		$("#mySpan1").show();
 		$("#mySpan").hide();
 		}
+
 	});
 
 
@@ -145,7 +152,9 @@ $("#myBtn").click(function(){
 			<br />
 		<table>
 
-   <h1 colspan="4" align="center" style="color: #00BFFF;font-size: 12px;font-weight: bold;"> All India branch view on
+
+   <h1 colspan="4" align="center" style="color: #00BFFF;font-size: 18px;font-weight: bold;"> All India branch view on
+
     <span  id="mySpan">  {{CurrentDate | date:'EEE,dd MMM, yyyy hh:mm:ss a'}}</span> 
     <span  id="mySpan1"> {{allIndiaDate}} </span> 
   
@@ -154,6 +163,7 @@ $("#myBtn").click(function(){
 
 			    </table>
 			<br>	
+
 			<div>
 			
 			<pre align="left" style="background-color: #00BFFF;color: white;font-size:24px;font-weight: bold;">
@@ -209,11 +219,22 @@ $("#myBtn").click(function(){
 		<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
 		<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>
 		&nbsp;&nbsp;&nbsp;
-		</span>		
-		<br/>
-		
+
+
+		</span>	
+		<!-- Added for loader------------- START -->	
+		<div>
+	 	<!-- Added for loader------------- END -->	
 		
 		<div   ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-selection ui-grid-exporter id="test"></div>
+		<!-- Added for loader------------- START -->	
+	
+		<div class="loading" id="loading" align="center" style="display:none;">
+   			 <img src="resources/img/loader.gif"> 
+		</div> 
+		<!-- Added for loader------------- END -->	
+		</div>
+
     </div>
 </div>	
 </div>
@@ -236,7 +257,7 @@ $("#myBtn").click(function(){
   	
     	    $(".openpdfonclick").click(function(){
     	    	
-    	    	
+    	    	debugger;
     	    	
     	        $.ajax({
     	            url: 'report?page=transactionSummary&type=pdf ',
