@@ -6,6 +6,7 @@
 
 <head>
 
+
 <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
 <link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
 <script src="resources/js/moment-with-locales.min.js"></script>
@@ -80,6 +81,7 @@
 			.ui-grid-pager-panel {
 			    position: relative;
 			}
+	
 </style>	
 
 </head>
@@ -109,7 +111,16 @@
 		&nbsp;&nbsp;&nbsp;
 		</span>		
 				<br />
+				<!-- Added for loader------------- START -->	
+		<div>
+	 	<!-- Added for loader------------- END -->	
 					<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-selection ui-grid-exporter id="test"></div>
+					<!-- Added for loader------------- START -->	
+	
+		<div class="loading" id="loading" align="center" style="display:none;">
+   			 <img src="resources/img/loader.gif"> 
+		</div> 
+		<!-- Added for loader------------- END -->	
 			</div>
 		</div>
 	</div>

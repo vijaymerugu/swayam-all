@@ -134,6 +134,12 @@
 		
 		
 		<br/>
+		<!-- Added for loader------------- START -->	
+		<div>
+		 <div class="loading" id="loading" align="center" style="display:none;">
+   			 <img src="resources/img/loader.gif"> 
+		</div>  
+	 	<!-- Added for loader------------- END -->	
 		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test"></div>
 		
         

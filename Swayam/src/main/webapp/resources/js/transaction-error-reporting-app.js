@@ -65,11 +65,23 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	 	         		$("#datepickerFromDate").focus();
 	 	         	}
 	     	   }
-	    
+	        //  Added for loader------------- START 
+	        $("#loading").show();  
+	     // Added for loader------------- END
 				   UserManagementService.getUsers(paginationOptions.pageNumber,
 							  paginationOptions.pageSize,fromDate,toDate).success(function(data){
-							 $scope.gridOptions.data = data.content;
-							 $scope.gridOptions.totalItems = data.totalElements;
+								if(data.totalElements==0){
+										$scope.gridOptions.data = data.content;
+										$scope.gridOptions.totalItems = data.totalElements;
+										alert("No results found for given search criteria")
+									}else{
+									 
+										$scope.gridOptions.data = data.content;
+										$scope.gridOptions.totalItems = data.totalElements;
+									}
+							//  Added for loader------------- START 
+								$("#loading").hide(); 
+							//  Added for loader------------- END 
 							  });
 			      
       };
@@ -100,21 +112,8 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 
       UserManagementService.getUsers(paginationOptions.pageNumber,
      paginationOptions.pageSize,fromDate,toDate).success(function(data){
-     
-     if ( $scope.gridOptions.data.length==0) {
-           console.log("data=============",data);   
-           alert("No data to displayed.");
-      } else {
-           console.log("data=====else==========",data);
-     if( $scope.gridOptions.data.length>0){
-     	  
-         $scope.gridOptions.data = data.content;
-         $scope.gridOptions.totalItems = data.totalElements;
-        }
-   }
-     
-     // $scope.gridOptions.data = data.content;
-    //  $scope.gridOptions.totalItems = data.totalElements;
+        $scope.gridOptions.data = data.content;
+        $scope.gridOptions.totalItems = data.totalElements;
       });
    
     $scope.gridOptions = {

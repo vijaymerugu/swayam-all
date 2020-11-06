@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +26,12 @@
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
-     <script>
+    
+    <!--   Added for loader------------- START -->  
+ 
+ <!--     <script src="http://malsup.github.io/jquery.blockUI.js"></script> -->
+     <!-- Added for loader------------- END  -->  
+  <script>    
   $.ajax({
   	type:"GET",
   	url:"td/getSwayamMigrationLastUpDated",
@@ -39,8 +45,9 @@
       }
    	   });
   </script>
-  
-    <script>
+
+ <%--    <script>
+
   $.ajax({
   	type:"GET",
   	url:"td/getAllIndiaDate",
@@ -53,7 +60,9 @@
 
       }
    	   });
-  </script>
+
+  </script> --%>
+
     
 <script>
 	$(document).ready(function() {
@@ -107,17 +116,27 @@
 			.ui-grid-pager-panel {
 			    position: relative;
 			}
+
 </style>
 
 <script type="text/javascript">
-$("#mySpan1").hide();
-</script>
 
-<script type="text/javascript">
-$("#mySpan").show();
+$("#myBtn").click(function(){
+	var frmDate=document.getElementById("datepickerFromDate").value;  
+	
+	if (frmDate!=null)
+		{
+		$("#mySpan1").show();
+		$("#mySpan").hide();
+		}
+	
+	});
+
+
 </script>
 
 </head>
+
 <body>
 <div class="main" ng-app="app" id="appId">
 <div ng-controller="UserManagementCtrl as vm">
@@ -126,18 +145,23 @@ $("#mySpan").show();
 					<div>
 						<br /> From Date: <input type="text" id="datepickerFromDate" name="input1"  class="datepicker" ng-model="searchDateStart" readonly="readonly" placeholder="dd-mm-yyyy" required maxlength="10" style="cursor: hand;cursor: pointer;"/> 
 							To Date : <input type="text" id="datepickerToDate" name="input2" class="datepicker" ng-model="searchDateEnd" readonly="readonly" placeholder="dd-mm-yyyy" required maxlength="10" style="cursor: hand;cursor: pointer;" />
-						<button type="button" id="myBtn" ng-click="searchPositions(searchDateStart,searchDateEnd) " style="cursor: hand;cursor: pointer;">Generate</button>
+						<button type="button"    id="myBtn" ng-click="searchPositions(searchDateStart,searchDateEnd) " style="cursor: hand;cursor: pointer;">Generate</button>
 					</div>
 				</table>
 			</div>
 			<br />
 		<table>
-  <div colspan="4" align="center" style="color: #00BFFF;font-size: 12px;font-weight: bold;"> All India branch view on
-  <span  id="mySpan1"> {{allIndiaDate}} </span>
-  <span  id="mySpan">  {{CurrentDate | date:'EEE,dd MMM, yyyy hh:mm:ss a'}}</span> 
-  </div> 
+
+   <h1 colspan="4" align="center" style="color: #00BFFF;font-size: 18px;font-weight: bold;"> All India branch view on
+    <span  id="mySpan">  {{CurrentDate | date:'EEE,dd MMM, yyyy hh:mm:ss a'}}</span> 
+    <span  id="mySpan1"> {{allIndiaDate}} </span> 
+  
+  </h1> 
+			 
+
 			    </table>
 			<br>	
+
 			<div>
 			
 			<pre align="left" style="background-color: #00BFFF;color: white;font-size:24px;font-weight: bold;">
@@ -193,9 +217,20 @@ $("#mySpan").show();
 		<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
 		<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>
 		&nbsp;&nbsp;&nbsp;
-		</span>		
-		<br/>
-		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-selection ui-grid-exporter id="test"></div>
+
+		</span>	
+		<!-- Added for loader------------- START -->	
+		<div>
+	 	<!-- Added for loader------------- END -->	
+		
+		<div   ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-selection ui-grid-exporter id="test"></div>
+		<!-- Added for loader------------- START -->	
+	
+		<div class="loading" id="loading" align="center" style="display:none;">
+   			 <img src="resources/img/loader.gif"> 
+		</div> 
+		<!-- Added for loader------------- END -->	
+		</div>
     </div>
 </div>	
 </div>
@@ -218,7 +253,7 @@ $("#mySpan").show();
   	
     	    $(".openpdfonclick").click(function(){
     	    	
-    	    	
+    	    	debugger;
     	    	
     	        $.ajax({
     	            url: 'report?page=transactionSummary&type=pdf ',
