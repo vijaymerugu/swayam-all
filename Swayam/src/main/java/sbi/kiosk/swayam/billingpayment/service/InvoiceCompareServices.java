@@ -63,11 +63,41 @@ public class InvoiceCompareServices implements InvoiceCompareService{
 	
 		
 		if(selectedRfpID.equalsIgnoreCase("1")){
-			//System.out.println("findPageWithoutStateIc selectedRfpID "+ selectedRfpID);
-			entities =invoiceCompareRepository.findbyWithoutStateFilter(selectedCircelId, quarter,finacialYear, selectedVendorId, PageRequest.of(page, size));
+			
+			logger.info("Selected RfpID " +selectedRfpID );
+			logger.info("Selected CircleId  " +selectedCircelId );
+			
+			if(selectedCircelId.equals("0")) {
+				logger.info("Inside Without RFID and CC");
+				entities =invoiceCompareRepository.findbyWithoutStateFilterCC(quarter,finacialYear, selectedVendorId, PageRequest.of(page, size));
+				
+			}else {
+				logger.info("Inside Without RFID and without CC");
+				entities =invoiceCompareRepository.findbyWithoutStateFilter(selectedCircelId, quarter,finacialYear, selectedVendorId, PageRequest.of(page, size));
+				
+			}
+			
+			
+			
+			//entities =invoiceCompareRepository.findbyWithoutStateFilter(selectedCircelId, quarter,finacialYear, selectedVendorId, PageRequest.of(page, size));
 		}else {
-			//System.out.println("findPageWithoutStateIc else selectedRfpID "+ selectedRfpID);
-			entities =invoiceCompareRepository.findbyFilterRfpWithoutState(selectedCircelId, quarter,finacialYear, selectedVendorId, selectedRfpID, PageRequest.of(page, size));
+			
+			if(selectedCircelId.equals("0")) {
+				
+				logger.info("Inside With RFID and CC");
+				
+				entities =invoiceCompareRepository.findbyFilterRfpWithoutStateCC(quarter,finacialYear, 
+								selectedVendorId, selectedRfpID, PageRequest.of(page, size));
+				
+			}else {
+				logger.info("Inside With RFID and without CC");
+				entities =invoiceCompareRepository.findbyFilterRfpWithoutState(selectedCircelId, quarter,finacialYear, selectedVendorId, selectedRfpID, PageRequest.of(page, size));
+			}
+		
+			
+			
+			
+			//entities =invoiceCompareRepository.findbyFilterRfpWithoutState(selectedCircelId, quarter,finacialYear, selectedVendorId, selectedRfpID, PageRequest.of(page, size));
 
 		}
 		

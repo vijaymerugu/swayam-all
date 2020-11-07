@@ -199,7 +199,8 @@ public class JasperServiceImpl implements JasperService {
 			if (identifyPage.equals("userListSA")) {
 				List<UserManagementDto> list = findUsersBySA();
 				 if(list.isEmpty()) {
-
+						
+						
 						return filename;
 					}else {
 				File file = ResourceUtils.getFile(jrxmlPath + "usersListSA.jrxml");
@@ -357,9 +358,23 @@ public class JasperServiceImpl implements JasperService {
 				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 				//filename = "TransactionSummary_" + timeStamp + ".pdf";
 				
-				String fileName = "SwayamMigration_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+				 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+					Date curDate = new Date();
+					curDate.setTime(curDate.getTime() - 48 * 60 * 60 * 1000);
+					String  fromdate1 = sdf.format(curDate);
+					String todate1 = sdf.format(curDate);
+				String fileName ="";
+				if(!dateFrame.getFromDate().isEmpty() && !dateFrame.getToDate().isEmpty()) {
+				fileName = "SwayamMigration_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
 						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
 						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				}else {
+					
+					  
+					 fileName = "SwayamMigration_" + fromdate1.replace("-", "").substring(0, 6) + "_"
+							+ todate1.replace("-", "").substring(0, 6) + "_"
+							+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				}
 				filename =fileName+".pdf";
 				//"attachment; filename=\"" + fileName + ".pdf\""
 				logger.info("PDF File filename !!"+filename);
@@ -554,7 +569,7 @@ public class JasperServiceImpl implements JasperService {
 				
 				String StartDate =  "0104"+finacialYear.substring(0, 4);
 				String LastDate =  "3103"+finacialYear.substring(5);
-				filename = "InvoiceCompare_"+StartDate+"_"+LastDate+".pdf";
+				filename = "InvoiceSummary_"+StartDate+"_"+LastDate+".pdf";
 				
 				
 				/*
@@ -588,8 +603,8 @@ public class JasperServiceImpl implements JasperService {
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
 				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 				//filename = "RealTimeTxnToday_" + timeStamp + ".pdf";
-				String fileName = "RealTimeTxnToday_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
-						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+				String fileName = "RealTimeTxnToday_" + todayDate.replace("-", "").substring(0, 6) + "_"
+						+ todayDate.replace("-", "").substring(0, 6) + "_"
 						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
 				filename =fileName+".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
@@ -615,8 +630,8 @@ public class JasperServiceImpl implements JasperService {
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
 				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 				//filename = "RealTimeTxnYesterday_" + timeStamp + ".pdf";
-				String fileName = "RealTimeTxnYesterday_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
-						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+				String fileName = "RealTimeTxnYesterday_" + yesterdayDate.replace("-", "").substring(0, 6) + "_"
+						+ yesterdayDate.replace("-", "").substring(0, 6) + "_"
 						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
 				filename =fileName+".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
@@ -644,9 +659,18 @@ public class JasperServiceImpl implements JasperService {
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
 				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 				//filename = "ZeroTxnKoisk_" + timeStamp + ".pdf";
-				String fileName = "ZeroTxnKoisk_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+				String fileName ="";
+				if(!dateFrame.getFromDate().isEmpty() && !dateFrame.getToDate().isEmpty()) {
+				fileName = "ZeroTxnKoisk_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
 						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
 						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				}else {
+					
+					  
+					 fileName = "ZeroTxnKoisk_" + fromdate.replace("-", "").substring(0, 6) + "_"
+							+ todate.replace("-", "").substring(0, 6) + "_"
+							+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				}
 				filename =fileName+".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 					}
@@ -671,9 +695,18 @@ public class JasperServiceImpl implements JasperService {
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
 				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 				//filename = "ErrorReporting_" + timeStamp + ".pdf";
-				String fileName = "ErrorReporting_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+				String fileName ="";
+				if(!dateFrame.getFromDate().isEmpty() && !dateFrame.getToDate().isEmpty()) {
+				fileName = "ErrorReporting_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
 						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
 						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				}else {
+					
+					  
+					 fileName = "ErrorReporting_" + fromdate.replace("-", "").substring(0, 6) + "_"
+							+ todate.replace("-", "").substring(0, 6) + "_"
+							+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				}
 				filename =fileName+".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 					}
@@ -924,9 +957,24 @@ public class JasperServiceImpl implements JasperService {
 				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 				//filename = "TransactionSummary_" + timeStamp + ".xlsx";
 				
-				String fileName = "SwayamMigration_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+				    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+					Date curDate = new Date();
+					curDate.setTime(curDate.getTime() - 48 * 60 * 60 * 1000);
+					String  fromdate1 = sdf.format(curDate);
+					String todate1 = sdf.format(curDate);
+				
+				String fileName ="";
+				if(!dateFrame.getFromDate().isEmpty() && !dateFrame.getToDate().isEmpty()) {
+				fileName = "SwayamMigration_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
 						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
 						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				}else {
+					
+					  
+					 fileName = "SwayamMigration_" + fromdate1.replace("-", "").substring(0, 6) + "_"
+							+ todate1.replace("-", "").substring(0, 6) + "_"
+							+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				}
 				filename =fileName + ".xlsx";
 				
 				xlsx(jasperPrint, filename);
@@ -1136,7 +1184,7 @@ public class JasperServiceImpl implements JasperService {
 				
 				String StartDate =  "0104"+finacialYear.substring(0, 4);
 				String LastDate =  "3103"+finacialYear.substring(5);
-				filename = "InvoiceCompare_"+StartDate+"_"+LastDate+".xlsx";
+				filename = "InvoiceSummary_"+StartDate+"_"+LastDate+".xlsx";
 				
 				
 				/*
@@ -1169,8 +1217,8 @@ public class JasperServiceImpl implements JasperService {
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
 				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 				//filename = "RealTimeTxnToday_" + timeStamp + ".xlsx";
-				String fileName = "RealTimeTxnToday_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
-						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+				String fileName = "RealTimeTxnToday_" + todayDate.replace("-", "").substring(0, 6) + "_"
+						+ todayDate.replace("-", "").substring(0, 6) + "_"
 						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
 				filename =fileName+".xlsx";
 				xlsx(jasperPrint, filename);
@@ -1197,8 +1245,8 @@ public class JasperServiceImpl implements JasperService {
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
 				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 				//filename = "RealTimeTxnYesterday_" + timeStamp + ".xlsx";
-				String fileName = "RealTimeTxnYesterday_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
-						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+				String fileName = "RealTimeTxnYesterday_" + yesterdayDate.replace("-", "").substring(0, 6) + "_"
+						+ yesterdayDate.replace("-", "").substring(0, 6) + "_"
 						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
 				filename =fileName+".xlsx";
 				xlsx(jasperPrint, filename);
@@ -1224,9 +1272,18 @@ public class JasperServiceImpl implements JasperService {
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
 				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 				//filename = "ZeroTxnKoisk_" + timeStamp + ".xlsx";
-				String fileName = "ZeroTxnKoisk_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+				String fileName ="";
+				if(!dateFrame.getFromDate().isEmpty() && !dateFrame.getToDate().isEmpty()) {
+				fileName = "ZeroTxnKoisk_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
 						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
 						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				}else {
+					
+					  
+					 fileName = "ZeroTxnKoisk_" + fromdate.replace("-", "").substring(0, 6) + "_"
+							+ todate.replace("-", "").substring(0, 6) + "_"
+							+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				}
 				filename =fileName+".xlsx";
 
 				xlsx(jasperPrint, filename);
@@ -1252,10 +1309,20 @@ public class JasperServiceImpl implements JasperService {
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
 			//	String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
 			//	filename = "ErrorReporting_" + timeStamp + ".xlsx";
-				String fileName = "ErrorReporting_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+				
+				String fileName ="";
+				if(!dateFrame.getFromDate().isEmpty() && !dateFrame.getToDate().isEmpty()) {
+				fileName = "ErrorReporting_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
 						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
 						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
-				filename =fileName+".xlsx";
+				}else {
+					
+					  
+					 fileName = "ErrorReporting_" + fromdate.replace("-", "").substring(0, 6) + "_"
+							+ todate.replace("-", "").substring(0, 6) + "_"
+							+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				}
+				filename =fileName + ".xlsx";
 				xlsx(jasperPrint, filename);
 					}
 			}
@@ -1809,11 +1876,30 @@ public class JasperServiceImpl implements JasperService {
 		if (state.equals("0")) {
 
 			if (rpfNumber.equalsIgnoreCase("1")) {
-				list =bpRepository.findbyWithoutStateFilterReport(circle, quarter,finacialYear, vendor);
+				
+				if(circle.equals("0")) {
+					list =bpRepository.findbyWithoutStateFilterCCReport(quarter,finacialYear, vendor);
+				}else {
+
+					list =bpRepository.findbyWithoutStateFilterReport(circle, quarter,finacialYear, vendor);
+
+				}
+				
+				
+				//list =bpRepository.findbyWithoutStateFilterReport(circle, quarter,finacialYear, vendor);
 
 			} else {
+				if(circle.equals("0")) {
+					list=bpRepository.findbyFilterRfpWithoutStateCCReport(quarter,finacialYear, vendor, rpfNumber);
+
+				}else {
+
+					list=bpRepository.findbyFilterRfpWithoutStateReport(circle, quarter,finacialYear, vendor, rpfNumber);
+
+				}
 				
-				list=bpRepository.findbyFilterRfpWithoutStateReport(circle, quarter,finacialYear, vendor, rpfNumber);
+				
+				
 			}
 
 		} else {
@@ -1879,11 +1965,32 @@ public class JasperServiceImpl implements JasperService {
 		if (state.equals("0")) {
 
 			if (rpfNumber.equalsIgnoreCase("1")) {
-				list =IgRepository.findbyWithoutStateFilterReport(circle, quarter,finacialYear, vendor);
+				
+				if(circle.equals("0")) {
+					list =IgRepository.findbyWithoutStateFilterCCReport(quarter,finacialYear, vendor);
+				}else {
+
+					list =IgRepository.findbyWithoutStateFilterReport(circle, quarter,finacialYear, vendor);
+
+				}
+				
+				
+				
+				//list =IgRepository.findbyWithoutStateFilterReport(circle, quarter,finacialYear, vendor);
 
 			} else {
 				
-				list=IgRepository.findbyFilterRfpWithoutStateReport(circle, quarter,finacialYear, vendor, rpfNumber);
+				
+				if(circle.equals("0")) {
+					list=IgRepository.findbyFilterRfpWithoutStateCCReport(quarter,finacialYear, vendor, rpfNumber);
+				}else {
+
+					list=IgRepository.findbyFilterRfpWithoutStateReport(circle, quarter,finacialYear, vendor, rpfNumber);
+
+				}
+				
+				
+				//list=IgRepository.findbyFilterRfpWithoutStateReport(circle, quarter,finacialYear, vendor, rpfNumber);
 			}
 
 		} else {
@@ -1935,11 +2042,35 @@ public class JasperServiceImpl implements JasperService {
 		if (state.equals("0")) {
 
 			if (rpfNumber.equalsIgnoreCase("1")) {
-				list =icRepository.findbyWithoutStateFilterReport(circle, quarter,finacialYear, vendor);
+				
+				if(circle.equals("0")) {
+					list =icRepository
+							.findbyWithoutStateFilterCCReport(quarter,finacialYear, vendor);
+				}else {
+
+					list =icRepository
+							.findbyWithoutStateFilterReport(circle, quarter,finacialYear, vendor);
+
+				}
+				
+				
+				
+				//list =icRepository.findbyWithoutStateFilterReport(circle, quarter,finacialYear, vendor);
 
 			} else {
 				
-				list=icRepository.findbyFilterRfpWithoutStateReport(circle, quarter,finacialYear, vendor, rpfNumber);
+				
+				if(circle.equals("0")) {
+					list =icRepository
+							.findbyFilterRfpWithoutStateCCReport(quarter,finacialYear, vendor, rpfNumber);
+				}else {
+					list=icRepository
+							.findbyFilterRfpWithoutStateReport(circle, quarter,finacialYear, vendor, rpfNumber);
+
+				}
+				
+				
+				//list=icRepository.findbyFilterRfpWithoutStateReport(circle, quarter,finacialYear, vendor, rpfNumber);
 			}
 
 		} else {

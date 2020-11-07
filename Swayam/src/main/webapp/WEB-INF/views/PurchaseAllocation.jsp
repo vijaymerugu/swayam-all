@@ -177,7 +177,7 @@
 
 			<div class="submain">
 				<input ng-model="searchText" ng-change="refresh()"
-					placeholder="Enter Circle,vendor, etc." style="font-size: 12px"
+					placeholder="Enter Circle,vendor, Allocated Qty., Remaining Qty., etc." style="font-size: 12px"
 					size="150" height="80" class="form-group has-search" id="input">
 
 				<br />

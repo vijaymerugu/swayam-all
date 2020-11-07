@@ -206,9 +206,9 @@ app.controller(
 									           
 									        	console.log("Inside Success " + d.status);
 									        	alert("Data saved successfully");
-									        	 PurchaseOrderService.getUsers(paginationOptions.pageNumber,
+									        	BillingService.getUsers(paginationOptions.pageNumber,
 									     				paginationOptions.pageSize, counttype).success(function(data) {
-									     					console.log("data " + data);
+									     				//	console.log("data " + data);
 									     			$scope.gridOptions.data = data.content;
 									     			$scope.gridOptions.totalItems = data.totalElements;
 									     	   });
@@ -221,11 +221,26 @@ app.controller(
 							        	
 							        }else{
 							        	alert("MUST- PO Quantity <= Remaining Quantity");
+							        	
+							        	BillingService.getUsers(paginationOptions.pageNumber,
+							     				paginationOptions.pageSize, counttype).success(function(data) {
+							     				//	console.log("data " + data);
+							     			$scope.gridOptions.data = data.content;
+							     			$scope.gridOptions.totalItems = data.totalElements;
+							     	   });
+							        	
 							        }
 							      
 							        }else{
 							        	
 							        	alert("Decimal/Negative value not allowed for PO Quantity");
+							        	
+							        	BillingService.getUsers(paginationOptions.pageNumber,
+							     				paginationOptions.pageSize, counttype).success(function(data) {
+							     				//	console.log("data " + data);
+							     			$scope.gridOptions.data = data.content;
+							     			$scope.gridOptions.totalItems = data.totalElements;
+							     	   });
 							        	
 							        }
 							       

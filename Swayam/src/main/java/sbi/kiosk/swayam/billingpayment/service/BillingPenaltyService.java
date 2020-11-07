@@ -81,11 +81,37 @@ public class BillingPenaltyService  implements PenaltyServices{
 		
 		
 		if(selectedRfpID.equalsIgnoreCase("1")){
-			//System.out.println("selectedRfpID "+ selectedRfpID);
-			entities =billingPenaltyRepository.findbyWithoutStateFilter(selectedCircelId, quarter,finacialYear, selectedVendorId, PageRequest.of(page, size));
+			logger.info("Selected RfpID " +selectedRfpID );
+			logger.info("Selected CircleId  " +selectedCircelId );
+			
+			if(selectedCircelId.equals("0")) {
+				logger.info("Inside Without RFID and CC");
+				entities =billingPenaltyRepository.findbyWithoutStateFilterCC(quarter,finacialYear, selectedVendorId, PageRequest.of(page, size));
+				
+			}else {
+				logger.info("Inside Without RFID and without CC");
+				entities =billingPenaltyRepository.findbyWithoutStateFilter(selectedCircelId, quarter,finacialYear, selectedVendorId, PageRequest.of(page, size));
+			
+			}
+			
 		}else {
-			//System.out.println("selectedRfpID "+ selectedRfpID);
-			entities =billingPenaltyRepository.findbyFilterRfpWithoutState(selectedCircelId, quarter,finacialYear, selectedVendorId, selectedRfpID, PageRequest.of(page, size));
+			
+			if(selectedCircelId.equals("0")) {
+				
+				logger.info("Inside With RFID and CC");
+				
+				entities =billingPenaltyRepository
+						.findbyFilterRfpWithoutStateCC(quarter,finacialYear, 
+								selectedVendorId, selectedRfpID, PageRequest.of(page, size));
+				
+			}else {
+				logger.info("Inside With RFID and without CC");
+				entities =billingPenaltyRepository
+						.findbyFilterRfpWithoutState(selectedCircelId, 
+								quarter,finacialYear, selectedVendorId, selectedRfpID, PageRequest.of(page, size));
+			}
+			
+			
 
 		}
 		
@@ -145,11 +171,38 @@ public class BillingPenaltyService  implements PenaltyServices{
 		finacialYear= quterTimePeriod.substring(3);
 		
 		if(selectedRfpID.equalsIgnoreCase("1")){
-			//System.out.println("selectedRfpID "+ selectedRfpID);
-			entities =invoiceGenerationRepository.findbyWithoutStateFilter(selectedCircelId, quarter,finacialYear, selectedVendorId, PageRequest.of(page, size));
+			
+			logger.info("Selected RfpID " +selectedRfpID );
+			logger.info("Selected CircleId  " +selectedCircelId );
+			
+			if(selectedCircelId.equals("0")) {
+				logger.info("Inside Without RFID and CC");
+				entities =invoiceGenerationRepository.findbyWithoutStateFilterCC(quarter,finacialYear, selectedVendorId, PageRequest.of(page, size));
+				
+			}else {
+				logger.info("Inside Without RFID and without CC");
+				entities =invoiceGenerationRepository.findbyWithoutStateFilter(selectedCircelId, quarter,finacialYear, selectedVendorId, PageRequest.of(page, size));
+				
+			}
+			
+			
+			//entities =invoiceGenerationRepository.findbyWithoutStateFilter(selectedCircelId, quarter,finacialYear, selectedVendorId, PageRequest.of(page, size));
 		}else {
-			//System.out.println("selectedRfpID "+ selectedRfpID);
-			entities =invoiceGenerationRepository.findbyFilterRfpWithoutState(selectedCircelId, quarter,finacialYear, selectedVendorId, selectedRfpID, PageRequest.of(page, size));
+			
+			
+			if(selectedCircelId.equals("0")) {
+				
+				logger.info("Inside With RFID and CC");
+				
+				entities =invoiceGenerationRepository.findbyFilterRfpWithoutStateCC(quarter,finacialYear, 
+								selectedVendorId, selectedRfpID, PageRequest.of(page, size));
+				
+			}else {
+				logger.info("Inside With RFID and without CC");
+				entities =invoiceGenerationRepository.findbyFilterRfpWithoutState(selectedCircelId, quarter,finacialYear, selectedVendorId, selectedRfpID, PageRequest.of(page, size));
+			}
+		
+			//entities =invoiceGenerationRepository.findbyFilterRfpWithoutState(selectedCircelId, quarter,finacialYear, selectedVendorId, selectedRfpID, PageRequest.of(page, size));
 
 		}
 		}
