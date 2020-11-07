@@ -5,7 +5,6 @@
 
 <head>
 
-
 <meta http-equiv="x-ua-compatible" content="IE=edge">
  <script src="resources/js/transaction-realtime-yesterday-app.js"></script>
 <script	src="resources/js/angular.1.5.6.min.js"></script>
@@ -79,12 +78,7 @@
   			padding: 2px;
   			word-break: break-word;
 			}
-  			.ui-grid, .ui-grid-viewport {
-			     height: auto !important;
-			}
-			.ui-grid-pager-panel {
-			    position: relative;
-			}
+  
 </style>	
 <script type="text/javascript">
 $("#myBtn").click(function(){
@@ -107,7 +101,7 @@ $("#myBtn").click(function(){
 
 
  <table>
-   <h1 colspan="4" align="center" style="color: #00BFFF;font-size: 12px;font-weight: bold;"> Real-time Swayam Transaction on
+   <h1 colspan="4" align="center" style="color: #00BFFF;font-size: 18px;font-weight: bold;"> Real-time Swayam Transaction on
     <span  id="mySpan1"> {{allIndiaDate}} </span>
      <span  id="mySpan">  {{CurrentDate | date:'EEE,dd MMM, yyyy hh:mm:ss a'}}</span>
    </h1> 
@@ -154,6 +148,12 @@ $("#myBtn").click(function(){
 		&nbsp;&nbsp;&nbsp;
 		</span>		
 				<br/>
+			<!-- Added for loader------------- START -->	
+	
+		<div class="loading" id="loading" align="center" style="display:none;">
+   			 <img src="resources/img/loader.gif"> 
+		</div> 
+		<!-- Added for loader------------- END -->	
 		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-selection ui-grid-exporter id="test"></div>
 		
         

@@ -87,13 +87,7 @@
   			padding: 2px;
   			word-break: break-word;
 			}
-  			.ui-grid, .ui-grid-viewport {
-			     height: auto !important;
-			}
-			.ui-grid-pager-panel {
-			    position: relative;
-			}
- 
+  
 </style>	
 
 
@@ -135,7 +129,7 @@ $("#myBtn").click(function(){
 			<br />
 			
  <table>
-     <h1 colspan="4" align="center" style="color: #00BFFF;font-size: 12px;font-weight: bold;">Zero Transactions Swayam on
+     <h1 colspan="4" align="center" style="color: #00BFFF;font-size: 18px;font-weight: bold;">Zero Transactions Swayam on
       <span  id="mySpan">  {{CurrentDate | date:'EEE,dd MMM, yyyy hh:mm:ss a'}}</span> 
     <span  id="mySpan1"> {{allIndiaDate}} </span> 
        </h1> 
@@ -183,11 +177,11 @@ $("#myBtn").click(function(){
 		</span>	
 		<br/>
 		<!-- Added for loader------------- START -->	
-		<div>
-		 <div class="loading" id="loading" align="center" style="display:none;">
+	
+		<div class="loading" id="loading" align="center" style="display:none;">
    			 <img src="resources/img/loader.gif"> 
-		</div>  
-	 	<!-- Added for loader------------- END -->	
+		</div> 
+		<!-- Added for loader------------- END -->	
 		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test"></div>
 		
         

@@ -1,8 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="s"%>
+<%@ page import = "java.util.Date" %>
+<%@ page import = "java.text.SimpleDateFormat" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 
 <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
 <link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
@@ -26,12 +29,11 @@
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
-    
-    <!--   Added for loader------------- START -->  
+      <!--   Added for loader------------- START -->  
  
- <!--     <script src="http://malsup.github.io/jquery.blockUI.js"></script> -->
+    <%--  <script src="http://malsup.github.io/jquery.blockUI.js"></script> --%>
      <!-- Added for loader------------- END  -->  
-  <script>    
+     <script>
   $.ajax({
   	type:"GET",
   	url:"td/getSwayamMigrationLastUpDated",
@@ -45,9 +47,8 @@
       }
    	   });
   </script>
-
+  
  <%--    <script>
-
   $.ajax({
   	type:"GET",
   	url:"td/getAllIndiaDate",
@@ -60,9 +61,7 @@
 
       }
    	   });
-
   </script> --%>
-
     
 <script>
 	$(document).ready(function() {
@@ -77,7 +76,41 @@
   	    $( ".datepicker" ).datepicker(datePickerOptions);
 	});
 </script>
+<%-- 
+<style>
+       .ui-grid-header-cell-label {
+		display:inline-block;
+		white-space:initial;
+		font-size: 15px;
+		}
+		
+		
+		.wrap-text .ui-grid-cell-contents {
+ 		 white-space:normal;
+		}
 
+		[ui-grid-row] {
+  		display: table-row;
+		}
+
+		.ui-grid-row, .ui-grid-cell {
+  		height: auto!important;
+		}
+
+			.ui-grid-cell {
+  			float: none;
+  			display: table-cell;
+			} 
+		
+		
+			.ui-grid-header-cell, .ui-grid-cell-contents {
+  			white-space: normal;
+  			padding: 2px;
+  			word-break: break-word;
+			}
+    
+</style>
+ --%>
 <style>
        .ui-grid-header-cell-label {
 		display:inline-block;
@@ -116,22 +149,36 @@
 			.ui-grid-pager-panel {
 			    position: relative;
 			}
-
+//  Added for loader------------- START 
+    .loading
+    {
+        
+        width: 200px;
+        height: 100px;
+        display: none;
+    position: fixed;
+    top: 10;
+    bottom: 0;
+    left: 10;
+    right: 0;
+     margin: auto;   
+        background-color: White;
+         z-index: 999; 
+        align:center;
+    }
+    //  Added for loader------------- END 
 </style>
 
 <script type="text/javascript">
-
 $("#myBtn").click(function(){
 	var frmDate=document.getElementById("datepickerFromDate").value;  
-
+	//alert(frmDate);  
 	if (frmDate!=null)
 		{
 		$("#mySpan1").show();
 		$("#mySpan").hide();
 		}
-
 	});
-
 
 </script>
 
@@ -151,19 +198,14 @@ $("#myBtn").click(function(){
 			</div>
 			<br />
 		<table>
-
-
    <h1 colspan="4" align="center" style="color: #00BFFF;font-size: 18px;font-weight: bold;"> All India branch view on
-
     <span  id="mySpan">  {{CurrentDate | date:'EEE,dd MMM, yyyy hh:mm:ss a'}}</span> 
     <span  id="mySpan1"> {{allIndiaDate}} </span> 
   
   </h1> 
 			 
-
 			    </table>
 			<br>	
-
 			<div>
 			
 			<pre align="left" style="background-color: #00BFFF;color: white;font-size:24px;font-weight: bold;">
@@ -219,22 +261,16 @@ $("#myBtn").click(function(){
 		<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
 		<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>
 		&nbsp;&nbsp;&nbsp;
-
-
-		</span>	
-		<!-- Added for loader------------- START -->	
-		<div>
-	 	<!-- Added for loader------------- END -->	
-		
-		<div   ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-selection ui-grid-exporter id="test"></div>
-		<!-- Added for loader------------- START -->	
+		</span>		
+		<br/>
+				<!-- Added for loader------------- START -->	
 	
 		<div class="loading" id="loading" align="center" style="display:none;">
    			 <img src="resources/img/loader.gif"> 
 		</div> 
 		<!-- Added for loader------------- END -->	
-		</div>
-
+		
+		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-selection ui-grid-exporter id="test"></div>
     </div>
 </div>	
 </div>
@@ -257,7 +293,7 @@ $("#myBtn").click(function(){
   	
     	    $(".openpdfonclick").click(function(){
     	    	
-    	    	debugger;
+    	    	
     	    	
     	        $.ajax({
     	            url: 'report?page=transactionSummary&type=pdf ',

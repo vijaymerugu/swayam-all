@@ -59,31 +59,29 @@ sort: null
 	         		$("#datepickerFromDate").focus();
 	         	}
     	   }
-   debugger;
- //  Added for loader------------- START 
+    	   //  Added for loader------------- START 
    $("#loading").show();  
-// Added for loader------------- END
+// Added for loader------------- EN
+      	
   UserManagementService.getUsers(paginationOptions.pageNumber,
   paginationOptions.pageSize,fromDate,toDate).success(function(data){
-
+                 //console.log("$scope.gridOptions.data.length=============",$scope.gridOptions.data.length);
+   
                     console.log("Response Data " + data.totalElements);	
 					$scope.allIndiaDate = "From: " +fromDate+" ToDate: "+toDate; 				
 									if(data.totalElements==0){
 										$scope.gridOptions.data = data.content;
 										$scope.gridOptions.totalItems = data.totalElements;
 										alert("No results found for given search criteria")
-
 									}else{
-
+									
 										$scope.gridOptions.data = data.content;
 										$scope.gridOptions.totalItems = data.totalElements;
 									  
 									}
-
 								//  Added for loader------------- START 
 									$("#loading").hide(); 
 								//  Added for loader------------- END 
-
 									/*
   if(data.length==0 || data.length==null) {
        console.log("data=============",data);   

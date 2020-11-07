@@ -62,11 +62,10 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
 		 	         		$("#datepickerFromDate").focus();
 		 	         	}
 		     	   }
-		        debugger;
+		    
 		        //  Added for loader------------- START 
 		        $("#loading").show();  
-		     // Added for loader------------- END		    
-    	 
+		     // Added for loader------------- EN
     	 ZeroTransactionKiosksService.getUsers(paginationOptions.pageNumber,
      			   paginationOptions.pageSize,counttype,fromDate,toDate).success(function(data){ 
      			 console.log("data========",$scope.gridOptions.totalItems);
@@ -75,18 +74,14 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
 										$scope.gridOptions.data = data.content;
 										$scope.gridOptions.totalItems = data.totalElements;
 										alert("No results found for given search criteria")
-
-										 
 									}else{
 									   
-									
 										$scope.gridOptions.data = data.content;
 										$scope.gridOptions.totalItems = data.totalElements;
 									}
-     			//  Added for loader------------- START 
-					$("#loading").hide(); 
-				//  Added for loader------------- END 
-
+     			  //  Added for loader------------- START 
+     			   $("#loading").hide();  
+     			// Added for loader------------- EN
      	   });
 	}; 
    
