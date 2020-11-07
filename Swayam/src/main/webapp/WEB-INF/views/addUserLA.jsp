@@ -651,6 +651,21 @@ $(document).ready(function(){
 	}
 	}
 	
+	function cancelform() {
+		
+		debugger;
+		$("#emailId12").html("");
+		$("#phoneNumber12").html("");	
+		$("#pfId12").html("");	
+		$("#userName12").html("");	
+		$("#reportingAuthorityName12").html("");		
+		$("#reportingAuthorityEmail12").html("");
+		$("#role12").html("");
+		$("#circle12").html("");
+		
+    	$("#contentHomeApp").load("km/userList");  
+		
+	}
 	
 	
 	
@@ -797,7 +812,8 @@ $(document).ready(function(){
 					<c:if test="${addUserDto.checkAction != 'Edit'}">	
 					 <form:hidden path="checkAction" />
 					  <form:hidden path="userId" />
-					<td><input type="reset" class="button" value="CANCEL"></td>
+					<!-- <td><input type="reset" class="button" value="CANCEL"></td> -->
+					<td><input style="width: 80px;height: 28px;"" type="button" onclick="cancelform()"   class="button" value="CANCEL"></td>
                    <td><input type="button" onclick="saveform()"   class="button" value="ADD"></td>
 					</c:if>	
 					

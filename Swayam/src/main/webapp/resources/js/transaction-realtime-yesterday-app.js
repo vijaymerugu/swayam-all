@@ -20,11 +20,17 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    $scope.CurrentDate =tomorrow.setDate(tomorrow.getDate() + 1);
    $scope.getCountType = function(yesterday){
 	    yesterdayType=yesterday;
+	    //  Added for loader------------- START 
+	    $("#loading").show();  
+	 // Added for loader------------- EN
 	   UserManagementService.getUsers(paginationOptions.pageNumber,
 			   paginationOptions.pageSize,yesterdayType).success(function(data){
 				   
 					  $scope.gridOptions.data = data.content;
 				 	  $scope.gridOptions.totalItems = data.totalElements;
+				 	  //  Added for loader------------- START 
+				 	   $("#loading").hide();  
+				 	// Added for loader------------- EN
 				   });
 	}
    
