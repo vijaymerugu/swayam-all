@@ -22,6 +22,8 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.hibernate.exception.ConstraintViolationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -47,6 +49,7 @@ import sbi.kiosk.swayam.common.entity.VendorMaster;
 @Service
 public class BillingServiceImpl implements BillingService {
 
+	Logger logger =  LoggerFactory.getLogger(BillingServiceImpl.class);
 	
 	@Autowired
 	private BillingAllocationRepository billingallocationRepository;
@@ -75,13 +78,21 @@ public class BillingServiceImpl implements BillingService {
 	public String upload(String path) {
 	UserDto user = (UserDto) httpSession.getAttribute("userObj");
 		try {
+			
+			
+			new File(path).getName();
 		inputStream = new FileInputStream(new File(path));
 
 			workbook = new XSSFWorkbook(inputStream);
 			org.apache.poi.ss.usermodel.Sheet firstSheet = workbook.getSheetAt(0);
 			
+			
+
+			
 			//Check header validation
 			Row headerRow = firstSheet.getRow(0);
+			
+			//System.out.println("Get No of cell "+headerRow.getPhysicalNumberOfCells());
 			
 			Iterator<Cell> cells = headerRow.cellIterator();
 			int header= 0;
@@ -273,22 +284,39 @@ public class BillingServiceImpl implements BillingService {
 				////System.out.println("Entity "+ listEntity);
 				
 			}
+			
+			//System.out.println("listEntity "+ listEntity.isEmpty());
+			
+			if(listEntity.isEmpty()) {
+				
+				return "No data to upload in excel"; 
+			}
+			
+			
+			Iterable<Allocation> result = null;
+			
+			try {
+				
+				result = repository.saveAll(listEntity);
+			}catch (Exception e) {
+				return "Allocation Process Completed And Duplicate Entries Rejected";
+			}
 
-			Iterable<Allocation> result = repository.saveAll(listEntity);
+			
 			////System.out.println("result" + result);
 			if (result != null)
 				return "Allocation Completed";
 		}
 
 		
-		  catch(ConstraintViolationException e) { 
-			  System.out.println("Error -3" + e.getLocalizedMessage());
-			  return "Failed - Duplicate records";
-		  }
+		/*
+		 * catch(ConstraintViolationException e) { System.out.println("Error -3" +
+		 * e.getLocalizedMessage()); return "Failed - Duplicate records"; }
+		 */
 		  //e.printStackTrace(); }
 		 catch (Exception e) {
-			 System.out.println("Error -1" + e.getLocalizedMessage());
-			 return "Failed - Duplicate records";
+			// System.out.println("Error -1" + e.getLocalizedMessage());
+			 return "Invalid/Blank input file- Upload a valid Excel file";
 		//e.printStackTrace();
 	}
 		finally
@@ -302,8 +330,8 @@ public class BillingServiceImpl implements BillingService {
 			}
 
 		} catch (Exception e) {
-			 System.out.println("Error-2 " + e.getLocalizedMessage());
-			 
+			// System.out.println("Error-2 " + e.getLocalizedMessage());
+			logger.error("--");
 			//e.printStackTrace();
 		}
 	}return"Data Not Uploaded";
