@@ -38,4 +38,22 @@ public class ErrorReportingServiceImpl implements ErrorReportingService {
 	}
 	
 
+	@Override
+	public String findSwayamTxnLastUpdatedJob() {
+		
+		String swayamMigrationTxnDate=null;
+		
+		try {
+			swayamMigrationTxnDate=errorReportingRepo.findCurrentDateAuditJob();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return swayamMigrationTxnDate;
+		
+		
+		
+	}
+	
+	
 }

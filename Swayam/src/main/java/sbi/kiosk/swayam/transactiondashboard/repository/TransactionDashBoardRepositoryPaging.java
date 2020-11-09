@@ -34,7 +34,8 @@ public interface TransactionDashBoardRepositoryPaging extends PagingAndSortingRe
                      "count(1) no_of_kiosks, nvl(sum(dtl.no_of_txns),0) swayam_txns "+ 
                 "from tbl_kiosk_master mst,"+ 
                      "tbl_swayam_txn_report dtl "+
-               "where mst.kiosk_id = dtl.kiosk_id(+) "+
+             //  "where mst.kiosk_id = dtl.kiosk_id(+) "+
+ " where upper(mst.kiosk_id) = upper(dtl.kiosk_id( +)) "+
                 "and to_date(txn_date, 'dd-mm-yyyy') between trunc(to_date(:fromdate, 'dd-mm-yyyy')) "+ 
                                                  "and trunc(to_date(:todate, 'dd-mm-yyyy')) "+
                "group by mst.BRANCH_CODE, mst.KIOSK_ID, mst.vendor) data1,"+
@@ -58,7 +59,8 @@ public interface TransactionDashBoardRepositoryPaging extends PagingAndSortingRe
         		"                     count(1) no_of_kiosks, nvl(sum(dtl.no_of_txns),0) swayam_txns\r\n" + 
         		"                from tbl_kiosk_master mst,\r\n" + 
         		"                     tbl_swayam_txn_report dtl\r\n" + 
-        		"               where mst.kiosk_id = dtl.kiosk_id(+)\r\n" + 
+        		//"               where mst.kiosk_id = dtl.kiosk_id(+)\r\n" + 
+        		 " where upper(mst.kiosk_id) = upper(dtl.kiosk_id( +)) "+
         		"                and to_date(txn_date, 'dd-mm-yyyy') between trunc(to_date(:fromdate, 'dd-mm-yyyy'))\r\n" + 
         		"                                                 and trunc(to_date(:todate, 'dd-mm-yyyy'))\r\n" + 
         		"               group by mst.BRANCH_CODE, mst.KIOSK_ID, mst.vendor) data1,\r\n" + 
@@ -88,7 +90,8 @@ public interface TransactionDashBoardRepositoryPaging extends PagingAndSortingRe
                   "count(1) no_of_kiosks, nvl(sum(dtl.no_of_txns),0) swayam_txns "+ 
              "from tbl_kiosk_master mst,"+ 
                   "tbl_swayam_txn_report dtl "+
-            "where mst.kiosk_id = dtl.kiosk_id(+) "+
+       //     "where mst.kiosk_id = dtl.kiosk_id(+) "+
+            " where upper(mst.kiosk_id) = upper(dtl.kiosk_id( +)) "+
              "and to_date(txn_date, 'dd-mm-yyyy') between trunc(to_date(:fromdate, 'dd-mm-yyyy')) "+ 
                                               "and trunc(to_date(:todate, 'dd-mm-yyyy')) "+
             "group by mst.BRANCH_CODE, mst.KIOSK_ID, mst.vendor) data1,"+
@@ -112,7 +115,8 @@ public interface TransactionDashBoardRepositoryPaging extends PagingAndSortingRe
      		"                     count(1) no_of_kiosks, nvl(sum(dtl.no_of_txns),0) swayam_txns\r\n" + 
      		"                from tbl_kiosk_master mst,\r\n" + 
      		"                     tbl_swayam_txn_report dtl\r\n" + 
-     		"               where mst.kiosk_id = dtl.kiosk_id(+)\r\n" + 
+     	//	"               where mst.kiosk_id = dtl.kiosk_id(+)\r\n" + 
+     	 " where upper(mst.kiosk_id) = upper(dtl.kiosk_id( +)) "+
      		"                and to_date(txn_date, 'dd-mm-yyyy') between trunc(to_date(:fromdate, 'dd-mm-yyyy'))\r\n" + 
      		"                                                 and trunc(to_date(:todate, 'dd-mm-yyyy'))\r\n" + 
      		"               group by mst.BRANCH_CODE, mst.KIOSK_ID, mst.vendor) data1,\r\n" + 
@@ -124,8 +128,8 @@ public interface TransactionDashBoardRepositoryPaging extends PagingAndSortingRe
 	List<SwayamMigrationSummary> findAllByDate(@Param("fromdate") String fromdate,@Param("todate") String todate);
 
 	// 12c
-		//@Query(value="select to_char(end_dttm,'dd-Mon-yy hh24:mm:ss') from  tbl_audit_job where job_name='TBL_SWAYAM_TXN_DAILY'  order by end_dttm desc fetch first 1 row only ",nativeQuery = true )
+		@Query(value="select to_char(end_dttm,'dd-Mon-yy hh24:mm:ss') from  tbl_audit_job where job_name='TBL_SWAYAM_TXN_DAILY'  order by end_dttm desc fetch first 1 row only ",nativeQuery = true )
 		//for 11g
-		@Query(value="select to_char(end_dttm,'dd-Mon-yy hh24:mm:ss') from  tbl_audit_job where job_name='TBL_SWAYAM_TXN_DAILY' and rownum <= 1 order by end_dttm desc ",nativeQuery = true )
+		//@Query(value="select to_char(end_dttm,'dd-Mon-yy hh24:mm:ss') from  tbl_audit_job where job_name='TBL_SWAYAM_TXN_DAILY' and rownum <= 1 order by end_dttm desc ",nativeQuery = true )
 		String findCurrentDateAuditJob();
 }
