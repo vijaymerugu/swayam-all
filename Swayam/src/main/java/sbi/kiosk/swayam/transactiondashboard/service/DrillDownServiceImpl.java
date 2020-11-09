@@ -139,4 +139,22 @@ public class DrillDownServiceImpl implements DrillDownService{
 		return null;
 	}
 	
+	
+	@Override
+	public String findSwayamTxnLastUpdatedJob() {
+		
+		String swayamMigrationTxnDate=null;
+		
+		try {
+			swayamMigrationTxnDate=drillDownRepository.findCurrentDateAuditJob();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return swayamMigrationTxnDate;
+		
+		
+		
+	}
+	
 }

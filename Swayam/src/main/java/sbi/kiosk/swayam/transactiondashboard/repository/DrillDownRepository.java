@@ -54,7 +54,8 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
                      "count(1) no_of_kiosks, nvl(sum(dtl.no_of_txns),0) swayam_txns "+
                 "from tbl_kiosk_master mst, "+
                      "tbl_swayam_txn_report dtl "+
-               "where mst.kiosk_id = dtl.kiosk_id(+) "+
+              // "where mst.kiosk_id = dtl.kiosk_id(+) "+
+               " where upper(mst.kiosk_id) = upper(dtl.kiosk_id( +)) "+ 
                  "and to_date(txn_date, 'dd-mm-yyyy') between trunc(to_date(:fromdate, 'dd-mm-yyyy')) "+
                                                  "and trunc(to_date(:todate, 'dd-mm-yyyy')) "+
                "group by mst.BRANCH_CODE, mst.KIOSK_ID, mst.vendor) data1, "+
@@ -80,7 +81,8 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
                      "count(1) no_of_kiosks, nvl(sum(dtl.no_of_txns),0) swayam_txns "+
                 "from tbl_kiosk_master mst, "+
                      "tbl_swayam_txn_report dtl "+
-               "where mst.kiosk_id = dtl.kiosk_id(+) "+
+              // "where mst.kiosk_id = dtl.kiosk_id(+) "+
+               " where upper(mst.kiosk_id) = upper(dtl.kiosk_id( +)) "+ 
                  "and to_date(txn_date, 'dd-mm-yyyy') between trunc(to_date(:fromdate, 'dd-mm-yyyy')) "+
                                                  "and trunc(to_date(:todate, 'dd-mm-yyyy')) "+
                "group by mst.BRANCH_CODE, mst.KIOSK_ID, mst.vendor) data1, "+
@@ -113,7 +115,8 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
                      "count(1) no_of_kiosks, nvl(sum(dtl.no_of_txns),0) swayam_txns "+
                 "from tbl_kiosk_master mst, "+
                      "tbl_swayam_txn_report dtl "+
-               "where mst.kiosk_id = dtl.kiosk_id(+) "+
+              // "where mst.kiosk_id = dtl.kiosk_id(+) "+
+               " where upper(mst.kiosk_id) = upper(dtl.kiosk_id( +)) "+ 
                  "and to_date(txn_date, 'dd-mm-yyyy') between trunc(to_date(:fromdate, 'dd-mm-yyyy')) "+
                                                  "and trunc(to_date(:todate, 'dd-mm-yyyy')) "+
                "group by mst.BRANCH_CODE, mst.KIOSK_ID, mst.vendor) data1, "+
@@ -139,7 +142,8 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
                      "count(1) no_of_kiosks, nvl(sum(dtl.no_of_txns),0) swayam_txns "+
                 "from tbl_kiosk_master mst, "+
                      "tbl_swayam_txn_report dtl "+
-               "where mst.kiosk_id = dtl.kiosk_id(+) "+
+               //"where mst.kiosk_id = dtl.kiosk_id(+) "+
+               " where upper(mst.kiosk_id) = upper(dtl.kiosk_id( +)) "+ 
                  "and to_date(txn_date, 'dd-mm-yyyy') between trunc(to_date(:fromdate, 'dd-mm-yyyy')) "+
                                                  "and trunc(to_date(:todate, 'dd-mm-yyyy')) "+
                "group by mst.BRANCH_CODE, mst.KIOSK_ID, mst.vendor) data1, "+
@@ -172,7 +176,8 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
                      "count(1) no_of_kiosks, nvl(sum(dtl.no_of_txns),0) swayam_txns "+
                 "from tbl_kiosk_master mst, "+
                      "tbl_swayam_txn_report dtl "+
-               "where mst.kiosk_id = dtl.kiosk_id(+) "+
+             //  "where mst.kiosk_id = dtl.kiosk_id(+) "+
+               " where upper(mst.kiosk_id) = upper(dtl.kiosk_id( +)) "+ 
                  "and to_date(txn_date, 'dd-mm-yyyy') between trunc(to_date(:fromdate, 'dd-mm-yyyy')) "+
                                                  "and trunc(to_date(:todate, 'dd-mm-yyyy')) "+
                "group by mst.BRANCH_CODE, mst.KIOSK_ID, mst.vendor) data1, "+
@@ -198,7 +203,8 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
                      "count(1) no_of_kiosks, nvl(sum(dtl.no_of_txns),0) swayam_txns "+
                 "from tbl_kiosk_master mst, "+
                      "tbl_swayam_txn_report dtl "+
-               "where mst.kiosk_id = dtl.kiosk_id(+) "+
+              // "where mst.kiosk_id = dtl.kiosk_id(+) "+
+               " where upper(mst.kiosk_id) = upper(dtl.kiosk_id( +)) "+ 
                  "and to_date(txn_date, 'dd-mm-yyyy') between trunc(to_date(:fromdate, 'dd-mm-yyyy')) "+
                                                  "and trunc(to_date(:todate, 'dd-mm-yyyy')) "+
                "group by mst.BRANCH_CODE, mst.KIOSK_ID, mst.vendor) data1, "+
@@ -232,7 +238,8 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
                      "count(1) no_of_kiosks, nvl(sum(dtl.no_of_txns),0) swayam_txns "+
                 "from tbl_kiosk_master mst, "+
                      "tbl_swayam_txn_report dtl "+
-               "where mst.kiosk_id = dtl.kiosk_id(+) "+
+             //  "where mst.kiosk_id = dtl.kiosk_id(+) "+
+               " where upper(mst.kiosk_id) = upper(dtl.kiosk_id( +)) "+ 
                  "and to_date(txn_date, 'dd-mm-yyyy') between trunc(to_date(:fromdate, 'dd-mm-yyyy')) "+
                                                  "and trunc(to_date(:todate, 'dd-mm-yyyy')) "+
                "group by mst.BRANCH_CODE, mst.KIOSK_ID, mst.vendor) data1, "+
@@ -258,7 +265,8 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
                      "count(1) no_of_kiosks, nvl(sum(dtl.no_of_txns),0) swayam_txns "+
                 "from tbl_kiosk_master mst, "+
                      "tbl_swayam_txn_report dtl "+
-               "where mst.kiosk_id = dtl.kiosk_id(+) "+
+               //"where mst.kiosk_id = dtl.kiosk_id(+) "+
+               " where upper(mst.kiosk_id) = upper(dtl.kiosk_id( +)) "+ 
                  "and to_date(txn_date, 'dd-mm-yyyy') between trunc(to_date(:fromdate, 'dd-mm-yyyy')) "+
                                                  "and trunc(to_date(:todate, 'dd-mm-yyyy')) "+
                "group by mst.BRANCH_CODE, mst.KIOSK_ID, mst.vendor) data1, "+
@@ -290,7 +298,8 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
                      "count(1) no_of_kiosks, nvl(sum(dtl.no_of_txns),0) swayam_txns "+
                 "from tbl_kiosk_master mst, "+
                      "tbl_swayam_txn_report dtl "+
-               "where mst.kiosk_id = dtl.kiosk_id(+) "+
+               //"where mst.kiosk_id = dtl.kiosk_id(+) "+
+               " where upper(mst.kiosk_id) = upper(dtl.kiosk_id( +)) "+ 
                  "and to_date(txn_date, 'dd-mm-yyyy') between trunc(to_date(:fromdate, 'dd-mm-yyyy')) "+
                                                  "and trunc(to_date(:todate, 'dd-mm-yyyy')) "+
                "group by mst.BRANCH_CODE, mst.KIOSK_ID, mst.vendor) data1, "+
@@ -316,7 +325,8 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
                      "count(1) no_of_kiosks, nvl(sum(dtl.no_of_txns),0) swayam_txns "+
                 "from tbl_kiosk_master mst, "+
                      "tbl_swayam_txn_report dtl "+
-               "where mst.kiosk_id = dtl.kiosk_id(+) "+
+             //  "where mst.kiosk_id = dtl.kiosk_id(+) "+
+               " where upper(mst.kiosk_id) = upper(dtl.kiosk_id( +)) "+ 
                  "and to_date(txn_date, 'dd-mm-yyyy') between trunc(to_date(:fromdate, 'dd-mm-yyyy')) "+
                                                  "and trunc(to_date(:todate, 'dd-mm-yyyy')) "+
                "group by mst.BRANCH_CODE, mst.KIOSK_ID, mst.vendor) data1, "+
@@ -328,4 +338,11 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
              nativeQuery=true)
     Page<DrillDown> findByDate(@Param("fromdate") String fromdate,@Param("todate") String todate,@Param("in_circle_code") String in_circle_code,@Param("in_network_code") String in_network_code,@Param("in_module_code") String in_module_code,@Param("in_region_code") String in_region_code,Pageable pageable);
 
+    
+ // 12c
+ 		@Query(value="select to_char(end_dttm,'dd-Mon-yy hh24:mm:ss') from  tbl_audit_job where job_name='TBL_SWAYAM_TXN_DAILY'  order by end_dttm desc fetch first 1 row only ",nativeQuery = true )
+ 		//for 11g
+ 		//@Query(value="select to_char(end_dttm,'dd-Mon-yy hh24:mm:ss') from  tbl_audit_job where job_name='TBL_SWAYAM_TXN_DAILY' and rownum <= 1 order by end_dttm desc ",nativeQuery = true )
+ 		String findCurrentDateAuditJob();
+    
 }

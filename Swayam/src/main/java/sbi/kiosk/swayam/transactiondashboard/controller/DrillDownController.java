@@ -1,5 +1,8 @@
 package sbi.kiosk.swayam.transactiondashboard.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -7,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -161,6 +166,14 @@ public class DrillDownController {
 		 }
 
 		      return resultPage;
+	}
+	
+	
+	@GetMapping("td/getDrillDownLastUpDated")
+	public ResponseEntity<String>  getLastUpdatedJob() {
+		 String lastUpdatedDate= drillDownService.findSwayamTxnLastUpdatedJob();
+		ResponseEntity<String> entity=ResponseEntity.ok(lastUpdatedDate);
+		return entity;
 	}
 
 }
