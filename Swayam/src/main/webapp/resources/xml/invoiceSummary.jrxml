@@ -9,53 +9,53 @@
 	<field name="circleName" class="java.lang.String"/>
 	<field name="year" class="java.lang.String"/>
 	<field name="vendor" class="java.lang.String"/>
-	<field name="q1Im" class="java.lang.String"/>
-	<field name="q2Im" class="java.lang.String"/>
-	<field name="q3Im" class="java.lang.String"/>
-	<field name="q4Im" class="java.lang.String"/>
-	<field name="q1P" class="java.lang.String"/>
-	<field name="q2P" class="java.lang.String"/>
-	<field name="q3P" class="java.lang.String"/>
-	<field name="q4P" class="java.lang.String"/>
-	<field name="q1Ba" class="java.lang.String"/>
-	<field name="q2Ba" class="java.lang.String"/>
-	<field name="q3Ba" class="java.lang.String"/>
-	<field name="q4Ba" class="java.lang.String"/>
-	<variable name="im1" class="java.lang.Integer" calculation="Sum">
-		<variableExpression><![CDATA[Integer.parseInt($F{q1Im})]]></variableExpression>
+	<field name="q1Im" class="java.lang.Long"/>
+	<field name="q2Im" class="java.lang.Long"/>
+	<field name="q3Im" class="java.lang.Long"/>
+	<field name="q4Im" class="java.lang.Long"/>
+	<field name="q1P" class="java.lang.Long"/>
+	<field name="q2P" class="java.lang.Long"/>
+	<field name="q3P" class="java.lang.Long"/>
+	<field name="q4P" class="java.lang.Long"/>
+	<field name="q1Ba" class="java.lang.Long"/>
+	<field name="q2Ba" class="java.lang.Long"/>
+	<field name="q3Ba" class="java.lang.Long"/>
+	<field name="q4Ba" class="java.lang.Long"/>
+	<variable name="im1" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$F{q1Im}]]></variableExpression>
 	</variable>
-	<variable name="im2" class="java.lang.Integer" calculation="Sum">
-		<variableExpression><![CDATA[Integer.parseInt($F{q2Im})]]></variableExpression>
+	<variable name="im2" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$F{q2Im}]]></variableExpression>
 	</variable>
-	<variable name="im3" class="java.lang.Integer" calculation="Sum">
-		<variableExpression><![CDATA[Integer.parseInt($F{q3Im})]]></variableExpression>
+	<variable name="im3" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$F{q3Im}]]></variableExpression>
 	</variable>
-	<variable name="im4" class="java.lang.Integer" calculation="Sum">
-		<variableExpression><![CDATA[Integer.parseInt($F{q4Im})]]></variableExpression>
+	<variable name="im4" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$F{q4Im}]]></variableExpression>
 	</variable>
-	<variable name="p1" class="java.lang.Integer" calculation="Sum">
-		<variableExpression><![CDATA[Integer.parseInt($F{q1P})]]></variableExpression>
+	<variable name="p1" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$F{q1P}]]></variableExpression>
 	</variable>
-	<variable name="p2" class="java.lang.Integer" calculation="Sum">
-		<variableExpression><![CDATA[Integer.parseInt($F{q2P})]]></variableExpression>
+	<variable name="p2" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$F{q2P}]]></variableExpression>
 	</variable>
-	<variable name="p3" class="java.lang.Integer" calculation="Sum">
-		<variableExpression><![CDATA[Integer.parseInt($F{q3P})]]></variableExpression>
+	<variable name="p3" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$F{q3P}]]></variableExpression>
 	</variable>
-	<variable name="p4" class="java.lang.Integer" calculation="Sum">
-		<variableExpression><![CDATA[Integer.parseInt($F{q4P})]]></variableExpression>
+	<variable name="p4" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$F{q4P}]]></variableExpression>
 	</variable>
-	<variable name="ba1" class="java.lang.Integer" calculation="Sum">
-		<variableExpression><![CDATA[Integer.parseInt($F{q1Ba})]]></variableExpression>
+	<variable name="ba1" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$F{q1Ba}]]></variableExpression>
 	</variable>
-	<variable name="ba2" class="java.lang.Integer" calculation="Sum">
-		<variableExpression><![CDATA[Integer.parseInt($F{q2Ba})]]></variableExpression>
+	<variable name="ba2" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$F{q2Ba}]]></variableExpression>
 	</variable>
-	<variable name="ba3" class="java.lang.Integer" calculation="Sum">
-		<variableExpression><![CDATA[Integer.parseInt($F{q3Ba})]]></variableExpression>
+	<variable name="ba3" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$F{q3Ba}]]></variableExpression>
 	</variable>
-	<variable name="ba4" class="java.lang.Integer" calculation="Sum">
-		<variableExpression><![CDATA[Integer.parseInt($F{q4Ba})]]></variableExpression>
+	<variable name="ba4" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$F{q4Ba}]]></variableExpression>
 	</variable>
 	<background>
 		<band height="110" splitType="Stretch"/>

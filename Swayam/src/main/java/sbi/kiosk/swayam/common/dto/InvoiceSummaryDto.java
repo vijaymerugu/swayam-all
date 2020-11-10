@@ -43,28 +43,52 @@ public class InvoiceSummaryDto {
 	
 	private String state;
 	
-	private String q1Im;
+//	private String q1Im;
+//	
+//	private String q2Im;
+//	
+//	private String q3Im;
+//	
+//	private String q4Im;
+//	
+//	private String q1P;
+//	
+//	private String q2P;
+//	
+//	private String q3P;
+//	
+//	private String q4P;
+//	
+//	private String q1Ba;
+//	
+//	private String q2Ba;
+//	
+//	private String q3Ba;
+//	
+//	private String q4Ba;
 	
-	private String q2Im;
+	private Long q1Im;
 	
-	private String q3Im;
+	private Long q2Im;
 	
-	private String q4Im;
+	private Long q3Im;
 	
-	private String q1P;
+	private Long q4Im;
 	
-	private String q2P;
+	private Long q1P;
 	
-	private String q3P;
+	private Long q2P;
 	
-	private String q4P;
+	private Long q3P;
 	
-	private String q1Ba;
+	private Long q4P;
 	
-	private String q2Ba;
+	private Long q1Ba;
 	
-	private String q3Ba;
+	private Long q2Ba;
 	
-	private String q4Ba;
+	private Long q3Ba;
+	
+	private Long q4Ba;
 
 }

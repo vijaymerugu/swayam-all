@@ -27,10 +27,10 @@ public class InvoiceGeneration {
 	private String quarterId;
 	@Column(name="RFP_NO")
 	private String rpfRefNumber;
-	@Column(name="SPARE_PARTS")
-	private String spareParts;
 //	@Column(name="SPARE_PARTS")
-//	private Float spareParts;
+//	private String spareParts;
+	@Column(name="SPARE_PARTS")
+	private Float spareParts;
 	@Column(name="PENALTY_AMT")
 	private Float penalty;
 	@Column(name="INVOICE_AMT")
