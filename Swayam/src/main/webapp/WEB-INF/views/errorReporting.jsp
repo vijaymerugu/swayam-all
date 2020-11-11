@@ -29,6 +29,21 @@
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
+    
+   <script>
+		  $.ajax({
+		  	type:"GET",
+		  	url:"td/getErrorReportingLastUpDated",
+		      success: function(data){
+		    	//  alert("dddd=")
+		      	console.log("inside data");
+		  	    respos=data;
+		  	 console.log("response "+respos);
+		       $("#dateId").html(data);
+		
+		      }
+		   	   });
+  </script>
 
 <script>
 	$(document).ready(function() {
@@ -95,7 +110,12 @@
  				</table>
 			</div>
 			<br/>
-
+			<div>
+				<pre align="left" style="background-color: #00BFFF; color: white; font-size: 18px; font-weight: bold; font-family: Helvetica;">
+                  <span align="center" style="font-size: 18px; font-weight: bold; font-family: Helvetica">Errors Reporting Transactions<span
+						colspan="4" align="center"	style="color: white; font-size: 18px; font-weight: bold; float: right; margin-right: 1em">Last Updated :<span id="dateId"></span></span></span>
+</pre>
+			</div>
 			<div class="submain">
 				<br /> <br /> <input class="form-group has-search"	ng-model="searchText" ng-change="refresh()"	placeholder="Enter Kiosk Id, Branch Code, Circle etc."
 					style="font-size: 12px" size="150" height="80" id="input">

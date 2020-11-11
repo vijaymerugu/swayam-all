@@ -197,23 +197,36 @@ $("#myBtn").click(function(){
 				</table>
 			</div>
 			<br />
-		<table>
+			
+	<%-- 	<table>
    <h1 colspan="4" align="center" style="color: #00BFFF;font-size: 18px;font-weight: bold;"> All India branch view on
     <span  id="mySpan">  {{CurrentDate | date:'EEE,dd MMM, yyyy hh:mm:ss a'}}</span> 
     <span  id="mySpan1"> {{allIndiaDate}} </span> 
   
-  </h1> 
-			 
-			    </table>
-			<br>	
+  </h1> 		 
+			    </table> --%>
+	<%-- 		<br>	
 			<div>
 			
-			<pre align="left" style="background-color: #00BFFF;color: white;font-size:24px;font-weight: bold;">
-<span>Overall Branch Wise Swayam Transactions<span colspan="4" align="center" style="color: white;font-size: 24px;font-weight: bold;float:right; margin-right:1em">Last Updated :<span id="dateId"></span></span>
+			<pre align="left" style="background-color: #00BFFF;color: white;font-size:12px;font-weight: bold;">
+<span>Overall Branch Wise Swayam Transactions<span colspan="4" align="center" style="color: white;font-size: 42px;font-weight: bold;float:right; margin-right:1em">Last Updated :<span id="dateId"></span></span>
 </span>
 </pre>
 			
 			
+			</div>  --%>
+			
+			<%-- <table>
+     <h1 colspan="4" align="center" style="color: #00BFFF;font-size: 18px;font-weight: bold;">All India branch view on
+      <span  id="mySpan">  {{CurrentDate | date:'EEE,dd MMM, yyyy hh:mm:ss a'}}</span> 
+    <span  id="mySpan1"> {{allIndiaDate}} </span> 
+       </h1> 
+			    </table> --%>
+			<!-- <br> -->	
+			<div>
+		<pre align="left" style="background-color: #00BFFF;color: white;font-size:18px;font-weight: bold;font-family:Helvetica;">
+ <span align="center" style="font-size: 18px;font-weight: bold;font-family:Helvetica">Overall Branch Wise Swayam Transactions<span colspan="4" align="center" style="color: white;font-size: 18px;font-weight: bold;float:right; margin-right:1em">Last Updated :<span id="dateId"></span></span></span>
+</pre>
 			</div> 
 
 <%-- 
@@ -256,7 +269,12 @@ $("#myBtn").click(function(){
  
 
 		<div class="submain">
-	<input class="form-group has-search" ng-model="searchText" ng-change="refresh()" placeholder="Enter Ticket Id, Kiosk Id, Branch Code, Circle etc." style="font-size: 12px" size="150" height="80" id="input">
+		  <input class="form-group has-search" ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle,Network,Branch Name, Branch Code etc."  style="font-size: 10px;"  size="130" height="50" id="input">
+	<%-- <h1 colspan="4" align="center" style="color: #00BFFF;font-size: 14px;font-weight: bold; "> 
+   All India branch view on <span  id="mySpan">  {{CurrentDate | date:'EEE,dd MMM, yyyy hh:mm:ss a'}}</span> 
+    <span  id="mySpan1"> {{allIndiaDate}} </span> 
+  </h1> --%> 
+		
 		<span style="float:right">
 		<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
 		<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>
@@ -270,7 +288,8 @@ $("#myBtn").click(function(){
 		</div> 
 		<!-- Added for loader------------- END -->	
 		
-		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-selection ui-grid-exporter id="test"></div>
+		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-selection ui-grid-exporter id="test">
+		</div>
     </div>
 </div>	
 </div>

@@ -28,6 +28,21 @@
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
+    
+     <script>
+		  $.ajax({
+		  	type:"GET",
+		  	url:"td/getDrillDownLastUpDated",
+		      success: function(data){
+		    	//  alert("dddd=")
+		      	console.log("inside data");
+		  	    respos=data;
+		  	 console.log("response "+respos);
+		       $("#dateId").html(data);
+		
+		      }
+		   	   });
+  </script>
 
 <script>
 	$(document).ready(function() {
@@ -82,23 +97,14 @@
 
 <div class="main" ng-app="app" id="appId">
 <div ng-controller="DrillDownCtrl as vm">
-
-
-<div>
-
-			 <table class="table1" style="border: 1px solid #eee;">
-				
-              <div> 
+    <div>
+			<table class="" style="border: 1px solid #eee;">
               
 					<div>
 						<br /> From Date: <input type="text" id="datepickerFromDate" name="input1" class="datepicker" readonly="readonly" ng-model="searchDateStart" placeholder="dd-mm-yyyy" required maxlength="10" style="cursor: hand;cursor: pointer;" /> 
 							To	Date : <input type="text" id="datepickerToDate" name="input2" class="datepicker" readonly="readonly"	ng-model="searchDateEnd" placeholder="dd-mm-yyyy" required maxlength="10"  style="cursor: hand;cursor: pointer;" />
 						<button type="button"  ng-click="searchPositions(searchDateStart,searchDateEnd) " style="cursor: hand;cursor: pointer;">Generate</button>
-
 					</div>
-				     
-			  </div> 
-			   
 			</table> 
 		</div>
 
@@ -123,6 +129,15 @@
 			</table> 
 		</div> -->
 <br/>
+
+      <div>
+			<pre align="left" style="background-color: #00BFFF; color: white; font-size: 10px; font-weight: bold; font-family: Helvetica;">
+             <span align="center" style="font-size: 10px; font-weight: bold; font-family: Helvetica">
+                  DrillDown Transactions<span
+						colspan="4" align="center"	style="color: white; font-size: 16px; font-weight: bold; float: right; margin-right: 1em">Last Updated :<span id="dateId"></span></span></span>
+      </pre>
+			</div>
+
 		<div class="submain">	
 	
 	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle, No Of Branches, Kiosks, Txns, etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">

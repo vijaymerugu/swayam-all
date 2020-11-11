@@ -127,7 +127,8 @@ vertical-align:top;
 #input {
 	top: 382px;
 	left: 31px;
-	width: 464px;
+	/*width: 464px;*/
+	width:310px; 
 	height: 42px;
 	background: #F5F5F5 0% 0% no-repeat padding-box;
 	border: 1px solid #EFEFEF;
