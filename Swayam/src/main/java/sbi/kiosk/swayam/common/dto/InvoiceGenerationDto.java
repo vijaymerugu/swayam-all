@@ -63,7 +63,9 @@ public class InvoiceGenerationDto {
 	private String rpfRefNumber;
 	
 	
-	private String spareParts;
+	//private String spareParts;
+	
+	private Float spareParts;
 
 	private Float penalty;
 

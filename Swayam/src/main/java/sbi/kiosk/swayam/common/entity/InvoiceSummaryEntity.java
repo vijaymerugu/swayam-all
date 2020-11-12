@@ -56,29 +56,57 @@ public class InvoiceSummaryEntity{
 	
 	
 	
+	/*
+	 * @Column(name="Q1_INVOICE_AMT") private String q1Im;
+	 * 
+	 * @Column(name="Q2_INVOICE_AMT") private String q2Im;
+	 * 
+	 * @Column(name="Q3_INVOICE_AMT") private String q3Im;
+	 * 
+	 * @Column(name="Q4_INVOICE_AMT") private String q4Im;
+	 * 
+	 * @Column(name="Q1_PENALTY_AMT") private String q1P;
+	 * 
+	 * @Column(name="Q2_PENALTY_AMT") private String q2P;
+	 * 
+	 * @Column(name="Q3_PENALTY_AMT") private String q3P;
+	 * 
+	 * @Column(name="Q4_PENALTY_AMT") private String q4P;
+	 * 
+	 * @Column(name="Q1_FINAL_AMT") private String q1Ba;
+	 * 
+	 * @Column(name="Q2_FINAL_AMT") private String q2Ba;
+	 * 
+	 * @Column(name="Q3_FINAL_AMT") private String q3Ba;
+	 * 
+	 * @Column(name="Q4_FINAL_AMT") private String q4Ba;
+	 */
+	
+/* Issue Fix - 10-11-2020 */
+	
 	@Column(name="Q1_INVOICE_AMT")
-	private String q1Im;
+	private Long q1Im;
 	@Column(name="Q2_INVOICE_AMT")
-	private String q2Im;
+	private Long q2Im;
 	@Column(name="Q3_INVOICE_AMT")
-	private String q3Im;
+	private Long q3Im;
 	@Column(name="Q4_INVOICE_AMT")
-	private String q4Im;
+	private Long q4Im;
 	@Column(name="Q1_PENALTY_AMT")
-	private String q1P;
+	private Long q1P;
 	@Column(name="Q2_PENALTY_AMT")
-	private String q2P;
+	private Long q2P;
 	@Column(name="Q3_PENALTY_AMT")
-	private String q3P;
+	private Long q3P;
 	@Column(name="Q4_PENALTY_AMT")
-	private String q4P;
+	private Long q4P;
 	@Column(name="Q1_FINAL_AMT")
-	private String q1Ba;
+	private Long q1Ba;
 	@Column(name="Q2_FINAL_AMT")
-	private String q2Ba;
+	private Long q2Ba;
 	@Column(name="Q3_FINAL_AMT")
-	private String q3Ba;
+	private Long q3Ba;
 	@Column(name="Q4_FINAL_AMT")
-	private String q4Ba;
+	private Long q4Ba;
 
 }

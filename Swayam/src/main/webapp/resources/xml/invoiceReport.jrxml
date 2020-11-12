@@ -12,13 +12,13 @@
 	<field name="kisokId" class="java.lang.String"/>
 	<field name="kioskSerialNumber" class="java.lang.String"/>
 	<field name="quarterId" class="java.lang.String"/>
-	<field name="spareParts" class="java.lang.String"/>
+	<field name="spareParts" class="java.lang.Float"/>
 	<field name="penalty" class="java.lang.Float"/>
 	<field name="invoiceAmount" class="java.lang.Float"/>
 	<field name="corrections" class="java.lang.Float"/>
 	<field name="finalAmount" class="java.lang.Float"/>
 	<variable name="sp" class="java.lang.Float" calculation="Sum">
-		<variableExpression><![CDATA[Integer.parseInt($F{spareParts})]]></variableExpression>
+		<variableExpression><![CDATA[$F{spareParts}]]></variableExpression>
 	</variable>
 	<variable name="p" class="java.lang.Float" calculation="Sum">
 		<variableExpression><![CDATA[$F{penalty}]]></variableExpression>
