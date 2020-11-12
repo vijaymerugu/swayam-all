@@ -112,13 +112,18 @@ $("#myBtn").click(function(){
   <h1 colspan="4" align="right"><input id="myBtn" value="Today" class="openFinalPopup" ng-model="date" type="button" style="font-size: 20px;width: 80px;height: 30px;" /></h1>   
  </tr>
 </table>
-<div>
+<!-- <div>
 	<pre align="left" style="background-color: #00BFFF;color: white;font-size:24px;font-weight: bold;">
      <span>Real-time Swayam Transactions<span colspan="4" align="center" style="color: white;font-size: 24px;font-weight: bold;float:right; margin-right:1em">Last Updated :<span id="dateId"></span></span>
     </span>
 </pre>
 
-</div>
+</div> -->
+<div>
+		<pre align="left" style="background-color: #00BFFF;color: white;font-size:18px;font-weight: bold;font-family:Helvetica;">
+ <span align="center" style="font-family:Helvetica">Real-time Swayam Transactions<span colspan="4" align="center" style="color: white;font-size: 18px;font-weight: bold;float:right; margin-right:1em">Last Updated :<span id="dateId"></span></span></span>
+</pre>
+			</div> 
 
 <!-- 
  <table>

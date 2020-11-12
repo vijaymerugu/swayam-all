@@ -371,26 +371,36 @@ $(document).ready(function(){
 	 $('#kioskId').blur(function() {
 		 
 		 // $(this).val() will work here
-		 var respos="";
+		    var respos="";
 		    var kioskId=$("#kioskId").val();
+		   // alert("kioskId==="+kioskId);
 		    console.log("kioskID::"+kioskId);
-   	        $.ajax({
+         $.ajax({
 	        	type:"GET",
 	        	url:"getBykioskId/"+kioskId,
 	         success: function(data){
 	        	 respos=data;
+	        //	 alert("111",respos);
+	        	 console.log("log::resp::"+respos);
 	            $("#circle").html('');    
 	            $("#contactPerson").html('');
 	            $("#contactNo").html('');
 	            $("#contactNo").html('');
+	           // $respos = respos['kioskId'];
+	         //   alert("respos:::"+respos['kioskId']);
+	            if(respos!=''){
+	            	// alert("loop1");
 	        	  $.each(respos, function(index){
+		        	//  alert("loop");
 	                   $("#circle").append('<option value='+respos[index].circle+'>'+respos[index].circle+'</option>'); 
 	                  /* $("#contactPerson").append('<option value='+respos[index].contactPerson+'>'+respos[index].contactPerson+'</option>');
 	                  $("#contactNo").append('<option value='+respos[index].contactNo+'>'+respos[index].contactNo+'</option>');
 	                 */ $('#kioskError').append('<option value='+respos[index].kioskError+'>'+respos[index].kioskError+'</option>');
 	                  //$("#vendor").html($("#vendor").val());
+	                   
 	                    
-	                  $("#kioskId1").html($("#kioskId").val());
+	                   $("#kioskId1").html($("#kioskId").val());
+		                  
 	                  $("#circle").html(respos[index].circle);
 	                  $("#contactNo1").html(respos[index].contactNo);
 	                  $("#contactPerson1").html(respos[index].contactPerson);
@@ -398,7 +408,11 @@ $(document).ready(function(){
 	                  $("#contactPerson").val(respos[index].contactPerson);  
 	                  $("#contactNo").val(respos[index].contactNo);  
 	                  $("#vish").val(respos[index].circle);
-	              });	      
+	              });
+	            }	else{
+	            	alert("The Kiosk is not mapped with any user");
+	            	// $("#kioskIdMappingUser").html("The Kiosk is not mapped with any user");
+		            }      
 	        	  
 	         }
 	        });
@@ -599,6 +613,7 @@ function cloesBox(){
 			modelAttribute="manualTicketCallLogDto" name="manualTicketCallLogDto"
 			id="form" autocomplete="off">
 			<h3 style="color: #000000;font-size:12 px; text-align: left;">Please complete the below form for lodging complaint</h3>
+			<!--  <span id="kioskIdMappingUser" style="color: red;"></span>  -->
 			<div class="col-md-12">
 				<table>
 					<tr>
