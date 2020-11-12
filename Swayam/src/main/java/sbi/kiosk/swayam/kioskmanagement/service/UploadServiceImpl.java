@@ -117,6 +117,22 @@ public class UploadServiceImpl implements UploadService {
 				while (cellIterator.hasNext()) {
 					Cell cell = cellIterator.next();
 					objFormulaEvaluator.evaluate(cell);
+					
+					if(String.valueOf(cell.getRow().getRowNum()).equals("0")) 
+					{
+						if(String.valueOf(cell.getColumnIndex()).equals("1")) 
+							if (cell.getStringCellValue().equalsIgnoreCase("KIOSK_ID"))
+								{
+									continue;
+								}
+								else
+								{
+									logger.error("Wrong File for upload!!");
+								
+									return "Wrong File for upload";
+								}
+					}
+					
 					switch (cell.getCellType()) {
 
 					case STRING:
@@ -431,7 +447,18 @@ public class UploadServiceImpl implements UploadService {
 			List<KioskBranchMaster> listEntity = new ArrayList<KioskBranchMaster>();
 			List<KioskBranchMaster> listEntity1 = new ArrayList<KioskBranchMaster>();
 			int count = 0;
-
+			if( lidtDto.size() == 0)
+			{
+				logger.error("Blank File for upload!!");
+				
+				return "Blank File for upload";
+			}
+			if( lidtDto.size() == 1)
+			{
+				logger.error("Blank File(Fill only Column name) for upload!!");
+				
+				return "Blank File(Fill only Column name) for upload";
+			}
 			for (KioskDto lidtDto1 : lidtDto) {
 				if (count != 0) {
 					entity = new KioskBranchMaster();
@@ -703,6 +730,20 @@ public class UploadServiceImpl implements UploadService {
 				CbsBrhmDto dto = new CbsBrhmDto();
 				while (cellIterator.hasNext()) {
 					Cell cell = cellIterator.next();
+					if(String.valueOf(cell.getRow().getRowNum()).equals("0")) 
+					{
+						if(String.valueOf(cell.getColumnIndex()).equals("1")) 
+							if (cell.getStringCellValue().equalsIgnoreCase("CRCL_NAME"))
+								{
+									continue;
+								}
+								else
+								{
+									logger.error("Wrong File for upload!!");
+								
+									return "Wrong File for upload";
+								}
+					}
 					switch (cell.getCellType()) {
 
 					case STRING:
@@ -830,70 +871,7 @@ public class UploadServiceImpl implements UploadService {
 					case NUMERIC:
 						if (!(String.valueOf(cell.getRow().getRowNum()).equals("0"))) {
 							
-							/*
-							 * if (String.valueOf(cell.getColumnIndex()).equals("0")) {
-							 * dto.setBranchCode((String.valueOf((int)cell.getNumericCellValue()))); }
-							 * 
-							 * if (String.valueOf(cell.getColumnIndex()).equals("2")) {
-							 * dto.setcRCLCode((String.valueOf((int)cell.getNumericCellValue()))); }
-							 * 
-							 * if (String.valueOf(cell.getColumnIndex()).equals("4")) {
-							 * dto.setNetwork((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("5")) {
-							 * dto.setModCode((String.valueOf((int)cell.getNumericCellValue()))); }
-							 * 
-							 * if (String.valueOf(cell.getColumnIndex()).equals("6")) {
-							 * dto.setModule((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("7")) {
-							 * dto.setRegion((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("8")) {
-							 * dto.setPopGroup((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("9")) {
-							 * dto.setPopDesc((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("10")) {
-							 * dto.setOpenCloseStatu((String.valueOf((int)cell.getNumericCellValue()))); }
-							 * if (String.valueOf(cell.getColumnIndex()).equals("11")) {
-							 * dto.setOpendt((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("12")) {
-							 * dto.setStatCode((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("13")) {
-							 * dto.setStateDesc((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("14")) {
-							 * dto.setDistCode((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("15")) {
-							 * dto.setDistDesc((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("16")) {
-							 * dto.setAddress1((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("17")) {
-							 * dto.setAddress2((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("18")) {
-							 * dto.setAddress3((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("19")) {
-							 * dto.setAddress4((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("20")) {
-							 * dto.setPinCode((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("21")) {
-							 * dto.setStdCode((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("22")) {
-							 * dto.setPhone((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("23")) {
-							 * dto.setMicrCode((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("24")) {
-							 * dto.setIfsc((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("25")) {
-							 * dto.setEmail((String.valueOf((int)cell.getNumericCellValue()))); }
-							 * 
-							 * if (String.valueOf(cell.getColumnIndex()).equals("26")) {
-							 * dto.setBranchMgrName((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("27")) {
-							 * dto.setBranchMgrMobileNo((String.valueOf((int)cell.getNumericCellValue())));
-							 * } if (String.valueOf(cell.getColumnIndex()).equals("28")) {
-							 * dto.setBusinessHrs((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("29")) {
-							 * dto.setOfficeType((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("30")) {
-							 * dto.setOfficeDesc((String.valueOf((int)cell.getNumericCellValue()))); }
-							 */
+							
 							
 							        if (String.valueOf(cell.getColumnIndex()).equals("1")) {
 								       dto.setcRCLName((String.valueOf((int)cell.getNumericCellValue()))); }
@@ -1100,7 +1078,18 @@ public class UploadServiceImpl implements UploadService {
 			List<BranchMaster> listEntity = new ArrayList<BranchMaster>();
 			List<BranchMaster> listEntity1 = new ArrayList<BranchMaster>();
 			int count = 0;
-
+			if( lidtDto.size() == 0)
+			{
+				logger.error("Blank File for upload!!");
+				
+				return "Blank File for upload";
+			}
+			if( lidtDto.size() == 1)
+			{
+				logger.error("Blank File(Fill only Column name) for upload!!");
+				
+				return "Blank File(Fill only Column name) for upload";
+			}
 			for (CbsBrhmDto listDto1 : lidtDto) {
 				//if (count != 0) {
 					entity = new BranchMaster();
@@ -1255,6 +1244,7 @@ public class UploadServiceImpl implements UploadService {
 				logger.info("Data Not Uploaded");
 				return "Data Not Uploaded";
 			}
+			
 			else {
 				Iterable<BranchMaster> result =	branchMasterRepository.saveAll(listEntity);
 				if(result != null) {
@@ -1396,7 +1386,7 @@ public class UploadServiceImpl implements UploadService {
 
 			Iterator<Row> iterator = firstSheet.iterator();
 			List<HolidayCalendarDto> lidtDto = new ArrayList<>();
-
+			
 			while (iterator.hasNext()) {
 				Row nextRow = iterator.next();
 				Iterator<Cell> cellIterator = nextRow.cellIterator();
@@ -1406,17 +1396,31 @@ public class UploadServiceImpl implements UploadService {
 
 					Cell cell = cellIterator.next();
 					objFormulaEvaluator.evaluate(cell);
-
-					/*
-					 * switch (cell.getCellType()) { case STRING:
-					 */
+					if(String.valueOf(cell.getRow().getRowNum()).equals("0")) 
+					{
+						if(String.valueOf(cell.getColumnIndex()).equals("1")) 
+							if (cell.getStringCellValue().equalsIgnoreCase("HOLIDAY_DATE"))
+								{
+									continue;
+								}
+							
+							else
+								{
+									logger.error("Wrong File for upload!!");
+								
+									return "Wrong File for upload";
+								}
+					}
+					
 
 					if (!(String.valueOf(cell.getRow().getRowNum()).equals("0"))) {
 
-						if (String.valueOf(cell.getColumnIndex()).equals("1")) {
+						if (String.valueOf(cell.getColumnIndex()).equals("1")) 
+						{
+							
 							String cellValueStr = objDefaultFormat.formatCellValue(cell, objFormulaEvaluator);
 							dto.setHolidayDate(cellValueStr);
-						}
+							}
 
 						if (String.valueOf(cell.getColumnIndex()).equals("2")) {
 							dto.setDay(cell.getStringCellValue());
@@ -1452,7 +1456,18 @@ public class UploadServiceImpl implements UploadService {
 			List<HolidayCalendar> listEntity = new ArrayList<HolidayCalendar>();
 			List<HolidayCalendar> listEntity1 = new ArrayList<HolidayCalendar>();
 			int count = 0;
-
+			if( lidtDto.size() == 0)
+			{
+				logger.error("Blank File for upload!!");
+				
+				return "Blank File for upload";
+			}
+			if( lidtDto.size() == 1)
+			{
+				logger.error("Blank File(Fill only Column name) for upload!!");
+				
+				return "Blank File(Fill only Column name) for upload";
+			}
 			for (HolidayCalendarDto lidtDto1 : lidtDto) {
 				if (count != 0) {
 					entity = new HolidayCalendar();
@@ -1638,6 +1653,21 @@ public class UploadServiceImpl implements UploadService {
 
 					Cell cell = cellIterator.next();
 					/* objFormulaEvaluator.evaluate(cell); */
+					
+					if(String.valueOf(cell.getRow().getRowNum()).equals("0")) 
+					{
+						if(String.valueOf(cell.getColumnIndex()).equals("1")) 
+							if (cell.getStringCellValue().equalsIgnoreCase("PF_ID"))
+								{
+									continue;
+								}
+								else
+								{
+									logger.error("Wrong File for upload!!");
+								
+									return "Wrong File for upload";
+								}
+					}
 
 					switch (cell.getCellType()) {
 					case STRING:
@@ -1680,7 +1710,18 @@ public class UploadServiceImpl implements UploadService {
 			List<UserKioskMapping> listEntity = new ArrayList<UserKioskMapping>();
 			List<UserKioskMapping> listEntity1 = new ArrayList<UserKioskMapping>();
 			int count = 0;
-
+			if( lidtDto.size() == 0)
+			{
+				logger.error("Blank File for upload!!");
+				
+				return "Blank File for upload";
+			}
+			if( lidtDto.size() == 1)
+			{
+				logger.error("Blank File(Fill only Column name) for upload!!");
+				
+				return "Blank File(Fill only Column name) for upload";
+			}
 			for (KioskCMFDto lidtDto1 : lidtDto) {
 				if (count != 0) {
 					entity = new UserKioskMapping();

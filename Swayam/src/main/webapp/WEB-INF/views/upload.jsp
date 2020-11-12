@@ -86,38 +86,66 @@
     $(".openPopupAssignHoliday").click(function(){
     	var modal = document.getElementById("myModal");
         var fd = new FormData();
+        debugger;
          var files = $('#myFile')[0].files[0];
-        fd.append('myFile',files);
-        console.log("2"+fd); 
-        $.ajax({
-            url: 'uploadHolidayCalendar',
-            type: 'post',
-            data: fd,
-            enctype: 'multipart/form-data',
-            contentType: false,
-            processData: false,
-            headers: 
-            {
-                'X-CSRF-TOKEN': $('input[name="_csrf"]').attr('value')
-            },
-
-            success: function(data){
-            	resp= data;  
-                //  alert(resp) ;    	 	        	
-            	// $("#para").html(resp);	        	 
-	     		if(data == 'Data Not Uploaded'){ 
-	     			$("#para").html("Data Not Uploaded-View downloded file with empty columns"); 
-		     		 modal.style.display = "block"; 
-		     		window.open("resources/download/Holiday_Calendar.xlsx" , '_blank');    
-	     		}
-	     		else{
-	     			$("#para").html("Holiday Calendar Data Uploaded Successfully"); 
-		     		 modal.style.display = "block"; 
-		     	} 
-	     	//	alert(data1);         
-          
-            }
-        });
+         if(files==null)
+	    	 {
+	    	 alert("Please select file for upload!!!")
+	    	 $("#myFile").focus();
+	    	 
+	    	 }
+         else if(!(files.name.includes("xlsx")))
+        	 {
+        	 alert("Please select xlsx file for upload!!!")
+        	 $("#myFile").focus();
+        	 
+        	 }
+         else{
+		        fd.append('myFile',files);
+		        console.log("2"+fd); 
+		        $.ajax({
+		            url: 'uploadHolidayCalendar',
+		            type: 'post',
+		            data: fd,
+		            enctype: 'multipart/form-data',
+		            contentType: false,
+		            processData: false,
+		            headers: 
+		            {
+		                'X-CSRF-TOKEN': $('input[name="_csrf"]').attr('value')
+		            },
+		
+		            success: function(data){
+		            	resp= data;  
+		                //  alert(resp) ;    	 	        	
+		            	// $("#para").html(resp);	        	 
+			     		if(data == 'Data Not Uploaded'){ 
+			     			$("#para").html("Data Not Uploaded-View downloded file with empty columns"); 
+				     		 modal.style.display = "block"; 
+				     		window.open("resources/download/Holiday_Calendar.xlsx" , '_blank');    
+			     		}
+			     		else if(data =='Wrong File for upload'){
+			     			$("#para").html("Trying to upload Wrong File: "+files.name+" . Choose correct file for upload"); 
+				     		 modal.style.display = "block"; 
+				     	}
+			     		else if(data =='Blank File for upload'){
+			     			$("#para").html("Trying to upload Blank File: "+files.name+" . Choose correct file for upload"); 
+				     		 modal.style.display = "block"; 
+				     	}
+			     		else if(data =='Blank File(Fill only Column name) for upload'){
+			     			$("#para").html("Blank File(Fill only Column name) for upload. Choose correct file for upload"); 
+				     		 modal.style.display = "block"; 
+				     	}
+			     		
+			     		else{
+			     			$("#para").html("Holiday Calendar Data Uploaded Successfully"); 
+				     		 modal.style.display = "block"; 
+				     	} 
+			     	//	alert(data1);         
+		          
+		            }
+		        });
+    		}
     });
 });
 // === KioskDetails
@@ -127,39 +155,64 @@
     	var modal = document.getElementById("myModal");
         var fd = new FormData();
          var files = $('#KioskFile')[0].files[0];
-        fd.append('KioskFile',files);
-        console.log("2"+fd);
-        $.ajax({
-            url: 'uploadKioskDetails',
-            type: 'post',
-            data: fd,
-            enctype: 'multipart/form-data',
-            contentType: false,
-            processData: false,
-            headers: 
-            {
-                'X-CSRF-TOKEN': $('input[name="_csrf"]').attr('value')
-            },
-
-            success: function(data){
-            	resp= data;  
-            	//alert(resp) ;    	 	        	
-	        	// $("#para").html(resp);
-	        	 
-	     		if(data == 'Data Not Uploaded'){ 
-	     			$("#para").html("Data Not Uploaded-View downloded file with empty columns"); 
-		     		 modal.style.display = "block"; 
-	     			window.open("resources/download/Kiosk_CMF.xlsx" , '_blank');  
-	     		}
-	     		else{
-	     			$("#para").html("Kiosk CMF Data Uploaded Successfully"); 
-	     			
-		     		 modal.style.display = "block"; 
-		     	}
-	     		//alert(data1);          
-          
-            }
-        });
+         if(files==null)
+    	 {
+    	 alert("Please select file for upload!!!")
+    	 $("#KioskFile").focus();
+    	 }
+         else if(!(files.name.includes("xlsx")))
+    	 {
+    	 alert("Please select xlsx file for upload!!!")
+    	 $("#KioskFile").focus();
+    	 
+    	 }
+     	else{
+	        fd.append('KioskFile',files);
+	        console.log("2"+fd);
+	        $.ajax({
+	            url: 'uploadKioskDetails',
+	            type: 'post',
+	            data: fd,
+	            enctype: 'multipart/form-data',
+	            contentType: false,
+	            processData: false,
+	            headers: 
+	            {
+	                'X-CSRF-TOKEN': $('input[name="_csrf"]').attr('value')
+	            },
+	
+	            success: function(data){
+	            	resp= data;  
+	            	//alert(resp) ;    	 	        	
+		        	// $("#para").html(resp);
+		        	 
+		     		if(data == 'Data Not Uploaded'){ 
+		     			$("#para").html("Data Not Uploaded-View downloded file with empty columns"); 
+			     		 modal.style.display = "block"; 
+		     			window.open("resources/download/Kiosk_CMF.xlsx" , '_blank');  
+		     		}
+		     		else if(data =='Wrong File for upload'){
+		     			$("#para").html("Trying to upload Wrong File: "+files.name+" . Choose correct file for upload"); 
+			     		 modal.style.display = "block"; 
+			     	}
+		     		else if(data =='Blank File for upload'){
+		     			$("#para").html("Trying to upload Blank File: "+files.name+" . Choose correct file for upload"); 
+			     		 modal.style.display = "block"; 
+			     	}
+		     		else if(data =='Blank File(Fill only Column name) for upload'){
+		     			$("#para").html("Blank File(Fill only Column name) for upload. Choose correct file for upload"); 
+			     		 modal.style.display = "block"; 
+			     	}
+		     		else{
+		     			$("#para").html("Kiosk CMF Data Uploaded Successfully"); 
+		     			
+			     		 modal.style.display = "block"; 
+			     	}
+		     		//alert(data1);          
+	          
+	            }
+	        });
+	     }
     });
 }); 
 // 
@@ -169,38 +222,64 @@
     	var modal = document.getElementById("myModal");
         var fd = new FormData();
          var files = $('#CMFFile')[0].files[0];
-        fd.append('CMFFile',files);
-        console.log("2"+fd);
-        $.ajax({
-            url: 'uploadKioskCMF',
-            type: 'post',
-            data: fd,
-            enctype: 'multipart/form-data',
-            contentType: false,
-            processData: false,
-            headers: 
-            {
-                'X-CSRF-TOKEN': $('input[name="_csrf"]').attr('value')
-            },
-
-            success: function(data){
-            	resp= data;  
-            	// alert(resp) ;    	 	        	
-	        	// $("#para").html(resp);	        	 
-	     		// alert(data1); 
-	     		if(data == 'Data Not Uploaded'){ 
-	     			$("#para").html("Data Not Uploaded-View downloded file with empty columns"); 
-		     		 modal.style.display = "block"; 
-		     		window.open("resources/download/Kiosk_Branch_Master.xlsx" , '_blank');    
-	     		}
-	     		else{
-	     			$("#para").html("Kiosk Details Data Uploaded Successfully"); 
-		     		 modal.style.display = "block"; 
-		     	}  
-	        	            
-          
-            }
-        });
+         if(files==null)
+    	 {
+    	 alert("Please select file for upload!!!")
+    	 $("#CMFFile").focus();
+    	 }
+         else if(!(files.name.includes("xlsx")))
+    	 {
+    	 alert("Please select xlsx file for upload!!!")
+    	 $("#CMFFile").focus();
+    	 
+    	 }
+     	else
+     	{
+	        fd.append('CMFFile',files);
+	        console.log("2"+fd);
+	        $.ajax({
+	            url: 'uploadKioskCMF',
+	            type: 'post',
+	            data: fd,
+	            enctype: 'multipart/form-data',
+	            contentType: false,
+	            processData: false,
+	            headers: 
+	            {
+	                'X-CSRF-TOKEN': $('input[name="_csrf"]').attr('value')
+	            },
+	
+	            success: function(data){
+	            	resp= data;  
+	            	// alert(resp) ;    	 	        	
+		        	// $("#para").html(resp);	        	 
+		     		// alert(data1); 
+		     		if(data == 'Data Not Uploaded'){ 
+		     			$("#para").html("Data Not Uploaded-View downloded file with empty columns"); 
+			     		 modal.style.display = "block"; 
+			     		window.open("resources/download/Kiosk_Branch_Master.xlsx" , '_blank');    
+		     		}
+		     		else if(data =='Wrong File for upload'){
+		     			$("#para").html("Trying to upload Wrong File: "+files.name+" . Choose correct file for upload"); 
+			     		 modal.style.display = "block"; 
+			     	}
+		     		else if(data =='Blank File for upload'){
+		     			$("#para").html("Trying to upload Blank File: "+files.name+" . Choose correct file for upload"); 
+			     		 modal.style.display = "block"; 
+			     	}
+		     		else if(data =='Blank File(Fill only Column name) for upload'){
+		     			$("#para").html("Blank File(Fill only Column name) for upload. Choose correct file for upload"); 
+			     		 modal.style.display = "block"; 
+			     	}
+		     		else{
+		     			$("#para").html("Kiosk Details Data Uploaded Successfully"); 
+			     		 modal.style.display = "block"; 
+			     	}  
+		        	            
+	          
+	            }
+	        });
+     }
     });
 });
  
@@ -209,38 +288,65 @@
     $(".openPopupAssignCBS").click(function(){ 
     	var modal = document.getElementById("myModal");
         var fd = new FormData();
+        debugger;
          var files = $('#BMFile')[0].files[0];
-        fd.append('BMFile',files);
-        console.log("2"+fd);
-        $.ajax({
-            url: 'uploadCBSbrhm',
-            type: 'post',
-            data: fd,
-            enctype: 'multipart/form-data',
-            contentType: false,
-            processData: false,
-            headers: 
-            {
-                'X-CSRF-TOKEN': $('input[name="_csrf"]').attr('value')
-            },
-
-            success: function(data){
-            	resp= data;  
-            	
-            //	alert(resp) ;    	 	        	
-	        	// $("#para").html(resp);	        	 
-	     		if(data == 'Data Not Uploaded'){ 
-	     			$("#para").html("Data Not Uploaded-View downloded file with empty columns"); 
-		     		 modal.style.display = "block"; 
-		     		window.open("resources/download/BranchMaster.xlsx" , '_blank');    
-	     		}
-	     		else{
-	     			$("#para").html("Branch Master Data Uploaded Successfully"); 
-		     		 modal.style.display = "block"; 
-		     	}          
-          
-            }
-        });
+         if(files==null)
+    	 {
+    	 alert("Please select file for upload!!!")
+    	 $("#BMFile").focus();
+    	 }
+         else if(!(files.name.includes("xlsx")))
+    	 {
+    	 alert("Please select xlsx file for upload!!!")
+    	 $("#BMFile").focus();
+    	 
+    	 }
+    	 else
+    	 {
+	        fd.append('BMFile',files);
+	        console.log("2"+fd);
+	        $.ajax({
+	            url: 'uploadCBSbrhm',
+	            type: 'post',
+	            data: fd,
+	            enctype: 'multipart/form-data',
+	            contentType: false,
+	            processData: false,
+	            headers: 
+	            {
+	                'X-CSRF-TOKEN': $('input[name="_csrf"]').attr('value')
+	            },
+	
+	            success: function(data){
+	            	resp= data;  
+	            	
+	            //	alert(resp) ;    	 	        	
+		        	// $("#para").html(resp);	        	 
+		     		if(data == 'Data Not Uploaded'){ 
+		     			$("#para").html("Data Not Uploaded-View downloded file with empty columns"); 
+			     		 modal.style.display = "block"; 
+			     		window.open("resources/download/BranchMaster.xlsx" , '_blank');    
+		     		}
+		     		else if(data =='Wrong File for upload'){
+		     			$("#para").html("Trying to upload Wrong File: "+files.name+" . Choose correct file for upload"); 
+			     		 modal.style.display = "block"; 
+			     	}
+		     		else if(data =='Blank File for upload'){
+		     			$("#para").html("Trying to upload Blank File: "+files.name+" . Choose correct file for upload"); 
+			     		 modal.style.display = "block"; 
+			     	}
+		     		else if(data =='Blank File(Fill only Column name) for upload'){
+		     			$("#para").html("Blank File(Fill only Column name) for upload. Choose correct file for upload"); 
+			     		 modal.style.display = "block"; 
+			     	}
+		     		else{
+		     			$("#para").html("Branch Master Data Uploaded Successfully"); 
+			     		 modal.style.display = "block"; 
+			     	}          
+	          
+	            }
+	        });
+	     }
     });
 }); 
 
