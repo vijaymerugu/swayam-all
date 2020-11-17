@@ -7,6 +7,11 @@ import sbi.kiosk.swayam.common.entity.KioskBranchMaster;
 @Data
 public class KioskBranchMasterUserDto {
 	
+	
+	  public KioskBranchMasterUserDto() {
+	  
+	  }
+	 
 	public KioskBranchMasterUserDto(KioskBranchMaster master){
 		this.id = master.getId();
 		this.kioskId = master.getKioskId();

@@ -117,6 +117,188 @@ public class UploadServiceImpl implements UploadService {
 				while (cellIterator.hasNext()) {
 					Cell cell = cellIterator.next();
 					objFormulaEvaluator.evaluate(cell);
+					
+					/*
+					 * if(String.valueOf(cell.getRow().getRowNum()).equals("0")) {
+					 * if(String.valueOf(cell.getColumnIndex()).equals("1")) if
+					 * (cell.getStringCellValue().equalsIgnoreCase("KIOSK_ID")) { continue; } else {
+					 * logger.error("Wrong File for upload!!");
+					 * 
+					 * return "Wrong File for upload"; } }
+					 */
+					if(String.valueOf(cell.getRow().getRowNum()).equals("0")) 
+					{
+						if(String.valueOf(cell.getColumnIndex()).equals("0")) {
+							if(!((String.valueOf(cell.getColumnIndex()).equals("0")) && (cell.getStringCellValue().equalsIgnoreCase("ID"))))
+							{
+								logger.error("Wrong File or Data Sequence for upload!!");
+								
+								return "Wrong File or Data Sequence for upload";
+							}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("1")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("1")) && (cell.getStringCellValue().equalsIgnoreCase("KIOSK_ID"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						} 
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("2")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("2")) && (cell.getStringCellValue().equalsIgnoreCase("VENDOR"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						} 
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("3")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("3")) && (cell.getStringCellValue().equalsIgnoreCase("INSTALLATION_DATE"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("4")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("4")) && (cell.getStringCellValue().equalsIgnoreCase("KIOSK_IP"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("5")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("5")) && (cell.getStringCellValue().equalsIgnoreCase("KIOSK_MAC_ADDRESS"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("6")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("6")) && (cell.getStringCellValue().equalsIgnoreCase("SITE_TYPE"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("7")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("7")) && (cell.getStringCellValue().equalsIgnoreCase("LOCATION"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						
+						if(String.valueOf(cell.getColumnIndex()).equals("8")) {
+							if(!((String.valueOf(cell.getColumnIndex()).equals("8")) && (cell.getStringCellValue().equalsIgnoreCase("ADDRESS"))))
+							{
+								logger.error("Wrong File or Data Sequence for upload!!");
+								
+								return "Wrong File or Data Sequence for upload";
+							}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("9")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("9")) && (cell.getStringCellValue().equalsIgnoreCase("BRANCH_CODE"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						} 
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("10")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("10")) && (cell.getStringCellValue().equalsIgnoreCase("KIOSK_SERIAL_NO"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						} 
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("11")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("11")) && (cell.getStringCellValue().equalsIgnoreCase("CIRCLE"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("12")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("12")) && (cell.getStringCellValue().equalsIgnoreCase("BRANCH_NAME"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("13")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("13")) && (cell.getStringCellValue().equalsIgnoreCase("OS"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("14")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("14")) && (cell.getStringCellValue().equalsIgnoreCase("INSTALLATION_STATUS"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("15")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("15")) && (cell.getStringCellValue().equalsIgnoreCase("INSTALLATION_TYPE"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("16")) {
+							if(!((String.valueOf(cell.getColumnIndex()).equals("16")) && (cell.getStringCellValue().equalsIgnoreCase("RFP_ID"))))
+							{
+								logger.error("Wrong File or Data Sequence for upload!!");
+								
+								return "Wrong File or Data Sequence for upload";
+							}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("17")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("17")) && (cell.getStringCellValue().equalsIgnoreCase("CREATED_BY"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						} 
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("18")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("18")) && (cell.getStringCellValue().equalsIgnoreCase("CREATED_DATE"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						} 
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("19")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("19")) && (cell.getStringCellValue().equalsIgnoreCase("MODIFIED_BY"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("20")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("20")) && (cell.getStringCellValue().equalsIgnoreCase("MODIFIED_DATE"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						
+					}
 					switch (cell.getCellType()) {
 
 					case STRING:
@@ -321,7 +503,7 @@ public class UploadServiceImpl implements UploadService {
 								dto.setInstallationStatus((String.valueOf((int)cell.getNumericCellValue())));
 
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("19")) { System.out.println("i m a number");
+							if (String.valueOf(cell.getColumnIndex()).equals("19")) { 
 
 								dto.setRfpID((String.valueOf((int)cell.getNumericCellValue())));
 
@@ -335,84 +517,7 @@ public class UploadServiceImpl implements UploadService {
 							break;
 						}	
 
-						// dto.setSrNo(String.valueOf(cell.getNumericCellValue()));
-
-						//System.out.println(cell.getNumericCellValue());
-
-						//break;
-
-					// By Ankur 28-04-2020-----------STARTS---------
-
-//					case BLANK:	
-//						
-//                        if (String.valueOf(cell.getColumnIndex()).equals("0")) {
-//							
-//							String row=String.valueOf(cell.getRow().getRowNum());
-//							map.put(cell.getColumnIndex(),"S No data cannot be empty of row "+ row);
-//							
-//						}						
-//						
-//						if (String.valueOf(cell.getColumnIndex()).equals("1")) {
-//							
-//							String row=String.valueOf(cell.getRow().getRowNum());
-//							map.put(cell.getColumnIndex(),"Circle data cannot be empty of row "+ row);
-//							
-//						}
-//						
-//						if (String.valueOf(cell.getColumnIndex()).equals("2")) {
-//							
-//							String row=String.valueOf(cell.getRow().getRowNum());
-//							map.put(cell.getColumnIndex(),"Branch Name data cannot be empty of row "+ row);
-//							
-//						}
-//						
-//                        if (String.valueOf(cell.getColumnIndex()).equals("3")) {
-//							
-//							String row=String.valueOf(cell.getRow().getRowNum());
-//							map.put(cell.getColumnIndex(),"Branch Code data cannot be empty of row "+ row);
-//							
-//						}
-//                        
-//                        if (String.valueOf(cell.getColumnIndex()).equals("4")) {
-//							
-//							String row=String.valueOf(cell.getRow().getRowNum());
-//							map.put(cell.getColumnIndex(),"Kiosk ID data cannot be empty of row "+ row);
-//							
-//						}
-//                        
-//                        if (String.valueOf(cell.getColumnIndex()).equals("5")) {
-//							
-//							String row=String.valueOf(cell.getRow().getRowNum());
-//							map.put(cell.getColumnIndex(),"Kiosk Serial Number data cannot be empty of row "+ row);
-//							
-//						}
-//
-//                        if (String.valueOf(cell.getColumnIndex()).equals("6")) {
-//	
-//	                        String row=String.valueOf(cell.getRow().getRowNum());
-//	                        map.put(cell.getColumnIndex(),"Kiosk IP Address data cannot be empty of row "+ row);
-//	
-//                        }
-//
-//                        if (String.valueOf(cell.getColumnIndex()).equals("7")) {
-//	
-//	                        String row=String.valueOf(cell.getRow().getRowNum());
-//	                        map.put(cell.getColumnIndex(),"OS Name data cannot be empty of row "+ row);
-//	
-//                        }
-//
-//                        if (String.valueOf(cell.getColumnIndex()).equals("8")) {
-//	
-//	                        String row=String.valueOf(cell.getRow().getRowNum());
-//	                        map.put(cell.getColumnIndex(),"Make data cannot be empty of row "+ row);
-//	
-//                        }
-//						
-//                        
-//                        break;
-
-					// -------By Ankur END---------------------------
-
+						
 					} // switch close
 					logger.info(" - ");
 				} // 1st close while loop
@@ -431,7 +536,18 @@ public class UploadServiceImpl implements UploadService {
 			List<KioskBranchMaster> listEntity = new ArrayList<KioskBranchMaster>();
 			List<KioskBranchMaster> listEntity1 = new ArrayList<KioskBranchMaster>();
 			int count = 0;
-
+			if( lidtDto.size() == 0)
+			{
+				logger.error("Blank File for upload!!");
+				
+				return "Blank File for upload";
+			}
+			if( lidtDto.size() == 1)
+			{
+				logger.error("Blank File(Fill only Column name) for upload!!");
+				
+				return "Blank File(Fill only Column name) for upload";
+			}
 			for (KioskDto lidtDto1 : lidtDto) {
 				if (count != 0) {
 					entity = new KioskBranchMaster();
@@ -703,6 +819,306 @@ public class UploadServiceImpl implements UploadService {
 				CbsBrhmDto dto = new CbsBrhmDto();
 				while (cellIterator.hasNext()) {
 					Cell cell = cellIterator.next();
+					/*
+					 * if(String.valueOf(cell.getRow().getRowNum()).equals("0")) {
+					 * if(String.valueOf(cell.getColumnIndex()).equals("1")) if
+					 * (cell.getStringCellValue().equalsIgnoreCase("CRCL_NAME")) { continue; } else
+					 * { logger.error("Wrong File for upload!!");
+					 * 
+					 * return "Wrong File for upload"; } }
+					 */
+					if(String.valueOf(cell.getRow().getRowNum()).equals("0")) 
+					{
+						if(String.valueOf(cell.getColumnIndex()).equals("0")) {
+							if(!((String.valueOf(cell.getColumnIndex()).equals("0")) && (cell.getStringCellValue().equalsIgnoreCase("BR_ID"))))
+							{
+								logger.error("Wrong File or Data Sequence for upload!!");
+								
+								return "Wrong File or Data Sequence for upload";
+							}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("1")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("1")) && (cell.getStringCellValue().equalsIgnoreCase("CRCL_NAME"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						} 
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("2")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("2")) && (cell.getStringCellValue().equalsIgnoreCase("NETWORK"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						} 
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("3")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("3")) && (cell.getStringCellValue().equalsIgnoreCase("MOD_CODE"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("4")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("4")) && (cell.getStringCellValue().equalsIgnoreCase("MODULE"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("5")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("5")) && (cell.getStringCellValue().equalsIgnoreCase("REGION"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("6")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("6")) && (cell.getStringCellValue().equalsIgnoreCase("BRANCH_CODE"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("7")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("7")) && (cell.getStringCellValue().equalsIgnoreCase("BRANCH_NAME"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						
+						if(String.valueOf(cell.getColumnIndex()).equals("8")) {
+							if(!((String.valueOf(cell.getColumnIndex()).equals("8")) && (cell.getStringCellValue().equalsIgnoreCase("CRCL_CODE"))))
+							{
+								logger.error("Wrong File or Data Sequence for upload!!");
+								
+								return "Wrong File or Data Sequence for upload";
+							}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("9")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("9")) && (cell.getStringCellValue().equalsIgnoreCase("POP_GROUP"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						} 
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("10")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("10")) && (cell.getStringCellValue().equalsIgnoreCase("POP_DESC"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						} 
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("11")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("11")) && (cell.getStringCellValue().equalsIgnoreCase("OPEN_CLOSE_STATUS"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("12")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("12")) && (cell.getStringCellValue().equalsIgnoreCase("OPENDT"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("13")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("13")) && (cell.getStringCellValue().equalsIgnoreCase("STAT_CODE"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("14")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("14")) && (cell.getStringCellValue().equalsIgnoreCase("STAT_DESC"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("15")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("15")) && (cell.getStringCellValue().equalsIgnoreCase("DIST_CODE"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("16")) {
+							if(!((String.valueOf(cell.getColumnIndex()).equals("16")) && (cell.getStringCellValue().equalsIgnoreCase("DIST_DESC"))))
+							{
+								logger.error("Wrong File or Data Sequence for upload!!");
+								
+								return "Wrong File or Data Sequence for upload";
+							}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("17")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("17")) && (cell.getStringCellValue().equalsIgnoreCase("ADDRESS1"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						} 
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("18")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("18")) && (cell.getStringCellValue().equalsIgnoreCase("ADDRESS2"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						} 
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("19")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("19")) && (cell.getStringCellValue().equalsIgnoreCase("ADDRESS3"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("20")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("20")) && (cell.getStringCellValue().equalsIgnoreCase("ADDRESS4"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("21")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("21")) && (cell.getStringCellValue().equalsIgnoreCase("PINCODE"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("22")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("22")) && (cell.getStringCellValue().equalsIgnoreCase("STD_CODE"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("23")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("23")) && (cell.getStringCellValue().equalsIgnoreCase("PHONE"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("24")) {
+							if(!((String.valueOf(cell.getColumnIndex()).equals("24")) && (cell.getStringCellValue().equalsIgnoreCase("MICR_CODE"))))
+							{
+								logger.error("Wrong File or Data Sequence for upload!!");
+								
+								return "Wrong File or Data Sequence for upload";
+							}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("25")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("25")) && (cell.getStringCellValue().equalsIgnoreCase("IFSC"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						} 
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("26")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("26")) && (cell.getStringCellValue().equalsIgnoreCase("EMAIL"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						} 
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("27")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("27")) && (cell.getStringCellValue().equalsIgnoreCase("BRANCHMGR_NAME"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("28")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("28")) && (cell.getStringCellValue().equalsIgnoreCase("BRANCHMGR_MOBILE"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("29")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("29")) && (cell.getStringCellValue().equalsIgnoreCase("BUSINESSHRS"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("30")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("30")) && (cell.getStringCellValue().equalsIgnoreCase("OFFICE_TYPE"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("31")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("31")) && (cell.getStringCellValue().equalsIgnoreCase("OFFICE_DESC"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("32")) {
+							if(!((String.valueOf(cell.getColumnIndex()).equals("32")) && (cell.getStringCellValue().equalsIgnoreCase("CREATED_BY"))))
+							{
+								logger.error("Wrong File or Data Sequence for upload!!");
+								
+								return "Wrong File or Data Sequence for upload";
+							}
+							}
+						if(String.valueOf(cell.getColumnIndex()).equals("33")) {
+							if(!((String.valueOf(cell.getColumnIndex()).equals("33")) && (cell.getStringCellValue().equalsIgnoreCase("CREATED_DATE"))))
+							{
+								logger.error("Wrong File or Data Sequence for upload!!");
+								
+								return "Wrong File or Data Sequence for upload";
+							}
+							}
+						if(String.valueOf(cell.getColumnIndex()).equals("34")) {
+							if(!((String.valueOf(cell.getColumnIndex()).equals("34")) && (cell.getStringCellValue().equalsIgnoreCase("MODIFIED_BY"))))
+							{
+								logger.error("Wrong File or Data Sequence for upload!!");
+								
+								return "Wrong File or Data Sequence for upload";
+							}
+							}
+						if(String.valueOf(cell.getColumnIndex()).equals("35")) {
+							if(!((String.valueOf(cell.getColumnIndex()).equals("35")) && (cell.getStringCellValue().equalsIgnoreCase("MODIFIED_DATE"))))
+							{
+								logger.error("Wrong File or Data Sequence for upload!!");
+								
+								return "Wrong File or Data Sequence for upload";
+							}
+							}
+					}
 					switch (cell.getCellType()) {
 
 					case STRING:
@@ -830,70 +1246,7 @@ public class UploadServiceImpl implements UploadService {
 					case NUMERIC:
 						if (!(String.valueOf(cell.getRow().getRowNum()).equals("0"))) {
 							
-							/*
-							 * if (String.valueOf(cell.getColumnIndex()).equals("0")) {
-							 * dto.setBranchCode((String.valueOf((int)cell.getNumericCellValue()))); }
-							 * 
-							 * if (String.valueOf(cell.getColumnIndex()).equals("2")) {
-							 * dto.setcRCLCode((String.valueOf((int)cell.getNumericCellValue()))); }
-							 * 
-							 * if (String.valueOf(cell.getColumnIndex()).equals("4")) {
-							 * dto.setNetwork((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("5")) {
-							 * dto.setModCode((String.valueOf((int)cell.getNumericCellValue()))); }
-							 * 
-							 * if (String.valueOf(cell.getColumnIndex()).equals("6")) {
-							 * dto.setModule((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("7")) {
-							 * dto.setRegion((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("8")) {
-							 * dto.setPopGroup((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("9")) {
-							 * dto.setPopDesc((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("10")) {
-							 * dto.setOpenCloseStatu((String.valueOf((int)cell.getNumericCellValue()))); }
-							 * if (String.valueOf(cell.getColumnIndex()).equals("11")) {
-							 * dto.setOpendt((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("12")) {
-							 * dto.setStatCode((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("13")) {
-							 * dto.setStateDesc((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("14")) {
-							 * dto.setDistCode((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("15")) {
-							 * dto.setDistDesc((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("16")) {
-							 * dto.setAddress1((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("17")) {
-							 * dto.setAddress2((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("18")) {
-							 * dto.setAddress3((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("19")) {
-							 * dto.setAddress4((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("20")) {
-							 * dto.setPinCode((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("21")) {
-							 * dto.setStdCode((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("22")) {
-							 * dto.setPhone((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("23")) {
-							 * dto.setMicrCode((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("24")) {
-							 * dto.setIfsc((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("25")) {
-							 * dto.setEmail((String.valueOf((int)cell.getNumericCellValue()))); }
-							 * 
-							 * if (String.valueOf(cell.getColumnIndex()).equals("26")) {
-							 * dto.setBranchMgrName((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("27")) {
-							 * dto.setBranchMgrMobileNo((String.valueOf((int)cell.getNumericCellValue())));
-							 * } if (String.valueOf(cell.getColumnIndex()).equals("28")) {
-							 * dto.setBusinessHrs((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("29")) {
-							 * dto.setOfficeType((String.valueOf((int)cell.getNumericCellValue()))); } if
-							 * (String.valueOf(cell.getColumnIndex()).equals("30")) {
-							 * dto.setOfficeDesc((String.valueOf((int)cell.getNumericCellValue()))); }
-							 */
+							
 							
 							        if (String.valueOf(cell.getColumnIndex()).equals("1")) {
 								       dto.setcRCLName((String.valueOf((int)cell.getNumericCellValue()))); }
@@ -1100,7 +1453,18 @@ public class UploadServiceImpl implements UploadService {
 			List<BranchMaster> listEntity = new ArrayList<BranchMaster>();
 			List<BranchMaster> listEntity1 = new ArrayList<BranchMaster>();
 			int count = 0;
-
+			if( lidtDto.size() == 0)
+			{
+				logger.error("Blank File for upload!!");
+				
+				return "Blank File for upload";
+			}
+			if( lidtDto.size() == 1)
+			{
+				logger.error("Blank File(Fill only Column name) for upload!!");
+				
+				return "Blank File(Fill only Column name) for upload";
+			}
 			for (CbsBrhmDto listDto1 : lidtDto) {
 				//if (count != 0) {
 					entity = new BranchMaster();
@@ -1255,6 +1619,7 @@ public class UploadServiceImpl implements UploadService {
 				logger.info("Data Not Uploaded");
 				return "Data Not Uploaded";
 			}
+			
 			else {
 				Iterable<BranchMaster> result =	branchMasterRepository.saveAll(listEntity);
 				if(result != null) {
@@ -1396,7 +1761,8 @@ public class UploadServiceImpl implements UploadService {
 
 			Iterator<Row> iterator = firstSheet.iterator();
 			List<HolidayCalendarDto> lidtDto = new ArrayList<>();
-
+			String[] columns = {"ID","HOLIDAY_DATE","DAY","NAME","CIRCLE","STATE","FIN_YR","QUARTER"};
+			
 			while (iterator.hasNext()) {
 				Row nextRow = iterator.next();
 				Iterator<Cell> cellIterator = nextRow.cellIterator();
@@ -1406,17 +1772,92 @@ public class UploadServiceImpl implements UploadService {
 
 					Cell cell = cellIterator.next();
 					objFormulaEvaluator.evaluate(cell);
-
-					/*
-					 * switch (cell.getCellType()) { case STRING:
-					 */
+					if(String.valueOf(cell.getRow().getRowNum()).equals("0")) 
+					{
+						if(String.valueOf(cell.getColumnIndex()).equals("0")) {
+							if(!((String.valueOf(cell.getColumnIndex()).equals("0")) && (cell.getStringCellValue().equalsIgnoreCase("ID"))))
+							{
+								logger.error("Wrong File or Data Sequence for upload!!");
+								
+								return "Wrong File or Data Sequence for upload";
+							}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("1")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("1")) && (cell.getStringCellValue().equalsIgnoreCase("HOLIDAY_DATE"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						} 
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("2")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("2")) && (cell.getStringCellValue().equalsIgnoreCase("DAY"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						} 
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("3")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("3")) && (cell.getStringCellValue().equalsIgnoreCase("NAME"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("4")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("4")) && (cell.getStringCellValue().equalsIgnoreCase("CIRCLE"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("5")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("5")) && (cell.getStringCellValue().equalsIgnoreCase("STATE"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("6")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("6")) && (cell.getStringCellValue().equalsIgnoreCase("FIN_YR"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("7")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("7")) && (cell.getStringCellValue().equalsIgnoreCase("QUARTER"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						}
+						}
+						/*
+						 * if(String.valueOf(cell.getColumnIndex()).equals("1")) { if
+						 * (cell.getStringCellValue().equalsIgnoreCase("HOLIDAY_DATE")) { continue; }
+						 * 
+						 * else { logger.error("Wrong File for upload!!");
+						 * 
+						 * return "Wrong File for upload"; } }
+						 */
+						
+					}
+					
 
 					if (!(String.valueOf(cell.getRow().getRowNum()).equals("0"))) {
 
-						if (String.valueOf(cell.getColumnIndex()).equals("1")) {
+						if (String.valueOf(cell.getColumnIndex()).equals("1")) 
+						{
+							
 							String cellValueStr = objDefaultFormat.formatCellValue(cell, objFormulaEvaluator);
 							dto.setHolidayDate(cellValueStr);
-						}
+							}
 
 						if (String.valueOf(cell.getColumnIndex()).equals("2")) {
 							dto.setDay(cell.getStringCellValue());
@@ -1452,7 +1893,18 @@ public class UploadServiceImpl implements UploadService {
 			List<HolidayCalendar> listEntity = new ArrayList<HolidayCalendar>();
 			List<HolidayCalendar> listEntity1 = new ArrayList<HolidayCalendar>();
 			int count = 0;
-
+			if( lidtDto.size() == 0)
+			{
+				logger.error("Blank File for upload!!");
+				
+				return "Blank File for upload";
+			}
+			if( lidtDto.size() == 1)
+			{
+				logger.error("Blank File(Fill only Column name) for upload!!");
+				
+				return "Blank File(Fill only Column name) for upload";
+			}
 			for (HolidayCalendarDto lidtDto1 : lidtDto) {
 				if (count != 0) {
 					entity = new HolidayCalendar();
@@ -1638,6 +2090,44 @@ public class UploadServiceImpl implements UploadService {
 
 					Cell cell = cellIterator.next();
 					/* objFormulaEvaluator.evaluate(cell); */
+					
+					/*
+					 * if(String.valueOf(cell.getRow().getRowNum()).equals("0")) {
+					 * if(String.valueOf(cell.getColumnIndex()).equals("1")) if
+					 * (cell.getStringCellValue().equalsIgnoreCase("PF_ID")) { continue; } else {
+					 * logger.error("Wrong File for upload!!");
+					 * 
+					 * return "Wrong File for upload"; } }
+					 */
+					if(String.valueOf(cell.getRow().getRowNum()).equals("0")) 
+					{
+						if(String.valueOf(cell.getColumnIndex()).equals("0")) {
+							if(!((String.valueOf(cell.getColumnIndex()).equals("0")) && (cell.getStringCellValue().equalsIgnoreCase("ID"))))
+							{
+								logger.error("Wrong File or Data Sequence for upload!!");
+								
+								return "Wrong File or Data Sequence for upload";
+							}
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("1")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("1")) && (cell.getStringCellValue().equalsIgnoreCase("PF_ID"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						} 
+						}
+						if(String.valueOf(cell.getColumnIndex()).equals("2")) {
+						if(!((String.valueOf(cell.getColumnIndex()).equals("2")) && (cell.getStringCellValue().equalsIgnoreCase("KIOSK_ID"))))
+						{
+							logger.error("Wrong File or Data Sequence for upload!!");
+							
+							return "Wrong File or Data Sequence for upload";
+						} 
+						}
+						
+						
+					}
 
 					switch (cell.getCellType()) {
 					case STRING:
@@ -1680,7 +2170,18 @@ public class UploadServiceImpl implements UploadService {
 			List<UserKioskMapping> listEntity = new ArrayList<UserKioskMapping>();
 			List<UserKioskMapping> listEntity1 = new ArrayList<UserKioskMapping>();
 			int count = 0;
-
+			if( lidtDto.size() == 0)
+			{
+				logger.error("Blank File for upload!!");
+				
+				return "Blank File for upload";
+			}
+			if( lidtDto.size() == 1)
+			{
+				logger.error("Blank File(Fill only Column name) for upload!!");
+				
+				return "Blank File(Fill only Column name) for upload";
+			}
 			for (KioskCMFDto lidtDto1 : lidtDto) {
 				if (count != 0) {
 					entity = new UserKioskMapping();
