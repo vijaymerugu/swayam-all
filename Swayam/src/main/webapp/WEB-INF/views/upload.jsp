@@ -98,7 +98,7 @@
         	 {
         	 alert("Please select xlsx file for upload!!!")
         	 $("#myFile").focus();
-        	 
+        	 $("#myFile").val('');
         	 }
          else{
 		        fd.append('myFile',files);
@@ -136,7 +136,10 @@
 			     			$("#para").html("Blank File(Fill only Column name) for upload. Choose correct file for upload"); 
 				     		 modal.style.display = "block"; 
 				     	}
-			     		
+			     		else if(data =='Wrong File or Data Sequence for upload'){
+			     			$("#para").html("Wrong File or Data Sequence for upload. Choose correct file for upload"); 
+				     		 modal.style.display = "block"; 
+				     	}
 			     		else{
 			     			$("#para").html("Holiday Calendar Data Uploaded Successfully"); 
 				     		 modal.style.display = "block"; 
@@ -164,7 +167,7 @@
     	 {
     	 alert("Please select xlsx file for upload!!!")
     	 $("#KioskFile").focus();
-    	 
+    	 $("#KioskFile").val('');
     	 }
      	else{
 	        fd.append('KioskFile',files);
@@ -203,6 +206,10 @@
 		     			$("#para").html("Blank File(Fill only Column name) for upload. Choose correct file for upload"); 
 			     		 modal.style.display = "block"; 
 			     	}
+		     		else if(data =='Wrong File or Data Sequence for upload'){
+		     			$("#para").html("Wrong File or Data Sequence for upload. Choose correct file for upload"); 
+			     		 modal.style.display = "block"; 
+			     	}
 		     		else{
 		     			$("#para").html("Kiosk CMF Data Uploaded Successfully"); 
 		     			
@@ -231,7 +238,7 @@
     	 {
     	 alert("Please select xlsx file for upload!!!")
     	 $("#CMFFile").focus();
-    	 
+    	 $("#CMFFile").val('');
     	 }
      	else
      	{
@@ -271,6 +278,10 @@
 		     			$("#para").html("Blank File(Fill only Column name) for upload. Choose correct file for upload"); 
 			     		 modal.style.display = "block"; 
 			     	}
+		     		else if(data =='Wrong File or Data Sequence for upload'){
+		     			$("#para").html("Wrong File or Data Sequence for upload. Choose correct file for upload"); 
+			     		 modal.style.display = "block"; 
+			     	}
 		     		else{
 		     			$("#para").html("Kiosk Details Data Uploaded Successfully"); 
 			     		 modal.style.display = "block"; 
@@ -299,7 +310,7 @@
     	 {
     	 alert("Please select xlsx file for upload!!!")
     	 $("#BMFile").focus();
-    	 
+    	 $('#BMFile').val('');
     	 }
     	 else
     	 {
@@ -319,7 +330,7 @@
 	
 	            success: function(data){
 	            	resp= data;  
-	            	
+	            	debugger;
 	            //	alert(resp) ;    	 	        	
 		        	// $("#para").html(resp);	        	 
 		     		if(data == 'Data Not Uploaded'){ 
@@ -337,6 +348,11 @@
 			     	}
 		     		else if(data =='Blank File(Fill only Column name) for upload'){
 		     			$("#para").html("Blank File(Fill only Column name) for upload. Choose correct file for upload"); 
+			     		 modal.style.display = "block"; 
+			     	}
+		     	
+		     		else if(data =='Wrong File or Data Sequence for upload'){
+		     			$("#para").html("Wrong File or Data Sequence for upload. Choose correct file for upload"); 
 			     		 modal.style.display = "block"; 
 			     	}
 		     		else{
