@@ -34,14 +34,17 @@ import antlr.StringUtils;
 import sbi.kiosk.swayam.common.constants.ExceptionConstants;
 import sbi.kiosk.swayam.common.dto.CbsBrhmDto;
 import sbi.kiosk.swayam.common.dto.HolidayCalendarDto;
+import sbi.kiosk.swayam.common.dto.InvoiceVendorDto;
 import sbi.kiosk.swayam.common.dto.KioskCMFDto;
 import sbi.kiosk.swayam.common.dto.KioskDto;
 import sbi.kiosk.swayam.common.entity.BranchMaster;
 import sbi.kiosk.swayam.common.entity.HolidayCalendar;
+import sbi.kiosk.swayam.common.entity.InvoiceVendor;
 import sbi.kiosk.swayam.common.entity.KioskBranchMaster;
 import sbi.kiosk.swayam.common.entity.UserKioskMapping;//
 import sbi.kiosk.swayam.kioskmanagement.repository.BranchMasterRepository;
 import sbi.kiosk.swayam.kioskmanagement.repository.HolidayCalendarRepository;
+import sbi.kiosk.swayam.kioskmanagement.repository.InvoiceVendorRepository;
 import sbi.kiosk.swayam.kioskmanagement.repository.KioskCMFRepository;
 import sbi.kiosk.swayam.kioskmanagement.repository.kioskMasterManagementRepository;
 
@@ -64,6 +67,8 @@ public class UploadServiceImpl implements UploadService {
 	@Autowired
 	private KioskCMFRepository kioskCMFRepository;
 	
+	@Autowired
+	private InvoiceVendorRepository invoiceVendorRepository;
 	
 	@Value("${report.path}")		
 	private String reportPath1;
@@ -560,13 +565,37 @@ public class UploadServiceImpl implements UploadService {
 					
 					////////////////////////////
 				//	entity.setInstallationDate(lidtDto1.getInstallationDate());//3
+					/*
+					 * String installationDate = ""; try { String
+					 * sDate1=lidtDto1.getInstallationDate();
+					 * 
+					 * logger.info("Installation date in entity format: "+sDate1); SimpleDateFormat
+					 * formatter = new SimpleDateFormat("dd-mm-yy"); Date date =
+					 * formatter.parse(sDate1);
+					 * 
+					 * installationDate = new SimpleDateFormat("dd-mm-yyyy").format(date);
+					 * 
+					 * logger.info("installationDate date in String format: "+installationDate);
+					 * entity.setInstallationDate(installationDate);//3 } catch (Exception e) {
+					 * logger.error("Exception "+ExceptionConstants.DATE_EXCEPTION);
+					 * installationDate = ""; lidtDto1.setInstallationDate("");
+					 * entity.setInstallationDate(installationDate);//3 }
+					 */
 					String installationDate = "";
 					try {
 					String sDate1=lidtDto1.getInstallationDate();
 					  
 					  logger.info("Installation date in entity format: "+sDate1); 
-					  SimpleDateFormat formatter = new SimpleDateFormat("dd-mm-yy");
-					  Date date = formatter.parse(sDate1);
+					  
+					  sDate1= sDate1.replaceAll("/", "-")
+						  		.replaceAll("-", "-");
+						  logger.info("replaced date in entity format: "+sDate1); 
+						 				
+						  Date date =new Date();
+					
+						  SimpleDateFormat formatter = new SimpleDateFormat("dd-mm-yyyy");
+					
+						  date = formatter.parse(sDate1);
 					  
 					  installationDate =  new SimpleDateFormat("dd-mm-yyyy").format(date);
 					  
@@ -1910,26 +1939,46 @@ public class UploadServiceImpl implements UploadService {
 					entity = new HolidayCalendar();
 					
 				//	entity.setHolidayDate(lidtDto1.getHolidayDate());
+					/*
+					 * String holidayDate = ""; try { String sDate1=lidtDto1.getHolidayDate();
+					 * 
+					 * logger.info("Holiday date in entity format: "+sDate1); // SimpleDateFormat
+					 * formatter = new SimpleDateFormat("mm/dd/yyyy"); SimpleDateFormat formatter =
+					 * new SimpleDateFormat("dd-mm-yyyy"); Date date = formatter.parse(sDate1);
+					 * holidayDate = new SimpleDateFormat("dd-mm-yyyy").format(date);
+					 * 
+					 * logger.info("Holiday date in String format: "+holidayDate);
+					 * entity.setHolidayDate(holidayDate); } catch (Exception e) {
+					 * logger.error("Exception "+ExceptionConstants.DATE_EXCEPTION); holidayDate =
+					 * ""; lidtDto1.setHolidayDate(""); entity.setHolidayDate(holidayDate);//3 }
+					 */
 					String holidayDate = "";
-				try {	
-					  String sDate1=lidtDto1.getHolidayDate();
-					  
-					  logger.info("Holiday date in entity format: "+sDate1); 
-				//	  SimpleDateFormat formatter = new SimpleDateFormat("mm/dd/yyyy");
-					  SimpleDateFormat formatter = new SimpleDateFormat("dd-mm-yyyy");
-					  Date date = formatter.parse(sDate1);
-					  holidayDate =  new SimpleDateFormat("dd-mm-yyyy").format(date);
-					   
-					  logger.info("Holiday date in String format: "+holidayDate);
-					  entity.setHolidayDate(holidayDate);
-				}
-				catch (Exception e) {
-					logger.error("Exception "+ExceptionConstants.DATE_EXCEPTION);
-					holidayDate = "";
-					lidtDto1.setHolidayDate("");
-					 entity.setHolidayDate(holidayDate);//3
-				} 
-					 
+					try {	
+						  String sDate1=lidtDto1.getHolidayDate();
+						  
+						  logger.info("Holiday date in entity format: "+sDate1);
+						 
+						  sDate1= sDate1.replaceAll("/", "-")
+						  		.replaceAll("-", "-");
+						  logger.info("replaced date in entity format: "+sDate1); 
+						 				
+						  Date date =new Date();
+					
+						  SimpleDateFormat formatter = new SimpleDateFormat("dd-mm-yyyy");
+					
+						  date = formatter.parse(sDate1);
+					
+						  holidayDate =  new SimpleDateFormat("dd-mm-yyyy").format(date);
+						   
+						  logger.info("Holiday date in String format: "+holidayDate);
+						  entity.setHolidayDate(holidayDate);
+					}
+					catch (Exception e) {
+						logger.error("Exception "+ExceptionConstants.DATE_EXCEPTION);
+						holidayDate = "";
+						lidtDto1.setHolidayDate("");
+						 entity.setHolidayDate(holidayDate);//3
+					} 
 					entity.setDay(lidtDto1.getDay());
 					entity.setName(lidtDto1.getName());// null
 					entity.setCircle(lidtDto1.getCircle());
@@ -2301,6 +2350,459 @@ public class UploadServiceImpl implements UploadService {
 
 	}
 
-	
+	// -----------------5 Vendor Invoice	
+
+		@Override
+		public String uploadInvVendorInformation(String path) {
+
+
+			try {
+
+				inputStream = new FileInputStream(new File(path));
+				logger.info("7 A.file read successfully!! "+ path);
+				workbook = new XSSFWorkbook(inputStream);
+				logger.info("7 B.workbook parsing started!!");
+				/* HashMap<Integer,String> map=null; */
+				org.apache.poi.ss.usermodel.Sheet firstSheet = workbook.getSheetAt(0);
+
+				logger.info("7 C.First worksheet fetched!!");
+				
+				DataFormatter objDefaultFormat = new DataFormatter();
+				FormulaEvaluator objFormulaEvaluator = new XSSFFormulaEvaluator((XSSFWorkbook) workbook);
+
+				Iterator<Row> iterator = firstSheet.iterator();
+				List<InvoiceVendorDto> lidtDto = new ArrayList<>();
+				int i = 0, j=0;
+				while (iterator.hasNext()) {
+					Row nextRow = iterator.next();
+					Iterator<Cell> cellIterator = nextRow.cellIterator();
+					InvoiceVendorDto dto = new InvoiceVendorDto();
+
+					while (cellIterator.hasNext()) {
+
+						Cell cell = cellIterator.next();
+					
+						if(String.valueOf(cell.getRow().getRowNum()).equals("0")) 
+						{
+							if(String.valueOf(cell.getColumnIndex()).equals("0")) {
+								if(!((String.valueOf(cell.getColumnIndex()).equals("0")) && (cell.getStringCellValue().equalsIgnoreCase("FIN_YR"))))
+								{
+									logger.error("Wrong File or Data Sequence for upload!!");
+									
+									return "Wrong File or Data Sequence for upload";
+								}
+							}
+							if(String.valueOf(cell.getColumnIndex()).equals("1")) {
+							if(!((String.valueOf(cell.getColumnIndex()).equals("1")) && (cell.getStringCellValue().equalsIgnoreCase("INVO_NO"))))
+							{
+								logger.error("Wrong File or Data Sequence for upload!!");
+								
+								return "Wrong File or Data Sequence for upload";
+							} 
+							}
+							if(String.valueOf(cell.getColumnIndex()).equals("2")) {
+							if(!((String.valueOf(cell.getColumnIndex()).equals("2")) && (cell.getStringCellValue().equalsIgnoreCase("INVO_DT"))))
+							{
+								logger.error("Wrong File or Data Sequence for upload!!");
+								
+								return "Wrong File or Data Sequence for upload";
+							} 
+							}
+					
+							if(String.valueOf(cell.getColumnIndex()).equals("3")) {
+								if(!((String.valueOf(cell.getColumnIndex()).equals("3")) && (cell.getStringCellValue().equalsIgnoreCase("CUST_NAME"))))
+								{
+									logger.error("Wrong File or Data Sequence for upload!!");
+									
+									return "Wrong File or Data Sequence for upload";
+								}
+							}
+							if(String.valueOf(cell.getColumnIndex()).equals("4")) {
+							if(!((String.valueOf(cell.getColumnIndex()).equals("4")) && (cell.getStringCellValue().equalsIgnoreCase("PRN_SRN"))))
+							{
+								logger.error("Wrong File or Data Sequence for upload!!");
+								
+								return "Wrong File or Data Sequence for upload";
+							} 
+							}
+							if(String.valueOf(cell.getColumnIndex()).equals("5")) {
+							if(!((String.valueOf(cell.getColumnIndex()).equals("5")) && (cell.getStringCellValue().equalsIgnoreCase("Product"))))
+							{
+								logger.error("Wrong File or Data Sequence for upload!!");
+								
+								return "Wrong File or Data Sequence for upload";
+							} 
+							}
+							if(String.valueOf(cell.getColumnIndex()).equals("6")) {
+								if(!((String.valueOf(cell.getColumnIndex()).equals("6")) && (cell.getStringCellValue().equalsIgnoreCase("INVO_FROM"))))
+								{
+									logger.error("Wrong File or Data Sequence for upload!!");
+									
+									return "Wrong File or Data Sequence for upload";
+								}
+							}
+							if(String.valueOf(cell.getColumnIndex()).equals("7")) {
+							if(!((String.valueOf(cell.getColumnIndex()).equals("7")) && (cell.getStringCellValue().equalsIgnoreCase("INVO_UPTO"))))
+							{
+								logger.error("Wrong File or Data Sequence for upload!!");
+								
+								return "Wrong File or Data Sequence for upload";
+							} 
+							}
+							if(String.valueOf(cell.getColumnIndex()).equals("8")) {
+							if(!((String.valueOf(cell.getColumnIndex()).equals("8")) && (cell.getStringCellValue().equalsIgnoreCase("INVO_AMT"))))
+							{
+								logger.error("Wrong File or Data Sequence for upload!!");
+								
+								return "Wrong File or Data Sequence for upload";
+							} 
+							}
+							if(String.valueOf(cell.getColumnIndex()).equals("9")) {
+								if(!((String.valueOf(cell.getColumnIndex()).equals("9")) && (cell.getStringCellValue().equalsIgnoreCase("SHIP_ADD"))))
+								{
+									logger.error("Wrong File or Data Sequence for upload!!");
+									
+									return "Wrong File or Data Sequence for upload";
+								} 
+								}
+							if(String.valueOf(cell.getColumnIndex()).equals("10")) {
+								if(!((String.valueOf(cell.getColumnIndex()).equals("10")) && (cell.getStringCellValue().equalsIgnoreCase("SHIP_STATE"))))
+								{
+									logger.error("Wrong File or Data Sequence for upload!!");
+									
+									return "Wrong File or Data Sequence for upload";
+								} 
+								}
+						}
+
+						switch (cell.getCellType()) {
+						case STRING:
+							if (!(String.valueOf(cell.getRow().getRowNum()).equals("0"))) {
+							
+								if (String.valueOf(cell.getColumnIndex()).equals("0")) {
+									dto.setFinYear(cell.getStringCellValue());
+								}
+								
+								if (String.valueOf(cell.getColumnIndex()).equals("3")) {
+								
+									dto.setCusName(cell.getStringCellValue());
+								}
+								if (String.valueOf(cell.getColumnIndex()).equals("4")) {
+									dto.setPrnSrn(cell.getStringCellValue());
+								}
+								if (String.valueOf(cell.getColumnIndex()).equals("5")) {
+								
+									dto.setProduct(cell.getStringCellValue());
+								}
+								
+								if (String.valueOf(cell.getColumnIndex()).equals("9")) {
+									dto.setShipAdd(cell.getStringCellValue());
+								}
+								if (String.valueOf(cell.getColumnIndex()).equals("10")) {
+								
+									dto.setShipState(cell.getStringCellValue());
+								}
+								
+								
+							}
+							break;
+						case NUMERIC:
+							if (!(String.valueOf(cell.getRow().getRowNum()).equals("0"))) {
+								if (String.valueOf(cell.getColumnIndex()).equals("1")) {
+								
+									dto.setInvNo((int)cell.getNumericCellValue());
+								}
+								if (String.valueOf(cell.getColumnIndex()).equals("8")) {
+								
+									dto.setInvoiceAmt((float)cell.getNumericCellValue());
+								}
+								if (String.valueOf(cell.getColumnIndex()).equals("2")) {
+									String cellValueStr = objDefaultFormat.formatCellValue(cell, objFormulaEvaluator);	
+									dto.setInvDt(cellValueStr);
+
+								}
+								if (String.valueOf(cell.getColumnIndex()).equals("6")) {
+									String cellValueStr = objDefaultFormat.formatCellValue(cell, objFormulaEvaluator);	
+									dto.setInvoiceFrom(cellValueStr);
+								}
+								if (String.valueOf(cell.getColumnIndex()).equals("7")) {
+									String cellValueStr = objDefaultFormat.formatCellValue(cell, objFormulaEvaluator);	
+									dto.setInvoiceUpTo(cellValueStr);
+								}
+								break;
+							}
+
+						}
+						logger.info(" 1st close while loop- "+i++);
+
+					} // 1st close while loop
+					lidtDto.add(dto);
+					logger.info("2nd close while loop - "+j++);
+				} // 2nd close while loop
+
+				InvoiceVendor entity = null;
+				List<InvoiceVendor> listEntity = new ArrayList<InvoiceVendor>();
+				List<InvoiceVendor> listEntity1 = new ArrayList<InvoiceVendor>();
+				int count = 0;
+				if( lidtDto.size() == 0)
+				{
+					logger.error("Blank File for upload!!");
+					
+					return "Blank File for upload";
+				}
+				if( lidtDto.size() == 1)
+				{
+					logger.error("Blank File(Fill only Column name) for upload!!");
+					
+					return "Blank File(Fill only Column name) for upload";
+				}
+				for (InvoiceVendorDto lidtDto1 : lidtDto) {
+					if (count != 0) {
+						entity = new InvoiceVendor();
+						entity.setFinYear(lidtDto1.getFinYear());
+						entity.setInvNo(lidtDto1.getInvNo());
+					//	entity.setInvDt(lidtDto1.getInvDt());
+						String invoiceDate = "";
+						try {
+						String sDate1=lidtDto1.getInvDt();
+						  
+						  logger.info("invoice date in entity format: "+sDate1); 
+						  
+						  sDate1= sDate1.replaceAll("/", "-")
+							  		.replaceAll("-", "-");
+							  logger.info("replaced date in entity format: "+sDate1); 
+							 				
+							  Date date =new Date();
+						
+							  SimpleDateFormat formatter = new SimpleDateFormat("dd-mm-yyyy");
+						
+							  date = formatter.parse(sDate1);
+						  
+							  invoiceDate =  new SimpleDateFormat("dd-mm-yyyy").format(date);
+						  
+						  logger.info("installationDate date in String format: "+invoiceDate);
+						  entity.setInvDt(invoiceDate);//3
+						}
+						catch (Exception e) {
+							logger.error("Exception "+ExceptionConstants.DATE_EXCEPTION);
+							invoiceDate = "";
+							lidtDto1.setInvDt("");
+							 entity.setInvDt(invoiceDate);//3
+						} 
+						entity.setCusName(lidtDto1.getCusName());
+						entity.setPrnSrn(lidtDto1.getPrnSrn());
+						entity.setProduct(lidtDto1.getProduct());
+					//	entity.setInvoiceFrom(lidtDto1.getInvoiceFrom());
+						String invoiceFrom = "";
+						try {
+						String sDate1=lidtDto1.getInvoiceFrom();
+						  
+						  logger.info("invoice date in entity format: "+sDate1); 
+						  
+						  sDate1= sDate1.replaceAll("/", "-")
+							  		.replaceAll("-", "-");
+							  logger.info("replaced date in entity format: "+sDate1); 
+							 				
+							  Date date =new Date();
+						
+							  SimpleDateFormat formatter = new SimpleDateFormat("dd-mm-yyyy");
+						
+							  date = formatter.parse(sDate1);
+						  
+							  invoiceFrom =  new SimpleDateFormat("dd-mm-yyyy").format(date);
+						  
+						  logger.info("installationDate date in String format: "+invoiceFrom);
+						  entity.setInvoiceFrom(invoiceFrom);//3
+						}
+						catch (Exception e) {
+							logger.error("Exception "+ExceptionConstants.DATE_EXCEPTION);
+							invoiceFrom = "";
+							lidtDto1.setInvoiceFrom("");
+							 entity.setInvoiceFrom(invoiceFrom);//3
+						}
+					//	entity.setInvoiceUpTo(lidtDto1.getInvoiceUpTo());
+						String invoiceUpto = "";
+						try {
+						String sDate1=lidtDto1.getInvoiceUpTo();
+						  
+						  logger.info("invoice date in entity format: "+sDate1); 
+						  
+						  sDate1= sDate1.replaceAll("/", "-")
+							  		.replaceAll("-", "-");
+							  logger.info("replaced date in entity format: "+sDate1); 
+							 				
+							  Date date =new Date();
+						
+							  SimpleDateFormat formatter = new SimpleDateFormat("dd-mm-yyyy");
+						
+							  date = formatter.parse(sDate1);
+						  
+							  invoiceUpto =  new SimpleDateFormat("dd-mm-yyyy").format(date);
+						  
+						  logger.info("installationDate date in String format: "+invoiceUpto);
+						  entity.setInvoiceUpTo(invoiceUpto);//3
+						}
+						catch (Exception e) {
+							logger.error("Exception "+ExceptionConstants.DATE_EXCEPTION);
+							invoiceUpto = "";
+							lidtDto1.setInvoiceUpTo("");
+							 entity.setInvoiceUpTo(invoiceUpto);//3
+						}
+						entity.setInvoiceAmt(lidtDto1.getInvoiceAmt());
+						entity.setShipAdd(lidtDto1.getShipAdd());
+						entity.setShipState(lidtDto1.getShipState());
+						
+						listEntity.add(entity);
+
+					}
+					count++;
+					Optional<String> checkNullFinYear = Optional.ofNullable(lidtDto1.getFinYear());
+					Optional<Integer> checkNullInvNo = Optional.ofNullable(lidtDto1.getInvNo());
+					Optional<String> checkNullInvDt = Optional.ofNullable(lidtDto1.getInvDt());
+					Optional<String> checkNullCusName = Optional.ofNullable(lidtDto1.getCusName());
+					Optional<String> checkNullPrnSrn = Optional.ofNullable(lidtDto1.getPrnSrn());
+					Optional<String> checkNullProduct = Optional.ofNullable(lidtDto1.getProduct());
+					Optional<String> checkNullInvoiceFrom = Optional.ofNullable(lidtDto1.getInvoiceFrom());
+					Optional<String> checkNullInvoiceUpTo = Optional.ofNullable(lidtDto1.getInvoiceUpTo());
+					Optional<Float> checkNullInvoiceAmt = Optional.ofNullable(lidtDto1.getInvoiceAmt());
+					Optional<String> checkNullShipAdd = Optional.ofNullable(lidtDto1.getShipAdd());
+					Optional<String> checkNullShipState = Optional.ofNullable(lidtDto1.getShipState());
+					
+					if ((!checkNullFinYear.isPresent() || checkNullFinYear.get().trim().equals(""))						
+							&& (!checkNullInvDt.isPresent() || checkNullInvDt.get().equals(""))
+							&& (!checkNullCusName.isPresent() || checkNullCusName.get().equals(""))
+							&& (!checkNullPrnSrn.isPresent() || checkNullPrnSrn.get().equals(""))
+							&& (!checkNullProduct.isPresent() || checkNullProduct.get().equals(""))
+							&& (!checkNullInvoiceFrom.isPresent() || checkNullInvoiceFrom.get().equals(""))
+							&& (!checkNullInvoiceUpTo.isPresent() || checkNullInvoiceUpTo.get().equals(""))
+							
+							&& (!checkNullShipAdd.isPresent() || checkNullShipAdd.get().equals(""))
+							&& (!checkNullShipState.isPresent() || checkNullShipState.get().equals(""))) { logger.info("i m inside if clause: "+ count);
+						
+					}else
+					if (!checkNullFinYear.isPresent() || !checkNullFinYear.isPresent()
+							|| checkNullInvDt.get().equals("") || checkNullInvDt.get().trim().equals("")) { logger.info("i m inside else-if clause: "+ count);
+						entity = new InvoiceVendor();
+						entity.setFinYear(lidtDto1.getFinYear());
+						entity.setInvDt(lidtDto1.getInvDt());
+						entity.setCusName(lidtDto1.getCusName());
+						entity.setPrnSrn(lidtDto1.getPrnSrn());
+						entity.setProduct(lidtDto1.getProduct());
+						entity.setInvoiceFrom(lidtDto1.getInvoiceFrom());
+						entity.setInvoiceUpTo(lidtDto1.getInvoiceUpTo());
+						entity.setInvoiceAmt(lidtDto1.getInvoiceAmt());
+						entity.setShipAdd(lidtDto1.getShipAdd());
+						entity.setShipState(lidtDto1.getShipState());
+						
+						listEntity1.add(entity);
+						
+						//emptyxlsx(listEntity1);
+
+					}
+				}
+				if(listEntity1 !=null && listEntity1.size() > 0)
+				{	
+					vendorInvxlsx(listEntity1);
+					logger.info("Vendor Invoice Data Not Uploaded");
+					return "Data Not Uploaded";
+				}
+				else {
+					Iterable<InvoiceVendor> result = invoiceVendorRepository.saveAll(listEntity);
+					if (result != null)
+					logger.info("Vendor Invoice Data Uploaded Successfully");
+						return "Vendor_Invoice";
+				}
+				
+				
+			}
+
+			catch (Exception e) {
+				logger.error("Exception "+ExceptionConstants.EXCEPTION);
+				e.printStackTrace();
+			} finally {
+				try {
+					if (workbook != null) {
+						workbook.close();
+					}
+					if (inputStream != null) {
+						inputStream.close();
+					}
+
+				} catch (Exception e) {
+					logger.error("Exception "+ExceptionConstants.EXCEPTION);
+					e.printStackTrace();
+				}
+			}
+			return "Due to Error Data Not Uploaded";
+		}
+
+		// create xlsx file
+		public void vendorInvxlsx(List<InvoiceVendor> listEntity1) {
+
+			XSSFWorkbook workbook1 = new XSSFWorkbook();
+
+			XSSFSheet sheet = workbook1.createSheet("Vendor_Invoice");
+			String[] columns = {"FIN_YR","INVO_NO","INVO_DT","CUST_NAME","PRN_SRN","Product","INVO_FROM","INVO_UPTO", "INVO_AMT","SHIP_ADD","SHIP_STATE"};
+		    String filename = "Vendor_Invoice.xlsx";
+		    
+		    
+		  //  CreationHelper createHelper = workbook1.getCreationHelper();
+		 // Create a Font for styling header cells
+	        Font headerFont = workbook1.createFont();
+	        headerFont.setBold(true);
+	     
+	      
+		    // Create a CellStyle with the font
+	        CellStyle headerCellStyle = workbook1.createCellStyle();
+		    headerCellStyle.setFont(headerFont);
+
+	        // Create a Row
+	        Row headerRow = sheet.createRow(0);
+
+	        // Create cells
+	        for(int i = 0; i < columns.length; i++) {
+	            Cell cell = headerRow.createCell(i);
+	            cell.setCellValue(columns[i]);
+	            
+	            cell.setCellStyle(headerCellStyle);
+	        }
+	        
+			int rownum = 1;
+			 int rowIndex = 1;
+		        for(InvoiceVendor entity : listEntity1){
+		            Row row = sheet.createRow(rowIndex++);
+		            int cellIndex = 0;
+		            
+		            row.createCell(cellIndex++).setCellValue(entity.getFinYear());
+		 
+		            row.createCell(cellIndex++).setCellValue(entity.getInvNo());
+		            row.createCell(cellIndex++).setCellValue(entity.getInvDt());
+		   		 
+		            row.createCell(cellIndex++).setCellValue(entity.getCusName());
+		            row.createCell(cellIndex++).setCellValue(entity.getPrnSrn());
+		   		 
+		            row.createCell(cellIndex++).setCellValue(entity.getProduct());
+		            row.createCell(cellIndex++).setCellValue(entity.getInvoiceFrom());
+		   		 
+		            row.createCell(cellIndex++).setCellValue(entity.getInvoiceUpTo());
+		            row.createCell(cellIndex++).setCellValue(entity.getInvoiceAmt());
+		   		 
+		            row.createCell(cellIndex++).setCellValue(entity.getShipAdd());
+		            row.createCell(cellIndex++).setCellValue(entity.getShipState());
+		        }
+			
+			try {
+				// this Writes the workbook KioskC  reportPath1
+				logger.info("Error file path: "+reportPath1+filename);
+				FileOutputStream out = new FileOutputStream(
+						new File(reportPath1+filename));
+				workbook1.write(out);
+				out.close();
+			} catch (Exception e) {
+				logger.error("Exception "+ExceptionConstants.EXCEPTION);
+				e.printStackTrace();
+			}
+
+		}
 
 }
