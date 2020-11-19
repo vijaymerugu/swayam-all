@@ -365,7 +365,81 @@
 	     }
     });
 }); 
+  $(document).ready(function(){
 
+	    $(".openPopupAssignInVen").click(function(){ 
+	    	var modal = document.getElementById("myModal");
+	        var fd = new FormData();
+	        debugger;
+	         var files = $('#InFile')[0].files[0];
+	         if(files==null)
+	    	 {
+	    	 alert("Please select file for upload!!!")
+	    	 $("#InFile").focus();
+	    	 }
+	         else if(!(files.name.includes("xlsx")))
+	    	 {
+	    	 alert("Please select xlsx file for upload!!!")
+	    	 $("#InFile").focus();
+	    	 $('#InFile').val('');
+	    	 }
+	    	 else
+	    	 {
+		        fd.append('InFile',files);
+		        console.log("2"+fd);
+		        $.ajax({
+		            url: 'uploadInvVendor',
+		            type: 'post',
+		            data: fd,
+		            enctype: 'multipart/form-data',
+		            contentType: false,
+		            processData: false,
+		            headers: 
+		            {
+		                'X-CSRF-TOKEN': $('input[name="_csrf"]').attr('value')
+		            },
+		
+		            success: function(data){
+		            	resp= data;  
+		            	debugger;
+		            //	alert(resp) ;    	 	        	
+			        	// $("#para").html(resp);	        	 
+			     		if(data == 'Data Not Uploaded'){ 
+			     			$("#para").html("Data Not Uploaded-View downloded file with empty columns"); 
+				     		 modal.style.display = "block"; 
+				     		window.open("resources/download/Vendor_Invoice.xlsx" , '_blank');    
+			     		}
+			     		else if(data =='Wrong File for upload'){
+			     			$("#para").html("Trying to upload Wrong File: "+files.name+" . Choose correct file for upload"); 
+				     		 modal.style.display = "block"; 
+				     		
+				     	}
+			     		else if(data =='Blank File for upload'){
+			     			$("#para").html("Trying to upload Blank File: "+files.name+" . Choose correct file for upload"); 
+				     		 modal.style.display = "block"; 
+				     		
+				     	}
+			     		else if(data =='Blank File(Fill only Column name) for upload'){
+			     			$("#para").html("Blank File(Fill only Column name) for upload. Choose correct file for upload"); 
+				     		 modal.style.display = "block"; 
+				     		
+				     	}
+			     	
+			     		else if(data =='Wrong File or Data Sequence for upload'){
+			     			$("#para").html("Wrong File or Data Sequence for upload. Choose correct file for upload"); 
+				     		 modal.style.display = "block"; 
+				     		
+				     	}
+			     		else{
+			     			$("#para").html("Vendor Invoice Data Uploaded Successfully"); 
+				     		 modal.style.display = "block"; 
+				     	}          
+		          
+		            }
+		        });
+		     }
+	    });
+	});
   $(document).ready(function(){
 	    $('.openFinalPopup').on('click',function(){      
 	        
@@ -505,6 +579,22 @@ input[type=button], input[type=submit], input[type=reset] {
 			
 	</div>
 </div>
+<br>
+<br>	
+<div class="row">
+			<div class="column">
+				<label>Vendor Invoice</label>
+			</div>
+			<div class="columnUpload">
+				<input type="file" id="InFile" name="myFile">
+			</div>
+			<div class="columnSubmit">
+				<input type="submit" value="UPLOAD" class="openPopupAssignInVen">
+			</div>
+
+		
+			
+	</div>
 </div>	
 	<div id="myModal" class="modal">
 		<!-- Modal content -->
