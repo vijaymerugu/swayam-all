@@ -31,8 +31,12 @@ public class KioskBranchMaster extends Common{
 		this.address = dto.getAddress();
 		this.branchCode = dto.getBranchCode();
 		this.kioskSerialNo = dto.getKioskSerialNo();
-		//this.installationStatus = dto.getInstallationStatus();
-	   // this.refId=dto.getRefId();
+		this.circle = dto.getCircle();
+		this.branchName = dto.getBranchName();
+		this.os = dto.getOs();
+		this.installationStatus = dto.getInstallationStatus();
+	    this.refId=dto.getRefId();
+	    this.installationType = dto.getInstallationType();
 	}
 
 	
