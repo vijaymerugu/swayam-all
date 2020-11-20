@@ -79,7 +79,7 @@ public class UploadServiceImpl implements UploadService {
 	public Workbook workbook;
 
 	public static ResourceBundle rb;
-
+//Kiosk Master
 	@Override
 	public String uploadKioskInformation(String path) {
 		// upload kiosk file information
@@ -398,28 +398,22 @@ public class UploadServiceImpl implements UploadService {
 
 							}
 
-							if (String.valueOf(cell.getColumnIndex()).equals("19")) { 
+							if (String.valueOf(cell.getColumnIndex()).equals("15")) { 
 
 								dto.setRfpID(cell.getStringCellValue());
 
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("20")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("16")) {
 
 								dto.setInstallationType(cell.getStringCellValue());
 
 							}
-							/*
-							 * for (HashMap.Entry<Integer, String> entry : map.entrySet()) { Integer key =
-							 * entry.getKey(); Object value = entry.getValue();
-							 * 
-							 * 
-							 * }
-							 */
+							
 
 						}
 						break;
 					case BOOLEAN:
-				//System.out.println(cell.getBooleanCellValue());
+				
 						break;
 					case NUMERIC:
 						if (!(String.valueOf(cell.getRow().getRowNum()).equals("0"))) {
@@ -508,12 +502,12 @@ public class UploadServiceImpl implements UploadService {
 								dto.setInstallationStatus((String.valueOf((int)cell.getNumericCellValue())));
 
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("19")) { 
+							if (String.valueOf(cell.getColumnIndex()).equals("15")) { 
 
 								dto.setRfpID((String.valueOf((int)cell.getNumericCellValue())));
 
 							}
-							if (String.valueOf(cell.getColumnIndex()).equals("20")) {
+							if (String.valueOf(cell.getColumnIndex()).equals("16")) {
 
 								dto.setInstallationType((String.valueOf((int)cell.getNumericCellValue())));
 
@@ -619,8 +613,8 @@ public class UploadServiceImpl implements UploadService {
 					entity.setBranchName(lidtDto1.getBranchName());// 12
 					entity.setOs(lidtDto1.getoS());// 13
 					entity.setInstallationStatus(lidtDto1.getInstallationStatus());//14
-					entity.setRefId(lidtDto1.getRfpID());//19
-					entity.setInstallationType(lidtDto1.getInstallationType());//20
+					entity.setRefId(lidtDto1.getRfpID());//15
+					entity.setInstallationType(lidtDto1.getInstallationType());//16
 					
 					
 					
