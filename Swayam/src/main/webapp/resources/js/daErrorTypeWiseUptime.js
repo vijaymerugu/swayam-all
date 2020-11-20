@@ -108,7 +108,11 @@ app.controller('daErrorTypeWiseUptimeController', ['$scope','$interval','$http',
 								}
 								
 								// Preparing Data to display in chart
-								let rowData=[filterdResponse[i].percentageOfTickets, filterdResponse[i].otherErrorTickets];
+								//let rowData=[filterdResponse[i].percentageOfTickets, filterdResponse[i].otherErrorTickets];
+								//Changes  20-11-2020
+								let rowData=[filterdResponse[i].errorWiseOpenTickets, (filterdResponse[i].noOfTickets-filterdResponse[i].errorWiseOpenTickets)];
+								
+								
 								tempData.push({"rowData" : rowData});
 								
 								// doughnut chart data
@@ -154,7 +158,9 @@ app.controller('daErrorTypeWiseUptimeController', ['$scope','$interval','$http',
 								            // fontSize: 12,
 								            fontStyle: "bold"
 								          }
-								        },
+								        }
+								      //Changes- 20-22-2020
+								      /*,
 								        tooltips: {
 									          callbacks: {
 									              label: function(tooltipItem, data) {
@@ -165,7 +171,7 @@ app.controller('daErrorTypeWiseUptimeController', ['$scope','$interval','$http',
 									                    return label;
 									              }
 									          }
-									     }
+									     }*/
 								  };
 									
 								// create Chart class object

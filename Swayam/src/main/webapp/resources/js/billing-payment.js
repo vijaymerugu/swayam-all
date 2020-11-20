@@ -13,7 +13,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	
        
        
-       $scope.LoadYear=function(){
+       /*$scope.LoadYear=function(){
 			var year = new Date().getFullYear();
 			   //var year = "2020"
 		    var range = [];
@@ -29,7 +29,16 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		    
 		    console.log("Range "+ range)
 		    $scope.Years = range;
-		   }
+		   }*/
+       
+       
+       $scope.yearOptions = [
+    	    { name: '2020-2021', value: '2020-2021' }, 
+    	    { name: '2021-2022', value: '2021-2022' }, 
+    	    { name: '2022-2023', value: '2022-2023' }
+    	    ];
+    	    
+    	    $scope.SelectedYearId = $scope.yearOptions[0].value;
 	   
 	   //Load Vendor
 	   $scope.LoadVendor=function(){
@@ -144,7 +153,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 				});
 			};    
        $scope.LoadDropDown('', 0);
-       $scope.LoadYear();
+      // $scope.LoadYear();
        $scope.LoadVendor();
        $scope.Rfp();
 	
@@ -256,7 +265,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		    	   	$scope.SelectedCircelId =''; 
 		    	   	$scope.SelectedStateId ='';
 		    	   	$scope.SelectedQuarterId='';
-		    	   	$scope.SelectedYearId ='';
+		    	   	$scope.SelectedYearId = $scope.yearOptions[0].value;
 		    	   	$scope.SelectedVendorId='';
 		    	   	$scope.RfpId='';
 					selectedRfpID="";
@@ -328,6 +337,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 								console.log("data3 " + data);
 						$scope.gridOptions.data = data.content;
 						$scope.gridOptions.totalItems = data.totalElements;
+						$scope.SelectedYearId ='2020-2021';
 
 		 	 	   });
 		 	    }
@@ -340,6 +350,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 					console.log("data " + data);
 			$scope.gridOptions.data = data.content;
 			$scope.gridOptions.totalItems = data.totalElements;
+			
 	   });
 	   
 	   $scope.gridOptions = {

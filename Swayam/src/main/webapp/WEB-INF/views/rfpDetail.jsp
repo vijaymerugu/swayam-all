@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
 <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
-<link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
+<!-- <link rel="stylesheet" href="resources/css/ui-grid.group.min.css"> -->
 
+<script
+	src="resources/js/ui-grid.min.js"></script>
 
 <script src="resources/js/rfp-details.js"></script>
 <script	src="resources/js/angular.1.5.6.min.js"></script>
@@ -18,7 +20,7 @@
 <script src="resources/js/jquery.3.4.1.min.js"></script>
 <script src="resources/js/bootstrap.3.4.1.min.js"></script>
 
-
+<link rel="stylesheet" href="resources/css/bootstrap.min.css"> 
 	
 <script src="resources/js/angular.js"></script>
     <script src="resources/js/angular-touch.js"></script>
@@ -44,7 +46,51 @@
 								  }
       	
 		$('#rfpDate').datepicker(datePickerOptions);
-		$('#amcDate').datepicker(datePickerOptions);
+		//$('#amcDate').datepicker(datePickerOptions);
+		$('#slaDate').datepicker(datePickerOptions).on('change', function() {
+			  // Does some stuff and logs the event to the console
+			  
+			var sladate = $(this).val();
+			  console.log("date Sla " + sladate)
+			  
+			
+			  
+			var arr_dateText = sladate.split("-");
+			  sladay = arr_dateText[0];
+			  startmonth = arr_dateText[1];
+				startyear = (parseInt(arr_dateText[2]) + 1).toString();
+				
+				expiryYear = (parseInt(arr_dateText[2]) + 5).toString();
+				
+				var amcdate  = sladay+"-"+startmonth+"-"+startyear;
+				
+				var slaExpiryDate  = sladay+"-"+startmonth+"-"+expiryYear;
+				
+				console.log("AMC Date " + amcdate);
+				
+				if(sladate=='' || sladate==null){
+					
+					$('#amcDate').val('');
+					
+					$('#slaExpDate').val('');
+					
+				}else{
+					
+					$('#amcDate').val(amcdate);
+					
+					$('#slaExpDate').val(slaExpiryDate);
+				}
+				
+				
+				
+			  
+		});
+		
+	/* 	var $datepicker = $('#amcDate');
+		$datepicker.datepicker();
+		$datepicker.datepicker('setDate', new Date()); */
+		 
+		
 	});
 </script> 
 
@@ -142,7 +188,8 @@
 
  <div>
  		<form name="rfpForm"   ng-submit="searchPostion(selectedRfpNo,selectedRfpid,selectedVendor,selectedkcost,
-					selectedAMCcost,selectedCPenalty,selectedDMU,selectedDMUR,selectedDCT,selectedMP,selectedRfpDate,selectedAmcDate)" autocomplete="off"> 
+					selectedAMCcost,selectedCPenalty,selectedDMU,selectedDMUR,selectedDCT,selectedMP
+					,selectedRfpDate,selectedAmcDate,selectedPeriodicty,selectedPenType,selectedRangeTo,selectedRangeFrom)" autocomplete="off"> 
 		<div class="tb-bk">
    <table>				
         <tr>
@@ -184,7 +231,7 @@
                     
                     <div class="col-xs-6">
                     <select id="vendor"  name="Vendor" ng-model="selectedVendor" required>
-									<option value=""></option> 
+									 <option value="" selected>--Select Vendor--</option> 
 									<option ng-repeat="item in Vendors" value="{{item.vendor}}">{{item.vendor}}</option>
 								</select>
                     </div>
@@ -275,19 +322,6 @@
           </tr>
         
         <tr>
-            <td>
-                <div class="row">
-                    <div class="col-xs-6 lb">
-                        <span class="text-left">Maximum Penalty(in %)<b>*</b></span>
-                        <span class="pull-right"></span>
-                    </div>
-                    <div class="col-xs-6">
-                      <input type="number" min="0" max="100"  ng-model="selectedMP" name="mp" 
-                         placeholder="" autocomplete="off" required/>
-                        
-                    </div>
-                </div>
-			</td>
 			<td>
 			 <div class="row">
                     <div class="col-xs-6 lb">
@@ -301,18 +335,124 @@
                 </div>
 			</td>
 			<td>
+                <div class="row">
+                    <div class="col-xs-6 lb">
+                        <span class="text-left">SLA Start Date<b>*</b></span>
+                        <span class="pull-right"></span>
+                    </div>
+                   <div class="col-xs-6">
+                        <input type="text" id="slaDate" name="slaDateId" class="datepicker" 
+                        readonly="readonly"  ng-model="selectedSLAdate" placeholder="dd-mm-yyyy" onchange="changeAMCDate()" required maxlength="10"/>
+                        
+                    </div>
+                </div>
+			</td>
+			<td>
+			 <div class="row">
+                    <div class="col-xs-6 lb">
+                        <span class="text-left">SLA Expiry Date<b>*</b></span>
+                        <span class="pull-right"></span>
+                    </div>
+                    <div class="col-xs-6">
+                        <input class='dateField' type="text" id="slaExpDate" name="slaexpDateId" style="background: #dddddd;"  
+                         ng-model="selectedSlaExpDate" placeholder="dd-mm-yyyy" required maxlength="10" disabled/>
+                        
+                    </div>
+                </div>
+			</td>
+			<!-- changes 09-11-2020 -->
+			<tr>
+			<td>
 			 <div class="row">
                     <div class="col-xs-6 lb">
                         <span class="text-left">AMC Start Date<b>*</b></span>
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
-                        <input type="text" id="amcDate" name="amcDateId" class="datepicker" readonly="readonly"  ng-model="selectedAmcDate" placeholder="dd-mm-yyyy" required maxlength="10"/>
+                        <input type="text" id="amcDate" name="amcDateId" style="background: #dddddd;"  
+                         ng-model="selectedAmcDate" placeholder="dd-mm-yyyy" required maxlength="10" disabled/>
                         
                     </div>
                 </div>
 			</td>
-			 </tr>
+            
+           	
+			<td>
+			 <div class="row">
+                    <div class="col-xs-6 lb">
+                        <span class="text-left">AMC Periodicity<b>*</b></span>
+                        <span class="pull-right"></span>
+                    </div>
+                   <div class="col-xs-6">
+                    <select id="periodicity"  name="periodicity" ng-model="selectedPeriodicty" required>
+									 <option value="" selected>--Select Period--</option> 
+									<option value="Quarterly">Quarterly</option>
+									<option value="Half-Yearly">Half-Yearly</option>
+								</select>
+                    </div>
+                </div>
+			</td>
+			<td>
+			 <div class="row">
+                    <div class="col-xs-6 lb">
+                        <span class="text-left">Penalty Type<b>*</b></span>
+                        <span class="pull-right"></span>
+                    </div>
+                   <div class="col-xs-6">
+                    <select id="penaltyType"  name="penaltyType" ng-model="selectedPenType" onchange="myFunction()" required>
+									 <option value="" selected>--Select Type--</option> 
+									<option value="Fixed">Fixed</option>
+									<option value="Range">Range</option>
+								</select>
+                    </div>
+                </div>
+			</td>
+			</tr>
+			 <tr>
+			 <td class="hidePenalty">
+                <div class="row">
+                    <div class="col-xs-6 lb">
+                        <span class="text-left">Maximum Penalty(in %)<b>*</b></span>
+                        <span class="pull-right"></span>
+                    </div>
+                    <div class="col-xs-6">
+                      <input type="number" min="0" max="100"  ng-model="selectedMP" name="mp" 
+                         placeholder="" autocomplete="off" />
+                        
+                    </div>
+                </div>
+			</td>
+			 
+		<td class = "hideRange">
+                <div class="row">
+                    <div class="col-xs-6 lb">
+                        <span class="text-left">Penalty Range To<b>*</b></span>
+                        <span class="pull-right"></span>
+                    </div>
+                    <div class="col-xs-6">
+                       <input type="number" min="0" max="999"  ng-model="selectedRangeTo" name="Pento" 
+                         placeholder="" autocomplete="off"/>
+                    </div>
+                </div>
+			</td>
+		 <td class = "hideRange">
+                <div class="row">
+                    <div class="col-xs-6 lb">
+                        <span class="text-left">Penalty Range From<b>*</b></span>
+                        <span class="pull-right"></span>
+                    </div>
+                    <div class="col-xs-6">
+                       <input type="number" min="0" max="999"   ng-model="selectedRangeFrom" name="Penfrom" 
+                         placeholder="" autocomplete="off"/>
+                    </div>
+                </div>
+			</td>
+			
+			
+			
+										
+		</tr>
+			 
 			 <tr>
 			 <td></td>
 			 <td></td>
@@ -377,9 +517,64 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
         	$('input[name=cdt').val('');
         	$('input[name=mp').val('');
             $("#vendor")[0].selectedIndex = "";
+            $("#periodicity")[0].selectedIndex = "";
+            $("#penaltyType")[0].selectedIndex = "";
+           // $('#dd').data("DateTimePicker").clear()
            
+            $('.datepicker').datepicker('setDate', null);
+            $('#slaDate').datepicker('setDate', null);
+           /*  $('#amcDate').datepicker('setDate', null);
+            $('#slaExpDate').datepicker('setDate', null); */
+            
+          //  $('input[name=amcDateId').val('');
+          
+            
         });
     });
+    
+    
+    function myFunction() {
+    	  var x = document.getElementById("penaltyType").value;
+    	  
+    	  console.log("Value " + x);
+    	  
+    	  if(x=="Fixed"){
+    		  $('.hideRange').hide();
+    		  $('.hidePenalty').show();
+    		  
+    	  }else if (x=="Range"){
+    		  $('.hidePenalty').hide();
+    		  $('.hideRange').show();
+    	  }else{
+    		  $('.hidePenalty').show();
+    		  $('.hideRange').show(); 
+    	  }
+    	  
+    	  
+    	 // document.getElementById("demo").innerHTML = "You selected: " + x;
+    	}
+    
+/*     function changeAMCDate(){
+    	
+    	
+    	var x = document.getElementById("slaDate").value;
+    	console.log("sla date  " + x);
+    	
+    	//var res = x.replace("-", "/");
+    	
+    	var dateObject = new Date(x);
+    	
+    	console.log("date --   " + dateObject.toString());
+    	
+    	document.getElementById("amcDate").valueAsDate = new Date();
+    }
+    
+    function add_years(dt,n) 
+    {
+    return new Date(dt.setFullYear(dt.getFullYear() + n));      
+    } 
+     */
+    
 </script>
 
 

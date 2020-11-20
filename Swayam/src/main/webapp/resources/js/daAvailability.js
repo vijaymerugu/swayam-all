@@ -74,7 +74,9 @@ app.controller('daAvailabilityController', ['$scope', '$interval', '$http', 'daA
 					}
 
 					//Preparing Data to display in chart
-					let rowData=[$scope.apiResponse[i].availableKiosksPercent, $scope.apiResponse[i].nonAvailableKiosksPercent];
+//					let rowData=[$scope.apiResponse[i].availableKiosksPercent, $scope.apiResponse[i].nonAvailableKiosksPercent];
+					//Changes 20-11-2020
+					let rowData=[$scope.apiResponse[i].totalAvailableKiosks, $scope.apiResponse[i].totalNonAvailableKiosks];
 					tempData.push({"rowData" : rowData});
 
 					//doughnut chart data

@@ -92,4 +92,31 @@ public class RfpIdMaster {
 	@Column(name = "AMC_START_DATE")
 	private Date amcStartDate;
 
+	
+	//Changes - 10-11-2020
+	
+	@Column(name = "SLA_START_DATE")
+	private Date slaStartDate;
+	
+	@Column(name = "SLA_EXPIRY_DATE")
+	private Date slaExpiryDate;
+	
+	@NotNull
+	@Column(name="AMC_PERIODICITY")
+	private String periodicity;
+	
+	@NotNull
+	@Column(name="PENALTY_TYPE")
+	private String penaltyType;
+	
+	@Min(0)
+	@Max(999)
+	@Column(name="PENALTY_RANGE_TO")
+	private Integer penaltyToRange;
+	
+	@Min(0)
+	@Max(999)
+	@Column(name="PENALTY_RANGE_From")
+	private Integer penaltyfromRange;
+	
 }

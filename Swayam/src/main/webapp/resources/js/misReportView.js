@@ -155,7 +155,7 @@ misReportViewService2.loadAvailableColumns(removeIds)
      }
      ];
 	$scope.selectedReportType = {
-		     'reportType': $scope.reportTypeList[0]
+		     'reportType': $scope.reportTypeList[1]
 		  };
 	
 	function stringToDate(_date,_format,_delimiter) {

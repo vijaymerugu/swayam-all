@@ -171,10 +171,16 @@
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
-                       <select id="year"  class="form-group" name="Year" ng-model="SelectedYearId" required>
-									  <option value="" selected>--Select Year--</option>  
+                     <!--   <select id="year"  class="form-group" name="Year" ng-model="SelectedYearId" required>
+                       				<option value="2020-2021" ng-selected="true">2020-2021</option>
+									  <option value="2021-2022">2021-2022</option> 
+									  <option value="2022-2023">2022-2023</option> 
+									      
 									<option ng-repeat="year in Years" value="{{year}}">{{year}}</option>
-							</select>
+							</select> -->
+							<select id="year"  class="form-group" name="Year" ng-model='SelectedYearId' 
+							required ng-options='option.value as option.name for option in yearOptions'></select>
+							
                     </div>
                 </div>                                
 			</td>
@@ -310,12 +316,14 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
             $("#circle")[0].selectedIndex = "";            
             $("#state")[0].selectedIndex = "0";
             $("#vendor")[0].selectedIndex = "";
-            $("#year")[0].selectedIndex = "";
+           // $("#year")[0].selectedIndex = "2020-2021";
             $("#timeperiod")[0].selectedIndex = "";
             $("#refno")[0].selectedIndex = "";
             console.log("Inside reset jquery ");
         });
     }); 
+     
+     
 </script>
 
 

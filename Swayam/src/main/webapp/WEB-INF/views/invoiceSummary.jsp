@@ -138,10 +138,13 @@
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
-                       <select id="year" name="Year" ng-model="SelectedYearId" required>
+                      <!--  <select id="year" name="Year" ng-model="SelectedYearId" required>
 									 <option value="" selected>--Select Year--</option>  
 									<option ng-repeat="year in Years" value="{{year}}">{{year}}</option>
-							</select>
+							</select> -->
+					<select id="year"  class="form-group" name="Year" ng-model='SelectedYearId' 
+							required ng-options='option.value as option.name for option in yearOptions'></select>
+							
                     </div>
                 </div>                                
 			</td>

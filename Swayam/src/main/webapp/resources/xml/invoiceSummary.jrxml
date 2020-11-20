@@ -595,7 +595,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="8" isItalic="false"/>
+					<font size="10" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{im1}]]></textFieldExpression>
 			</textField>
@@ -609,7 +609,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="8" isItalic="false"/>
+					<font size="10" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{im2}]]></textFieldExpression>
 			</textField>
@@ -623,7 +623,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="8" isItalic="false"/>
+					<font size="10" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{im3}]]></textFieldExpression>
 			</textField>
@@ -637,7 +637,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="8" isItalic="false"/>
+					<font size="10" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{im4}]]></textFieldExpression>
 			</textField>
@@ -651,7 +651,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="8" isItalic="false"/>
+					<font size="10" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{p1}]]></textFieldExpression>
 			</textField>
@@ -665,7 +665,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="8" isItalic="false"/>
+					<font size="10" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{p2}]]></textFieldExpression>
 			</textField>
@@ -679,7 +679,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="8" isItalic="false"/>
+					<font size="10" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{p3}]]></textFieldExpression>
 			</textField>
@@ -693,7 +693,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="8" isItalic="false"/>
+					<font size="10" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{p4}]]></textFieldExpression>
 			</textField>
@@ -707,7 +707,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="8" isItalic="false"/>
+					<font size="10" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{ba1}]]></textFieldExpression>
 			</textField>
@@ -721,7 +721,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="8" isItalic="false"/>
+					<font size="10" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{ba2}]]></textFieldExpression>
 			</textField>
@@ -735,7 +735,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="8" isItalic="false"/>
+					<font size="10" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{ba3}]]></textFieldExpression>
 			</textField>
@@ -749,7 +749,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="8" isItalic="false"/>
+					<font size="10" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{ba4}]]></textFieldExpression>
 			</textField>
