@@ -352,7 +352,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="8" isItalic="false"/>
+					<font size="10" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{ia}]]></textFieldExpression>
 			</textField>
@@ -366,7 +366,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="8" isItalic="false"/>
+					<font size="10" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{inv}]]></textFieldExpression>
 			</textField>
@@ -380,7 +380,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="8" isItalic="false"/>
+					<font size="10" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{d}]]></textFieldExpression>
 			</textField>

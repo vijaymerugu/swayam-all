@@ -84,7 +84,7 @@ app.controller('daUserWiseDataController', ['$scope','$interval','$http','daUser
 			            // fontSize: 12,
 			            fontStyle: "bold"
 			          }
-			        },
+			        }/*,
 			        tooltips: {
 				          callbacks: {
 				              label: function(tooltipItem, data) {
@@ -95,7 +95,7 @@ app.controller('daUserWiseDataController', ['$scope','$interval','$http','daUser
 				                    return label;
 				              }
 				          }
-				     }
+				     }*/
 			    });
 			
 			  $scope.labels1 = ["Total Down Kiosks", "Total Working Kiosks"];
@@ -117,7 +117,8 @@ app.controller('daUserWiseDataController', ['$scope','$interval','$http','daUser
 			
 			
 			//Preparing Data to display in chart
-			let rowData=[$scope.operationalKiosksPercent1, $scope.nonOperationalKiosksPercent1];
+//			let rowData=[$scope.operationalKiosksPercent1, $scope.nonOperationalKiosksPercent1];
+			let rowData=[$scope.sumOfOperationalKiosks1 , $scope.sumOfNonOperationalKiosks1];
 			$scope.doughnutData1.push({"rowData" : rowData});
 			
 			$scope.apiResponse1.push({gtLabel:'Grand Total', gtOperationalKiosks:$scope.sumOfOperationalKiosks1, gtAllKiosks:$scope.sumOfAllKiosks1, gtOperationalKiosksPercent:$scope.operationalKiosksPercent1});
@@ -164,7 +165,7 @@ app.controller('daUserWiseDataController', ['$scope','$interval','$http','daUser
 		            // fontSize: 12,
 		            fontStyle: "bold"
 		          }
-		        },
+		        }/*,
 		        tooltips: {
 			          callbacks: {
 			              label: function(tooltipItem, data) {
@@ -175,7 +176,7 @@ app.controller('daUserWiseDataController', ['$scope','$interval','$http','daUser
 			                    return label;
 			              }
 			          }
-			     }
+			     }*/
 		    });
 		
 		  $scope.labels2 = ["Total Zero Txn Kiosks", "Total Non-Zero Txn Kiosks"];
@@ -196,7 +197,7 @@ app.controller('daUserWiseDataController', ['$scope','$interval','$http','daUser
 		$scope.nonOperationalKiosksPercent2 = ($scope.sumOfNonOperationalKiosks2 / $scope.sumOfAllKiosks2) * 100;
 
 		//Preparing Data to display in chart
-		let rowData=[$scope.operationalKiosksPercent2, $scope.nonOperationalKiosksPercent2];
+		let rowData=[$scope.sumOfOperationalKiosks2, $scope.sumOfNonOperationalKiosks2];
 		$scope.doughnutData2.push({"rowData" : rowData});
 		
 		$scope.apiResponse2.push({gtLabel:'Grand Total', gtOperationalKiosks:$scope.sumOfOperationalKiosks2, gtAllKiosks:$scope.sumOfAllKiosks2, gtOperationalKiosksPercent:$scope.operationalKiosksPercent2});

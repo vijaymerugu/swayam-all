@@ -91,7 +91,7 @@ app.controller('daCumulativeCircleDataController', ['$scope','$interval','$http'
 			            // fontSize: 12,
 			            fontStyle: "bold"
 			          }
-			        },
+			        }/*,
 			        tooltips: {
 				          callbacks: {
 				              label: function(tooltipItem, data) {
@@ -102,7 +102,7 @@ app.controller('daCumulativeCircleDataController', ['$scope','$interval','$http'
 				                    return label;
 				              }
 				          }
-				     }
+				     }*/
 			    });
 			
 			  $scope.labels1 = ["Total Operational Kiosks", "Total Non-Operational Kiosks"];
@@ -124,7 +124,8 @@ app.controller('daCumulativeCircleDataController', ['$scope','$interval','$http'
 			
 			
 			//Preparing Data to display in chart
-			let rowData=[$scope.operationalKiosksPercent1, $scope.nonOperationalKiosksPercent1];
+			//let rowData=[$scope.operationalKiosksPercent1, $scope.nonOperationalKiosksPercent1];
+			let rowData=[$scope.sumOfOperationalKiosks1, $scope.sumOfNonOperationalKiosks1];
 			$scope.doughnutData1.push({"rowData" : rowData});
 			
 			$scope.apiResponse1.push({gtLabel:'Grand Total', gtOperationalKiosks:$scope.sumOfOperationalKiosks1, gtTotalKiosks:$scope.sumOfAllKiosks1, gtAvailabilityPercent:$scope.operationalKiosksPercent1});
@@ -170,7 +171,7 @@ app.controller('daCumulativeCircleDataController', ['$scope','$interval','$http'
 		            // fontSize: 12,
 		            fontStyle: "bold"
 		          }
-		        },
+		        }/*,
 		        tooltips: {
 			          callbacks: {
 			              label: function(tooltipItem, data) {
@@ -181,7 +182,7 @@ app.controller('daCumulativeCircleDataController', ['$scope','$interval','$http'
 			                    return label;
 			              }
 			          }
-			     }
+			     }*/
 		    });
 		
 		  $scope.labels2 = ["Total Operational Kiosks", "Total Non-Operational Kiosks"];
@@ -202,7 +203,8 @@ app.controller('daCumulativeCircleDataController', ['$scope','$interval','$http'
 		$scope.nonOperationalKiosksPercent2 = ($scope.sumOfNonOperationalKiosks2 / $scope.sumOfAllKiosks2) * 100;
 
 		//Preparing Data to display in chart
-		let rowData=[$scope.operationalKiosksPercent2, $scope.nonOperationalKiosksPercent2];
+		//let rowData=[$scope.operationalKiosksPercent2, $scope.nonOperationalKiosksPercent2];
+		let rowData=[$scope.sumOfOperationalKiosks2, $scope.sumOfNonOperationalKiosks2];
 		$scope.doughnutData2.push({"rowData" : rowData});
 		
 		$scope.apiResponse2.push({gtLabel:'Grand Total', gtOperationalKiosks:$scope.sumOfOperationalKiosks2, gtTotalKiosks:$scope.sumOfAllKiosks2, gtAvailabilityPercent:$scope.operationalKiosksPercent2});
@@ -250,7 +252,7 @@ app.controller('daCumulativeCircleDataController', ['$scope','$interval','$http'
 				            // fontSize: 12,
 				            fontStyle: "bold"
 				          }
-				        },
+				        }/*,
 				        tooltips: {
 					          callbacks: {
 					              label: function(tooltipItem, data) {
@@ -261,7 +263,7 @@ app.controller('daCumulativeCircleDataController', ['$scope','$interval','$http'
 					                    return label;
 					              }
 					          }
-					     }
+					     }*/
 				    });
 				
 				  $scope.labels3 = ["Total Operational Kiosks", "Total Non-Operational Kiosks"];
@@ -285,8 +287,8 @@ app.controller('daCumulativeCircleDataController', ['$scope','$interval','$http'
 				//Preparing Data to display in chart
 				//Sharan Change -29-10-2020
 				//let rowData=[$scope.errorWiseTotalOpenTicketsPercent3, $scope.errorWiseTotalCloseTicketsPercent3];
-				let rowData=[$scope.errorWiseTotalCloseTicketsPercent3,$scope.errorWiseTotalOpenTicketsPercent3];
-				
+				//let rowData=[$scope.errorWiseTotalCloseTicketsPercent3,$scope.errorWiseTotalOpenTicketsPercent3];
+				let rowData=[$scope.sumOfErrorWiseTotalCloseTickets3,$scope.sumOfErrorWiseTotalOpenTickets3];
 				$scope.doughnutData3.push({"rowData" : rowData});
 				
 				$scope.apiResponse3.push({gtLabel:'Grand Total', gtErrorWiseTotalOpenTickets:$scope.sumOfErrorWiseTotalOpenTickets3, gtAllTickets:$scope.sumOfAllTickets3, gtErrorWiseTotalOpenTicketsPercent:$scope.errorWiseTotalOpenTicketsPercent3});
@@ -347,7 +349,7 @@ app.controller('daCumulativeCircleDataController', ['$scope','$interval','$http'
 				            // fontSize: 12,
 				            fontStyle: "bold"
 				          }
-				        },
+				        }/*,
 				        tooltips: {
 					          callbacks: {
 					              label: function(tooltipItem, data) {
@@ -358,7 +360,7 @@ app.controller('daCumulativeCircleDataController', ['$scope','$interval','$http'
 					                    return label;
 					              }
 					          }
-					     }
+					     }*/
 				    });
 				
 			
@@ -395,7 +397,14 @@ app.controller('daCumulativeCircleDataController', ['$scope','$interval','$http'
 				console.log("Total Open Call Percentage "+ $scope.totalOpenCallPercentage);
 
 				//Preparing Data to display in chart
-				let rowData=[$scope.apiResponse4[0].percentageOfOneDays, $scope.apiResponse4[0].percentOfTwoToFiveDays, $scope.apiResponse4[0].percentageOfOneWeek, $scope.apiResponse4[0].percentOneToTwoWeek, $scope.apiResponse4[0].percentGreaterThanTwoWeek];
+				//let rowData=[$scope.apiResponse4[0].percentageOfOneDays, $scope.apiResponse4[0].percentOfTwoToFiveDays, $scope.apiResponse4[0].percentageOfOneWeek, $scope.apiResponse4[0].percentOneToTwoWeek, $scope.apiResponse4[0].percentGreaterThanTwoWeek];
+				
+				let rowData=[$scope.apiResponse4[0].oneDay, 
+					$scope.apiResponse4[0].twoToFiveDays, 
+					$scope.apiResponse4[0].oneWeek,
+					$scope.apiResponse4[0].oneToTwoWeek,
+					$scope.apiResponse4[0].greaterThanTwoWeek];
+				
 				$scope.doughnutData4.push({"rowData" : rowData});
 				
 				
@@ -446,7 +455,7 @@ app.controller('daCumulativeCircleDataController', ['$scope','$interval','$http'
 				            // fontSize: 12,
 				            fontStyle: "bold"
 				          }
-				        },
+				        }/*,
 				        tooltips: {
 					          callbacks: {
 					              label: function(tooltipItem, data) {
@@ -457,7 +466,7 @@ app.controller('daCumulativeCircleDataController', ['$scope','$interval','$http'
 					                    return label;
 					              }
 					          }
-					     }
+					     }*/
 				    });
 				
 				  $scope.labels5 = ["Total Open Calls", "Total Closed Calls"];
@@ -479,7 +488,8 @@ app.controller('daCumulativeCircleDataController', ['$scope','$interval','$http'
 				$scope.closeTicketsPercent5 = ($scope.sumOfCloseTickets5 / $scope.sumOfAllTickets5) * 100;
 
 				//Preparing Data to display in chart
-				let rowData=[$scope.openTicketsPercent5, $scope.closeTicketsPercent5];
+				//let rowData=[$scope.openTicketsPercent5, $scope.closeTicketsPercent5];
+				let rowData=[$scope.sumOfOpenTickets5, $scope.sumOfCloseTickets5];
 				$scope.doughnutData5.push({"rowData" : rowData});
 				$scope.apiResponse5.push({gtLabel:'Grand Total', gtOpenTickets:$scope.sumOfOpenTickets5, gtAllTickets:$scope.sumOfAllTickets5, gtOpenTicketsPercent:$scope.openTicketsPercent5});
 			}

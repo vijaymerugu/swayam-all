@@ -416,7 +416,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="8" isItalic="false"/>
+					<font size="10" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalhr}]]></textFieldExpression>
 			</textField>
@@ -430,7 +430,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="8" isItalic="false"/>
+					<font size="10" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{dt}]]></textFieldExpression>
 			</textField>
@@ -444,7 +444,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="8" isItalic="false"/>
+					<font size="10" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{rex}]]></textFieldExpression>
 			</textField>
@@ -458,7 +458,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="8" isItalic="false"/>
+					<font size="10" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{fd}]]></textFieldExpression>
 			</textField>
@@ -472,7 +472,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font size="8" isItalic="false"/>
+					<font size="10" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{p}]]></textFieldExpression>
 			</textField>

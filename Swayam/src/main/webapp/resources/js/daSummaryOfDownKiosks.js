@@ -72,7 +72,12 @@ app.controller('daSummaryOfDownKiosksController', ['$scope','$interval','$http',
 					}
 
 					//Preparing Data to display in chart
-					let rowData=[$scope.apiResponse[i].percentageOfTickets, $scope.apiResponse[i].percentageOfClosedTickets];
+					//Changes 20-11-2020
+					//let rowData=[$scope.apiResponse[i].percentageOfTickets, $scope.apiResponse[i].percentageOfClosedTickets];
+					
+					let rowData=[$scope.apiResponse[i].noOfOpenTickets, 
+						$scope.apiResponse[i].noOfClosedTickets];
+					
 					tempData.push({"rowData" : rowData});
 
 					//doughnut chart data
@@ -118,7 +123,7 @@ app.controller('daSummaryOfDownKiosksController', ['$scope','$interval','$http',
 					            // fontSize: 12,
 					            fontStyle: "bold"
 					          }
-					        },
+					        }/*,
 					        tooltips: {
 						          callbacks: {
 						              label: function(tooltipItem, data) {
@@ -129,7 +134,7 @@ app.controller('daSummaryOfDownKiosksController', ['$scope','$interval','$http',
 						                    return label;
 						              }
 						          }
-						     }
+						     }*/
 					  };
 						
 					//create Chart class object

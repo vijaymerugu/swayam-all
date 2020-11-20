@@ -73,8 +73,15 @@ app.controller('daTATOfDownKiosksController', ['$scope','$interval','$http','daT
 					}
 
 					//Preparing Data to display in chart
-					let rowData=[$scope.apiResponse[i].percentageOfOneDays, $scope.apiResponse[i].percentOfTwoToFiveDays,
+					
+					//Chnages 20-11-2020
+					/*let rowData=[$scope.apiResponse[i].percentageOfOneDays, $scope.apiResponse[i].percentOfTwoToFiveDays,
 					$scope.apiResponse[i].percentageOfOneWeek, $scope.apiResponse[i].percentOneToTwoWeek, $scope.apiResponse[i].percentGreaterThanTwoWeek];
+					*/
+					let rowData=[$scope.apiResponse[i].oneDay, $scope.apiResponse[i].twoToFiveDays,
+						$scope.apiResponse[i].oneWeek, $scope.apiResponse[i].oneToTwoWeek, $scope.apiResponse[i].greaterThanTwoWeek];
+						
+					
 					tempData.push({"rowData" : rowData});
 
 					//doughnut chart data
@@ -126,7 +133,7 @@ app.controller('daTATOfDownKiosksController', ['$scope','$interval','$http','daT
 					            // fontSize: 12,
 					            fontStyle: "bold"
 					          }
-					        },
+					        }/*,
 					        tooltips: {
 						          callbacks: {
 						              label: function(tooltipItem, data) {
@@ -137,7 +144,7 @@ app.controller('daTATOfDownKiosksController', ['$scope','$interval','$http','daT
 						                    return label;
 						              }
 						          }
-						     }
+						     }*/
 					  };
 						
 					//create Chart class object

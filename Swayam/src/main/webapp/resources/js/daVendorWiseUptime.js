@@ -97,7 +97,10 @@ app.controller('daVendorWiseUptimeController', ['$scope','$interval','$http','da
 								}
 
 								// Preparing Data to display in chart
-								let rowData=[filterdResponse[i].availableKiosksPercent,filterdResponse[i].nonAvailableKiosksPercent];
+								//let rowData=[filterdResponse[i].availableKiosksPercent,filterdResponse[i].nonAvailableKiosksPercent];
+								//Changes 20-11-2020
+								let rowData=[filterdResponse[i].totalAvailableKiosks,filterdResponse[i].totalNonAvailableKiosks];
+								
 								tempData.push({"rowData" : rowData});
 
 								// doughnut chart data
@@ -107,6 +110,7 @@ app.controller('daVendorWiseUptimeController', ['$scope','$interval','$http','da
 								      {
 								        label: "Vendor-Wise Uptime",
 								        data: tempData[i].rowData,
+								        //data: tempData[nonNullCounter-1].rowData,
 								        backgroundColor: [
 								        	'#A0B421',
 								        	'#ED402A'
@@ -143,7 +147,7 @@ app.controller('daVendorWiseUptimeController', ['$scope','$interval','$http','da
 								            // fontSize: 12,
 								            fontStyle: "bold"
 								          }
-								        },
+								        }/*,
 								        tooltips: {
 									          callbacks: {
 									              label: function(tooltipItem, data) {
@@ -154,7 +158,7 @@ app.controller('daVendorWiseUptimeController', ['$scope','$interval','$http','da
 									                    return label;
 									              }
 									          }
-									     }
+									     }*/
 								  };
 									
 								// create Chart class object
