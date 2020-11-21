@@ -77,7 +77,7 @@
 			</tbody>
 			<thead align="center" style="font-size: 11px;">
 			<tr>
-		    <th colspan="1" align="center">2-4 Hrs</th>
+		    <th colspan="1" align="center"><4 Hrs</th>
 		    <th colspan="1" align="center"><1 Day</th>
 		    <th colspan="1" align="center"><3 Days</th>
 		     <th colspan="1" align="center">3> Days</th>

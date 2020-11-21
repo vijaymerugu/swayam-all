@@ -93,7 +93,7 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 			  }else if(type!=null && type.equals("OneDaysCount")){
 				  entities=ticketCentorAgeingRepo.findAllTicketCentor1Days(PageRequest.of(page, size)).map(TicketCentorDto::new);
 			 }else if(type!=null && type.equals("ThreeDaysLessCount")){
-				 entities=ticketCentorAgeingRepo.findAllTicketCentor3DaysLess(PageRequest.of(page, size)).map(TicketCentorDto::new);
+		  	 entities=ticketCentorAgeingRepo.findAllTicketCentor3DaysLess(PageRequest.of(page, size)).map(TicketCentorDto::new);
 		    }else if(type!=null && type.equals("ThreeDayGreaterCount")){
 		    	entities=ticketCentorAgeingRepo.findAllTicketCentor3DaysGreater(PageRequest.of(page, size)).map(TicketCentorDto::new);
 		    } else if(type !=null && type !="" && type !="undefined"){	    	
@@ -196,7 +196,6 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 				 
 				 mapDataList = new HashMap<String, Integer>();	
 			    int twoToFourHrsCount = ticketCentorAgeingRepo.find2_4HoursCount();
-				
 				int oneDaysCount = ticketCentorAgeingRepo.find_1_DaysCount();
 				int threeDaysCount = ticketCentorAgeingRepo.find_3_Days_LessCount();
 				int threeDayGreaterCount = ticketCentorAgeingRepo.find_3_Days_GreaterThanCount();
@@ -252,11 +251,11 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 			Map<String, Integer> mapDataList = null;		
 			try{
 				 mapDataList = new HashMap<String, Integer>();	
-			    int twoToFourHrsCount = ticketCentorAgeingRepo.find2_4HoursCountCMF(supList);
-				int oneDaysCount = ticketCentorAgeingRepo.find_1_DaysCountCMF(supList);
-				int threeDaysCount = ticketCentorAgeingRepo.find_3_Days_LessCountCMF(supList);
-				int threeDayGreaterCount = ticketCentorAgeingRepo.find_3_Days_GreaterThanCountCMF(supList);
-				int totalCount = ticketCentorAgeingRepo.findTotalCountCMF(supList);
+			    int twoToFourHrsCount = ticketCentorAgeingRepo.find2_4HoursCountCMS(supList);
+				int oneDaysCount = ticketCentorAgeingRepo.find_1_DaysCountCMS(supList);
+				int threeDaysCount = ticketCentorAgeingRepo.find_3_Days_LessCountCMS(supList);
+				int threeDayGreaterCount = ticketCentorAgeingRepo.find_3_Days_GreaterThanCountCMS(supList);
+				int totalCount = ticketCentorAgeingRepo.findTotalCountCMS(supList);
 				
 				
 				mapDataList.put("TwoToFourHrsCount", twoToFourHrsCount);
@@ -442,7 +441,11 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 					 entities=ticketCentorAgeingRepo.findAllTicketCentor3DaysLessAndCMFUser(pfId,PageRequest.of(page, size)).map(TicketCentorDto::new);
 			    }else if(type!=null && type.equals("ThreeDayGreaterCount")){
 			    	entities=ticketCentorAgeingRepo.findAllTicketCentor3DaysGreaterAndCMFUser(pfId,PageRequest.of(page, size)).map(TicketCentorDto::new);
-			    } else if(type !=null && type !="" && type !="undefined" && !type.equals("TotalCount")){	    	
+			    } 
+			    else if(type!=null && type.equals("TotalCount")){
+			    	entities=ticketCentorAgeingRepo.findAllTicketTotalListAndCMFUser(pfId,PageRequest.of(page, size)).map(TicketCentorDto::new);
+			    }
+			    else if(type !=null && type !="" && type !="undefined" && !type.equals("TotalCount")){	    	
 			    	entities= ticketCentorRepo.findByCallSubCategoryAndCMFUser(type,pfId, PageRequest.of(page, size,Sort.by("TICKET_ID").descending())).map(TicketCentorDto::new);	         
 			    }else{
 			    	logger.info("Inside======findPaginatedCountCmf======inside==else");

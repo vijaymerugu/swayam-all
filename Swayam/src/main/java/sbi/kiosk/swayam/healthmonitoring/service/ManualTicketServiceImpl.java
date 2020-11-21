@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import sbi.kiosk.swayam.common.constants.ExceptionConstants;
 import sbi.kiosk.swayam.common.dto.CallTypeDto;
 import sbi.kiosk.swayam.common.dto.ManualTicketCallLogDto;
+import sbi.kiosk.swayam.common.dto.UserDto;
+import sbi.kiosk.swayam.common.entity.BranchMaster;
 import sbi.kiosk.swayam.common.entity.KioskBranchMaster;
 import sbi.kiosk.swayam.common.entity.ManualTicketCallLog;
 import sbi.kiosk.swayam.common.entity.User;
@@ -113,8 +117,18 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 			manualEnity.setManual_call_log_id(manual_call_log_id);
 			manualEnity.setKioskId(manualTicketCallLogDto.getKioskId());
 			manualEnity.setComments(manualTicketCallLogDto.getComment());
-			manualEnity.setContactNo(manualTicketCallLogDto.getContactNo());
-			manualEnity.setContactPerson(manualTicketCallLogDto.getContactPerson());
+			//manualEnity.setContactNo(manualTicketCallLogDto.getContactNo());
+			String[] contacNoString=manualTicketCallLogDto.getContactNo().split(",");
+			for(int i=0;i<contacNoString.length;i++){
+				String contNo=contacNoString[0];
+				manualEnity.setContactNo(contNo);
+			}
+			//manualEnity.setContactPerson(manualTicketCallLogDto.getContactPerson());
+			String[] contacPersoString=manualTicketCallLogDto.getContactPerson().split(",");
+			for(int i=0;i<contacPersoString.length;i++){
+				String contacPerson=contacPersoString[0];
+				manualEnity.setContactPerson(contacPerson);
+			}
 			manualEnity.setStatus("Active");
 			manualEnity.setVendor(manualTicketCallLogDto.getVendor());
 			manualEnity.setKioskError(manualTicketCallLogDto.getKioskError());
@@ -173,10 +187,13 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 
 	public List<ManualTicketCallLogDto> getByBranchCode(String brachCode) {
 		String branchName=null;
+		String circle=null;
 		List<String> kioskMasterList = kioskMasterRepo.getByBranchCode(brachCode);
-		List<String> kioskMastBranchNameList = branchMasterRepo.findByBranchCode(brachCode);
-		for(String branchNames:kioskMastBranchNameList){
-			branchName=branchNames;
+		//List<String> kioskMastBranchNameList = branchMasterRepo.findByBranchCode(brachCode);
+		List<BranchMaster> kioskMastBranchNameList = branchMasterRepo.findByBranchCode(brachCode);
+		for(BranchMaster branchMaster:kioskMastBranchNameList){
+			branchName=branchMaster.getBranchName();
+			circle=branchMaster.getCircleName();
 		}
 		List<ManualTicketCallLogDto> listDto = new ArrayList<ManualTicketCallLogDto>();
 		ManualTicketCallLogDto dto = null;
@@ -184,6 +201,7 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 			dto = new ManualTicketCallLogDto();
 			dto.setVendor(kioskMasterList1);
 			dto.setBranchName(branchName);
+			dto.setCircle(circle);
 			listDto.add(dto);
 		}
 		
@@ -191,15 +209,27 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 	}
 
 	// update method 27-03-2020
-	public List<ManualTicketCallLogDto> getByKioskId(String kioskId) {
+	public List<ManualTicketCallLogDto> getByKioskId(String kioskId,HttpSession session) {
 		ManualTicketCallLogDto dto = null;
 		List<ManualTicketCallLogDto> dtoList = new ArrayList<ManualTicketCallLogDto>();
 		User user = userRepo.findIdByKioskId(kioskId);
-		if (user != null) {
+		
+		UserDto userObj =(UserDto) session.getAttribute("userObj");
+		logger.info("createManualTicket................. getByKioskId ConNo::" +userObj.getPhoneNo());
+		/*if (user != null) {
 			dto = new ManualTicketCallLogDto();
 			dto.setCircle(user.getCircle());
 			dto.setContactPerson(user.getUsername());
 			dto.setContactNo(user.getPhoneNo());
+			dto.setKioskError("Printer Error");
+			dtoList.add(dto);
+		}*/
+		
+		if (userObj != null) {
+			dto = new ManualTicketCallLogDto();
+			//dto.setCircle(user.getCircle());
+			dto.setContactPerson(userObj.getUsername());
+			dto.setContactNo(userObj.getPhoneNo());
 			dto.setKioskError("Printer Error");
 			dtoList.add(dto);
 		}
