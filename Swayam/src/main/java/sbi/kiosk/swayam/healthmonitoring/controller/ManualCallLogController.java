@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.codehaus.jettison.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +53,8 @@ public class ManualCallLogController {
 	public ResponseEntity<String> createManualForm(@ModelAttribute("manualTicketCallLogDto") ManualTicketCallLogDto manualTicketCallLogDto,
 			                  ModelAndView model)	throws ManualTicketNotFoudException {
 		
-		logger.info("............inside create manual ticekt .....");
+		logger.info("............inside create manual ticekt ....."+manualTicketCallLogDto.getContactNo());
+		logger.info("............inside create manual ticekt ....."+manualTicketCallLogDto.getCircle());
 		String complaintId = manualTicketService.createManualTicket(manualTicketCallLogDto);
 		
 
@@ -84,9 +87,9 @@ public class ManualCallLogController {
 	public ResponseEntity<List<ManualTicketCallLogDto>> getAllCirclesAgainstKioskID(
 			@PathVariable("kioskId") String kioskId,
 			@ModelAttribute("manualTicketCallLogDto") ManualTicketCallLogDto manualTicketCallLogDto,
-			ModelAndView model) {
+			ModelAndView model,HttpSession session) {
 		logger.info("ajax call for assiging kioskId ");
-		List<ManualTicketCallLogDto> ldto = manualTicketService.getByKioskId(kioskId);
+		List<ManualTicketCallLogDto> ldto = manualTicketService.getByKioskId(kioskId,session);
 		ResponseEntity<List<ManualTicketCallLogDto>> entiry = ResponseEntity.ok(ldto);
 		return entiry;
 

@@ -350,7 +350,11 @@ $(document).ready(function(){
 	        	url:"getByBranchCode/"+brCode,
 	         success: function(data){
 	        	 respos=data;
-	           
+	        	 //added
+	        	  	
+	        	  $("#circle").html('');  
+	        	 // alert($("#circle").html(''));
+	        	  //end
 	            $("#vendor").html('');
 	            $("#vendor").append('<option value=\'Select\'>Select</option>'); 
 	        	  $.each(respos, function(index){
@@ -362,6 +366,13 @@ $(document).ready(function(){
 	                 toAppendVen=+ '<span id="'+respos[index].branchName+'"/>'
 	                  $("#vendor1").html($("#vendor").val()); 
 	                 $("#branchName2").html($("#branchName1").val());
+	             // alert(respos[index].circle);
+	              //alert("1111111111111"+respos[index].kioskId);
+	                // $("#vish1").html($("#circle").val());
+	                // $("#vish1").html(respos[index].circle);
+	                 $("#circleNew").html(respos[index].circle);
+	                 $("#circle").val(respos[index].circle);
+	                 $("#kioskIdDisp").html(respos[index].kioskId); 
 	        	  });	  
 	         }
 	        });
@@ -375,21 +386,30 @@ $(document).ready(function(){
 		    var kioskId=$("#kioskId").val();
 		   // alert("kioskId==="+kioskId);
 		    console.log("kioskID::"+kioskId);
+		    
+		    kioskId3456=document.getElementById("kioskId").value;
+		    $("#kioskId56").html($("#kioskId").val());
+		   // alert("kioskId3456=="+kioskId56);
          $.ajax({
 	        	type:"GET",
 	        	url:"getBykioskId/"+kioskId,
 	         success: function(data){
 	        	 respos=data;
 	        //	 alert("111",respos);
-	        	 console.log("log::resp::"+respos);
+	        	// console.log("log::resp::"+respos);
 	            $("#circle").html('');    
-	            $("#contactPerson").html('');
-	            $("#contactNo").html('');
-	            $("#contactNo").html('');
+	           // $("#contactPerson").html('');
+	           // $("#contactNo").html('');
+	          //  $("#contactNo").html('');
+	          //  $("#kioskId").html('');
 	           // $respos = respos['kioskId'];
-	         //   alert("respos:::"+respos['kioskId']);
-	            if(respos!=''){
+	           // alert("respos:::"+kioskId3456);
+	          //  alert("11111111111"+$("#kioskId").html("#kioskId"));
+	          //  alert("kiosk===="+ $("#kioskIdDisp").html($("#kioskId").val()));
+	           // if(respos!=''){
 	            	// alert("loop1");
+	            //	console.log("inside bluer function....sss-----"+$("#kioskIdDisp").html("#kioskId").val());
+	            	//console.log("inside bluer function....mmm-----"+$("#kioskIdDisp").html($("#kioskId").val());
 	        	  $.each(respos, function(index){
 		        	//  alert("loop");
 	                   $("#circle").append('<option value='+respos[index].circle+'>'+respos[index].circle+'</option>'); 
@@ -400,19 +420,26 @@ $(document).ready(function(){
 	                   
 	                    
 	                   $("#kioskId1").html($("#kioskId").val());
-		                  
+	                   // added new for kiosk to display
+	                    
+	                   $("#kioskIdDisp").html(respos[index].kioskId); 
+	                  // console.log("inside bluer function....kioskId1---kkk-------"+respos[index].kioskId);
+	                  
 	                  $("#circle").html(respos[index].circle);
 	                  $("#contactNo1").html(respos[index].contactNo);
 	                  $("#contactPerson1").html(respos[index].contactPerson);
 	                  
 	                  $("#contactPerson").val(respos[index].contactPerson);  
-	                  $("#contactNo").val(respos[index].contactNo);  
-	                  $("#vish").val(respos[index].circle);
+	                  $("#contactNo").val(respos[index].contactNo); 
+	                // alert("inside contaNo----------"+ $("#contactNo").val(respos[index].contactNo));
+	               //console.log("inside contaNo----------"+ $("#contactNo").val(respos[index].contactNo));
+	                  //comments by sate
+	                 // $("#vish").val(respos[index].circle);
 	              });
-	            }	else{
-	            	alert("The Kiosk is not mapped with any user");
+	            //}	else{
+	            	//alert("The Kiosk is not mapped with any user");
 	            	// $("#kioskIdMappingUser").html("The Kiosk is not mapped with any user");
-		            }      
+		           // }      
 	        	  
 	         }
 	        });
@@ -423,6 +450,8 @@ $(document).ready(function(){
 			$("#vendor1").html($("#vendor").val());
 			var branchcode=$("#branchCode").val();
 			var vendor=$("#vendor").val();
+			//var kioskId33=$("#kioskId").val();
+			//alert("vendor---changes------------"+$("#kioskId").val());
 		    var respos="";
 		    $("#kioskId12").html('');
 			$.ajax({
@@ -434,6 +463,9 @@ $(document).ready(function(){
 		            $("#kioskId").append('<option value=\'Select\'>Select</option>'); 
 		        	  $.each(respos, function(index){
 		        		  $("#kioskId").append('<option value='+respos[index].kioskId+'>'+respos[index].kioskId+'</option>'); 
+		        		 // $("#kioskIdDisp").html(respos[index].kioskId); 
+		        		 // alert(respos[index].kioskId);
+		                 // console.log("inside vendor change function....kioskId----------"+ $("#kioskId33").html($("#kioskId").val()));
 		        	  });
 		            }
 		         });
@@ -673,16 +705,20 @@ function cloesBox(){
 						<td><b style="color:purple">Vendor &nbsp;&nbsp;&nbsp;
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b></td>
 						<td><b id="vendor1"></b></td>
-
+                        <!--  <span id="kioskId3456">&nbsp;</span>
+						
+						<td colspan="2" id="kioskId56"></td> -->
 						<td colspan="2"></td>
 						<td><b style="color:purple">Kiosk
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </b></td>
-						<td><b id="kioskId1"></b></td>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </b></td>
+								<td><b id="kioskId56"></b></td>
+						<!-- <td><b id="kioskId1"></b></td> -->
 					</tr>
-					<tr>
+					<%-- <tr>
 						<td style="height: 75px;opacity: 1;"><b style="color:purple">Circle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b></td>
-						<td><b id="circle"></b></td>
-						<form:hidden path="circle" id="vish"/>
+						<td><b id="circleNew"></b></td>
+						<form:hidden path="circle" id="circle"/>
 						<td colspan="2"></td>
 						<td><b style="color:purple">Contact Person&nbsp;:</b>
 						<form:hidden path="contactPerson" /></td>
@@ -691,16 +727,35 @@ function cloesBox(){
 						<td><b style="color:purple">Contact Number &nbsp; :  </b>
 						<form:hidden path="contactNo" /></td>
 						<td><b id="contactNo1"></b></td>
-					</tr><tr></tr>
-					<%-- <tr>
-					  <td><b style="color:purple">Status &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</</b></td>
-					  <td><form:select path="status" id="status" style="color:blue">
-					             <form:option  value="Select"></form:option>
-								 <c:forEach var="listVal4" items="${statusList}">
-									<form:option value=''>P</form:option>
-								</c:forEach>
-							</form:select> </td>
-					</tr> --%>
+					</tr><tr></tr> --%>
+
+
+
+
+
+            <tr>
+						<td style="height: 75px;opacity: 1;"><b style="color:purple">Circle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b></td>
+						<td><b id="circleNew"></b></td>
+						<form:hidden path="circle" id="circle"/>
+						<td colspan="2"></td>
+						<td><b style="color:purple">Contact Person&nbsp;:</b>
+							<td><form:input path="contactPerson"  id="contactPerson" required="required" name="contactPerson" 
+							style=" background-color: #F2F1EF;   border-top:#F2F1EF;  border-left:whtie;
+                              border-bottom-width: 4px #F2F1EF;  width: 96%;  border-bottom-width: 0px;"/></td>
+						    <td><form:hidden path="contactPerson" id="contactPerson" /></td>
+							<!-- <td><b id="contactPerson1"></b> -->
+							
+						<%-- <td><form:hidden path="contactPerson" /></td>
+						<td><b id="contactPerson1"></b></td> --%>
+						 <td colspan="1"></td> 
+						<td><b style="color:purple">Contact Number &nbsp; : </b>
+						<td><form:input path="contactNo"  id="contactNo" required="required" name="contactNo" style=" background-color: #F2F1EF;    border-top:#F2F1EF;  border-left:whtie;
+                              border-bottom-width: 4px #F2F1EF;  width: 96%;  border-bottom-width: 0px;"/></td>
+					   <td><form:hidden path="contactNo" id="contactNo"/></td>
+						<!-- <td><b id="contactNo1"></b></td> -->
+					</tr>
+
+					
 					<br/>
 					<br/>
 					<tr>
