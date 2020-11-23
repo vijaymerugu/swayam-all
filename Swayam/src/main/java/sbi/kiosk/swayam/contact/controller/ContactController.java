@@ -101,7 +101,7 @@ public class ContactController {
 			dto.setEmail(object.getEmail());
 			dto.setEsMatrix(object.getEsMatrix());
 			dto.setL1contactNo(object.getL1contactNo());
-			dto.setL2Contact("data:application/pdf;base64,"+Base64.getEncoder().encodeToString(object.getL2Contact())); 
+			//dto.setL2Contact("data:application/pdf;base64,"+Base64.getEncoder().encodeToString(object.getL2Contact())); 
 			dto.setType(object.getType());
 			
 			list2.add(dto);
