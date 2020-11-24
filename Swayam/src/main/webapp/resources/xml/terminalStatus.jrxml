@@ -7,17 +7,23 @@
     <property name="ireport.x" value="0"></property>
 
     <property name="ireport.y" value="0"></property>  
-<property name="net.sf.jasperreports.export.pdf.size.page.to.content" value="true"/>
-	 <field name="kisokId" class="java.lang.String"></field> 
+    <property name="net.sf.jasperreports.export.pdf.size.page.to.content" value="true"/>
+	<field name="kioskId" class="java.lang.String"></field> 
+	<field name="kioskSrNo" class="java.lang.String"></field> 
+	<field name="branchCode" class="java.lang.String"></field> 
     <field name="circle" class="java.lang.String"></field>
-    <field name="branchCode" class="java.lang.String"></field>    
-    <field name="call_log_date" class="java.lang.String"></field>
-	 <field name="call_closed_date" class="java.lang.String"></field>
-	<field name="vendor" class="java.lang.String"></field>
-	<field name="callCategory" class="java.lang.String"></field>
-    <field name="callSubCategory" class="java.lang.String"></field>
-     <field name="ticketId" class="java.lang.String"></field>
-  
+    <field name="cmf" class="java.lang.String"></field>
+      
+    <field name="rmmsConnectivity" class="java.lang.String"></field>
+	<field name="pbPrinterStatus" class="java.lang.String"></field>
+	<field name="cartridgeStatus" class="java.lang.String"></field>
+	<field name="agentStatus" class="java.lang.String"></field>
+	<field name="aplicationStatus" class="java.lang.String"></field>
+    <field name="lastPrntTxnDttm" class="java.util.Date"></field>
+    <field name="lastPmDttm" class="java.util.Date"></field>
+  <!-- this is a comment -->
+  <!-- <field name="timeDiff" class="java.lang.String"></field>
+    <field name="lastFeedDttm" class="java.lang.String"></field> -->
     
 
     <background>
@@ -39,7 +45,7 @@
 
                 </textElement>
 
-                <text><![CDATA[Ticket History]]></text>
+                <text><![CDATA[Terminal Status]]></text>
 
             </staticText>
 
@@ -53,7 +59,7 @@
 
             <staticText>
 
-                <reportElement x="0" y="41" width="200" height="20"></reportElement>
+                <reportElement x="0" y="41" width="100" height="20"></reportElement>
 
                 <box>
 
@@ -78,10 +84,68 @@
                 <text><![CDATA[Kiosk Id]]></text>
 
             </staticText>
+            
+             <staticText>
+
+                <reportElement x="100" y="41" width="100" height="20"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+
+                </box>
+
+                <textElement textAlignment="Center">
+
+                    <font size="10" isBold="true" isItalic="false"></font>
+
+                </textElement>
+
+                <text><![CDATA[Kiosk Serial No]]></text>
+
+            </staticText>
+            
+             <staticText>
+
+                <reportElement x="200" y="41" width="100" height="20"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+
+                </box>
+
+                <textElement textAlignment="Center">
+
+                    <font size="10" isBold="true" isItalic="false"></font>
+
+                </textElement>
+
+                <text><![CDATA[BR Code]]></text>
+
+            </staticText>
+
+           
 
             <staticText>
 
-                <reportElement x="200" y="41" width="200" height="20"></reportElement>
+                <reportElement x="300" y="41" width="100" height="20"></reportElement>
 
                 <box>
 
@@ -107,9 +171,9 @@
 
             </staticText>
 
-            <staticText>
+             <staticText>
 
-                <reportElement x="400" y="41" width="200" height="20"></reportElement>
+                <reportElement x="400" y="41" width="100" height="20"></reportElement>
 
                 <box>
 
@@ -122,7 +186,6 @@
                     <bottomPen lineWidth="0.25"></bottomPen>
 
                     <rightPen lineWidth="0.25"></rightPen>
-
                 </box>
 
                 <textElement textAlignment="Center">
@@ -131,14 +194,96 @@
 
                 </textElement>
 
-                <text><![CDATA[Branch Code]]></text>
+                <text><![CDATA[CMF]]></text>
+            </staticText>
+			  
+			  <staticText>
+
+                <reportElement x="500" y="41" width="100" height="20"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+                </box>
+
+                <textElement textAlignment="Center">
+
+                    <font size="10" isBold="true" isItalic="false"></font>
+
+                </textElement>
+
+                <text><![CDATA[Ticket No.]]></text>
+
+            </staticText>
+			  
+			  
+			  <staticText>
+
+                <reportElement x="600" y="41" width="100" height="20"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+                </box>
+
+                <textElement textAlignment="Center">
+
+                    <font size="10" isBold="true" isItalic="false"></font>
+
+                </textElement>
+
+                <text><![CDATA[Printer Status]]></text>
+
+            </staticText>
+            
+            <staticText>
+
+                <reportElement x="700" y="41" width="100" height="20"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+                </box>
+
+                <textElement textAlignment="Center">
+
+                    <font size="10" isBold="true" isItalic="false"></font>
+
+                </textElement>
+
+                <text><![CDATA[Cartridge Status]]></text>
 
             </staticText>
             
             
-                        <staticText>
+             
+            <staticText>
 
-                <reportElement x="600" y="41" width="200" height="20"></reportElement>
+                <reportElement x="800" y="41" width="100" height="20"></reportElement>
 
                 <box>
 
@@ -151,7 +296,6 @@
                     <bottomPen lineWidth="0.25"></bottomPen>
 
                     <rightPen lineWidth="0.25"></rightPen>
-
                 </box>
 
                 <textElement textAlignment="Center">
@@ -160,15 +304,14 @@
 
                 </textElement>
 
-                <text><![CDATA[Ticket Id]]></text>
+                <text><![CDATA[Agent Status]]></text>
 
             </staticText>
-
             
-
+            
             <staticText>
 
-                <reportElement x="800" y="41" width="200" height="20"></reportElement>
+                <reportElement x="900" y="41" width="100" height="20"></reportElement>
 
                 <box>
 
@@ -181,7 +324,6 @@
                     <bottomPen lineWidth="0.25"></bottomPen>
 
                     <rightPen lineWidth="0.25"></rightPen>
-
                 </box>
 
                 <textElement textAlignment="Center">
@@ -190,13 +332,15 @@
 
                 </textElement>
 
-                <text><![CDATA[Call Log Date]]></text>
+                <text><![CDATA[Application Status]]></text>
 
             </staticText>
-
+            
+            
+            
             <staticText>
 
-                <reportElement x="1000" y="41" width="200" height="20"></reportElement>
+                <reportElement x="1000" y="41" width="100" height="20"></reportElement>
 
                 <box>
 
@@ -217,12 +361,13 @@
 
                 </textElement>
 
-                <text><![CDATA[Call Closed Date]]></text>
+                <text><![CDATA[Last Print TxnDate]]></text>
 
             </staticText>
-			<staticText>
+            
+            <staticText>
 
-                <reportElement x="1200" y="41" width="200" height="20"></reportElement>
+                <reportElement x="1100" y="41" width="100" height="20"></reportElement>
 
                 <box>
 
@@ -243,61 +388,10 @@
 
                 </textElement>
 
-                <text><![CDATA[Vendor]]></text>
+                <text><![CDATA[Last PM TxnDate]]></text>
 
             </staticText>
-			<staticText>
-
-                <reportElement x="1400" y="41" width="200" height="20"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-                </box>
-
-                <textElement textAlignment="Center">
-
-                    <font size="10" isBold="true" isItalic="false"></font>
-
-                </textElement>
-
-                <text><![CDATA[Call Category]]></text>
-
-            </staticText>
-			<staticText>
-
-                <reportElement x="1600" y="41" width="200" height="20"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-                </box>
-
-                <textElement textAlignment="Center">
-
-                    <font size="10" isBold="true" isItalic="false"></font>
-
-                </textElement>
-
-                <text><![CDATA[Call Sub Category]]></text>
-
-            </staticText>
+            
 			            
         </band>
 
@@ -312,7 +406,7 @@
 
             <textField>
 
-                <reportElement x="0" y="0" width="200" height="15"></reportElement>
+                <reportElement x="0" y="0" width="100" height="15"></reportElement>
 
                 <box>
 
@@ -332,13 +426,14 @@
 					<font size="8" isItalic="false"></font>
 				</textElement>
 
-                <textFieldExpression><![CDATA[$F{kisokId} == null?"":$F{kisokId}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{kioskId} == null?"":$F{kioskId}]]></textFieldExpression>
 
             </textField>
+            
+            
+                 <textField>
 
-            <textField>
-
-                <reportElement x="200" y="0" width="200" height="15"></reportElement>
+                <reportElement x="100" y="0" width="100" height="15"></reportElement>
 
                 <box>
 
@@ -347,6 +442,7 @@
                     <topPen lineWidth="0.25"></topPen>
 
                     <leftPen lineWidth="0.25"></leftPen>
+
                     <bottomPen lineWidth="0.25"></bottomPen>
 
                     <rightPen lineWidth="0.25"></rightPen>
@@ -357,12 +453,14 @@
 					<font size="8" isItalic="false"></font>
 				</textElement>
 
-                <textFieldExpression><![CDATA[$F{circle}  == null?"":$F{circle}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{kioskSrNo} == null?"":$F{kioskSrNo}]]></textFieldExpression>
 
             </textField>
+
+           
             <textField>
 
-                <reportElement x="400" y="0" width="200" height="15"></reportElement>
+                <reportElement x="200" y="0" width="100" height="15"></reportElement>
 
                 <box>
 
@@ -385,11 +483,10 @@
                 <textFieldExpression><![CDATA[$F{branchCode} == null?"":$F{branchCode}]]></textFieldExpression>
 
             </textField>
+            
+             <textField>
 
-
-        <textField>
-
-                <reportElement x="600" y="0" width="200" height="15"></reportElement>
+                <reportElement x="300" y="0" width="100" height="15"></reportElement>
 
                 <box>
 
@@ -398,7 +495,6 @@
                     <topPen lineWidth="0.25"></topPen>
 
                     <leftPen lineWidth="0.25"></leftPen>
-
                     <bottomPen lineWidth="0.25"></bottomPen>
 
                     <rightPen lineWidth="0.25"></rightPen>
@@ -408,140 +504,210 @@
                 <textElement textAlignment="Center">
 					<font size="8" isItalic="false"></font>
 				</textElement>
-
-                <textFieldExpression><![CDATA[$F{ticketId} == null?"":$F{ticketId}]]></textFieldExpression>
-
-            </textField>
-
-
-            <textField>
-
-                <reportElement x="800" y="0" width="200" height="15"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-
-                </box>
-
-                <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
-				</textElement>
-
-                <textFieldExpression><![CDATA[$F{call_log_date} == null?"":$F{call_log_date}]]></textFieldExpression>
-
-            </textField>
-
-            <textField>
-
-                <reportElement x="1000" y="0" width="200" height="15"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-
-                </box>
-
-                <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
-				</textElement>
-
-                <textFieldExpression><![CDATA[$F{call_closed_date} == null?"":$F{call_closed_date}]]></textFieldExpression>
-
-            </textField>
-			 <textField>
-
-                <reportElement x="1200" y="0" width="200" height="15"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-
-                </box>
-
-                <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
-				</textElement>
-
-                <textFieldExpression><![CDATA[$F{vendor} == null?"":$F{vendor}]]></textFieldExpression>
-
-            </textField>
-			 <textField>
-
-                <reportElement x="1400" y="0" width="200" height="15"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-
-                </box>
-
-                <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
-				</textElement>
-
-                <textFieldExpression><![CDATA[$F{callCategory} == null?"":$F{callCategory}]]></textFieldExpression>
-
-            </textField>
-
-			<textField>
-
-                <reportElement x="1600" y="0" width="200" height="15"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-
-                </box>
-
-                <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
-				</textElement>
-
-                <textFieldExpression><![CDATA[$F{callSubCategory}]]></textFieldExpression>
-
+                <textFieldExpression><![CDATA[$F{circle}  == null?"":$F{circle}]]></textFieldExpression>
             </textField>
 			
+			 <textField>
+
+                <reportElement x="400" y="0" width="100" height="15"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+
+                </box>
+
+                <textElement textAlignment="Center">
+					<font size="8" isItalic="false"></font>
+				</textElement>
+
+                <textFieldExpression><![CDATA[$F{cmf} == null?"":$F{cmf}]]></textFieldExpression>
+
+            </textField>
+            
+             <textField>
+
+                <reportElement x="500" y="0" width="100" height="15"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+
+                </box>
+
+                <textElement textAlignment="Center">
+					<font size="8" isItalic="false"></font>
+				</textElement>
+
+                <textFieldExpression><![CDATA[$F{rmmsConnectivity} == null?"":$F{rmmsConnectivity}]]></textFieldExpression>
+
+            </textField>
+            
+            <textField>
+
+                <reportElement x="600" y="0" width="100" height="15"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+
+                </box>
+
+                <textElement textAlignment="Center">
+					<font size="8" isItalic="false"></font>
+				</textElement>
+
+                <textFieldExpression><![CDATA[$F{pbPrinterStatus} == null?"":$F{pbPrinterStatus}]]></textFieldExpression>
+
+            </textField>
+            
+             <textField>
+
+                <reportElement x="700" y="0" width="100" height="15"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+
+                </box>
+
+                <textElement textAlignment="Center">
+					<font size="8" isItalic="false"></font>
+				</textElement>
+
+                <textFieldExpression><![CDATA[$F{cartridgeStatus} == null?"":$F{cartridgeStatus}]]></textFieldExpression>
+
+            </textField>
+            
+            <textField>
+
+                <reportElement x="800" y="0" width="100" height="15"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+
+                </box>
+
+                <textElement textAlignment="Center">
+					<font size="8" isItalic="false"></font>
+				</textElement>
+                  <textFieldExpression><![CDATA[$F{agentStatus} == null?"":$F{agentStatus}]]></textFieldExpression>
+
+            </textField>
+            
+            <textField>
+
+                <reportElement x="900" y="0" width="100" height="15"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+
+                </box>
+
+                <textElement textAlignment="Center">
+					<font size="8" isItalic="false"></font>
+				</textElement>
+                  <textFieldExpression><![CDATA[$F{aplicationStatus} == null?"":$F{aplicationStatus}]]></textFieldExpression>
+
+            </textField>
+            
+            <textField>
+
+                <reportElement x="1000" y="0" width="100" height="15"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+
+                </box>
+
+                <textElement textAlignment="Center">
+					<font size="8" isItalic="false"></font>
+				</textElement>
+                  <textFieldExpression><![CDATA[$F{lastPrntTxnDttm}]]></textFieldExpression>
+            </textField>
+            
+              <textField>
+
+                <reportElement x="1100" y="0" width="100" height="15"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+
+                </box>
+
+                <textElement textAlignment="Center">
+					<font size="8" isItalic="false"></font>
+				</textElement>
+                 <textFieldExpression><![CDATA[$F{lastPmDttm}]]></textFieldExpression>
+            </textField>
         </band>
 
     </detail>

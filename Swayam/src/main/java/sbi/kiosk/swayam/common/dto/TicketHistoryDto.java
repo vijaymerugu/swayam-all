@@ -18,6 +18,7 @@ public class TicketHistoryDto {
 		this.vendor = ticketHistory.getVendor();
 		this.callCategory = ticketHistory.getCallCategory();
 		this.callSubCategory = ticketHistory.getCallSubCategory();
+		this.ticketId = ticketHistory.getTicketId();
 	}
 	
 	
@@ -29,5 +30,6 @@ public class TicketHistoryDto {
 	private String vendor;
 	private String callCategory;
 	private String  callSubCategory;
+	private String  ticketId;
 
 }

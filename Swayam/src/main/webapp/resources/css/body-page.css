@@ -134,7 +134,7 @@ vertical-align:top;
 	border: 1px solid #EFEFEF;
 	border-radius: 26px;
 	opacity: 1;
-	cursor: pointer;
+	/* cursor: pointer; */
 }
 
 .Column-VerticalLine {

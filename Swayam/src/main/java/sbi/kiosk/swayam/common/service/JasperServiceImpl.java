@@ -746,12 +746,25 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-			//	String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				//filename = "DownTime_" + timeStamp + ".pdf";
-				String fileName = "DownTime_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
-						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
-						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
-				filename =fileName+".pdf";
+		     	String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "DownTime_" + timeStamp + ".pdf";
+				
+				/*
+				 * SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy"); Date curDate = new
+				 * Date(); String todayDate = sdf.format(curDate); String fromDate =
+				 * sdf.format(curDate); String fileName ="";
+				 * if(!dateFrame.getFromDate().isEmpty() && !dateFrame.getToDate().isEmpty()) {
+				 * fileName = "DownTime_" + dateFrame.getFromDate().replace("-",
+				 * "").substring(0, 6) + "_" + dateFrame.getToDate().replace("-",
+				 * "").substring(0, 6) + "_" + (new SimpleDateFormat("dd-MM-yyyy")).format(new
+				 * Date()).replace("-", "").substring(0, 6); }else {
+				 * 
+				 * fileName = "DownTime_" + fromDate.replace("-", "").substring(0, 6) + "_" +
+				 * todayDate.replace("-", "").substring(0, 6) + "_" + (new
+				 * SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-",
+				 * "").substring(0, 6); } filename =fileName+".pdf";
+				 */
+				
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 					}
 			}else if (identifyPage.equals("terminalStatus")) {
@@ -1342,12 +1355,12 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-			//	String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				//filename = "TicketHistory_" + timeStamp + ".xlsx";
-				String fileName = "TicketHistory_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
-						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
-						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
-				filename =fileName+".xlsx";
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "TicketHistory_" + timeStamp + ".xlsx";
+				//String fileName = "TicketHistory_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+				//		+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+				//		+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				//filename =fileName+".xlsx";
 				xlsx(jasperPrint, filename);
 					}
 			}
@@ -1366,12 +1379,26 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				//filename = "DownTime_" + timeStamp + ".xlsx";
-				String fileName = "DownTime_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
-						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
-						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
-				filename =fileName+".xlsx";
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "DownTime_" + timeStamp + ".xlsx";
+				/*
+				 * SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy"); Date curDate = new
+				 * Date(); String todayDate = sdf.format(curDate); String fromDate =
+				 * sdf.format(curDate); String fileName ="";
+				 * if(!dateFrame.getFromDate().isEmpty() && !dateFrame.getToDate().isEmpty()) {
+				 * fileName = "DownTime_" + dateFrame.getFromDate().replace("-",
+				 * "").substring(0, 6) + "_" + dateFrame.getToDate().replace("-",
+				 * "").substring(0, 6) + "_" + (new SimpleDateFormat("dd-MM-yyyy")).format(new
+				 * Date()).replace("-", "").substring(0, 6); }else {
+				 * 
+				 * 
+				 * fileName = "DownTime_" + fromDate.replace("-", "").substring(0, 6) + "_" +
+				 * todayDate.replace("-", "").substring(0, 6) + "_" + (new
+				 * SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-",
+				 * "").substring(0, 6); } filename =fileName + ".xlsx";
+				 */
+				
+				
 				xlsx(jasperPrint, filename);
 					}
 			}else if (identifyPage.equals("terminalStatus")) {
@@ -1390,12 +1417,12 @@ public class JasperServiceImpl implements JasperService {
 		source = new JRBeanCollectionDataSource(list);
 		Map<String, Object> parameters = new HashMap<>();
 		jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-		//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-		//filename = "TerminalStatus_" + timeStamp + ".xlsx";
-		String fileName = "TerminalStatus_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
-				+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
-				+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
-		filename =fileName+".xlsx";
+		String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+		filename = "TerminalStatus_" + timeStamp + ".xlsx";
+		//String fileName = "TerminalStatus_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+			//	+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+				//+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+		//filename =fileName+".xlsx";
 		xlsx(jasperPrint, filename);
 	}
 			
@@ -1798,49 +1825,144 @@ public class JasperServiceImpl implements JasperService {
 	  
 	  
 
-	@Override
-	public List<DownTimeDto> findDownTimeReport() {
-		 logger.info("Inside==Jasper====findTicketHistoryReport===========");
-//		  logger.info(downtimeReport.getCircle());
-//		  logger.info(downtimeReport.getCmsCmf());
-//		  logger.info(downtimeReport.getVendor());
-//		  logger.info(downtimeReport.getFromDate());
-//		  logger.info(downtimeReport.getToDate());
-	  
-		  String circle =downtimeReport.getCircle();
-		  String cmsCmf=downtimeReport.getCmsCmf(); 
-		  String vendor =downtimeReport.getVendor();
-		  String fromDate=downtimeReport.getFromDate(); 
-		  String toDate=downtimeReport.getToDate();
-			  
-				
-				if (downtimeReport.getCircle().equals("0") || downtimeReport.getCircle().equals("undefined")) {
-					circle="";
-					
-				}
-				if(downtimeReport.getCmsCmf().equals("0") || downtimeReport.getCmsCmf().equals("undefined") ) {
-					cmsCmf="";
-				}
-				if(downtimeReport.getFromDate().isEmpty()) {
-					fromDate="";
-				}
-				
-				
-				if(downtimeReport.getToDate().isEmpty()) {
-					toDate="";
-				}
-				
-				if (downtimeReport.getVendor().equals("0") || downtimeReport.getVendor().equals("undefined")) {
-					vendor = "";
-				}
-				
-		  List<DownTime> list = null;
-		  list=downTimePagingRepo.findAllByFilterDTimeReports(toDate, fromDate, circle,vendor ,cmsCmf);
-		  List<DownTimeDto> entities = ObjectMapperUtils.mapAll(list, DownTimeDto.class);
-		  logger.info("PDF entities "+entities);
-		  return entities; 
-		  }
+		/*
+		 * @Override public List<DownTimeDto> findDownTimeReport() {
+		 * logger.info("Inside==Jasper====findTicketHistoryReport==========="); //
+		 * logger.info(downtimeReport.getCircle()); //
+		 * logger.info(downtimeReport.getCmsCmf()); //
+		 * logger.info(downtimeReport.getVendor()); //
+		 * logger.info(downtimeReport.getFromDate()); //
+		 * logger.info(downtimeReport.getToDate());
+		 * 
+		 * String circle =downtimeReport.getCircle(); String
+		 * cmsCmf=downtimeReport.getCmsCmf(); String vendor =downtimeReport.getVendor();
+		 * String fromDate=downtimeReport.getFromDate(); String
+		 * toDate=downtimeReport.getToDate();
+		 * 
+		 * 
+		 * if (downtimeReport.getCircle().equals("0") ||
+		 * downtimeReport.getCircle().equals("undefined")) { circle="";
+		 * 
+		 * } if(downtimeReport.getCmsCmf().equals("0") ||
+		 * downtimeReport.getCmsCmf().equals("undefined") ) { cmsCmf=""; }
+		 * if(downtimeReport.getFromDate().isEmpty()) { fromDate=""; }
+		 * 
+		 * 
+		 * if(downtimeReport.getToDate().isEmpty()) { toDate=""; }
+		 * 
+		 * if (downtimeReport.getVendor().equals("0") ||
+		 * downtimeReport.getVendor().equals("undefined")) { vendor = ""; }
+		 * 
+		 * List<DownTime> list = null;
+		 * list=downTimePagingRepo.findAllByFilterDTimeReports(toDate, fromDate,
+		 * circle,vendor ,cmsCmf); List<DownTimeDto> entities =
+		 * ObjectMapperUtils.mapAll(list, DownTimeDto.class);
+		 * logger.info("PDF entities "+entities); return entities; }
+		 */
 	
+	  
+	  
+
+		@Override
+		public List<DownTimeDto> findDownTimeReport() {
+			 logger.info("Inside==Jasper====findDownTimeReport===========");
+			  logger.info(downtimeReport.getCircle());
+			  logger.info(downtimeReport.getCmsCmf());
+			  logger.info(downtimeReport.getVendor());
+			  logger.info(downtimeReport.getFromDate());
+			  logger.info(downtimeReport.getToDate());
+			  
+			  String circle =downtimeReport.getCircle();
+			  String cmsCmf=downtimeReport.getCmsCmf(); 
+			  String vendor =downtimeReport.getVendor();
+			  String fromDate=downtimeReport.getFromDate(); 
+			  String toDate=downtimeReport.getToDate();
+			  List<DownTimeDto> entities =null;
+			  
+			  try {
+				  
+//			  if(!downtimeReport.getFromDate().equals("null") && !downtimeReport.getFromDate().isEmpty() && !downtimeReport.getFromDate().equals("undefined")) {
+//					fromDate="";
+//				}
+//				
+//				
+//				if(downtimeReport.getToDate().equals("null")  && !downtimeReport.getToDate().isEmpty() && !downtimeReport.getToDate().equals("undefined"))  {
+//					toDate=toDate;
+//				}
+			  
+			  
+			  
+			  
+			  
+			  
+			  if( !downtimeReport.getFromDate().isEmpty() && !downtimeReport.getFromDate().equals("undefined") && !downtimeReport.getToDate().isEmpty() && !downtimeReport.getToDate().equals("undefined")) {
+				  
+			 
+					
+					if (downtimeReport.getCircle().equals("0") || downtimeReport.getCircle().equals("undefined")) {
+						circle="";
+						
+					}
+					if(downtimeReport.getCmsCmf().equals("undefined") ) {
+						cmsCmf="";
+					}
+//					if(!downtimeReport.getFromDate().equals("null") && !downtimeReport.getFromDate().isEmpty() && !downtimeReport.getFromDate().equals("undefined")) {
+//						fromDate="";
+//					}
+//					
+//					
+//					if(downtimeReport.getToDate().equals("null")  && !downtimeReport.getToDate().isEmpty() && !downtimeReport.getToDate().equals("undefined"))  {
+//						toDate=toDate;
+//					}
+					
+					if (downtimeReport.getVendor().equals("0") || downtimeReport.getVendor().equals("undefined")) {
+						vendor = "";
+					}
+					
+					
+				  List<DownTime> list = null;
+				  list=downTimePagingRepo.findAllByFilterDTimeReports(toDate, fromDate, circle,vendor ,cmsCmf);
+				  logger.info("list downtime ...PDF  "+list);
+				  
+				  if(list!=null && !list.isEmpty()) {
+				   entities = ObjectMapperUtils.mapAll(list, DownTimeDto.class);
+				  logger.info("PDF entities "+entities);
+				  }
+					
+			  }else {
+				    circle = downtimeReport.getCircle();
+					cmsCmf = downtimeReport.getCmsCmf();
+					vendor = downtimeReport.getVendor();
+					//fromDate = downtimeReport.getFromDate();
+					//toDate = downtimeReport.getToDate();
+				 
+				  SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+					Date curDate=new Date();
+					String date=sdf.format(curDate);
+					if(downtimeReport.getFromDate().equals("undefined") || downtimeReport.getFromDate().isEmpty()) {
+						fromDate=date;	
+					}
+
+					if(downtimeReport.getToDate().equals("undefined") || downtimeReport.getToDate().isEmpty()) {
+						toDate=date;	
+					}
+					
+					 List<DownTime> list = null;
+					  list=downTimePagingRepo.findAllByFilterDTimeReports(toDate, fromDate, circle,vendor ,cmsCmf);
+					  logger.info("list downtime ...PDF  "+list);
+					 // List<DownTimeDto> entities =null;
+					  if(list!=null && !list.isEmpty()) {
+					   entities = ObjectMapperUtils.mapAll(list, DownTimeDto.class);
+					  logger.info("PDF entities "+entities);
+					  }
+					
+			  }
+			  }catch (Exception e) {
+				  e.printStackTrace();
+			}
+			return entities;
+			  }
+		
 	
 	@Override
 	public List<BillingPenaltyDto> findBillingPenaltyReport() {

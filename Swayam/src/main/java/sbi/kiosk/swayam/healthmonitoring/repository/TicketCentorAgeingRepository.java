@@ -270,22 +270,7 @@ public Page<TicketCentor> findAllTicketTotalListAndCMFUser(@Param("pfId") String
 
 
 
-// CC User
 
-
-@Query(value=" select nvl(count(CALL_SUBCATEGORY),0)  from TBL_TICKET_CENTRE where  (AGEING>4 and AGEING<=8) ",nativeQuery=true)
-public int find_1_DaysCount();
-
-@Query(value=" SELECT  nvl(count(CALL_SUBCATEGORY),0)  from TBL_TICKET_CENTRE where  (AGEING>8 and AGEING<=24)  ",nativeQuery=true)
-public int find_3_Days_LessCount();
-
-@Query(value=" SELECT  nvl(count(CALL_SUBCATEGORY),0)  from TBL_TICKET_CENTRE where   AGEING>24  ",nativeQuery=true)
-public int find_3_Days_GreaterThanCount();
-
-//@Query(value=" SELECT  count(*)  from TBL_TICKET_CENTRE where  AGEING between trunc(sysdate-3)	and  trunc(sysdate-1/24)  ",nativeQuery=true)
-
-@Query(value="SELECT nvl(count(CALL_SUBCATEGORY),0)  from TBL_TICKET_CENTRE ", nativeQuery=true)
-public int findTotalCount();
 
 // Circle User Count
 
@@ -368,6 +353,22 @@ public int findTotalCountCMS(@Param("pfId") Set<String> pfId);*/
 // CC
 @Query(value = " select nvl(count(CALL_SUBCATEGORY),0) from TBL_TICKET_CENTRE where AGEING<=4 " , nativeQuery = true)
 public int find2_4HoursCount();
+
+
+@Query(value=" select nvl(count(CALL_SUBCATEGORY),0)  from TBL_TICKET_CENTRE where  (AGEING>4 and AGEING<=8) ",nativeQuery=true)
+public int find_1_DaysCount();
+
+@Query(value=" SELECT  nvl(count(CALL_SUBCATEGORY),0)  from TBL_TICKET_CENTRE where  (AGEING>8 and AGEING<=24)  ",nativeQuery=true)
+public int find_3_Days_LessCount();
+
+@Query(value=" SELECT  nvl(count(CALL_SUBCATEGORY),0)  from TBL_TICKET_CENTRE where   AGEING>24  ",nativeQuery=true)
+public int find_3_Days_GreaterThanCount();
+
+//@Query(value=" SELECT  count(*)  from TBL_TICKET_CENTRE where  AGEING between trunc(sysdate-3)	and  trunc(sysdate-1/24)  ",nativeQuery=true)
+
+@Query(value="SELECT nvl(count(CALL_SUBCATEGORY),0)  from TBL_TICKET_CENTRE ", nativeQuery=true)
+public int findTotalCount();
+
 @Query(value = " SELECT * from TBL_TICKET_CENTRE where (AGEING>4 and AGEING<=8)  ", nativeQuery = true)
 public Page<TicketCentor> findAllTicketCentor1Days(Pageable pageable);
 
@@ -377,17 +378,17 @@ public Page<TicketCentor> findAllTicketCentor1Days(Pageable pageable);
 public Page<TicketCentor> findAllTicketCentor3DaysLess(Pageable pageable);
 
 
-@Query(value = " SELECT * from TBL_TICKET_CENTRE where  AGEING>24  ", nativeQuery = true)
+@Query(value = " SELECT * from TBL_TICKET_CENTRE where  AGEING>24  ", nativeQuery = true,countQuery = "  SELECT count(*) from TBL_TICKET_CENTRE where AGEING>24 " )
 public Page<TicketCentor> findAllTicketCentor3DaysGreater(Pageable pageable);
 
 //@Query(value = " SELECT  *  from TBL_TICKET_CENTRE where  AGEING between to_date(trunc(sysdate-2/24), 'DD-MM-YY HH24:MI:SS' ) and  to_date(to_char(trunc(sysdate-3),'DD-MM-YY')||' 23:59:59',  'DD-MM-YY HH24:MI:SS') ", nativeQuery = true)
-@Query(value=" SELECT  *  from TBL_TICKET_CENTRE ", nativeQuery=true)
+@Query(value=" SELECT  *  from TBL_TICKET_CENTRE ", nativeQuery=true,countQuery = "  SELECT count(*) from TBL_TICKET_CENTRE" )
 public Page<TicketCentor> findAllTicketCentorTotal(Pageable pageable);
 
 
 // Ticket Centor
 
-@Query(value = "SELECT *  from TBL_TICKET_CENTRE where  AGEING<=4 ", nativeQuery = true)
+@Query(value = "SELECT *  from TBL_TICKET_CENTRE where  AGEING<=4 ", nativeQuery = true,countQuery = "  SELECT count(*) from TBL_TICKET_CENTRE where AGEING<=4" )
 public Page<TicketCentor> findAllTicketCentor4Hour(Pageable pageable);
 	
 }

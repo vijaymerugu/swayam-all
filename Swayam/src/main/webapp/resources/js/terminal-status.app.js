@@ -67,12 +67,30 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
           { name: 'aplicationStatus',   headerCellTemplate: '<div>Aplication<br/>Status</div>' ,
          cellTemplate: '<div ng-if="row.entity.aplicationStatus == \'Red\'"><span><img src="resources/img/red.gif"></span></div><div ng-if="row.entity.aplicationStatus == \'Green\'"><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.aplicationStatus == \'Grey\'"><span><img src="resources/img/gray.gif"></span></div>'
           },
-          { name: 'lastPrntTxnDttm', width:150, displayName: 'Last Print TxnDate  ',type:'date',cellFilter: 'date:"dd-MM-yyyy hh:mm:ss a"'
+          { name: 'lastPrntTxnDttm', width:130,headerCellTemplate:'<div>Last Print<br/>TxnDate</div>' ,type:'date',
+          //cellFilter:'date:"dd-MM-yyyy hh:mm:ss a " ' //'date:\"dd-MM-yyyy hh:mm:ss a\"'
+            filterCellFiltered : 'true',
+                                           // width : '100',
+                                          //  minWidth: '90',
+                                            cellFilter : ' date:"dd-MM-yyyy hh:mm:ss a" '
          
           },  
-          { name: 'lastPmDttm', width:150, displayName: 'Last PM TxnDate  ',type: 'date',cellFilter: 'date:"dd-MM-yyyy hh:mm:ss a"'
+         // { name: 'lastPmDttm', width:150, displayName: 'Last PM TxnDate  ',type: 'date',cellFilter: '<div>date:dd-MM-yyyy<br/>hh:mm:ss a</div>' //'date:\"dd-MM-yyyy hh:mm:ss a\"'
              
+         // },
+           { name: 'lastPmDttm', width:130,headerCellTemplate:'<div>Last PM<br/>TxnDate</div>',
+           // displayName: 'Last PM TxnDate  ',
+           type: 'date',    //cellFilter: 'date:"dd-MM-yyyy hh:mm:ss a"' //'date:\"dd-MM-yyyy hh:mm:ss a\"'
+             
+          
+                                           // width : '100',
+                                          //  minWidth: '90',
+                                            cellFilter : ' date:"dd-MM-yyyy hh:mm:ss a" '
+         
           },
+          
+                                           
+                                           
                    
          //  { name: 'timeDiff', width:150, displayName: 'TIME DIFF   ',type:'date',cellFilter: 'date:"dd-MM-yyyy hh:mm:ss a"'
          

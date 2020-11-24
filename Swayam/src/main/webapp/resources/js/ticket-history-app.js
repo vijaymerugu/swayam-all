@@ -207,9 +207,10 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 				useExternalPagination: true,
 				
 				    columnDefs: [			   
-				     { name: 'kisokId', displayName: 'Kisok Id'  },   
+				     { name: 'kisokId', displayName: 'Kiosk Id'  },   
 				     { name: 'circle', displayName: 'Circle'  },
 				     { name: 'branchCode', displayName: 'Branch Code'  },
+				      { name: 'ticketId', displayName: 'Ticket Id'  },
 				     { name: 'call_log_date',headerCellTemplate: '<div>Call Log<br/>Date</div>',type: 'date',cellFilter: 'date:"yy-mm-dd"'   },  	
 				     { name: 'call_closed_date',headerCellTemplate: '<div>Call Closed<br/>Date</div>',type: 'date',cellFilter: 'date:"dd-MM-yyyy"'   },
 				     { name: 'vendor', displayName: 'Vendor'  },

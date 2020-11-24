@@ -62,7 +62,7 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 			    columnDefs: [
 			      { name: 'vendor', displayName: 'Vendor'  },
 			      { name: 'ticketId', displayName: 'Ticket Id' },
-			      { name: 'kisokId', displayName: 'KisokId'  },
+			      { name: 'kisokId', displayName: 'KioskId'  },
 			      { name: 'branchCode', displayName: 'Branch Code'  },
 			      { name: 'callCategory', displayName: 'Call Category'},
 			      { name: 'callSubCategory', displayName: 'Call Sub Category'  },
