@@ -16,16 +16,16 @@ import sbi.kiosk.swayam.common.entity.TicketCentor;
 @Repository("ticketCentorRepository")
 public interface TicketCentorRepository extends PagingAndSortingRepository<TicketCentor, Long> { 
 	
-	
+	// changes for status of complaint is active only
 //public Page<TicketCentor>	findByVendor(@Param("type") String type, Pageable pageable);
-	
+	Page<TicketCentor> findAllByStatusOfComplaint(@Param("type") String type, Pageable pageable);
 	
  @Query(value="select * from TBL_TICKET_CENTRE a  ,tbl_CALL_TYPE b  where a.CALL_CATEGORY=b.CATEGORY " + 
-              " and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  and  B.RISK IN(:type)", nativeQuery = true)
+              " and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  and  B.RISK IN(:type) and a.STATUS_OF_COMPLAINT='Active' ", nativeQuery = true)
 Page<TicketCentor> findAll(@Param("type") String type, Pageable pageable);
 
  @Query(value="select * from TBL_TICKET_CENTRE a  ,tbl_CALL_TYPE b  where a.CALL_CATEGORY=b.CATEGORY " + 
-         " and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  and  B.RISK IN(:high,:medium,:low)", nativeQuery = true)
+         " and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  and  B.RISK IN(:high,:medium,:low) and a.STATUS_OF_COMPLAINT='Active' ", nativeQuery = true)
 public Page<TicketCentor> findAllByRisk(@Param("high") String high,@Param("medium") String medium,@Param("low") String low, Pageable pageable);
 
 
@@ -101,6 +101,8 @@ public Page<TicketCentor> findAllByRisk(@Param("high") String high,@Param("mediu
 	    @Query(value="select * from TBL_TICKET_CENTRE WHERE KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId))", nativeQuery = true)
 		Page<TicketCentor> findAllByCMSUser(@Param("pfId") Set<String> pfId, Pageable pageable); 
 	    
+	    // cc user for PDF data
+	    @Query(value="select * from TBL_TICKET_CENTRE where STATUS_OF_COMPLAINT='Active'  ", nativeQuery = true)
 	    List<TicketCentor> findAll();
 	    
 	    @Query(value="select * from TBL_TICKET_CENTRE WHERE KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID=:pfId)", nativeQuery = true)

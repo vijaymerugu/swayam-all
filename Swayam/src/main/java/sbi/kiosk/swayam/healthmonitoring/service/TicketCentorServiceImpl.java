@@ -46,7 +46,10 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 	 @Override
 	 public Page<TicketCentorDto> findPaginated(final int page, final int size){
 		 logger.info("Inside======findPaginatedCC===========ALL DATA");
-		 Page<TicketCentorDto> entities = ticketCentorRepo.findAll(PageRequest.of(page, size)).map(TicketCentorDto::new);
+		 //Page<TicketCentorDto> entities = ticketCentorRepo.findAll("Active",PageRequest.of(page, size)).map(TicketCentorDto::new);
+		// changes for status of complaint is active only
+		 Page<TicketCentorDto> entities = ticketCentorRepo.findAllByStatusOfComplaint("Active",PageRequest.of(page, size)).map(TicketCentorDto::new);
+		 
 		 TicketCentorDto ticketCentorDto= new TicketCentorDto();
 		 for(TicketCentorDto dto:entities){
 			 
