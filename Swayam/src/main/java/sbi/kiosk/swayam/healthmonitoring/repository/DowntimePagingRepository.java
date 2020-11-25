@@ -54,17 +54,21 @@ public interface DowntimePagingRepository extends PagingAndSortingRepository<Dow
 			
 			,nativeQuery = true,
 			
-			countQuery = 						
-		  "	SELECT count(KIOSK.KIOSK_ID) FROM TBL_KIOSK_MASTER KIOSK JOIN TBL_BRANCH_MASTER BRANCH "
-		 + " ON BRANCH.BRANCH_CODE=KIOSK.BRANCH_CODE  JOIN TBL_DOWNTIME DT ON KIOSK.KIOSK_ID=DT.KIOSK_ID "
-			+ "	JOIN TBL_USER_KIOSK_MAPPING UKM ON UKM.KIOSK_ID=KIOSK.KIOSK_ID	JOIN TBL_USER USR ON USR.PF_ID=UKM.PF_ID "
-			+ "	 WHERE"
+			countQuery = 		
+			
+
+			" SELECT count(KIOSK.KIOSK_ID), "
+			 +"	(((to_date(?1, 'dd-mm-yyyy') - to_date( ?2, 'dd-mm-yyyy'))-(select count(*) as holidays from "
+			+ " TBL_BRANCH_HOLIDAY   where circle=KIOSK.circle and to_date(HOLIDAY_DATE, 'dd-mm-yyyy') "
+			 + " between to_date(?2, 'dd-mm-yyyy') and TO_DATE( ?1,'dd-mm-yyyy')))*8)  AS TOTAL_OPERATING_HRS, "
+			+ " (SELECT nvl(SUM(dt.DOWNTIME_HRS),0) FROM TBL_DOWNTIME dt WHERE dt.KIOSK_ID=KIOSK.KIOSK_ID) AS TOTAL_DOWNTIME "
+			+ " FROM TBL_KIOSK_MASTER KIOSK	JOIN TBL_BRANCH_MASTER BRANCH ON BRANCH.BRANCH_CODE=KIOSK.BRANCH_CODE "
+			+ " JOIN TBL_USER_KIOSK_MAPPING UKM ON UKM.KIOSK_ID=KIOSK.KIOSK_ID 	JOIN TBL_USER USR ON USR.PF_ID=UKM.PF_ID "
+			+ "	 WHERE "
 			+ "	KIOSK.circle LIKE %?3% "
 			+ "	AND KIOSK.VENDOR LIKE %?4% "
 			+ "	AND UKM.PF_ID LIKE %?5% "
-			//+ "	AND DT.START_DTTM=?4 "
-		//	+ "	AND DT.END_DTTM=?5 "
-			+ "	GROUP BY KIOSK.circle, NETWORK, MODULE, BRANCH.BRANCH_CODE,KIOSK.KIOSK_ID, KIOSK.VENDOR, USERNAME,DT.DOWNTIME_HRS" )
+		    + " GROUP BY KIOSK.circle, NETWORK, MODULE, BRANCH.BRANCH_CODE,KIOSK.KIOSK_ID, KIOSK.VENDOR, USERNAME ")
 	
 	Page<DownTime> findAllByFilter( String selectedToDateId, String selectedFromDateId, String selectedCircelId,
 			String selectedVendorId ,String selectedCmsCmfId, Pageable pageable);

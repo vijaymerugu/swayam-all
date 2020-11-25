@@ -154,22 +154,22 @@
 
 								<td style="color: #13A8E0; font-size: 20px; font-weight: bold;"
 									width="10%"><a
-									ng-click="getCountType('TwoToFourHrsCount')"><c:out
+									ng-click="getCountType('TwoToFourHrsCount')" style="cursor: hand;cursor: pointer;"><c:out
 											value="${ageingMapDataList['TwoToFourHrsCount']}" /></a></td>
 								<td style="color: #13A8E0; font-size: 20px; font-weight: bold;"
-									width="10%"><a ng-click="getCountType('OneDaysCount')"><c:out
+									width="10%"><a ng-click="getCountType('OneDaysCount')" style="cursor: hand;cursor: pointer;"><c:out
 											value="${ageingMapDataList['OneDaysCount']}" /></a></td>
 								<td style="color: #13A8E0; font-size: 20px; font-weight: bold;"
 									width="10%"><a
-									ng-click="getCountType('ThreeDaysLessCount')"> <c:out
+									ng-click="getCountType('ThreeDaysLessCount')" style="cursor: hand;cursor: pointer;"> <c:out
 											value="${ageingMapDataList['ThreeDaysLessCount']}" /></a></td>
 								<td style="color: #13A8E0; font-size: 20px; font-weight: bold;"
 									width="10%"><a
-									ng-click="getCountType('ThreeDayGreaterCount')"><c:out
+									ng-click="getCountType('ThreeDayGreaterCount')" style="cursor: hand;cursor: pointer;"><c:out
 											value="${ageingMapDataList['ThreeDayGreaterCount']}" /></a></td>
 								<td
 									style="color: #13A8E0; font-size: 20px; font-weight: bold; border-right: solid 1px #0307fc;"
-									width="10%"><a ng-click="getCountType('TotalCount')"><c:out
+									width="10%"><a ng-click="getCountType('TotalCount')" style="cursor: hand;cursor: pointer;"><c:out
 											value="${ageingMapDataList['TotalCount']}" /></a></td>
 							</tr>
 						</tbody>
@@ -210,22 +210,20 @@
 							<tr>
 								<td align="left"
 									style="color: #13A8E0; font-size: 20px; font-weight: bold;"
-									width="12%"><a id="high" ng-click="getCountType('High')"><c:out
+									width="12%"><a id="high" ng-click="getCountType('High')" style="cursor: hand;cursor: pointer;"><c:out
 											value="${mapDataList['High']}" /></a></td>
 								<td align="left"
 									style="color: #13A8E0; font-size: 20px; font-weight: bold;"
 									width="12%"><a id="countMedium"
-									ng-click="getCountType('Medium')"><c:out
+									ng-click="getCountType('Medium')" style="cursor: hand;cursor: pointer;"><c:out
 											value="${mapDataList['Medium']}" /></a></td>
 								<td align="left"
 									style="color: #13A8E0; font-size: 20px; font-weight: bold;"
 									width="12%"><a id="countLow"
-									ng-click="getCountType('Low')"><c:out
-											value="${mapDataList['Low']}" /></a></td>
+									ng-click="getCountType('Low')" style="cursor: hand;cursor: pointer;"><c:out	value="${mapDataList['Low']}" /></a></td>
 								<td
 									style="color: #13A8E0; font-size: 20px; font-weight: bold; text-align: left: 10px;"
-									width="12%"><a id="countTotal"
-									ng-click="getCountType('Total')"><c:out
+									width="12%"><a id="countTotal"	ng-click="getCountType('Total')" style="cursor: hand;cursor: pointer;"><c:out
 											value="${mapDataList['Total']}" /></a></td>
 							</tr>
 						</tbody>
@@ -329,7 +327,7 @@
 
 				<div style="border-bottom: 1px solid #eee;">
 					
-					<input class="form-group has-search" ng-model="searchText"	ng-change="refresh()" placeholder=" Enter Vendor Name,Branch Code,Ticket Id,Kiosk ID.."	id="input"> 
+					<input class="form-group has-search" ng-model="searchText"	ng-change="refresh()" placeholder=" Enter VendorName,BranchCode,TicketId,KioskID."	id="input"> 
 					<span style="float:right">
 					<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
 					<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>

@@ -133,6 +133,11 @@ $(document).ready(function(){
         span.pull-right {
         padding:5px 10px;
         }
+        
+         option:empty
+          {
+           display:none;
+          }
     </style>
    
 
@@ -260,7 +265,7 @@ $(document).ready(function(){
 			<td>
                 <div class="row">
                     <div class="col-xs-6 lb">
-                        <span class="text-left">Vendor<b>*</b></span>
+                        <span class="text-left">Vendor<b></b></span>
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
@@ -298,7 +303,7 @@ $(document).ready(function(){
 		<div class="submain">
 	
 	
-	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Username, First Name, Last Name, Mail Id, Circle etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">
+	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter KioskId,BranchCode,Circle,Vendor etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">
 		<span style="float:right">
 		<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
 		<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>
