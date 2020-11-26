@@ -10,6 +10,18 @@ padding: 10px;
 /* overflow-y: scroll;
 overflow-x: scroll; */
 }
+.main_transaction{
+position: absolute;
+top: 140px;
+left: 30px;
+width: 95%;
+height: 860px;
+background: #EFF3F6 0% 0% no-repeat padding-box;
+opacity: 1;
+padding: 10px;
+/* overflow-y: scroll;
+overflow-x: scroll; */
+}
 .submain{
 top: 242px;
 left: 8px;
@@ -20,6 +32,39 @@ background: #FFFFFF 0% 0% no-repeat padding-box;
 box-shadow: 0px 3px 6px #8D8D8D29;
 opacity: 1;
 padding:7px;
+}
+.submain_kiosk{
+top: 242px;
+left: 8px;
+width: 100%;
+/* height: 870px; */
+ height: auto;
+background: #FFFFFF 0% 0% no-repeat padding-box;
+box-shadow: 0px 3px 6px #8D8D8D29;
+opacity: 1;
+padding:7px;
+}
+.submain_transaction{
+top: 242px;
+left: 8px;
+width: 100%;
+/* height: 519px; */
+ height: auto;
+background: #FFFFFF 0% 0% no-repeat padding-box;
+box-shadow: 0px 3px 6px #8D8D8D29;
+opacity: 1;
+padding:7px;
+}
+.submain_upload{
+top: 142px;
+left: 28px;
+width: 95%;
+height: auto;
+background: #FFFFFF 0% 0% no-repeat padding-box;
+/* box-shadow: 0px 3px 6px #8D8D8D29; */
+opacity: 1;
+padding:7px;
+position: absolute;
 }
 .submain_dataanalyser{
 top: 242px;
@@ -59,9 +104,9 @@ border-spacing: 0;
 padding:7px;
 }
 .submainForm{
-top: 165px;
-left: 8px;
-width: 1336px;
+top: 160px;
+left: 40px;
+width: 95%;
 height: 650px;
 background: #FFFFFF 0% 0% no-repeat padding-box;
 box-shadow: 0px 3px 6px #8D8D8D29;
@@ -134,7 +179,7 @@ vertical-align:top;
 	border: 1px solid #EFEFEF;
 	border-radius: 26px;
 	opacity: 1;
-	cursor: pointer;
+	/* cursor: pointer; */
 }
 
 .Column-VerticalLine {

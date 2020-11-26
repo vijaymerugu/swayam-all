@@ -53,7 +53,7 @@
 
 
 /* $(document).ready(function(){
-    debugger;
+    
 	$('.openPopupAssignCBS').on('click',function(){
     	
              var myfile=document.getElementById("myFile").value;  
@@ -86,7 +86,7 @@
     $(".openPopupAssignHoliday").click(function(){
     	var modal = document.getElementById("myModal");
         var fd = new FormData();
-        debugger;
+        
          var files = $('#myFile')[0].files[0];
          if(files==null)
 	    	 {
@@ -299,7 +299,7 @@
     $(".openPopupAssignCBS").click(function(){ 
     	var modal = document.getElementById("myModal");
         var fd = new FormData();
-        debugger;
+        
          var files = $('#BMFile')[0].files[0];
          if(files==null)
     	 {
@@ -330,7 +330,7 @@
 	
 	            success: function(data){
 	            	resp= data;  
-	            	debugger;
+	            	
 	            //	alert(resp) ;    	 	        	
 		        	// $("#para").html(resp);	        	 
 		     		if(data == 'Data Not Uploaded'){ 
@@ -370,7 +370,7 @@
 	    $(".openPopupAssignInVen").click(function(){ 
 	    	var modal = document.getElementById("myModal");
 	        var fd = new FormData();
-	        debugger;
+	        
 	         var files = $('#InFile')[0].files[0];
 	         if(files==null)
 	    	 {
@@ -401,7 +401,7 @@
 		
 		            success: function(data){
 		            	resp= data;  
-		            	debugger;
+		            	
 		            //	alert(resp) ;    	 	        	
 			        	// $("#para").html(resp);	        	 
 			     		if(data == 'Data Not Uploaded'){ 
@@ -491,9 +491,13 @@ input[type=button], input[type=submit], input[type=reset] {
   content: "";
   clear: both;
   display: table;
+    
 }
 
-
+.row {
+    margin-right: 15px;
+    margin-left: 15px;
+}
 .modal {
 	display: none; /* Hidden by default */
 	position: fixed; /* Stay in place */
@@ -531,7 +535,7 @@ input[type=button], input[type=submit], input[type=reset] {
 <br>
 <br>
 <br>
-<div class="submain">
+<div class="submain_upload">
 <div class="row">
 			<div class="column">
 				<label>Holiday Calendar</label>

@@ -84,7 +84,17 @@
   			padding: 2px;
   			word-break: break-word;
 			}
-  
+				 .ui-grid, .ui-grid-viewport {
+   			  height: auto !important; 
+			} 
+			.ui-grid-pager-panel {
+			    position: relative;
+			}
+			 .ui-grid .ui-grid-render-container-body .ui-grid-viewport {
+ 			 	overflow-x: auto !important;
+  				overflow-y: auto !important;
+  				
+			}
 </style>	
 
 <script type="text/javascript">
@@ -103,7 +113,7 @@ $("#myBtn").click(function(){
 </head>
 <body>
 
-<div class="main" ng-app="app" id="appId">
+<div class="main_transaction" ng-app="app" id="appId">
 <div ng-controller="UserManagementCtrl as vm">
 
 <table>
@@ -156,7 +166,7 @@ $("#myBtn").click(function(){
  <span colspan="4" align="center" style="color: white;font-size: 12px;font-weight: bold;float:right; margin-right:1em">Last Updated :<span id="dateId">ss</span></span> 
 </pre>
 </div>  -->
-		<div class="submain">
+		<div class="submain_transaction">
 	
 	<input class="form-group has-search" ng-model="searchText" ng-change="refresh()" placeholder="Enter Kiosk Id, Branch Code, Circle etc." style="font-size: 12px" size="150" height="80" id="input">
 			<span style="float:right">

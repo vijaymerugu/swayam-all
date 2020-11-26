@@ -55,7 +55,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    });
    
    $scope.gridOptions = {
-	paginationPageSizes: [20, 30, 40],
+	/*paginationPageSizes: [20, 30, 40],*/
     paginationPageSize: paginationOptions.pageSize,
     enableColumnMenus:false,
 	useExternalPagination: true,
@@ -71,7 +71,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
     	  cellTemplate: '<div ng-if="row.entity.pfId != undefined">{{ row.entity.username }}</div><div ng-if="row.entity.pfId == undefined"><a ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.kioskId)">Assign CMF</a></div>'
       }
     ],
-    onRegisterApi: function(gridApi) {
+    onRegisterApi: function(gridApi) { 
         $scope.gridApi = gridApi;
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
           paginationOptions.pageNumber = newPage;

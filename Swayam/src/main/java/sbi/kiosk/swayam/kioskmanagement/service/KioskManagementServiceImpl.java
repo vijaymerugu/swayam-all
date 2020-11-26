@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -197,7 +198,108 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 	 //Page<UserManagementDto> pageDto = new PageImpl<UserManagementDto>(userList, PageRequest.of(page, size), userList.getSize());
 	 	return entities;
     }
+	@SuppressWarnings("unchecked")
+	@Override
+    public Page<KioskBranchMasterUserDto> findAssingedPaginated(int page, int size,String type) {	 	 
+	 
+		
+		  Page<KioskBranchMasterUserDto> entities =
+		  kioskBranchMasterRepositoryPaging.findAll(PageRequest.of(page, size))
+		  .map(KioskBranchMasterUserDto::new);
+		 
+		//  KioskBranchMaster kioskEntities1 =  kioskMasterRepository.findAllKioskId();
+		List<KioskBranchMasterUserDto> entities1 = new ArrayList<KioskBranchMasterUserDto>();  
+	 for(KioskBranchMasterUserDto dto:entities){
+		 UserKioskMapping us = userKioskMappingRepository.findByKioskId(String.valueOf(dto.getKioskId()));
+		 
+		 if(us !=null && us.getPfId() !=null && us.getPfId() !=""){
+			 dto.setPfId(us.getPfId());
+			 User usr = userRepository.findByPfId(us.getPfId());
+			 if(usr !=null && usr.getUsername() !=null && usr.getUsername() !=""){
+				 dto.setUsername(usr.getUsername());
+				 entities1.add(dto);
+			 }
+		 }
+		 
+			
+			  if(dto.getBranchCode() !=null){ BranchMaster branchMaster =
+			  branchMasterRepository.findByBranchCode(dto.getBranchCode()); if(branchMaster
+			  !=null && branchMaster.getCircleName() !=null && branchMaster.getCircleName() !=""){
+			  dto.setCircle(branchMaster.getCircleName()); } }
+			 
+			 
+	 }
 	
+
+	
+	 Page<KioskBranchMasterUserDto> pageDto = new PageImpl<KioskBranchMasterUserDto>(entities1, PageRequest.of(page, size), entities1.size());
+
+		/*
+		 * List<KioskBranchMasterUserDto> appList = entities.getContent(); //logic to
+		 * remove the elements as per your condition modifiedAppList //create a new Page
+		 * with the modified list and size Page<KioskBranchMasterUserDto>
+		 * newApplicationsPage = new PageImpl<>(entities1, PageRequest.of(page,size);
+		 */
+		
+	
+	 	//return entities;
+	 	return pageDto;
+    }
+	@SuppressWarnings({ "unchecked", "unlikely-arg-type" })
+	@Override
+    public Page<KioskBranchMasterUserDto> findTobeAssingedPaginated(int page, int size,String type) {	 	 
+	 
+		
+		  Page<KioskBranchMasterUserDto> entities =
+		  kioskBranchMasterRepositoryPaging.findAll(PageRequest.of(page, size))
+		  .map(KioskBranchMasterUserDto::new);
+		 
+		//  KioskBranchMaster kioskEntities1 =  kioskMasterRepository.findAllKioskId();
+		List<KioskBranchMasterUserDto> entities1 = new ArrayList<KioskBranchMasterUserDto>();  
+	 for(KioskBranchMasterUserDto dto:entities){
+		 UserKioskMapping us = userKioskMappingRepository.findByKioskId(String.valueOf(dto.getKioskId()));
+		 
+		 if(us !=null && us.getPfId() !=null && us.getPfId() !=""){
+			 dto.setPfId(us.getPfId());
+			 User usr = userRepository.findByPfId(us.getPfId());
+			 if(usr !=null && usr.getUsername() !=null && usr.getUsername() !=""){
+				 dto.setUsername(usr.getUsername());
+				 entities1.add(dto);
+			 }
+		 }
+		 
+			
+			  if(dto.getBranchCode() !=null){ BranchMaster branchMaster =
+			  branchMasterRepository.findByBranchCode(dto.getBranchCode()); if(branchMaster
+			  !=null && branchMaster.getCircleName() !=null && branchMaster.getCircleName() !=""){
+			  dto.setCircle(branchMaster.getCircleName()); } }
+			 
+			//  entities1.add(dto);
+			 
+			  
+	 }
+	 
+	 List<KioskBranchMasterUserDto> entitiesData = entities.getContent();
+
+	 List<KioskBranchMasterUserDto> filteredEntities = new ArrayList<KioskBranchMasterUserDto>();  
+
+	for(KioskBranchMasterUserDto newData : entitiesData)
+	{
+		if(newData.getUsername()== null)
+		{
+			
+			filteredEntities.add(newData);
+		}
+		
+	}
+
+	 Page<KioskBranchMasterUserDto> pageDto = new PageImpl<KioskBranchMasterUserDto>(filteredEntities, PageRequest.of(page, size), filteredEntities.size());
+
+		
+	
+	 	//return entities;
+	 	return pageDto;
+    }
 	@Override
     public Page<KioskBranchMasterUserDto> findPaginatedByCircle(int page, int size) {	 	 
 		UserDto user = (UserDto) session().getAttribute("userObj");
@@ -254,7 +356,6 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 	  }else if(type!=null &&type.equals("DeleviredLIPIVendor")){
 		  entities =  kioskBranchMasterRepositoryPaging.findByVendorAndInstallationStatus("LIPI","Pending",PageRequest.of(page, size)).map(KioskBranchMasterUserDto::new);
 	  }
-	  
 	 }
 	  
 	 for(KioskBranchMasterUserDto dto:entities){

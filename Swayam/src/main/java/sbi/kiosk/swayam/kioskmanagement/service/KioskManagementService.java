@@ -42,4 +42,8 @@ public interface KioskManagementService {
 	Page<KioskBranchMasterUserDto> findPaginatedCountByCircle(int page, int size, String type);
 	
 	public Map<String,Integer> findAllKioskMasterCountByCircle();
+	
+	Page<KioskBranchMasterUserDto> findAssingedPaginated(int page, int size, String type);
+	
+	Page<KioskBranchMasterUserDto> findTobeAssingedPaginated(int page, int size, String type);
 }

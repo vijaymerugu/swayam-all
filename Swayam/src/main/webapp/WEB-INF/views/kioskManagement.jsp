@@ -73,21 +73,29 @@
 		}
 		 .ui-grid, .ui-grid-viewport {
    			  height: auto !important; 
-			}
+			} 
 			.ui-grid-pager-panel {
 		     position: relative;
 			 } 
+			 .ui-grid .ui-grid-render-container-body .ui-grid-viewport {
+ 			 	overflow-x: auto !important;
+  				overflow-y: auto !important;
+  				
+			}
+			.ui-grid-pager-row-count-picker {
+			display:none;
+			}
 </style>	
 	
 </head>
 <body>
 
-<div class="main" ng-app="app" id="appId">
+<div class="main_transaction" ng-app="app" id="appId">
 <div ng-controller="UserManagementCtrl as vm">
 <div>
 
 			  <table class="table1"
-				style="top: 152px; left: 15px; width: 1350px; height: 190px; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1;">
+				style="top: 152px; left: 15px; width: 100%; height: 190px; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1;">
 
 
 
@@ -184,7 +192,7 @@
 
 <br/>
 	
-		<div class="submain">
+		<div class="submain_kiosk">
 	
 	
 	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle Name,Branch Code,CMF Name,Kiosk ID.." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input"> 

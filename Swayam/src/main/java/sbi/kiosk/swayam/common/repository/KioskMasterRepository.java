@@ -89,5 +89,6 @@ public interface KioskMasterRepository extends CrudRepository<KioskBranchMaster,
 	
 	List<KioskBranchMaster> findAll();
 	
-
+	@Query(value ="select * from  TBL_KIOSK_MASTER km where exists (select 1 from  tbl_user_kiosk_mapping ukm where upper(km.kiosk_id)=upper(ukm.kiosk_id)) ",nativeQuery=true)
+	KioskBranchMaster findAllKioskId();
 }

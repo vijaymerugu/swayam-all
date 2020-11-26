@@ -173,7 +173,13 @@ public class KioskManagementController {
 				resultPage= kioskManagementService.findPaginatedCount(page, size, type);
 			}else if(type.equals("DeleviredLIPIVendor")){
 			   resultPage= kioskManagementService.findPaginatedCount(page, size, type);
-		    }else{
+		    }
+			else if(type.equals("Assigned")){
+				   resultPage= kioskManagementService.findAssingedPaginated(page, size, type);
+			}
+			else if(type.equals("ToBeAssigned")){
+				   resultPage= kioskManagementService.findTobeAssingedPaginated(page, size, type);
+			}else{
 		         resultPage = kioskManagementService.findPaginated(page, size);
 		        if (page > resultPage.getTotalPages()) {
 		            //throw new MyResourceNotFoundException();
