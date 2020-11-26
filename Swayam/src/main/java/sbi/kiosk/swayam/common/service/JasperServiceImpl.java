@@ -177,7 +177,10 @@ public class JasperServiceImpl implements JasperService {
     
     @Autowired
 	TerminalStatusRepository terminalStatusRepository;
- 
+    
+   
+    @Autowired
+   	BranchMasterRepository branchMastRepository;
     
 	public static HttpSession session() {
 		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
@@ -1611,14 +1614,26 @@ public class JasperServiceImpl implements JasperService {
 	public List<TicketCentorDto> findAllTickets() {
 		logger.info("Inside==Jasper====findAllTickets===========ALL DATA");
 		List<TicketCentorDto> entities = ObjectMapperUtils.mapAll(ticketCentorRepo.findAll(), TicketCentorDto.class);
-
+/*
 		for (TicketCentorDto dto : entities) {
 
 			String kioskId = dto.getKisokId();
 			String kioskBranchMaster = kioskMasterRepo.findKioskByKioskId_circle(kioskId);
 			dto.setServeriry(kioskBranchMaster);
 
-		}
+		} */
+		
+		 String circle=null;
+			for (TicketCentorDto dto : entities) {
+				String kioskId = dto.getKisokId();
+				//String kioskBranchMaster = kioskMasterRepo.findKioskByBranchCode(kioskId);
+				if(kioskId!=null){
+					  String kioskBranchCode= kioskMasterRepo.findKioskByBranchCode(kioskId);
+					  circle= branchMastRepository.findCircleByBranchCode(kioskBranchCode);
+					  }
+					  dto.setServeriry(circle);
+
+			}
 		return entities;
 
 	}
@@ -1629,11 +1644,15 @@ public class JasperServiceImpl implements JasperService {
 		UserDto user = (UserDto) session().getAttribute("userObj");
 		List<TicketCentorDto> entities = ObjectMapperUtils.mapAll(ticketCentorRepo.findAllListByCMFUser(user.getPfId()),
 				TicketCentorDto.class);
-
+		 String circle=null;
 		for (TicketCentorDto dto : entities) {
 			String kioskId = dto.getKisokId();
-			String kioskBranchMaster = kioskMasterRepo.findKioskByKioskId_circle(kioskId);
-			dto.setServeriry(kioskBranchMaster);
+			//String kioskBranchMaster = kioskMasterRepo.findKioskByBranchCode(kioskId);
+			if(kioskId!=null){
+				  String kioskBranchCode= kioskMasterRepo.findKioskByBranchCode(kioskId);
+				  circle= branchMastRepository.findCircleByBranchCode(kioskBranchCode);
+				  }
+				  dto.setServeriry(circle);
 
 		}
 		return entities;
@@ -1649,12 +1668,27 @@ public class JasperServiceImpl implements JasperService {
 		List<TicketCentorDto> entities = ObjectMapperUtils.mapAll(ticketCentorRepo.findAllListByCMFUserForCMS(supList),
 				TicketCentorDto.class);
 
-		for (TicketCentorDto dto : entities) {
+/*		for (TicketCentorDto dto : entities) {
 			String kioskId = dto.getKisokId();
 			String kioskBranchMaster = kioskMasterRepo.findKioskByKioskId_circle(kioskId);
 			dto.setServeriry(kioskBranchMaster);
 
 		}
+		
+		*/
+		
+		    String circle=null;
+			for (TicketCentorDto dto : entities) {
+				String kioskId = dto.getKisokId();
+				//String kioskBranchMaster = kioskMasterRepo.findKioskByBranchCode(kioskId);
+				if(kioskId!=null){
+					  String kioskBranchCode= kioskMasterRepo.findKioskByBranchCode(kioskId);
+					  circle= branchMastRepository.findCircleByBranchCode(kioskBranchCode);
+					  }
+					  dto.setServeriry(circle);
+
+			}
+			
 		return entities;
 	}
 
@@ -1665,13 +1699,27 @@ public class JasperServiceImpl implements JasperService {
 
 		List<TicketCentorDto> entities = ObjectMapperUtils
 				.mapAll(ticketCentorRepo.findAllListByCircle(user.getCircle()), TicketCentorDto.class);
-
+/*
 		for (TicketCentorDto dto : entities) {
 			String kioskId = dto.getKisokId();
 			String kioskBranchMaster = kioskMasterRepo.findKioskByKioskId_circle(kioskId);
 			dto.setServeriry(kioskBranchMaster);
 
-		}
+		} */
+		
+		
+		       String circle=null;
+			for (TicketCentorDto dto : entities) {
+				String kioskId = dto.getKisokId();
+				//String kioskBranchMaster = kioskMasterRepo.findKioskByBranchCode(kioskId);
+				if(kioskId!=null){
+					  String kioskBranchCode= kioskMasterRepo.findKioskByBranchCode(kioskId);
+					  circle= branchMastRepository.findCircleByBranchCode(kioskBranchCode);
+					  }
+					  dto.setServeriry(circle);
+
+			}
+		
 		return entities;
 	}
 
