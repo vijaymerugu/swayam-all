@@ -192,7 +192,7 @@ $(document).ready(function(){
                     </div>
                     <div class="col-xs-6">
                         <select id="category" name="Category" ng-model="SelectedCategoryId">
-									<option value="0">Select Category</option>
+									<option value="0" style="padding-top: 0px;">Select Category</option>
 									<option ng-repeat="item in Categorys" value="{{item.category}}">{{item.category}}</option>
 							</select>
                     </div>
@@ -254,8 +254,8 @@ $(document).ready(function(){
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
-                        <select id="circle" name="Circle" ng-model="SelectedCircelId" required>
-									<option value="0">Select Circle</option>
+                        <select id="circle" name="Circle" ng-model="SelectedCircelId">
+									<option value="">Select Circle</option>
 									<option ng-repeat="item in Circles" value="{{item.circleName}}">{{item.circleName}}</option>
 							</select>
                     </div>
@@ -269,8 +269,8 @@ $(document).ready(function(){
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
-                       <select id="vendor" name="Vendor" ng-model="SelectedVendorId" required>
-									<option value="0">Select Vendor</option>
+                       <select id="vendor" name="Vendor" ng-model="SelectedVendorId">
+									<option value="">Select Vendor</option>
 									<option value="CMS">CMS</option>
 									<option value="LIPI">LIPI</option>
 									<option value="FORBES">FORBES</option>
