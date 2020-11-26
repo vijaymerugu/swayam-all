@@ -22,8 +22,9 @@ public interface KioskMasterRepository extends CrudRepository<KioskBranchMaster,
 	
 	
 	KioskBranchMaster findKioskByKioskId(String kioskId);	
-	@Query(value ="SELECT CIRCLE FROM TBL_KIOSK_MASTER WHERE KIOSK_ID=?1 ",nativeQuery=true)
-	String  findKioskByKioskId_circle(String kioskId);	
+	//@Query(value ="SELECT CIRCLE FROM TBL_KIOSK_MASTER WHERE KIOSK_ID=?1 ",nativeQuery=true)
+	@Query(value ="SELECT BRANCH_CODE FROM TBL_KIOSK_MASTER WHERE KIOSK_ID=?1 ",nativeQuery=true)
+	String  findKioskByBranchCode(String kioskId);	
 	
 	
 	

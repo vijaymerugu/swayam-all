@@ -308,20 +308,20 @@ public Page<TicketCentor> findAllTicketCentor3DaysGreaterByCircle(@Param("circle
 
 // CMS User Count
 
-@Query(value = "select nvl(count(CALL_SUBCATEGORY),0)  from TBL_TICKET_CENTRE where   AGEING<=4  "
-		+ " and KIOSK_ID in (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING  WHERE PF_ID=:pfId) and STATUS_OF_COMPLAINT='Active' ", nativeQuery = true)
+@Query(value = " select nvl(count(CALL_SUBCATEGORY),0)  from TBL_TICKET_CENTRE where   AGEING<=4  "
+		+ " and KIOSK_ID in (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING  WHERE PF_ID in (:pfId))  and STATUS_OF_COMPLAINT='Active' ", nativeQuery = true)
 public int find2_4HoursCountCMS(@Param("pfId") Set<String> pfId) ;
 
 @Query(value = "select nvl(count(CALL_SUBCATEGORY),0)  from TBL_TICKET_CENTRE where   (AGEING>4 and AGEING<=8)  "
-		+ " and KIOSK_ID in (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING  WHERE PF_ID=:pfId) and STATUS_OF_COMPLAINT='Active' ", nativeQuery = true)
+		+ " and KIOSK_ID in (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING  WHERE PF_ID in (:pfId)) and STATUS_OF_COMPLAINT='Active' ", nativeQuery = true)
 public int find_1_DaysCountCMS(@Param("pfId") Set<String> pfId);
 
 @Query(value = "select nvl(count(CALL_SUBCATEGORY),0)  from TBL_TICKET_CENTRE where   (AGEING>8 and AGEING<=24) "
-		+ " and KIOSK_ID in (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING  WHERE PF_ID=:pfId) and STATUS_OF_COMPLAINT='Active' ", nativeQuery = true)
+		+ " and KIOSK_ID in (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING  WHERE PF_ID in (:pfId)) and STATUS_OF_COMPLAINT='Active' ", nativeQuery = true)
 public int find_3_Days_LessCountCMS(@Param("pfId") Set<String> pfId);
 
 @Query(value = "select nvl(count(CALL_SUBCATEGORY),0)  from TBL_TICKET_CENTRE where   AGEING>24 "
-		+ " and KIOSK_ID in (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING  WHERE PF_ID=:pfId) and STATUS_OF_COMPLAINT='Active' ", nativeQuery = true)
+		+ " and KIOSK_ID in (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING  WHERE PF_ID in (:pfId)) and STATUS_OF_COMPLAINT='Active' ", nativeQuery = true)
 public int find_3_Days_GreaterThanCountCMS(@Param("pfId") Set<String> pfId);
 
 @Query(value="SELECT  nvl(count(CALL_SUBCATEGORY),0)  from TBL_TICKET_CENTRE where KIOSK_ID in (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId))  and STATUS_OF_COMPLAINT='Active' ", nativeQuery=true)
