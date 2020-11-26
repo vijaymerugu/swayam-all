@@ -21,6 +21,7 @@ import sbi.kiosk.swayam.common.repository.KioskMasterRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.CallTypeRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.TicketCentorAgeingRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.TicketCentorRepository;
+import sbi.kiosk.swayam.kioskmanagement.repository.BranchMasterRepository;
 
 @Service
 public class TicketCentorServiceImpl implements TicketCentorService {
@@ -37,6 +38,8 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 	
 	@Autowired
 	KioskMasterRepository kioskMasterRepo;
+	@Autowired
+	BranchMasterRepository branchMasterRepo;
 	
 	public static HttpSession session() {
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
@@ -49,14 +52,16 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 		 //Page<TicketCentorDto> entities = ticketCentorRepo.findAll("Active",PageRequest.of(page, size)).map(TicketCentorDto::new);
 		// changes for status of complaint is active only
 		 Page<TicketCentorDto> entities = ticketCentorRepo.findAllByStatusOfComplaint("Active",PageRequest.of(page, size)).map(TicketCentorDto::new);
-		 
+		 String circle=null;
 		 TicketCentorDto ticketCentorDto= new TicketCentorDto();
 		 for(TicketCentorDto dto:entities){
-			 
-			 String kioskId=dto.getKisokId();
-			 
-			 String kioskBranchMaster= kioskMasterRepo.findKioskByKioskId_circle(kioskId);
-			 dto.setServeriry(kioskBranchMaster);
+			
+			  String kioskId=dto.getKisokId();
+			  if(kioskId!=null){
+			  String kioskBranchCode= kioskMasterRepo.findKioskByBranchCode(kioskId);
+			  circle= branchMasterRepo.findCircleByBranchCode(kioskBranchCode);
+			  }
+			  dto.setServeriry(circle);
 			 
 			 
 		 }
@@ -73,12 +78,16 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 		 
 		 Page<TicketCentorDto> entities = ticketCentorRepo.findAllByCircle(user.getCircle(),PageRequest.of(page, size)).map(TicketCentorDto::new);
 		 TicketCentorDto ticketCentorDto= new TicketCentorDto();
+		 String circle=null;
 		 for(TicketCentorDto dto:entities){
 			 
 			 String kioskId=dto.getKisokId();
 			 
-			 String kioskBranchMaster= kioskMasterRepo.findKioskByKioskId_circle(kioskId);
-			 dto.setServeriry(kioskBranchMaster);
+			 if(kioskId!=null){
+				  String kioskBranchCode= kioskMasterRepo.findKioskByBranchCode(kioskId);
+				  circle= branchMasterRepo.findCircleByBranchCode(kioskBranchCode);
+				  }
+				  dto.setServeriry(circle);
 			 
 			 
 		 }
@@ -167,12 +176,16 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 		 else{
 			  entities =  ticketCentorRepo.findAll(PageRequest.of(page, size)).map(TicketCentorDto::new);
 		      }
+		 String circle=null;
 		 for(TicketCentorDto dto:entities){
 			 
 			 String kioskId=dto.getKisokId();
 			 
-			 String kioskBranchMaster= kioskMasterRepo.findKioskByKioskId_circle(kioskId);
-			 dto.setServeriry(kioskBranchMaster);
+			 if(kioskId!=null){
+				  String kioskBranchCode= kioskMasterRepo.findKioskByBranchCode(kioskId);
+				  circle= branchMasterRepo.findCircleByBranchCode(kioskBranchCode);
+				  }
+				  dto.setServeriry(circle);
 		 }
 
 			 	return entities;
@@ -213,9 +226,11 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 		 for(TicketCentorDto dto:entities){
 			 
 			 String kioskId=dto.getKisokId();
-			 
-			 String kioskBranchMaster= kioskMasterRepo.findKioskByKioskId_circle(kioskId);
-			 dto.setServeriry(kioskBranchMaster);
+			 if(kioskId!=null){
+				  String kioskBranchCode= kioskMasterRepo.findKioskByBranchCode(kioskId);
+				  circle= branchMasterRepo.findCircleByBranchCode(kioskBranchCode);
+				  }
+				  dto.setServeriry(circle);
 			 
 			 
 		 }

@@ -30,6 +30,7 @@ import sbi.kiosk.swayam.common.repository.SupervisorRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.CallTypeRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.TicketCentorAgeingRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.TicketCentorRepository;
+import sbi.kiosk.swayam.kioskmanagement.repository.BranchMasterRepository;
 
 @Service
 public class TicketCentorFilterServiceImpl implements TicketCentorFilterService {
@@ -49,6 +50,9 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 	
 	 @Autowired
 	 SupervisorRepository supervisorRepository;
+	 
+	 @Autowired
+	BranchMasterRepository branchMasterRepo;
 	
 	public static HttpSession session() {
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
@@ -59,13 +63,15 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 	 public Page<TicketCentorDto> findPaginated(final int page, final int size){
 		 logger.info("Inside======findPaginated===========");
 		 Page<TicketCentorDto> entities = ticketCentorRepo.findAll(PageRequest.of(page, size)).map(TicketCentorDto::new);
-		 
+		 String circle=null;
 		 for(TicketCentorDto dto:entities){
 			 
 			 String kioskId=dto.getKisokId();
-			 
-			 String kioskBranchMaster= kioskMasterRepo.findKioskByKioskId_circle(kioskId);
-			 dto.setServeriry(kioskBranchMaster);
+			  if(kioskId!=null){
+				  String kioskBranchCode= kioskMasterRepo.findKioskByBranchCode(kioskId);
+				  circle= branchMasterRepo.findCircleByBranchCode(kioskBranchCode);
+				  }
+				  dto.setServeriry(circle);
 		 }
 		 
 		 
@@ -168,10 +174,10 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 		 try{
 			
 			    mapDataList = new HashMap<String, Integer>();			
-			    int countHigh = callTypeRepo.getCallTypeHieghCMF(supList);
-				int countMedium = callTypeRepo.getCallTypeMediumCMF(supList);
-				int countLow = callTypeRepo.getCallTypeLowCMF(supList);
-				int countTotal = callTypeRepo.getCallTypeTotalCMF(supList);
+			    int countHigh = callTypeRepo.getCallTypeHieghCMS(supList);
+				int countMedium = callTypeRepo.getCallTypeMediumCMS(supList);
+				int countLow = callTypeRepo.getCallTypeLowCMS(supList);
+				int countTotal = callTypeRepo.getCallTypeTotalCMS(supList);
 				mapDataList.put("High", countHigh);
 				mapDataList.put("Medium", countMedium);
 				mapDataList.put("Low", countLow);
@@ -182,7 +188,8 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 				}
 			
 		 }catch (Exception e) {
-			 logger.error("Exception "+ExceptionConstants.EXCEPTION);
+			 e.printStackTrace();
+			 logger.error("Exception111 "+ExceptionConstants.EXCEPTION);
 		 } 
 			
 			return mapDataList;
@@ -382,13 +389,16 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 			logger.info("Inside======findPaginatedCmf===========");
 			UserDto user = (UserDto) session().getAttribute("userObj"); 
 			Page<TicketCentorDto> entities = ticketCentorRepo.findAllByCMFUser(user.getPfId(),PageRequest.of(page, size)).map(TicketCentorDto::new);
-			 
+			 String circle=null;
 			 for(TicketCentorDto dto:entities){
 				 
 				 String kioskId=dto.getKisokId();
 				 
-				 String kioskBranchMaster= kioskMasterRepo.findKioskByKioskId_circle(kioskId);
-				 dto.setServeriry(kioskBranchMaster);
+				  if(kioskId!=null){
+					  String kioskBranchCode= kioskMasterRepo.findKioskByBranchCode(kioskId);
+					  circle= branchMasterRepo.findCircleByBranchCode(kioskBranchCode);
+					  }
+					  dto.setServeriry(circle);
 				 
 				 
 			 }			 
@@ -402,13 +412,16 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 			Set<String> supList =  supervisorRepository.findPfIdListByPfIdSupervisor(supPfId);
 			
 			Page<TicketCentorDto> entities = ticketCentorRepo.findAllByCMFUserForCMS(supList,PageRequest.of(page, size)).map(TicketCentorDto::new);
-			 
+			 String circle=null;
 			 for(TicketCentorDto dto:entities){
 				 
 				 String kioskId=dto.getKisokId();
 				 
-				 String kioskBranchMaster= kioskMasterRepo.findKioskByKioskId_circle(kioskId);
-				 dto.setServeriry(kioskBranchMaster);
+				  if(kioskId!=null){
+					  String kioskBranchCode= kioskMasterRepo.findKioskByBranchCode(kioskId);
+					  circle= branchMasterRepo.findCircleByBranchCode(kioskBranchCode);
+					  }
+					  dto.setServeriry(circle);
 				 
 				 
 			 }			 
