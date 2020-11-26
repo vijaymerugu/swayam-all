@@ -143,14 +143,14 @@
   			word-break: break-word;
 			}
     
-          .ui-grid, .ui-grid-viewport {
-			     height: auto !important;
-			}
+    		 .ui-grid, .ui-grid-viewport {
+   			  height: auto !important; 
+			} 
 			.ui-grid-pager-panel {
 			    position: relative;
 			}
 //  Added for loader------------- START 
-    .loading
+/*     .loading
     {
         
         width: 200px;
@@ -165,8 +165,13 @@
         background-color: White;
          z-index: 999; 
         align:center;
-    }
+    } */
     //  Added for loader------------- END 
+      .ui-grid .ui-grid-render-container-body .ui-grid-viewport {
+ 			 	overflow-x: auto !important;
+  				overflow-y: auto !important;
+  				
+			}
 </style>
 
 <script type="text/javascript">
@@ -185,7 +190,7 @@ $("#myBtn").click(function(){
 </head>
 
 <body>
-<div class="main" ng-app="app" id="appId">
+<div class="main_transaction" ng-app="app" id="appId">
 <div ng-controller="UserManagementCtrl as vm">
    <div>
 				<table class="" style="border: 1px solid #eee;">
@@ -224,7 +229,7 @@ $("#myBtn").click(function(){
 			    </table> --%>
 			<!-- <br> -->	
 			<div>
-		<pre align="left" style="background-color: #00BFFF;color: white;font-size:18px;font-weight: bold;font-family:Helvetica;">
+		<pre align="left" style="background-color: #00BFFF;color: white;font-size:18px;font-weight: bold;font-family:Helvetica;width:100%;">
  <span align="center" style="font-size: 18px;font-weight: bold;font-family:Helvetica">Overall Branch Wise Swayam Transactions<span colspan="4" align="center" style="color: white;font-size: 18px;font-weight: bold;float:right; margin-right:1em">Last Updated :<span id="dateId"></span></span></span>
 </pre>
 			</div> 
@@ -268,7 +273,7 @@ $("#myBtn").click(function(){
 
  
 
-		<div class="submain">
+		<div class="submain_transaction">
 		  <input class="form-group has-search" ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle,Network,Branch Name, Branch Code etc."  style="font-size: 10px;"  size="130" height="50" id="input">
 	<%-- <h1 colspan="4" align="center" style="color: #00BFFF;font-size: 14px;font-weight: bold; "> 
    All India branch view on <span  id="mySpan">  {{CurrentDate | date:'EEE,dd MMM, yyyy hh:mm:ss a'}}</span> 

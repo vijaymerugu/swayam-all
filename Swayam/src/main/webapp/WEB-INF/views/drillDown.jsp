@@ -88,14 +88,24 @@
   			padding: 2px;
   			word-break: break-word;
 			}
-    
+				 .ui-grid, .ui-grid-viewport {
+   			  height: auto !important; 
+			} 
+			.ui-grid-pager-panel {
+			    position: relative;
+			}
+    		 .ui-grid .ui-grid-render-container-body .ui-grid-viewport {
+ 			 	overflow-x: auto !important;
+  				overflow-y: auto !important;
+  				
+			}
 </style>	
 </head>
 <body>
 
 
 
-<div class="main" ng-app="app" id="appId">
+<div class="main_transaction" ng-app="app" id="appId">
 <div ng-controller="DrillDownCtrl as vm">
     <div>
 			<table class="" style="border: 1px solid #eee;">
@@ -138,7 +148,7 @@
       </pre>
 			</div>
 
-		<div class="submain">	
+		<div class="submain_transaction">	
 	
 	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle, No Of Branches, Kiosks, Txns, etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">
 		

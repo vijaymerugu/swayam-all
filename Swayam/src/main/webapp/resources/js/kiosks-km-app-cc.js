@@ -14,7 +14,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 			$("#contentHomeApp").load(str);
 		}						
 	}
-   $scope.getCountType = function(type){
+   $scope.getCountType = function(type){ 
 
 	counttype=type;
 	   UserManagementService.getUsers(paginationOptions.pageNumber,
@@ -55,7 +55,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    });
    
    $scope.gridOptions = {
-	paginationPageSizes: [20, 30, 40],
+	/*paginationPageSizes: [20, 30, 40],*/
     paginationPageSize: paginationOptions.pageSize,
     enableColumnMenus:false,
 	useExternalPagination: true,
@@ -89,7 +89,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 
 app.service('UserManagementService',['$http', function ($http) {
 	
-	function getUsers(pageNumber,size,counttype) {
+	function getUsers(pageNumber,size,counttype) { 
 		
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({
