@@ -13,8 +13,16 @@ import sbi.kiosk.swayam.common.entity.State;
 public interface BranchStateRepository extends CrudRepository<State, String>{
 	
 	
-	@Query(value = "select DISTINCT u.stat_code, u.stat_desc from TBL_BRANCH_MASTER u where u.CRCL_CODE=:crclCode "
-			+ "AND stat_desc IS NOT NULL", 
+	/*
+	 * @Query(value =
+	 * "select DISTINCT u.stat_code, u.stat_desc from TBL_BRANCH_MASTER u where u.CRCL_CODE=:crclCode "
+	 * + "AND stat_desc IS NOT NULL", nativeQuery = true) List<State>
+	 * findByCirclehCode(@Param("crclCode") String circleCode);
+	 */
+	
+	
+	@Query(value = "select DISTINCT u.stat_code, u.stat_desc from TBL_BRANCH_MASTER u where u.CRCL_CODE=:crclCode  AND stat_desc IS NOT NULL"
+			+ "  ORDER BY stat_desc ASC", 
 			nativeQuery = true)
 	List<State> findByCirclehCode(@Param("crclCode") String circleCode);
 

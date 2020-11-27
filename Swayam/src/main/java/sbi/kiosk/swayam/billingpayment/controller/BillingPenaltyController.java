@@ -146,7 +146,8 @@ public class BillingPenaltyController {
 		
 		//circleRepo.findAll();
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		 String json = gson.toJson(circleRepository.findAll());
+		// String json = gson.toJson(circleRepository.findAll());
+		 String json = gson.toJson(circleRepository.findCircles());
 		//logger.info("circles "+ json);
 		 
 		
@@ -211,22 +212,8 @@ public class BillingPenaltyController {
 		      String selectedCircelId, @RequestParam("selectedStateId") String selectedStateId,
 		      @RequestParam("quterTimePeriod") String quterTimePeriod,@RequestParam("selectedVendorId") String selectedVendorId,@RequestParam("selectedRfpID") String selectedRfpID) {
 		logger.info("Inside findPaginated"); 
-//		logger.info("type=================="+type);
-//		logger.info("selectedCircelId--- "+selectedCircelId);
-//		logger.info("selectedStateId---- "+selectedStateId);
-//		logger.info("quterTimePeriod---- "+quterTimePeriod);
-//		logger.info("selectedVendorId--- "+selectedVendorId);
-//		logger.info("selectedRfpID--- "+selectedRfpID);
-	
-		
-	
-		
-		/*
-		 * String quarter= quterTimePeriod.substring(0, 2); String finacialYear=
-		 * quterTimePeriod.substring(3); System.out.println("Quater "+ quarter);
-		 * System.out.println("finacialYear "+ finacialYear);
-		 */
-		
+
+
 		report.setCircle(selectedCircelId);
 		report.setState(selectedStateId);
 		report.setTimePeiod(quterTimePeriod);
