@@ -35,9 +35,11 @@ public class ContactEntity {
 	 * @Column(name = "L2_CONTACT") private Blob l2Contact;
 	 */
 	
-	 @Lob
-	 @Column(name = "L2_CONTACT")
-	 private byte[] l2Contact;
+	/*
+	 * @Lob
+	 * 
+	 * @Column(name = "L2_CONTACT") private byte[] l2Contact;
+	 */
 	
 	@Column(name = "ES_MATRIX")
 	private String esMatrix;

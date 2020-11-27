@@ -24,7 +24,7 @@ public class ContactDto {
 	 * @Column(name = "L2_CONTACT") private Blob l2Contact;
 	 */
 	
-	private String l2Contact;
+	//private String l2Contact;
 	
 	
 	private String esMatrix;
