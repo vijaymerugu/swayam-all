@@ -23,7 +23,7 @@ $(document).ready(function(){
  <meta http-equiv="x-ua-compatible" content="IE=edge">
 <link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
 <!-- <script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment-with-locales.min.js"></script> -->
-<script src="resources/js/moment-with-locales.min.js"></script>
+<!-- <script src="resources/js/moment-with-locales.min.js"></script> -->
 <script src="resources/js/angular.1.5.6.min.js"></script>
 <script src="resources/js/ticket-history-app.js"></script>
 <script src="resources/js/angular.1.5.6.min.js"></script>

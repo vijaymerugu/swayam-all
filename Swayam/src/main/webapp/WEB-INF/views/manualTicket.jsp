@@ -331,6 +331,18 @@ input[type=text], select {
 
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
+<script>
+$(document).ready(function(){
+    $('.openFinalPopup').on('click',function(){      
+        
+    	$("#contentHomeApp").load('hm/manualTicket');    	
+       
+    }); 
+    
+});
+
+</script>	
+
 <script type="text/javascript">
 $(document).ready(function(){
 		
@@ -652,14 +664,18 @@ function cloesBox(){
 						<td style="top: 352px; width: 190px; height: 75px;opacity: 1;"><b style="color:purple">Branch Code <b><span style="color:red">*</span></b>
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>
 								</td>
-						<td><form:input path="branchCode"  id="branchCode" required="required"
-							 name="branchCode" /></td>
+						<td><form:input path="branchCode"  id="branchCode" required="required" maxlength="5"
+							 name="branchCode"  /></td>
 							 <td colspan="2"><b></b></td>
 							 <td id="branchName1">
 								 <sapn id="branchName2" style="color:black;"></sapn>
 							</td>
 					</tr>
-							 
+						<!--  <tr>
+								<td></td><td>
+								 <sapn id="branchCodeNumberVal" style="color:red"></sapn>
+								</td>
+								</tr> -->	 
 					<tr>
 						<td style="top: 352px; width: 190px; height: 75px;opacity: 1;"><b style="color:purple">Vendor <b><span style="color:red">*</span></b>
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>
@@ -780,6 +796,7 @@ function cloesBox(){
 					<tr><td colspan="5" ></td>
 						<td> <input type="button" 
 							value="Submit" onclick="saveform()" class="buttonManual" /></td>
+							<td><input type="button" class="openFinalPopup" onclick="cancelform()" value="Reset" ></td>
 					</tr>
 				</table>
 			</div>
@@ -812,7 +829,53 @@ function cloesBox(){
 	</div>
 	
 </body>
+ <script>
+ function cancelform() {
+		
+		debugger;
+		$("#kioskError").html("");
+		$("#contactNo").html("");	
+		$("#contactPerson").html("");	
+		$("#circle").html("");	
+		$("#kioskId56").html("");		
+		$("#vendor1").html("");
+		$("#brCode").html("");
+		$("#kioskId").html("");
+		$("#vendor").html("");
+		$("#branchName1").html("");
+		$("#branchCode").html("");
+		
+		
+		
+ 	$("#contentHomeApp").load("hm/manualTicket");  
+		
+	}
 
+</script>
+
+
+<script> 
+$(document).ready(function(){
+	//debugger;
+	
+	$('#branchCode').blur(function(){
+		//debugger;
+		
+		var branchCode=$("#branchCode").val();
+		 document.getElementById("branchCode").innerHTML=branchCode;
+		 
+		 if (!branchCode.match(/^[0-9]+$/)) 
+		    {
+			 $("#branchCodeNumberVal").html('Only numbers are allowed');
+		        
+		    }else{
+		    	
+		    }
+	});
+	
+	
+});
+</script>
 
 <input type="hidden" name="_csrf" value="<%=session.getAttribute("csrfToken")%>"> 
 
