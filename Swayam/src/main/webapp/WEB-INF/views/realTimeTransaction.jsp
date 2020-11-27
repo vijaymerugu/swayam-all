@@ -84,16 +84,19 @@
   			padding: 2px;
   			word-break: break-word;
 			}
-				 .ui-grid, .ui-grid-viewport {
+			.ui-grid, .ui-grid-viewport {
    			  height: auto !important; 
 			} 
 			.ui-grid-pager-panel {
-			    position: relative;
-			}
+		     position: relative;
+			 } 
 			 .ui-grid .ui-grid-render-container-body .ui-grid-viewport {
  			 	overflow-x: auto !important;
   				overflow-y: auto !important;
   				
+			}
+			.ui-grid-pager-row-count-picker {
+			display:none;
 			}
 </style>	
 

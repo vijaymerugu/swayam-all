@@ -198,7 +198,7 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 	 //Page<UserManagementDto> pageDto = new PageImpl<UserManagementDto>(userList, PageRequest.of(page, size), userList.getSize());
 	 	return entities;
     }
-	@SuppressWarnings("unchecked")
+//	@SuppressWarnings("unchecked")
 	@Override
     public Page<KioskBranchMasterUserDto> findAssingedPaginated(int page, int size,String type) {	 	 
 	 
@@ -245,7 +245,7 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 	 	//return entities;
 	 	return pageDto;
     }
-	@SuppressWarnings({ "unchecked", "unlikely-arg-type" })
+//	@SuppressWarnings({ "unchecked", "unlikely-arg-type" })
 	@Override
     public Page<KioskBranchMasterUserDto> findTobeAssingedPaginated(int page, int size,String type) {	 	 
 	 

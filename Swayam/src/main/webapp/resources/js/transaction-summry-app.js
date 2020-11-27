@@ -137,7 +137,7 @@ sort: null
    });
    
    $scope.gridOptions = {
-    paginationPageSizes: [20, 30, 40],
+    /*paginationPageSizes: [20, 30, 40],*/
     paginationPageSize: paginationOptions.pageSize,
     enableColumnMenus:false,
     useExternalPagination: true,     
