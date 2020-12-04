@@ -2,9 +2,12 @@ package sbi.kiosk.swayam.healthmonitoring.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +17,7 @@ import sbi.kiosk.swayam.common.entity.TerminalStatus;
 
 
 @Repository("terminalStatusRepository")
-public interface TerminalStatusRepository extends CrudRepository<TerminalStatus, String>{
+public interface TerminalStatusRepository extends PagingAndSortingRepository<TerminalStatus,Integer>{
  
 	//@Query(value="from TerminalStatus",nativeQuery=true)
 	List<TerminalStatus> findAll();
@@ -41,8 +44,9 @@ public interface TerminalStatusRepository extends CrudRepository<TerminalStatus,
 @Query(value="select BRANCH_NAME from TBL_BRANCH_MASTER  where  BRANCH_CODE=:brachCode",nativeQuery=true)
 List<BranchMaster> findAllByBranchCode(@Param("brachCode") String brachCode);
 
+// comments for summary query chages
 	 
-	 
+	/* 
 	 @Query(value ="SELECT count(AGENT_STATUS) FROM TBL_TERMINAL_STATUS where AGENT_STATUS=:agentStatus",nativeQuery=true)
 		int findByAgentStatusRed(@Param("agentStatus") String agentStatus);
 	 
@@ -50,32 +54,63 @@ List<BranchMaster> findAllByBranchCode(@Param("brachCode") String brachCode);
 		int findByAgentStatusGreen(@Param("agentStatus") String agentStatus);
 	 
 	 @Query(value ="SELECT count(AGENT_STATUS) FROM TBL_TERMINAL_STATUS where AGENT_STATUS=:agentStatus",nativeQuery=true)
-		int findByAgentStatusGrey(@Param("agentStatus") String agentStatus);
+		int findByAgentStatusGrey(@Param("agentStatus") String agentStatus);*/
+
+
+
+@Query(value ="SELECT count(AGENT_STATUS) FROM TBL_TERMINAL_STATUS where AGENT_STATUS in('Red','RED','red') ",nativeQuery=true)
+	int findByAgentStatusRed(@Param("agentStatus") String agentStatus);
+
+@Query(value ="SELECT count(AGENT_STATUS) FROM TBL_TERMINAL_STATUS where AGENT_STATUS in('Green','GREEN','green') ",nativeQuery=true)
+	int findByAgentStatusGreen(@Param("agentStatus") String agentStatus);
+
+@Query(value ="SELECT count(AGENT_STATUS) FROM TBL_TERMINAL_STATUS where AGENT_STATUS in('Gray','GRAY','gray') ",nativeQuery=true)
+	int findByAgentStatusGrey(@Param("agentStatus") String agentStatus);
 	 
 	 
-	 @Query(value ="SELECT count(CARTRIDGE_STATUS) FROM TBL_TERMINAL_STATUS where CARTRIDGE_STATUS=:agentStatus",nativeQuery=true)
+	/* @Query(value ="SELECT count(CARTRIDGE_STATUS) FROM TBL_TERMINAL_STATUS where CARTRIDGE_STATUS=:agentStatus",nativeQuery=true)
 		int findByCartridgeStatusRed(@Param("agentStatus") String agentStatus);
 	 
 	 @Query(value ="SELECT count(CARTRIDGE_STATUS) FROM TBL_TERMINAL_STATUS where CARTRIDGE_STATUS=:agentStatus",nativeQuery=true)
 		int findByCartridgeStatusGreen(@Param("agentStatus") String agentStatus);
 	 
 	 @Query(value ="SELECT count(CARTRIDGE_STATUS) FROM TBL_TERMINAL_STATUS where CARTRIDGE_STATUS=:agentStatus",nativeQuery=true)
-		int findByCartridgeStatusGrey(@Param("agentStatus") String agentStatus);
+		int findByCartridgeStatusGrey(@Param("agentStatus") String agentStatus);*/
+
+
+@Query(value ="SELECT count(CARTRIDGE_STATUS) FROM TBL_TERMINAL_STATUS where CARTRIDGE_STATUS in('Red','RED','red') ",nativeQuery=true)
+int findByCartridgeStatusRed(@Param("agentStatus") String agentStatus);
+
+@Query(value ="SELECT count(CARTRIDGE_STATUS) FROM TBL_TERMINAL_STATUS where CARTRIDGE_STATUS in('Green','GREEN','green') ",nativeQuery=true)
+int findByCartridgeStatusGreen(@Param("agentStatus") String agentStatus);
+
+@Query(value ="SELECT count(CARTRIDGE_STATUS) FROM TBL_TERMINAL_STATUS where CARTRIDGE_STATUS in('Gray','GRAY','gray') ",nativeQuery=true)
+int findByCartridgeStatusGrey(@Param("agentStatus") String agentStatus);
 	 
 	 
 	 
-	 @Query(value ="SELECT count(PRINTER_STATUS) FROM TBL_TERMINAL_STATUS where PRINTER_STATUS=:agentStatus",nativeQuery=true)
+	/* @Query(value ="SELECT count(PRINTER_STATUS) FROM TBL_TERMINAL_STATUS where PRINTER_STATUS=:agentStatus",nativeQuery=true)
 		int findByAntivirusStatusRed(@Param("agentStatus") String agentStatus);
 	 
 	 @Query(value ="SELECT count(PRINTER_STATUS) FROM TBL_TERMINAL_STATUS where PRINTER_STATUS=:agentStatus",nativeQuery=true)
 		int findByAntivirusStatusGreen(@Param("agentStatus") String agentStatus);
 	 
 	 @Query(value ="SELECT count(PRINTER_STATUS) FROM TBL_TERMINAL_STATUS where PRINTER_STATUS=:agentStatus",nativeQuery=true)
+		int findByAntivirusStatusGrey(@Param("agentStatus") String agentStatus);*/
+	 
+
+	 @Query(value ="SELECT count(PRINTER_STATUS) FROM TBL_TERMINAL_STATUS where PRINTER_STATUS in('Red','RED','red') ",nativeQuery=true)
+		int findByAntivirusStatusRed(@Param("agentStatus") String agentStatus);
+	 
+	 @Query(value ="SELECT count(PRINTER_STATUS) FROM TBL_TERMINAL_STATUS where PRINTER_STATUS in('Red','RED','red') ",nativeQuery=true)
+		int findByAntivirusStatusGreen(@Param("agentStatus") String agentStatus);
+	 
+	 @Query(value ="SELECT count(PRINTER_STATUS) FROM TBL_TERMINAL_STATUS where PRINTER_STATUS in('Red','RED','red')",nativeQuery=true)
 		int findByAntivirusStatusGrey(@Param("agentStatus") String agentStatus);
 	 
 	 
 	 
-	 @Query(value ="SELECT count(APPLICATION_STATUS) FROM TBL_TERMINAL_STATUS where APPLICATION_STATUS=:agentStatus",nativeQuery=true)
+	/* @Query(value ="SELECT count(APPLICATION_STATUS) FROM TBL_TERMINAL_STATUS where APPLICATION_STATUS=:agentStatus",nativeQuery=true)
 		int findByApplicatinStatusRed(@Param("agentStatus") String agentStatus);
 	 
 	 @Query(value ="SELECT count(APPLICATION_STATUS) FROM TBL_TERMINAL_STATUS where APPLICATION_STATUS=:agentStatus",nativeQuery=true)
@@ -83,15 +118,94 @@ List<BranchMaster> findAllByBranchCode(@Param("brachCode") String brachCode);
 	 
 	 @Query(value ="SELECT count(APPLICATION_STATUS) FROM TBL_TERMINAL_STATUS where APPLICATION_STATUS=:agentStatus",nativeQuery=true)
 		int findByApplicatinStatusGrey(@Param("agentStatus") String agentStatus);
+*/	 
+	 
+	 @Query(value ="SELECT count(APPLICATION_STATUS) FROM TBL_TERMINAL_STATUS where APPLICATION_STATUS in('Red','RED','red') ",nativeQuery=true)
+		int findByApplicatinStatusRed(@Param("agentStatus") String agentStatus);
+	 
+	 @Query(value ="SELECT count(APPLICATION_STATUS) FROM TBL_TERMINAL_STATUS where APPLICATION_STATUS in('Green','GREEN','green') ",nativeQuery=true)
+		int findByApplicatinStatusGreen(@Param("agentStatus") String agentStatus);
+	 
+	 @Query(value ="SELECT count(APPLICATION_STATUS) FROM TBL_TERMINAL_STATUS where APPLICATION_STATUS in('Gray','GRAY','gray') ",nativeQuery=true)
+		int findByApplicatinStatusGray(@Param("agentStatus") String agentStatus);
 	 
 	 
-	 @Query(value ="SELECT count(PRINTER_STATUS) FROM TBL_TERMINAL_STATUS where PRINTER_STATUS=:agentStatus",nativeQuery=true)
+/*	 @Query(value ="SELECT count(PRINTER_STATUS) FROM TBL_TERMINAL_STATUS where PRINTER_STATUS=:agentStatus",nativeQuery=true)
 		int findByPrinterStatusRed(@Param("agentStatus") String agentStatus);
 	 
 	 @Query(value ="SELECT count(PRINTER_STATUS) FROM TBL_TERMINAL_STATUS where PRINTER_STATUS=:agentStatus",nativeQuery=true)
 		int findByPrinterStatusGreen(@Param("agentStatus") String agentStatus);
 	 
 	 @Query(value ="SELECT count(PRINTER_STATUS) FROM TBL_TERMINAL_STATUS where PRINTER_STATUS=:agentStatus",nativeQuery=true)
+		int findByPrinterStatusGrey(@Param("agentStatus") String agentStatus);*/
+	 
+	 @Query(value ="SELECT count(PRINTER_STATUS) FROM TBL_TERMINAL_STATUS where PRINTER_STATUS in('Red','RED','red') ",nativeQuery=true)
+		int findByPrinterStatusRed(@Param("agentStatus") String agentStatus);
+	 
+	 @Query(value ="SELECT count(PRINTER_STATUS) FROM TBL_TERMINAL_STATUS where PRINTER_STATUS in('Green','GREEN','green') ",nativeQuery=true)
+		int findByPrinterStatusGreen(@Param("agentStatus") String agentStatus);
+	 
+	 @Query(value ="SELECT count(PRINTER_STATUS) FROM TBL_TERMINAL_STATUS where PRINTER_STATUS in('Gray','GRAY','gray') ",nativeQuery=true)
 		int findByPrinterStatusGrey(@Param("agentStatus") String agentStatus);
+	 
+	 
+	 
+	 
+
+	 //
+	 
+	 @Query(value ="SELECT * FROM TBL_TERMINAL_STATUS where PRINTER_STATUS in('Red','RED','red') ",nativeQuery=true)
+	 Page<TerminalStatus> findByPrinterStatusRedList(Pageable pageable);
+	 
+	 @Query(value ="SELECT * FROM TBL_TERMINAL_STATUS where PRINTER_STATUS in('Green','GREEN','green') ",nativeQuery=true)
+	 Page<TerminalStatus> findByPrinterStatusGreenList(Pageable pageable);
+	 
+	 @Query(value ="SELECT * FROM TBL_TERMINAL_STATUS where PRINTER_STATUS in('Gray','GRAY','gray') ",nativeQuery=true)
+	 Page<TerminalStatus> findByPrinterStatusGrayList(Pageable pageable);
+	 
+	 
+
+@Query(value ="SELECT * FROM TBL_TERMINAL_STATUS where CARTRIDGE_STATUS in('Red','RED','red') ",nativeQuery=true)
+Page<TerminalStatus> findByCartridgeStatusRedList(Pageable pageable);
+
+@Query(value ="SELECT * FROM TBL_TERMINAL_STATUS where CARTRIDGE_STATUS in('Green','GREEN','green') ",nativeQuery=true)
+Page<TerminalStatus> findByCartridgeStatusGreenList(Pageable pageable);
+
+@Query(value ="SELECT * FROM TBL_TERMINAL_STATUS where CARTRIDGE_STATUS in('Gray','GRAY','gray') ",nativeQuery=true)
+Page<TerminalStatus> findByCartridgeStatusGrayList(Pageable pageable);
+
+	 
+	 
+	 @Query(value ="SELECT * FROM TBL_TERMINAL_STATUS where AGENT_STATUS in('Red','RED','red') ",nativeQuery=true)
+	 Page<TerminalStatus> findByAgentStatusRedList(Pageable pageable);
+	 
+
+	 //
+	 
+	 @Query(value ="SELECT * FROM TBL_TERMINAL_STATUS where AGENT_STATUS in('Green','GREEN','green') ",nativeQuery=true)
+	 Page<TerminalStatus> findByAgentStatusGreenList(Pageable pageable);
+
+	 //
+	 
+	 @Query(value ="SELECT * FROM TBL_TERMINAL_STATUS where AGENT_STATUS in('Gray','GRAY','gray') ",nativeQuery=true)
+	 Page<TerminalStatus> findByAgentStatusGrayList(Pageable pageable);
+	 
+	 
+	 
+	 
+	 
+	 @Query(value ="SELECT * FROM TBL_TERMINAL_STATUS where APPLICATION_STATUS in('Red','RED','red') ",nativeQuery=true)
+	 Page<TerminalStatus> findByApplicatinStatusRedList(Pageable pageable);
+	 
+	 @Query(value ="SELECT * FROM TBL_TERMINAL_STATUS where APPLICATION_STATUS in('Green','GREEN','green') ",nativeQuery=true)
+	 Page<TerminalStatus> findByApplicatinStatusGreenList(Pageable pageable);
+	 
+	 @Query(value ="SELECT * FROM TBL_TERMINAL_STATUS where APPLICATION_STATUS in('Gray','GRAY','gray')",nativeQuery=true)
+	 Page<TerminalStatus> findByApplicatinStatusGrayList(Pageable pageable);
+
+	 
+	 
+	 
+	 
 	
 }

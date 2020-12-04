@@ -117,7 +117,7 @@ $("#myBtn").click(function(){
  <table>
    <h1 colspan="4" align="center" style="color: #00BFFF;font-size: 18px;font-weight: bold;"> Real-time Swayam Transaction on
     <span  id="mySpan1"> {{allIndiaDate}} </span>
-     <span  id="mySpan">  {{CurrentDate | date:'EEE,dd MMM, yyyy hh:mm:ss a'}}</span>
+     <span  id="mySpan">  {{CurrentDate | date:'EEE,dd MMM, yyyy '}}</span>
    </h1> 
     </table>
 

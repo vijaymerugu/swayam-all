@@ -122,21 +122,21 @@
 						<td id="count2">No Of Red</td>
 						<td id="count2">No Of Green</td>
 						<td id="count2"
-							style="color: black; border-right: solid 1px #0307fc;">No Of Grey</td>
+							style="color: black; border-right: solid 1px #0307fc;">No Of Gray</td>
 
 						<td id="count2">No Of Red</td>
 						<td id="count2" style="color: black;">No Of Green</td>
 						<td id="count2"
-							style="color: black; border-right: solid 1px #0307fc;">No Of Grey</td>
+							style="color: black; border-right: solid 1px #0307fc;">No Of Gray</td>
 
 						<td id="count2">No Of Red</td>
 						<td id="count2" style="color: black;">No Of Green</td>
 						<td id="count2"
-							style="color: black; border-right: solid 1px #0307fc;">No Of Grey</td>
+							style="color: black; border-right: solid 1px #0307fc;">No Of Gray</td>
 
 						<td id="count2" class="vi" style="color: black;">No Of Red</td>
 						<td id="count2" style="color: black;">No Of Green</td>
-						<td id="count2" style="color: black;">No Of Grey</td>
+						<td id="count2" style="color: black;">No Of Gray</td>
 
 					</tr>
 				</tbody>
