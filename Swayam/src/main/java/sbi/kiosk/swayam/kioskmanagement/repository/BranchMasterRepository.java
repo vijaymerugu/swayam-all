@@ -13,4 +13,7 @@ public interface BranchMasterRepository extends CrudRepository<BranchMaster, Int
 
 @Query(value="select CRCL_NAME from TBL_BRANCH_MASTER  where  BRANCH_CODE=:branchCode",nativeQuery=true)
 String findCircleByBranchCode(@Param("branchCode") String branchCode);
+
+@Query(value="select BRANCH_CODE from TBL_BRANCH_MASTER  where  BRANCH_CODE=:branchCode",nativeQuery=true)
+String findDuplicateByBranchCode(@Param("branchCode") String branchCode);
 }

@@ -21,4 +21,7 @@ public interface UserKioskMappingRepository extends CrudRepository<UserKioskMapp
 	
 	@Query(value="SELECT COUNT(*) FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID =:pfId",nativeQuery=true)
 	int findKiosksCountByPfId(@Param("pfId") String pfId);
+	
+	@Query(value="SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE KIOSK_ID =:kioskId",nativeQuery=true)
+    String findByKioskid(@Param("kioskId") String kioskId);
 }
