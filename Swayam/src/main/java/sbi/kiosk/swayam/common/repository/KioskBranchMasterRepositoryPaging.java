@@ -1,10 +1,12 @@
 package sbi.kiosk.swayam.common.repository;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
+import sbi.kiosk.swayam.common.dto.KioskBranchMasterUserDto;
 import sbi.kiosk.swayam.common.entity.KioskBranchMaster;
 
 public interface KioskBranchMasterRepositoryPaging extends PagingAndSortingRepository<KioskBranchMaster, Integer> {
@@ -19,5 +21,7 @@ public interface KioskBranchMasterRepositoryPaging extends PagingAndSortingRepos
 
 	
 	public Page<KioskBranchMaster> findAllByCircle(@Param("circle") String circle, Pageable pageable);
+
 	
+	public Page<KioskBranchMaster> findAllBykioskId( Pageable pageable);
 }

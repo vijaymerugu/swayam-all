@@ -140,6 +140,15 @@
 			     			$("#para").html("Wrong File or Data Sequence for upload. Choose correct file for upload"); 
 				     		 modal.style.display = "block"; 
 				     	}
+			     		else if(data =='Header missing in file'){
+			     			$("#para").html("Header missing in file. Choose correct file for upload"); 
+				     		 modal.style.display = "block"; 
+				     	}
+				     	else if(data =='Holiday Date is Already Exist'){
+			     			$("#para").html("Duplicate record for upload. Choose correct file for upload"); 
+			     			 modal.style.display = "block"; 
+					     		window.open("resources/download/Holiday_Calendar.xlsx" , '_blank');    
+				     	}
 			     		else{
 			     			$("#para").html("Holiday Calendar Data Uploaded Successfully"); 
 				     		 modal.style.display = "block"; 
@@ -210,6 +219,15 @@
 		     			$("#para").html("Wrong File or Data Sequence for upload. Choose correct file for upload"); 
 			     		 modal.style.display = "block"; 
 			     	}
+		     		else if(data =='Header missing in file'){
+		     			$("#para").html("Header missing in file. Choose correct file for upload"); 
+			     		 modal.style.display = "block"; 
+			     	}
+		     		else if(data =='Kiosk Id is Already Exist'){
+		     			$("#para").html("Duplicate record for upload. Choose correct file for upload"); 
+		     			 modal.style.display = "block"; 
+				     		window.open("resources/download/Kiosk_CMF.xlsx" , '_blank');    
+			     	}
 		     		else{
 		     			$("#para").html("Kiosk CMF Data Uploaded Successfully"); 
 		     			
@@ -257,7 +275,7 @@
 	            },
 	
 	            success: function(data){
-	            	resp= data;  
+	            	resp= data;  debugger;
 	            	// alert(resp) ;    	 	        	
 		        	// $("#para").html(resp);	        	 
 		     		// alert(data1); 
@@ -281,6 +299,15 @@
 		     		else if(data =='Wrong File or Data Sequence for upload'){
 		     			$("#para").html("Wrong File or Data Sequence for upload. Choose correct file for upload"); 
 			     		 modal.style.display = "block"; 
+			     	}
+		     		else if(data =='Header missing in file'){
+		     			$("#para").html("Header missing in file. Choose correct file for upload"); 
+			     		 modal.style.display = "block"; 
+			     	}
+		     		else if(data =='Kiosk Id is Already Exist'){
+		     			$("#para").html("Duplicate record for upload. Choose correct file for upload"); 
+		     			 modal.style.display = "block"; 
+				     		window.open("resources/download/Kiosk_Branch_Master.xlsx" , '_blank');    
 			     	}
 		     		else{
 		     			$("#para").html("Kiosk Details Data Uploaded Successfully"); 
@@ -354,6 +381,15 @@
 		     		else if(data =='Wrong File or Data Sequence for upload'){
 		     			$("#para").html("Wrong File or Data Sequence for upload. Choose correct file for upload"); 
 			     		 modal.style.display = "block"; 
+			     	}
+		     		else if(data =='Header missing in file'){
+		     			$("#para").html("Header missing in file. Choose correct file for upload"); 
+			     		 modal.style.display = "block"; 
+			     	}
+		     		else if(data =='Branch code is Already Exist'){
+		     			$("#para").html("Duplicate record for upload. Choose correct file for upload"); 
+		     			 modal.style.display = "block"; 
+				     		window.open("resources/download/BranchMaster.xlsx" , '_blank');    
 			     	}
 		     		else{
 		     			$("#para").html("Branch Master Data Uploaded Successfully"); 
@@ -429,6 +465,15 @@
 			     			$("#para").html("Wrong File or Data Sequence for upload. Choose correct file for upload"); 
 				     		 modal.style.display = "block"; 
 				     		
+				     	}
+			     		else if(data =='Header missing in file'){
+			     			$("#para").html("Header missing in file. Choose correct file for upload"); 
+				     		 modal.style.display = "block"; 
+				     	}
+			     		else if(data == 'Invoice No is Already Exist'){
+			     			$("#para").html("Duplicate record for upload. Choose correct file for upload"); 
+			     			 modal.style.display = "block"; 
+					     		window.open("resources/download/Vendor_Invoice.xlsx" , '_blank');    
 				     	}
 			     		else{
 			     			$("#para").html("Vendor Invoice Data Uploaded Successfully"); 

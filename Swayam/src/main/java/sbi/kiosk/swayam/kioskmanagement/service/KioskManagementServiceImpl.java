@@ -198,7 +198,7 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 	 //Page<UserManagementDto> pageDto = new PageImpl<UserManagementDto>(userList, PageRequest.of(page, size), userList.getSize());
 	 	return entities;
     }
-//	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	@Override
     public Page<KioskBranchMasterUserDto> findAssingedPaginated(int page, int size,String type) {	 	 
 	 
@@ -230,17 +230,10 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 			 
 	 }
 	
-
 	
 	 Page<KioskBranchMasterUserDto> pageDto = new PageImpl<KioskBranchMasterUserDto>(entities1, PageRequest.of(page, size), entities1.size());
 
-		/*
-		 * List<KioskBranchMasterUserDto> appList = entities.getContent(); //logic to
-		 * remove the elements as per your condition modifiedAppList //create a new Page
-		 * with the modified list and size Page<KioskBranchMasterUserDto>
-		 * newApplicationsPage = new PageImpl<>(entities1, PageRequest.of(page,size);
-		 */
-		
+	
 	
 	 	//return entities;
 	 	return pageDto;
