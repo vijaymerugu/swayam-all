@@ -25,7 +25,7 @@ parameters={
 }
 )
 public class DrillDown {
-	@Id
+	/*@Id
 	@Column(name="NAME")
 	private String name;
 	@Column(name="CODE")
@@ -52,7 +52,37 @@ public class DrillDown {
 	private Integer totalBranchCounterTxns;
 	@Column(name="mig_prcnt")
 	private Double migrationPercentage;
+	*/
 	
+	
+	@Id
+	@Column(name="NAME")
+	private String name;
+	@Column(name="CODE")
+	private String code;
+	@Column(name="BRANCH_CODE_COUNT")
+	private String branchCodeCount;
+	@Column(name="TOTAL_SWAYAM_KIOSKS")
+	private Integer totalSwayamKiosks;
+	@Column(name="LIPI_KIOSK_CNT")
+	private Integer lipiKiosks;
+	@Column(name="LIPI_TXN_CNT")
+	private Integer lipiTxns;
+	@Column(name="FORBES_KIOSK_CNT")
+	private Integer forbesKiosks;
+	@Column(name="FORBES_TXN_CNT")
+	private Integer forbesTxns;
+	@Column(name="CMS_KIOSK_CNT")
+	     private Integer cmsKiosks;
+	@Column(name="CMS_TXN_CNT")
+	private Integer cmsTxns;
+	@Column(name="TOTAL_SWAYAM_TXNS")
+	private Integer totalSwayamTxns;
+	//@Column(name="BRANCH_TXNS")
+	@Column(name="MANUAL_TXNS")
+	private Integer totalBranchCounterTxns;
+	@Column(name="mig_prcnt")
+	private Double migrationPercentage;
 	
 	
 }

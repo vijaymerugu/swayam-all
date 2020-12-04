@@ -13,11 +13,11 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
     $scope.showTomorrow = false;
     $scope.date = new Date();   
     $scope.tomorrow = new Date();
-    $scope.CurrentDate=($scope.tomorrow.getDate() + 1); 
+    $scope.CurrentDate=($scope.tomorrow.getDate() - 1); 
   var tomorrow = new Date();
  // alert(tomorrow);
    console.log("date==="+tomorrow);
-   $scope.CurrentDate =tomorrow.setDate(tomorrow.getDate() + 1);
+   $scope.CurrentDate =tomorrow.setDate(tomorrow.getDate() - 1);
    $scope.getCountType = function(yesterday){
 	    yesterdayType=yesterday;
 	    //  Added for loader------------- START 

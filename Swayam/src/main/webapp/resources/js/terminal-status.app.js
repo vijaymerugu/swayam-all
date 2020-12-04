@@ -61,9 +61,15 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
          // { name: 'agentStatus', headerCellTemplate: '<div>Agent<br/>Status</div>',
          //cellTemplate: '<div ng-if="row.entity.antivirusStatus == \'Red\'"><span><img src="resources/img/red.gif"></span></div><div ng-if="row.entity.antivirusStatus == \'Green\'"><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.antivirusStatus == \'Grey\'"><span><img src="resources/img/gray.gif"></span></div>' },
           
-           { name: 'agentStatus', headerCellTemplate: '<div>Agent<br/>Status</div>',
+         /*  { name: 'agentStatus', headerCellTemplate: '<div>Agent<br/>Status</div>',
          cellTemplate: '<div ng-if="row.entity.agentStatus == \'Red\'"><span><img src="resources/img/red.gif"></span></div><div ng-if="row.entity.agentStatus == \'Green\'"><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.agentStatus == \'Grey\'"><span><img src="resources/img/gray.gif"></span></div>' },
-          
+        */  
+         
+         
+         { name: 'agentStatus', headerCellTemplate: '<div>Agent<br/>Status</div>',  cellTemplate: '<div ng-if="row.entity.agentStatus == \'Red\'">  	 <span><img src="resources/img/red.gif"></span></div>    	 <div ng-if="row.entity.agentStatus == \'Green\'" , "row.entity.agentStatus == \'GREEN\'" , "row.entity.agentStatus == \'green\'">   	 <span><img src="resources/img/green.gif"></span></div>      	 <div ng-if="row.entity.agentStatus == \'Grey\'">     	 <span><img src="resources/img/gray.gif"></span></div>'
+            	 },
+            
+         
           { name: 'aplicationStatus',   headerCellTemplate: '<div>Aplication<br/>Status</div>' ,
          cellTemplate: '<div ng-if="row.entity.aplicationStatus == \'Red\'"><span><img src="resources/img/red.gif"></span></div><div ng-if="row.entity.aplicationStatus == \'Green\'"><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.aplicationStatus == \'Grey\'"><span><img src="resources/img/gray.gif"></span></div>'
           },
