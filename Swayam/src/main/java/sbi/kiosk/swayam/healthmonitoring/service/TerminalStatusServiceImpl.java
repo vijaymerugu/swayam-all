@@ -333,39 +333,39 @@ public class TerminalStatusServiceImpl implements TerminalStatusService {
        if(type.equals("NoOfRedPVSRed")){
 		 //entities = terminalStatusRepositoryPaging.findByPbPrinterStatus(PageRequest.of(page, size),"Red");
 		 entities =terminalStatusRepo.findByPrinterStatusRedList(PageRequest.of(page,size)).map(TerminalStatusDto::new);
-	//	logger.info("entities::::::::::"+entities.getContent());
+		logger.info("entities::::::::::"+entities.getContent());
 		
 		terminalEntities=getAllTerminalStatusOfDto(entities);
 		
        }else  if(type.equals("NoOfGreenPVSGreen")){
    		 //entities = terminalStatusRepositoryPaging.findByPbPrinterStatus(PageRequest.of(page, size),"Green");
    		entities =terminalStatusRepo.findByPrinterStatusGreenList(PageRequest.of(page,size)).map(TerminalStatusDto::new);
-   	//	logger.info("entities::::::::::"+entities.getContent());
+   		logger.info("entities::::::::::"+entities.getContent());
    		
    		terminalEntities=getAllTerminalStatusOfDto(entities);
    		
           } else if(type.equals("NoOfGreyPVSGrey")){
    		//entities = terminalStatusRepositoryPaging.findByPbPrinterStatus(PageRequest.of(page, size),"Grey");
    		entities =terminalStatusRepo.findByPrinterStatusGrayList(PageRequest.of(page,size)).map(TerminalStatusDto::new);
-   	//	logger.info("entities::::::::::"+entities.getContent());
+   		logger.info("entities::::::::::"+entities.getContent());
           
    		terminalEntities=getAllTerminalStatusOfDto(entities);
        } else if(type.equals("NoOfRedCARTRed")){
 		//entities = terminalStatusRepositoryPaging.findByCartridgeStatus(PageRequest.of(page, size),"Red");
 		entities =terminalStatusRepo.findByCartridgeStatusRedList(PageRequest.of(page,size)).map(TerminalStatusDto::new);
-	//	logger.info("entities::::::::::"+entities.getContent());
+	logger.info("entities::::::::::"+entities.getContent());
 		terminalEntities=getAllTerminalStatusOfDto(entities);
        }
     else if(type.equals("NoOfGreenCARTGreen")){
 		//entities = terminalStatusRepositoryPaging.findByCartridgeStatus(PageRequest.of(page, size),"Green");
 		entities =terminalStatusRepo.findByCartridgeStatusGreenList(PageRequest.of(page,size)).map(TerminalStatusDto::new);
-	//	logger.info("entities::::::::::"+entities.getContent());
+		logger.info("entities::::::::::"+entities.getContent());
 		terminalEntities=getAllTerminalStatusOfDto(entities);
        }
     else if(type.equals("NoOfGreyCARTGrey")){
 		//entities = terminalStatusRepositoryPaging.findByCartridgeStatus(PageRequest.of(page, size),"Grey");
 		entities =terminalStatusRepo.findByCartridgeStatusGrayList(PageRequest.of(page,size)).map(TerminalStatusDto::new);
-	//	logger.info("entities::::::::::"+entities.getContent());
+		logger.info("entities::::::::::"+entities.getContent());
 		terminalEntities=getAllTerminalStatusOfDto(entities);
        }
        
@@ -399,24 +399,24 @@ public class TerminalStatusServiceImpl implements TerminalStatusService {
     else if(type.equals("NoOfRedAPPSRed")){
 		//entities = terminalStatusRepositoryPaging.findByAplicationStatus(PageRequest.of(page, size),"Red");
 		entities =terminalStatusRepo.findByApplicatinStatusRedList(PageRequest.of(page,size)).map(TerminalStatusDto::new);
-	//	logger.info("entities::::::::::"+entities.getContent());
+		logger.info("entities::::::::::"+entities.getContent());
 		terminalEntities=getAllTerminalStatusOfDto(entities);
        }
     else if(type.equals("NoOfGreenAPPSGreen")){
 		//entities = terminalStatusRepositoryPaging.findByAplicationStatus(PageRequest.of(page, size),"Green");
 		entities =terminalStatusRepo.findByApplicatinStatusGreenList(PageRequest.of(page,size)).map(TerminalStatusDto::new);
-	//	logger.info("entities::::::::::"+entities.getContent());
+		logger.info("entities::::::::::"+entities.getContent());
 		terminalEntities=getAllTerminalStatusOfDto(entities);
        }
     else if(type.equals("NoOfGreyAPPSGrey")){
 		//entities = terminalStatusRepositoryPaging.findByAplicationStatus(PageRequest.of(page, size),"Grey");
 		entities =terminalStatusRepo.findByApplicatinStatusGrayList(PageRequest.of(page,size)).map(TerminalStatusDto::new);
-	//	logger.info("entities::::::::::"+entities.getContent());
+		logger.info("entities::::::::::"+entities.getContent());
 		terminalEntities=getAllTerminalStatusOfDto(entities);
        }
        else{
     	   		entities = terminalStatusRepositoryPaging.findByAplicationStatus(PageRequest.of(page, size),type);
-    	   //		logger.info("entities::::::::::"+entities.getContent());
+    	  		logger.info("entities::::::::::"+entities.getContent());
     	   		terminalEntities=getAllTerminalStatusOfDto(entities);
        }
        

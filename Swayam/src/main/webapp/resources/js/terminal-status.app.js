@@ -55,23 +55,19 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
            { name: 'rmmsConnectivity',headerCellTemplate: '<div>Ticket<br/>No</div>'}, //rmmsConnectivity map with Ticket No
           
           { name: 'pbPrinterStatus',headerCellTemplate: '<div>Printer<br/>Status</div>' ,
-         cellTemplate: '<div ng-if="row.entity.pbPrinterStatus == \'Red\'"><span><img src="resources/img/red.gif"></span></div><div ng-if="row.entity.pbPrinterStatus == \'Green\'"><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.pbPrinterStatus == \'Grey\'"><span><img src="resources/img/gray.gif"></span></div>'},
+         cellTemplate: '<div ng-if="row.entity.pbPrinterStatus == \'Red\'"><span><img src="resources/img/red.gif"></span></div>  <div ng-if="row.entity.pbPrinterStatus == \'red\'"><span><img src="resources/img/red.gif"></span></div> <div ng-if="row.entity.pbPrinterStatus == \'RED\'"><span><img src="resources/img/red.gif"></span></div>  	 <div ng-if="row.entity.pbPrinterStatus == \'Green\'"><span><img src="resources/img/green.gif"></span></div>     	 <div ng-if="row.entity.pbPrinterStatus == \'green\'"><span><img src="resources/img/green.gif"></span></div>    	 <div ng-if="row.entity.pbPrinterStatus == \'GREEN\'"><span><img src="resources/img/green.gif"></span></div>   	 <div ng-if="row.entity.pbPrinterStatus == \'Grey\'"><span><img src="resources/img/gray.gif"></span></div>      	 <div ng-if="row.entity.pbPrinterStatus == \'grey\'"><span><img src="resources/img/gray.gif"></span></div>    	 <div ng-if="row.entity.pbPrinterStatus == \'GREY\'"><span><img src="resources/img/gray.gif"></span></div> '},
           { name: 'cartridgeStatus',headerCellTemplate: '<div>Cartridge<br/>Status</div>',
-         cellTemplate: '<div ng-if="row.entity.cartridgeStatus == \'Red\'"><span><img src="resources/img/red.gif"></span></div><div ng-if="row.entity.cartridgeStatus == \'Green\'"><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.cartridgeStatus == \'Grey\'"><span><img src="resources/img/gray.gif"></span></div>'},
+         cellTemplate: '<div ng-if="row.entity.cartridgeStatus == \'Red\'"><span><img src="resources/img/red.gif"></span></div> <div ng-if="row.entity.cartridgeStatus == \'red\'"><span><img src="resources/img/red.gif"></span></div> <div ng-if="row.entity.cartridgeStatus == \'RED\'"><span><img src="resources/img/red.gif"></span></div>    	 <div ng-if="row.entity.cartridgeStatus == \'Green\'"><span><img src="resources/img/green.gif"></span></div>   	 <div ng-if="row.entity.cartridgeStatus == \'green\'"><span><img src="resources/img/green.gif"></span></div>  	 <div ng-if="row.entity.cartridgeStatus == \'GREEN\'"><span><img src="resources/img/green.gif"></span></div>    	 <div ng-if="row.entity.cartridgeStatus == \'Grey\'"><span><img src="resources/img/gray.gif"></span></div>    	 <div ng-if="row.entity.cartridgeStatus == \'grey\'"><span><img src="resources/img/gray.gif"></span></div>     	 <div ng-if="row.entity.cartridgeStatus == \'GREY\'"><span><img src="resources/img/gray.gif"></span></div> '},
          // { name: 'agentStatus', headerCellTemplate: '<div>Agent<br/>Status</div>',
          //cellTemplate: '<div ng-if="row.entity.antivirusStatus == \'Red\'"><span><img src="resources/img/red.gif"></span></div><div ng-if="row.entity.antivirusStatus == \'Green\'"><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.antivirusStatus == \'Grey\'"><span><img src="resources/img/gray.gif"></span></div>' },
           
          /*  { name: 'agentStatus', headerCellTemplate: '<div>Agent<br/>Status</div>',
          cellTemplate: '<div ng-if="row.entity.agentStatus == \'Red\'"><span><img src="resources/img/red.gif"></span></div><div ng-if="row.entity.agentStatus == \'Green\'"><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.agentStatus == \'Grey\'"><span><img src="resources/img/gray.gif"></span></div>' },
         */  
-         
-         
-         { name: 'agentStatus', headerCellTemplate: '<div>Agent<br/>Status</div>',  cellTemplate: '<div ng-if="row.entity.agentStatus == \'Red\'">  	 <span><img src="resources/img/red.gif"></span></div>    	 <div ng-if="row.entity.agentStatus == \'Green\'" , "row.entity.agentStatus == \'GREEN\'" , "row.entity.agentStatus == \'green\'">   	 <span><img src="resources/img/green.gif"></span></div>      	 <div ng-if="row.entity.agentStatus == \'Grey\'">     	 <span><img src="resources/img/gray.gif"></span></div>'
+        { name: 'agentStatus', headerCellTemplate: '<div>Agent<br/>Status</div>',  cellTemplate: '<div ng-if="row.entity.agentStatus == \'Red\'"> <span><img src="resources/img/red.gif"></span></div><div ng-if="row.entity.agentStatus == \'red\'"><span><img src="resources/img/red.gif"></span></div> <div ng-if="row.entity.agentStatus == \'RED\'"><span><img src="resources/img/red.gif"></span></div><div ng-if="row.entity.agentStatus == \'Green\' "><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.agentStatus == \'green\' "><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.agentStatus == \'GREEN\' "><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.agentStatus == \'Grey\'"><span><img src="resources/img/gray.gif"></span></div> <div ng-if="row.entity.agentStatus == \'grey\'"><span><img src="resources/img/gray.gif"></span></div> <div ng-if="row.entity.agentStatus == \'GREY\'"><span><img src="resources/img/gray.gif"></span></div>'
             	 },
-            
-         
-          { name: 'aplicationStatus',   headerCellTemplate: '<div>Aplication<br/>Status</div>' ,
-         cellTemplate: '<div ng-if="row.entity.aplicationStatus == \'Red\'"><span><img src="resources/img/red.gif"></span></div><div ng-if="row.entity.aplicationStatus == \'Green\'"><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.aplicationStatus == \'Grey\'"><span><img src="resources/img/gray.gif"></span></div>'
+         { name: 'aplicationStatus',   headerCellTemplate: '<div>Aplication<br/>Status</div>' ,
+         cellTemplate: '<div ng-if="row.entity.aplicationStatus == \'Red\'"><span><img src="resources/img/red.gif"></span></div> <div ng-if="row.entity.aplicationStatus == \'red\'"><span><img src="resources/img/red.gif"></span></div> <div ng-if="row.entity.aplicationStatus == \'RED\'"><span><img src="resources/img/red.gif"></span></div>  	 <div ng-if="row.entity.aplicationStatus == \'Green\'"><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.aplicationStatus == \'green\'"><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.aplicationStatus == \'GREEN\'"><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.aplicationStatus == \'Grey\'"><span><img src="resources/img/gray.gif"></span></div><div ng-if="row.entity.aplicationStatus == \'grey\'"><span><img src="resources/img/gray.gif"></span></div><div ng-if="row.entity.aplicationStatus == \'GREY\'"><span><img src="resources/img/gray.gif"></span></div>'
           },
           { name: 'lastPrntTxnDttm', width:130,headerCellTemplate:'<div>Last Print<br/>TxnDate</div>' ,type:'date',
           //cellFilter:'date:"dd-MM-yyyy hh:mm:ss a " ' //'date:\"dd-MM-yyyy hh:mm:ss a\"'
@@ -79,7 +75,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
                                            // width : '100',
                                           //  minWidth: '90',
                                             cellFilter : ' date:"dd-MM-yyyy hh:mm:ss a" '
-         
+                                            	// cellFilter : ' date:"dd-MM-yyyy" '
           },  
          // { name: 'lastPmDttm', width:150, displayName: 'Last PM TxnDate  ',type: 'date',cellFilter: '<div>date:dd-MM-yyyy<br/>hh:mm:ss a</div>' //'date:\"dd-MM-yyyy hh:mm:ss a\"'
              
@@ -91,7 +87,9 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
           
                                            // width : '100',
                                           //  minWidth: '90',
-                                            cellFilter : ' date:"dd-MM-yyyy hh:mm:ss a" '
+                                           cellFilter : ' date:"dd-MM-yyyy hh:mm:ss a" '
+           
+         //  cellFilter : ' date:"dd-MM-yyyy" '
          
           },
           
