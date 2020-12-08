@@ -9,6 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import sbi.kiosk.swayam.common.dto.KioskBranchMasterUserDto;
 import sbi.kiosk.swayam.common.entity.KioskBranchMaster;
 
 @Repository
@@ -95,6 +96,11 @@ public interface KioskMasterRepository extends CrudRepository<KioskBranchMaster,
 	
 	List<KioskBranchMaster> findAll();
 	
-	@Query(value ="select * from  TBL_KIOSK_MASTER km where exists (select 1 from  tbl_user_kiosk_mapping ukm where upper(km.kiosk_id)=upper(ukm.kiosk_id)) ",nativeQuery=true)
-	List<KioskBranchMaster> findAllKioskId();
+	
+	  @Query(value  ="select * from TBL_KIOSK_MASTER where kiosk_id not in (select kiosk_id from  tbl_user_kiosk_mapping)  "
+	  ,nativeQuery=true) List<KioskBranchMaster> findToBeAssignedKioskId();
+	  
+	  @Query(value  ="select * from  TBL_KIOSK_MASTER km where exists (select 1 from tbl_user_kiosk_mapping ukm where upper(km.kiosk_id)=upper(ukm.kiosk_id))  "
+			  ,nativeQuery=true) List<KioskBranchMaster> findAssignedKioskId();
+	 
 }

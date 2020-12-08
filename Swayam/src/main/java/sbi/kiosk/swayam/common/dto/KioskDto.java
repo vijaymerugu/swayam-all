@@ -2,7 +2,7 @@ package sbi.kiosk.swayam.common.dto;
 
 public class KioskDto {
 	
-	private String srNo; 
+//	private String srNo; 
 	private String kioskID;
 	private String vendor;
 	private String installationDate;
@@ -16,7 +16,7 @@ public class KioskDto {
 	private String circle;
 	private String branchName;	
 	private String oS;	
-	private String make;
+	//private String make;
 	private String installationStatus;
 	private String rfpID;
 	private String installationType;
@@ -33,12 +33,11 @@ public class KioskDto {
 	public void setInstallationType(String installationType) {
 		this.installationType = installationType;
 	}
-	public String getSrNo() {
-		return srNo;
-	}
-	public void setSrNo(String srNo) {
-		this.srNo = srNo;
-	}
+
+	/*
+	 * public String getSrNo() { return srNo; } public void setSrNo(String srNo) {
+	 * this.srNo = srNo; }
+	 */
 	public String getVendor() {
 		return vendor;
 	}
@@ -117,12 +116,11 @@ public class KioskDto {
 	public void setoS(String oS) {
 		this.oS = oS;
 	}
-	public String getMake() {
-		return make;
-	}
-	public void setMake(String make) {
-		this.make = make;
-	}
+
+	/*
+	 * public String getMake() { return make; } public void setMake(String make) {
+	 * this.make = make; }
+	 */
 	public String getInstallationStatus() {
 		return installationStatus;
 	}
