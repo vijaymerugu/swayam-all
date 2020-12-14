@@ -230,11 +230,11 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 	   
 	   
 	   $scope.gridOptions = {
-			    paginationPageSizes: [20, 30, 40],
+			   /* paginationPageSizes: [20, 30, 40],*/
 			    paginationPageSize: paginationOptions.pageSize,
 			    enableColumnMenus:false,
 				useExternalPagination: true,
-				
+			
 				    columnDefs: [		
 				     { name: 'circle', displayName: 'Circle'  },	
 				     { name: 'network', displayName: 'NW'  }, 

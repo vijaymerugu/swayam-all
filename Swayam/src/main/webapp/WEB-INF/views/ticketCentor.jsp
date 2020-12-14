@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="resources/css/body-page.css"/>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
 <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script>
-<link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/>
+<!-- <link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/> -->
  <script src="resources/js/angular.js"></script>
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
@@ -27,8 +27,8 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 
-<link rel="stylesheet"
-	href="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css">
+<!-- <link rel="stylesheet"
+	href="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css"> -->
 <script
 	src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -37,9 +37,31 @@
 <script src="resources/js/ticket-centor-app.js"></script>
 <link rel="stylesheet" href="resources/css/grid-style.css" />
 
+<style>
+	
+    .ui-grid-contents-wrapper {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+    		.ui-grid, .ui-grid-viewport {
+   			  height: auto !important; 
+			} 
+			.ui-grid-pager-panel {
+		     position: relative;
+			 } 
+	
+			.ui-grid-pager-row-count-picker {
+			display:none;
+			}
+ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
+    overflow-x: hidden !important;
+}
+			
+</style>
 </head>
 <body>
-	<div class="main"  ng-app="app" id="appId">
+	<div class="main_transaction"  ng-app="app" id="appId">
 	<div ng-controller="UserManagementCtrl1 as vm">
 	<div class="subTable">
 	   <div class="col-md-6">
@@ -133,9 +155,9 @@
 	
 	<br/>
 			
-				<div class="submain">
+				<div class="submain_transaction">
 
-					<div   style="border-bottom: 1px solid #eee;">
+				<!-- 	<div   style="border-bottom: 1px solid #eee;"> -->
 						
 						 
 						<input class="form-group has-search" ng-model="searchText" ng-change="refresh()"	placeholder=" Enter Vendor Name,Branch Code,Ticket Id,Kiosk ID.." id="input">  
@@ -145,11 +167,11 @@
 						&nbsp;&nbsp;&nbsp;
 						</span>	
 						<br />
-						<div style="top: 355px; left: 15px; width: 1336px; height: 519px; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1;"
+						<div 
 							                 ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test">
 					     </div>
 
-					</div>
+					<!-- </div> -->
 
 				</div>
 				

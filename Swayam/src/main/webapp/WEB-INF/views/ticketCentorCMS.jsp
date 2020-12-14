@@ -41,6 +41,30 @@
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
+    
+    <style>
+	
+    .ui-grid-contents-wrapper {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+    		.ui-grid, .ui-grid-viewport {
+   			  height: auto !important; 
+			} 
+			.ui-grid-pager-panel {
+		     position: relative;
+			 } 
+	
+			.ui-grid-pager-row-count-picker {
+			display:none;
+			}
+ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar.no-vertical-bar {
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+}
+			
+</style>
 </head>
 <body>
 
@@ -124,7 +148,7 @@
 
 
 
-	<div class="main" ng-app="app" id="appId" ng-controller="UserManagementCtrlSA">
+	<div class="main_transaction" ng-app="app" id="appId" ng-controller="UserManagementCtrlSA">
 
 		
 
@@ -316,12 +340,15 @@
 
 
 
+			<!-- <div
+				style="width: 1036px; height: 346px; position: absolute; top: 648px; bottom: 910px; left: 311px; right: 1036px; margin: auto; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1; border: 1px solid black #eee;padding:7px;"> -->
 			<div
-				style="width: 1036px; height: 346px; position: absolute; top: 648px; bottom: 910px; left: 311px; right: 1036px; margin: auto; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1; border: 1px solid black #eee;padding:7px;">
-
-				<div style="border-bottom: 1px solid #eee;">
+				 style="width: 81%;height: 346px;position: absolute;top: 120px;bottom: 910px;left: 311px;right: 1036px;/* margin: auto; */background: #FFFFFF 0% 0% no-repeat padding-box;box-shadow: 0px 3px 6px #8D8D8D29;opacity: 1;border: 1px solid black #eee;padding:7px;">
+ 				<!-- <div style="top: 100px;left: 611px; width: 100%;/* height: 519px; */ height: auto;  background: #FFFFFF 0% 0% no-repeat padding-box;  box-shadow: 0px 3px 6px #8D8D8D29;opacity: 1; padding: 7px;"> -->
+    
+				<!-- <div style="border-bottom: 1px solid #eee;"> -->
 					
-					<input class="form-group has-search" ng-model="searchText"	ng-change="refresh()" placeholder=" Enter Vendor Name,Branch Code,Ticket Id,Kiosk ID.."	id="input"> 
+					<input class="form-group has-search" ng-model="searchText"	ng-change="refresh()" placeholder=" Enter Vendor Name,Branch Code,Ticket Id,Kiosk ID.."	id="input" style="width:339px;"> 
 					<span style="float:right">
 					<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
 					<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>
@@ -329,13 +356,13 @@
 					</span>					
 					<br />
 
-					<div
-						style="top: 355px; left: 15px; width: 1336px; height: 519px; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1;"
-						ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test">
+					
+						<!-- style="top: 355px; left: 15px; width: 1336px; height: 519px; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1;" -->
+						<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test">
 						
 					 </div>
 
-				</div>
+			<!-- 	</div> -->
 
 			</div>
 

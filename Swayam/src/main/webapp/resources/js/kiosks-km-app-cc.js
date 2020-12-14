@@ -14,7 +14,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 			$("#contentHomeApp").load(str);
 		}						
 	}
-   $scope.getCountType = function(type){ 
+   $scope.getCountType = function(type){ debugger;
 
 	counttype=type;
 	   UserManagementService.getUsers(paginationOptions.pageNumber,
@@ -30,7 +30,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    {  	
 	   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
 	 	   UserManagementService.getUsers(paginationOptions.pageNumber,
-	 			   paginationOptions.pageSize,counttype).success(function(data){
+	 			   paginationOptions.pageSize,counttype).success(function(data){ debugger;
 	 		  $scope.gridOptions.data = data.content;
 	 	 	  $scope.gridOptions.totalItems = data.totalElements;
 	 	   });	   
@@ -49,7 +49,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	    };
 
    UserManagementService.getUsers(paginationOptions.pageNumber,
-		   paginationOptions.pageSize,counttype).success(function(data){
+		   paginationOptions.pageSize,counttype).success(function(data){ debugger;
 	  $scope.gridOptions.data = data.content;
  	  $scope.gridOptions.totalItems = data.totalElements;
    });
@@ -71,7 +71,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
     	  cellTemplate: '<div ng-if="row.entity.pfId != undefined">{{ row.entity.username }}</div><div ng-if="row.entity.pfId == undefined">Not Assigned</a></div>'
       }
     ],
-    onRegisterApi: function(gridApi) {
+    onRegisterApi: function(gridApi) { debugger;
         $scope.gridApi = gridApi;
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
           paginationOptions.pageNumber = newPage;
@@ -89,7 +89,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 
 app.service('UserManagementService',['$http', function ($http) {
 	
-	function getUsers(pageNumber,size,counttype) { 
+	function getUsers(pageNumber,size,counttype) { debugger;
 		
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({

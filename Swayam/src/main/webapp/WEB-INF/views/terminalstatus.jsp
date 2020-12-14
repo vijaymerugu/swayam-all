@@ -39,17 +39,66 @@
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
+    <style>
+	
+  .ui-grid-header-cell-label {
+		display:inline-block;
+		white-space:initial;
+		font-size: 15px;
+		}
+		
+		
+		.wrap-text .ui-grid-cell-contents {
+ 		 white-space:normal;
+		}
+
+		[ui-grid-row] {
+  		display: table-row;
+		}
+
+		.ui-grid-row, .ui-grid-cell {
+  		height: auto!important;
+		}
+
+			.ui-grid-cell {
+  			float: none;
+  			display: table-cell;
+			} 
+		
+		
+			.ui-grid-header-cell, .ui-grid-cell-contents {
+  			white-space: normal;
+  			padding: 2px;
+  			word-break: break-word;
+			}
+    		.ui-grid, .ui-grid-viewport {
+   			  height: auto !important; 
+			} 
+			.ui-grid-pager-panel {
+		     position: relative;
+			 } 
+	
+			.ui-grid-pager-row-count-picker {
+			display:none;
+			}
+			.ui-grid .ui-grid-render-container-body .ui-grid-viewport {
+    overflow-x: hidden !important;
+    /* overflow-y: auto !important; */
+}
+
+			
+</style>
 </head>
 <body>
 
-<div class="main" ng-app="app" id="appId">
+<div class="main_terminal" ng-app="app" id="appId">
 <div ng-controller="UserManagementCtrl as vm">
 
 <!--  -->
 <div>
 
 			  <table class="table1"
-				style="top: 152px; left: 15px; width: 1336px; height: 190px; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1;">
+				style="top: 152px; left: 15px; width: 100%; height: 190px; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1;">
 
 				<thead>
 						<tr
@@ -143,7 +192,7 @@
 			</table>
 		</div>
 <br/>
-	<div class="submain">
+	<div class="submain_terminal">
 	
 	<br/>
 	<input  ng-model="searchText" ng-change="refresh()" placeholder="Enter Kiosk Id,Agent Status etc.." style="font-size: 12px" size="150" height="80" id="input" class="form-group has-search">

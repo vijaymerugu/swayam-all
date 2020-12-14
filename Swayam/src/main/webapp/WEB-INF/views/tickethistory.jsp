@@ -138,13 +138,32 @@ $(document).ready(function(){
           {
            display:none;
           }
+             .ui-grid-contents-wrapper {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+    		.ui-grid, .ui-grid-viewport {
+   			  height: auto !important; 
+			} 
+			.ui-grid-pager-panel {
+		     position: relative;
+			 } 
+	
+			.ui-grid-pager-row-count-picker {
+			display:none;
+			}
+			.ui-grid .ui-grid-render-container-body .ui-grid-viewport {
+    overflow-x: auto !important;
+    /* overflow-y: auto !important; */
+}
     </style>
    
 
 </head>
 <body>
 
-<div class="main" ng-app="app" id="appId">
+<div class="main_transaction" ng-app="app" id="appId">
 <div ng-controller="UserManagementCtrl as vm">
  <div>
  <form name="myForm" id="myForm">
@@ -300,7 +319,7 @@ $(document).ready(function(){
 		</form>
 		</div> 
 <br/>
-		<div class="submain">
+		<div class="submain_transaction">
 	
 	
 	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter KioskId,BranchCode,Circle,Vendor etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">
