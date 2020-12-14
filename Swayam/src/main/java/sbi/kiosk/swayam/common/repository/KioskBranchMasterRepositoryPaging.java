@@ -23,5 +23,5 @@ public interface KioskBranchMasterRepositoryPaging extends PagingAndSortingRepos
 	public Page<KioskBranchMaster> findAllByCircle(@Param("circle") String circle, Pageable pageable);
 
 	
-	public Page<KioskBranchMaster> findAllBykioskId( Pageable pageable);
+	public Page<KioskBranchMaster> findAllByKioskId( @Param("kioskId") String kioskId,Pageable pageable);
 }

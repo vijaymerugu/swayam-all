@@ -136,9 +136,10 @@
 			     			$("#para").html("Blank File(Fill only Column name) for upload. Choose correct file for upload"); 
 				     		 modal.style.display = "block"; 
 				     	}
-			     		else if(data =='Wrong File or Data Sequence for upload'){
-			     			$("#para").html("Wrong File or Data Sequence or Header is missing for upload. Choose correct file for upload"); 
+			     		else if(data =='Wrong File or Data Sequence or header is missing for upload'){
+			     			$("#para").html("Wrong File or Data Sequence or header is missing for upload. Choose correct file for upload"); 
 				     		 modal.style.display = "block"; 
+				     		
 				     	}
 			     		else if(data =='Header missing in file'){
 			     			$("#para").html("Header missing in file. Choose correct file for upload"); 
@@ -215,9 +216,10 @@
 		     			$("#para").html("Blank File(Fill only Column name) for upload. Choose correct file for upload"); 
 			     		 modal.style.display = "block"; 
 			     	}
-		     		else if(data =='Wrong File or Data Sequence for upload'){
-		     			$("#para").html("Wrong File or Data Sequence for upload. Choose correct file for upload"); 
+		     		else if(data =='Wrong File or Data Sequence or header is missing for upload'){
+		     			$("#para").html("Wrong File or Data Sequence or header is missing for upload. Choose correct file for upload"); 
 			     		 modal.style.display = "block"; 
+			     		
 			     	}
 		     		else if(data =='Header missing in file'){
 		     			$("#para").html("Header missing in file. Choose correct file for upload"); 
@@ -296,9 +298,10 @@
 		     			$("#para").html("Blank File(Fill only Column name) for upload. Choose correct file for upload"); 
 			     		 modal.style.display = "block"; 
 			     	}
-		     		else if(data =='Wrong File or Data Sequence for upload'){
-		     			$("#para").html("Wrong File or Data Sequence for upload. Choose correct file for upload"); 
+		     		else if(data =='Wrong File or Data Sequence or header is missing for upload'){
+		     			$("#para").html("Wrong File or Data Sequence or header is missing for upload. Choose correct file for upload"); 
 			     		 modal.style.display = "block"; 
+			     		
 			     	}
 		     		else if(data =='Header missing in file'){
 		     			$("#para").html("Header missing in file. Choose correct file for upload"); 
@@ -378,9 +381,10 @@
 			     		 modal.style.display = "block"; 
 			     	}
 		     	
-		     		else if(data =='Wrong File or Data Sequence for upload'){
-		     			$("#para").html("Wrong File or Data Sequence for upload. Choose correct file for upload"); 
+		     		else if(data =='Wrong File or Data Sequence or header is missing for upload'){
+		     			$("#para").html("Wrong File or Data Sequence or header is missing for upload. Choose correct file for upload"); 
 			     		 modal.style.display = "block"; 
+			     		
 			     	}
 		     		else if(data =='Header missing in file'){
 		     			$("#para").html("Header missing in file. Choose correct file for upload"); 
@@ -461,8 +465,8 @@
 				     		
 				     	}
 			     	
-			     		else if(data =='Wrong File or Data Sequence for upload'){
-			     			$("#para").html("Wrong File or Data Sequence for upload. Choose correct file for upload"); 
+			     		else if(data =='Wrong File or Data Sequence or header is missing for upload'){
+			     			$("#para").html("Wrong File or Data Sequence or header is missing for upload. Choose correct file for upload"); 
 				     		 modal.style.display = "block"; 
 				     		
 				     	}

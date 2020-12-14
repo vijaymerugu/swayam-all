@@ -21,15 +21,32 @@
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
+    <style>
+    	 	.ui-grid, .ui-grid-viewport {
+   			  height: auto !important; 
+			} 
+			.ui-grid-pager-panel {	
+		     position: relative;
+			 } 
+	
+			.ui-grid-pager-row-count-picker {
+			display:none;
+			}
 
+ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
+    overflow: hidden;
+}
+</style>
 </head>
 <body>
-<div class="main" ng-app="app" id="appId">
+<div class="main_request" ng-app="app" id="appId">
 <div ng-controller="UserManagementCtrl as vm">
 
 
-<div style="text-align: right;float: right;"><a class="openFinalPopup"><img src="resources/img/plus.png">&nbsp;Add Request</a></div>
-		<div class="submain">
+<!-- <div style="text-align: right;float: right;"> -->
+<div style="text-align: right;position: relative;float: right;right: 150px;">
+<a class="openFinalPopup"><img src="resources/img/plus.png">&nbsp;Add Request</a></div>
+		<div class="submain_request">
 	<!-- <a href="/hm/requestFormCmf"><img src="/resources/img/plus.png">  Add Request</a> -->
 	
 	

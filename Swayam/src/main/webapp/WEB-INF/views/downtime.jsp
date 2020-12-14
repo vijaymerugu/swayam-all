@@ -19,56 +19,6 @@ $("searchPositions").on('click',function() {
 
 </script>
 
-
-<!-- <meta http-equiv="x-ua-compatible" content="IE=edge">
-
-<script	src="resources/js/angular.1.5.6.min.js"></script>
-<script src="resources/js/jquery.3.4.1.min.js"></script>
-<script src="resources/js/bootstrap.3.4.1.min.js"></script>
-<link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
-<script	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
-<script src="resources/js/down-time-app.js"></script>
-<script	src="resources/js/angular.1.5.6.min.js"></script>
-<link rel="stylesheet" href="resources/css/grid-style.css"/>
-<link rel="stylesheet" href="resources/css/body-page.css"/>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
-<script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script> 
-<link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="resources/css/style.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="resources/js/angular.js"></script>
-    <script src="resources/js/angular-touch.js"></script>
-    <script src="resources/js/angular-animate.js"></script>
-    <script src="resources/js/angular-aria.js"></script> -->
-    <!-- new -->
-    
-    
-    
-<!-- <meta http-equiv="x-ua-compatible" content="IE=edge">
-<link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
-<script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment-with-locales.min.js"></script>
-<script	src="resources/js/angular.1.5.6.min.js"></script>
-<script src="resources/js/down-time-app.js"></script>
-<script	src="resources/js/angular.1.5.6.min.js"></script>
-<link rel="stylesheet" href="resources/css/grid-style.css"/>
-<link rel="stylesheet" href="resources/css/body-page.css"/>
-<link rel="stylesheet" href="resources/css/style.css">
-
-<script src="resources/js/angular.js"></script>
-    <script src="resources/js/angular-touch.js"></script>
-    <script src="resources/js/angular-animate.js"></script>
-    <script src="resources/js/angular-aria.js"></script>
-     -->
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     <meta http-equiv="x-ua-compatible" content="IE=edge">
@@ -111,32 +61,6 @@ $("searchPositions").on('click',function() {
 </script>   
     
     
-<!--     <meta http-equiv="x-ua-compatible" content="IE=edge">
-
-<script	src="resources/js/angular.1.5.6.min.js"></script>
-<script src="resources/js/jquery.3.4.1.min.js"></script>
-<script src="resources/js/bootstrap.3.4.1.min.js"></script>
-<link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
-<script	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
-<script src="resources/js/down-time-app.js"></script>
-<script	src="resources/js/angular.1.5.6.min.js"></script>
-<link rel="stylesheet" href="resources/css/grid-style.css"/>
-<link rel="stylesheet" href="resources/css/body-page.css"/>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
-<script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script> 
-<link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="resources/css/style.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="resources/js/angular.js"></script>
-    <script src="resources/js/angular-touch.js"></script>
-    <script src="resources/js/angular-animate.js"></script>
-    <script src="resources/js/angular-aria.js"></script>
-    
-    <script src="static/jquery-1.9.1.min.js"></script>      
-<script src="static/jquery-migrate-1.1.1.min.js"></script>
-<script src="static/jquery.mobile-1.3.1.min.js"></script> -->
 
 
     <style>
@@ -200,11 +124,30 @@ input:invalid:required {
 input:valid {
   border: 2px solid black;
 }
+    .ui-grid-contents-wrapper {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+    		.ui-grid, .ui-grid-viewport { 
+   			  height: auto !important; 
+   			  overflow: hidden;
+			} 
+			.ui-grid-pager-panel {
+		     position: relative;
+			 } 
+	
+			.ui-grid-pager-row-count-picker {
+			display:none;
+			}
+ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
+    overflow: hidden;
+}
     </style>
     
 </head>
 <body>
-<div class="main" ng-app="app" id="appId">
+<div class="main_terminal" ng-app="app" id="appId">
 <div ng-controller="UserManagementCtrl as vm">
 <div> 
 <form>
@@ -303,7 +246,7 @@ input:valid {
 		</form>
 		</div> 
 <br/>
-		<div class="submain">
+		<div class="submain_terminal">
 	
 	
 	<input ng-model="searchText" ng-change="refresh()" placeholder="Circle,KioskId,Vendor,CMS,CMF etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">
@@ -313,7 +256,7 @@ input:valid {
 		&nbsp;&nbsp;&nbsp;
 		</span>		
 		<br/>
-		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test"></div>
+		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test"style="overflow: hidden;"></div>
 		
         
     </div>
