@@ -37,7 +37,9 @@
 ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
     overflow: hidden;
 }
-			
+.ui-grid-header-canvas {
+    padding-top: 0px;
+    padding-bottom: 0px;}			
 </style>
 </head>
 <body>

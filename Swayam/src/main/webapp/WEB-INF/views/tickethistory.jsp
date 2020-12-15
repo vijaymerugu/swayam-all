@@ -154,9 +154,12 @@ $(document).ready(function(){
 			display:none;
 			}
 			.ui-grid .ui-grid-render-container-body .ui-grid-viewport {
-    overflow-x: auto !important;
-    /* overflow-y: auto !important; */
-}
+			    overflow-x: auto !important;
+			    /* overflow-y: auto !important; */
+			}
+			.ui-grid-header-canvas {
+			    padding-top: 0px;
+			    padding-bottom: 0px;}
     </style>
    
 

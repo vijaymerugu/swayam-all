@@ -85,7 +85,9 @@
     overflow-x: hidden !important;
     /* overflow-y: auto !important; */
 }
-
+.ui-grid-header-canvas {
+    padding-top: 0px;
+    padding-bottom: 0px;}
 			
 </style>
 </head>

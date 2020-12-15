@@ -59,11 +59,13 @@
 			.ui-grid-pager-row-count-picker {
 			display:none;
 			}
-ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar.no-vertical-bar {
-    overflow-x: hidden !important;
-    overflow-y: hidden !important;
-}
-			
+			.ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar.no-vertical-bar {
+			    overflow-x: hidden !important;
+			    overflow-y: hidden !important;
+			}
+			.ui-grid-header-canvas {
+		    padding-top: 0px;
+		    padding-bottom: 0px;}
 </style>
 </head>
 <body>

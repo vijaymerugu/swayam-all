@@ -66,16 +66,16 @@ app.controller('UserManagementCtrl1', ['$scope','$filter','UserManagementService
 				
 			    columnDefs: [			      
 			      { name: 'vendor',width:120, displayName: 'Vendor'  },
-			      { name: 'ticketId',width:120, displayName: 'Ticket Id' },
-			      { name: 'kisokId', displayName: 'KioskId'  },
-			      { name: 'branchCode', displayName: 'Branch Code'  },
-			      { name: 'serveriry', displayName: 'Circle'  },
-			      { name: 'callCategory',headerCellTemplate: '<div>Call<br/>Category</div>'},
-			      { name: 'cms_cmf_assigned',headerCellTemplate: '<div>CMS/CMF<br/>Assigned</div>'  },
-			      { name: 'call_log_date',headerCellTemplate: '<div>Call Log<br/>Date</div>',type: 'date',cellFilter: 'date:"dd-MM-yyyy hh:mm:ss a"'   },
-			      { name: 'ageing',  displayName: 'Ageing Hours'},
-			      { name: 'statusOfComplaint',headerCellTemplate: '<div>Status of<br/>Complaint</div>'},
-			      { name: 'assigned_to_FE', headerCellTemplate: '<div>Assigned<br/>to FE</div>'}
+			      { name: 'ticketId',width:150, displayName: 'Ticket Id' },
+			      { name: 'kisokId',width:150, displayName: 'KioskId'  },
+			      { name: 'branchCode',width:120, displayName: 'Branch Code'  },
+			      { name: 'serveriry',width:120, displayName: 'Circle'  },
+			      { name: 'callCategory',width:250,headerCellTemplate: '<div>Call<br/>Category</div>'},
+			      { name: 'cms_cmf_assigned',width:120,headerCellTemplate: '<div>CMS/CMF<br/>Assigned</div>'  },
+			      { name: 'call_log_date',width:250,headerCellTemplate: '<div>Call Log<br/>Date</div>',type: 'date',cellFilter: 'date:"dd-MM-yyyy hh:mm:ss a"'   },
+			      { name: 'ageing',width:120,  displayName: 'Ageing Hours'},
+			      { name: 'statusOfComplaint',width:120,headerCellTemplate: '<div>Status of<br/>Complaint</div>'},
+			      { name: 'assigned_to_FE',width:220, headerCellTemplate: '<div>Assigned<br/>to FE</div>'}
 			    ],
 			    onRegisterApi: function(gridApi) {
 			        $scope.gridApi = gridApi;

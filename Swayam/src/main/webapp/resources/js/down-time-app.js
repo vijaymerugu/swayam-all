@@ -236,15 +236,15 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 				useExternalPagination: true,
 			
 				    columnDefs: [		
-				     { name: 'circle', displayName: 'Circle'  },	
-				     { name: 'network', displayName: 'NW'  }, 
-				     { name: 'module', displayName: 'Mod'  },  
-				     { name: 'branchCode', displayName: 'Branch Code '  },   
-				     { name: 'kioskId', displayName: 'Kiosk Id'  },   
-				     { name: 'vendor', displayName: 'Vendor'  },
-				     { name: 'cmsCmf',displayName: 'CMS/CMF'},
-				     { name: 'totalOperatingHours',headerCellTemplate: '<div>Total Oprating<br/>Hours</div>' },  
-				     { name: 'totalDowntime',headerCellTemplate: '<div>Total<br/>Downtime</div>' }, 	
+				     { name: 'circle',width:180, displayName: 'Circle'  },	
+				     { name: 'network',width:180, displayName: 'NW'  }, 
+				     { name: 'module',width:180, displayName: 'Mod'  },  
+				     { name: 'branchCode',width:180, displayName: 'Branch Code '  },   
+				     { name: 'kioskId',width:180, displayName: 'Kiosk Id'  },   
+				     { name: 'vendor',width:180, displayName: 'Vendor'  },
+				     { name: 'cmsCmf',width:180,displayName: 'CMS/CMF'},
+				     { name: 'totalOperatingHours',width:180,headerCellTemplate: '<div>Total Oprating Hours</div>' },  
+				     { name: 'totalDowntime',width:180,headerCellTemplate: '<div>Total Downtime</div>' }, 	
 				    ],
 			    onRegisterApi: function(gridApi) {
 			        $scope.gridApi = gridApi;
