@@ -124,11 +124,11 @@ input:invalid:required {
 input:valid {
   border: 2px solid black;
 }
-    .ui-grid-contents-wrapper {
+/*     .ui-grid-contents-wrapper {
     position: relative;
     height: 100%;
     width: 100%;
-}
+} */
     		.ui-grid, .ui-grid-viewport { 
    			  height: auto !important; 
    			  overflow: hidden;
@@ -143,6 +143,11 @@ input:valid {
 ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
     overflow: hidden;
 }
+
+    .ui-grid-header-cell {float: left;}
+    .ui-grid-header-canvas {
+    padding-top: 0px;
+    padding-bottom: 0px;}
     </style>
     
 </head>
