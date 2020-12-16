@@ -61,13 +61,13 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	useExternalPagination: true,
 	
     columnDefs: [
-      { name: 'kioskId', displayName: 'Kiosk Id'  },
-      { name: 'circle', displayName: 'Circle'  },
-      { name: 'branchCode', displayName: 'Branch Code'  },
-      { name: 'vendor', displayName: 'Vendor'  },
-      { name: 'installationStatus', displayName: 'Installation Status'  },      
+      { name: 'kioskId', 	width:350, displayName: 'Kiosk Id'  },
+      { name: 'circle', 	width:350, displayName: 'Circle'  },
+      { name: 'branchCode', 	width:250, displayName: 'Branch Code'  },
+      { name: 'vendor', 	width:250, displayName: 'Vendor'  },
+      { name: 'installationStatus', 	width:250, displayName: 'Installation Status'  },      
       { name: 'username',    	  
-    	  displayName: 'Assigned CMF', 	  
+    	  displayName: 'Assigned CMF', 	width:350,  
     	  cellTemplate: '<div ng-if="row.entity.pfId != undefined">{{ row.entity.username }}</div><div ng-if="row.entity.pfId == undefined"><a ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.kioskId)">Assign CMF</a></div>'
       }
     ],

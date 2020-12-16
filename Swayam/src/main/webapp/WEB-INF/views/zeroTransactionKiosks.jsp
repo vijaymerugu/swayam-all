@@ -86,6 +86,7 @@
   			white-space: normal;
   			padding: 2px;
   			word-break: break-word;
+  			float: inherit;
 			}
 			
 			.ui-grid, .ui-grid-viewport {
@@ -102,6 +103,13 @@
 			.ui-grid-pager-row-count-picker {
 			display:none;
 			}
+			.ui-grid-header-canvas {
+    padding-top: 0px;
+    padding-bottom: 0px;}
+    .ui-grid-header-cell {float: left;}
+    .ui-grid-render-container-body {
+    float: left;
+    width: 95%;}
 </style>	
 
 

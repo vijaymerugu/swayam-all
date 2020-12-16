@@ -133,14 +133,14 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
 	useExternalPagination: true,
 	
       columnDefs: [
-          { name: 'circleName', displayName: 'Circle'  },
-          { name: 'network', displayName: 'NW'  },
-          { name: 'module', displayName: 'Mod'  },
-          { name: 'region', displayName: 'Reg'  },
-          { name: 'branchCode', displayName: 'Branch Code'  },
-          { name: 'branchName', displayName: 'Branch Name'  },
-          { name: 'kioskId', displayName: 'Kiosk ID'  },
-          { name: 'vendor', displayName: 'Vendor'  }
+          { name: 'circleName',width:220, displayName: 'Circle'  },
+          { name: 'network',width:120, displayName: 'NW'  },
+          { name: 'module',width:250, displayName: 'Mod'  },
+          { name: 'region',width:120, displayName: 'Reg'  },
+          { name: 'branchCode',width:120, displayName: 'Branch Code'  },
+          { name: 'branchName',width:250, displayName: 'Branch Name'  },
+          { name: 'kioskId',width:250, displayName: 'Kiosk ID'  },
+          { name: 'vendor',width:220, displayName: 'Vendor'  }
     ],
     onRegisterApi: function(gridApi) {
         $scope.gridApi = gridApi;
