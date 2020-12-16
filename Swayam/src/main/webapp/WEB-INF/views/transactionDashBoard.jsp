@@ -141,6 +141,7 @@
   			white-space: normal;
   			padding: 2px;
   			word-break: break-word;
+  			
 			}
     
     		.ui-grid, .ui-grid-viewport {
@@ -180,6 +181,9 @@
   				overflow-y: auto !important;
   				
 			}
+			.ui-grid-header-canvas {
+			    padding-top: 0px;
+			    padding-bottom: 0px;}
 </style>
 
 <script type="text/javascript">

@@ -111,6 +111,10 @@
         padding:5px 10px;
         }
         
+        .ui-grid-header-canvas {
+    padding-top: 0px;
+    padding-bottom: 0px;}
+        
        /*    .ui-grid-header-cell-label {
 		display:inline-block;
 		white-space:initial;

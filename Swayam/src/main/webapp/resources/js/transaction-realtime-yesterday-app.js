@@ -101,22 +101,22 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
       columnDefs: [{name: 'crclName', displayName: 'Real-time Swayam Transaction'}
     	  ],
     columnDefs: [
-      { name: 'crclName', displayName: 'Circle'  },
-      { name: 'network', displayName: 'NW'  },
-      { name: 'module', displayName: 'Mod'  },
-      { name: 'region', displayName: 'Reg'  },
-      { name: 'branchCode', displayName: 'Branch Code'  },
-      { name: 'branchName', displayName: 'Branch Name'  },
-      { name: 'kioskId', displayName: 'Kiosk Id'  },
-      { name: 'vendor', displayName: 'Vendor'  },
-      { name: 'noOfTxns', displayName: 'Swayam Txns'  },
+      { name: 'crclName',width:150, displayName: 'Circle'  },
+      { name: 'network',width:150, displayName: 'NW'  },
+      { name: 'module',width:250, displayName: 'Mod'  },
+      { name: 'region',width:150, displayName: 'Reg'  },
+      { name: 'branchCode',width:150, displayName: 'Branch Code'  },
+      { name: 'branchName',width:250, displayName: 'Branch Name'  },
+      { name: 'kioskId',width:250, displayName: 'Kiosk Id'  },
+      { name: 'vendor',width:150, displayName: 'Vendor'  },
+      { name: 'noOfTxns',width:150, displayName: 'Swayam Txns'  },
       /*{field: 'mixedDate', displayName: "Registered On", cellFilter: 'date:"longDate"', 
     	  filterCellFiltered:true }*/
       
      
       
     ],
-    onRegisterApi: function(gridApi) {
+    onRegisterApi: function(gridApi) { debugger;
         $scope.gridApi = gridApi;
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
           paginationOptions.pageNumber = newPage;
@@ -148,7 +148,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
     */
     
     
-    app.service('UserManagementService',['$http', function ($http) {
+    app.service('UserManagementService',['$http', function ($http) {  debugger;
     	function getUsers(pageNumber,size,yesterdayType) {
     		pageNumber = pageNumber > 0?pageNumber - 1:0;
             return  $http({

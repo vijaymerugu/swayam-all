@@ -231,7 +231,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate','ui.
 	          { name: 'contactName', displayName: 'contactName',visible: false },
 	          /*{ name: 'allocatedQuantity', displayName: 'ALLOCATION QUANTITY' },*/
 	          { name: 'poQuantity', displayName: 'PO Quantity' },
-	          { name: 'status', displayName: 'STATUS' },
+	          { name: 'status', displayName: 'STATUS' , width :120},
 	          /*{ name: 'remainingQuantity', displayName: 'REMAINING QUANTITY' },*/
 	         /* { name: 'poDate', displayName: 'LAST PO ISSUE DATE' }*/
 	     

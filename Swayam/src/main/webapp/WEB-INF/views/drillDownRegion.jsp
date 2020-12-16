@@ -81,6 +81,9 @@
 			.ui-grid-pager-row-count-picker {
 			display:none;
 			}
+			.ui-grid-header-canvas {
+			    padding-top: 0px;
+			    padding-bottom: 0px;}
 </style>	
 
 
