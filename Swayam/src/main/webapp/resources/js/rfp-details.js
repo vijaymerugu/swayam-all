@@ -594,6 +594,7 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.edit','ui.grid.pag
 	   
 	   $scope.refresh = function()
 	   {  	
+		   
 		   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
 		   		RfpService.getUsers(paginationOptions.pageNumber,
 						paginationOptions.pageSize, counttype).success(function(data) {

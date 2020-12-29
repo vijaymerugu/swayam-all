@@ -14,9 +14,17 @@
 	<field name="quarterId" class="java.lang.String"/>
 	<field name="invoiceAmountSBI" class="java.lang.Float"/>
 	<field name="invoiceAmountVendor" class="java.lang.Float"/>
+	<field name="penaltyAmountSBI" class="java.lang.Float"/>
+	<field name="penaltyAmountVendor" class="java.lang.Float"/>
 	<field name="difference" class="java.lang.Float"/>
 	<variable name="ia" class="java.lang.Float" calculation="Sum">
 		<variableExpression><![CDATA[$F{invoiceAmountSBI}]]></variableExpression>
+	</variable>
+	<variable name="pasbi" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{penaltyAmountSBI}]]></variableExpression>
+	</variable>
+	<variable name="pavendor" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{penaltyAmountVendor}]]></variableExpression>
 	</variable>
 	<variable name="inv" class="java.lang.Float" calculation="Sum">
 		<variableExpression><![CDATA[$F{invoiceAmountVendor}]]></variableExpression>
@@ -167,7 +175,7 @@
 				<text><![CDATA[INVOICE AMOUNT VENDOR(B)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1800" y="41" width="200" height="20" uuid="8976c677-8f1d-467f-88e0-ad2a55c7e8a7"/>
+				<reportElement x="2200" y="41" width="200" height="20" uuid="8976c677-8f1d-467f-88e0-ad2a55c7e8a7"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -178,7 +186,35 @@
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[DIFFERENCE(C=A-B)]]></text>
+				<text><![CDATA[DIFFERENCE IN PEANLTY(C-D)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1800" y="41" width="200" height="20" uuid="2a1355a9-66df-49a1-b731-d3ca1a8cb930"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[PENALTY AMOUNT OF SBI (C)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2000" y="41" width="200" height="20" uuid="c4a61fb8-ca7f-4a91-ac36-8dfef46878f4"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[PENALTY AMOUNT OF VENDOR (D)]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -311,7 +347,7 @@
 				<textFieldExpression><![CDATA[$F{invoiceAmountVendor}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1800" y="0" width="200" height="22" uuid="647f65d9-0f02-487a-ab13-567f1ddb75ba"/>
+				<reportElement x="2200" y="0" width="200" height="22" uuid="647f65d9-0f02-487a-ab13-567f1ddb75ba"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -323,6 +359,34 @@
 					<font size="8" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{difference}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1800" y="0" width="200" height="22" uuid="e06000d9-472a-4e61-8263-85407856df4d"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{penaltyAmountSBI}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2000" y="0" width="200" height="22" uuid="727ee02c-9067-43e7-abac-51d873924db3"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{penaltyAmountVendor}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -371,7 +435,7 @@
 				<textFieldExpression><![CDATA[$V{inv}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1800" y="0" width="200" height="20" uuid="235409d7-a3b3-4041-b2e8-610c52e540cb"/>
+				<reportElement x="2200" y="0" width="200" height="20" uuid="235409d7-a3b3-4041-b2e8-610c52e540cb"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -383,6 +447,34 @@
 					<font size="10" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{d}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1800" y="0" width="200" height="20" uuid="6012a0c0-ecbc-4a49-bb6c-577bd82931e4"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{pasbi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2000" y="0" width="200" height="20" uuid="31b68cb6-4539-4dcd-8819-a4d2878e33c7"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{pavendor}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnFooter>

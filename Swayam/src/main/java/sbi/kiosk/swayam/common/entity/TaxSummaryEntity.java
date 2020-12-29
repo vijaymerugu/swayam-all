@@ -4,45 +4,45 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+
 import lombok.Data;
-import sbi.kiosk.swayam.common.dto.InvoiceSummaryCompositeId;
+import sbi.kiosk.swayam.common.dto.TaxSummaryCompositeId;
 
 @Data
 @Entity
-@IdClass(value = InvoiceSummaryCompositeId.class)
-public class InvoiceSummaryEntity{
+@IdClass(value = TaxSummaryCompositeId.class)
+public class TaxSummaryEntity {
+	
+	@Id
+	@Column(name="FIN_YR")
+	private String year;
 	
 	
-	
-
-	//private static final long serialVersionUID = 1L;
-
 	@Id
 	@Column(name="STAT_DESC")
 	private String state;
+	
+	@Id
+	@Column(name="RFP_NO")
+	private String rfpRefNumber;
 	
 	@Id
 	@Column(name="CRCL_NAME")
 	private String circleName;
 	
 	@Id
-	@Column(name="FIN_YR")
-	private String year;
-	
-	@Id
-	@Column(name="VENDOR")
+	@Column(name="COMPANY_SHORT_NM")
 	private String vendor;
 	
 	
-/* Issue Fix - 10-11-2020 */
 	
-	@Column(name="Q1_AMC_COST")
+	@Column(name="Q1_INVOICE_AMT")
 	private Long q1Im;
-	@Column(name="Q2_AMC_COST")
+	@Column(name="Q2_INVOICE_AMT")
 	private Long q2Im;
-	@Column(name="Q3_AMC_COST")
+	@Column(name="Q3_INVOICE_AMT")
 	private Long q3Im;
-	@Column(name="Q4_AMC_COST")
+	@Column(name="Q4_INVOICE_AMT")
 	private Long q4Im;
 	@Column(name="Q1_PENALTY_AMT")
 	private Long q1P;

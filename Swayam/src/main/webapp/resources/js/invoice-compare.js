@@ -440,18 +440,19 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	          { name: 'year',  displayName: 'year', visible: false},
 	          { name: 'invoiceAmountSBI', displayName: 'INVOICE AMOUNT SBI(A)' },
 	          { name: 'invoiceAmountVendor', displayName: 'INVOICE AMOUNT VENDOR(B)' },
-	          { name: 'difference', displayName: 'DIFFERENCE(C=A-B)' },
-	          
-	          
+	          { name: 'penaltyAmountSBI', displayName: 'PENALTY AMOUNT SBI(C)' },
+	          { name: 'penaltyAmountVendor', displayName: 'PENALTY AMOUNT VENDOR(D)' },
+	          { name: 'difference', displayName: 'DIFFERENCE IN PENALTY(C-D)' },
+	          { name: 'correctionAmount', displayName: 'LAST CORRECTION AMT' },
 	          {
                   name: "Corrections", displayName: "CORRECTIONS", field: "Corrections",
                   cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div '+ 
-                	 ' ng-if="row.entity.editrow"><input type="number" min="0"  step="0.01"  style="height:30px" ng-model="MODEL_COL_FIELD"</div>', width: 140
+                	 ' ng-if="row.entity.editrow"><input type="number" min="0"  step="0.01"  style="height:30px" ng-model="MODEL_COL_FIELD"</div>', width: 100
               },
               {
                   name: "Remarks", displayName: "REMARKS", field: "Remarks",
                   cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div '+ 
-                	 ' ng-if="row.entity.editrow"><input type="text" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width: 140
+                	 ' ng-if="row.entity.editrow"><input type="text" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width: 100
               },
               {
                   name: 'Actions', field: 'edit', enableFiltering: false, enableSorting: false,

@@ -19,7 +19,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 	
 	@Query(value = "select s5.RFP_NO,s1.VENDOR,  s2.CRCL_NAME, s2.STAT_DESC, s3.KIOSK_ID, \r\n" + 
 			"s3.KIOSK_SERIAL_NO,s3.QTR_ID,s3.FIN_YR,s3.PENALTY_AMT,(s3.SPARE_PARTS_COST + s3.AMC_COST) as SPARE_PARTS, s3.INVOICE_AMT,  \r\n" + 
-			"s3.CORRECTION_AMT,s3.FINAL_AMT \r\n" + 
+			"s3.CORRECTION_AMT,s3.FINAL_AMT, (s3.PENALTY_AMT - s3.CORRECTION_AMT) AS FINAL_PENALTY \r\n" + 
 			"from TBL_INVOICE s3\r\n" + 
 			"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
 			"ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO\r\n" + 
@@ -50,7 +50,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 	
 	@Query(value = "select s5.RFP_NO,s1.VENDOR,  s2.CRCL_NAME, s2.STAT_DESC, s3.KIOSK_ID, \r\n" + 
 			"s3.KIOSK_SERIAL_NO,s3.QTR_ID,s3.FIN_YR,s3.PENALTY_AMT,(s3.SPARE_PARTS_COST + s3.AMC_COST) as SPARE_PARTS, s3.INVOICE_AMT,  \r\n" + 
-			"s3.CORRECTION_AMT,s3.FINAL_AMT \r\n" + 
+			"s3.CORRECTION_AMT,s3.FINAL_AMT, (s3.PENALTY_AMT - s3.CORRECTION_AMT) AS FINAL_PENALTY \r\n" +
 			"from TBL_INVOICE s3\r\n" + 
 			"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
 			"ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO\r\n" + 
@@ -87,7 +87,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 	
 	@Query(value = "select s5.RFP_NO,s1.VENDOR,  s2.CRCL_NAME, s2.STAT_DESC, s3.KIOSK_ID,  \r\n" + 
 			"			s3.KIOSK_SERIAL_NO,s3.QTR_ID,s3.FIN_YR,s3.PENALTY_AMT,(s3.SPARE_PARTS_COST + s3.AMC_COST) as SPARE_PARTS, s3.INVOICE_AMT,   \r\n" + 
-			"			s3.CORRECTION_AMT,s3.FINAL_AMT  \r\n" + 
+			"			s3.CORRECTION_AMT,s3.FINAL_AMT, (s3.PENALTY_AMT - s3.CORRECTION_AMT) AS FINAL_PENALTY  " +
 			"			from TBL_INVOICE s3 \r\n" + 
 			"			INNER JOIN TBL_KIOSK_MASTER s1 \r\n" + 
 			"			ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
@@ -124,7 +124,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 	
 	@Query(value = "select s5.RFP_NO,s1.VENDOR,  s2.CRCL_NAME, s2.STAT_DESC, s3.KIOSK_ID, \r\n" + 
 			"s3.KIOSK_SERIAL_NO,s3.QTR_ID,s3.FIN_YR,s3.PENALTY_AMT,(s3.SPARE_PARTS_COST + s3.AMC_COST) as SPARE_PARTS, s3.INVOICE_AMT,  \r\n" + 
-			"s3.CORRECTION_AMT,s3.FINAL_AMT \r\n" + 
+			"s3.CORRECTION_AMT,s3.FINAL_AMT, (s3.PENALTY_AMT - s3.CORRECTION_AMT) AS FINAL_PENALTY \r\n" +
 			"from TBL_INVOICE s3\r\n" + 
 			"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
 			"ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO\r\n" + 
@@ -158,7 +158,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 	
 	@Query(value = "select s5.RFP_NO,s1.VENDOR,  s2.CRCL_NAME, s2.STAT_DESC, s3.KIOSK_ID, \r\n" + 
 			"s3.KIOSK_SERIAL_NO,s3.QTR_ID,s3.FIN_YR,s3.PENALTY_AMT,(s3.SPARE_PARTS_COST + s3.AMC_COST) as SPARE_PARTS, s3.INVOICE_AMT,  \r\n" + 
-			"s3.CORRECTION_AMT,s3.FINAL_AMT \r\n" + 
+			"s3.CORRECTION_AMT,s3.FINAL_AMT, (s3.PENALTY_AMT - s3.CORRECTION_AMT) AS FINAL_PENALTY \r\n" +
 			"from TBL_INVOICE s3\r\n" + 
 			"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
 			"ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO\r\n" + 
@@ -195,7 +195,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 	
 	@Query(value = "select s5.RFP_NO,s1.VENDOR,  s2.CRCL_NAME, s2.STAT_DESC, s3.KIOSK_ID, \r\n" + 
 			"s3.KIOSK_SERIAL_NO,s3.QTR_ID,s3.FIN_YR,s3.PENALTY_AMT,(s3.SPARE_PARTS_COST + s3.AMC_COST) as SPARE_PARTS, s3.INVOICE_AMT,  \r\n" + 
-			"s3.CORRECTION_AMT,s3.FINAL_AMT \r\n" + 
+			"s3.CORRECTION_AMT,s3.FINAL_AMT, (s3.PENALTY_AMT - s3.CORRECTION_AMT) AS FINAL_PENALTY \r\n" +
 			"from TBL_INVOICE s3\r\n" + 
 			"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
 			"ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO\r\n" + 
@@ -231,7 +231,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 	
 	@Query(value = "select s5.RFP_NO,s1.VENDOR,  s2.CRCL_NAME, s2.STAT_DESC, s3.KIOSK_ID, \r\n" + 
 			"s3.KIOSK_SERIAL_NO,s3.QTR_ID,s3.FIN_YR,s3.PENALTY_AMT,(s3.SPARE_PARTS_COST + s3.AMC_COST) as SPARE_PARTS, s3.INVOICE_AMT,  \r\n" + 
-			"s3.CORRECTION_AMT,s3.FINAL_AMT \r\n" + 
+			"s3.CORRECTION_AMT,s3.FINAL_AMT, (s3.PENALTY_AMT - s3.CORRECTION_AMT) AS FINAL_PENALTY \r\n" +
 			"from TBL_INVOICE s3\r\n" + 
 			"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
 			"ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO\r\n" + 
@@ -239,7 +239,6 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 			"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
 			"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
 			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE INNER JOIN TBL_RFP_DETAILS s5 ON s5.RFP_ID=s1.RFP_ID AND s5.vendor=s1.vendor \r\n" + 
-			" where \r\n" + 
 			" where \r\n" + 
 			"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 			"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
@@ -269,7 +268,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 	
 	@Query(value = "select s5.RFP_NO,s1.VENDOR,  s2.CRCL_NAME, s2.STAT_DESC, s3.KIOSK_ID, \r\n" + 
 			"s3.KIOSK_SERIAL_NO,s3.QTR_ID,s3.FIN_YR,s3.PENALTY_AMT,(s3.SPARE_PARTS_COST + s3.AMC_COST) as SPARE_PARTS, s3.INVOICE_AMT,  \r\n" + 
-			"s3.CORRECTION_AMT,s3.FINAL_AMT \r\n" + 
+			"s3.CORRECTION_AMT,s3.FINAL_AMT, (s3.PENALTY_AMT - s3.CORRECTION_AMT) AS FINAL_PENALTY \r\n" +
 			"from TBL_INVOICE s3\r\n" + 
 			"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
 			"ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO\r\n" + 
@@ -303,7 +302,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 	
 	@Query(value = "select s5.RFP_NO,s1.VENDOR,  s2.CRCL_NAME, s2.STAT_DESC, s3.KIOSK_ID, \r\n" + 
 			"s3.KIOSK_SERIAL_NO,s3.QTR_ID,s3.FIN_YR,s3.PENALTY_AMT,(s3.SPARE_PARTS_COST + s3.AMC_COST) as SPARE_PARTS, s3.INVOICE_AMT,  \r\n" + 
-			"s3.CORRECTION_AMT,s3.FINAL_AMT \r\n" + 
+			"s3.CORRECTION_AMT,s3.FINAL_AMT, (s3.PENALTY_AMT - s3.CORRECTION_AMT) AS FINAL_PENALTY \r\n" +
 			"from TBL_INVOICE s3\r\n" + 
 			"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
 			"ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO\r\n" + 
@@ -340,7 +339,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 	
 	@Query(value = "select s5.RFP_NO,s1.VENDOR,  s2.CRCL_NAME, s2.STAT_DESC, s3.KIOSK_ID, \r\n" + 
 			"s3.KIOSK_SERIAL_NO,s3.QTR_ID,s3.FIN_YR,s3.PENALTY_AMT,(s3.SPARE_PARTS_COST + s3.AMC_COST) as SPARE_PARTS, s3.INVOICE_AMT,  \r\n" + 
-			"s3.CORRECTION_AMT,s3.FINAL_AMT \r\n" + 
+			"s3.CORRECTION_AMT,s3.FINAL_AMT, (s3.PENALTY_AMT - s3.CORRECTION_AMT) AS FINAL_PENALTY \r\n" +
 			"from TBL_INVOICE s3\r\n" + 
 			"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
 			"ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO\r\n" + 
@@ -377,7 +376,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 	
 		@Query(value = "select s5.RFP_NO,s1.VENDOR,  s2.CRCL_NAME, s2.STAT_DESC, s3.KIOSK_ID, \r\n" + 
 				"s3.KIOSK_SERIAL_NO,s3.QTR_ID,s3.FIN_YR,s3.PENALTY_AMT,(s3.SPARE_PARTS_COST + s3.AMC_COST) as SPARE_PARTS, s3.INVOICE_AMT,  \r\n" + 
-				"s3.CORRECTION_AMT,s3.FINAL_AMT \r\n" + 
+				"s3.CORRECTION_AMT,s3.FINAL_AMT, (s3.PENALTY_AMT - s3.CORRECTION_AMT) AS FINAL_PENALTY \r\n" +
 				"from TBL_INVOICE s3\r\n" + 
 				"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
 				"ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO\r\n" + 
@@ -408,7 +407,7 @@ public interface InvoiceGenerationRepository extends PagingAndSortingRepository<
 		
 		@Query(value = "select s5.RFP_NO,s1.VENDOR,  s2.CRCL_NAME, s2.STAT_DESC, s3.KIOSK_ID, \r\n" + 
 				"s3.KIOSK_SERIAL_NO,s3.QTR_ID,s3.FIN_YR,s3.PENALTY_AMT,(s3.SPARE_PARTS_COST + s3.AMC_COST) as SPARE_PARTS, s3.INVOICE_AMT,  \r\n" + 
-				"s3.CORRECTION_AMT,s3.FINAL_AMT \r\n" + 
+				"s3.CORRECTION_AMT,s3.FINAL_AMT, (s3.PENALTY_AMT - s3.CORRECTION_AMT) AS FINAL_PENALTY \r\n" +
 				"from TBL_INVOICE s3\r\n" + 
 				"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
 				"ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO\r\n" + 

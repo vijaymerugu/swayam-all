@@ -358,9 +358,10 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	          { name: 'quarterId', displayName: 'TIME PERIOD' },
 	          { name: 'spareParts', displayName: 'AMC/SPARE PARTS(A)' },
 	          { name: 'penalty', displayName: 'PENALTY(B)' },
-	          { name: 'invoiceAmount', displayName: 'INVOICE AMOUNT (C=A-B)' },
-	          { name: 'corrections', displayName: 'CORRECTIONS' },
-	          { name: 'finalAmount', displayName: 'FINAL AMOUNT(C+D)' }
+	          { name: 'invoiceAmount', displayName: 'INVOICE AMOUNT (C=A-B)', visible: false },
+	          { name: 'corrections', displayName: 'CORRECTION IN PENALTY (C)' },
+	          { name: 'finalPenalty', displayName: 'FINAL PENALTY AMOUNT(D=B-C)'  },
+	          { name: 'finalAmount', displayName: 'FINAL AMOUNT(A-D)', visible: true  }
 	          
 	    ],
 	    onRegisterApi: function(gridApi) {

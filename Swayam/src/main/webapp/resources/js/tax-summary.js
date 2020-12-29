@@ -1,6 +1,6 @@
 var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter', 'ui.grid.resizeColumns']);
 
-	app.controller('InvoiceSummearyCtrl', ['$scope','$filter','$http','$window','InvoiceSummaryService',function ($scope, $filter, $http, $window,InvoiceSummaryService) {
+	app.controller('InvoiceSummearyCtrl', ['$scope','$filter','$http','$window','TaxSummaryService',function ($scope, $filter, $http, $window,TaxSummaryService) {
 	   var paginationOptions = {
 	     pageNumber: 1,
 		 pageSize: 20,
@@ -124,7 +124,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	    	   	$scope.SelectedYearId = $scope.yearOptions[0].value;
 	    	   	quterTimePeriod='';
 	    	   	
-	    		InvoiceSummaryService
+	    		TaxSummaryService
 				.getUsers(paginationOptions.pageNumber,
 						paginationOptions.pageSize, counttype,
 						selectedCircelId,selectedStateId,
@@ -170,7 +170,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 				
 						
 
-				InvoiceSummaryService
+				TaxSummaryService
 						.getUsers(paginationOptions.pageNumber,
 								paginationOptions.pageSize, counttype,
 								selectedCircelId,selectedStateId,
@@ -193,7 +193,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	   $scope.getCountType = function(type){
 	      
 	       counttype=type;
-	       InvoiceSummaryService.getUsers(paginationOptions.pageNumber,
+	       TaxSummaryService.getUsers(paginationOptions.pageNumber,
 					paginationOptions.pageSize, counttype,
 					selectedCircelId,selectedStateId,
 					selectedVendorId).success(function(data) {
@@ -207,7 +207,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	   $scope.refresh = function()
 	   {  	
 		   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
-		   		InvoiceSummaryService
+		   		TaxSummaryService
 				.getUsers(paginationOptions.pageNumber,
 						paginationOptions.pageSize, counttype,
 						selectedCircelId,selectedStateId,
@@ -219,7 +219,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		 		   
 		 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
 		 	    	
-		 	    	InvoiceSummaryService
+		 	    	TaxSummaryService
 					.getUsers(paginationOptions.pageNumber,
 							paginationOptions.pageSize, counttype,
 							selectedCircelId,selectedStateId,
@@ -232,7 +232,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		 		  
 		 		   
 		 	    }else{
-		 	    	InvoiceSummaryService
+		 	    	TaxSummaryService
 					.getUsers(paginationOptions.pageNumber,
 							paginationOptions.pageSize, counttype,
 							selectedCircelId,selectedStateId,
@@ -244,7 +244,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		 	    }
 		    };
 
-		    InvoiceSummaryService
+		    TaxSummaryService
 			.getUsers(paginationOptions.pageNumber,
 					paginationOptions.pageSize, counttype,
 					selectedCircelId,selectedStateId,
@@ -267,17 +267,18 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	          displayName: '',
 	          
 	         
-	      }, {
-	          name: 'InvoiceAmount',
-	          displayName: 'AMC Amount'
+	      },
+			  {
+	          name: 'InvoiceAmountTax',
+	          displayName: 'Tax on Invoices'
 	        	 
 	      }, {
-	          name: 'Penalty',
-	          displayName: 'Penalty'
+	          name: 'PenaltyTax',
+	          displayName: 'Tax on Penalty'
 	        	  
 	      }, {
-	          name: 'BilledAmount',
-	          displayName: 'Billed Amount'
+	          name: 'TotalTax',
+	          displayName: 'Total Tax'
 	          
 	      }, {
 	          name: 'back',
@@ -286,22 +287,23 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	      }],
 		
 	      columnDefs: [
-	          { name: 'year', displayName: 'Year' ,superCol: 'front' },
+	         { name: 'year', displayName: 'Year' ,superCol: 'front' },
+	          { name: 'rfpRefNumber', displayName: 'Rfp Ref No.' ,superCol: 'front'},
 	          { name: 'vendor', displayName: 'Vendor',superCol: 'front' },
 	          { name: 'circleName', displayName: 'Circle' ,superCol: 'front'  },
 	          { name: 'state', displayName: 'State' ,superCol: 'front'  },
-	          { name: 'q1Im', displayName: 'Q1   ',superCol: 'InvoiceAmount'   },
-	          { name: 'q2Im', displayName: 'Q2   ',superCol: 'InvoiceAmount'   },
-	          { name: 'q3Im', displayName: 'Q3   ',superCol: 'InvoiceAmount'  },
-	          { name: 'q4Im', displayName: 'Q4   ' ,superCol: 'InvoiceAmount' },
-	          { name: 'q1P', displayName: 'Q1    ' ,superCol: 'Penalty'  },
-	          { name: 'q2P', displayName: 'Q2    ' ,superCol: 'Penalty'  },
-	          { name: 'q3P', displayName: 'Q3    ' ,superCol: 'Penalty'  },
-	          { name: 'q4P', displayName: 'Q4    ' ,superCol: 'Penalty'  },
-	          { name: 'q1Ba', displayName: 'Q1   ' ,superCol: 'BilledAmount'  },
-	          { name: 'q2Ba', displayName: 'Q2   ' ,superCol: 'BilledAmount'  },
-	          { name: 'q3Ba', displayName: 'Q3   ' ,superCol: 'BilledAmount'  },
-	          { name: 'q4Ba', displayName: 'Q4' ,superCol: 'BilledAmount'  }
+	          { name: 'q1Im', displayName: 'Q1   ',superCol: 'InvoiceAmountTax'   },
+	          { name: 'q2Im', displayName: 'Q2   ',superCol: 'InvoiceAmountTax'   },
+	          { name: 'q3Im', displayName: 'Q3   ',superCol: 'InvoiceAmountTax'  },
+	          { name: 'q4Im', displayName: 'Q4   ' ,superCol: 'InvoiceAmountTax' },
+	          { name: 'q1P', displayName: 'Q1    ' ,superCol: 'PenaltyTax'  },
+	          { name: 'q2P', displayName: 'Q2    ' ,superCol: 'PenaltyTax'  },
+	          { name: 'q3P', displayName: 'Q3    ' ,superCol: 'PenaltyTax'  },
+	          { name: 'q4P', displayName: 'Q4    ' ,superCol: 'PenaltyTax'  },
+	          { name: 'q1Ba', displayName: 'Q1   ' ,superCol: 'TotalTax'  },
+	          { name: 'q2Ba', displayName: 'Q2   ' ,superCol: 'TotalTax'  },
+	          { name: 'q3Ba', displayName: 'Q3   ' ,superCol: 'TotalTax'  },
+	          { name: 'q4Ba', displayName: 'Q4' ,superCol: 'TotalTax'  }
 	          
 	    ],
 	    onRegisterApi: function(gridApi) {
@@ -313,7 +315,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 				console.log("selectedStateId " + selectedStateId);
 				
 				console.log("quterTimePeriod " + quterTimePeriod);
-				InvoiceSummaryService
+				TaxSummaryService
 				.getUsers(paginationOptions.pageNumber,
 						paginationOptions.pageSize, counttype,
 						selectedCircelId,selectedStateId,
@@ -331,14 +333,14 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	
 	
 
-	app.service('InvoiceSummaryService',['$http', function ($http) {
+	app.service('TaxSummaryService',['$http', function ($http) {
 		
 		function getUsers(pageNumber,size,counttype,selectedCircelId,selectedStateId,
 				quterTimePeriod,selectedVendorId,selectedRfpID) {
 			pageNumber = pageNumber > 0?pageNumber - 1:0;
 	        return  $http({
 	          method: 'GET',
-	          url: 'invoiceSummary/get?page='+pageNumber+
+	          url: 'taxSummary/get?page='+pageNumber+
 	     '&size='+size+'&type='+counttype+'&selectedCircelId='+selectedCircelId+'&selectedStateId='+selectedStateId+
 	          '&quterTimePeriod='+quterTimePeriod
 	          

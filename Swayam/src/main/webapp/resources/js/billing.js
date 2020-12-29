@@ -200,7 +200,7 @@ app.controller(
 							        	
 							        
 							      
-							        if(poQuantity<=remainingQuantity){
+							        if(poQuantity<=remainingQuantity && poQuantity!=0){
 							        	EditService.saveCorrection(allocId,allocatedQuantity,
 									        		poQuantity,remainingQuantity).then(function (d) {
 									           
@@ -219,7 +219,18 @@ app.controller(
 									        	alert("Failed to save");
 									        });
 							        	
-							        }else{
+							        }else if (poQuantity==0){
+							        	alert("MUST- PO Quantity > 0");
+							        	BillingService.getUsers(paginationOptions.pageNumber,
+							     				paginationOptions.pageSize, counttype).success(function(data) {
+							     				//	console.log("data " + data);
+							     			$scope.gridOptions.data = data.content;
+							     			$scope.gridOptions.totalItems = data.totalElements;
+							     	   });
+							        	
+							        }
+							        	
+							        	else{
 							        	alert("MUST- PO Quantity <= Remaining Quantity");
 							        	
 							        	BillingService.getUsers(paginationOptions.pageNumber,
@@ -233,7 +244,7 @@ app.controller(
 							      
 							        }else{
 							        	
-							        	alert("Decimal/Negative value not allowed for PO Quantity");
+							        	alert("Null/Decimal/Negative value not allowed for PO Quantity");
 							        	
 							        	BillingService.getUsers(paginationOptions.pageNumber,
 							     				paginationOptions.pageSize, counttype).success(function(data) {
@@ -277,13 +288,13 @@ app.controller(
 									displayName : 'CIRCLE'
 								}, {
 									name : 'allocatedQuantity',
-									displayName : 'ALLOCATED_QUANTITY'
+									displayName : 'ALLOCATED QUANTITY'
 								},
 								{ name: 'remainingQuantity', displayName: 'REMAINING QUANTITY'},
 								 {
 					                  name: "poQuantity", displayName: "QUANTITY", field: "poQuantity",
 					                  cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div '+ 
-					                	 ' ng-if="row.entity.editrow"><input type="number" min="0"  style="height:30px" ng-model="MODEL_COL_FIELD"</div>', width: 140
+					                	 ' ng-if="row.entity.editrow"><input type="number" min="0"  style="height:30px" ng-model="MODEL_COL_FIELD"</div>'
 					              },
 					              { name: 'poDate', displayName: 'LAST PO ISSUE DATE' },
 								 {
@@ -291,7 +302,7 @@ app.controller(
 					                  cellTemplate: '<div><button ng-show="!row.entity.editrow" class="btn primary" ng-click="grid.appScope.edit(row.entity)"><i class="fa fa-edit"></i></button>' +  //Edit Button
 					                                 '<button ng-show="row.entity.editrow" class="btn primary" ng-click="grid.appScope.saveRow(row.entity)"><i class="fa fa-floppy-o"></i></button>' +//Save Button
 					                                 '<button ng-show="row.entity.editrow" class="btn primary" ng-click="grid.appScope.cancelEdit(row.entity)"><i class="fa fa-times"></i></button>' + //Cancel Button
-					                                 '</div>', width: 100
+					                                 '</div>'
 					              }
 
 								],
