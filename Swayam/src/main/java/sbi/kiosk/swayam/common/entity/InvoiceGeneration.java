@@ -40,6 +40,9 @@ public class InvoiceGeneration {
 	@Column(name="FINAL_AMT")
 	private Float finalAmount;
 	
+	@Column(name="FINAL_PENALTY")
+	private Float finalPenalty;
+	
 	
 	
 

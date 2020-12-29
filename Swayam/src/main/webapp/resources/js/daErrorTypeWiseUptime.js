@@ -110,8 +110,10 @@ app.controller('daErrorTypeWiseUptimeController', ['$scope','$interval','$http',
 								// Preparing Data to display in chart
 								//let rowData=[filterdResponse[i].percentageOfTickets, filterdResponse[i].otherErrorTickets];
 								//Changes  20-11-2020
-								let rowData=[filterdResponse[i].errorWiseOpenTickets, (filterdResponse[i].noOfTickets-filterdResponse[i].errorWiseOpenTickets)];
+//								let rowData=[filterdResponse[i].errorWiseOpenTickets, (filterdResponse[i].noOfTickets-filterdResponse[i].errorWiseOpenTickets)];
 								
+								let rowData=[filterdResponse[i].errorWiseOpenTickets, filterdResponse[i].noOfTickets];
+
 								
 								tempData.push({"rowData" : rowData});
 								
@@ -123,12 +125,13 @@ app.controller('daErrorTypeWiseUptimeController', ['$scope','$interval','$http',
 								        label: "Error Type-Wise Uptime",
 								        data: tempData[i].rowData,
 								        backgroundColor: [
-								        	'#A0B421',
-								        	'#ED402A'
+								        	'#ED402A',
+								        	'#A0B421'
+								        	
 								        ],
 								        borderColor: [
-								        	'#A0B421',
-								        	'#ED402A'
+								        	'#ED402A',
+								        	'#A0B421'
 								        ],
 								        borderWidth: [1, 1]
 								      }

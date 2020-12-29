@@ -1,5 +1,7 @@
 package sbi.kiosk.swayam.common.dto;
 
+import javax.persistence.Column;
+
 import lombok.Data;
 import sbi.kiosk.swayam.common.entity.InvoiceCompare;
 
@@ -34,6 +36,12 @@ public class InvoiceCompareDto {
 		
 		this.invoiceAmountVendor=invoiceCompare.getInvoiceAmountVendor();
 		
+		this.penaltyAmountSBI = invoiceCompare.getPenaltyAmountSBI();
+		
+		this.penaltyAmountVendor=invoiceCompare.getPenaltyAmountVendor();
+		 
+		this.correctionAmount= invoiceCompare.getCorrectionAmount();
+		
 		this.difference = invoiceCompare.getDifference();
 		
 		
@@ -60,6 +68,12 @@ public class InvoiceCompareDto {
 	private Float invoiceAmountSBI;
 	
 	private Float invoiceAmountVendor;
+	
+	private Float penaltyAmountSBI;
+	
+	private Float correctionAmount;
+	
+	private Float penaltyAmountVendor;
 	
 	private Float difference;
 

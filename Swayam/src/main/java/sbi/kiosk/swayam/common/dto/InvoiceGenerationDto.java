@@ -1,5 +1,7 @@
 package sbi.kiosk.swayam.common.dto;
 
+import javax.persistence.Column;
+
 import lombok.Data;
 import sbi.kiosk.swayam.common.entity.InvoiceGeneration;
 
@@ -38,6 +40,8 @@ public class InvoiceGenerationDto {
 		this.corrections=invoiceGeneration.getCorrections();
 		
 		this.finalAmount=invoiceGeneration.getFinalAmount();
+		
+		this.finalPenalty=invoiceGeneration.getFinalPenalty();
 	}
 	
 	
@@ -74,6 +78,9 @@ public class InvoiceGenerationDto {
 	private Float corrections;
 	
 	private Float finalAmount;
+	
+	
+	private Float finalPenalty;
 	
 
 }
