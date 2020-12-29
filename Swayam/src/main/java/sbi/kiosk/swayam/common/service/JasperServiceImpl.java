@@ -187,12 +187,14 @@ public class JasperServiceImpl implements JasperService {
    
     @Autowired
    	BranchMasterRepository branchMastRepository;
+
     
     @Autowired
     TaxSummaryRepository taxSummaryRepo;
     
     @Autowired
 	TaxService taxReportService;
+
     
 	public static HttpSession session() {
 		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
@@ -1813,11 +1815,12 @@ public class JasperServiceImpl implements JasperService {
 				String kioskId = dto.getKisokId();
 				//String kioskBranchMaster = kioskMasterRepo.findKioskByBranchCode(kioskId);
 				if(kioskId!=null){
-					//later
+					
 					  String kioskBranchCode= kioskMasterRepo.findKioskByBranchCode(kioskId);
 					  circle= branchMastRepository.findCircleByBranchCode(kioskBranchCode);
 					  }
 					  dto.setServeriry(circle);
+
 
 			}
 		return entities;
@@ -1835,7 +1838,7 @@ public class JasperServiceImpl implements JasperService {
 			String kioskId = dto.getKisokId();
 			//String kioskBranchMaster = kioskMasterRepo.findKioskByBranchCode(kioskId);
 			if(kioskId!=null){
-				//later
+
 				  String kioskBranchCode= kioskMasterRepo.findKioskByBranchCode(kioskId);
 				  circle= branchMastRepository.findCircleByBranchCode(kioskBranchCode);
 				  }
@@ -1868,7 +1871,7 @@ public class JasperServiceImpl implements JasperService {
 				String kioskId = dto.getKisokId();
 				//String kioskBranchMaster = kioskMasterRepo.findKioskByBranchCode(kioskId);
 				if(kioskId!=null){
-					//later
+
 					  String kioskBranchCode= kioskMasterRepo.findKioskByBranchCode(kioskId);
 					  circle= branchMastRepository.findCircleByBranchCode(kioskBranchCode);
 					  }
@@ -1899,11 +1902,12 @@ public class JasperServiceImpl implements JasperService {
 				String kioskId = dto.getKisokId();
 				//String kioskBranchMaster = kioskMasterRepo.findKioskByBranchCode(kioskId);
 				if(kioskId!=null){
-					//later
+				
 					  String kioskBranchCode= kioskMasterRepo.findKioskByBranchCode(kioskId);
 					  circle= branchMastRepository.findCircleByBranchCode(kioskBranchCode);
 					  }
 					  dto.setServeriry(circle);
+
 
 			}
 		

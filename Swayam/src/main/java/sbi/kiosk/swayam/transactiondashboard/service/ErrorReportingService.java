@@ -8,5 +8,6 @@ import sbi.kiosk.swayam.transactiondashboard.repository.IOperations;
 public interface ErrorReportingService{
 
 	Page<ErrorReporting> findPaginated(int page, int size, String fromDate, String toDate);
+	String findSwayamTxnLastUpdatedJob();
 
 }

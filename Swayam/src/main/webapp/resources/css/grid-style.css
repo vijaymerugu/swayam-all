@@ -15,7 +15,7 @@ font-family: "Trebuchet MS", Arial, Helvetica, sans-serif !important;
   border-collapse: collapse !important;
   width: 100% !important;
 }
- .ui-grid-header-cell-label {
+ /* .ui-grid-header-cell-label {
 		display:inline-block;
 		white-space:initial;
 		font-size: 15px;
@@ -45,6 +45,6 @@ font-family: "Trebuchet MS", Arial, Helvetica, sans-serif !important;
   			padding: 2px;
   			word-break: break-word;
 			}
-			
+			 */
 			
 		

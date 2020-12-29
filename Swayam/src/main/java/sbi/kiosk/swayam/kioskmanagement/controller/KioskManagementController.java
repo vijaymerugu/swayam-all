@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,6 +26,7 @@ import sbi.kiosk.swayam.kioskmanagement.service.UserService;
 @RestController
 public class KioskManagementController {	
 	
+	Logger logger = LoggerFactory.getLogger(KioskManagementController.class);
 	@Autowired
 	KioskManagementService kioskManagementService;
 	
@@ -173,7 +176,13 @@ public class KioskManagementController {
 				resultPage= kioskManagementService.findPaginatedCount(page, size, type);
 			}else if(type.equals("DeleviredLIPIVendor")){
 			   resultPage= kioskManagementService.findPaginatedCount(page, size, type);
-		    }else{
+		    }
+			else if(type.equals("Assigned")){ logger.info("if Assigned!!!!!!!!!!");
+				   resultPage= kioskManagementService.findAssingedPaginated(page, size, type);
+			}
+			else if(type.equals("ToBeAssigned")){ logger.info("if ToBeAssigned!!!!!!!!!!");
+				   resultPage= kioskManagementService.findTobeAssingedPaginated(page, size, type);
+			}else{ logger.info("for rest type!!!!!!!!!!!!!!!!!!");;
 		         resultPage = kioskManagementService.findPaginated(page, size);
 		        if (page > resultPage.getTotalPages()) {
 		            //throw new MyResourceNotFoundException();

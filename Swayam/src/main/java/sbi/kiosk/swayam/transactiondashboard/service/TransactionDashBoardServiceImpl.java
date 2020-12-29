@@ -46,11 +46,19 @@ public class TransactionDashBoardServiceImpl implements TransactionDashBoardServ
 		
 			fromdate=passedDate;
 			todate=passedDate;
+			logger.info("t-2-fromdate::"+fromdate);
+			logger.info("t-2-todate::"+todate);
 			 Page<SwayamMigrationSummary> pageSummary1=transactionDashBoardRepositoryPaging.findByDate(fromdate, todate, PageRequest.of(page, size));
+			 logger.info("pageSummary1::SIZE::::"+pageSummary1.getSize());
+			 logger.info("pageSummary1::::"+pageSummary1.getContent());
+
 			 return pageSummary1;
 		}else {
-		
+			logger.info("fromdate:::"+fromdate);
+			logger.info("todate:::"+todate);
 		  Page<SwayamMigrationSummary> pageSummary= transactionDashBoardRepositoryPaging.findByDate(fromdate, todate, PageRequest.of(page, size));			
+		    logger.info("pageSummary::SIZE::::"+pageSummary.getSize());
+		    logger.info("pageSummary:::::"+pageSummary.getContent());
 		  return pageSummary;
 		}
 		

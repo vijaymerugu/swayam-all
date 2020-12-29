@@ -75,10 +75,18 @@
 			}
   			.ui-grid, .ui-grid-viewport {
    			  height: auto !important; 
-			}
+			} 
 			.ui-grid-pager-panel {
 		     position: relative;
 			 }
+			 .ui-grid .ui-grid-render-container-body .ui-grid-viewport {
+ 			 	overflow-x: auto !important;
+  				overflow-y: auto !important;
+  				
+			}
+			.ui-grid-pager-row-count-picker {
+			display:none;
+			}
 </style>	
 
 </head>
@@ -91,12 +99,12 @@
 			}			
 			
 		%>
-<div class="main" ng-app="app" id="appId">
+<div class="main_transaction" ng-app="app" id="appId">
 <div ng-controller="UserManagementCtrl as vm">
 <%-- <a  href="${pageContext.request.contextPath}/km/addUser" align="right">AddUser</a> --%>
 <div style="text-align: right;float: right;"><a class="openFinalPopup" style="cursor: hand;cursor: pointer;"><img src="resources/img/plus.png">&nbsp;AddUser</a></div>
 <div>
-<table class="table1" style="border: 1px solid #eee;">
+<table class="table1" style="border: 1px solid #eee;width: 100%;">
 
 <tr>
     <td id="noOfUsers" colspan="6">No of users</td>
@@ -118,7 +126,7 @@
 </table>
 </div>
 <br/>
-		<div class="submain">
+		<div class="submain_kiosk">
 	
 	
 	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Username, First Name, Last Name, Mail Id, Circle etc." style="font-size: 12px" "cursor: hand; cursor: pointer;" size="150" height="80" id="input" class="form-group has-search">

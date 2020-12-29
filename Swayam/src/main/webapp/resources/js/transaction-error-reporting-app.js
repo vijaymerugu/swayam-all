@@ -65,9 +65,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	 	         		$("#datepickerFromDate").focus();
 	 	         	}
 	     	   }
-	        //  Added for loader------------- START 
-	        $("#loading").show();  
-	     // Added for loader------------- END
+	    
 				   UserManagementService.getUsers(paginationOptions.pageNumber,
 							  paginationOptions.pageSize,fromDate,toDate).success(function(data){
 								if(data.totalElements==0){
@@ -75,15 +73,9 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 										$scope.gridOptions.totalItems = data.totalElements;
 										alert("No results found for given search criteria")
 									}else{
-
-									 
 										$scope.gridOptions.data = data.content;
 										$scope.gridOptions.totalItems = data.totalElements;
 									}
-							//  Added for loader------------- START 
-								$("#loading").hide(); 
-							//  Added for loader------------- END 
-
 							  });
 			      
       };
@@ -119,7 +111,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
       });
    
     $scope.gridOptions = {
-	paginationPageSizes: [20, 30, 40],
+	/*paginationPageSizes: [20, 30, 40],*/
     paginationPageSize: paginationOptions.pageSize,
     enableColumnMenus:false,
 	useExternalPagination: true,

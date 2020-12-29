@@ -54,7 +54,7 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 	   
 	   
 	   $scope.gridOptions = {
-				paginationPageSizes: [20, 30, 40],
+				/*paginationPageSizes: [20, 30, 40],*/
 			    paginationPageSize: paginationOptions.pageSize,
 			    enableColumnMenus:false,
 				useExternalPagination: true,
@@ -62,7 +62,7 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 			    columnDefs: [
 			      { name: 'vendor', displayName: 'Vendor'  },
 			      { name: 'ticketId', displayName: 'Ticket Id' },
-			      { name: 'kisokId', displayName: 'KisokId'  },
+			      { name: 'kisokId', displayName: 'KioskId'  },
 			      { name: 'branchCode', displayName: 'Branch Code'  },
 			      { name: 'callCategory', displayName: 'Call Category'},
 			      { name: 'callSubCategory', displayName: 'Call Sub Category'  },

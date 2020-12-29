@@ -151,28 +151,26 @@
 
 								<td style="color: #13A8E0; font-size: 20px; font-weight: bold;"
 									width="10%"><a
-									ng-click="getCountType('TwoToFourHrsCount')"><c:out
+									ng-click="getCountType('TwoToFourHrsCount')" style="cursor: hand;cursor: pointer;"><c:out
 											value="${ageingMapDataList['TwoToFourHrsCount']}" /></a></td>
 								<td style="color: #13A8E0; font-size: 20px; font-weight: bold;"
-									width="10%"><a ng-click="getCountType('OneDaysCount')"><c:out
+									width="10%"><a ng-click="getCountType('OneDaysCount')" style="cursor: hand;cursor: pointer;"><c:out
 											value="${ageingMapDataList['OneDaysCount']}" /></a></td>
 								<td style="color: #13A8E0; font-size: 20px; font-weight: bold;"
-									width="10%"><a
-									ng-click="getCountType('ThreeDaysLessCount')"> <c:out
+									width="10%"><a	ng-click="getCountType('ThreeDaysLessCount')" style="cursor: hand;cursor: pointer;"> <c:out
 											value="${ageingMapDataList['ThreeDaysLessCount']}" /></a></td>
 								<td style="color: #13A8E0; font-size: 20px; font-weight: bold;"
-									width="10%"><a
-									ng-click="getCountType('ThreeDayGreaterCount')"><c:out
+									width="10%"><a	ng-click="getCountType('ThreeDayGreaterCount')" style="cursor: hand;cursor: pointer;"><c:out
 											value="${ageingMapDataList['ThreeDayGreaterCount']}" /></a></td>
 								<td
 									style="color: #13A8E0; font-size: 20px; font-weight: bold; border-right: solid 1px #0307fc;"
-									width="10%"><a ng-click="getCountType('TotalCount')"><c:out
+									width="10%"><a ng-click="getCountType('TotalCount')" style="cursor: hand;cursor: pointer;"><c:out
 											value="${ageingMapDataList['TotalCount']}" /></a></td>
 							</tr>
 						</tbody>
 						<thead align="center" style="font-size: 11px;">
 							<tr>
-								<th colspan="1" align="center">2-4 Hrs</th>
+								<th colspan="1" align="center"><4 Hrs</th>
 								<th colspan="1" align="center"><1 Day</th>
 								<th colspan="1" align="center"><3 Days</th>
 								<th colspan="1" align="center">3> Days</th>
@@ -207,17 +205,15 @@
 							<tr>
 								<td align="left"
 									style="color: #13A8E0; font-size: 20px; font-weight: bold;"
-									width="12%"><a id="high" ng-click="getCountType('High')"><c:out
+									width="12%"><a id="high" ng-click="getCountType('High')" style="cursor: hand;cursor: pointer;"><c:out
 											value="${mapDataList['High']}" /></a></td>
 								<td align="left"
 									style="color: #13A8E0; font-size: 20px; font-weight: bold;"
-									width="12%"><a id="countMedium"
-									ng-click="getCountType('Medium')"><c:out
+									width="12%"><a id="countMedium"	ng-click="getCountType('Medium')" style="cursor: hand;cursor: pointer;"><c:out
 											value="${mapDataList['Medium']}" /></a></td>
 								<td align="left"
 									style="color: #13A8E0; font-size: 20px; font-weight: bold;"
-									width="12%"><a id="countLow"
-									ng-click="getCountType('Low')"><c:out
+									width="12%"><a id="countLow"	ng-click="getCountType('Low')" style="cursor: hand;cursor: pointer;"><c:out
 											value="${mapDataList['Low']}" /></a></td>
 								<td
 									style="color: #13A8E0; font-size: 20px; font-weight: bold; text-align: left: 10px;"

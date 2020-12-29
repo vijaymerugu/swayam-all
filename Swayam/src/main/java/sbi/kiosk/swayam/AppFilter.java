@@ -52,10 +52,10 @@ public class AppFilter implements Filter {
 	   		    myCookie.setSecure(true);
 	   		    myCookie.setHttpOnly(true);
 	   		 	res.addCookie(myCookie);	
-	   		    res.setHeader("SET-COOKIE", "JSESSIONID=" + sessionid + "; HttpOnly; Secure; Path=/getToken; Domain= " + req.getServerName() + "");
+	   		  res.setHeader("SET-COOKIE", "JSESSIONID=" + sessionid + "; HttpOnly; Secure; Path=/getToken; Domain= " + req.getServerName() + "");
 	        }
 	        else {
-	        	  res.setHeader("SET-COOKIE", "JSESSIONID=" + sessionid + "; HttpOnly; Secure; Path=req.getContextPath(); Domain= " + req.getServerName() + "");
+	        	 res.setHeader("SET-COOKIE", "JSESSIONID=" + sessionid + "; HttpOnly; Secure; Path=req.getContextPath(); Domain= " + req.getServerName() + "");
 	        }	        
 	        //res.setHeader("Refresh", "60; URL=/SMT/");
 

@@ -23,7 +23,7 @@ $(document).ready(function(){
  <meta http-equiv="x-ua-compatible" content="IE=edge">
 <link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
 <!-- <script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment-with-locales.min.js"></script> -->
-<script src="resources/js/moment-with-locales.min.js"></script>
+<!-- <script src="resources/js/moment-with-locales.min.js"></script> -->
 <script src="resources/js/angular.1.5.6.min.js"></script>
 <script src="resources/js/ticket-history-app.js"></script>
 <script src="resources/js/angular.1.5.6.min.js"></script>
@@ -133,13 +133,40 @@ $(document).ready(function(){
         span.pull-right {
         padding:5px 10px;
         }
+        
+         option:empty
+          {
+           display:none;
+          }
+             .ui-grid-contents-wrapper {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+    		.ui-grid, .ui-grid-viewport {
+   			  height: auto !important; 
+			} 
+			.ui-grid-pager-panel {
+		     position: relative;
+			 } 
+	
+			.ui-grid-pager-row-count-picker {
+			display:none;
+			}
+			.ui-grid .ui-grid-render-container-body .ui-grid-viewport {
+			    overflow-x: auto !important;
+			    /* overflow-y: auto !important; */
+			}
+			.ui-grid-header-canvas {
+			    padding-top: 0px;
+			    padding-bottom: 0px;}
     </style>
    
 
 </head>
 <body>
 
-<div class="main" ng-app="app" id="appId">
+<div class="main_transaction" ng-app="app" id="appId">
 <div ng-controller="UserManagementCtrl as vm">
  <div>
  <form name="myForm" id="myForm">
@@ -187,7 +214,7 @@ $(document).ready(function(){
                     </div>
                     <div class="col-xs-6">
                         <select id="category" name="Category" ng-model="SelectedCategoryId">
-									<option value="0">Select Category</option>
+									<option value="0" style="padding-top: 0px;">Select Category</option>
 									<option ng-repeat="item in Categorys" value="{{item.category}}">{{item.category}}</option>
 							</select>
                     </div>
@@ -249,8 +276,8 @@ $(document).ready(function(){
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
-                        <select id="circle" name="Circle" ng-model="SelectedCircelId" required>
-									<option value="0">Select Circle</option>
+                        <select id="circle" name="Circle" ng-model="SelectedCircelId">
+									<option value="">Select Circle</option>
 									<option ng-repeat="item in Circles" value="{{item.circleName}}">{{item.circleName}}</option>
 							</select>
                     </div>
@@ -260,12 +287,12 @@ $(document).ready(function(){
 			<td>
                 <div class="row">
                     <div class="col-xs-6 lb">
-                        <span class="text-left">Vendor<b>*</b></span>
+                        <span class="text-left">Vendor<b></b></span>
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
-                       <select id="vendor" name="Vendor" ng-model="SelectedVendorId" required>
-									<option value="0">Select Vendor</option>
+                       <select id="vendor" name="Vendor" ng-model="SelectedVendorId">
+									<option value="">Select Vendor</option>
 									<option value="CMS">CMS</option>
 									<option value="LIPI">LIPI</option>
 									<option value="FORBES">FORBES</option>
@@ -295,10 +322,10 @@ $(document).ready(function(){
 		</form>
 		</div> 
 <br/>
-		<div class="submain">
+		<div class="submain_transaction">
 	
 	
-	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Username, First Name, Last Name, Mail Id, Circle etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">
+	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter KioskId,BranchCode,Circle,Vendor etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">
 		<span style="float:right">
 		<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
 		<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>

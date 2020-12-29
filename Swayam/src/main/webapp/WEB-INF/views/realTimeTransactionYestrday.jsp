@@ -5,8 +5,7 @@
 
 <head>
 
-
-<meta http-equiv="x-ua-compatible" content="IE=edge">
+<meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
  <script src="resources/js/transaction-realtime-yesterday-app.js"></script>
 <script	src="resources/js/angular.1.5.6.min.js"></script>
 <script src="resources/js/jquery.3.4.1.min.js"></script>
@@ -78,13 +77,26 @@
   			white-space: normal;
   			padding: 2px;
   			word-break: break-word;
+  			
 			}
-  			.ui-grid, .ui-grid-viewport {
-			     height: auto !important;
-			}
+			.ui-grid, .ui-grid-viewport {
+   			  height: auto !important; 
+			} 
 			.ui-grid-pager-panel {
-			    position: relative;
+		     position: relative;
+			 } 
+			 .ui-grid .ui-grid-render-container-body .ui-grid-viewport {
+ 			 	overflow-x: auto !important;
+  				overflow-y: auto !important;
+  				
 			}
+			.ui-grid-pager-row-count-picker {
+			display:none;
+			}
+			.ui-grid-header-canvas {
+			    padding-top: 0px;
+			    padding-bottom: 0px;}
+
 </style>	
 <script type="text/javascript">
 $("#myBtn").click(function(){
@@ -102,14 +114,14 @@ $("#myBtn").click(function(){
 </head>
 <body>
 
-<div class="main" ng-app="app" id="appId">
+<div class="main_transaction" ng-app="app" id="appId">
 <div ng-controller="UserManagementCtrl as vm">
 
 
  <table>
-   <h1 colspan="4" align="center" style="color: #00BFFF;font-size: 12px;font-weight: bold;"> Real-time Swayam Transaction on
+   <h1 colspan="4" align="center" style="color: #00BFFF;font-size: 18px;font-weight: bold;"> Real-time Swayam Transaction on
     <span  id="mySpan1"> {{allIndiaDate}} </span>
-     <span  id="mySpan">  {{CurrentDate | date:'EEE,dd MMM, yyyy hh:mm:ss a'}}</span>
+     <span  id="mySpan">  {{CurrentDate | date:'EEE,dd MMM, yyyy '}}</span>
    </h1> 
     </table>
 
@@ -118,13 +130,18 @@ $("#myBtn").click(function(){
   <h1 colspan="4" align="right"><input id="myBtn" value="Today" class="openFinalPopup" ng-model="date" type="button" style="font-size: 20px;width: 80px;height: 30px;" /></h1>   
  </tr>
 </table>
-<div>
+<!-- <div>
 	<pre align="left" style="background-color: #00BFFF;color: white;font-size:24px;font-weight: bold;">
      <span>Real-time Swayam Transactions<span colspan="4" align="center" style="color: white;font-size: 24px;font-weight: bold;float:right; margin-right:1em">Last Updated :<span id="dateId"></span></span>
     </span>
 </pre>
 
-</div>
+</div> -->
+<div>
+		<pre align="left" style="background-color: #00BFFF;color: white;font-size:18px;font-weight: bold;font-family:Helvetica;">
+ <span align="center" style="font-family:Helvetica">Real-time Swayam Transactions<span colspan="4" align="center" style="color: white;font-size: 18px;font-weight: bold;float:right; margin-right:1em">Last Updated :<span id="dateId"></span></span></span>
+</pre>
+			</div> 
 
 <!-- 
  <table>
@@ -144,7 +161,7 @@ $("#myBtn").click(function(){
 </div>
 
 -->
-		<div class="submain">
+		<div class="submain_transaction">
 	
 	<input class="form-group has-search" ng-model="searchText" ng-change="refresh()" placeholder="Enter Kiosk Id, Branch Code, Circle etc." style="font-size: 12px" size="150" height="80" id="input">
 		
@@ -154,6 +171,12 @@ $("#myBtn").click(function(){
 		&nbsp;&nbsp;&nbsp;
 		</span>		
 				<br/>
+			<!-- Added for loader------------- START -->	
+	
+		<div class="loading" id="loading" align="center" style="display:none;">
+   			 <img src="resources/img/loader.gif"> 
+		</div> 
+		<!-- Added for loader------------- END -->	
 		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-selection ui-grid-exporter id="test"></div>
 		
         

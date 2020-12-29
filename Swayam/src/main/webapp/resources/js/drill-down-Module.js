@@ -55,15 +55,20 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
 	 	 	   });
 	 	    }
 	    };
-
+	//  Added for loader------------- START 
+		$("#loading").show(); 
+	//  Added for loader------------- END 
    DrillDownService.getUsers(paginationOptions.pageNumber,
 		   paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
 	  $scope.gridOptions.data = data.content;
  	  $scope.gridOptions.totalItems = data.totalElements;
+ 	//  Added for loader------------- START 
+		$("#loading").hide(); 
+	//  Added for loader------------- END 
    });
    
    $scope.gridOptions = {
-	paginationPageSizes: [20, 30, 40],
+	/*paginationPageSizes: [20, 30, 40],*/
     paginationPageSize: paginationOptions.pageSize,	
 	enableColumnMenus:false,
 	useExternalPagination: true,
@@ -93,7 +98,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
       	  superCol: 'front', 
       	  cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.code)">{{row.entity.name}}</a></div>'
       },
-      { name: 'totalSwayamBranches', displayName: 'Total Swayam Branches',superCol: 'front'   },
+      { name: 'branchCodeCount', displayName: 'Total Swayam Branches',superCol: 'front'   },
       { name: 'totalSwayamKiosks', displayName: 'Total Swayam Kiosks',superCol: 'front'   },
       { name: 'lipiKiosks', displayName: 'Kiosks',superCol: 'lipi'  },
       { name: 'lipiTxns', displayName: 'Txns',superCol: 'lipi'  },

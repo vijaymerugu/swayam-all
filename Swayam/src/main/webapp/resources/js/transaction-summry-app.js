@@ -59,31 +59,29 @@ sort: null
 	         		$("#datepickerFromDate").focus();
 	         	}
     	   }
-   debugger;
- //  Added for loader------------- START 
+    	   //  Added for loader------------- START 
    $("#loading").show();  
-// Added for loader------------- END
+// Added for loader------------- EN
+      	
   UserManagementService.getUsers(paginationOptions.pageNumber,
   paginationOptions.pageSize,fromDate,toDate).success(function(data){
-
+                 //console.log("$scope.gridOptions.data.length=============",$scope.gridOptions.data.length);
+   
                     console.log("Response Data " + data.totalElements);	
 					$scope.allIndiaDate = "From: " +fromDate+" ToDate: "+toDate; 				
 									if(data.totalElements==0){
 										$scope.gridOptions.data = data.content;
 										$scope.gridOptions.totalItems = data.totalElements;
 										alert("No results found for given search criteria")
-
 									}else{
-
+									
 										$scope.gridOptions.data = data.content;
 										$scope.gridOptions.totalItems = data.totalElements;
 									  
 									}
-
 								//  Added for loader------------- START 
 									$("#loading").hide(); 
 								//  Added for loader------------- END 
-
 									/*
   if(data.length==0 || data.length==null) {
        console.log("data=============",data);   
@@ -139,7 +137,7 @@ sort: null
    });
    
    $scope.gridOptions = {
-    paginationPageSizes: [20, 30, 40],
+    /*paginationPageSizes: [20, 30, 40],*/
     paginationPageSize: paginationOptions.pageSize,
     enableColumnMenus:false,
     useExternalPagination: true,     
@@ -172,11 +170,11 @@ sort: null
           { name: 'region', displayName: 'Region',superCol: 'front'  },
           { name: 'branchCode', displayName: 'Branch Code',superCol: 'front'},
           { name: 'branchName', displayName: 'Branch Name',superCol: 'front'  },
-          { name: 'lipiKioskCount', displayName: 'No Of Kios',superCol: 'lipi'},
+          { name: 'lipiKioskCount', displayName: 'No Of Kiosk',superCol: 'lipi'},
           { name: 'lipiTxnCount', displayName: 'Txn', superCol: 'lipi'},
-          { name: 'forbesKioskCount', displayName: 'No Of Kios',superCol: 'Forbes' },
+          { name: 'forbesKioskCount', displayName: 'No Of Kiosk',superCol: 'Forbes' },
           { name: 'forbesTxnCount', displayName: 'Txn',superCol: 'Forbes'},
-          { name: 'cmsKioskCount', displayName: 'No Of Kios',superCol: 'CMS'},
+          { name: 'cmsKioskCount', displayName: 'No Of Kiosk',superCol: 'CMS'},
           { name: 'cmsTxnCount', displayName: 'Txn',superCol: 'CMS'},
           { name: 'totalSwayamTxn', displayName: 'SWAYAM Txn',superCol: 'total'},
           { name: 'manualTxn', displayName: 'Branch Txn',superCol: 'total' },

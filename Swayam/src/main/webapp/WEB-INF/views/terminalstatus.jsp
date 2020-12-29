@@ -39,17 +39,68 @@
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
+    <style>
+	
+  .ui-grid-header-cell-label {
+		display:inline-block;
+		white-space:initial;
+		font-size: 15px;
+		}
+		
+		
+		.wrap-text .ui-grid-cell-contents {
+ 		 white-space:normal;
+		}
+
+		[ui-grid-row] {
+  		display: table-row;
+		}
+
+		.ui-grid-row, .ui-grid-cell {
+  		height: auto!important;
+		}
+
+			.ui-grid-cell {
+  			float: none;
+  			display: table-cell;
+			} 
+		
+		
+			.ui-grid-header-cell, .ui-grid-cell-contents {
+  			white-space: normal;
+  			padding: 2px;
+  			word-break: break-word;
+			}
+    		.ui-grid, .ui-grid-viewport {
+   			  height: auto !important; 
+			} 
+			.ui-grid-pager-panel {
+		     position: relative;
+			 } 
+	
+			.ui-grid-pager-row-count-picker {
+			display:none;
+			}
+			.ui-grid .ui-grid-render-container-body .ui-grid-viewport {
+    overflow-x: hidden !important;
+    /* overflow-y: auto !important; */
+}
+.ui-grid-header-canvas {
+    padding-top: 0px;
+    padding-bottom: 0px;}
+			
+</style>
 </head>
 <body>
 
-<div class="main" ng-app="app" id="appId">
+<div class="main_terminal" ng-app="app" id="appId">
 <div ng-controller="UserManagementCtrl as vm">
 
 <!--  -->
 <div>
 
 			  <table class="table1"
-				style="top: 152px; left: 15px; width: 1336px; height: 190px; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1;">
+				style="top: 152px; left: 15px; width: 100%; height: 190px; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1;">
 
 				<thead>
 						<tr
@@ -75,45 +126,45 @@
 				<tbody>
 					<tr align="center">
 						<td id="count1">
-						  <a ng-click="getCountType('NoOfRedPVSRed')"><c:out value="${mapAgentStatusCount['PrinterStatusRedCount']}"/></a></td>
+						  <a ng-click="getCountType('NoOfRedPVSRed')" style="cursor: hand;cursor: pointer;"><c:out value="${mapAgentStatusCount['PrinterStatusRedCount']}"/></a></td>
 						
 						<td id="count1">
-						 <a ng-click="getCountType('NoOfGreenPVSGreen')"><c:out value="${mapAgentStatusCount['PrinterStatusGreenCount']}"/></a>  					
+						 <a ng-click="getCountType('NoOfGreenPVSGreen')" style="cursor: hand;cursor: pointer;"><c:out value="${mapAgentStatusCount['PrinterStatusGreenCount']}"/></a>  					
 						</td>
 						
 						<td id="count1" style="border-right: solid 1px #0307fc;">
-						<a ng-click="getCountType('NoOfGreyPVSGrey')"><c:out value="${mapAgentStatusCount['PrinterStatusGreyCount']}"/></a></td>   
+						<a ng-click="getCountType('NoOfGreyPVSGrey')" style="cursor: hand;cursor: pointer;"><c:out value="${mapAgentStatusCount['PrinterStatusGreyCount']}"/></a></td>   
 
 						 <td id="count1">
-						 <a ng-click="getCountType('NoOfRedCARTRed')"><c:out value="${mapAgentStatusCount['RedCartriCount']}"/></a>
+						 <a ng-click="getCountType('NoOfRedCARTRed')"  style="cursor: hand;cursor: pointer;"><c:out value="${mapAgentStatusCount['RedCartriCount']}"/></a>
 						 </td>
 						 
 						<td id="count1">
-						 <a ng-click="getCountType('NoOfGreenCARTGreen')"><c:out value="${mapAgentStatusCount['GreenCartriCount']}"/></a>
+						 <a ng-click="getCountType('NoOfGreenCARTGreen')"  style="cursor: hand;cursor: pointer;"><c:out value="${mapAgentStatusCount['GreenCartriCount']}"/></a>
 						</td>
 						<td id="count1" style="border-right: solid 1px #0307fc;">
-						 <a ng-click="getCountType('NoOfGreyCARTGrey')"><c:out value="${mapAgentStatusCount['GreyCartriCount']}"/></a>
+						 <a ng-click="getCountType('NoOfGreyCARTGrey')" style="cursor: hand;cursor: pointer;"><c:out value="${mapAgentStatusCount['GreyCartriCount']}"/></a>
 						</td>
 						
 						<td id="count1">
-						<a ng-click="getCountType('NoOfRedANTRed')"><c:out value="${mapAgentStatusCount['AgentStatusRedCount']}"/></a>
+						<a ng-click="getCountType('NoOfRedANTRed')"  style="cursor: hand;cursor: pointer;"><c:out value="${mapAgentStatusCount['AgentStatusRedCount']}"/></a>
 						</td>
 						<td id="count1">
-						<a ng-click="getCountType('NoOfGreenANTGreen')"><c:out value="${mapAgentStatusCount['AgentStatusGreenCount']}"/></a>
+						<a ng-click="getCountType('NoOfGreenANTGreen')"  style="cursor: hand;cursor: pointer;"><c:out value="${mapAgentStatusCount['AgentStatusGreenCount']}"/></a>
 						</td>
 						<td id="count1" style="border-right: solid 1px #0307fc;">
-						<a ng-click="getCountType('NoOfGreyANTGrey')"><c:out value="${mapAgentStatusCount['AgentStatusGreyCount']}"/></a>
+						<a ng-click="getCountType('NoOfGreyANTGrey')"  style="cursor: hand;cursor: pointer;"><c:out value="${mapAgentStatusCount['AgentStatusGreyCount']}"/></a>
 						</td>
 
 						<td id="count1">
-						<a ng-click="getCountType('NoOfRedAPPSRed')"><c:out value="${mapAgentStatusCount['RedApplicationCount']}"/></a>
+						<a ng-click="getCountType('NoOfRedAPPSRed')"  style="cursor: hand;cursor: pointer;"><c:out value="${mapAgentStatusCount['RedApplicationCount']}"/></a>
 						</td>
 						<td id="count1">
-						<a ng-click="getCountType('NoOfGreenAPPSGreen')"> <c:out value="${mapAgentStatusCount['GreenApplicationCount']}"/></a>
+						<a ng-click="getCountType('NoOfGreenAPPSGreen')"  style="cursor: hand;cursor: pointer;"> <c:out value="${mapAgentStatusCount['GreenApplicationCount']}"/></a>
 						</td>
 						
 						<td id="count1">
-						<a ng-click="getCountType('NoOfGreyAPPSGrey')"><c:out value="${mapAgentStatusCount['GreyApplicationCount']}"/></a>
+						<a ng-click="getCountType('NoOfGreyAPPSGrey')" style="cursor: hand;cursor: pointer;"><c:out value="${mapAgentStatusCount['GreyApplicationCount']}"/></a>
 						</td>
 					</tr>
 					<tr align="center"
@@ -143,10 +194,10 @@
 			</table>
 		</div>
 <br/>
-	<div class="submain">
+	<div class="submain_terminal">
 	
 	<br/>
-	<input  ng-model="searchText" ng-change="refresh()" placeholder="Enter Kiosk Id,Agent Status etc." style="font-size: 12px" size="150" height="80" id="input" class="form-group has-search">
+	<input  ng-model="searchText" ng-change="refresh()" placeholder="Enter Kiosk Id,Agent Status etc.." style="font-size: 12px" size="150" height="80" id="input" class="form-group has-search">
 		<span style="float:right">
 		<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
 		<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>

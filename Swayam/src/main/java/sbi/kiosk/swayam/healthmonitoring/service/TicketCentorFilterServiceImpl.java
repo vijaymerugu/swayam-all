@@ -30,6 +30,7 @@ import sbi.kiosk.swayam.common.repository.SupervisorRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.CallTypeRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.TicketCentorAgeingRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.TicketCentorRepository;
+import sbi.kiosk.swayam.kioskmanagement.repository.BranchMasterRepository;
 
 @Service
 public class TicketCentorFilterServiceImpl implements TicketCentorFilterService {
@@ -49,6 +50,9 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 	
 	 @Autowired
 	 SupervisorRepository supervisorRepository;
+	 
+	 @Autowired
+	BranchMasterRepository branchMasterRepo;
 	
 	public static HttpSession session() {
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
@@ -59,13 +63,15 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 	 public Page<TicketCentorDto> findPaginated(final int page, final int size){
 		 logger.info("Inside======findPaginated===========");
 		 Page<TicketCentorDto> entities = ticketCentorRepo.findAll(PageRequest.of(page, size)).map(TicketCentorDto::new);
-		 
+		 String circle=null;
 		 for(TicketCentorDto dto:entities){
 			 
 			 String kioskId=dto.getKisokId();
-			 
-			 String kioskBranchMaster= kioskMasterRepo.findKioskByKioskId_circle(kioskId);
-			 dto.setServeriry(kioskBranchMaster);
+			  if(kioskId!=null){
+				  String kioskBranchCode= kioskMasterRepo.findKioskByBranchCode(kioskId);
+				  circle= branchMasterRepo.findCircleByBranchCode(kioskBranchCode);
+				  }
+				  dto.setServeriry(circle);
 		 }
 		 
 		 
@@ -93,7 +99,7 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 			  }else if(type!=null && type.equals("OneDaysCount")){
 				  entities=ticketCentorAgeingRepo.findAllTicketCentor1Days(PageRequest.of(page, size)).map(TicketCentorDto::new);
 			 }else if(type!=null && type.equals("ThreeDaysLessCount")){
-				 entities=ticketCentorAgeingRepo.findAllTicketCentor3DaysLess(PageRequest.of(page, size)).map(TicketCentorDto::new);
+		  	 entities=ticketCentorAgeingRepo.findAllTicketCentor3DaysLess(PageRequest.of(page, size)).map(TicketCentorDto::new);
 		    }else if(type!=null && type.equals("ThreeDayGreaterCount")){
 		    	entities=ticketCentorAgeingRepo.findAllTicketCentor3DaysGreater(PageRequest.of(page, size)).map(TicketCentorDto::new);
 		    } else if(type !=null && type !="" && type !="undefined"){	    	
@@ -168,10 +174,10 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 		 try{
 			
 			    mapDataList = new HashMap<String, Integer>();			
-			    int countHigh = callTypeRepo.getCallTypeHieghCMF(supList);
-				int countMedium = callTypeRepo.getCallTypeMediumCMF(supList);
-				int countLow = callTypeRepo.getCallTypeLowCMF(supList);
-				int countTotal = callTypeRepo.getCallTypeTotalCMF(supList);
+			    int countHigh = callTypeRepo.getCallTypeHieghCMS(supList);
+				int countMedium = callTypeRepo.getCallTypeMediumCMS(supList);
+				int countLow = callTypeRepo.getCallTypeLowCMS(supList);
+				int countTotal = callTypeRepo.getCallTypeTotalCMS(supList);
 				mapDataList.put("High", countHigh);
 				mapDataList.put("Medium", countMedium);
 				mapDataList.put("Low", countLow);
@@ -182,7 +188,8 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 				}
 			
 		 }catch (Exception e) {
-			 logger.error("Exception "+ExceptionConstants.EXCEPTION);
+			 e.printStackTrace();
+			 logger.error("Exception111 "+ExceptionConstants.EXCEPTION);
 		 } 
 			
 			return mapDataList;
@@ -196,7 +203,6 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 				 
 				 mapDataList = new HashMap<String, Integer>();	
 			    int twoToFourHrsCount = ticketCentorAgeingRepo.find2_4HoursCount();
-				
 				int oneDaysCount = ticketCentorAgeingRepo.find_1_DaysCount();
 				int threeDaysCount = ticketCentorAgeingRepo.find_3_Days_LessCount();
 				int threeDayGreaterCount = ticketCentorAgeingRepo.find_3_Days_GreaterThanCount();
@@ -252,11 +258,11 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 			Map<String, Integer> mapDataList = null;		
 			try{
 				 mapDataList = new HashMap<String, Integer>();	
-			    int twoToFourHrsCount = ticketCentorAgeingRepo.find2_4HoursCountCMF(supList);
-				int oneDaysCount = ticketCentorAgeingRepo.find_1_DaysCountCMF(supList);
-				int threeDaysCount = ticketCentorAgeingRepo.find_3_Days_LessCountCMF(supList);
-				int threeDayGreaterCount = ticketCentorAgeingRepo.find_3_Days_GreaterThanCountCMF(supList);
-				int totalCount = ticketCentorAgeingRepo.findTotalCountCMF(supList);
+			    int twoToFourHrsCount = ticketCentorAgeingRepo.find2_4HoursCountCMS(supList);
+				int oneDaysCount = ticketCentorAgeingRepo.find_1_DaysCountCMS(supList);
+				int threeDaysCount = ticketCentorAgeingRepo.find_3_Days_LessCountCMS(supList);
+				int threeDayGreaterCount = ticketCentorAgeingRepo.find_3_Days_GreaterThanCountCMS(supList);
+				int totalCount = ticketCentorAgeingRepo.findTotalCountCMS(supList);
 				
 				
 				mapDataList.put("TwoToFourHrsCount", twoToFourHrsCount);
@@ -383,13 +389,16 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 			logger.info("Inside======findPaginatedCmf===========");
 			UserDto user = (UserDto) session().getAttribute("userObj"); 
 			Page<TicketCentorDto> entities = ticketCentorRepo.findAllByCMFUser(user.getPfId(),PageRequest.of(page, size)).map(TicketCentorDto::new);
-			 
+			 String circle=null;
 			 for(TicketCentorDto dto:entities){
 				 
 				 String kioskId=dto.getKisokId();
 				 
-				 String kioskBranchMaster= kioskMasterRepo.findKioskByKioskId_circle(kioskId);
-				 dto.setServeriry(kioskBranchMaster);
+				  if(kioskId!=null){
+					  String kioskBranchCode= kioskMasterRepo.findKioskByBranchCode(kioskId);
+					  circle= branchMasterRepo.findCircleByBranchCode(kioskBranchCode);
+					  }
+					  dto.setServeriry(circle);
 				 
 				 
 			 }			 
@@ -403,13 +412,16 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 			Set<String> supList =  supervisorRepository.findPfIdListByPfIdSupervisor(supPfId);
 			
 			Page<TicketCentorDto> entities = ticketCentorRepo.findAllByCMFUserForCMS(supList,PageRequest.of(page, size)).map(TicketCentorDto::new);
-			 
+			 String circle=null;
 			 for(TicketCentorDto dto:entities){
 				 
 				 String kioskId=dto.getKisokId();
 				 
-				 String kioskBranchMaster= kioskMasterRepo.findKioskByKioskId_circle(kioskId);
-				 dto.setServeriry(kioskBranchMaster);
+				  if(kioskId!=null){
+					  String kioskBranchCode= kioskMasterRepo.findKioskByBranchCode(kioskId);
+					  circle= branchMasterRepo.findCircleByBranchCode(kioskBranchCode);
+					  }
+					  dto.setServeriry(circle);
 				 
 				 
 			 }			 
@@ -442,7 +454,11 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 					 entities=ticketCentorAgeingRepo.findAllTicketCentor3DaysLessAndCMFUser(pfId,PageRequest.of(page, size)).map(TicketCentorDto::new);
 			    }else if(type!=null && type.equals("ThreeDayGreaterCount")){
 			    	entities=ticketCentorAgeingRepo.findAllTicketCentor3DaysGreaterAndCMFUser(pfId,PageRequest.of(page, size)).map(TicketCentorDto::new);
-			    } else if(type !=null && type !="" && type !="undefined" && !type.equals("TotalCount")){	    	
+			    } 
+			    else if(type!=null && type.equals("TotalCount")){
+			    	entities=ticketCentorAgeingRepo.findAllTicketTotalListAndCMFUser(pfId,PageRequest.of(page, size)).map(TicketCentorDto::new);
+			    }
+			    else if(type !=null && type !="" && type !="undefined" && !type.equals("TotalCount")){	    	
 			    	entities= ticketCentorRepo.findByCallSubCategoryAndCMFUser(type,pfId, PageRequest.of(page, size,Sort.by("TICKET_ID").descending())).map(TicketCentorDto::new);	         
 			    }else{
 			    	logger.info("Inside======findPaginatedCountCmf======inside==else");

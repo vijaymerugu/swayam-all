@@ -2,7 +2,7 @@
 {	
 top: 0px;
 left: 0px;
-width: 100%;
+width: 98%;
 height: 102px;
 background: #FFFFFF 0% 0% no-repeat padding-box;
 box-shadow: 0px 0px 0px ;
@@ -12,7 +12,7 @@ opacity: 1;
 #topnav 
 {
  float: left;
- width: 1179px;
+ width: 90%;
  height: 24px;
  background: #ffffff;
  margin-top: 3px;

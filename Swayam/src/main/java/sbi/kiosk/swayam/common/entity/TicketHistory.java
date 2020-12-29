@@ -35,5 +35,8 @@ public class TicketHistory {
 	private String callCategory;
 	@Column(name="CALL_SUB_CATEGORY")
 	private String  callSubCategory;
+	// add new fro ticket id
+	@Column(name="TICKET_ID")
+	private String  ticketId;
 
 }

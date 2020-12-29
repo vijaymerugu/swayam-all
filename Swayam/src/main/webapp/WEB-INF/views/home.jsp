@@ -5,8 +5,10 @@
 
 <!Doctype html>
 <html>
+<title>Swayam</title>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<link rel="icon" href="resources/img/SBI_Logo.jpg" type="image/x-icon">
 <script src="resources/js/angular.1.5.6.min.js"></script>
 <script src="resources/js/jquery.3.4.1.min.js"></script>
 <!-- <script src="resources/js/bootstrap.3.4.1.min.js"></script> -->
@@ -45,7 +47,7 @@
 <script src="resources/js/angular-animate.js"></script>
 <script src="resources/js/angular-aria.js"></script>
 </head>
-<body style="background: #EFF3F6; margin: 0px; padding: 0px">
+<body style="background: #EFF3F6; margin: 0px; padding: 0px;width: 98%;overflow-x: hidden;">
 	<div id="mainMenuHome" ng-app="HomeApp" ng-controller="menuController">
 		<%
 			UserDto userObj = (UserDto) session.getAttribute("userObj");
@@ -111,8 +113,9 @@
 					<!--    @* Here first of all we will create a ng-template *@--> <script
 						type="text/ng-template" id="menu">
             <a ng-click="loadHomeBodyPage(menu.url)" style="cursor: hand;cursor: pointer;">{{menu.name}}</a>
-            <ul ng-if="(SiteMenu | filter:{parentId : menu.id}).length > 0" class="submenu">
-                <li ng-repeat="menu in SiteMenu | filter:{parentId : menu.id}" ng-include="'menu'"></li>
+          <ul ng-if="(SiteMenu | filter:{parentId : menu.id}).length > 0" class="submenu"> 
+                <li ng-repeat="menu in SiteMenu | filter:{parentId : menu.id}" ng-include="'menu'"></li>   
+				
             </ul>
         </script>
 					<div id="topnav">
@@ -136,12 +139,12 @@
 		//angular.bootstrap(document.getElementById("appId"), ['app']);
 		var appHome = angular.module('HomeApp', []);
 		appHome.controller('menuController', [ '$scope', '$http',
-				function($scope, $http) {
+				function($scope, $http) { 
 					$scope.SiteMenu = [];
 					$scope.notifications = [];
 					$scope.updatedNotifications = [];
 					$scope.unReadNotificationCount = 0;
-					$scope.loadHomeBodyPage = function(url) {
+					$scope.loadHomeBodyPage = function(url) { 
 						if (url != undefined) {
 							$("#contentHomeApp").load(url);
 							//DO NOT DELETE THIS CODE. 
@@ -155,7 +158,7 @@
 					}
 
 					$http.get('common/menu').then(function(data) {
-						$scope.SiteMenu = data.data;
+						$scope.SiteMenu = data.data; 
 					}, function(error) {
 						alert('Error');
 					})
@@ -186,13 +189,26 @@
 				 };
 					
 				} ]);
+		
+/* 		appHome.filter('exactMatch', function() { 
+		    return function(SiteMenu, pattern) {
+		        var result = [];
+		        SiteMenu.forEach(function (SiteMenu) {
+		            if (SiteMenu.parentId === pattern) {
+		                result.push(SiteMenu);
+		                
+		            }
+		        });                
+		        return result;
+		    }
+		}); */
 
 		var ddmenuitem = 0;
-		function jsddm_open() {
+		function jsddm_open() { 
 			jsddm_close();
 			ddmenuitem = $(this).find('ul.submenu').css('display', 'block');
 		}
-		function jsddm_close() {
+		function jsddm_close() { 
 			if (ddmenuitem)
 				ddmenuitem.css('display', 'none');
 		}
@@ -216,13 +232,14 @@
 															|| $(this).text() == 'HEALTH MONITORING'
 															|| $(this).text() == 'DATA ANALYSER'
 															|| $(this).text() == 'MIS REPORTS'
-															|| $(this).text() == 'BILLING AND PAYMENTS') {
+															|| $(this).text() == 'BILLING AND PAYMENTS'
+																|| $(this).text() == 'SUPPORT') {
 														$('#topnav ul li a')
 																.removeClass(
 																		'active');
 														$(this).addClass(
 																'active');
-													} else {
+													} else { 
 														$(
 																'#topnav ul li ul.submenu li a')
 																.removeClass(

@@ -67,9 +67,9 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 				    $scope.Circles = data;
 					console.log("Done.....");
 					
-						$scope.SelectedCircelId = 0;
-						$scope.CircleDefaultLabel = "Select Circle";
-						$scope.Circles = data;
+					//	$scope.SelectedCircelId = 0;
+						//$scope.CircleDefaultLabel = "Select Circle";
+						//$scope.Circles = data;
 											
 						}).error(function(data, status) {
 								console.log("error....." + value)
@@ -91,15 +91,33 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 		//$scope.reset('');
 		
 		
-		  $scope.resetPositions=function(){
-			   console.log("Inside resetPositions ");
-	    	   	$scope.SelectedCircelId =''; 
-	    	   	$scope.SelectedVendorId ='';
-	    	   	$scope.SelectedCmsCmfId ='';
-	    	    $scope.SelectedFromDateId ='';
-	    	   	$scope.SelectedToDateId ='';
-				
-	       }
+		  function stringToDate(_date,_format,_delimiter) {
+			        var formatLowerCase=_format.toLowerCase();
+			        var formatItems=formatLowerCase.split(_delimiter);
+			        var dateItems=_date.split(_delimiter);
+			        var monthIndex=formatItems.indexOf("mm");
+			        var dayIndex=formatItems.indexOf("dd");
+			        var yearIndex=formatItems.indexOf("yyyy");
+			        var year = parseInt(dateItems[yearIndex]); 
+			        // adjust for 2 digit year
+			        if (year < 100) { year += 2000; }
+			        var month=parseInt(dateItems[monthIndex]);
+			        month-=1;
+			        var formatedDate = new Date(year,month,dateItems[dayIndex]);
+			        return formatedDate;
+			}
+			  $scope.resetPositions=function(){
+				   console.log("Inside resetPositions ");
+				   console.log('before SelectedCircelId:', $scope.SelectedCircelId);
+				   $scope.selectedCircelId =''; 
+				   $scope.selectedVendorId ='';
+				   $scope.selectedCmsCmfId ='';
+				   $scope.selectedFromDateId ='';
+				   $scope.selectedToDateId ='';
+		    	    $scope.LoadDropDown('', 0);
+		   		    $scope.LoadDropCmsCmf();
+		   		    loadGrid();
+		       }
        
 	  
 		$scope.searchPositions = function(CircelId,VendorId,CmsCmfId,FromDateId,ToDateId) {
@@ -110,72 +128,68 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 				
 				//if((FromDateId==null || FromDateId=='undefined') && (ToDateId==null || ToDateId=='undefined')){
 				
-  		//}else{
-  		
-			   selectedCircelId = CircelId;
-				selectedVendorId=VendorId;
-				selectedCmsCmfId=CmsCmfId;
-				//selectedToDateId=ToDateId;
-				//selectedFromDateId=FromDateId;
-				
-				selectedFromDateId=FromDateId;
-				selectedToDateId=ToDateId;
-		//}
-				
-				
-				
-			    console.log("selectedCircelId " + selectedCircelId);
-			    console.log("selectedVendorId " + selectedVendorId);
-				console.log("selectedCmsCmfId " + selectedCmsCmfId);
-				console.log("selectedFromDateId " + selectedFromDateId);
-				console.log("selectedToDateId " + selectedToDateId);
-				
-			        debugger; 
-			        selectedFromDateId = $("#datepickerFromDate").val();
-			        selectedToDateId = $("#datepickerToDate").val();
-			            
-		
-	       var $from=$("#datepickerFromDate").datepicker('getDate');
-	       var $to =$("#datepickerToDate").datepicker('getDate');
-	     
-	   if (($from== null) || ($to== null) )
-		   {
-		   
-		       if($from== null)
-		      	{
-		      		alert("Please enter from date!!!");
-		      		$("#datepickerFromDate").focus();
-		      	}
-		       if($to== null)
-		     	{
-		     		alert("Please enter to date!!!");
-		     		$("#datepickerToDate").focus();
-		     	}
-	   		}
-	       else
-	    	  {
-		    	   if($from>$to)
-		    	   {
-		         		alert("from date shouldn't greater than To date");
-		         		$("#datepickerFromDate").focus();
-		         	}else{
-		         	
-		         	UserManagementService
-						.getUsers(paginationOptions.pageNumber,paginationOptions.pageSize, counttype,selectedCircelId,
-						selectedVendorId,selectedCmsCmfId,selectedFromDateId,selectedToDateId).success(function(data) {
-							console.log("data1 " + data);
-							$scope.gridOptions.data = data.content;
-							$scope.gridOptions.totalItems = data.totalElements;
-						});
-		         	}
-		         	
-	    	   }
-		        
-		      //  if(selectedFromDateId!=null && !selectedFromDateId=='' && !selectedFromDateId=="" && !selectedFromDateId=='undefined'){
-		    	
+  	                $scope.selectedCircelId = CircelId;
+					$scope.selectedVendorId=VendorId;
+					$scope.selectedCmsCmfId=CmsCmfId;
+					//selectedToDateId=ToDateId;
+					//selectedFromDateId=FromDateId;
+					
+					$scope.selectedFromDateId=FromDateId;
+					$scope.selectedToDateId=ToDateId;
+			//}
+					
+					
+					
+				    console.log("selectedCircelId " + $scope.selectedCircelId);
+				    console.log("selectedVendorId " + $scope.selectedVendorId);
+					console.log("selectedCmsCmfId " + $scope.selectedCmsCmfId);
+					console.log("selectedFromDateId " + $scope.selectedFromDateId);
+					console.log("selectedToDateId " + $scope.selectedToDateId);
+					
+					if($('#datepickerFromDate').val() == '' || $('#datepickerToDate').val() == '') {
+						alert('From date & To date can not be null.');
+					} else {
+						
+					var fromDate = stringToDate($('#datepickerFromDate').val(), 'dd-mm-yyyy', '-');
+					var toDate = stringToDate($('#datepickerToDate').val(), 'dd-mm-yyyy', '-');
+					
+					if (fromDate > toDate){
+						alert('From date must be smaller than To date.');
+					} else {
+			    	   
+			         	UserManagementService
+							.getUsers(paginationOptions.pageNumber,paginationOptions.pageSize, $scope.counttype,$scope.selectedCircelId,
+									$scope.selectedVendorId,$scope.selectedCmsCmfId,$('#datepickerFromDate').val(),$('#datepickerToDate').val()).success(function(data) {
+								console.log("data1 " + data);
+								$scope.gridOptions.data = data.content;
+								$scope.gridOptions.totalItems = data.totalElements;
+							});
+			         	}
+			         	
+		    	   }
+			        
+			      //  if(selectedFromDateId!=null && !selectedFromDateId=='' && !selectedFromDateId=="" && !selectedFromDateId=='undefined'){
+			    	
 
+					
+				}
+			
+			loadGrid();
+			function loadGrid(){
+				   console.log("loadGrid:::", paginationOptions.pageNumber,
+						   paginationOptions.pageSize,  $scope.counttype, $scope.selectedCircelId,
+						   $scope.selectedVendorId, $scope.selectedCmsCmfId, $scope.selectedFromDateId, $scope.selectedToDateId);
+				  UserManagementService.getUsers( paginationOptions.pageNumber,
+						  paginationOptions.pageSize,  $scope.counttype, $scope.selectedCircelId,
+						  $scope.selectedVendorId, $scope.selectedCmsCmfId, $scope.selectedFromDateId, $scope.selectedToDateId).success(function(data){
+					  $scope.gridOptions.data = data.content;
+					  $scope.gridOptions.totalItems = data.totalElements;
+				});
+			  }
 				
-			}
+			
+			
+
 			
 			
 		
@@ -216,21 +230,21 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 	   
 	   
 	   $scope.gridOptions = {
-			    paginationPageSizes: [20, 30, 40],
+			   /* paginationPageSizes: [20, 30, 40],*/
 			    paginationPageSize: paginationOptions.pageSize,
 			    enableColumnMenus:false,
 				useExternalPagination: true,
-				
+			
 				    columnDefs: [		
-				     { name: 'circle', displayName: 'Circle'  },	
-				     { name: 'network', displayName: 'NW'  }, 
-				     { name: 'module', displayName: 'Mod'  },  
-				     { name: 'branchCode', displayName: 'Branch Code '  },   
-				     { name: 'kioskId', displayName: 'Kiosk Id'  },   
-				     { name: 'vendor', displayName: 'Vendor'  },
-				     { name: 'cmsCmf',displayName: 'CMS/CMF'},
-				     { name: 'totalOperatingHours',headerCellTemplate: '<div>Total Oprating<br/>Hours</div>' },  
-				     { name: 'totalDowntime',headerCellTemplate: '<div>Total<br/>Downtime</div>' }, 	
+				     { name: 'circle',width:180, displayName: 'Circle'  },	
+				     { name: 'network',width:180, displayName: 'NW'  }, 
+				     { name: 'module',width:180, displayName: 'Mod'  },  
+				     { name: 'branchCode',width:180, displayName: 'Branch Code '  },   
+				     { name: 'kioskId',width:180, displayName: 'Kiosk Id'  },   
+				     { name: 'vendor',width:180, displayName: 'Vendor'  },
+				     { name: 'cmsCmf',width:180,displayName: 'CMS/CMF'},
+				     { name: 'totalOperatingHours',width:180,headerCellTemplate: '<div>Total Oprating Hours</div>' },  
+				     { name: 'totalDowntime',width:180,headerCellTemplate: '<div>Total Downtime</div>' }, 	
 				    ],
 			    onRegisterApi: function(gridApi) {
 			        $scope.gridApi = gridApi;

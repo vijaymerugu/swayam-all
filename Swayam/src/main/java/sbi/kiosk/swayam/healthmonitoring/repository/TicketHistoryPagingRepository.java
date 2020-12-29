@@ -14,7 +14,7 @@ import sbi.kiosk.swayam.common.entity.TicketHistory;
 @Repository
 public interface TicketHistoryPagingRepository extends PagingAndSortingRepository<TicketHistory, String>{
 
-	@Query(value = "select km.KIOSK_ID,km.VENDOR,th.CALL_LOG_DATE,th.CALL_CLOSED_DATE,th.CALL_CATEGORY,\r\n" + 
+	@Query(value = "select km.KIOSK_ID,km.VENDOR,th.TICKET_ID,th.CALL_LOG_DATE,th.CALL_CLOSED_DATE,th.CALL_CATEGORY,\r\n" + 
 			" th.CALL_SUB_CATEGORY,bm.CRCL_NAME,bm.BRANCH_CODE from TBL_TICKET_HISTORY th \r\n" + 
 			" inner JOIN TBL_KIOSK_MASTER km on km.KIOSK_ID=th.KIOSK_ID \r\n" + 
 			" inner JOIN TBL_BRANCH_MASTER bm on km.BRANCH_CODE=bm.BRANCH_CODE ",nativeQuery = true)
@@ -25,7 +25,7 @@ public interface TicketHistoryPagingRepository extends PagingAndSortingRepositor
 	
 	
 	
-	@Query(value =" select km.KIOSK_ID,km.VENDOR,th.CALL_LOG_DATE,th.CALL_CLOSED_DATE,th.CALL_CATEGORY, "
+	@Query(value =" select km.KIOSK_ID,km.VENDOR,th.TICKET_ID,th.CALL_LOG_DATE,th.CALL_CLOSED_DATE,th.CALL_CATEGORY, "
 			+ " th.CALL_SUB_CATEGORY,bm.CRCL_NAME,bm.BRANCH_NAME from TBL_TICKET_HISTORY th  inner JOIN TBL_KIOSK_MASTER km "
 			+ " on km.KIOSK_ID=th.KIOSK_ID   inner JOIN TBL_BRANCH_MASTER bm on km.BRANCH_CODE=bm.BRANCH_CODE"
 			+ "  where th.KIOSK_ID=:selectedKioskId AND km.CIRCLE=:selectedCircelId OR bm.BRANCH_NAME=:selectedBranchId  "
@@ -49,7 +49,7 @@ public interface TicketHistoryPagingRepository extends PagingAndSortingRepositor
 
 
 
-	@Query(value =" select km.KIOSK_ID,km.VENDOR,th.CALL_LOG_DATE,th.CALL_CLOSED_DATE,th.CALL_CATEGORY, "
+	@Query(value =" select km.KIOSK_ID,km.VENDOR,th.TICKET_ID,th.CALL_LOG_DATE,th.CALL_CLOSED_DATE,th.CALL_CATEGORY, "
 			+ " th.CALL_SUB_CATEGORY,bm.CRCL_NAME,bm.BRANCH_CODE from TBL_TICKET_HISTORY th  inner JOIN TBL_KIOSK_MASTER km "
 			+ " on km.KIOSK_ID=th.KIOSK_ID   inner JOIN TBL_BRANCH_MASTER bm on km.BRANCH_CODE=bm.BRANCH_CODE "
 			+ "where '1'=:selectedKioskId",
@@ -60,7 +60,7 @@ public interface TicketHistoryPagingRepository extends PagingAndSortingRepositor
 	Page<TicketHistory> findbyselectedKioskId(@Param("selectedKioskId") String selectedKioskId,Pageable pageable);
 
 	
-	@Query(value =" select km.KIOSK_ID,km.VENDOR,th.CALL_LOG_DATE,th.CALL_CLOSED_DATE,th.CALL_CATEGORY, "
+	@Query(value =" select km.KIOSK_ID,km.VENDOR,th.TICKET_ID,th.CALL_LOG_DATE,th.CALL_CLOSED_DATE,th.CALL_CATEGORY, "
 			+ " th.CALL_SUB_CATEGORY,bm.CRCL_NAME,bm.BRANCH_CODE from TBL_TICKET_HISTORY th  inner JOIN TBL_KIOSK_MASTER km "
 			+ " on km.KIOSK_ID=th.KIOSK_ID   inner JOIN TBL_BRANCH_MASTER bm on km.BRANCH_CODE=bm.BRANCH_CODE"
 			//+ "  where (?1 is null OR  th.KIOSK_ID= ?1 )"
@@ -117,7 +117,7 @@ public interface TicketHistoryPagingRepository extends PagingAndSortingRepositor
 
 	
 
-	@Query(value =" select km.KIOSK_ID,km.VENDOR,th.CALL_LOG_DATE,th.CALL_CLOSED_DATE,th.CALL_CATEGORY, "
+	@Query(value =" select km.KIOSK_ID,km.VENDOR,th.TICKET_ID,th.CALL_LOG_DATE,th.CALL_CLOSED_DATE,th.CALL_CATEGORY, "
 			+ " th.CALL_SUB_CATEGORY,bm.CRCL_NAME,bm.BRANCH_CODE from TBL_TICKET_HISTORY th  inner JOIN TBL_KIOSK_MASTER km "
 			+ " on km.KIOSK_ID=th.KIOSK_ID   inner JOIN TBL_BRANCH_MASTER bm on km.BRANCH_CODE=bm.BRANCH_CODE"
 			//+ "  where (?1 is null OR  th.KIOSK_ID= ?1 )"

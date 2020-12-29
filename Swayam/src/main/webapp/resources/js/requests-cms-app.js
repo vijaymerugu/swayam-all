@@ -52,7 +52,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    }
    
    $scope.gridOptions = {
-	paginationPageSizes: [20, 30, 40],
+	/*paginationPageSizes: [20, 30, 40],*/
     paginationPageSize: paginationOptions.pageSize,
     enableColumnMenus:false,
 	useExternalPagination: true,
@@ -68,10 +68,10 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
     	  //cellTemplate:'<div class="ui-grid-cell-contents">{{grid.appScope.showDate(row.entity.modifiedDate)}}</div>'
     		  },
       { name: 'modifiedBy', displayName: 'Request By', width:200  },
-      { name: 'comments', headerCellTemplate: '<div>Comments By <br/> Requestor</div>', width:250  },
+      { name: 'comments', headerCellTemplate: '<div>Comments By Requestor</div>', width:250  },
       { name: 'remarks',
     	  exporterSuppressExport: true, width:300,
-    	  headerCellTemplate: '<div>Remarks By <br/> Checker</div>',
+    	  headerCellTemplate: '<div>Remarks By Checker</div>',
     	  cellTemplate: '<div class="addedRows"><input type="text" name="remarks[{{row.entity.id}}]" id="remarks" maxlength="100" /></div>'
       }
     ],

@@ -38,7 +38,55 @@
   } );
 </script>	
 	
+<style>
+       .ui-grid-header-cell-label {
+		display:inline-block;
+		white-space:initial;
+		font-size: 15px;
+		}
+		
+		
+		.wrap-text .ui-grid-cell-contents {
+ 		 white-space:normal;
+		}
 
+		[ui-grid-row] {
+  		display: table-row;
+		}
+
+		.ui-grid-row, .ui-grid-cell {
+  		height: auto!important;
+		}
+
+			.ui-grid-cell {
+  			float: none;
+  			display: table-cell;
+			} 
+		
+		
+			.ui-grid-header-cell, .ui-grid-cell-contents {
+  			white-space: normal;
+  			padding: 2px;
+  			word-break: break-word;
+			}
+			.ui-grid, .ui-grid-viewport {
+   			  height: auto !important; 
+			} 
+			.ui-grid-pager-panel {
+		     position: relative;
+			 } 
+			 .ui-grid .ui-grid-render-container-body .ui-grid-viewport {
+ 			 	overflow-x: auto !important;
+  				overflow-y: auto !important;
+  				
+			}
+			.ui-grid-pager-row-count-picker {
+			display:none;
+			}
+			.ui-grid-header-canvas {
+			    padding-top: 0px;
+			    padding-bottom: 0px;}
+</style>
 
 </head>
 <body>
@@ -93,6 +141,12 @@
 		
 		
 		<br/>
+		<!-- Added for loader------------- START -->	
+	
+		<div class="loading" id="loading" align="center" style="display:none;">
+   			 <img src="resources/img/loader.gif"> 
+		</div> 
+		<!-- Added for loader------------- END -->	
 		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test"></div>
 		
         

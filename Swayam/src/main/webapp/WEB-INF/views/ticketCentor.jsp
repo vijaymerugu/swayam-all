@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="resources/css/body-page.css"/>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
 <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script>
-<link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/>
+<!-- <link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/> -->
  <script src="resources/js/angular.js"></script>
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
@@ -27,8 +27,8 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 
-<link rel="stylesheet"
-	href="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css">
+<!-- <link rel="stylesheet"
+	href="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css"> -->
 <script
 	src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -37,9 +37,33 @@
 <script src="resources/js/ticket-centor-app.js"></script>
 <link rel="stylesheet" href="resources/css/grid-style.css" />
 
+<style>
+	
+    .ui-grid-contents-wrapper {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+    		.ui-grid, .ui-grid-viewport {
+   			  height: auto !important; 
+			} 
+			.ui-grid-pager-panel {
+		     position: relative;
+			 } 
+	
+			.ui-grid-pager-row-count-picker {
+			display:none;
+			}
+			.ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
+			    overflow-x: hidden !important;
+			}
+			.ui-grid-header-canvas {
+			    padding-top: 0px;
+			    padding-bottom: 0px;}			
+</style>
 </head>
 <body>
-	<div class="main"  ng-app="app" id="appId">
+	<div class="main_transaction"  ng-app="app" id="appId">
 	<div ng-controller="UserManagementCtrl1 as vm">
 	<div class="subTable">
 	   <div class="col-md-6">
@@ -58,25 +82,25 @@
 			<tr>
 			
 			<td style="color: #13A8E0;font-size: 20px;font-weight: bold;" width="10%">
-			 <a  ng-click="getCountType('TwoToFourHrsCount')"  ><c:out value="${ageingMapDataList['TwoToFourHrsCount']}"/></a>
+			 <a  ng-click="getCountType('TwoToFourHrsCount')"  style="cursor: hand;cursor: pointer;"><c:out value="${ageingMapDataList['TwoToFourHrsCount']}"/></a>
 			</td>
 			<td style="color: #13A8E0;font-size: 20px;font-weight: bold;" width="10%">
-			    <a ng-click="getCountType('OneDaysCount')"  ><c:out value="${ageingMapDataList['OneDaysCount']}"/></a>
+			    <a ng-click="getCountType('OneDaysCount')"  style="cursor: hand;cursor: pointer;"><c:out value="${ageingMapDataList['OneDaysCount']}"/></a>
 			</td>
 			<td style="color: #13A8E0;font-size: 20px;font-weight: bold;" width="10%">
-			  <a  ng-click="getCountType('ThreeDaysLessCount')"> <c:out value="${ageingMapDataList['ThreeDaysLessCount']}"/></a>
+			  <a  ng-click="getCountType('ThreeDaysLessCount')" style="cursor: hand;cursor: pointer;"> <c:out value="${ageingMapDataList['ThreeDaysLessCount']}"/></a>
 			</td>
 			<td style="color: #13A8E0;font-size: 20px;font-weight: bold;"  width="10%">
-			  <a  ng-click="getCountType('ThreeDayGreaterCount')"><c:out value="${ageingMapDataList['ThreeDayGreaterCount']}"/></a>
+			  <a  ng-click="getCountType('ThreeDayGreaterCount')" style="cursor: hand;cursor: pointer;"><c:out value="${ageingMapDataList['ThreeDayGreaterCount']}"/></a>
 			</td> 
 			<td style="color: #13A8E0;font-size: 20px;font-weight: bold;border-right: solid 1px #0307fc;" width="10%">
-			  <a ng-click="getCountType('TotalCount')" ><c:out value="${ageingMapDataList['TotalCount']}"/></a>
+			  <a ng-click="getCountType('TotalCount')" style="cursor: hand;cursor: pointer;"><c:out value="${ageingMapDataList['TotalCount']}"/></a>
 			</td>
 			</tr>
 			</tbody>
 			<thead align="center" style="font-size: 11px;">
 			<tr>
-		    <th colspan="1" align="center">2-4 Hrs</th>
+		    <th colspan="1" align="center"><4 Hrs</th>
 		    <th colspan="1" align="center"><1 Day</th>
 		    <th colspan="1" align="center"><3 Days</th>
 		     <th colspan="1" align="center">3> Days</th>
@@ -104,16 +128,16 @@
 				<tbody style="color: #13A8E0;font-size: 20px;font-weight: bold;width: 12px;">
 				<tr>
 				<td align="left" style="color: #13A8E0;font-size: 20px;font-weight: bold; " width="12%">
-				  <a id="high" ng-click="getCountType('High')"><c:out value="${mapDataList['High']}"/></a>
+				  <a id="high" ng-click="getCountType('High')"  style="cursor: hand;cursor: pointer;"><c:out value="${mapDataList['High']}"/></a>
 				</td>
 				<td align="left" style="color: #13A8E0;font-size: 20px;font-weight: bold;" width="12%">
-				 <a id="countMedium" ng-click="getCountType('Medium')" ><c:out value="${mapDataList['Medium']}"/></a>
+				 <a id="countMedium" ng-click="getCountType('Medium')"  style="cursor: hand;cursor: pointer;"><c:out value="${mapDataList['Medium']}"/></a>
 				</td>
 				<td align="left" style="color: #13A8E0;font-size: 20px;font-weight: bold;" width="12%">
-				  <a id="countLow" ng-click="getCountType('Low')"><c:out value="${mapDataList['Low']}"/></a>
+				  <a id="countLow" ng-click="getCountType('Low')" style="cursor: hand;cursor: pointer;"><c:out value="${mapDataList['Low']}"/></a>
 				</td>
 				<td style="color: #13A8E0;font-size: 20px;font-weight: bold; text-align: left: 10px;" width="12%">
-				<a id="countTotal" ng-click="getCountType('Total')"><c:out value="${mapDataList['Total']}"/></a>
+				<a id="countTotal" ng-click="getCountType('Total')" style="cursor: hand;cursor: pointer;"><c:out value="${mapDataList['Total']}"/></a>
 				</td>
 			    </tr>
 					</tbody>
@@ -133,9 +157,9 @@
 	
 	<br/>
 			
-				<div class="submain">
+				<div class="submain_transaction">
 
-					<div   style="border-bottom: 1px solid #eee;">
+				<!-- 	<div   style="border-bottom: 1px solid #eee;"> -->
 						
 						 
 						<input class="form-group has-search" ng-model="searchText" ng-change="refresh()"	placeholder=" Enter Vendor Name,Branch Code,Ticket Id,Kiosk ID.." id="input">  
@@ -145,11 +169,11 @@
 						&nbsp;&nbsp;&nbsp;
 						</span>	
 						<br />
-						<div style="top: 355px; left: 15px; width: 1336px; height: 519px; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1;"
+						<div 
 							                 ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test">
 					     </div>
 
-					</div>
+					<!-- </div> -->
 
 				</div>
 				

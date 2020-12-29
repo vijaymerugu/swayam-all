@@ -5,7 +5,7 @@
 <script	src="resources/js/angular.1.5.6.min.js"></script>
 <script src="resources/js/jquery.3.4.1.min.js"></script>
 <script src="resources/js/bootstrap.3.4.1.min.js"></script>
-<link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
+<!-- <link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css"> -->
 
 <script
 	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
@@ -21,24 +21,44 @@
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
+<style>
+
+    	 	.ui-grid, .ui-grid-viewport {
+   			  height: auto !important; 
+			} 
+			.ui-grid-pager-panel {	
+		     position: relative;
+			 } 
+	
+			.ui-grid-pager-row-count-picker {
+			display:none;
+			}
+
+ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
+    overflow: hidden;
+}
+.ui-grid-header-canvas {
+    padding-top: 0px;
+    padding-bottom: 0px;}			
+</style>
 </head>
 <body>
-<div class="main" ng-app="app" id="appId">
+<div class="main_request" ng-app="app" id="appId">
 <div ng-controller="UserManagementCtrl as vm">
 
 
-		<div class="submain">
+		<div class=submain_request>
 	
 	
 	<input class="form-group has-search" ng-model="searchText" ng-change="refresh()" placeholder="Enter Ticket Id, Kiosk Id, Branch Code, Circle etc." style="font-size: 12px" size="150" height="80" id="input">
 		
 		
 		<br/>
-		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test"></div>
+		<div ui-grid="gridOptions" class="paginategrid" style="overflow: hidden;" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test"></div>
 		
         
     </div>
-    <div align="center">
+    <div align="center"style=" width: 85%;">
       <input type="submit" value="REJECT" class="openRejectPopup">
       <input type="submit" value="APPROVE" class="openFinalPopup">
       </div>

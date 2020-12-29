@@ -60,20 +60,20 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
  	  $scope.gridOptions.totalItems = data.totalElements;
    });
    
-   $scope.gridOptions = {
-	paginationPageSizes: [20, 30, 40],
+   $scope.gridOptions = { 
+	/*paginationPageSizes: [20, 30, 40],*/
     paginationPageSize: paginationOptions.pageSize,	
 	enableColumnMenus:false,
 	useExternalPagination: true,
 	
     columnDefs: [
-      { name: 'userId', displayName: 'Sr No'  },
-      { name: 'pfId', displayName: 'PF ID / User Name'  },
-      { name: 'username', displayName: 'Employee Name'  },      
-      { name: 'role', displayName: 'Role'  },
-      { name: 'reportingAuthorityName', displayName: 'Reporting Authority'  }
+      { name: 'userId',width:300, displayName: 'Sr No'  },
+      { name: 'pfId',width:300, displayName: 'PF ID / User Name'  },
+      { name: 'username',width:350, displayName: 'Employee Name'  },      
+      { name: 'role',width:350, displayName: 'Role'  },
+      { name: 'reportingAuthorityName',width:350, displayName: 'Reporting Authority'  }
     ],
-    onRegisterApi: function(gridApi) {
+    onRegisterApi: function(gridApi) { 
         $scope.gridApi = gridApi;
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
           paginationOptions.pageNumber = newPage;
@@ -89,7 +89,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 }]);
 
 
-app.service('UserManagementService',['$http', function ($http) {
+app.service('UserManagementService',['$http', function ($http) { 
 	
 	function getUsers(pageNumber,size,counttype) {
 		pageNumber = pageNumber > 0?pageNumber - 1:0;

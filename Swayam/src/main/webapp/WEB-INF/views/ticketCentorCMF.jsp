@@ -23,8 +23,8 @@
  <script	src="resources/js/angular.1.5.6.min.js"></script>
 
 <link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
-
+<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" /> -->
+<link rel="stylesheet" href="resources/css//font-awesome.css" /> 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
 
     
@@ -43,7 +43,31 @@
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script> 
 	
-
+    <style>
+	
+    .ui-grid-contents-wrapper {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+    		.ui-grid, .ui-grid-viewport {
+   			  height: auto !important; 
+			} 
+			.ui-grid-pager-panel {
+		     position: relative;
+			 } 
+	
+			.ui-grid-pager-row-count-picker {
+			display:none;
+			}
+			.ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar.no-vertical-bar {
+			    overflow-x: hidden !important;
+			    overflow-y: hidden !important;
+			}
+			.ui-grid-header-canvas {
+		    padding-top: 0px;
+		    padding-bottom: 0px;}		
+</style>
 </head>
 <body>
 
@@ -127,7 +151,7 @@
 
 
 
-	<div class="main" ng-app="app" id="appId" ng-controller="UserManagementCtrlSA">
+	<div class="main_transaction" ng-app="app" id="appId" ng-controller="UserManagementCtrlSA">
 
 		
 
@@ -154,28 +178,28 @@
 
 								<td style="color: #13A8E0; font-size: 20px; font-weight: bold;"
 									width="10%"><a
-									ng-click="getCountType('TwoToFourHrsCount')"><c:out
+									ng-click="getCountType('TwoToFourHrsCount')" style="cursor: hand;cursor: pointer;"><c:out
 											value="${ageingMapDataList['TwoToFourHrsCount']}" /></a></td>
 								<td style="color: #13A8E0; font-size: 20px; font-weight: bold;"
-									width="10%"><a ng-click="getCountType('OneDaysCount')"><c:out
+									width="10%"><a ng-click="getCountType('OneDaysCount')" style="cursor: hand;cursor: pointer;"><c:out
 											value="${ageingMapDataList['OneDaysCount']}" /></a></td>
 								<td style="color: #13A8E0; font-size: 20px; font-weight: bold;"
 									width="10%"><a
-									ng-click="getCountType('ThreeDaysLessCount')"> <c:out
+									ng-click="getCountType('ThreeDaysLessCount')" style="cursor: hand;cursor: pointer;"> <c:out
 											value="${ageingMapDataList['ThreeDaysLessCount']}" /></a></td>
 								<td style="color: #13A8E0; font-size: 20px; font-weight: bold;"
 									width="10%"><a
-									ng-click="getCountType('ThreeDayGreaterCount')"><c:out
+									ng-click="getCountType('ThreeDayGreaterCount')" style="cursor: hand;cursor: pointer;"><c:out
 											value="${ageingMapDataList['ThreeDayGreaterCount']}" /></a></td>
 								<td
 									style="color: #13A8E0; font-size: 20px; font-weight: bold; border-right: solid 1px #0307fc;"
-									width="10%"><a ng-click="getCountType('TotalCount')"><c:out
+									width="10%"><a ng-click="getCountType('TotalCount')" style="cursor: hand;cursor: pointer;"><c:out
 											value="${ageingMapDataList['TotalCount']}" /></a></td>
 							</tr>
 						</tbody>
 						<thead align="center" style="font-size: 11px;">
 							<tr>
-								<th colspan="1" align="center">2-4 Hrs</th>
+								<th colspan="1" align="center"><4 Hrs</th>
 								<th colspan="1" align="center"><1 Day</th>
 								<th colspan="1" align="center"><3 Days</th>
 								<th colspan="1" align="center">3> Days</th>
@@ -210,22 +234,20 @@
 							<tr>
 								<td align="left"
 									style="color: #13A8E0; font-size: 20px; font-weight: bold;"
-									width="12%"><a id="high" ng-click="getCountType('High')"><c:out
+									width="12%"><a id="high" ng-click="getCountType('High')" style="cursor: hand;cursor: pointer;"><c:out
 											value="${mapDataList['High']}" /></a></td>
 								<td align="left"
 									style="color: #13A8E0; font-size: 20px; font-weight: bold;"
 									width="12%"><a id="countMedium"
-									ng-click="getCountType('Medium')"><c:out
+									ng-click="getCountType('Medium')" style="cursor: hand;cursor: pointer;"><c:out
 											value="${mapDataList['Medium']}" /></a></td>
 								<td align="left"
 									style="color: #13A8E0; font-size: 20px; font-weight: bold;"
 									width="12%"><a id="countLow"
-									ng-click="getCountType('Low')"><c:out
-											value="${mapDataList['Low']}" /></a></td>
+									ng-click="getCountType('Low')" style="cursor: hand;cursor: pointer;"><c:out	value="${mapDataList['Low']}" /></a></td>
 								<td
 									style="color: #13A8E0; font-size: 20px; font-weight: bold; text-align: left: 10px;"
-									width="12%"><a id="countTotal"
-									ng-click="getCountType('Total')"><c:out
+									width="12%"><a id="countTotal"	ng-click="getCountType('Total')" style="cursor: hand;cursor: pointer;"><c:out
 											value="${mapDataList['Total']}" /></a></td>
 							</tr>
 						</tbody>
@@ -322,14 +344,16 @@
 			</div>
 </div>
 
+<div
+				 style="width: 81%;height: 346px;position: absolute;top: 120px;bottom: 910px;left: 311px;right: 1036px;/* margin: auto; */background: #FFFFFF 0% 0% no-repeat padding-box;box-shadow: 0px 3px 6px #8D8D8D29;opacity: 1;border: 1px solid black #eee;padding:7px;">
+ 			
 
-
-			<div
+			<!-- <div
 				style="width: 1036px; height: 346px; position: absolute; top: 648px; bottom: 910px; left: 311px; right: 1036px; margin: auto; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1; border: 1px solid black #eee;padding:7px;">
-
-				<div style="border-bottom: 1px solid #eee;">
+ -->
+				<!-- <div style="border-bottom: 1px solid #eee;"> -->
 					
-					<input class="form-group has-search" ng-model="searchText"	ng-change="refresh()" placeholder=" Enter Vendor Name,Branch Code,Ticket Id,Kiosk ID.."	id="input"> 
+					<input class="form-group has-search" ng-model="searchText"	ng-change="refresh()" placeholder=" Enter VendorName,BranchCode,TicketId,KioskID."	id="input" style="width:339px;"> 
 					<span style="float:right">
 					<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
 					<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>
@@ -343,7 +367,7 @@
 						
 					 </div>
 
-				</div>
+				<!-- </div> -->
 
 			</div>
 

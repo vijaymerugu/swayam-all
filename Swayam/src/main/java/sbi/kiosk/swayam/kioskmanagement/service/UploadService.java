@@ -12,5 +12,7 @@ public interface UploadService {
 	
 	public String uploadKioskCMFInformation(String path);
 	
+	public String uploadInvVendorInformation(String path);
+	
 
 }

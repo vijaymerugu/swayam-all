@@ -86,14 +86,30 @@
   			white-space: normal;
   			padding: 2px;
   			word-break: break-word;
+  			float: inherit;
 			}
-  			.ui-grid, .ui-grid-viewport {
-			     height: auto !important;
-			}
+			
+			.ui-grid, .ui-grid-viewport {
+   			  height: auto !important; 
+			} 
 			.ui-grid-pager-panel {
-			    position: relative;
+		     position: relative;
+			 } 
+			 .ui-grid .ui-grid-render-container-body .ui-grid-viewport {
+ 			 	overflow-x: auto !important;
+  				overflow-y: auto !important;
+  				
 			}
- 
+			.ui-grid-pager-row-count-picker {
+			display:none;
+			}
+			.ui-grid-header-canvas {
+    padding-top: 0px;
+    padding-bottom: 0px;}
+    .ui-grid-header-cell {float: left;}
+    .ui-grid-render-container-body {
+    float: left;
+    width: 95%;}
 </style>	
 
 
@@ -115,7 +131,7 @@ $("#myBtn").click(function(){
 
 
 
-<div class="main" ng-app="app" id="appId">
+<div class="main_transaction" ng-app="app" id="appId">
 <div ng-controller="ZeroTransactionKiosksCtrl as vm">
 
 
@@ -132,18 +148,21 @@ $("#myBtn").click(function(){
 
 				</table>
 			</div>
-			<br />
-			
+<br />			
+ <!-- 
+ 
  <table>
-     <h1 colspan="4" align="center" style="color: #00BFFF;font-size: 12px;font-weight: bold;">Zero Transactions Swayam on
+     <h1 colspan="4" align="center" style="color: #00BFFF;font-size: 18px;font-weight: bold;">Zero Transactions Swayam on
       <span  id="mySpan">  {{CurrentDate | date:'EEE,dd MMM, yyyy hh:mm:ss a'}}</span> 
     <span  id="mySpan1"> {{allIndiaDate}} </span> 
        </h1> 
 			    </table>
-			<br>	
+			    <br>
+			     -->
+				
 			<div>
-		<pre align="left" style="background-color: #00BFFF;color: white;font-size:24px;font-weight: bold;">
- <span>Zero Transactions<span colspan="4" align="center" style="color: white;font-size: 24px;font-weight: bold;float:right; margin-right:1em">Last Updated :<span id="dateId"></span></span></span>
+		<pre align="left" style="background-color: #00BFFF;color: white;font-size:18px;font-weight: bold;font-family:Helvetica;">
+ <span align="center" style="font-family:Helvetica">Zero Transactions<span colspan="4" align="center" style="color: white;font-size: 18px;font-weight: bold;float:right; margin-right:1em">Last Updated :<span id="dateId"></span></span></span>
 </pre>
 			</div> 
 
@@ -169,12 +188,10 @@ $("#myBtn").click(function(){
 			  </div> 
 			   
 			</table> 
-		</div>  -->
-<br/>
-		<div class="submain">
-	
-	
-	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle, No Of Branches, Kiosks, Txns, etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">
+		</div> <br/> -->
+
+		<div class="submain_transaction">
+	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle,Network,BranchName,BranchCode,KioskId etc." style="font-size: 10px" size="150" height="80" class="form-group has-search" id="input">
 		
 		<span style="float:right">
 		<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
@@ -183,14 +200,12 @@ $("#myBtn").click(function(){
 		</span>	
 		<br/>
 		<!-- Added for loader------------- START -->	
-		<div>
-		 <div class="loading" id="loading" align="center" style="display:none;">
+	
+		<div class="loading" id="loading" align="center" style="display:none;">
    			 <img src="resources/img/loader.gif"> 
-		</div>  
-	 	<!-- Added for loader------------- END -->	
+		</div> 
+		<!-- Added for loader------------- END -->	
 		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test"></div>
-		
-        
     </div>
     
     

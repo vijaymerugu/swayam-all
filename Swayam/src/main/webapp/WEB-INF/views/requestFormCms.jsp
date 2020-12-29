@@ -21,13 +21,33 @@
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
+    <style>
+
+    	 	.ui-grid, .ui-grid-viewport {
+   			  height: auto !important; 
+			} 
+			.ui-grid-pager-panel {	
+		     position: relative;
+			 } 
+	
+			.ui-grid-pager-row-count-picker {
+			display:none;
+			}
+
+ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
+    overflow: hidden;
+}
+.ui-grid-header-canvas {
+    padding-top: 0px;
+    padding-bottom: 0px;}				
+</style>
 </head>
 <body>
-<div class="main" ng-app="app" id="appId">
+<div class="main_request" ng-app="app" id="appId">
 <div ng-controller="UserManagementCtrl as vm">
 
 
-		<div class="submain">
+		<div class="submain_request">
 	
 	
 	
@@ -39,7 +59,7 @@
 		
         
     </div>
-    <div align="center">
+    <div align="center"style=" width: 85%;">
       <input type="button" value="REJECT" class="openRejectPopup">
       <input type="button" value="SEND TO APPROVER" class="openFinalPopup" >
       </div>

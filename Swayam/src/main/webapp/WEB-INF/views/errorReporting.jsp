@@ -29,6 +29,21 @@
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
+    
+   <script>
+		  $.ajax({
+		  	type:"GET",
+		  	url:"td/getErrorReportingLastUpDated",
+		      success: function(data){
+		    	//  alert("dddd=")
+		      	console.log("inside data");
+		  	    respos=data;
+		  	 console.log("response "+respos);
+		       $("#dateId").html(data);
+		
+		      }
+		   	   });
+  </script>
 
 <script>
 	$(document).ready(function() {
@@ -74,20 +89,29 @@
   			white-space: normal;
   			padding: 2px;
   			word-break: break-word;
+  			
 			}
-  			.ui-grid, .ui-grid-viewport {
-			     height: auto !important;
-			}
+				 .ui-grid, .ui-grid-viewport {
+   			  height: auto !important; 
+			} 
 			.ui-grid-pager-panel {
 			    position: relative;
 			}
-	
+  			 .ui-grid .ui-grid-render-container-body .ui-grid-viewport {
+ 			 	overflow-x: auto !important;
+  				overflow-y: auto !important;
+  				
+			}
+			.ui-grid-header-canvas {
+			    padding-top: 0px;
+			    padding-bottom: 0px;}
+			
 </style>	
 
 </head>
 <body>
           
-	<div class="main" ng-app="app" id="appId">
+	<div class="main_transaction" ng-app="app" id="appId">
 		<div ng-controller="UserManagementCtrl as vm">
 
 
@@ -101,8 +125,13 @@
  				</table>
 			</div>
 			<br/>
-
-			<div class="submain">
+			<div>
+				<pre align="left" style="background-color: #00BFFF; color: white; font-size: 18px; font-weight: bold; font-family: Helvetica;">
+                  <span align="center" style="font-size: 18px; font-weight: bold; font-family: Helvetica">Errors Reporting Transactions<span
+						colspan="4" align="center"	style="color: white; font-size: 18px; font-weight: bold; float: right; margin-right: 1em">Last Updated :<span id="dateId"></span></span></span>
+</pre>
+			</div>
+			<div class="submain_transaction">
 				<br /> <br /> <input class="form-group has-search"	ng-model="searchText" ng-change="refresh()"	placeholder="Enter Kiosk Id, Branch Code, Circle etc."
 					style="font-size: 12px" size="150" height="80" id="input">
                  <span style="float:right">
@@ -111,16 +140,13 @@
 		&nbsp;&nbsp;&nbsp;
 		</span>		
 				<br />
-				<!-- Added for loader------------- START -->	
-		<div>
-	 	<!-- Added for loader------------- END -->	
-					<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-selection ui-grid-exporter id="test"></div>
-					<!-- Added for loader------------- START -->	
+	<!-- Added for loader------------- START -->	
 	
 		<div class="loading" id="loading" align="center" style="display:none;">
    			 <img src="resources/img/loader.gif"> 
 		</div> 
 		<!-- Added for loader------------- END -->	
+					<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-selection ui-grid-exporter id="test"></div>
 			</div>
 		</div>
 	</div>

@@ -94,9 +94,23 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
       // $scope.LoadYear();
        $scope.LoadCategory();
 	   // $scope.LoadDate();
-	   
+	     function stringToDate(_date,_format,_delimiter) {
+	        var formatLowerCase=_format.toLowerCase();
+	        var formatItems=formatLowerCase.split(_delimiter);
+	        var dateItems=_date.split(_delimiter);
+	        var monthIndex=formatItems.indexOf("mm");
+	        var dayIndex=formatItems.indexOf("dd");
+	        var yearIndex=formatItems.indexOf("yyyy");
+	        var year = parseInt(dateItems[yearIndex]); 
+	        // adjust for 2 digit year
+	        if (year < 100) { year += 2000; }
+	        var month=parseInt(dateItems[monthIndex]);
+	        month-=1;
+	        var formatedDate = new Date(year,month,dateItems[dayIndex]);
+	        return formatedDate;
+	}
 
-	   
+	/*   
 	   $scope.resetPositions=function(){
 		        console.log("Inside resetPositions ");
 				$scope.kioskId ='';
@@ -109,7 +123,24 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 		    	
 		    	$scope.SelectedVendorId ='';
 		       }
+	   */
 	   
+	    $scope.resetPositions=function(){
+		        console.log("Inside resetPositions ");
+				$scope.kioskId ='';
+				$scope.branchCode ='';	
+				$scope.SelectedCallLogDateId ='';
+		    	$scope.SelectedCategoryId ='';		
+		    	$scope.SelectedCircelId =''; 
+		    	$scope.SelectedCallClosedDateId ='';
+		    	$scope.SelectedSubCategoryId ='';
+		    	
+		    	$scope.SelectedVendorId ='';
+		    	
+		    	 $scope.LoadDropDown('', 0);
+                 $scope.LoadCategory();
+		    	// loadGrid();
+		       }
 	   
 		
 		$scope.searchPositions = function(kioskId,CallLogDateId,CategoryId,CircelId,CallClosedDateId,SubCategoryId,BranchId,VendorId) {
@@ -149,7 +180,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 
 				UserManagementService
 						.getUsers(paginationOptions.pageNumber,paginationOptions.pageSize, counttype,selectedKioskId,
-						selectedCallLogDateId,selectedCategoryId,selectedCircelId,selectedCallClosedDateId,selectedSubCategoryId,
+						$('#datepickerFromDate').val(),selectedCategoryId,selectedCircelId,$('#datepickerToDate').val(),selectedSubCategoryId,
 						selectedBranchCode,selectedVendorId).success(function(data) {
 							console.log("data1 " + data);
 							$scope.gridOptions.data = data.content;
@@ -201,15 +232,16 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 	   
 	   
 	   $scope.gridOptions = {
-			    paginationPageSizes: [20, 30, 40],
+			   /* paginationPageSizes: [20, 30, 40],*/
 			    paginationPageSize: paginationOptions.pageSize,
 			    enableColumnMenus:false,
 				useExternalPagination: true,
 				
 				    columnDefs: [			   
-				     { name: 'kisokId', displayName: 'Kisok Id'  },   
+				     { name: 'kisokId', displayName: 'Kiosk Id'  },   
 				     { name: 'circle', displayName: 'Circle'  },
 				     { name: 'branchCode', displayName: 'Branch Code'  },
+				      { name: 'ticketId', displayName: 'Ticket Id'  },
 				     { name: 'call_log_date',headerCellTemplate: '<div>Call Log<br/>Date</div>',type: 'date',cellFilter: 'date:"yy-mm-dd"'   },  	
 				     { name: 'call_closed_date',headerCellTemplate: '<div>Call Closed<br/>Date</div>',type: 'date',cellFilter: 'date:"dd-MM-yyyy"'   },
 				     { name: 'vendor', displayName: 'Vendor'  },

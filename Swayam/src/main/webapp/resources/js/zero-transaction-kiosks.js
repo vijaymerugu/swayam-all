@@ -62,11 +62,10 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
 		 	         		$("#datepickerFromDate").focus();
 		 	         	}
 		     	   }
-		        debugger;
+		    
 		        //  Added for loader------------- START 
 		        $("#loading").show();  
-		     // Added for loader------------- END		    
-    	 
+		     // Added for loader------------- EN
     	 ZeroTransactionKiosksService.getUsers(paginationOptions.pageNumber,
      			   paginationOptions.pageSize,counttype,fromDate,toDate).success(function(data){ 
      			 console.log("data========",$scope.gridOptions.totalItems);
@@ -75,18 +74,14 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
 										$scope.gridOptions.data = data.content;
 										$scope.gridOptions.totalItems = data.totalElements;
 										alert("No results found for given search criteria")
-
-										 
 									}else{
 									   
-									
 										$scope.gridOptions.data = data.content;
 										$scope.gridOptions.totalItems = data.totalElements;
 									}
-     			//  Added for loader------------- START 
-					$("#loading").hide(); 
-				//  Added for loader------------- END 
-
+     			  //  Added for loader------------- START 
+     			   $("#loading").hide();  
+     			// Added for loader------------- EN
      	   });
 	}; 
    
@@ -132,20 +127,20 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
    });
    
    $scope.gridOptions = {
-    paginationPageSizes: [20, 30, 40],
+    /*paginationPageSizes: [20, 30, 40],*/
     paginationPageSize: paginationOptions.pageSize,	
 	enableColumnMenus:false,
 	useExternalPagination: true,
 	
       columnDefs: [
-          { name: 'circleName', displayName: 'Circle'  },
-          { name: 'network', displayName: 'NW'  },
-          { name: 'module', displayName: 'Mod'  },
-          { name: 'region', displayName: 'Reg'  },
-          { name: 'branchCode', displayName: 'Branch Code'  },
-          { name: 'branchName', displayName: 'Branch Name'  },
-          { name: 'kioskId', displayName: 'Kiosk ID'  },
-          { name: 'vendor', displayName: 'Vendor'  }
+          { name: 'circleName',width:220, displayName: 'Circle'  },
+          { name: 'network',width:120, displayName: 'NW'  },
+          { name: 'module',width:250, displayName: 'Mod'  },
+          { name: 'region',width:120, displayName: 'Reg'  },
+          { name: 'branchCode',width:120, displayName: 'Branch Code'  },
+          { name: 'branchName',width:250, displayName: 'Branch Name'  },
+          { name: 'kioskId',width:250, displayName: 'Kiosk ID'  },
+          { name: 'vendor',width:220, displayName: 'Vendor'  }
     ],
     onRegisterApi: function(gridApi) {
         $scope.gridApi = gridApi;

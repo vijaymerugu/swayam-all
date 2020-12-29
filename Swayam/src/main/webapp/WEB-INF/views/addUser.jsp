@@ -653,7 +653,7 @@ $(document).ready(function(){
 	}
 	}
 	
-	function cancelform() {
+function cancelform() {
 		
 		
 		$("#emailId12").html("");
@@ -665,7 +665,7 @@ $(document).ready(function(){
 		$("#role12").html("");
 		$("#circle12").html("");
 		
-    	$("#contentHomeApp").load("km/userList");  
+    	$("#contentHomeApp").load("km/userListCC");  
 		
 	}
 	
@@ -872,7 +872,7 @@ $(document).ready(function(){
     $('.openFinalPopup').on('click',function(){      
       //  alert("I m here:openFinalPopup ");
      //   debugger;
-    	$("#contentHomeApp").load("km/userList");    	
+    	$("#contentHomeApp").load("km/userListCC");    	
        
     }); 
     

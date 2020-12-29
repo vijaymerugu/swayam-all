@@ -103,6 +103,25 @@ public class UserManagementController {
 			List<UserManagementDto> userList = userService.findAllUsers(user);
 			model.addObject("usersList", userList);
 				
+			if (user.getRole().equals("SA")) {
+				int cmsCount=userService.findCMSCount();
+				int circleCount=userService.findCircleCount();
+				int ccCount=userService.findCCCount();
+				int cmfCount= userService.findCMFCount();
+				int laCount= userService.findLACount();
+				int saCount= userService.findSACount();
+				int circleUserCount = userService.findCircleUserCount();
+				
+				model.addObject("cmfCount",cmfCount);
+				model.addObject("cmsCount", cmsCount);
+				model.addObject("circleCount", circleCount);
+				model.addObject("laCount",laCount);
+				model.addObject("ccCount",ccCount);
+				model.addObject("saCount",saCount);
+				model.addObject("circleUserCount",circleUserCount);
+				model.setViewName("userlist");
+			}
+			else {
 				int cmsCount=userService.findCMSCount();
 				int circleCount=userService.findCircleUserCount();
 				int ccCount=userService.findCCCount();
@@ -115,7 +134,8 @@ public class UserManagementController {
 				model.addObject("circleCount", circleCount);
 				model.addObject("laCount",laCount);
 				model.addObject("ccCount",ccCount);
-				model.addObject("saCount",saCount);				
+				model.addObject("saCount",saCount);		
+			}			
 			
 		} catch (Exception e) {
 			logger.error("Exception "+ExceptionConstants.EXCEPTION);

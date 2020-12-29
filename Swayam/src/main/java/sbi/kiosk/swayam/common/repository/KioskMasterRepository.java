@@ -9,6 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import sbi.kiosk.swayam.common.dto.KioskBranchMasterUserDto;
 import sbi.kiosk.swayam.common.entity.KioskBranchMaster;
 
 @Repository
@@ -22,8 +23,9 @@ public interface KioskMasterRepository extends CrudRepository<KioskBranchMaster,
 	
 	
 	KioskBranchMaster findKioskByKioskId(String kioskId);	
-	@Query(value ="SELECT CIRCLE FROM TBL_KIOSK_MASTER WHERE KIOSK_ID=?1 ",nativeQuery=true)
-	String  findKioskByKioskId_circle(String kioskId);	
+	//@Query(value ="SELECT CIRCLE FROM TBL_KIOSK_MASTER WHERE KIOSK_ID=?1 ",nativeQuery=true)
+	@Query(value ="SELECT BRANCH_CODE FROM TBL_KIOSK_MASTER WHERE KIOSK_ID=?1 ",nativeQuery=true)
+	String  findKioskByBranchCode(String kioskId);	
 	
 	
 	
@@ -47,7 +49,12 @@ public interface KioskMasterRepository extends CrudRepository<KioskBranchMaster,
 	@Query(value ="SELECT COUNT(*) FROM  TBL_KIOSK_MASTER WHERE INSTALLATION_STATUS IN('Pending') and VENDOR IN('LIPI') ",nativeQuery=true)
 	int findDeliveredStatusLIPIVendorWiseCount();
 	
-	@Query(value =" SELECT COUNT(KIOSK_ID)  FROM  TBL_USER_KIOSK_MAPPING ",nativeQuery=true)
+	/*
+	 * @Query(value
+	 * =" SELECT COUNT(KIOSK_ID)  FROM  TBL_USER_KIOSK_MAPPING ",nativeQuery=true)
+	 */
+	
+	@Query(value="select count(KIOSK_ID) from TBL_KIOSK_MASTER where  KIOSK_ID in ( SELECT KIOSK_ID FROM  TBL_USER_KIOSK_MAPPING)  ",nativeQuery=true)
 	int findAssignedCount();
 	
 	@Query(value ="select count(KIOSK_ID) from TBL_KIOSK_MASTER where  KIOSK_ID  not in ( SELECT KIOSK_ID FROM  TBL_USER_KIOSK_MAPPING) ",nativeQuery=true)
@@ -89,5 +96,11 @@ public interface KioskMasterRepository extends CrudRepository<KioskBranchMaster,
 	
 	List<KioskBranchMaster> findAll();
 	
-
+	
+	  @Query(value  ="select * from TBL_KIOSK_MASTER where kiosk_id not in (select kiosk_id from  tbl_user_kiosk_mapping)  "
+	  ,nativeQuery=true) List<KioskBranchMaster> findToBeAssignedKioskId();
+	  
+	  @Query(value  ="select * from  TBL_KIOSK_MASTER km where exists (select 1 from tbl_user_kiosk_mapping ukm where upper(km.kiosk_id)=upper(ukm.kiosk_id))  "
+			  ,nativeQuery=true) List<KioskBranchMaster> findAssignedKioskId();
+	 
 }
