@@ -108,11 +108,17 @@ sort: null
    
    $scope.refresh = function()
    {  	
-	   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
+	   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){
+	   	//  Added for loader------------- START 
+	        $("#loading").show();  
+	     // Added for loader------------- END
 	   		UserManagementService.getUsers(paginationOptions.pageNumber,
 	   			  paginationOptions.pageSize,fromDate,toDate).success(function(data){
 	   			 $scope.gridOptions.data = data.content;
 	   			   $scope.gridOptions.totalItems = data.totalElements;
+	   		//  Added for loader------------- START 
+			        $("#loading").hide();  
+			     // Added for loader------------- END
 	   			   });   
 	 		   
 	 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
@@ -120,20 +126,31 @@ sort: null
 	 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
 	 		   
 	 	    }else{
+	 	   //  Added for loader------------- START 
+		        $("#loading").show();  
+		     // Added for loader------------- END
 	 	    	UserManagementService.getUsers(paginationOptions.pageNumber,
 	 	    			  paginationOptions.pageSize,fromDate,toDate).success(function(data){
 	 	    			 $scope.gridOptions.data = data.content;
 	 	    			   $scope.gridOptions.totalItems = data.totalElements;
+	 	    			//  Added for loader------------- START 
+					        $("#loading").hide();  
+					     // Added for loader------------- END
 	 	    			   });
 	 	    }
 	    };
 
-
+	//  Added for loader------------- START 
+        $("#loading").show();  
+     // Added for loader------------- END
    UserManagementService.getUsers(paginationOptions.pageNumber,
     paginationOptions.pageSize,fromDate,toDate).success(function(data){
   
    $scope.gridOptions.data = data.content;
    $scope.gridOptions.totalItems = data.totalElements;
+// Added for loader------------- START 
+   $("#loading").hide();  
+// Added for loader------------- END
    });
    
    $scope.gridOptions = {
@@ -185,9 +202,15 @@ sort: null
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
           paginationOptions.pageNumber = newPage;
           paginationOptions.pageSize = pageSize;
+      //  Added for loader------------- START 
+	        $("#loading").show();  
+	     // Added for loader------------- END
           UserManagementService.getUsers(newPage,pageSize,fromDate,toDate).success(function(data){
          $scope.gridOptions.data = data.content;
            $scope.gridOptions.totalItems = data.totalElements;
+       //  Added for loader------------- START 
+	        $("#loading").hide();  
+	     // Added for loader------------- END
           });
         });
      }
