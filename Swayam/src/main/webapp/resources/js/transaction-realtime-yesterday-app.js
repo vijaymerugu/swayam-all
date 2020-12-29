@@ -79,16 +79,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	 		   
 	 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
 	 	    	
-	 	    	debugger;
-	 	    	
-	 	    	 UserManagementService.getUsers(paginationOptions.pageNumber,
-	 	    			   100,yesterdayType).success(function(data){
-	 	    		  $scope.gridOptions.data = data.content;
-	 	    	 	  $scope.gridOptions.totalItems = data.totalElements;
-	 	    	 	 //  Added for loader------------- START 
-	 			        $("#loading").hide();  
-	 			     // Added for loader------------- END
-	 	    	   });
+	 	    
 	 	  
 	 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
 	 		   
