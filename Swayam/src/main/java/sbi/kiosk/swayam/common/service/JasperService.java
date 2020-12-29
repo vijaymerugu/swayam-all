@@ -12,6 +12,7 @@ import sbi.kiosk.swayam.common.dto.InvoiceSummaryDto;
 import
   sbi.kiosk.swayam.common.dto.KioskBranchMasterUserDto; import
   sbi.kiosk.swayam.common.dto.RealTimeTransactionDto;
+import sbi.kiosk.swayam.common.dto.TaxCalculationDto;
 import sbi.kiosk.swayam.common.dto.TerminalStatusDto;
 import
   sbi.kiosk.swayam.common.dto.TicketCentorDto;
@@ -20,6 +21,8 @@ import
   sbi.kiosk.swayam.common.dto.TransactionDashBoardDto; import
   sbi.kiosk.swayam.common.dto.UserManagementDto; import
   sbi.kiosk.swayam.common.dto.ZeroTransactionKiosksDto;
+import sbi.kiosk.swayam.common.entity.TaxEntity;
+import sbi.kiosk.swayam.common.entity.TaxSummaryEntity;
   
   public interface JasperService {
   
@@ -67,6 +70,9 @@ import
 	
 	List<TerminalStatusDto> findTerminalStatusReport();
 	
+	public List<TaxSummaryEntity> findTaxSummaryReport();
+
+	List<TaxEntity> findTaxCalReport();
 	
 	
 	
