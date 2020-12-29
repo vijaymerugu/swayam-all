@@ -18,7 +18,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    
   
    $scope.getCountType = function(yesterday){
-	    yesterdayType=yesterday;
+	    yesterdayType=yesterday;debugger;
 	    //  Added for loader------------- START 
 	    $("#loading").show();  
 	 // Added for loader------------- EN
@@ -51,11 +51,18 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
   
    $scope.refresh = function()
    {  	
-	   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
+	   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	
+	   	
+	   	 //  Added for loader------------- START 
+	        $("#loading").show();  
+	     // Added for loader------------- END
 	   	 UserManagementService.getUsers(paginationOptions.pageNumber,
-	  		   paginationOptions.pageSize,yesterdayType).success(function(data){
+	  		   paginationOptions.pageSize,yesterdayType).success(function(data){debugger;
 	  	  $scope.gridOptions.data = data.content;
 	   	  $scope.gridOptions.totalItems = data.totalElements;
+	   	 //  Added for loader------------- START 
+	        $("#loading").hide();  
+	     // Added for loader------------- END
 	     }); 
 	 		   
 	 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
@@ -63,16 +70,25 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
 	 		   
 	 	    }else{
+	 	    	 //  Added for loader------------- START 
+		        $("#loading").show();  
+		     // Added for loader------------- END
 	 	    	 UserManagementService.getUsers(paginationOptions.pageNumber,
 	 	    			   paginationOptions.pageSize,yesterdayType).success(function(data){
 	 	    		  $scope.gridOptions.data = data.content;
 	 	    	 	  $scope.gridOptions.totalItems = data.totalElements;
+	 	    	 	 //  Added for loader------------- START 
+	 			        $("#loading").hide();  
+	 			     // Added for loader------------- END
 	 	    	   });
 	 	    }
 	    };
 
+	    //  Added for loader------------- START 
+        $("#loading").show();  
+     // Added for loader------------- END
    UserManagementService.getUsers(paginationOptions.pageNumber,
-		   paginationOptions.pageSize,yesterdayType).success(function(data){
+		   paginationOptions.pageSize,yesterdayType).success(function(data){ debugger;
 		    $scope.allIndiaDate = "Today: ";
 		  /* if(yesterdayType.equals("today")){
 		    $scope.allIndiaDate = "Today: ";
@@ -82,6 +98,9 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 		  
 		   $scope.gridOptions.data = data.content;
 	       $scope.gridOptions.totalItems = data.totalElements;
+	       //  Added for loader------------- START 
+	        $("#loading").hide();  
+	     // Added for loader------------- END
    });
    
    $scope.gridOptions = {
@@ -113,9 +132,15 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
           paginationOptions.pageNumber = newPage;
           paginationOptions.pageSize = pageSize;
-          UserManagementService.getUsers(newPage,pageSize,yesterdayType).success(function(data){
+          //  Added for loader------------- START 
+	        $("#loading").show();  
+	     // Added for loader------------- END
+          UserManagementService.getUsers(newPage,pageSize,yesterdayType).success(function(data){ debugger;
         	  $scope.gridOptions.data = data.content;
          	  $scope.gridOptions.totalItems = data.totalElements;
+         	 //  Added for loader------------- START 
+		        $("#loading").hide();  
+		     // Added for loader------------- END
           });
         });
      }

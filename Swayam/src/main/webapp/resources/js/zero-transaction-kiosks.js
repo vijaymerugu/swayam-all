@@ -32,7 +32,7 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
    
   
   $scope.CurrentDate = new Date();
-	   $scope.searchPositions= function(startDate,endDate){
+	   $scope.searchPositions= function(startDate,endDate){ debugger;
 		
 		        fromDate = $("#datepickerFromDate").val();
 		        toDate = $("#datepickerToDate").val();
@@ -65,7 +65,7 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
 		    
 		        //  Added for loader------------- START 
 		        $("#loading").show();  
-		     // Added for loader------------- EN
+		     // Added for loader------------- END
     	 ZeroTransactionKiosksService.getUsers(paginationOptions.pageNumber,
      			   paginationOptions.pageSize,counttype,fromDate,toDate).success(function(data){ 
      			 console.log("data========",$scope.gridOptions.totalItems);
@@ -90,20 +90,27 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
       
        counttype=type;
        ZeroTransactionKiosksService.getUsers(paginationOptions.pageNumber,
-			   paginationOptions.pageSize,counttype,fromDate,toDate).success(function(data){
+			   paginationOptions.pageSize,counttype,fromDate,toDate).success(function(data){ debugger;
         
 				   });
 	}
    
    
    $scope.refresh = function()
-   {  	
-	   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
+   {  	debugger;
+	   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){
+	   		
+	   		//  Added for loader------------- START 
+	        $("#loading").show();  
+	     // Added for loader------------- END
 	 	   ZeroTransactionKiosksService.getUsers(paginationOptions.pageNumber,
 	 			   paginationOptions.pageSize,counttype,fromDate,toDate).success(function(data){
 	 				   
 	 		  $scope.gridOptions.data = data.content;
 	 	 	  $scope.gridOptions.totalItems = data.totalElements;
+	 	 	//  Added for loader------------- START 
+	 	        $("#loading").hide();  
+	 	     // Added for loader------------- END
 	 	   });	   
 	 		   
 	 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
@@ -111,19 +118,31 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
 	 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
 	 		   
 	 	    }else{
+	 	   	//  Added for loader------------- START 
+	 	        $("#loading").show();  
+	 	     // Added for loader------------- END
 	 	    	ZeroTransactionKiosksService.getUsers(paginationOptions.pageNumber,
 	 	 			   paginationOptions.pageSize,counttype,fromDate,toDate).success(function(data){
 	 	 				 
 	 	 		  $scope.gridOptions.data = data.content;
 	 	 	 	  $scope.gridOptions.totalItems = data.totalElements;
+	 	 		//  Added for loader------------- START 
+	 	         $("#loading").hide();  
+	 	      // Added for loader------------- END
 	 	 	   });
 	 	    }
 	    };
-
+debugger;
+	//  Added for loader------------- START 
+        $("#loading").show();  
+     // Added for loader------------- END
    ZeroTransactionKiosksService.getUsers(paginationOptions.pageNumber,
-		   paginationOptions.pageSize,counttype,fromDate,toDate).success(function(data){	
+		   paginationOptions.pageSize,counttype,fromDate,toDate).success(function(data){	debugger;
 		             $scope.gridOptions.data = data.content;
-			         $scope.gridOptions.totalItems = data.totalElements;	   
+			         $scope.gridOptions.totalItems = data.totalElements;	
+			     //  Added for loader------------- START 
+				        $("#loading").hide();  
+				     // Added for loader------------- END
    });
    
    $scope.gridOptions = {
@@ -147,9 +166,15 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
           paginationOptions.pageNumber = newPage;
           paginationOptions.pageSize = pageSize;
-          ZeroTransactionKiosksService.getUsers(newPage,pageSize,counttype,fromDate,toDate).success(function(data){        	  
+      	//  Added for loader------------- START 
+          $("#loading").show();  
+       // Added for loader------------- END
+          ZeroTransactionKiosksService.getUsers(newPage,pageSize,counttype,fromDate,toDate).success(function(data){   debugger;     	  
         	  $scope.gridOptions.data = data.content;
          	  $scope.gridOptions.totalItems = data.totalElements;
+         		//  Added for loader------------- START 
+              $("#loading").hide();  
+           // Added for loader------------- END
           });
         });
      }
