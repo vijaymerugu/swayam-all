@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -38,6 +39,8 @@ import sbi.kiosk.swayam.billingpayment.repository.BillingPenaltyRepository;
 import sbi.kiosk.swayam.billingpayment.repository.InvoiceCompareRepository;
 import sbi.kiosk.swayam.billingpayment.repository.InvoiceGenerationRepository;
 import sbi.kiosk.swayam.billingpayment.repository.InvoiceSummaryRepository;
+import sbi.kiosk.swayam.billingpayment.repository.TaxSummaryRepository;
+import sbi.kiosk.swayam.billingpayment.service.TaxService;
 import sbi.kiosk.swayam.common.constants.Constants;
 import sbi.kiosk.swayam.common.dto.BillingPenaltyDto;
 import sbi.kiosk.swayam.common.dto.DownTimeDto;
@@ -47,6 +50,7 @@ import sbi.kiosk.swayam.common.dto.InvoiceGenerationDto;
 import sbi.kiosk.swayam.common.dto.InvoiceSummaryDto;
 import sbi.kiosk.swayam.common.dto.KioskBranchMasterUserDto;
 import sbi.kiosk.swayam.common.dto.RealTimeTransactionDto;
+import sbi.kiosk.swayam.common.dto.TaxCalculationDto;
 import sbi.kiosk.swayam.common.dto.TerminalStatusDto;
 import sbi.kiosk.swayam.common.dto.TicketCentorDto;
 import sbi.kiosk.swayam.common.dto.TicketHistoryDto;
@@ -66,6 +70,8 @@ import sbi.kiosk.swayam.common.entity.KioskBranchMaster;
 import sbi.kiosk.swayam.common.entity.RealTimeTransaction;
 import sbi.kiosk.swayam.common.entity.Supervisor;
 import sbi.kiosk.swayam.common.entity.SwayamMigrationSummary;
+import sbi.kiosk.swayam.common.entity.TaxEntity;
+import sbi.kiosk.swayam.common.entity.TaxSummaryEntity;
 import sbi.kiosk.swayam.common.entity.TerminalStatus;
 import sbi.kiosk.swayam.common.entity.TicketHistory;
 import sbi.kiosk.swayam.common.entity.User;
@@ -177,7 +183,16 @@ public class JasperServiceImpl implements JasperService {
     
     @Autowired
 	TerminalStatusRepository terminalStatusRepository;
- 
+    
+   
+    @Autowired
+   	BranchMasterRepository branchMastRepository;
+    
+    @Autowired
+    TaxSummaryRepository taxSummaryRepo;
+    
+    @Autowired
+	TaxService taxReportService;
     
 	public static HttpSession session() {
 		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
@@ -581,6 +596,88 @@ public class JasperServiceImpl implements JasperService {
 
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 				}
+			}else if(identifyPage.equals("taxSummaryReport")) {
+				logger.info("PDF File taxSummaryReport !!");
+				List<TaxSummaryEntity> list = findTaxSummaryReport();
+				if(list.isEmpty()) {
+					return filename;
+				}else {
+				File file = ResourceUtils.getFile(jrxmlPath + "taxSummary.jrxml");
+				InputStream input = new FileInputStream(file);
+				jasperReport = JasperCompileManager.compileReport(input);
+				source = new JRBeanCollectionDataSource(list);
+				Map<String, Object> parameters = new HashMap<>();
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+
+//				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+//				filename = "InvoiceSummary_" + timeStamp + ".pdf";
+				
+				
+				String finacialYear= report.getTimePeiod();
+				
+				String StartDate =  "0104"+finacialYear.substring(0, 4);
+				String LastDate =  "3103"+finacialYear.substring(5);
+				filename = "TaxSummary_"+StartDate+"_"+LastDate+".pdf";
+				
+			
+				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+				}
+			}else if(identifyPage.equals("taxCalReport")) {
+				logger.info("PDF File taxCalReport !!");
+				List<TaxEntity> list = findTaxCalReport();
+				if(list.isEmpty()) {
+					return filename;
+				}else {
+				File file = ResourceUtils.getFile(jrxmlPath + "taxCalculation.jrxml");
+				InputStream input = new FileInputStream(file);
+				jasperReport = JasperCompileManager.compileReport(input);
+				source = new JRBeanCollectionDataSource(list);
+				Map<String, Object> parameters = new HashMap<>();
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+
+				//Sharan Change-01-11-2020				
+				String quarter= report.getQuarter();
+				String finacialYear= report.getYear();
+					
+				if(quarter.equalsIgnoreCase("Q1")) {
+					String Q1StartDate =  "0104"+finacialYear.substring(0, 4);
+					//System.out.println("Q1StartDate "+ Q1StartDate);
+					String Q1LastDate =  "3006"+finacialYear.substring(0, 4);
+					//System.out.println("Q1LastDate "+ Q1LastDate);
+					filename = "TaxCalculation_"+Q1StartDate+"_"+Q1LastDate+".pdf";
+					//System.out.println("FileName "+ filename);
+					
+				}else if(quarter.equalsIgnoreCase("Q2")) {
+					String Q2StartDate =  "0107"+finacialYear.substring(0, 4);
+					String Q2LastDate =  "3009"+finacialYear.substring(0, 4);
+					filename = "TaxCalculation_"+Q2StartDate+"_"+Q2LastDate+".pdf";
+				}else if(quarter.equalsIgnoreCase("Q3")) {
+					String Q3StartDate =  "0110"+finacialYear.substring(0, 4);
+					String Q3LastDate =  "3112"+finacialYear.substring(0, 4);
+					
+					filename = "TaxCalculation_"+Q3StartDate+"_"+Q3LastDate+".pdf";
+					
+				}else if(quarter.equalsIgnoreCase("Q4")) {
+					String Q4StartDate =  "0101"+finacialYear.substring(5);
+					String Q4LastDate =  "3103-"+finacialYear.substring(5);
+					filename = "TaxCalculation_"+Q4StartDate+"_"+Q4LastDate+".pdf";
+				}else {
+					logger.info("No Quater Period selected");
+				}
+				
+				
+				
+				/*
+				 * String finacialYear= report.getTimePeiod();
+				 * 
+				 * String StartDate = "0104"+finacialYear.substring(0, 4); String LastDate =
+				 * "3103"+finacialYear.substring(5); filename =
+				 * "TaxSummary_"+StartDate+"_"+LastDate+".pdf";
+				 */
+				
+			
+				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+				}
 			}
 
 
@@ -746,12 +843,25 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-			//	String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				//filename = "DownTime_" + timeStamp + ".pdf";
-				String fileName = "DownTime_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
-						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
-						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
-				filename =fileName+".pdf";
+		     	String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "DownTime_" + timeStamp + ".pdf";
+				
+				/*
+				 * SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy"); Date curDate = new
+				 * Date(); String todayDate = sdf.format(curDate); String fromDate =
+				 * sdf.format(curDate); String fileName ="";
+				 * if(!dateFrame.getFromDate().isEmpty() && !dateFrame.getToDate().isEmpty()) {
+				 * fileName = "DownTime_" + dateFrame.getFromDate().replace("-",
+				 * "").substring(0, 6) + "_" + dateFrame.getToDate().replace("-",
+				 * "").substring(0, 6) + "_" + (new SimpleDateFormat("dd-MM-yyyy")).format(new
+				 * Date()).replace("-", "").substring(0, 6); }else {
+				 * 
+				 * fileName = "DownTime_" + fromDate.replace("-", "").substring(0, 6) + "_" +
+				 * todayDate.replace("-", "").substring(0, 6) + "_" + (new
+				 * SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-",
+				 * "").substring(0, 6); } filename =fileName+".pdf";
+				 */
+				
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 					}
 			}else if (identifyPage.equals("terminalStatus")) {
@@ -1196,7 +1306,100 @@ public class JasperServiceImpl implements JasperService {
 
 				xlsx(jasperPrint, filename);
 				}
+			}else if(identifyPage.equals("taxSummaryReport")) {
+				logger.info("Excel File taxSummaryReport !!");
+				
+				
+				List<TaxSummaryEntity> list = findTaxSummaryReport();
+				if(list.isEmpty()) {
+					
+					
+					return filename;
+				}else {
+				File file = ResourceUtils.getFile(jrxmlPath + "taxSummary.jrxml");
+				InputStream input = new FileInputStream(file);
+				jasperReport = JasperCompileManager.compileReport(input);
+				source = new JRBeanCollectionDataSource(list);
+				Map<String, Object> parameters = new HashMap<>();
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+
+//				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+//				filename = "InvoiceSummary_" + timeStamp + ".xlsx";
+				
+				String finacialYear= report.getTimePeiod();
+				
+				String StartDate =  "0104"+finacialYear.substring(0, 4);
+				String LastDate =  "3103"+finacialYear.substring(5);
+				filename = "TaxSummary_"+StartDate+"_"+LastDate+".xlsx";
+				
+				
+				/*
+				 * String fileName = "InvoiceSummary_" + dateFrame.getFromDate().replace("-",
+				 * "").substring(0, 6) + "_" + dateFrame.getToDate().replace("-",
+				 * "").substring(0, 6) + "_" + (new SimpleDateFormat("dd-MM-yyyy")).format(new
+				 * Date()).replace("-", "").substring(0, 6); filename =fileName+".xlsx";
+				 */
+
+				xlsx(jasperPrint, filename);
+				}
+			}else if(identifyPage.equals("taxCalReport")) {
+				logger.info("Excel File taxCalReport !!");
+				List<TaxEntity> list = findTaxCalReport();
+				if(list.isEmpty()) {
+					return filename;
+				}else {
+				File file = ResourceUtils.getFile(jrxmlPath + "taxCalculation.jrxml");
+				InputStream input = new FileInputStream(file);
+				jasperReport = JasperCompileManager.compileReport(input);
+				source = new JRBeanCollectionDataSource(list);
+				Map<String, Object> parameters = new HashMap<>();
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+
+				//Sharan Change-01-11-2020				
+				String quarter= report.getQuarter();
+				String finacialYear= report.getYear();
+					
+				if(quarter.equalsIgnoreCase("Q1")) {
+					String Q1StartDate =  "0104"+finacialYear.substring(0, 4);
+					//System.out.println("Q1StartDate "+ Q1StartDate);
+					String Q1LastDate =  "3006"+finacialYear.substring(0, 4);
+					//System.out.println("Q1LastDate "+ Q1LastDate);
+					filename = "TaxCalculation_"+Q1StartDate+"_"+Q1LastDate+".xlsx";
+					//System.out.println("FileName "+ filename);
+					
+				}else if(quarter.equalsIgnoreCase("Q2")) {
+					String Q2StartDate =  "0107"+finacialYear.substring(0, 4);
+					String Q2LastDate =  "3009"+finacialYear.substring(0, 4);
+					filename = "TaxCalculation_"+Q2StartDate+"_"+Q2LastDate+".xlsx";
+				}else if(quarter.equalsIgnoreCase("Q3")) {
+					String Q3StartDate =  "0110"+finacialYear.substring(0, 4);
+					String Q3LastDate =  "3112"+finacialYear.substring(0, 4);
+					
+					filename = "TaxCalculation_"+Q3StartDate+"_"+Q3LastDate+".xlsx";
+					
+				}else if(quarter.equalsIgnoreCase("Q4")) {
+					String Q4StartDate =  "0101"+finacialYear.substring(5);
+					String Q4LastDate =  "3103-"+finacialYear.substring(5);
+					filename = "TaxCalculation_"+Q4StartDate+"_"+Q4LastDate+".xlsx";
+				}else {
+					logger.info("No Quater Period selected");
+				}
+				
+				
+				
+				/*
+				 * String finacialYear= report.getTimePeiod();
+				 * 
+				 * String StartDate = "0104"+finacialYear.substring(0, 4); String LastDate =
+				 * "3103"+finacialYear.substring(5); filename =
+				 * "TaxSummary_"+StartDate+"_"+LastDate+".pdf";
+				 */
+				
+			
+				xlsx(jasperPrint, filename);
+				}
 			}
+
 
 			else if (identifyPage.equals("realTimeToday")) {
 				logger.info("Excel File realTimeToday !!");
@@ -1342,12 +1545,12 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-			//	String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				//filename = "TicketHistory_" + timeStamp + ".xlsx";
-				String fileName = "TicketHistory_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
-						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
-						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
-				filename =fileName+".xlsx";
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "TicketHistory_" + timeStamp + ".xlsx";
+				//String fileName = "TicketHistory_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+				//		+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+				//		+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				//filename =fileName+".xlsx";
 				xlsx(jasperPrint, filename);
 					}
 			}
@@ -1366,12 +1569,26 @@ public class JasperServiceImpl implements JasperService {
 				source = new JRBeanCollectionDataSource(list);
 				Map<String, Object> parameters = new HashMap<>();
 				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-				//filename = "DownTime_" + timeStamp + ".xlsx";
-				String fileName = "DownTime_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
-						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
-						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
-				filename =fileName+".xlsx";
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "DownTime_" + timeStamp + ".xlsx";
+				/*
+				 * SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy"); Date curDate = new
+				 * Date(); String todayDate = sdf.format(curDate); String fromDate =
+				 * sdf.format(curDate); String fileName ="";
+				 * if(!dateFrame.getFromDate().isEmpty() && !dateFrame.getToDate().isEmpty()) {
+				 * fileName = "DownTime_" + dateFrame.getFromDate().replace("-",
+				 * "").substring(0, 6) + "_" + dateFrame.getToDate().replace("-",
+				 * "").substring(0, 6) + "_" + (new SimpleDateFormat("dd-MM-yyyy")).format(new
+				 * Date()).replace("-", "").substring(0, 6); }else {
+				 * 
+				 * 
+				 * fileName = "DownTime_" + fromDate.replace("-", "").substring(0, 6) + "_" +
+				 * todayDate.replace("-", "").substring(0, 6) + "_" + (new
+				 * SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-",
+				 * "").substring(0, 6); } filename =fileName + ".xlsx";
+				 */
+				
+				
 				xlsx(jasperPrint, filename);
 					}
 			}else if (identifyPage.equals("terminalStatus")) {
@@ -1390,12 +1607,12 @@ public class JasperServiceImpl implements JasperService {
 		source = new JRBeanCollectionDataSource(list);
 		Map<String, Object> parameters = new HashMap<>();
 		jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-		//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
-		//filename = "TerminalStatus_" + timeStamp + ".xlsx";
-		String fileName = "TerminalStatus_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
-				+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
-				+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
-		filename =fileName+".xlsx";
+		String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+		filename = "TerminalStatus_" + timeStamp + ".xlsx";
+		//String fileName = "TerminalStatus_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+			//	+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+				//+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+		//filename =fileName+".xlsx";
 		xlsx(jasperPrint, filename);
 	}
 			
@@ -1584,14 +1801,25 @@ public class JasperServiceImpl implements JasperService {
 	public List<TicketCentorDto> findAllTickets() {
 		logger.info("Inside==Jasper====findAllTickets===========ALL DATA");
 		List<TicketCentorDto> entities = ObjectMapperUtils.mapAll(ticketCentorRepo.findAll(), TicketCentorDto.class);
-
+/*
 		for (TicketCentorDto dto : entities) {
-
 			String kioskId = dto.getKisokId();
 			String kioskBranchMaster = kioskMasterRepo.findKioskByKioskId_circle(kioskId);
 			dto.setServeriry(kioskBranchMaster);
+		} */
+		
+		 String circle=null;
+			for (TicketCentorDto dto : entities) {
+				String kioskId = dto.getKisokId();
+				//String kioskBranchMaster = kioskMasterRepo.findKioskByBranchCode(kioskId);
+				if(kioskId!=null){
+					//later
+					 // String kioskBranchCode= kioskMasterRepo.findKioskByBranchCode(kioskId);
+					 // circle= branchMastRepository.findCircleByBranchCode(kioskBranchCode);
+					  }
+					  dto.setServeriry(circle);
 
-		}
+			}
 		return entities;
 
 	}
@@ -1602,11 +1830,16 @@ public class JasperServiceImpl implements JasperService {
 		UserDto user = (UserDto) session().getAttribute("userObj");
 		List<TicketCentorDto> entities = ObjectMapperUtils.mapAll(ticketCentorRepo.findAllListByCMFUser(user.getPfId()),
 				TicketCentorDto.class);
-
+		 String circle=null;
 		for (TicketCentorDto dto : entities) {
 			String kioskId = dto.getKisokId();
-			String kioskBranchMaster = kioskMasterRepo.findKioskByKioskId_circle(kioskId);
-			dto.setServeriry(kioskBranchMaster);
+			//String kioskBranchMaster = kioskMasterRepo.findKioskByBranchCode(kioskId);
+			if(kioskId!=null){
+				//later
+				//  String kioskBranchCode= kioskMasterRepo.findKioskByBranchCode(kioskId);
+				//  circle= branchMastRepository.findCircleByBranchCode(kioskBranchCode);
+				  }
+				  dto.setServeriry(circle);
 
 		}
 		return entities;
@@ -1622,12 +1855,27 @@ public class JasperServiceImpl implements JasperService {
 		List<TicketCentorDto> entities = ObjectMapperUtils.mapAll(ticketCentorRepo.findAllListByCMFUserForCMS(supList),
 				TicketCentorDto.class);
 
-		for (TicketCentorDto dto : entities) {
+/*		for (TicketCentorDto dto : entities) {
 			String kioskId = dto.getKisokId();
 			String kioskBranchMaster = kioskMasterRepo.findKioskByKioskId_circle(kioskId);
 			dto.setServeriry(kioskBranchMaster);
-
 		}
+		
+		*/
+		
+		    String circle=null;
+			for (TicketCentorDto dto : entities) {
+				String kioskId = dto.getKisokId();
+				//String kioskBranchMaster = kioskMasterRepo.findKioskByBranchCode(kioskId);
+				if(kioskId!=null){
+					//later
+					 // String kioskBranchCode= kioskMasterRepo.findKioskByBranchCode(kioskId);
+					//  circle= branchMastRepository.findCircleByBranchCode(kioskBranchCode);
+					  }
+					  dto.setServeriry(circle);
+
+			}
+			
 		return entities;
 	}
 
@@ -1638,13 +1886,27 @@ public class JasperServiceImpl implements JasperService {
 
 		List<TicketCentorDto> entities = ObjectMapperUtils
 				.mapAll(ticketCentorRepo.findAllListByCircle(user.getCircle()), TicketCentorDto.class);
-
+/*
 		for (TicketCentorDto dto : entities) {
 			String kioskId = dto.getKisokId();
 			String kioskBranchMaster = kioskMasterRepo.findKioskByKioskId_circle(kioskId);
 			dto.setServeriry(kioskBranchMaster);
+		} */
+		
+		
+		       String circle=null;
+			for (TicketCentorDto dto : entities) {
+				String kioskId = dto.getKisokId();
+				//String kioskBranchMaster = kioskMasterRepo.findKioskByBranchCode(kioskId);
+				if(kioskId!=null){
+					//later
+					 // String kioskBranchCode= kioskMasterRepo.findKioskByBranchCode(kioskId);
+					  //circle= branchMastRepository.findCircleByBranchCode(kioskBranchCode);
+					  }
+					  dto.setServeriry(circle);
 
-		}
+			}
+		
 		return entities;
 	}
 
@@ -1798,49 +2060,144 @@ public class JasperServiceImpl implements JasperService {
 	  
 	  
 
-	@Override
-	public List<DownTimeDto> findDownTimeReport() {
-		 logger.info("Inside==Jasper====findTicketHistoryReport===========");
-//		  logger.info(downtimeReport.getCircle());
-//		  logger.info(downtimeReport.getCmsCmf());
-//		  logger.info(downtimeReport.getVendor());
-//		  logger.info(downtimeReport.getFromDate());
-//		  logger.info(downtimeReport.getToDate());
-	  
-		  String circle =downtimeReport.getCircle();
-		  String cmsCmf=downtimeReport.getCmsCmf(); 
-		  String vendor =downtimeReport.getVendor();
-		  String fromDate=downtimeReport.getFromDate(); 
-		  String toDate=downtimeReport.getToDate();
-			  
-				
-				if (downtimeReport.getCircle().equals("0") || downtimeReport.getCircle().equals("undefined")) {
-					circle="";
-					
-				}
-				if(downtimeReport.getCmsCmf().equals("0") || downtimeReport.getCmsCmf().equals("undefined") ) {
-					cmsCmf="";
-				}
-				if(downtimeReport.getFromDate().isEmpty()) {
-					fromDate="";
-				}
-				
-				
-				if(downtimeReport.getToDate().isEmpty()) {
-					toDate="";
-				}
-				
-				if (downtimeReport.getVendor().equals("0") || downtimeReport.getVendor().equals("undefined")) {
-					vendor = "";
-				}
-				
-		  List<DownTime> list = null;
-		  list=downTimePagingRepo.findAllByFilterDTimeReports(toDate, fromDate, circle,vendor ,cmsCmf);
-		  List<DownTimeDto> entities = ObjectMapperUtils.mapAll(list, DownTimeDto.class);
-		  logger.info("PDF entities "+entities);
-		  return entities; 
-		  }
+		/*
+		 * @Override public List<DownTimeDto> findDownTimeReport() {
+		 * logger.info("Inside==Jasper====findTicketHistoryReport==========="); //
+		 * logger.info(downtimeReport.getCircle()); //
+		 * logger.info(downtimeReport.getCmsCmf()); //
+		 * logger.info(downtimeReport.getVendor()); //
+		 * logger.info(downtimeReport.getFromDate()); //
+		 * logger.info(downtimeReport.getToDate());
+		 * 
+		 * String circle =downtimeReport.getCircle(); String
+		 * cmsCmf=downtimeReport.getCmsCmf(); String vendor =downtimeReport.getVendor();
+		 * String fromDate=downtimeReport.getFromDate(); String
+		 * toDate=downtimeReport.getToDate();
+		 * 
+		 * 
+		 * if (downtimeReport.getCircle().equals("0") ||
+		 * downtimeReport.getCircle().equals("undefined")) { circle="";
+		 * 
+		 * } if(downtimeReport.getCmsCmf().equals("0") ||
+		 * downtimeReport.getCmsCmf().equals("undefined") ) { cmsCmf=""; }
+		 * if(downtimeReport.getFromDate().isEmpty()) { fromDate=""; }
+		 * 
+		 * 
+		 * if(downtimeReport.getToDate().isEmpty()) { toDate=""; }
+		 * 
+		 * if (downtimeReport.getVendor().equals("0") ||
+		 * downtimeReport.getVendor().equals("undefined")) { vendor = ""; }
+		 * 
+		 * List<DownTime> list = null;
+		 * list=downTimePagingRepo.findAllByFilterDTimeReports(toDate, fromDate,
+		 * circle,vendor ,cmsCmf); List<DownTimeDto> entities =
+		 * ObjectMapperUtils.mapAll(list, DownTimeDto.class);
+		 * logger.info("PDF entities "+entities); return entities; }
+		 */
 	
+	  
+	  
+
+		@Override
+		public List<DownTimeDto> findDownTimeReport() {
+			 logger.info("Inside==Jasper====findDownTimeReport===========");
+			  logger.info(downtimeReport.getCircle());
+			  logger.info(downtimeReport.getCmsCmf());
+			  logger.info(downtimeReport.getVendor());
+			  logger.info(downtimeReport.getFromDate());
+			  logger.info(downtimeReport.getToDate());
+			  
+			  String circle =downtimeReport.getCircle();
+			  String cmsCmf=downtimeReport.getCmsCmf(); 
+			  String vendor =downtimeReport.getVendor();
+			  String fromDate=downtimeReport.getFromDate(); 
+			  String toDate=downtimeReport.getToDate();
+			  List<DownTimeDto> entities =null;
+			  
+			  try {
+				  
+//			  if(!downtimeReport.getFromDate().equals("null") && !downtimeReport.getFromDate().isEmpty() && !downtimeReport.getFromDate().equals("undefined")) {
+//					fromDate="";
+//				}
+//				
+//				
+//				if(downtimeReport.getToDate().equals("null")  && !downtimeReport.getToDate().isEmpty() && !downtimeReport.getToDate().equals("undefined"))  {
+//					toDate=toDate;
+//				}
+			  
+			  
+			  
+			  
+			  
+			  
+			  if( !downtimeReport.getFromDate().isEmpty() && !downtimeReport.getFromDate().equals("undefined") && !downtimeReport.getToDate().isEmpty() && !downtimeReport.getToDate().equals("undefined")) {
+				  
+			 
+					
+					if (downtimeReport.getCircle().equals("0") || downtimeReport.getCircle().equals("undefined")) {
+						circle="";
+						
+					}
+					if(downtimeReport.getCmsCmf().equals("undefined") ) {
+						cmsCmf="";
+					}
+//					if(!downtimeReport.getFromDate().equals("null") && !downtimeReport.getFromDate().isEmpty() && !downtimeReport.getFromDate().equals("undefined")) {
+//						fromDate="";
+//					}
+//					
+//					
+//					if(downtimeReport.getToDate().equals("null")  && !downtimeReport.getToDate().isEmpty() && !downtimeReport.getToDate().equals("undefined"))  {
+//						toDate=toDate;
+//					}
+					
+					if (downtimeReport.getVendor().equals("0") || downtimeReport.getVendor().equals("undefined")) {
+						vendor = "";
+					}
+					
+					
+				  List<DownTime> list = null;
+				  list=downTimePagingRepo.findAllByFilterDTimeReports(toDate, fromDate, circle,vendor ,cmsCmf);
+				  logger.info("list downtime ...PDF  "+list);
+				  
+				  if(list!=null && !list.isEmpty()) {
+				   entities = ObjectMapperUtils.mapAll(list, DownTimeDto.class);
+				  logger.info("PDF entities "+entities);
+				  }
+					
+			  }else {
+				    circle = downtimeReport.getCircle();
+					cmsCmf = downtimeReport.getCmsCmf();
+					vendor = downtimeReport.getVendor();
+					//fromDate = downtimeReport.getFromDate();
+					//toDate = downtimeReport.getToDate();
+				 
+				  SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+					Date curDate=new Date();
+					String date=sdf.format(curDate);
+					if(downtimeReport.getFromDate().equals("undefined") || downtimeReport.getFromDate().isEmpty()) {
+						fromDate=date;	
+					}
+
+					if(downtimeReport.getToDate().equals("undefined") || downtimeReport.getToDate().isEmpty()) {
+						toDate=date;	
+					}
+					
+					 List<DownTime> list = null;
+					  list=downTimePagingRepo.findAllByFilterDTimeReports(toDate, fromDate, circle,vendor ,cmsCmf);
+					  logger.info("list downtime ...PDF  "+list);
+					 // List<DownTimeDto> entities =null;
+					  if(list!=null && !list.isEmpty()) {
+					   entities = ObjectMapperUtils.mapAll(list, DownTimeDto.class);
+					  logger.info("PDF entities "+entities);
+					  }
+					
+			  }
+			  }catch (Exception e) {
+				  e.printStackTrace();
+			}
+			return entities;
+			  }
+		
 	
 	@Override
 	public List<BillingPenaltyDto> findBillingPenaltyReport() {
@@ -2201,6 +2558,78 @@ public class JasperServiceImpl implements JasperService {
 		logger.info("terminalStatusReport22222222::::" + entities);
 		return entities;
 		
+	}
+	
+	
+	@Override
+	public List<TaxSummaryEntity> findTaxSummaryReport() {
+		logger.info("Inside==Jasper====findTaxSummaryReport==========");
+//		logger.info(report.getCircle());
+//		logger.info(report.getState());
+//		logger.info(report.getTimePeiod());
+		String circle =null;
+		String state=null;
+		String timePeriod= null;
+		if((report.getCircle()!= "") && (report.getTimePeiod()!= "") ) {
+			circle =report.getCircle();
+			state=report.getState();
+			timePeriod= report.getTimePeiod();
+			
+		}
+		
+		List<TaxSummaryEntity> list =null;
+		
+	if(state.equals("0"))	{
+			
+			if(circle.equals("0")) {
+				list = taxSummaryRepo.findCCFilterReport(timePeriod);
+			}else {
+				list = taxSummaryRepo.findbyWithoutStateFilterReport(circle, timePeriod);
+			}
+		
+			}else{
+			
+			
+				
+			list = taxSummaryRepo.findbyFilterReport(circle, state, timePeriod);
+		}
+		
+	//List<TaxSummaryEntity> entities = ObjectMapperUtils.mapAll(list, InvoiceSummaryDto.class);
+		
+		return list;
+	}
+	
+	@Override
+	public List<TaxEntity> findTaxCalReport() {
+		logger.info("Inside==Jasper====findTaxCalReport==========");
+		
+		List<TaxCalculationDto> taxList = null;		
+		List<TaxCalculationDto> taxList2 = null;		
+		List<TaxEntity> taxEntity = null;
+
+
+
+		if(report.getGstType().equalsIgnoreCase("IGST")) {
+			taxList= ObjectMapperUtils.mapAll(
+					taxReportService.getTaxCalculation(report, 1, "IGST"), TaxCalculationDto.class);
+			
+			taxEntity= ObjectMapperUtils.mapAll(taxList, TaxEntity.class);
+			
+		}else {
+			
+			taxList = ObjectMapperUtils.mapAll(taxReportService.getTaxCalculation(report, 1, "CGST"), TaxCalculationDto.class);
+
+			taxList2 = ObjectMapperUtils.mapAll(taxReportService.getTaxSGST(report, 1, "SGST"), TaxCalculationDto.class);
+
+			taxList.addAll(taxList2);
+			taxEntity= ObjectMapperUtils.mapAll(taxList, TaxEntity.class);
+		}
+
+		
+		
+	//	List<TaxEntity> list =null;
+	
+		return taxEntity;
 	}
 	
 	
