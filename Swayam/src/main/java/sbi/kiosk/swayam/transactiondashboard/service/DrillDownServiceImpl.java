@@ -8,9 +8,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,7 @@ import sbi.kiosk.swayam.transactiondashboard.repository.DrillDownRepository;
 
 @Service
 public class DrillDownServiceImpl implements DrillDownService{
+	Logger logger = LoggerFactory.getLogger(DrillDownServiceImpl.class);
 	
 	@Autowired
 	DrillDownRepository drillDownRepository;
@@ -56,6 +58,7 @@ public class DrillDownServiceImpl implements DrillDownService{
 		if((in_region_code ==null || in_region_code.isEmpty())){
 			in_region_code = null;
 		}		
+	
 		if("NW".equals(type)){
 			pageDrillDown = drillDownRepository.findByDate(fromdate, todate,in_circle_code, PageRequest.of(page, size));
 		}

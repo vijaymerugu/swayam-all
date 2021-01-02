@@ -146,13 +146,18 @@
 		</div> -->
 <br/>
 
-      <div>
-			<pre align="left" style="background-color: #00BFFF; color: white; font-size: 10px; font-weight: bold; font-family: Helvetica;">
-             <span align="center" style="font-size: 10px; font-weight: bold; font-family: Helvetica">
-                  DrillDown Transactions<span
-						colspan="4" align="center"	style="color: white; font-size: 16px; font-weight: bold; float: right; margin-right: 1em">Last Updated :<span id="dateId"></span></span></span>
+      <!-- <div>
+			<pre align="left" style="background-color: #00BFFF; color: white; font-size: 18px; font-weight: bold; font-family: Helvetica;">
+             <span align="center" style="font-family: Helvetica">Drill Down  Transactions     <span
+						colspan="4" align="center"	style="color: white; font-size: 18px; font-weight: bold; float: right; margin-right: 1em">Last Updated :<span id="dateId"></span></span></span>
       </pre>
-			</div>
+			</div> -->
+			
+			<div>
+		<pre align="left" style="background-color: #00BFFF;color: white;font-size:18px;font-weight: bold;font-family:Helvetica;">
+ <span align="center" style="font-family:Helvetica">Drill Down Transactions<span colspan="4" align="center" style="color: white;font-size: 18px;font-weight: bold;float:right; margin-right:1em">Last Updated :<span id="dateId"></span></span></span>
+</pre>
+			</div> 
 
 		<div class="submain_transaction">	
 	
