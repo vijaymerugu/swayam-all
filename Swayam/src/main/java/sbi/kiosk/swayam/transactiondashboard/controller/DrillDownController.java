@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -163,6 +164,17 @@ public class DrillDownController {
 		 
 				resultPage = drillDownService.findPaginatedByTxnDate(page, size,type, fromDate, toDate, circleName, networkName, moduleName, regionName);
 		 
+		 }else {
+					SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+					 Date curDate=new Date();
+					 curDate.setTime(curDate.getTime()-48*60*60*1000); 
+					 String passedDate=sdf.format(curDate);
+				
+					String fromdate=passedDate;
+					String todate=passedDate;
+					logger.info("t-2-fromdate::"+fromdate);
+					logger.info("t-2-todate::"+todate);
+			 resultPage = drillDownService.findPaginatedByTxnDate(page, size,type, fromdate, todate, circleName, networkName, moduleName, regionName);
 		 }
 
 		      return resultPage;

@@ -1,5 +1,7 @@
 package sbi.kiosk.swayam.common.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -24,7 +26,11 @@ parameters={
 @StoredProcedureParameter(name="cur", type=void.class, mode= ParameterMode.REF_CURSOR)
 }
 )
-public class DrillDown {
+public class DrillDown implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/*@Id
 	@Column(name="NAME")
 	private String name;

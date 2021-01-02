@@ -105,6 +105,10 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
           name: 'CMS',
           displayName: 'CMS'
       }, {
+          name: 'total',
+          displayName: 'Total'
+      },
+      {
           name: 'back',
           displayName: ''
       }], 
@@ -114,7 +118,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
       	  exporterSuppressExport: true,
       	  headerCellTemplate: '<div> Mod </div>',
       	  superCol: 'front', 
-      	  cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.code)">{{row.entity.name}}</a></div>'
+      	  cellTemplate: '<div class="ui-grid-cell-contents"><a style="cursor: hand;cursor: pointer;" ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.code)">{{row.entity.name}}</a></div>'
       },
       { name: 'branchCodeCount', displayName: 'Total Swayam Branches',superCol: 'front'   },
       { name: 'totalSwayamKiosks', displayName: 'Total Swayam Kiosks',superCol: 'front'   },
@@ -124,8 +128,8 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
       { name: 'forbesTxns', displayName: 'Txns',superCol: 'Forbes'  },
       { name: 'cmsKiosks', displayName: 'Kiosks',superCol: 'CMS'  },
       { name: 'cmsTxns', displayName: 'Txns',superCol: 'CMS'  },
-      { name: 'totalSwayamTxns', displayName: 'Swayam Txns',superCol: 'back'  },
-      { name: 'totalBranchCounterTxns', displayName: 'Branch Counter Txns',superCol: 'back'  },
+      { name: 'totalSwayamTxns', displayName: 'Swayam Txns',superCol: 'total'  },
+      { name: 'totalBranchCounterTxns', displayName: 'Branch Counter Txns',superCol: 'total'  },
       { name: 'migrationPercentage', displayName: 'Migration Percentage(%)',superCol: 'back'  }
     ],
     onRegisterApi: function(gridApi) {
