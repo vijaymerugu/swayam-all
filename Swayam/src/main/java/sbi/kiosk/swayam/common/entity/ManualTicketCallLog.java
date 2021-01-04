@@ -43,6 +43,16 @@ public class ManualTicketCallLog extends Common {
 	@Column(name="CALL_SUBCATEGORY")
 	private String subCategory;
 	
+	// add new 
+	
+	@Column(name="KIOSK_SERIAL_NO")
+	private String kioskSrNo;	
+	
+	@Column(name="RES_TICKET_NUMBER")
+	private String respTicketNo;	
+	
+	@Column(name="EMAIL")
+	private String mailId;	
 		
 	
 }

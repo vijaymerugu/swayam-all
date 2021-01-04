@@ -407,8 +407,8 @@ $(document).ready(function(){
 	        	url:"getBykioskId/"+kioskId,
 	         success: function(data){
 	        	 respos=data;
-	        //	 alert("111",respos);
-	        	// console.log("log::resp::"+respos);
+	        	// alert("111",respos);
+	        	 console.log("log::resp::"+respos);
 	            $("#circle").html('');    
 	           // $("#contactPerson").html('');
 	           // $("#contactNo").html('');
@@ -440,11 +440,12 @@ $(document).ready(function(){
 	                  $("#circle").html(respos[index].circle);
 	                  $("#contactNo1").html(respos[index].contactNo);
 	                  $("#contactPerson1").html(respos[index].contactPerson);
-	                  
+	                  $("#mailId1").html(respos[index].mailId);
 	                  $("#contactPerson").val(respos[index].contactPerson);  
 	                  $("#contactNo").val(respos[index].contactNo); 
-	                // alert("inside contaNo----------"+ $("#contactNo").val(respos[index].contactNo));
-	               //console.log("inside contaNo----------"+ $("#contactNo").val(respos[index].contactNo));
+	                  $("#mailId").val(respos[index].mailId);
+	                 //alert("inside mailId----------", $("#mailId1").html(respos[index].mailId));
+	               //console.log("inside contaNo----------"+respos[index].mailId);
 	                  //comments by sate
 	                 // $("#vish").val(respos[index].circle);
 	              });
@@ -657,7 +658,8 @@ function cloesBox(){
 			modelAttribute="manualTicketCallLogDto" name="manualTicketCallLogDto"
 			id="form" autocomplete="off">
 			<h3 style="color: #000000;font-size:12 px; text-align: left;">Please complete the below form for lodging complaint</h3>
-			<!--  <span id="kioskIdMappingUser" style="color: red;"></span>  -->
+			 <!--  <span id="mailId1" style="color: red;"></span>  --> 
+			   <!--  <span id="mailId1" style="color: red;"></span>  --> 
 			<div class="col-md-12">
 				<table>
 					<tr>
@@ -764,11 +766,16 @@ function cloesBox(){
 						<%-- <td><form:hidden path="contactPerson" /></td>
 						<td><b id="contactPerson1"></b></td> --%>
 						 <td colspan="1"></td> 
-						<td><b style="color:purple">Contact Number &nbsp; : </b>
+						<td><b style="color:purple">Contact Details &nbsp; : </b>
 						<td><form:input path="contactNo"  id="contactNo" required="required" name="contactNo" style=" background-color: #F2F1EF;    border-top:#F2F1EF;  border-left:whtie;
                               border-bottom-width: 4px #F2F1EF;  width: 96%;  border-bottom-width: 0px;"/></td>
 					   <td><form:hidden path="contactNo" id="contactNo"/></td>
-						<!-- <td><b id="contactNo1"></b></td> -->
+					   
+					    <td colspan="1"></td>
+					   <td><form:input path="mailId"  id="mailId" name="mailId" style=" background-color: #F2F1EF;    border-top:#F2F1EF;  border-left:whtie;
+                              border-bottom-width: 4px #F2F1EF;  width: 96%;  border-bottom-width: 0px;"/></td>
+					   <td><form:hidden path="mailId" id="mailId"/></td>
+					   
 					</tr>
 
 					

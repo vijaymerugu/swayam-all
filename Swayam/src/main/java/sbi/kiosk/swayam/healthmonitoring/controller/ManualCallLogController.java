@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.codehaus.jettison.json.JSONException;
@@ -51,10 +52,9 @@ public class ManualCallLogController {
 	@PostMapping("manualTicketForm")
 	@PreAuthorize("hasPermission('HMmanualTicketForm','CREATE')")
 	public ResponseEntity<String> createManualForm(@ModelAttribute("manualTicketCallLogDto") ManualTicketCallLogDto manualTicketCallLogDto,
-			                  ModelAndView model)	throws ManualTicketNotFoudException {
-		
+			                  ModelAndView model,HttpServletRequest req)	throws ManualTicketNotFoudException {
 		logger.info("............inside create manual ticekt ....."+manualTicketCallLogDto.getContactNo());
-		logger.info("............inside create manual ticekt ....."+manualTicketCallLogDto.getCircle());
+		logger.info("............inside create manual ticekt ....."+manualTicketCallLogDto.getMailId());
 		String complaintId = manualTicketService.createManualTicket(manualTicketCallLogDto);
 		
 
