@@ -9,6 +9,7 @@ public interface RealTimeTransactionService extends IOperations<RealTimeTransact
 	//Page<RealTimeTransaction> findPaginated(int page, int size);
 
 	Page<RealTimeTransaction> findPaginated(int page, int size, String fromdate);
+	Page<RealTimeTransaction> findPaginatedSearchNext(int page, int size, String fromdate, String searchText);
     String findLastUpdatedRealTimeJob() ;
 
 
