@@ -15,11 +15,12 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
     $scope.tomorrow = new Date();
     $scope.CurrentDate=($scope.tomorrow.getDate() - 1); 
   var tomorrow = new Date();
+ 
  // alert(tomorrow);
    console.log("date==="+tomorrow);
    $scope.CurrentDate =tomorrow.setDate(tomorrow.getDate() - 1);
    $scope.getCountType = function(yesterday){
-	    yesterdayType=yesterday; debugger;
+	    yesterdayType=yesterday; 
 	    //  Added for loader------------- START 
 	    $("#loading").show();  
 	 // Added for loader------------- EN
@@ -51,7 +52,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 		}						
 	}
   
-   $scope.refresh = function()
+/*   $scope.refresh = function()
    {  		if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
 	
 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);
@@ -59,17 +60,19 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	    	
 		   $scope.gridOptions.data = $scope.gridOptions.data;
 	    }
-   };
+   };*/
    
    $scope.refresh = function()
    {  	
-	   debugger;
+	  
 	   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	
 	   	 //  Added for loader------------- START 
 	        $("#loading").show();  
 	     // Added for loader------------- END
+	     //   console.log("pageNumber: "+paginationOptions.pageNumber);
+	     //   console.log("pageSize: "+paginationOptions.pageSize);
 	   	 UserManagementService.getUsers(paginationOptions.pageNumber,
-	  		   paginationOptions.pageSize,yesterdayType).success(function(data){
+	   			paginationOptions.pageSize,yesterdayType).success(function(data){
 	  	  $scope.gridOptions.data = data.content;
 	   	  $scope.gridOptions.totalItems = data.totalElements;
 	   	 //  Added for loader------------- START 
@@ -79,9 +82,20 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	 		   
 	 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
 	 	    	
-	 	    
-	 	  
-	 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
+	 	  	 UserManagementService.getSearchNext(paginationOptions.pageNumber,
+	 	  			paginationOptions.pageSize,yesterdayType,$scope.searchText).success(function(data3){
+	 	 	  		 
+	 	 	  	  $scope.gridOptions.data = data3.content;
+	 	 //	  	  console.log("Grid data before: "+JSON.stringify($scope.gridOptions.data));
+	 	 	//	   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);	
+	 	 //		 console.log("search text after: "+$scope.searchText);
+	 	 //		 console.log("Grid data after: "+JSON.stringify($scope.gridOptions.data));
+	 	 	
+	 	 		//$scope.gridOptions.data =$scope.gridOptions.data; 	 	   	
+	 	 	//	$scope.gridOptions.totalItems = $scope.gridOptions.data.length;
+	 	 	   	  $scope.gridOptions.totalItems = data3.totalElements;
+	 	 	
+	 	 	     }); 
 	 		   
 	 	    }else{
 	 	    	 //  Added for loader------------- START 
@@ -136,21 +150,40 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
      
       
     ],
-    onRegisterApi: function(gridApi) { debugger;
+    onRegisterApi: function(gridApi) { 
         $scope.gridApi = gridApi;
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
           paginationOptions.pageNumber = newPage;
           paginationOptions.pageSize = pageSize;
-          //  Added for loader------------- START 
+     
 	        $("#loading").show();  
-	     // Added for loader------------- END
+       //   console.log("inside onRegisterApi search Text:" +$scope.searchText);
+	        if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){
+	        	console.log("Inside if");
           UserManagementService.getUsers(newPage,pageSize,yesterdayType).success(function(data){
         	  $scope.gridOptions.data = data.content;
-         	  $scope.gridOptions.totalItems = data.totalElements;
-         	 //  Added for loader------------- START 
+        	 	  $scope.gridOptions.totalItems = data.totalElements;
+         	
 		        $("#loading").hide();  
-		     // Added for loader------------- END
+		    
           });
+          }
+	        else{
+	 	 	   	console.log("Inside else");
+	        	 UserManagementService.getSearchNext(newPage,pageSize,yesterdayType,$scope.searchText).success(function(data){
+	           	  $scope.gridOptions.data = data.content;
+	           	 	  $scope.gridOptions.totalItems = data.totalElements;
+	          // 	 	console.log("TotalItems:  "+ $scope.gridOptions.totalItems);	
+	           	 	
+	 	 	    
+	        	
+		 	 	//	$scope.gridOptions.totalItems = $scope.gridOptions.data.length;
+		 	 	//  	  $scope.gridOptions.totalItems = data.totalElements;
+		 	 		 $("#loading").hide();  
+		 		   
+	        	  });	 
+	        
+	        	   }
         });
      }
   };
@@ -174,7 +207,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
     */
     
     
-    app.service('UserManagementService',['$http', function ($http) {  debugger;
+    app.service('UserManagementService',['$http', function ($http) { 
     	function getUsers(pageNumber,size,yesterdayType) {
     		pageNumber = pageNumber > 0?pageNumber - 1:0;
             return  $http({
@@ -183,8 +216,28 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
             });
         }
     	
+    	function getSearch(pageNumber,size,yesterdayType, searchText) {
+    		pageNumber = pageNumber > 0?pageNumber - 1:0;
+            return  $http({
+              method: 'GET',
+              url: 'td/realTimeTxn/getSearch?page='+pageNumber+'&size='+size+'&fromdate='+yesterdayType+'&searchText='+searchText
+            });
+        }
+    	
+    	function getSearchNext(pageNumber,size,yesterdayType, searchText) {
+    		pageNumber = pageNumber > 0?pageNumber - 1:0;
+            return  $http({
+              method: 'GET',
+              url: 'td/realTimeTxn/getSearchNext?page='+pageNumber+'&size='+size+'&fromdate='+yesterdayType+'&searchText='+searchText
+            });
+        }
+    	
         return {
-        	getUsers:getUsers
+        	getUsers:getUsers,
+        	
+        	getSearch:getSearch,
+        	
+        	getSearchNext:getSearchNext
         };
    
 }]);

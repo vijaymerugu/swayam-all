@@ -64,10 +64,40 @@ public class RealTimeTransactionServiceImpl implements RealTimeTransactionServic
 			//	logger.info("Else ===todayDate===========::"+passedDate);
 		}
 		 Page<RealTimeTransaction> pageEntity = realTimeTxnRepositoryPaging.findByFromDate(passedDate, PageRequest.of(page, size));					
-		return pageEntity;
+		System.out.println("pageEntity: "+pageEntity);
+		 return pageEntity;
 	}
 	
+	@Override
+	public Page<RealTimeTransaction> findPaginatedSearchNext(int page, int size, String fromdate,String searchText) {
+      
+		logger.info("findPaginatedFromToDate Start----from---");
 	
+		 List<RealTimeTransaction> list=new ArrayList<RealTimeTransaction>(); 
+		 String passedDate = null;
+		
+		 if(fromdate!=null && !fromdate.isEmpty() && fromdate.equalsIgnoreCase("yesterday")){
+			 SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+			 Date curDate=new Date();
+			 curDate.setTime(curDate.getTime()-24*60*60*1000); 
+			 passedDate=sdf.format(curDate);
+			 
+				
+		 }else if(fromdate!=null && !fromdate.isEmpty() && fromdate.equalsIgnoreCase("today") && !fromdate.equalsIgnoreCase("undefined")){
+			 SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+			 Date curDate=new Date();
+			 passedDate=sdf.format(curDate);
+				 
+		}else{
+				 SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+				 Date curDate=new Date();
+				 passedDate=sdf.format(curDate);
+				
+		}
+		 Page<RealTimeTransaction> pageEntity = realTimeTxnRepositoryPaging.findByFromDateSearchText(passedDate,searchText, PageRequest.of(page, size));					
+	//	System.out.println("pageEntity: "+pageEntity);
+		 return pageEntity;
+	}
 	
 	public String findLastUpdatedRealTimeJob() {
 		String realTime=null;

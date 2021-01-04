@@ -63,9 +63,9 @@
   		display: table-row;
 		}
 
-		.ui-grid-row, .ui-grid-cell {
+		 .ui-grid-row, .ui-grid-cell {
   		height: auto!important;
-		}
+		} 
 
 			.ui-grid-cell {
   			float: none;
@@ -79,7 +79,7 @@
   			word-break: break-word;
   			
 			}
-			.ui-grid, .ui-grid-viewport {
+			 .ui-grid, .ui-grid-viewport {
    			  height: auto !important; 
 			} 
 			.ui-grid-pager-panel {
@@ -111,6 +111,8 @@ $("#myBtn").click(function(){
 
 </script>
 
+
+    
 </head>
 <body>
 
@@ -143,28 +145,11 @@ $("#myBtn").click(function(){
 </pre>
 			</div> 
 
-<!-- 
- <table>
-  <h1 colspan="4" align="center" style="color: #05fc47;font-size: 12px;font-weight: bold;"> Real-time Swayam Transaction on  <%= (new java.util.Date()).toLocaleString()%> </h1> 
-    </table>
 
-<table>
-        <tr>
-  <h1 colspan="4" align="right"><input value="Today" class="openFinalPopup" ng-model="date" type="button" style="font-size: 20px;width: 80px;height: 30px;" /></h1>   
- </tr>
-</table>
-<div>
-<pre style="background-color: #00BFFF;color: white;font-size: 12px;font-weight: bold;">
-<span>Real-time Swayam Transaction</span>
- <span colspan="4" align="center" style="color: white;font-size: 12px;font-weight: bold;float:right; margin-right:1em">Last Updated :<span id="dateId"></span></span> 
-</pre>
-</div>
-
--->
 		<div class="submain_transaction">
 	
 	<input class="form-group has-search" ng-model="searchText" ng-change="refresh()" placeholder="Enter Kiosk Id, Branch Code, Circle etc." style="font-size: 12px" size="150" height="80" id="input">
-		
+		<!-- <button  id="btnSearchText" ng-click="refresh()">SearchText</button> -->	
 		<span style="float:right">
 		<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
 		<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>
