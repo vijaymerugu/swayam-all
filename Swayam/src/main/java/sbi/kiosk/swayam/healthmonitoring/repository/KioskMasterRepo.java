@@ -24,5 +24,8 @@ List<KioskBranchMaster> findByVendor(@Param("vendor")String vendor,@Param("branc
 //@Query(value="select * from TBL_KIOSK_MASTER where KIOSK_ID=:kioskId ",nativeQuery=true)
 List<KioskBranchMaster>  findByKioskId(String kioskId);
 
+@Query(value="select KIOSK_SERIAL_NO from tbl_kiosk_master   where KIOSK_ID=:kioskId",nativeQuery=true)
+String getKioskSrNo(@Param("kioskId") String kioskId);
+
 }
 

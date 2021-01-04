@@ -22,6 +22,7 @@ public class ManualTicketCallLogDto {
 	
 	private String status=null;
 	private String subCategory;
+	private String mailId;
 	
 	
 	

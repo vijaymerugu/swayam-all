@@ -16,60 +16,7 @@ public interface TransactionDashBoardRepositoryPaging extends PagingAndSortingRe
 
 	Page<SwayamMigrationSummary> findAll(Pageable pageable);
 	
-	/*@Query(value="select b.crcl_name CRCL_NAME,b.network NETWORK,b.module MODULE,b.region REGION,b.branch_code BRANCH_CODE,b.branch_name BRANCH_NAME,"+
-               "sum(m.lipi_kiosk_cnt) lipi_kiosk_cnt,sum(m.lipi_txn_cnt) lipi_txn_cnt,sum(m.FORBES_kiosk_cnt) FORBES_kiosk_cnt,sum(m.FORBES_txn_cnt) FORBES_txn_cnt,"+
-               "sum(m.cms_kiosk_cnt) cms_kiosk_cnt,sum(m.cms_txn_cnt) cms_txn_cnt,sum(m.total_swayam_txns) total_swayam_txns,sum(m.manual_txns) manual_txns,"+
-               " (case when nvl(sum(m.total_swayam_txns),0)=0 then 0 else round(sum(m.total_swayam_txns) * 100 / (sum(m.total_swayam_txns) + sum(m.manual_txns)), 2) end) mig_prcnt "+
-        "from (select branch_code,"+
-               "count(KIOSK_ID) total_swayam_kiosks,"+
-               "sum(case vendor when 'LIPI' then 1 else 0 end) lipi_kiosk_cnt,"+
-               "sum(case vendor when 'LIPI' then swayam_txns else 0 end) lipi_txn_cnt,"+
-               "sum(case vendor when 'FORBES' then 1 else 0 end) FORBES_kiosk_cnt,"+
-               "sum(case vendor when 'FORBES' then swayam_txns else 0 end) FORBES_txn_cnt,"+
-               "sum(case vendor when 'CMS' then 1 else 0 end) cms_kiosk_cnt,"+
-               "sum(case vendor when 'CMS' then swayam_txns else 0 end) cms_txn_cnt,"+
-               "sum(swayam_txns) total_swayam_txns,"+
-               "nvl(sum(no_of_accounts),0) manual_txns "+
-        "from (select mst.BRANCH_CODE, mst.KIOSK_ID, mst.vendor,"+ 
-                     "count(1) no_of_kiosks, nvl(sum(dtl.no_of_txns),0) swayam_txns "+ 
-                "from tbl_kiosk_master mst,"+ 
-                     "tbl_swayam_txn_report dtl "+
-             //  "where mst.kiosk_id = dtl.kiosk_id(+) "+
- " where upper(mst.kiosk_id) = upper(dtl.kiosk_id( +)) "+
-                "and to_date(txn_date, 'dd-mm-yyyy') between trunc(to_date(:fromdate, 'dd-mm-yyyy')) "+ 
-                                                 "and trunc(to_date(:todate, 'dd-mm-yyyy')) "+
-               "group by mst.BRANCH_CODE, mst.KIOSK_ID, mst.vendor) data1,"+
-               "tbl_branch_txn_daily data2 "+
-        "where data1.branch_code = data2.branch_no(+) "+
-        "group by data1.branch_code) m, tbl_branch_master b "+
-        "where b.branch_code = m.branch_code "+
-        "group by b.crcl_name,b.network,b.module,b.region,b.branch_code,b.branch_name",nativeQuery=true,countQuery = " select count(m.branch_code)\r\n" + 
-        		"        from (  \r\n" + 
-        		"        select branch_code,\r\n" + 
-        		"               count(KIOSK_ID) total_swayam_kiosks,\r\n" + 
-        		"               sum(case vendor when 'LIPI' then 1 else 0 end) lipi_kiosk_cnt,\r\n" + 
-        		"               sum(case vendor when 'LIPI' then swayam_txns else 0 end) lipi_txn_cnt,\r\n" + 
-        		"               sum(case vendor when 'FORBES' then 1 else 0 end) FORBES_kiosk_cnt,\r\n" + 
-        		"               sum(case vendor when 'FORBES' then swayam_txns else 0 end) FORBES_txn_cnt,\r\n" + 
-        		"               sum(case vendor when 'CMS' then 1 else 0 end) cms_kiosk_cnt,\r\n" + 
-        		"               sum(case vendor when 'CMS' then swayam_txns else 0 end) cms_txn_cnt,\r\n" + 
-        		"               sum(swayam_txns) total_swayam_txns,\r\n" + 
-        		"               nvl(sum(no_of_accounts),0) manual_txns\r\n" + 
-        		"        from (select mst.BRANCH_CODE, mst.KIOSK_ID, mst.vendor,\r\n" + 
-        		"                     count(1) no_of_kiosks, nvl(sum(dtl.no_of_txns),0) swayam_txns\r\n" + 
-        		"                from tbl_kiosk_master mst,\r\n" + 
-        		"                     tbl_swayam_txn_report dtl\r\n" + 
-        		//"               where mst.kiosk_id = dtl.kiosk_id(+)\r\n" + 
-        		 " where upper(mst.kiosk_id) = upper(dtl.kiosk_id( +)) "+
-        		"                and to_date(txn_date, 'dd-mm-yyyy') between trunc(to_date(:fromdate, 'dd-mm-yyyy'))\r\n" + 
-        		"                                                 and trunc(to_date(:todate, 'dd-mm-yyyy'))\r\n" + 
-        		"               group by mst.BRANCH_CODE, mst.KIOSK_ID, mst.vendor) data1,\r\n" + 
-        		"               tbl_branch_txn_daily data2\r\n" + 
-        		"        where data1.branch_code = data2.branch_no(+)\r\n" + 
-        		"        group by data1.branch_code) m, tbl_branch_master b\r\n" + 
-        		"        where b.branch_code = m.branch_code\r\n" + 
-        		"        group by b.crcl_name,b.network,b.module,b.region,b.branch_code,b.branch_name")*/
-	
+	/*
 	@Query(value="	SELECT B.CRCL_NAME CRCL_NAME,B.NETWORK NETWORK, B.MODULE MODULE,B.REGION REGION,  B.BRANCH_CODE BRANCH_CODE,"
    			+ " B.BRANCH_NAME BRANCH_NAME,   SUM(M.LIPI_KIOSK_CNT) LIPI_KIOSK_CNT,  SUM(M.LIPI_TXN_CNT) LIPI_TXN_CNT,"
    			+ " SUM(M.FORBES_KIOSK_CNT) FORBES_KIOSK_CNT, SUM(M.FORBES_TXN_CNT) FORBES_TXN_CNT, SUM(M.CMS_KIOSK_CNT) CMS_KIOSK_CNT,"
@@ -116,65 +63,80 @@ nativeQuery=true,countQuery ="SELECT  count( B.BRANCH_CODE) from  TBL_BRANCH_MAS
   + " MST.VENDOR ) DATA1"
  // + "  --where data1.branch_code = data2.branch_no"
   + " GROUP BY   DATA1.BRANCH_CODE ORDER BY DATA1.BRANCH_CODE ) M ON B.BRANCH_CODE = M.BRANCH_CODE GROUP BY  B.CRCL_NAME, "
-  + "  B.NETWORK, B.MODULE, B.REGION, B.BRANCH_CODE, B.BRANCH_NAME")
+  + "  B.NETWORK, B.MODULE, B.REGION, B.BRANCH_CODE, B.BRANCH_NAME")*/
+	
+	//changes
+	
+
+@Query(value="	SELECT B.CRCL_NAME CRCL_NAME,B.NETWORK NETWORK,B.MODULE MODULE, "
+		+ " B.REGION REGION,B.BRANCH_CODE BRANCH_CODE,B.BRANCH_NAME BRANCH_NAME, "
+		+ " SUM(M.LIPI_KIOSK_CNT) LIPI_KIOSK_CNT,SUM(M.LIPI_TXN_CNT) LIPI_TXN_CNT, "
+		+ " SUM(M.FORBES_KIOSK_CNT) FORBES_KIOSK_CNT,SUM(M.FORBES_TXN_CNT) FORBES_TXN_CNT, "
+		+ " SUM(M.CMS_KIOSK_CNT) CMS_KIOSK_CNT,SUM(M.CMS_TXN_CNT) CMS_TXN_CNT, "
+		+ " SUM(M.TOTAL_SWAYAM_TXNS) TOTAL_SWAYAM_TXNS,NVL(SUM(BR_TXN.MANUAL_TXNS),0) MANUAL_TXNS, "
+		+ " (  CASE   WHEN NVL( SUM(M.TOTAL_SWAYAM_TXNS),     0 ) = 0 THEN 0  ELSE ROUND( "
+		+ "   SUM(M.TOTAL_SWAYAM_TXNS) * 100 / (SUM(M.TOTAL_SWAYAM_TXNS) + NVL(SUM(BR_TXN.MANUAL_TXNS),0)  ), "
+		+ "  2  ) "
+		+ "END) MIG_PRCNT FROM TBL_BRANCH_MASTER B LEFT JOIN (  SELECT"
+		+ "  BRANCH_NO,NVL(SUM(NO_OF_ACCOUNTS),0) MANUAL_TXNS  FROM TBL_BRANCH_TXN_DAILY DATA2 "
+		+ " WHERE  TO_DATE(LAST_PBK_DT,'yyyy-mm-dd') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND "
+		+ " TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )  GROUP BY   BRANCH_NO) BR_TXN "
+		+ " ON BR_TXN.BRANCH_NO = B.BRANCH_CODE INNER JOIN (SELECT BRANCH_CODE, "
+		+ "  SUM(NO_OF_KIOSKS) TOTAL_SWAYAM_KIOSKS, SUM(CASE VENDOR   WHEN 'LIPI' "
+		+ "  THEN DATA1.NO_OF_KIOSKS  ELSE 0  END) LIPI_KIOSK_CNT, SUM(CASE VENDOR "
+		+ "  WHEN 'LIPI'   THEN DATA1.SWAYAM_TXNS  ELSE 0  END) LIPI_TXN_CNT,"
+		+ " SUM(CASE VENDOR WHEN 'FORBES'   THEN DATA1.NO_OF_KIOSKS ELSE 0 "
+		+ "  END ) FORBES_KIOSK_CNT,SUM(CASE VENDOR   WHEN 'FORBES'   THEN "
+		+ " DATA1.SWAYAM_TXNS ELSE 0  END ) FORBES_TXN_CNT,  SUM(CASE VENDOR  WHEN 'CMS' "
+		+ " THEN DATA1.NO_OF_KIOSKS  ELSE 0  END ) CMS_KIOSK_CNT,SUM(CASE VENDOR "
+		+ "   WHEN 'CMS'   THEN DATA1.SWAYAM_TXNS   ELSE 0  END) CMS_TXN_CNT, "
+		+ "  SUM(SWAYAM_TXNS) TOTAL_SWAYAM_TXNS  FROM  ( SELECT  MST.BRANCH_CODE, MST.VENDOR, "
+		+ "  COUNT(DISTINCT MST.KIOSK_ID) NO_OF_KIOSKS, NVL(SUM(DTL.NO_OF_TXNS), 0 ) SWAYAM_TXNS "
+		+ " FROM TBL_KIOSK_MASTER MST,TBL_SWAYAM_TXN_REPORT DTL "
+		+ " WHERE UPPER(MST.KIOSK_ID) = UPPER(DTL.KIOSK_ID(+) ) AND TO_DATE(TXN_DATE,'dd-mm-yyyy') "
+		+ " BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND "
+		+ " TRUNC(TO_DATE(:todate,'dd-mm-yyyy') ) GROUP BY MST.BRANCH_CODE,MST.VENDOR "
+		+ " ORDER BY MST.BRANCH_CODE,MST.VENDOR) DATA1   GROUP BY DATA1.BRANCH_CODE "
+		+ " ORDER BY DATA1.BRANCH_CODE) M ON B.BRANCH_CODE = M.BRANCH_CODE "
+		+ " GROUP BY B.CRCL_NAME,B.NETWORK,B.MODULE,B.REGION,B.BRANCH_CODE,B.BRANCH_NAME ",
+	nativeQuery=true,
+	countQuery =" SELECT count(B.BRANCH_CODE) AS BRANCH_CODE ,B.CRCL_NAME CRCL_NAME,B.NETWORK NETWORK,B.MODULE MODULE, "
+		+ " B.REGION REGION,B.BRANCH_NAME BRANCH_NAME, "
+		+ " SUM(M.LIPI_KIOSK_CNT) LIPI_KIOSK_CNT,SUM(M.LIPI_TXN_CNT) LIPI_TXN_CNT, "
+		+ " SUM(M.FORBES_KIOSK_CNT) FORBES_KIOSK_CNT,SUM(M.FORBES_TXN_CNT) FORBES_TXN_CNT, "
+		+ " SUM(M.CMS_KIOSK_CNT) CMS_KIOSK_CNT,SUM(M.CMS_TXN_CNT) CMS_TXN_CNT, "
+		+ " SUM(M.TOTAL_SWAYAM_TXNS) TOTAL_SWAYAM_TXNS,NVL(SUM(BR_TXN.MANUAL_TXNS),0) MANUAL_TXNS, "
+		+ " (  CASE   WHEN NVL( SUM(M.TOTAL_SWAYAM_TXNS),     0 ) = 0 THEN 0  ELSE ROUND( "
+		+ "   SUM(M.TOTAL_SWAYAM_TXNS) * 100 / (SUM(M.TOTAL_SWAYAM_TXNS) + NVL(SUM(BR_TXN.MANUAL_TXNS),0)  ), "
+		+ "  2  ) "
+		+ "END) MIG_PRCNT FROM TBL_BRANCH_MASTER B LEFT JOIN (  SELECT "
+			+ "  BRANCH_NO,NVL(SUM(NO_OF_ACCOUNTS),0) MANUAL_TXNS  FROM TBL_BRANCH_TXN_DAILY DATA2 "
+			+ " WHERE  TO_DATE(LAST_PBK_DT,'yyyy-mm-dd') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND "
+			+ " TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )  GROUP BY   BRANCH_NO) BR_TXN "
+			+ " ON BR_TXN.BRANCH_NO = B.BRANCH_CODE INNER JOIN (SELECT BRANCH_CODE, "
+			+ "  SUM(NO_OF_KIOSKS) TOTAL_SWAYAM_KIOSKS, SUM(CASE VENDOR   WHEN 'LIPI' "
+			+ "  THEN DATA1.NO_OF_KIOSKS  ELSE 0  END) LIPI_KIOSK_CNT, SUM(CASE VENDOR "
+			+ "  WHEN 'LIPI'   THEN DATA1.SWAYAM_TXNS  ELSE 0  END) LIPI_TXN_CNT, "
+			+ " SUM(CASE VENDOR WHEN 'FORBES'   THEN DATA1.NO_OF_KIOSKS ELSE 0 "
+			+ "  END ) FORBES_KIOSK_CNT,SUM(CASE VENDOR   WHEN 'FORBES'   THEN "
+			+ " DATA1.SWAYAM_TXNS ELSE 0  END ) FORBES_TXN_CNT,  SUM(CASE VENDOR  WHEN 'CMS' "
+			+ " THEN DATA1.NO_OF_KIOSKS  ELSE 0  END ) CMS_KIOSK_CNT,SUM(CASE VENDOR "
+			+ "   WHEN 'CMS'   THEN DATA1.SWAYAM_TXNS   ELSE 0  END) CMS_TXN_CNT, "
+			+ "  SUM(SWAYAM_TXNS) TOTAL_SWAYAM_TXNS  FROM  ( SELECT  MST.BRANCH_CODE, MST.VENDOR, "
+			+ "  COUNT(DISTINCT MST.KIOSK_ID) NO_OF_KIOSKS, NVL(SUM(DTL.NO_OF_TXNS), 0 ) SWAYAM_TXNS "
+			+ " FROM TBL_KIOSK_MASTER MST,TBL_SWAYAM_TXN_REPORT DTL "
+			+ " WHERE UPPER(MST.KIOSK_ID) = UPPER(DTL.KIOSK_ID(+) ) AND TO_DATE(TXN_DATE,'dd-mm-yyyy') "
+			+ " BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND "
+			+ " TRUNC(TO_DATE(:todate,'dd-mm-yyyy') ) GROUP BY MST.BRANCH_CODE,MST.VENDOR "
+			+ " ORDER BY MST.BRANCH_CODE,MST.VENDOR) DATA1   GROUP BY DATA1.BRANCH_CODE "
+			+ " ORDER BY DATA1.BRANCH_CODE) M ON B.BRANCH_CODE = M.BRANCH_CODE "
+			+ " GROUP BY B.CRCL_NAME,B.NETWORK,B.MODULE,B.REGION,B.BRANCH_CODE,B.BRANCH_NAME")
+
+	
 	
 	Page<SwayamMigrationSummary> findByDate(@Param("fromdate") String fromdate,@Param("todate") String todate,Pageable pageable);
 	
-
-	/*@Query(value="select b.crcl_name CRCL_NAME,b.network NETWORK,b.module MODULE,b.region REGION,b.branch_code BRANCH_CODE,b.branch_name BRANCH_NAME,"+
-            "sum(m.lipi_kiosk_cnt) lipi_kiosk_cnt,sum(m.lipi_txn_cnt) lipi_txn_cnt,sum(m.FORBES_kiosk_cnt) FORBES_kiosk_cnt,sum(m.FORBES_txn_cnt) FORBES_txn_cnt,"+
-            "sum(m.cms_kiosk_cnt) cms_kiosk_cnt,sum(m.cms_txn_cnt) cms_txn_cnt,sum(m.total_swayam_txns) total_swayam_txns,sum(m.manual_txns) manual_txns,"+
-            " (case when nvl(sum(m.total_swayam_txns),0)=0 then 0 else round(sum(m.total_swayam_txns) * 100 / (sum(m.total_swayam_txns) + sum(m.manual_txns)), 2) end) mig_prcnt "+
-     "from (select branch_code,"+
-            "count(KIOSK_ID) total_swayam_kiosks,"+
-            "sum(case vendor when 'LIPI' then 1 else 0 end) lipi_kiosk_cnt,"+
-            "sum(case vendor when 'LIPI' then swayam_txns else 0 end) lipi_txn_cnt,"+
-            "sum(case vendor when 'FORBES' then 1 else 0 end) FORBES_kiosk_cnt,"+
-            "sum(case vendor when 'FORBES' then swayam_txns else 0 end) FORBES_txn_cnt,"+
-            "sum(case vendor when 'CMS' then 1 else 0 end) cms_kiosk_cnt,"+
-            "sum(case vendor when 'CMS' then swayam_txns else 0 end) cms_txn_cnt,"+
-            "sum(swayam_txns) total_swayam_txns,"+
-            "nvl(sum(no_of_accounts),0) manual_txns "+
-     "from (select mst.BRANCH_CODE, mst.KIOSK_ID, mst.vendor,"+ 
-                  "count(1) no_of_kiosks, nvl(sum(dtl.no_of_txns),0) swayam_txns "+ 
-             "from tbl_kiosk_master mst,"+ 
-                  "tbl_swayam_txn_report dtl "+
-       //     "where mst.kiosk_id = dtl.kiosk_id(+) "+
-            " where upper(mst.kiosk_id) = upper(dtl.kiosk_id( +)) "+
-             "and to_date(txn_date, 'dd-mm-yyyy') between trunc(to_date(:fromdate, 'dd-mm-yyyy')) "+ 
-                                              "and trunc(to_date(:todate, 'dd-mm-yyyy')) "+
-            "group by mst.BRANCH_CODE, mst.KIOSK_ID, mst.vendor) data1,"+
-            "tbl_branch_txn_daily data2 "+
-     "where data1.branch_code = data2.branch_no(+) "+
-     "group by data1.branch_code) m, tbl_branch_master b "+
-     "where b.branch_code = m.branch_code "+
-     "group by b.crcl_name,b.network,b.module,b.region,b.branch_code,b.branch_name",nativeQuery=true,countQuery = " select count(m.branch_code)\r\n" + 
-     		"        from (  \r\n" + 
-     		"        select branch_code,\r\n" + 
-     		"               count(KIOSK_ID) total_swayam_kiosks,\r\n" + 
-     		"               sum(case vendor when 'LIPI' then 1 else 0 end) lipi_kiosk_cnt,\r\n" + 
-     		"               sum(case vendor when 'LIPI' then swayam_txns else 0 end) lipi_txn_cnt,\r\n" + 
-     		"               sum(case vendor when 'FORBES' then 1 else 0 end) FORBES_kiosk_cnt,\r\n" + 
-     		"               sum(case vendor when 'FORBES' then swayam_txns else 0 end) FORBES_txn_cnt,\r\n" + 
-     		"               sum(case vendor when 'CMS' then 1 else 0 end) cms_kiosk_cnt,\r\n" + 
-     		"               sum(case vendor when 'CMS' then swayam_txns else 0 end) cms_txn_cnt,\r\n" + 
-     		"               sum(swayam_txns) total_swayam_txns,\r\n" + 
-     		"               nvl(sum(no_of_accounts),0) manual_txns\r\n" + 
-     		"        from (select mst.BRANCH_CODE, mst.KIOSK_ID, mst.vendor,\r\n" + 
-     		"                     count(1) no_of_kiosks, nvl(sum(dtl.no_of_txns),0) swayam_txns\r\n" + 
-     		"                from tbl_kiosk_master mst,\r\n" + 
-     		"                     tbl_swayam_txn_report dtl\r\n" + 
-     	//	"               where mst.kiosk_id = dtl.kiosk_id(+)\r\n" + 
-     	 " where upper(mst.kiosk_id) = upper(dtl.kiosk_id( +)) "+
-     		"                and to_date(txn_date, 'dd-mm-yyyy') between trunc(to_date(:fromdate, 'dd-mm-yyyy'))\r\n" + 
-     		"                                                 and trunc(to_date(:todate, 'dd-mm-yyyy'))\r\n" + 
-     		"               group by mst.BRANCH_CODE, mst.KIOSK_ID, mst.vendor) data1,\r\n" + 
-     		"               tbl_branch_txn_daily data2\r\n" + 
-     		"        where data1.branch_code = data2.branch_no(+)\r\n" + 
-     		"        group by data1.branch_code) m, tbl_branch_master b\r\n" + 
-     		"        where b.branch_code = m.branch_code\r\n" + 
-     		"        group by b.crcl_name,b.network,b.module,b.region,b.branch_code,b.branch_name")*/
-	
+/*
 	@Query(value="	SELECT B.CRCL_NAME CRCL_NAME,B.NETWORK NETWORK, B.MODULE MODULE,B.REGION REGION,  B.BRANCH_CODE BRANCH_CODE,"
    			+ " B.BRANCH_NAME BRANCH_NAME,   SUM(M.LIPI_KIOSK_CNT) LIPI_KIOSK_CNT,  SUM(M.LIPI_TXN_CNT) LIPI_TXN_CNT,"
    			+ " SUM(M.FORBES_KIOSK_CNT) FORBES_KIOSK_CNT, SUM(M.FORBES_TXN_CNT) FORBES_TXN_CNT, SUM(M.CMS_KIOSK_CNT) CMS_KIOSK_CNT,"
@@ -221,11 +183,84 @@ nativeQuery=true,countQuery ="SELECT  count( B.BRANCH_CODE) from  TBL_BRANCH_MAS
   + " MST.VENDOR ) DATA1"
  // + "  --where data1.branch_code = data2.branch_no"
   + " GROUP BY   DATA1.BRANCH_CODE ORDER BY DATA1.BRANCH_CODE ) M ON B.BRANCH_CODE = M.BRANCH_CODE GROUP BY  B.CRCL_NAME, "
-  + "  B.NETWORK, B.MODULE, B.REGION, B.BRANCH_CODE, B.BRANCH_NAME")
+  + "  B.NETWORK, B.MODULE, B.REGION, B.BRANCH_CODE, B.BRANCH_NAME")*/
+
+// changes
+
+
+@Query(value="	SELECT B.CRCL_NAME CRCL_NAME,B.NETWORK NETWORK,B.MODULE MODULE, "
+		+ " B.REGION REGION,B.BRANCH_CODE BRANCH_CODE,B.BRANCH_NAME BRANCH_NAME, "
+		+ " SUM(M.LIPI_KIOSK_CNT) LIPI_KIOSK_CNT,SUM(M.LIPI_TXN_CNT) LIPI_TXN_CNT, "
+		+ " SUM(M.FORBES_KIOSK_CNT) FORBES_KIOSK_CNT,SUM(M.FORBES_TXN_CNT) FORBES_TXN_CNT, "
+		+ " SUM(M.CMS_KIOSK_CNT) CMS_KIOSK_CNT,SUM(M.CMS_TXN_CNT) CMS_TXN_CNT, "
+		+ " SUM(M.TOTAL_SWAYAM_TXNS) TOTAL_SWAYAM_TXNS,NVL(SUM(BR_TXN.MANUAL_TXNS),0) MANUAL_TXNS, "
+		+ " (  CASE   WHEN NVL( SUM(M.TOTAL_SWAYAM_TXNS),     0 ) = 0 THEN 0  ELSE ROUND( "
+		+ "   SUM(M.TOTAL_SWAYAM_TXNS) * 100 / (SUM(M.TOTAL_SWAYAM_TXNS) + NVL(SUM(BR_TXN.MANUAL_TXNS),0)  ), "
+		+ "  2  ) "
+		+ "END) MIG_PRCNT FROM TBL_BRANCH_MASTER B LEFT JOIN (  SELECT"
+		+ "  BRANCH_NO,NVL(SUM(NO_OF_ACCOUNTS),0) MANUAL_TXNS  FROM TBL_BRANCH_TXN_DAILY DATA2 "
+		+ " WHERE  TO_DATE(LAST_PBK_DT,'yyyy-mm-dd') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND "
+		+ " TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )  GROUP BY   BRANCH_NO) BR_TXN "
+		+ " ON BR_TXN.BRANCH_NO = B.BRANCH_CODE INNER JOIN (SELECT BRANCH_CODE, "
+		+ "  SUM(NO_OF_KIOSKS) TOTAL_SWAYAM_KIOSKS, SUM(CASE VENDOR   WHEN 'LIPI' "
+		+ "  THEN DATA1.NO_OF_KIOSKS  ELSE 0  END) LIPI_KIOSK_CNT, SUM(CASE VENDOR "
+		+ "  WHEN 'LIPI'   THEN DATA1.SWAYAM_TXNS  ELSE 0  END) LIPI_TXN_CNT,"
+		+ " SUM(CASE VENDOR WHEN 'FORBES'   THEN DATA1.NO_OF_KIOSKS ELSE 0 "
+		+ "  END ) FORBES_KIOSK_CNT,SUM(CASE VENDOR   WHEN 'FORBES'   THEN "
+		+ " DATA1.SWAYAM_TXNS ELSE 0  END ) FORBES_TXN_CNT,  SUM(CASE VENDOR  WHEN 'CMS' "
+		+ " THEN DATA1.NO_OF_KIOSKS  ELSE 0  END ) CMS_KIOSK_CNT,SUM(CASE VENDOR "
+		+ "   WHEN 'CMS'   THEN DATA1.SWAYAM_TXNS   ELSE 0  END) CMS_TXN_CNT, "
+		+ "  SUM(SWAYAM_TXNS) TOTAL_SWAYAM_TXNS  FROM  ( SELECT  MST.BRANCH_CODE, MST.VENDOR, "
+		+ "  COUNT(DISTINCT MST.KIOSK_ID) NO_OF_KIOSKS, NVL(SUM(DTL.NO_OF_TXNS), 0 ) SWAYAM_TXNS "
+		+ " FROM TBL_KIOSK_MASTER MST,TBL_SWAYAM_TXN_REPORT DTL "
+		+ " WHERE UPPER(MST.KIOSK_ID) = UPPER(DTL.KIOSK_ID(+) ) AND TO_DATE(TXN_DATE,'dd-mm-yyyy') "
+		+ " BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND "
+		+ " TRUNC(TO_DATE(:todate,'dd-mm-yyyy') ) GROUP BY MST.BRANCH_CODE,MST.VENDOR "
+		+ " ORDER BY MST.BRANCH_CODE,MST.VENDOR) DATA1   GROUP BY DATA1.BRANCH_CODE "
+		+ " ORDER BY DATA1.BRANCH_CODE) M ON B.BRANCH_CODE = M.BRANCH_CODE "
+		+ " GROUP BY B.CRCL_NAME,B.NETWORK,B.MODULE,B.REGION,B.BRANCH_CODE,B.BRANCH_NAME ",
+	nativeQuery=true,
+	countQuery =" SELECT count(B.BRANCH_CODE) AS BRANCH_CODE ,B.CRCL_NAME CRCL_NAME,B.NETWORK NETWORK,B.MODULE MODULE, "
+		+ " B.REGION REGION,B.BRANCH_NAME BRANCH_NAME, "
+		+ " SUM(M.LIPI_KIOSK_CNT) LIPI_KIOSK_CNT,SUM(M.LIPI_TXN_CNT) LIPI_TXN_CNT, "
+		+ " SUM(M.FORBES_KIOSK_CNT) FORBES_KIOSK_CNT,SUM(M.FORBES_TXN_CNT) FORBES_TXN_CNT, "
+		+ " SUM(M.CMS_KIOSK_CNT) CMS_KIOSK_CNT,SUM(M.CMS_TXN_CNT) CMS_TXN_CNT, "
+		+ " SUM(M.TOTAL_SWAYAM_TXNS) TOTAL_SWAYAM_TXNS,NVL(SUM(BR_TXN.MANUAL_TXNS),0) MANUAL_TXNS, "
+		+ " (  CASE   WHEN NVL( SUM(M.TOTAL_SWAYAM_TXNS),     0 ) = 0 THEN 0  ELSE ROUND( "
+		+ "   SUM(M.TOTAL_SWAYAM_TXNS) * 100 / (SUM(M.TOTAL_SWAYAM_TXNS) + NVL(SUM(BR_TXN.MANUAL_TXNS),0)  ), "
+		+ "  2  ) "
+		+ "END) MIG_PRCNT FROM TBL_BRANCH_MASTER B LEFT JOIN (  SELECT "
+			+ "  BRANCH_NO,NVL(SUM(NO_OF_ACCOUNTS),0) MANUAL_TXNS  FROM TBL_BRANCH_TXN_DAILY DATA2 "
+			+ " WHERE  TO_DATE(LAST_PBK_DT,'yyyy-mm-dd') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND "
+			+ " TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )  GROUP BY   BRANCH_NO) BR_TXN "
+			+ " ON BR_TXN.BRANCH_NO = B.BRANCH_CODE INNER JOIN (SELECT BRANCH_CODE, "
+			+ "  SUM(NO_OF_KIOSKS) TOTAL_SWAYAM_KIOSKS, SUM(CASE VENDOR   WHEN 'LIPI' "
+			+ "  THEN DATA1.NO_OF_KIOSKS  ELSE 0  END) LIPI_KIOSK_CNT, SUM(CASE VENDOR "
+			+ "  WHEN 'LIPI'   THEN DATA1.SWAYAM_TXNS  ELSE 0  END) LIPI_TXN_CNT, "
+			+ " SUM(CASE VENDOR WHEN 'FORBES'   THEN DATA1.NO_OF_KIOSKS ELSE 0 "
+			+ "  END ) FORBES_KIOSK_CNT,SUM(CASE VENDOR   WHEN 'FORBES'   THEN "
+			+ " DATA1.SWAYAM_TXNS ELSE 0  END ) FORBES_TXN_CNT,  SUM(CASE VENDOR  WHEN 'CMS' "
+			+ " THEN DATA1.NO_OF_KIOSKS  ELSE 0  END ) CMS_KIOSK_CNT,SUM(CASE VENDOR "
+			+ "   WHEN 'CMS'   THEN DATA1.SWAYAM_TXNS   ELSE 0  END) CMS_TXN_CNT, "
+			+ "  SUM(SWAYAM_TXNS) TOTAL_SWAYAM_TXNS  FROM  ( SELECT  MST.BRANCH_CODE, MST.VENDOR, "
+			+ "  COUNT(DISTINCT MST.KIOSK_ID) NO_OF_KIOSKS, NVL(SUM(DTL.NO_OF_TXNS), 0 ) SWAYAM_TXNS "
+			+ " FROM TBL_KIOSK_MASTER MST,TBL_SWAYAM_TXN_REPORT DTL "
+			+ " WHERE UPPER(MST.KIOSK_ID) = UPPER(DTL.KIOSK_ID(+) ) AND TO_DATE(TXN_DATE,'dd-mm-yyyy') "
+			+ " BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND "
+			+ " TRUNC(TO_DATE(:todate,'dd-mm-yyyy') ) GROUP BY MST.BRANCH_CODE,MST.VENDOR "
+			+ " ORDER BY MST.BRANCH_CODE,MST.VENDOR) DATA1   GROUP BY DATA1.BRANCH_CODE "
+			+ " ORDER BY DATA1.BRANCH_CODE) M ON B.BRANCH_CODE = M.BRANCH_CODE "
+			+ " GROUP BY B.CRCL_NAME,B.NETWORK,B.MODULE,B.REGION,B.BRANCH_CODE,B.BRANCH_NAME")
+
+
+
 	List<SwayamMigrationSummary> findAllByDate(@Param("fromdate") String fromdate,@Param("todate") String todate);
 
 	// 12c
-		@Query(value="select to_date(last_pbk_dt,'yyyy-mm-dd') from tbl_branch_txn_daily order by last_pbk_dt desc fetch first 1 row only ",nativeQuery = true )
+		//@Query(value="select to_date(last_pbk_dt,'yyyy-mm-dd') from tbl_branch_txn_daily order by last_pbk_dt desc fetch first 1 row only ",nativeQuery = true )
+		
+// new query
+		@Query(value="select to_char(to_date(last_pbk_dt,'yyyy-mm-dd'),'dd-mm-yyyy') from tbl_branch_txn_daily order by last_pbk_dt desc fetch first 1 row only",nativeQuery = true)
 		//for 11g
 		//@Query(value="select to_char(end_dttm,'dd-Mon-yy hh24:mm:ss') from  tbl_audit_job where job_name='TBL_SWAYAM_TXN_DAILY' and rownum <= 1 order by end_dttm desc ",nativeQuery = true )
 		String findCurrentDateAuditJob();

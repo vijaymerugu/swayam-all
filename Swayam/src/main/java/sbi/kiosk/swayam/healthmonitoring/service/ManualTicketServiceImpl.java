@@ -1,9 +1,11 @@
 package sbi.kiosk.swayam.healthmonitoring.service;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,7 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.gson.Gson;
+
+import sbi.kiosk.swayam.common.api.ManualCallLogApiRequest;
+import sbi.kiosk.swayam.common.api.SMSSender;
+import sbi.kiosk.swayam.common.api.SMTIntegrationCallOpenApi;
 import sbi.kiosk.swayam.common.constants.ExceptionConstants;
+import sbi.kiosk.swayam.common.dto.AlertDto;
 import sbi.kiosk.swayam.common.dto.CallTypeDto;
 import sbi.kiosk.swayam.common.dto.ManualTicketCallLogDto;
 import sbi.kiosk.swayam.common.dto.UserDto;
@@ -118,6 +126,7 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 			manualEnity.setKioskId(manualTicketCallLogDto.getKioskId());
 			manualEnity.setComments(manualTicketCallLogDto.getComment());
 			//manualEnity.setContactNo(manualTicketCallLogDto.getContactNo());
+			
 			String[] contacNoString=manualTicketCallLogDto.getContactNo().split(",");
 			for(int i=0;i<contacNoString.length;i++){
 				String contNo=contacNoString[0];
@@ -129,6 +138,16 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 				String contacPerson=contacPersoString[0];
 				manualEnity.setContactPerson(contacPerson);
 			}
+			
+			
+			if (manualTicketCallLogDto.getMailId().endsWith(",")) {
+				 String  emailIdString = manualTicketCallLogDto.getMailId().substring(0, manualTicketCallLogDto.getMailId().length() - 1);
+				 manualEnity.setMailId(emailIdString);
+			}
+		
+			
+			String koiskSr=kioskMasterRepo.getKioskSrNo(manualTicketCallLogDto.getKioskId());
+			manualEnity.setKioskSrNo(koiskSr);
 			manualEnity.setStatus("Active");
 			manualEnity.setVendor(manualTicketCallLogDto.getVendor());
 			manualEnity.setKioskError(manualTicketCallLogDto.getKioskError());
@@ -150,13 +169,108 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 			
 			if (kioskId != null && !kioskId.isEmpty()) {
 				if (kioskId.equals(manualTicketCallLogDto.getKioskId())) {
-					date = new SimpleDateFormat("dd/MM/YY");
+					/*date = new SimpleDateFormat("dd/MM/YY");
 					String date1 = date.format(new Date());
 					String createdDate = date1.replace("/", "");
 					complaintId = "INC" + createdDate + id;
 					manualEnity.setComplaintId(complaintId);
 					manualTicketCallLogRepo.save(manualEnity);
 					//manualTicketCallLogRepo.updateComplaintId(complaintId, manualTicketCallLogDto.getKioskId());
+					return id;*/
+					
+
+					date = new SimpleDateFormat("dd/MM/YY");
+					String date1 = date.format(new Date());
+					String createdDate = date1.replace("/", "");
+					complaintId = "INC" + createdDate + id;
+					manualEnity.setComplaintId(complaintId);
+					// comment by me 221220
+					//manualEnity=manualTicketCallLogRepo.save(manualEnity);
+					//manualTicketCallLogRepo.updateComplaintId(complaintId, manualTicketCallLogDto.getKioskId());
+					//SMSSender sms=new SMSSender();
+					if(manualEnity.getStatus().equalsIgnoreCase("Active")){
+						//send alert to userid
+						SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.YYYY HH::mm");
+						String dateTime = sdf.format(new Date());
+						
+						// String dateTime = sdf.format(new Date());
+						 String[] dateParts = dateTime.split(" ");
+						 String datep = dateParts[0]; 
+						 String time = dateParts[1]; 
+						 String finalDateTime=datep+" at "+time;
+						 logger.info("finalDateTime::: "+finalDateTime);
+						
+						AlertDto alertDto=new AlertDto();
+						alertDto.setKioskSrNo(manualEnity.getKioskSrNo());
+						alertDto.setCallLogId(complaintId);
+						logger.info("ContactNo SMS:: "+manualEnity.getContactNo());
+						logger.info("MailId:: "+manualEnity.getMailId());
+						
+						alertDto.setMobileNo(manualEnity.getContactNo());
+						alertDto.setBranchCode(manualTicketCallLogDto.getBranchCode());
+						alertDto.setSenderId(manualEnity.getCreatedBy());
+						alertDto.setDateTime(finalDateTime);
+						
+						String requestId="smt"+manual_call_log_id;
+						DateFormat sdf1 = new SimpleDateFormat("d-MMM-yyyy HH:mm:ss");
+						String dateTime1 = sdf1.format(new Date());
+						ManualCallLogApiRequest data1=new ManualCallLogApiRequest();
+					    data1.setRequestId(requestId);
+						data1.setReqType("open");
+						data1.setReqTicketNumber(complaintId);
+						data1.setReqDatetime(dateTime1);
+						data1.setBrCode(manualTicketCallLogDto.getBranchCode());
+						data1.setSrc("smt");
+						if(manualEnity.getVendor().equalsIgnoreCase("LIPI")){
+						data1.setKioskProvider("lipi");
+						}else if(manualEnity.getVendor().equalsIgnoreCase("CMS")){
+							data1.setKioskProvider("cms");
+					     }else{
+					    	 data1.setKioskProvider("forbes");
+					      }
+						
+						data1.setKioskId(manualEnity.getKioskId());
+						data1.setKioskSrno(manualEnity.getKioskSrNo());
+						data1.setIssueCategory("Passbook Printer Related");
+						data1.setIssueSubcategory(manualEnity.getKioskError());
+						data1.setIssueDescription(manualEnity.getComments());
+						data1.setContactName(manualEnity.getContactPerson());
+						data1.setContactNumber(manualEnity.getContactNo());
+						data1.setMailId(manualEnity.getMailId());
+						data1.setStatus("p");
+						
+						String apiRespo=SMTIntegrationCallOpenApi.makeWebServiceCall(data1);
+						logger.info("Manual Callog ApiResponse::------- "+apiRespo);
+						Gson gson=new Gson();
+						Map map = gson.fromJson(apiRespo, Map.class);
+						logger.info("map==91="+map);
+						map.get("requestId");
+						map.get("reqType");
+						boolean successResp=  (boolean) map.get("success");
+						logger.info("SuccessResp="+successResp);
+						String resTicketNumber=(String) map.get("resTicketNumber");
+						map.get("error");
+						logger.info("Result resTicketNumber::" + resTicketNumber);
+						
+						if(successResp==true && resTicketNumber!=null && !resTicketNumber.isEmpty()){
+							  manualEnity.setRespTicketNo(resTicketNumber);
+						      manualEnity=manualTicketCallLogRepo.save(manualEnity);
+						      complaintId = "Your complaint '"+resTicketNumber+"` has been successfully registered";
+						      String result=SMSSender.sendSmsCall(alertDto, "", "","");
+							  logger.info("------- "+result);
+								
+							  if(result!=null && !result.isEmpty() && result.equalsIgnoreCase("0")){
+									logger.info("ELSE Result of SMS inside IF :: "+result);
+								}
+								
+						}else{
+							complaintId = "Your complaint is not registered Kindly Contact with Admin.";
+						}
+						
+						
+					}else{
+						//send fail to userid
+					}
 					return id;
 				}
 			} else {
@@ -166,10 +280,97 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 				complaintId = "INC" + createdDate + manual_call_log_id;
 				String kisokId = manualTicketCallLogDto.getKioskId();
 				manualEnity.setComplaintId(complaintId);
-				manualTicketCallLogRepo.save(manualEnity);
+				//manualTicketCallLogRepo.save(manualEnity);
+				// Comment by me 221220
+				//manualEnity=manualTicketCallLogRepo.save(manualEnity);
 				//manualTicketCallLogRepo.updateComplaintId(complaintId, kisokId);
 				//return manual_call_log_id;
-				complaintId = "Your complaint '"+complaintId+"` has been successfully registered";
+				if(manualEnity.getStatus().equalsIgnoreCase("Active")){
+					//send alert to userid
+					SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.YYYY HH::mm");
+					String dateTime = sdf.format(new Date());
+					// String dateTime = sdf.format(new Date());
+					 String[] dateParts = dateTime.split(" ");
+					 String datep = dateParts[0]; 
+					 String time = dateParts[1]; 
+					 String finalDateTime=datep+" at "+time;
+					 logger.info("finalDateTime::: "+finalDateTime);
+					
+					AlertDto alertDto=new AlertDto();
+					alertDto.setKioskSrNo(manualEnity.getKioskSrNo());
+					alertDto.setCallLogId(complaintId);
+					//logger.info("ContactNo SMS2:: "+manualEnity.getContactNo());
+					//logger.info("mailId SMS2:: "+manualEnity.getMailId());
+					alertDto.setMobileNo(manualEnity.getContactNo());
+					alertDto.setBranchCode(manualTicketCallLogDto.getBranchCode());
+					alertDto.setSenderId(manualEnity.getCreatedBy());
+					alertDto.setDateTime(finalDateTime);
+					
+					//String result=sendSms(alertDto, "", "", "");
+					
+					// CMS Api Call Log
+					
+					String requestId="smt"+manual_call_log_id;
+					DateFormat sdf1 = new SimpleDateFormat("d-MMM-yyyy HH:mm:ss");
+					String dateTime1 = sdf1.format(new Date());
+					ManualCallLogApiRequest data1=new ManualCallLogApiRequest();
+				    data1.setRequestId(requestId);
+					data1.setReqType("open");
+					data1.setReqTicketNumber(complaintId);
+					data1.setReqDatetime(dateTime1);
+					data1.setBrCode(manualTicketCallLogDto.getBranchCode());
+					data1.setSrc("smt");
+					if(manualEnity.getVendor().equalsIgnoreCase("LIPI")){
+					data1.setKioskProvider("lipi");
+					}else if(manualEnity.getVendor().equalsIgnoreCase("CMS")){
+						data1.setKioskProvider("cms");
+				     }else{
+				    	 data1.setKioskProvider("forbes");
+				      }
+					
+					data1.setKioskId(manualEnity.getKioskId());
+					data1.setKioskSrno(manualEnity.getKioskSrNo());
+					data1.setIssueCategory("Passbook Printer Related");
+					data1.setIssueSubcategory(manualEnity.getKioskError());
+					data1.setIssueDescription(manualEnity.getComments());
+					data1.setContactName(manualEnity.getContactPerson());
+					data1.setContactNumber(manualEnity.getContactNo());
+					data1.setMailId(manualEnity.getMailId());
+					data1.setStatus("p");
+					String apiRespo=SMTIntegrationCallOpenApi.makeWebServiceCall(data1);
+					logger.info("Manual Callog ApiResponse::------- "+apiRespo);
+					
+					Gson gson = new Gson();
+					Map map = gson.fromJson(apiRespo, Map.class);
+					logger.info("map==91=" + map);
+					map.get("requestId");
+					map.get("reqType");
+					boolean successResp = (boolean) map.get("success");
+					logger.info("SuccessResp=" + successResp);
+					String resTicketNumber = (String) map.get("resTicketNumber");
+					map.get("error");
+					logger.info("Result resTicketNumber::" + resTicketNumber);
+
+					if(successResp==true && resTicketNumber!=null && !resTicketNumber.isEmpty()){
+						  manualEnity.setRespTicketNo(resTicketNumber);
+					      manualEnity=manualTicketCallLogRepo.save(manualEnity);
+					      complaintId = "Your complaint '"+resTicketNumber+"` has been successfully registered";
+					      String result=SMSSender.sendSmsCall(alertDto, "", "","");
+						  logger.info("ELSE Result of SMS::------- "+result);
+							
+						  if(result!=null && !result.isEmpty() && result.equalsIgnoreCase("0")){
+								logger.info("ELSE Result of SMS inside IF :: "+result);
+							}
+							
+					}else{
+						complaintId = "Your complaint is not registered Kindly Contact with Admin.";
+					}
+					
+				}else{
+					//send fail to userid
+				}
+				//complaintId = "Your complaint '"+complaintId+"` has been successfully registered";
+				//complaintId = "Your complaint '"+complaintId+"` has been successfully registered";
 			}
 			
 			}
@@ -215,7 +416,7 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 		User user = userRepo.findIdByKioskId(kioskId);
 		
 		UserDto userObj =(UserDto) session.getAttribute("userObj");
-		logger.info("createManualTicket................. getByKioskId ConNo::" +userObj.getPhoneNo());
+		logger.info("createManualTicket................. getByKioskId ConNo::" +userObj.getMailId());
 		/*if (user != null) {
 			dto = new ManualTicketCallLogDto();
 			dto.setCircle(user.getCircle());
@@ -231,6 +432,7 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 			dto.setContactPerson(userObj.getUsername());
 			dto.setContactNo(userObj.getPhoneNo());
 			dto.setKioskError("Printer Error");
+			dto.setMailId(userObj.getMailId());
 			dtoList.add(dto);
 		}
 
