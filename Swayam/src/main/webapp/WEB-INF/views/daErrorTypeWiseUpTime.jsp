@@ -71,12 +71,13 @@ div.absolute {
 							ng-options="errorType as errorType.name for errorType in errorTypeList"></select>
 					</p>
 					<p style="text-align: center">
-						<span style="background-color: #A0B421">&nbsp;&nbsp;&nbsp;</span>&nbsp;Total
+						<span style="background-color: #ED402A">&nbsp;&nbsp;&nbsp;</span>&nbsp;Total
 						Down Kiosks of Selected Error <span
 							style="display: inline-block; margin-left: 40px;"></span> <span
-							style="background-color: #ED402A">&nbsp;&nbsp;&nbsp;</span>&nbsp;Total
+							style="background-color: #A0B421">&nbsp;&nbsp;&nbsp;</span>&nbsp;Total
 						Down Kiosks of Other error types
 					</p>
+					
 			<!-- 	</div> -->
 			</div>
 			<div class="absolute">

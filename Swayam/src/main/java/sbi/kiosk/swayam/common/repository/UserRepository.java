@@ -46,6 +46,9 @@ public interface UserRepository extends CrudRepository<User, String>{
 
     @Query(value = "select * from tbl_User where pf_id in(select pf_id from tbl_User_Kiosk_Mapping) ",nativeQuery = true)
     List<User>  findAllCmfCmsUser();
+    
+    @Query(value="SELECT ROLE FROM TBL_USER WHERE PF_ID=:pfid",nativeQuery=true)
+    String findRoleByPfId(@Param("pfid") String pfid);
 	
     
 }
