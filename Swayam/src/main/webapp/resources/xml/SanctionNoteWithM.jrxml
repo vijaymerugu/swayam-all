@@ -27,11 +27,11 @@
 	<field name="gstInvoiceAmt" class="java.lang.Double"/>
 	<field name="gstPenaltyAmt" class="java.lang.Double"/>
 	<field name="tdsAmt" class="java.lang.Double"/>
-	<field name="gstTdsAmt2" class="java.lang.Double"/>
-	<field name="gstTdsAmt3" class="java.lang.Double"/>
 	<field name="gstTdsLimitAmt" class="java.lang.Double"/>
 	<field name="gstTdsPer" class="java.lang.Float"/>
 	<field name="gstTdsAmt" class="java.lang.Double"/>
+	<field name="gstTdsAmt2" class="java.lang.Double"/>
+	<field name="gstTdsAmt3" class="java.lang.Double"/>
 	<field name="tdsPct" class="java.lang.Float"/>
 	<field name="noOfKiosk" class="java.lang.Integer"/>
 	<field name="cgstInvoiceAmt" class="java.lang.Double"/>
@@ -72,7 +72,7 @@
 		</band>
 	</title>
 	<columnHeader>
-		<band height="1514" splitType="Stretch">
+		<band height="1546" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
 				<reportElement x="50" y="284" width="250" height="20" uuid="eeab1869-b412-49b5-99fa-8d82ab26224d"/>
@@ -525,7 +525,7 @@
 				<text><![CDATA[ वेंडर आर्थिक दंड उपरांत देय राशि (Payable to Vendor after penalty)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="50" y="749" width="180" height="23" uuid="d7af55ae-068e-43f9-908c-920bac88f872"/>
+				<reportElement x="50" y="749" width="160" height="23" uuid="d7af55ae-068e-43f9-908c-920bac88f872"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -536,7 +536,7 @@
 				<textElement textAlignment="Left">
 					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[ TDS on penalty]]></text>
+				<text><![CDATA[ TDS on Invoice amount]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="50" y="772" width="250" height="37" uuid="4e4783cf-7481-4ea8-ad4d-131a96deefec"/>
@@ -553,7 +553,7 @@
 				<text><![CDATA[ GST-TDS on invoice amount if invoice amount is more than]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="50" y="853" width="250" height="26" uuid="0a2354cb-9d4e-4b62-a31f-ce58a1243340"/>
+				<reportElement mode="Opaque" x="50" y="850" width="250" height="29" uuid="0a2354cb-9d4e-4b62-a31f-ce58a1243340"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -565,6 +565,20 @@
 					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[(MANUAL ENTRY OPTION)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="50" y="829" width="160" height="21" uuid="1dcd4e1f-4977-4bc0-9789-4cc0707165ee"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Rs.10.00 lakhs]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="20" y="464" width="30" height="20" uuid="d96d416e-c01b-4e38-a89b-6f419b5b0720"/>
@@ -847,7 +861,7 @@
 				<text><![CDATA[xv]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="20" y="854" width="30" height="25" uuid="eefc16b3-35ab-4ead-9e7c-eb91472301c7"/>
+				<reportElement x="20" y="850" width="30" height="29" uuid="eefc16b3-35ab-4ead-9e7c-eb91472301c7"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -861,7 +875,7 @@
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="20" y="829" width="30" height="25" uuid="ac14058c-cd7d-43ad-9adf-ac2876e8cc77"/>
+				<reportElement x="20" y="829" width="30" height="21" uuid="ac14058c-cd7d-43ad-9adf-ac2876e8cc77"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -1183,7 +1197,21 @@
 				<textFieldExpression><![CDATA[$F{gstTdsAmt}== null?"-":$F{gstTdsAmt}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="300" y="854" width="240" height="25" uuid="a55fd545-c9ac-4c22-880a-9da8281b1bb0"/>
+				<reportElement mode="Opaque" x="210" y="829" width="90" height="21" uuid="5b37e974-56c0-4555-8e67-cfce5359feb4"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gstTdsAmt3}== null?"7.0%":$F{gstTdsPer}+"%"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="300" y="850" width="240" height="29" uuid="a55fd545-c9ac-4c22-880a-9da8281b1bb0"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -1195,6 +1223,20 @@
 					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["-"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="300" y="829" width="240" height="21" uuid="b6702fde-bb36-479d-93d6-c8f6a9a94304"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gstTdsAmt3}== null?"-":$F{gstTdsAmt3}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement mode="Opaque" x="20" y="10" width="258" height="20" uuid="d5288e81-7239-493d-895e-adb61528fa14"/>
@@ -1540,21 +1582,21 @@
 				<text><![CDATA[Amount ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="22" y="1430" width="490" height="19" uuid="0916ef41-96ce-452c-b42c-28c78a2c4a2b"/>
+				<reportElement x="20" y="1430" width="490" height="19" uuid="0916ef41-96ce-452c-b42c-28c78a2c4a2b"/>
 				<textElement>
 					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Submitted for sanction, please.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="23" y="1500" width="150" height="14" uuid="ce493812-9f65-40e6-b53d-a669fd6341f6"/>
+				<reportElement x="21" y="1500" width="150" height="14" uuid="ce493812-9f65-40e6-b53d-a669fd6341f6"/>
 				<textElement>
 					<font fontName="Arial Unicode MS" size="8" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[(For Recommendation)]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="23" y="1480" width="250" height="20" uuid="c28379a8-936f-4276-93bd-c3320ce89fbd"/>
+				<reportElement mode="Opaque" x="21" y="1480" width="250" height="20" uuid="c28379a8-936f-4276-93bd-c3320ce89fbd"/>
 				<textElement>
 					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -1701,11 +1743,11 @@
 				<textFieldExpression><![CDATA["4. In terms of the e-Circular "+$F{circularNo} +" dated "+$F{circuDt} +" on Delegation of Financial Powers, Group-II, Head-E, Hiring of services for maintenance/AMC of electronic and computer items (including AMC of software/license renwal) (any one instances) financial powers to incur ,this expenditure falls within the discretionary powers  of "+$F{sanctionAuth}+" , which is Rs."+$F{sanLimit}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="22" y="1360" width="519" height="60" uuid="3cf5471a-b981-4c47-93cd-91222df2995f"/>
+				<reportElement x="20" y="1360" width="519" height="60" uuid="3cf5471a-b981-4c47-93cd-91222df2995f"/>
 				<textElement textAlignment="Justified">
 					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["6. Recommended  for sanction an amount of Rs."+$F{netAmount}+" as above, by debiting to Charges Account No. 3199885……. and credit  to "+$F{vendorFullName} +"/GST/GST TDS/TDS taowards payment of above mentioned invoice."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["6. Recommended  for sanction an amount of Rs."+$F{netAmount}+" as above, by debiting to Charges Account No. 3199885……. and credit  to "+$F{vendorFullName} +"/GST/GST TDS/TDS towards payment of above mentioned invoice."]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement mode="Opaque" x="20" y="1274" width="520" height="80" uuid="21325e03-35ee-4f76-b85f-d6368e9be663"/>
@@ -1729,7 +1771,7 @@
 				<textFieldExpression><![CDATA[$F{amtWords}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="50" y="809" width="160" height="20" uuid="1029346e-92e0-452c-bf30-1d8fe92cbbc9"/>
+				<reportElement mode="Opaque" x="50" y="809" width="160" height="20" uuid="7353aa8a-50e4-4fa0-b67e-cc79361d6013"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -1743,7 +1785,7 @@
 				<textFieldExpression><![CDATA["Rs.2.50 lakhs"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="210" y="809" width="90" height="20" uuid="95bf1096-a907-4d64-a52f-35a29700a75e"/>
+				<reportElement mode="Opaque" x="210" y="809" width="90" height="20" uuid="0a048b4c-9bc7-4732-a280-733a27de6e1b"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -1757,7 +1799,7 @@
 				<textFieldExpression><![CDATA[$F{gstTdsAmt2}== null?"2.0%":$F{gstTdsPer}+"%"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="300" y="809" width="240" height="20" uuid="a21fccfb-9a97-4481-b6ef-aae62e881a75"/>
+				<reportElement mode="Opaque" x="300" y="809" width="240" height="20" uuid="33784aa6-1937-42fb-abe1-9977a91b0d7d"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -1770,48 +1812,6 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{gstTdsAmt2}== null?"-":$F{gstTdsAmt2}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement mode="Opaque" x="300" y="829" width="240" height="25" uuid="a5c6add3-6f45-4148-8fa7-c83f66be3fe8"/>
-				<box>
-					<pen lineWidth="0.25"/>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.25"/>
-					<rightPen lineWidth="0.25"/>
-				</box>
-				<textElement textAlignment="Center">
-					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{gstTdsAmt3}== null?"-":$F{gstTdsAmt3}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement mode="Opaque" x="210" y="829" width="90" height="24" uuid="330735ae-bfbe-47cb-b24c-9fe49999d32d"/>
-				<box>
-					<pen lineWidth="0.25"/>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.25"/>
-					<rightPen lineWidth="0.25"/>
-				</box>
-				<textElement textAlignment="Center">
-					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{gstTdsAmt3}== null?"7.0%":$F{gstTdsPer}+"%"]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement mode="Opaque" x="50" y="829" width="160" height="24" uuid="5cf08a65-b7c9-4611-a633-bc0470e3a5ee"/>
-				<box>
-					<pen lineWidth="0.25"/>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.25"/>
-					<rightPen lineWidth="0.25"/>
-				</box>
-				<textElement textAlignment="Center">
-					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[Rs.10.00 lakhs]]></text>
-			</staticText>
 		</band>
 	</columnHeader>
 </jasperReport>
