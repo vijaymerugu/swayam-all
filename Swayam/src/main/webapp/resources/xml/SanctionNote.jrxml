@@ -1,0 +1,1824 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.14.0.final using JasperReports Library version 6.14.0-2ab0d8625be255bf609c78e1181801213e51db8f  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="employee-rpt" pageWidth="595" pageHeight="1700" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="47a8141a-c098-4449-8632-796c1e37bef0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.export.pdf.size.page.to.content" value="true"/>
+	<field name="sanctionAuth" class="java.lang.String"/>
+	<field name="ctlrAuth" class="java.lang.String"/>
+	<field name="recomAuth" class="java.lang.String"/>
+	<field name="circle" class="java.lang.String"/>
+	<field name="state" class="java.lang.String"/>
+	<field name="vendor" class="java.lang.String"/>
+	<field name="vendorFullName" class="java.lang.String"/>
+	<field name="sanNoteNo" class="java.lang.String"/>
+	<field name="invoiceNo" class="java.lang.String"/>
+	<field name="sanNoteDt" class="java.util.Date"/>
+	<field name="invoiceDt" class="java.util.Date"/>
+	<field name="invFr" class="java.util.Date"/>
+	<field name="invTo" class="java.util.Date"/>
+	<field name="receiptDt" class="java.util.Date"/>
+	<field name="igst" class="java.lang.Float"/>
+	<field name="cgst" class="java.lang.Float"/>
+	<field name="sgst" class="java.lang.Float"/>
+	<field name="invoiceAmt" class="java.lang.Double"/>
+	<field name="penaltyAmt" class="java.lang.Double"/>
+	<field name="gstInvoiceAmt" class="java.lang.Double"/>
+	<field name="gstPenaltyAmt" class="java.lang.Double"/>
+	<field name="tdsAmt" class="java.lang.Double"/>
+	<field name="gstTdsLimitAmt" class="java.lang.Double"/>
+	<field name="gstTdsPer" class="java.lang.Float"/>
+	<field name="gstTdsAmt" class="java.lang.Double"/>
+	<field name="gstTdsAmt2" class="java.lang.Double"/>
+	<field name="gstTdsAmt3" class="java.lang.Double"/>
+	<field name="tdsPct" class="java.lang.Float"/>
+	<field name="noOfKiosk" class="java.lang.Integer"/>
+	<field name="cgstInvoiceAmt" class="java.lang.Double"/>
+	<field name="sgstInvoiceAmt" class="java.lang.Double"/>
+	<field name="cgstPenAmt" class="java.lang.Double"/>
+	<field name="sgstPenAmt" class="java.lang.Double"/>
+	<field name="totalTax" class="java.lang.Double"/>
+	<field name="netAmount" class="java.lang.Double"/>
+	<field name="totalamountAfterPenalty" class="java.lang.Double"/>
+	<field name="igstInvoiceAmt" class="java.lang.Double"/>
+	<field name="igstPenAmt" class="java.lang.Double"/>
+	<field name="manualEntry" class="java.lang.String"/>
+	<field name="creditEntry" class="java.lang.String"/>
+	<field name="amtWords" class="java.lang.String"/>
+	<field name="sanLimit" class="java.lang.Long"/>
+	<field name="circularNo" class="java.lang.String"/>
+	<field name="circularDate" class="java.util.Date"/>
+	<field name="circuDt" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="46" splitType="Stretch">
+			<staticText>
+				<reportElement x="20" y="0" width="530" height="20" uuid="6526c9b6-fa4e-45f6-91c3-9695a04c5bb7"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isBold="true" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[सर्व समय माध्यम]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="20" width="530" height="20" uuid="76eb330d-159d-4442-878c-fd5918b2d7a3"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isBold="true" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ANYTIME CHANNELS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="1594" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="50" y="284" width="250" height="20" uuid="eeab1869-b412-49b5-99fa-8d82ab26224d"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isBold="true" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[मद ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="304" width="250" height="20" uuid="1d16f58c-e4de-4dfb-bee6-6f510cbfe87a"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Item]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="324" width="250" height="20" uuid="5624d046-8ae9-48a4-ae52-6e7fe77b3824"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ मण्डल (Circle)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="284" width="30" height="20" uuid="c28df617-d504-4545-bde5-bdc85cc9c5f9"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isBold="true" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[क्र. सं
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="304" width="30" height="20" uuid="9b2d85f4-b598-4ee8-aa10-4bee1a78ebae"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isBold="true" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[S.No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="324" width="30" height="20" uuid="9a1b53ae-9596-4af3-b790-e6d6363c5346"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[i]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="344" width="30" height="20" uuid="338f6b83-2456-4566-8b7e-dcc814e713da"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ii]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="364" width="30" height="20" uuid="59391b0a-d48a-4352-87b7-98d3faf16481"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[iii]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="384" width="30" height="20" uuid="3ca50e65-80e1-4cc5-90db-dd3fdf4ba5d7"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[iv]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="284" width="240" height="20" uuid="00441e5c-4b22-4c4d-a3cd-a88abd915d46"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isBold="true" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[विवरण]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="304" width="240" height="20" uuid="2111288a-6b67-4722-aec5-6eae29138c90"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Particulars]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="364" width="250" height="20" uuid="2d1ed24f-b0e1-4045-89e7-eb399f121f1a"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ वेंडर का नाम (Name of Vendor)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="344" width="250" height="20" uuid="91ed13a0-51d6-4842-b89e-2eb1259e55e5"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ राज्य (State)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="384" width="250" height="20" uuid="f70075bf-2794-4260-bc8b-9b82b02cb6b7"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ बीजक संख्या (Invoice No.)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="404" width="250" height="20" uuid="98fc8fd8-b282-43f1-98af-7db1f513c5ae"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ बीजक तिथि (Date of invoice)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="424" width="250" height="20" uuid="30049982-b960-4f38-8320-d5523e30ace6"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ बिल का प्रकार (Type of invoice)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="444" width="250" height="20" uuid="b0a421be-c90d-4e0a-865d-ba764315beaa"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ SWAYAM  की संख्या (No. of Machines)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="464" width="250" height="20" uuid="eb2eecc7-80de-44e1-ac1a-421fe962cbb7"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ अनुरक्षण अवधि (Period of Bill)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="484" width="250" height="20" uuid="78890d1f-6cda-4642-9b1a-a5ea6ce27cd6"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ बिल प्राप्ति की तिथि (Date of receipt)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="504" width="250" height="20" uuid="ecf81ca0-e96c-4228-98c1-e37e107352e4"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ बीजक राशि (Amount of invoice)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="524" width="180" height="20" uuid="70bcf431-7108-4432-aadd-321f247a4ebd"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ CGST]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="544" width="180" height="20" uuid="f369f7a6-f31f-4b02-9eeb-10f5cb430d87"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ SGST]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="629" width="250" height="20" uuid="360ed9f3-7d2a-483d-8fad-61151a396f7c"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ कुल राशि (Net amount)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="649" width="250" height="20" uuid="1263f491-6eca-4f11-be67-f45f42c5b911"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ आर्थिक दंड (Penalty)	
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="564" width="250" height="20" uuid="c1a3518e-689d-484a-8c20-060f89cc5f1e"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[OR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="584" width="180" height="20" uuid="6bf2264a-bb22-47d2-ad46-7d839ad15bda"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ IGST]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="604" width="250" height="25" uuid="b5ea24ca-a683-47c3-9d54-fa6e7ca63aab"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ कुल कर (Total Tax)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="669" width="180" height="20" uuid="0a249e7f-e386-4214-a20e-9fb1a627599b"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ CGST on penalty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="689" width="180" height="20" uuid="f49903eb-5028-4f99-84cf-857b23ea5d53"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ SGST on penalty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="709" width="250" height="20" uuid="399c3f3e-216a-45cb-94b8-16b90f5c157f"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[OR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="729" width="180" height="20" uuid="a67b5039-fc4f-47c2-bf7e-0c30b83d1fe3"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ IGST on penalty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="879" width="250" height="35" uuid="6b26b6b4-e4e7-4b13-86c1-5137e24c43af"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ वेंडर आर्थिक दंड उपरांत देय राशि (Payable to Vendor after penalty)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="749" width="160" height="23" uuid="d7af55ae-068e-43f9-908c-920bac88f872"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ TDS on Invoice amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="772" width="250" height="37" uuid="4e4783cf-7481-4ea8-ad4d-131a96deefec"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ GST-TDS on invoice amount if invoice amount is more than]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="50" y="850" width="250" height="29" uuid="0a2354cb-9d4e-4b62-a31f-ce58a1243340"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(MANUAL ENTRY OPTION)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="50" y="829" width="160" height="21" uuid="1dcd4e1f-4977-4bc0-9789-4cc0707165ee"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Rs.10.00 lakhs]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="464" width="30" height="20" uuid="d96d416e-c01b-4e38-a89b-6f419b5b0720"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[viii]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="444" width="30" height="20" uuid="65e09529-4383-4945-bdc6-17e65ccd1340"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[vii]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="424" width="30" height="20" uuid="5f99207d-f1da-4beb-b770-1844cc8a4975"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[vi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="404" width="30" height="20" uuid="9c656aa0-781b-4ae6-89aa-faecf79842b9"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[v]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="629" width="30" height="20" uuid="786b360f-78eb-499b-9c7b-006e28bc9955"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[xiv]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="604" width="30" height="25" uuid="0a4b5146-fec6-46d9-96a2-1644015bd1c4"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[xiii]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="584" width="30" height="20" uuid="4d1c1bd5-b4b4-4845-880b-7a5b8ee0e191"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[xii]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="564" width="30" height="20" uuid="14a3f9dd-f3dc-432c-9c52-6279a02ff736"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="544" width="30" height="20" uuid="92750a1b-8cae-4112-9ff6-65f79add6b9a"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="524" width="30" height="20" uuid="be7c5f13-abcc-4bcc-ac86-c96bcf6388f8"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[xi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="504" width="30" height="20" uuid="53e424b8-6db6-455d-b83b-6a9babe1d38a"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[x]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="484" width="30" height="20" uuid="248fcd91-20d0-4662-8fd1-81d109f99d25"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ix]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="879" width="30" height="35" uuid="3dc9a3a8-912a-48ed-ae3f-5aad2f23936d"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[xx]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="772" width="30" height="37" uuid="4fe63a3e-029f-4d00-acdc-6dc4b8304924"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[xix]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="749" width="30" height="23" uuid="e6e58ec9-60ec-40f5-94d7-06f97ae54418"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[xviii]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="729" width="30" height="20" uuid="8c12e380-3a56-4bed-bf22-97fd31df3879"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[xvii]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="709" width="30" height="20" uuid="a9da0385-6c84-4765-b6fb-c8ecf26a41db"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="689" width="30" height="20" uuid="da86b4d0-658b-4450-878a-46cbb8127306"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="669" width="30" height="20" uuid="c5f83539-66eb-4476-9e6b-3bb347d0eb47"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[xvi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="649" width="30" height="20" uuid="4f672af5-74db-4a58-bd6f-ec5cade5f45e"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[xv]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="850" width="30" height="29" uuid="eefc16b3-35ab-4ead-9e7c-eb91472301c7"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="829" width="30" height="21" uuid="ac14058c-cd7d-43ad-9adf-ac2876e8cc77"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="809" width="30" height="20" uuid="22ea7b94-bd64-4001-9d95-614e17c1e585"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="300" y="324" width="240" height="20" uuid="5a523522-85b5-4d4b-96a3-654cad2fc3b5"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{circle} == null?"":$F{circle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="344" width="240" height="20" uuid="5fe2d17a-a96f-4ac6-8680-919c24480b5b"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{state} == null?"":$F{state}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="300" y="384" width="240" height="20" uuid="204e223a-3bc3-4175-b10b-b1f2c53068e1"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{invoiceNo} == null?"":$F{invoiceNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="300" y="444" width="240" height="20" uuid="106e6d82-6dfe-4191-b9d5-9d91d16db089"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{noOfKiosk}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yy">
+				<reportElement mode="Opaque" x="300" y="404" width="240" height="20" uuid="e1da51e5-f444-4e81-a24c-f7fcd328ae7b"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MM-yyyy").format($F{invoiceDt})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="300" y="364" width="240" height="20" uuid="91ff3f49-88e1-4ac6-b84f-65228fffaec0"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vendorFullName} == null?"":$F{vendorFullName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="300" y="729" width="240" height="20" uuid="7068e21d-9e40-48f3-b80c-4be97c711692"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{igstPenAmt} == null?"-":$F{igstPenAmt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="300" y="584" width="240" height="20" uuid="f679731d-9ece-4ccc-83b0-5c09d7fcbf7d"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{igstInvoiceAmt} == null?"-":$F{igstInvoiceAmt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="210" y="524" width="90" height="20" uuid="8be2bed3-97ff-4187-acdb-b04e321d705a"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cgst} == null?"":$F{cgst}+"%"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="210" y="544" width="90" height="20" uuid="e638f3d2-11cd-41ed-a108-02e1165cfbd8"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sgst} == null?"":$F{sgst}+"%"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="210" y="584" width="90" height="20" uuid="caad5d8c-522a-4167-aa80-20ea503bc880"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{igst} == null?"":$F{igst}+"%"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="210" y="749" width="90" height="23" uuid="3dea879c-a88c-4b98-a80f-46398bd8792b"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tdsPct}+"%"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="210" y="669" width="90" height="20" uuid="cfb3147a-2661-4a67-bb8e-8387c3a32b3c"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cgst} == null?"":$F{cgst}+"%"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="210" y="689" width="90" height="20" uuid="f07bb1e1-53ee-42f0-bfb8-97ed20bfdf3e"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sgst} == null?"":$F{sgst}+"%"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="210" y="729" width="90" height="20" uuid="3798f2cb-9f21-4900-89f1-3e9e9a760986"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{igst} == null?"":$F{igst}+"%"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="300" y="424" width="240" height="20" uuid="e668b624-bad9-4a69-a16d-37a5a8d8bc3a"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Swayam quarterly AMC]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yy">
+				<reportElement mode="Opaque" x="300" y="464" width="240" height="20" uuid="104d2785-8b2f-4efe-ac47-43f0b0e3d58c"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MM-yyyy").format($F{invFr})+" to "+new SimpleDateFormat("dd-MM-yyyy").format($F{invTo})]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yy">
+				<reportElement mode="Opaque" x="300" y="484" width="240" height="20" uuid="65ab581a-8a20-491f-ac4e-6b93acfbadd5"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MM-yyyy").format($F{receiptDt})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="300" y="504" width="240" height="20" uuid="0dd6e241-310b-46b5-a157-3290b391cb89"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{invoiceAmt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="300" y="649" width="240" height="20" uuid="f0b3fb57-d609-48bc-86c7-52c5c2a16f59"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{penaltyAmt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="772" width="240" height="37" uuid="d6a15cf5-1110-4e13-9e6e-2707cd432de5"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gstTdsAmt}== null?"-":$F{gstTdsAmt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="210" y="829" width="90" height="21" uuid="5b37e974-56c0-4555-8e67-cfce5359feb4"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gstTdsAmt3}== null?"7.0%":$F{gstTdsPer}+"%"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="300" y="850" width="240" height="29" uuid="a55fd545-c9ac-4c22-880a-9da8281b1bb0"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["-"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="300" y="829" width="240" height="21" uuid="b6702fde-bb36-479d-93d6-c8f6a9a94304"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gstTdsAmt3}== null?"-":$F{gstTdsAmt3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="20" y="10" width="258" height="20" uuid="d5288e81-7239-493d-895e-adb61528fa14"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ctlrAuth} == null?"":$F{ctlrAuth}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="17" y="80" width="258" height="20" uuid="083fbc21-37ad-4094-89a6-021010f875bb"/>
+				<textElement markup="styled">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sanctionAuth} == null?"":$F{sanctionAuth}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="22" y="30" width="158" height="20" uuid="629dc482-852a-42ce-84e4-6a0473d9c55a"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[(For Control)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="100" width="158" height="20" uuid="53f5a20c-c0b1-4e8c-b6b9-532399a60af0"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[(For Sanction)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="290" y="140" width="272" height="20" uuid="91ad7932-5e6c-4d36-bfee-5044dc42c856"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Unicode MS" size="12" isBold="true" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Note No. / नोट संख्या : AC/BPS/2020-21/…….]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yy">
+				<reportElement x="415" y="160" width="123" height="20" backcolor="#FCF786" uuid="3e5369d7-d3ea-4cfb-95ab-9f1e690fab63"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Dated: "+new SimpleDateFormat("dd-MM-yyyy").format($F{sanNoteDt})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="194" width="253" height="20" uuid="40697036-de98-4be2-ad17-effc3dffa444"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Unicode MS" size="12" isBold="true" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[तिमाही अनुरक्षण बिलों का भुगतान : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="21" y="214" width="529" height="20" backcolor="#FCF786" uuid="c955342e-5ce4-4d9f-8d14-abfc87b98634"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Unicode MS" size="12" isBold="true" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Swayam Quarterly AMC payment : "+$F{vendorFullName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="21" y="234" width="384" height="20" uuid="b318b985-3c85-4c12-99b6-32a331cf4698"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Unicode MS" size="12" isBold="false" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[उक्त सेवा प्रदाता के वार्षिक अनुरक्षण संबंधी बीजक का भुगतान निम्नानुसार है :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="254" width="394" height="20" uuid="5425a658-5338-4e1d-881d-3ec30d144bdb"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Unicode MS" size="12" isBold="false" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[The payment of AMC services for the aforesaid vendor is as under:]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="300" y="879" width="240" height="34" uuid="a572a1a9-c4e9-4aa4-95cb-44467ad64fac"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isBold="true" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalamountAfterPenalty}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="974" width="518" height="20" uuid="8099180f-4cf4-48f2-bdb7-e0f2ba181f8f"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[2. Invoice submitted by the vendor is scruinized and found in order.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="1044" width="260" height="20" uuid="cf5954e5-f992-4fdf-952f-6abc4419ff98"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Particulars]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="1044" width="130" height="20" uuid="26d90fe2-c5ec-4cb8-945a-286b078cbea4"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Amount ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="1064" width="260" height="20" uuid="2a676d77-65a7-40de-8e4c-50330be5ca97"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Invoice amount (Total)]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="280" y="1064" width="130" height="20" uuid="3dd914af-6bb9-412f-b552-54a9cfd24869"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{netAmount}== null?"":$F{netAmount}+" "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="280" y="1084" width="130" height="20" uuid="cc422ba2-cde6-4588-86d3-a602953b4ff2"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["-"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="1084" width="260" height="20" uuid="6256304e-609d-472c-bde8-fed257aa8e4c"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Penalty amount ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="1104" width="260" height="20" uuid="f1c93a26-2e9e-4062-9f8d-a97ed575047e"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[TDS & GST amount to be credited to Govt. A/c]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="280" y="1124" width="130" height="20" uuid="d771daa5-6445-4fc2-807f-00253e196e8b"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["-"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="280" y="1104" width="130" height="20" uuid="ca6fdbd2-4360-4078-8e00-a6f566dedc5f"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["-"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="1124" width="260" height="20" uuid="ee89d595-37d0-47bf-a64e-0b827c768314"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Net amount to be credited into Vendor account]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="1144" width="260" height="20" uuid="c9196e36-ee95-49cd-aa14-9fd08a0fde04"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isBold="true" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="280" y="1144" width="130" height="20" uuid="952facea-f560-412d-b56a-a4347e39b7e5"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{netAmount}== null?"":$F{netAmount}+" "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="410" y="1144" width="130" height="20" uuid="1ac45262-5617-4203-b974-c3c1a7d76830"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{penaltyAmt}+$F{gstPenaltyAmt}+$F{tdsAmt}+$F{gstTdsAmt}+$F{totalamountAfterPenalty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="410" y="1084" width="130" height="20" uuid="7949625f-5ce6-4607-871b-84c92a887a8d"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{penaltyAmt}+$F{gstPenaltyAmt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="410" y="1104" width="130" height="20" uuid="428dcd7f-9f60-4049-a172-2f3c2932b676"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tdsAmt}+$F{gstTdsAmt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="410" y="1124" width="130" height="20" uuid="5bbb0466-fd69-43be-bc88-d1f1f21ffb11"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalamountAfterPenalty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="410" y="1064" width="130" height="20" uuid="f1bcacd8-e2dd-4ed3-8629-218a592b0c47"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["-"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="410" y="1044" width="130" height="20" uuid="e500e7d4-56ab-4e79-a477-3895a5c5da74"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Amount ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="1484" width="490" height="19" uuid="0916ef41-96ce-452c-b42c-28c78a2c4a2b"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Submitted for sanction, please.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="1554" width="150" height="14" uuid="ce493812-9f65-40e6-b53d-a669fd6341f6"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="8" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(For Recommendation)]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="21" y="1534" width="250" height="20" uuid="c28379a8-936f-4276-93bd-c3320ce89fbd"/>
+				<textElement>
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{recomAuth} == null?"":$F{recomAuth}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="300" y="524" width="240" height="20" uuid="6e580cb9-10c3-43b8-bc41-86e0d29828c1"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cgstInvoiceAmt} == null?"-":$F{cgstInvoiceAmt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="300" y="544" width="240" height="20" uuid="d8b9406f-7e33-4126-9795-6e7ff7c195c1"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sgstInvoiceAmt} == null?"-":$F{sgstInvoiceAmt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="300" y="604" width="240" height="25" uuid="28538d7a-511e-455e-8c9f-78360954d10b"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gstInvoiceAmt}== null?"-":$F{gstInvoiceAmt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="300" y="629" width="240" height="20" uuid="1b30c136-27c5-4288-8ba1-eb622c75f99c"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{netAmount}== null?"-":$F{netAmount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="300" y="669" width="240" height="20" uuid="18427212-dab8-4611-9ce8-28f0350cfb09"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cgstPenAmt} == null?"-":$F{cgstPenAmt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="300" y="689" width="240" height="20" uuid="fa4f1ca2-cfd3-4c0a-adb9-2c53ec747938"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sgstPenAmt} == null?"-":$F{sgstPenAmt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="300" y="749" width="240" height="23" uuid="1480c412-974c-47b2-8885-259e97037bae"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tdsAmt} == null?"-":$F{tdsAmt}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="300" y="564" width="240" height="20" uuid="3563bbb1-8677-4040-86b9-b7c91d46edec"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isBold="true" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[OR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="709" width="240" height="20" uuid="60ce6156-82c6-41c7-8283-1837697f10ca"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isBold="true" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[OR]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="20" y="1004" width="519" height="36" uuid="f7dd0e19-3ffc-442f-8e55-afad9f9af596"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["3. The eligible amount of penalty recoverable from this invoice, as per enclosed annexure, is Rs."+$F{penaltyAmt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="20" y="1174" width="519" height="90" uuid="b4a27b07-b45b-4728-aee1-11d6e5e24c0b"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["4. In terms of the e-Circular "+$F{circularNo} +" dated "+$F{circuDt} +" on Delegation of Financial Powers, Group-II, Head-E, Hiring of services for maintenance/AMC of electronic and computer items (including AMC of software/license renwal) (any one instances) financial powers to incur ,this expenditure falls within the discretionary powers  of "+$F{sanctionAuth}+" , which is Rs."+$F{sanLimit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="20" y="1414" width="519" height="60" uuid="3cf5471a-b981-4c47-93cd-91222df2995f"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["7. Recommended  for sanction an amount of Rs."+$F{netAmount}+" as above, by debiting to Charges Account No. 3199885……. and credit  to "+$F{vendorFullName} +"/GST/GST TDS/TDS towards payment of above mentioned invoice."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="20" y="1274" width="520" height="80" uuid="21325e03-35ee-4f76-b85f-d6368e9be663"/>
+				<textElement markup="styled">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["5. "+$F{manualEntry}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="20" y="1364" width="520" height="40" uuid="006a3d2a-f046-4c18-a817-a765d572ac96"/>
+				<textElement markup="styled">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["6. "+$F{creditEntry}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="20" y="913" width="520" height="45" uuid="e335efd9-d236-4c2d-9cf7-95063837656f"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{amtWords}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="50" y="809" width="160" height="20" uuid="7353aa8a-50e4-4fa0-b67e-cc79361d6013"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Rs.2.50 lakhs"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="210" y="809" width="90" height="20" uuid="0a048b4c-9bc7-4732-a280-733a27de6e1b"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gstTdsAmt2}== null?"2.0%":$F{gstTdsPer}+"%"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="300" y="809" width="240" height="20" uuid="33784aa6-1937-42fb-abe1-9977a91b0d7d"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gstTdsAmt2}== null?"-":$F{gstTdsAmt2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+</jasperReport>
