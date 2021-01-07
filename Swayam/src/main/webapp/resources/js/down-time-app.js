@@ -107,11 +107,13 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 			        return formatedDate;
 			}
 			  $scope.resetPositions=function(){
-				   console.log("Inside resetPositions ");
-				   console.log('before SelectedCircelId:', $scope.SelectedCircelId);
+				   console.log("Inside resetPositions "+$scope.selectedCircelId);
 				   $scope.selectedCircelId =''; 
+				   $scope.SelectedCircelId =''; 
 				   $scope.selectedVendorId ='';
-				   $scope.selectedCmsCmfId ='';
+				   $scope.SelectedVendorId ='';
+				   $scope.selectedCmsCmf ='';
+				   $scope.SelectedCmsCmf ='';
 				   $scope.selectedFromDateId ='';
 				   $scope.selectedToDateId ='';
 		    	    $scope.LoadDropDown('', 0);
@@ -121,7 +123,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
        
 	  
 		$scope.searchPositions = function(CircelId,VendorId,CmsCmfId,FromDateId,ToDateId) {
-			
+			debugger;
 		     //  alert("CircelId==="+CircelId);
 		    //    alert("FromDateId==="+FromDateId);
 				console.log("FromDateId " + FromDateId);
@@ -174,7 +176,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 					
 				}
 			
-			loadGrid();
+			//loadGrid();
 			function loadGrid(){
 				   console.log("loadGrid:::", paginationOptions.pageNumber,
 						   paginationOptions.pageSize,  $scope.counttype, $scope.selectedCircelId,
@@ -272,7 +274,6 @@ app.service('UserManagementService',['$http', function ($http) {
 	
 	function getUsers(pageNumber,size, counttype,selectedCircelId,
 						selectedVendorId,selectedCmsCmfId,selectedFromDateId,selectedToDateId) {
-	//	alert("selectedFromDateId"+selectedFromDateId);
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({
           method: 'GET',

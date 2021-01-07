@@ -20,7 +20,7 @@ public class ManualCallLogApiRequest {
 	String issueDescription;
 	String contactName;
 	String contactNumber;
-	String mailId;
+	String contactEmailId;
 	String status;
 	
 
