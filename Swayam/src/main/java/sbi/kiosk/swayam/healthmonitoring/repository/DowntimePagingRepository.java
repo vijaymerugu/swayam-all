@@ -187,7 +187,7 @@ public interface DowntimePagingRepository extends PagingAndSortingRepository<Dow
 				
 				///changes
 				
-				@Query(value =" SELECT  ukm.pf_id, km.circle, concat('NET-0',substr(network,1,1) ) AS network,"
+				@Query(value =" SELECT  ukm.pf_id, km.circle, concat('NET-0',substr(network,1,1) ) AS network, "
 				   + "  module,bm.branch_code,km.kiosk_id,  km.vendor,username AS cms_cmf,"
 				   + "  ( ( ( TO_DATE(?1,'dd-mm-yyyy') - TO_DATE(?2,'dd-mm-yyyy') ) - ( "
 				   + " SELECT   COUNT(*) AS holidays   FROM  tbl_branch_holiday "
@@ -199,30 +199,30 @@ public interface DowntimePagingRepository extends PagingAndSortingRepository<Dow
 				   + " ON bm.branch_code = km.branch_code  LEFT JOIN tbl_user_kiosk_mapping ukm  "
 				   + " ON km.kiosk_id = ukm.kiosk_id   left JOIN tbl_user usr "
 				   + " ON ukm.pf_id = usr.pf_id "
-				   + " WHERE"
+				   + " WHERE "
 				   + " km.circle LIKE %?3% AND "
 				   + " km.vendor LIKE %?4% AND "
 				   + " nvl(ukm.pf_id,0) LIKE %?5% "
-				   + " GROUP BY ukm.pf_id,km.circle, network, module,bm.branch_code,"
-				   + " km.kiosk_id,  km.vendor,  username"	,
+				   + " GROUP BY ukm.pf_id,km.circle, network, module,bm.branch_code, "
+				   + " km.kiosk_id,  km.vendor,  username "	,
 				   nativeQuery = true,countQuery = " SELECT  count(km.kiosk_id), ukm.pf_id, km.circle, concat('NET-0',substr(network,1,1) ) AS network,"
 						   + "  module,bm.branch_code, km.vendor,username AS cms_cmf,"
 						   + "  ( ( ( TO_DATE(?1,'dd-mm-yyyy') - TO_DATE(?2,'dd-mm-yyyy') ) - ( "
 						   + " SELECT   COUNT(*) AS holidays   FROM  tbl_branch_holiday "
 						   + "   WHERE circle = km.circle   AND TO_DATE(holiday_date,'dd-mm-yy') "
 						   + " BETWEEN TO_DATE(?2,'dd-mm-yyyy') AND TO_DATE(?1,'dd-mm-yyyy') ) ) * 8 ) "
-						   + " AS total_operating_hrs,   (  SELECT  nvl( SUM(dt.downtime_hrs),  0 )"
+						   + " AS total_operating_hrs,   (  SELECT  nvl( SUM(dt.downtime_hrs),  0 ) "
 						   + "   FROM tbl_downtime dt  WHERE  dt.kiosk_id = km.kiosk_id ) AS total_downtime "
 						   + " FROM  tbl_kiosk_master km  inner JOIN tbl_branch_master bm "
 						   + " ON bm.branch_code = km.branch_code  LEFT JOIN tbl_user_kiosk_mapping ukm  "
 						   + " ON km.kiosk_id = ukm.kiosk_id   left JOIN tbl_user usr "
 						   + " ON ukm.pf_id = usr.pf_id "
-						   + " WHERE"
+						   + " WHERE "
 						   + " km.circle LIKE %?3% AND "
 						   + " km.vendor LIKE %?4% AND "
 						   + " nvl(ukm.pf_id,0) LIKE %?5% "
 						   + " GROUP BY ukm.pf_id,km.circle, network, module,bm.branch_code,"
-						   + " km.kiosk_id,  km.vendor,  username")
+						   + " km.kiosk_id,  km.vendor,  username ")
 				
 				List<DownTime> findAllByFilterDTimeReports( String selectedToDateId,
 						 String selectedFromDateId, String selectedCircelId,

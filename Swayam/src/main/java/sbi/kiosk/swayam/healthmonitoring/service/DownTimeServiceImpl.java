@@ -52,33 +52,61 @@ public class DownTimeServiceImpl implements DowntimeService {
 			SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
 			Date curDate=new Date();
 			String date=sdf.format(curDate);
-			if(selectedFromDateId.equals("undefined") || selectedFromDateId.isEmpty()) {
+			/*if(selectedFromDateId.equals("undefined") || selectedFromDateId.isEmpty()) {
 				selectedFromDateId=date;	
 			}
 
 			if(selectedToDateId.equals("undefined") || selectedToDateId.isEmpty()) {
 				selectedToDateId=date;	
-			}
+			}*/
 			
-			logger.info("selectedCircelId--------1---------"+selectedCircelId);
-			logger.info("selectedVendorId--------2---------"+selectedVendorId);
-			logger.info("selectedCmsCmfId--------3---------"+selectedCmsCmfId);
-			logger.info("selectedFromDateId--------4---------"+selectedFromDateId);
-			logger.info("selectedToDateId--------5---------"+selectedToDateId);
+			logger.info("downtime selectedCircelId--------1---------"+selectedCircelId);
+			logger.info("downtime selectedVendorId--------2---------"+selectedVendorId);
+			logger.info("downtime selectedCmsCmfId--------3---------"+selectedCmsCmfId);
+			logger.info("downtime selectedFromDateId--------4---------"+selectedFromDateId);
+			logger.info("downtime selectedToDateId--------5---------"+selectedToDateId);
 			
-			if(!selectedToDateId.isEmpty() || !selectedFromDateId.isEmpty() || !selectedCircelId.isEmpty() || !selectedVendorId.isEmpty() 
-					|| !selectedCmsCmfId.isEmpty()){
-			pageEntity=downtimePagingRepo.findAllByFilter(selectedToDateId,selectedFromDateId, selectedCircelId, selectedVendorId,
-					 selectedCmsCmfId, PageRequest.of(page, size)).map(DownTimeDto::new);
+
+			if(selectedToDateId.equals("undefined") || selectedToDateId.isEmpty() &&
+					(selectedFromDateId.equals("undefined") || selectedFromDateId.isEmpty())) {
+				selectedToDateId=date;
+				selectedFromDateId=date;
+				logger.info("downtime selectedCircelId----inside current date----1---------"+selectedCircelId);
+				logger.info("downtime selectedVendorId----inside current date----2---------"+selectedVendorId);
+				logger.info("downtime selectedCmsCmfId----inside current date----3---------"+selectedCmsCmfId);
+				logger.info("downtime selectedFromDateId---inside current date-----4---------"+selectedFromDateId);
+				logger.info("downtime selectedToDateId-----inside current date---5---------"+selectedToDateId);
+				pageEntity=downtimePagingRepo.findAllByFilter(selectedToDateId,selectedFromDateId, selectedCircelId, selectedVendorId,
+						 selectedCmsCmfId, PageRequest.of(page, size)).map(DownTimeDto::new);
 			}else{
+				logger.info("downtime selectedCircelId---inside not-current date-----1---------"+selectedCircelId);
+				logger.info("downtime selectedVendorId----inside not-current date----2---------"+selectedVendorId);
+				logger.info("downtime selectedCmsCmfId-----inside not-current date---3---------"+selectedCmsCmfId);
+				logger.info("downtime selectedFromDateId---inside not-current date-----4---------"+selectedFromDateId);
+				logger.info("downtime selectedToDateId-----inside not-current date---5---------"+selectedToDateId);
 				pageEntity=downtimePagingRepo.findAllByFilter(selectedToDateId,selectedFromDateId, selectedCircelId, selectedVendorId,
 						 selectedCmsCmfId, PageRequest.of(page, size)).map(DownTimeDto::new);
 			}
 			
+			
+			
+			/*if(!selectedToDateId.isEmpty() || !selectedFromDateId.isEmpty() || !selectedCircelId.isEmpty() || !selectedVendorId.isEmpty() 
+					|| !selectedCmsCmfId.isEmpty()){
+				logger.info("selectedFromDateId--------if---------"+selectedFromDateId);
+				logger.info("selectedToDateId--------if---------"+selectedToDateId);
+			pageEntity=downtimePagingRepo.findAllByFilter(selectedToDateId,selectedFromDateId, selectedCircelId, selectedVendorId,
+					 selectedCmsCmfId, PageRequest.of(page, size)).map(DownTimeDto::new);
+			}else{
+				logger.info("selectedFromDateId--------else---------"+selectedFromDateId);
+				logger.info("selectedToDateId--------else---------"+selectedToDateId);
+				pageEntity=downtimePagingRepo.findAllByFilter(selectedToDateId,selectedFromDateId, selectedCircelId, selectedVendorId,
+						 selectedCmsCmfId, PageRequest.of(page, size)).map(DownTimeDto::new);
+			}*/
+			
 			logger.info("pageEntity:::"+pageEntity);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error("DownTimeServiceImpl Exception():::",e,e.getMessage());
+			logger.error("DownTimeServiceImpl Exception():::",e.getMessage());
 		}
 		
 		return pageEntity;

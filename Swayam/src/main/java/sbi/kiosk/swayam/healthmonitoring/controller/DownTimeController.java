@@ -28,7 +28,7 @@ import sbi.kiosk.swayam.kioskmanagement.repository.CircleRepository;
 @RestController
 public class DownTimeController {
 	
-	Logger logger = LoggerFactory.getLogger(TiketHistoryController.class);
+	Logger logger = LoggerFactory.getLogger(DownTimeController.class);
 	@Autowired
 	DowntimeService downtimeService;
 	
@@ -101,11 +101,11 @@ public class DownTimeController {
 		      ,@RequestParam("selectedFromDateId") String selectedFromDateId
 		      ,@RequestParam("selectedToDateId") String selectedToDateId) {
 		
-		 logger.info("selectedCircelId:::"+selectedCircelId);
-		 logger.info("selectedVendorId:::"+selectedVendorId);
-		 logger.info("selectedCmsCmfId:::"+selectedCmsCmfId);
-		 logger.info("selectedFromDateId:::"+selectedFromDateId);
-		 logger.info("selectedToDateId:::"+selectedToDateId);
+		 logger.info("downtime selectedCircelId:::"+selectedCircelId);
+		 logger.info("downtime selectedVendorId:::"+selectedVendorId);
+		 logger.info("downtime selectedCmsCmfId:::"+selectedCmsCmfId);
+		 logger.info("downtime selectedFromDateId:::"+selectedFromDateId);
+		 logger.info("downtime selectedToDateId:::"+selectedToDateId);
 		 
 		 downtimeReport.setCircle(selectedCircelId);
 		 downtimeReport.setVendor(selectedVendorId);

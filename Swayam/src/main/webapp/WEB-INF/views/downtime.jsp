@@ -167,7 +167,7 @@ ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
-                        <select name="Circle" id="circle" ng-model="SelectedCircelId">
+                        <select id="circle" name="SelectedCircelId" ng-model="SelectedCircelId">
 									<option value="">Select Circle</option>
 									<option ng-repeat="item in Circles" value="{{item.circleName}}">{{item.circleName}}</option>
 							</select>
@@ -332,11 +332,11 @@ $(document).ready(function(){
     });
 </script>
 
-<script>
+<!-- <script>
             function resetForm() {
                         document.getElementById("rwdPromotionDetailsAdd").reset();
                     }
-</script>
+</script> -->
 
 </body>
 <sec:csrfInput />  
