@@ -1800,6 +1800,7 @@
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="0.25"/>
 				</box>
+				
 				<textElement textAlignment="Center">
 					<font fontName="Arial Unicode MS" size="12" isItalic="false" pdfFontName="" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
