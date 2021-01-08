@@ -214,6 +214,7 @@ public interface DowntimePagingRepository extends PagingAndSortingRepository<Dow
 						   + " GROUP BY ukm.pf_id,km.circle, network, module,bm.branch_code,"
 						   + " km.kiosk_id,  km.vendor,  username ")
 				
+				
 				List<DownTime> findAllByFilterDTimeReports( String selectedToDateId,
 						 String selectedFromDateId, String selectedCircelId,
 						String selectedVendorId ,

@@ -262,7 +262,6 @@ ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
 		</span>		
 		<br/>
 		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test"style="overflow: hidden;"></div>
-		
         
     </div>
     
