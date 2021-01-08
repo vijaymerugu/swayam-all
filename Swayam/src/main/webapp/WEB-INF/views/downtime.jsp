@@ -18,7 +18,7 @@ $("searchPositions").on('click',function() {
 	});
 
 </script>
-
+ 
     
     
     <meta http-equiv="x-ua-compatible" content="IE=edge">
