@@ -104,8 +104,16 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    	 		   
    	 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
    	 	  
-   	 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
-   	 		   
+   	 		//   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
+   	 	    $("#loading").show(); 
+	 	  	 UserManagementService.getSearchNext(paginationOptions.pageNumber,
+	 	  			paginationOptions.pageSize,fromDate,toDate,$scope.searchText).success(function(data3){
+	 	 	  		 
+	 	 	  	  $scope.gridOptions.data = data3.content;
+	 	  	   	  $scope.gridOptions.totalItems = data3.totalElements;
+	 	  	      $("#loading").hide();
+	 	  	  
+	 	 	     }); 
    	 	    }else{
    	 	    //  Added for loader------------- START 
 		        $("#loading").show();  
@@ -139,10 +147,11 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
     enableColumnMenus:false,
 	useExternalPagination: true,
 	
-    columnDefs: [
+
+	 columnDefs: [
     	 { name: 'crclName', displayName: 'Circle'  },
          { name: 'network', displayName: 'NW'  },
-         { name: 'module', displayName: 'Mode'  },
+         { name: 'module' ,displayName: 'Mode'  },
          { name: 'region', displayName: 'Reg'  },
          { name: 'branchCode', displayName: 'Branch Code'},
          { name: 'branchName', displayName: 'Branch Name'  },
@@ -158,16 +167,28 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
           paginationOptions.pageNumber = newPage;
           paginationOptions.pageSize = pageSize;
-          //  Added for loader------------- START 
+         
 	        $("#loading").show();  
-	     // Added for loader------------- END
+	        if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){
           UserManagementService.getUsers(newPage,pageSize,fromDate,toDate).success(function(data){
         	  $scope.gridOptions.data = data.content;
          	  $scope.gridOptions.totalItems = data.totalElements;
          	 //  Added for loader------------- START 
-		        $("#loading").hide();  
-		     // Added for loader------------- END
+         	    $("#loading").hide();  
+    		    
           });
+          }
+	        else{
+	 	 	   	console.log("Inside else");
+	        	 UserManagementService.getSearchNext(newPage,pageSize,fromDate,toDate,$scope.searchText).success(function(data){
+	           	  $scope.gridOptions.data = data.content;
+	           	 	  $scope.gridOptions.totalItems = data.totalElements;
+	        
+		 	 		 $("#loading").hide();  
+		 		   
+	        	  });	 
+	        
+	        	   }
         });
      }
   };
@@ -186,9 +207,17 @@ app.service('UserManagementService',['$http', function ($http) {
           url: 'td/errorReporting/get?page='+pageNumber+'&size='+size+'&fromDate='+fromDate+'&toDate='+toDate
         });
     }
-	
+	function getSearchNext(pageNumber,size,fromDate,toDate, searchText) {
+		pageNumber = pageNumber > 0?pageNumber - 1:0;
+        return  $http({
+          method: 'GET',
+          url: 'td/errorReporting/getSearchNext?page='+pageNumber+'&size='+size+'&fromDate='+fromDate+'&toDate='+toDate +'&searchText='+searchText
+        });
+    }
     return {
-    	getUsers:getUsers
+    	getUsers:getUsers,
+    	
+    	getSearchNext:getSearchNext
     };
 	
 }]);

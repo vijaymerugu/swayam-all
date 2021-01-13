@@ -18,7 +18,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    
   
    $scope.getCountType = function(yesterday){
-	    yesterdayType=yesterday;debugger;
+	    yesterdayType=yesterday;
 	    //  Added for loader------------- START 
 	    $("#loading").show();  
 	 // Added for loader------------- EN
@@ -67,8 +67,15 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	 		   
 	 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
 	 	  
-	 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
-	 		   
+	 		 /*  $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		*/   
+	 	    	 $("#loading").show(); 
+		 	  	 UserManagementService.getSearchNext(paginationOptions.pageNumber,
+		 	  			paginationOptions.pageSize,yesterdayType,$scope.searchText).success(function(data3){
+		 	 	  		 
+		 	 	  	  $scope.gridOptions.data = data3.content;
+		 	  	   	  $scope.gridOptions.totalItems = data3.totalElements;
+		 	  	      $("#loading").hide();
+		 	 	     }); 
 	 	    }else{
 	 	    	 //  Added for loader------------- START 
 		        $("#loading").show();  
@@ -132,9 +139,9 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
           paginationOptions.pageNumber = newPage;
           paginationOptions.pageSize = pageSize;
-          //  Added for loader------------- START 
-	        $("#loading").show();  
-	     // Added for loader------------- END
+          $("#loading").show();  
+          
+	        if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){
           UserManagementService.getUsers(newPage,pageSize,yesterdayType).success(function(data){ debugger;
         	  $scope.gridOptions.data = data.content;
          	  $scope.gridOptions.totalItems = data.totalElements;
@@ -142,6 +149,18 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 		        $("#loading").hide();  
 		     // Added for loader------------- END
           });
+	        }
+	        else{
+	 	 	  // 	console.log("Inside else");
+	        	 UserManagementService.getSearchNext(newPage,pageSize,yesterdayType,$scope.searchText).success(function(data){
+	           	  $scope.gridOptions.data = data.content;
+	           	 	  $scope.gridOptions.totalItems = data.totalElements;
+	        
+		 	 		 $("#loading").hide();  
+		 		   
+	        	  });	 
+	        
+	        	   }
         });
      }
   };
@@ -173,9 +192,18 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
               url: 'td/realTimeTxn/get?page='+pageNumber+'&size='+size+'&fromdate='+yesterdayType
             });
         }
+    	function getSearchNext(pageNumber,size,yesterdayType, searchText) {
+    		pageNumber = pageNumber > 0?pageNumber - 1:0;
+            return  $http({
+              method: 'GET',
+              url: 'td/realTimeTxn/getSearchNext?page='+pageNumber+'&size='+size+'&fromdate='+yesterdayType+'&searchText='+searchText
+            });
+        }
     	
         return {
-        	getUsers:getUsers
+        	getUsers:getUsers,
+        	
+        	getSearchNext:getSearchNext
         };
    
 }]);

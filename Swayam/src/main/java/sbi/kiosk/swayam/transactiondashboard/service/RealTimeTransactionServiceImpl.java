@@ -64,7 +64,7 @@ public class RealTimeTransactionServiceImpl implements RealTimeTransactionServic
 			//	logger.info("Else ===todayDate===========::"+passedDate);
 		}
 		 Page<RealTimeTransaction> pageEntity = realTimeTxnRepositoryPaging.findByFromDate(passedDate, PageRequest.of(page, size));					
-		System.out.println("pageEntity: "+pageEntity);
+	//	System.out.println("pageEntity: "+pageEntity);
 		 return pageEntity;
 	}
 	
@@ -94,6 +94,7 @@ public class RealTimeTransactionServiceImpl implements RealTimeTransactionServic
 				 passedDate=sdf.format(curDate);
 				
 		}
+	//	 System.out.println("passedDate: "+passedDate);
 		 Page<RealTimeTransaction> pageEntity = realTimeTxnRepositoryPaging.findByFromDateSearchText(passedDate,searchText, PageRequest.of(page, size));					
 	//	System.out.println("pageEntity: "+pageEntity);
 		 return pageEntity;

@@ -66,7 +66,40 @@ public class TransactionDashBoardServiceImpl implements TransactionDashBoardServ
 		
 		
 	  }
+	@Override
+	public Page<SwayamMigrationSummary> findPaginatedSearchNext(int page, int size,String fromdate,String todate,String searchText) {
+	   // Page<SwayamMigrationSummary>  entities = transactionDashBoardRepositoryPaging.findAll(PageRequest.of(page, size));
+			//.map(VmMigrationSummary::new);
+		
+		if((fromdate ==null || fromdate.isEmpty()) && (todate ==null || todate.isEmpty())){
+				
+			SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+			 Date curDate=new Date();
+			 curDate.setTime(curDate.getTime()-48*60*60*1000); 
+			 String passedDate=sdf.format(curDate);
+		
+			fromdate=passedDate;
+			todate=passedDate;
+			logger.info("t-2-fromdate::"+fromdate);
+			logger.info("t-2-todate::"+todate);
+			 Page<SwayamMigrationSummary> pageSummary1=transactionDashBoardRepositoryPaging.findByFromDateSearchText(fromdate, todate,searchText, PageRequest.of(page, size));
+			 logger.info("pageSummary1::SIZE::::"+pageSummary1.getSize());
+			 logger.info("pageSummary1::::"+pageSummary1.getContent());
 
+			 return pageSummary1;
+		}else {
+			logger.info("fromdate:::"+fromdate);
+			logger.info("todate:::"+todate);
+		  Page<SwayamMigrationSummary> pageSummary= transactionDashBoardRepositoryPaging.findByFromDateSearchText(fromdate, todate,searchText, PageRequest.of(page, size));			
+		    logger.info("pageSummary::SIZE::::"+pageSummary.getSize());
+		    logger.info("pageSummary:::::"+pageSummary.getContent());
+		  return pageSummary;
+		}
+		
+      
+		
+		
+	  }
 	@Override
 	public String findSwayamTxnLastUpdatedJob() {
 		

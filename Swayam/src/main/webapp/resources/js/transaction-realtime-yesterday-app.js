@@ -66,64 +66,72 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    {  	
 	  
 	   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	
-	   	 //  Added for loader------------- START 
+	   
 	        $("#loading").show();  
-	     // Added for loader------------- END
-	     //   console.log("pageNumber: "+paginationOptions.pageNumber);
-	     //   console.log("pageSize: "+paginationOptions.pageSize);
+	    
 	   	 UserManagementService.getUsers(paginationOptions.pageNumber,
 	   			paginationOptions.pageSize,yesterdayType).success(function(data){
 	  	  $scope.gridOptions.data = data.content;
 	   	  $scope.gridOptions.totalItems = data.totalElements;
-	   	 //  Added for loader------------- START 
+	   	
 	        $("#loading").hide();  
-	     // Added for loader------------- END
+	     
 	     }); 
 	 		   
 	 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
 	 	    	
+	 	     $("#loading").show(); 
 	 	  	 UserManagementService.getSearchNext(paginationOptions.pageNumber,
 	 	  			paginationOptions.pageSize,yesterdayType,$scope.searchText).success(function(data3){
 	 	 	  		 
 	 	 	  	  $scope.gridOptions.data = data3.content;
-	 	 //	  	  console.log("Grid data before: "+JSON.stringify($scope.gridOptions.data));
-	 	 	//	   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);	
-	 	 //		 console.log("search text after: "+$scope.searchText);
-	 	 //		 console.log("Grid data after: "+JSON.stringify($scope.gridOptions.data));
-	 	 	
-	 	 		//$scope.gridOptions.data =$scope.gridOptions.data; 	 	   	
-	 	 	//	$scope.gridOptions.totalItems = $scope.gridOptions.data.length;
-	 	 	   	  $scope.gridOptions.totalItems = data3.totalElements;
-	 	 	
+	 	  	   	  $scope.gridOptions.totalItems = data3.totalElements;
+	 	  	      $("#loading").hide();
+	 	  	      $("#input").html('');
 	 	 	     }); 
 	 		   
 	 	    }else{
-	 	    	 //  Added for loader------------- START 
+	 	    	
 		        $("#loading").show();  
-		     // Added for loader------------- END
-	 	    	 UserManagementService.getUsers(paginationOptions.pageNumber,
+		      	UserManagementService.getUsers(paginationOptions.pageNumber,
 	 	    			   paginationOptions.pageSize,yesterdayType).success(function(data){
 	 	    		  $scope.gridOptions.data = data.content;
 	 	    	 	  $scope.gridOptions.totalItems = data.totalElements;
-	 	    	 	 //  Added for loader------------- START 
-	 			        $("#loading").hide();  
-	 			     // Added for loader------------- END
+	 	    	 	  $("#loading").hide();  
+	 			    
 	 	    	   });
 	 	    }
 	    };
 
-		//  Added for loader------------- START 
+	    $scope.clearSearch = function()
+	    {  	
+	 	  
+	    	$scope.searchText='';	
+	 	   
+	 	        $("#loading").show();  
+	 	    
+	 	   	 UserManagementService.getUsers(paginationOptions.pageNumber,
+	 	   			paginationOptions.pageSize,yesterdayType).success(function(data){
+	 	  	  $scope.gridOptions.data = data.content;
+	 	   	  $scope.gridOptions.totalItems = data.totalElements;
+	 	   	
+	 	        $("#loading").hide();  
+	 	     
+	 	     }); 
+	 	 		   
+	 	 	   
+	 	    };
         $("#loading").show();  
-     // Added for loader------------- END
+    
    UserManagementService.getUsers(paginationOptions.pageNumber,
 		   paginationOptions.pageSize,yesterdayType).success(function(data){
 		   
 		         $scope.allIndiaDate = "Yesterday: ";                
 	  $scope.gridOptions.data = data.content;
  	  $scope.gridOptions.totalItems = data.totalElements;
- 		//  Added for loader------------- START 
+ 	
       $("#loading").hide();  
-   // Added for loader------------- END
+   
    });
    
    $scope.gridOptions = {
@@ -157,7 +165,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
           paginationOptions.pageSize = pageSize;
      
 	        $("#loading").show();  
-       //   console.log("inside onRegisterApi search Text:" +$scope.searchText);
+       
 	        if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){
 	        	console.log("Inside if");
           UserManagementService.getUsers(newPage,pageSize,yesterdayType).success(function(data){
@@ -173,12 +181,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	        	 UserManagementService.getSearchNext(newPage,pageSize,yesterdayType,$scope.searchText).success(function(data){
 	           	  $scope.gridOptions.data = data.content;
 	           	 	  $scope.gridOptions.totalItems = data.totalElements;
-	          // 	 	console.log("TotalItems:  "+ $scope.gridOptions.totalItems);	
-	           	 	
-	 	 	    
-	        	
-		 	 	//	$scope.gridOptions.totalItems = $scope.gridOptions.data.length;
-		 	 	//  	  $scope.gridOptions.totalItems = data.totalElements;
+	        
 		 	 		 $("#loading").hide();  
 		 		   
 	        	  });	 

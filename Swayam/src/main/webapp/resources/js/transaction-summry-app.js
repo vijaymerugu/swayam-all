@@ -123,7 +123,16 @@ sort: null
 	 		   
 	 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
 	 	  
-	 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
+	 		  /* $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);	*/	   
+	 	    	
+	 	    	$("#loading").show(); 
+		 	  	 UserManagementService.getSearchNext(paginationOptions.pageNumber,
+		 	  			paginationOptions.pageSize,fromDate,toDate,$scope.searchText).success(function(data3){
+		 	 	  		 
+		 	 	  	  $scope.gridOptions.data = data3.content;
+		 	  	   	  $scope.gridOptions.totalItems = data3.totalElements;
+		 	  	      $("#loading").hide();
+		 	 	     });
 	 		   
 	 	    }else{
 	 	   //  Added for loader------------- START 
@@ -205,6 +214,7 @@ sort: null
       //  Added for loader------------- START 
 	        $("#loading").show();  
 	     // Added for loader------------- END
+	        if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){
           UserManagementService.getUsers(newPage,pageSize,fromDate,toDate).success(function(data){
          $scope.gridOptions.data = data.content;
            $scope.gridOptions.totalItems = data.totalElements;
@@ -212,6 +222,18 @@ sort: null
 	        $("#loading").hide();  
 	     // Added for loader------------- END
           });
+        }
+        else{
+ 	 	   	console.log("Inside else");
+        	 UserManagementService.getSearchNext(newPage,pageSize,fromDate,toDate,$scope.searchText).success(function(data){
+           	  $scope.gridOptions.data = data.content;
+           	 	  $scope.gridOptions.totalItems = data.totalElements;
+        
+	 	 		 $("#loading").hide();  
+	 		   
+        	  });	 
+        
+        	   }
         });
      }
   };
@@ -267,8 +289,19 @@ function getUsers(pageNumber,size,begin,end) {
         });
     }
 
+function getSearchNext(pageNumber,size,begin,end, searchText) {
+	//alert("12= fromdate=="+begin);
+	//alert("13=todate=="+end);
+	pageNumber = pageNumber > 0?pageNumber - 1:0;
+    return  $http({
+      method: 'GET',
+      url: 'td/dashBoardTxnBM/getSearchNext?page='+pageNumber+'&size='+size+'&fromdate='+begin+'&todate='+end+'&searchText='+searchText
+    });
+}
     return {
-    getUsers:getUsers
+    getUsers:getUsers,
+    
+    getSearchNext:getSearchNext
     };
 
 }]);

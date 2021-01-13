@@ -193,7 +193,15 @@ app.service('ZeroTransactionKiosksService',['$http', function ($http) {
          
         });
     }
-	
+	function getSearchNext(pageNumber,size,counttype,fromDate,toDate, searchText) {
+		//alert("12= fromdate=="+begin);
+		//alert("13=todate=="+end);
+		pageNumber = pageNumber > 0?pageNumber - 1:0;
+	    return  $http({
+	      method: 'GET',
+	      url: 'zeroTransactionKiosks/getSearchNext?page='+pageNumber+'&size='+size+'&type='+counttype+'&fromDate='+fromDate+'&toDate='+toDate+'&searchText='+searchText
+	    });
+	}
     return {
     	getUsers:getUsers
     };

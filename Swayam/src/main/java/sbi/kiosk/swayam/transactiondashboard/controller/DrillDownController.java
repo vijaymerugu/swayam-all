@@ -181,6 +181,42 @@ public class DrillDownController {
 	}
 	
 	
+	  @RequestMapping(value = "drillDown/getSearchNext", params = { "page", "size", "type", "circleName", "networkName", "moduleName", "regionName", "fromDate",
+	  "toDate"}, method = RequestMethod.GET, produces = "application/json") 
+	  public Page<DrillDown> findPaginated(
+	  
+			  	@RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("type") String type, 
+			  	@RequestParam("circleName") String circleName, @RequestParam("networkName") String networkName, @RequestParam("moduleName")  String moduleName, 
+			  	@RequestParam("regionName") String regionName, @RequestParam("fromDate") String fromDate, @RequestParam("toDate") String toDate, 
+			  	@RequestParam("searchText")	  String searchText) { 
+		  Page<DrillDown> resultPage = null;
+	  
+	  if(networkName.equals("undefined") || moduleName.equals("undefined") || regionName.equals("undefined")) { 
+		  networkName=""; moduleName="";
+		  regionName=""; 
+	  }
+	  
+	  if(fromDate !=null && !fromDate.isEmpty() && toDate !=null && !toDate.isEmpty()) {
+	  
+		  resultPage = drillDownService.findPaginatedByTxnDateSearchNext(page,size,type, fromDate, toDate, circleName, networkName, moduleName, regionName, searchText);
+	  
+	  }
+	  else { 
+		  SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy"); 
+		  Date curDate=new Date(); 
+		  curDate.setTime(curDate.getTime()-48*60*60*1000); 
+		  String passedDate=sdf.format(curDate);
+	  
+		  String fromdate=passedDate; 
+		  String todate=passedDate;
+		  logger.info("t-2-fromdate::"+fromdate); 
+		  logger.info("t-2-todate::"+todate);
+		  resultPage = drillDownService.findPaginatedByTxnDateSearchNext(page,size,type, fromdate, todate, circleName, networkName, moduleName, regionName,searchText); 
+		  }
+	  
+	  return resultPage; 
+	  }
+	 
 	@GetMapping("td/getDrillDownLastUpDated")
 	public ResponseEntity<String>  getLastUpdatedJob() {
 		 String lastUpdatedDate= drillDownService.findSwayamTxnLastUpdatedJob();
