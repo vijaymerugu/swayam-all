@@ -147,21 +147,22 @@ $("#myBtn").click(function(){
 
 
 		<div class="submain_transaction">
-	
-	<input class="form-group has-search" ng-model="searchText" ng-change="refresh()" placeholder="Enter Kiosk Id, Branch Code, Circle etc." style="font-size: 12px" size="150" height="80" id="input">
-		<!-- <button  id="btnSearchText" ng-click="refresh()">SearchText</button> -->	
+	<!-- ng-change="refresh()" -->
+	<input class="form-group has-search" ng-model="searchText"  placeholder="Enter Kiosk Id, Branch Code, Circle etc." style="font-size: 12px" size="150" height="80" id="input">
+		 <button  id="btnSearchText" ng-click="refresh()">SearchText</button> 
+		 <button  id="btnClearText" ng-click="clearSearch()">ClearSearch</button>	
 		<span style="float:right">
 		<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
 		<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>
 		&nbsp;&nbsp;&nbsp;
 		</span>		
 				<br/>
-			<!-- Added for loader------------- START -->	
+			
 	
 		<div class="loading" id="loading" align="center" style="display:none;">
    			 <img src="resources/img/loader.gif"> 
 		</div> 
-		<!-- Added for loader------------- END -->	
+		
 		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-selection ui-grid-exporter id="test"></div>
 		
         

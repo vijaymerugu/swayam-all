@@ -24,7 +24,18 @@ public interface ErrorReportingRepositoryPaging extends PagingAndSortingReposito
 					+ " between trunc(to_date(:fromdate, 'dd-mm-yyyy'))  and trunc(to_date(:todate, 'dd-mm-yyyy'))")
 	Page<ErrorReporting> findByDate(@Param("fromdate") String fromdate,@Param("todate") String todate,Pageable pageable);
 	
-	
+	@Query(value=" SELECT  BM.CRCL_NAME, BM.NETWORK, BM.MODULE, BM.REGION, BM.BRANCH_CODE, BM.BRANCH_NAME, "
+			+ " STR.KIOSK_ID, STR.VENDOR, (NVL(STR.NO_OF_TECH_FAIL,0) + NVL(ERRs.ERR_COUNT,0)) AS NO_OF_ERRORS"
+			+ "   FROM TBL_BRANCH_MASTER BM  JOIN TBL_SWAYAM_TXN_REPORT STR ON BM.BRANCH_CODE = STR.BRANCH_CODE "
+			+ " LEFT OUTER JOIN TBL_ERROR_STATS ERRs ON ERRs.KIOSK_ID = STR.KIOSK_ID  WHERE to_date(STR.TXN_DATE, 'dd-mm-yyyy')"
+			+ " between trunc(to_date(:fromdate, 'dd-mm-yyyy'))  and trunc(to_date(:todate, 'dd-mm-yyyy'))"
+			+ " and (BM.CRCL_NAME=:searchText or BM.BRANCH_CODE=:searchText or STR.KIOSK_ID=:searchText )",nativeQuery=true,
+			countQuery= "SELECT count(STR.KIOSK_ID)  FROM TBL_BRANCH_MASTER BM  JOIN TBL_SWAYAM_TXN_REPORT STR ON BM.BRANCH_CODE = STR.BRANCH_CODE "
+					+ " LEFT OUTER JOIN TBL_ERROR_STATS ERRs ON ERRs.KIOSK_ID = STR.KIOSK_ID  WHERE to_date(STR.TXN_DATE, 'dd-mm-yyyy')"
+					+ " between trunc(to_date(:fromdate, 'dd-mm-yyyy'))  and trunc(to_date(:todate, 'dd-mm-yyyy'))"
+					+ "and (BM.CRCL_NAME=:searchText or BM.BRANCH_CODE=:searchText or STR.KIOSK_ID=:searchText )")
+	Page<ErrorReporting> findByDateSearchNext(@Param("fromdate") String fromdate,@Param("todate") String todate, @Param("searchText") String searchText,Pageable pageable);
+
 	@Query(value=" SELECT  BM.CRCL_NAME, BM.NETWORK, BM.MODULE, BM.REGION, BM.BRANCH_CODE, BM.BRANCH_NAME, "
 			+ " STR.KIOSK_ID, STR.VENDOR, (NVL(STR.NO_OF_TECH_FAIL,0) + NVL(ERRs.ERR_COUNT,0)) AS NO_OF_ERRORS"
 			+ "   FROM TBL_BRANCH_MASTER BM  JOIN TBL_SWAYAM_TXN_REPORT STR ON BM.BRANCH_CODE = STR.BRANCH_CODE "
@@ -39,6 +50,6 @@ public interface ErrorReportingRepositoryPaging extends PagingAndSortingReposito
 	//@Query(value="select to_date(last_pbk_dt,'yyyy-mm-dd') from tbl_branch_txn_daily order by last_pbk_dt desc fetch first 1 row only ",nativeQuery = true )
 	@Query(value="select to_char(end_dttm,'dd-Mon-yy hh24:mm:ss') from tbl_audit_job where job_name='TBL_SWAYAM_TXN_DAILY' and status='C' order by end_dttm desc fetch first 1 row only ",nativeQuery = true )		
 	//for 11g
-			//@Query(value="select to_char(end_dttm,'dd-Mon-yy hh24:mm:ss') from  tbl_audit_job where job_name='TBL_SWAYAM_TXN_DAILY' and rownum <= 1 order by end_dttm desc ",nativeQuery = true )
+	//		@Query(value="select to_char(end_dttm,'dd-Mon-yy hh24:mm:ss') from  tbl_audit_job where job_name='TBL_SWAYAM_TXN_DAILY' and rownum <= 1 order by end_dttm desc ",nativeQuery = true )
 			String findCurrentDateAuditJob();
 }

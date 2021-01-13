@@ -71,6 +71,31 @@ public class ZeroTransactionKiosksController {
 		  return resultPage;
 	}
 	
+	@RequestMapping(value = "zeroTransactionKiosks/getSearchNext", params = { "page", "size" ,"type", "fromDate", "toDate"}, method = RequestMethod.GET, produces = "application/json")
+	public Page<ZeroTransactionKiosks> findPaginatedAfterSearchNext(
+		      @RequestParam("page") int page, @RequestParam("size") int size, 
+		      @RequestParam("type") String type, @RequestParam("fromDate") String fromDate, 
+		      @RequestParam("toDate") String toDate,  @RequestParam("searchText") String searchText) {
+		 
+		
+		Page<ZeroTransactionKiosks> resultPage = null;
+		
+		if(fromDate.equals("undefined") || toDate.equals("undefined")) {		
+			fromDate="";
+			toDate="";
+		}
+			
+		  dateFrame.setFromDate(fromDate); 
+		  dateFrame.setToDate(toDate);
+		  
+		 		  
+	      resultPage = zeroTransactionKiosksService.findPaginatedByDateSearchNext(page, size, fromDate, toDate,searchText);
+		
+		    if (page > resultPage.getTotalPages()){
+		            //throw new MyResourceNotFoundException();
+		        }
+		  return resultPage;
+	}
 	
 	@GetMapping("td/getZeroLastUpDated")
 	public ResponseEntity<String>  getLastUpdatedJob() {

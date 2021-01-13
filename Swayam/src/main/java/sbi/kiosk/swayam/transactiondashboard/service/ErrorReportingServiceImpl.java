@@ -37,6 +37,21 @@ public class ErrorReportingServiceImpl implements ErrorReportingService {
 		  return pageErrorReporting;
 	}
 	
+	@Override
+	public Page<ErrorReporting> findPaginatedSearchNext(int page, int size, String fromDate, String toDate, String searchText) {
+		//logger.info("ErrorReportingServiceImpl Started() fromDate:: "+fromDate);
+		//logger.info("ErrorReportingServiceImpl Started() toDate::"+toDate);
+		//List<ErrorReporting> errorRepoList = nearByEntities(fromDate, toDate);
+		if((fromDate ==null || fromDate.isEmpty()) && (toDate ==null || toDate.isEmpty()) || (fromDate.equalsIgnoreCase("undefined") || fromDate.equalsIgnoreCase("undefined"))){
+			SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+			Date curDate=new Date();
+			fromDate=sdf.format(curDate);
+			toDate=sdf.format(curDate);
+		}
+		  Page<ErrorReporting> pageErrorReporting= errorReportingRepo.findByDateSearchNext(fromDate, toDate,searchText, PageRequest.of(page, size));			
+		  logger.info("pageErrorReporting"+pageErrorReporting);
+		  return pageErrorReporting;
+	}
 
 	@Override
 	public String findSwayamTxnLastUpdatedJob() {

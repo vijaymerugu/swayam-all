@@ -50,8 +50,17 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
 	 		   
 	 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
 	 	  
-	 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
-	 		   
+	 		 //  $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
+	 		  
+	 	       $("#loading").show(); 
+		 	  	 UserManagementService.getSearchNext(paginationOptions.pageNumber,
+		 	  			paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate,$scope.searchText).success(function(data3){
+		 	 	  		 
+		 	 	  	  $scope.gridOptions.data = data3.content;
+		 	  	   	  $scope.gridOptions.totalItems = data3.totalElements;
+		 	  	      $("#loading").hide();
+		 	  	  
+		 	 	     }); 
 	 	    }else{
 	 		    //  Added for loader------------- START 
 				$("#loading").show(); 
@@ -110,12 +119,12 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
     	 { name: 'name', displayName: 'Branch',superCol: 'front'   },
     	 { name: 'branchCodeCount', displayName: 'Total Swayam Branches',superCol: 'front'   },
          { name: 'totalSwayamKiosks', displayName: 'Total Swayam Kiosks',superCol: 'front'   },
-         { name: 'lipiKiosks', displayName: 'Kiosks',superCol: 'lipi'  },
-         { name: 'lipiTxns', displayName: 'Txns',superCol: 'lipi'  },
-         { name: 'forbesKiosks', displayName: 'Kiosks',superCol: 'Forbes'  },
-         { name: 'forbesTxns', displayName: 'Txns',superCol: 'Forbes'  },
-         { name: 'cmsKiosks', displayName: 'Kiosks',superCol: 'CMS'  },
-         { name: 'cmsTxns', displayName: 'Txns',superCol: 'CMS'  },
+         { name: 'lipiKiosks',width: 90, displayName: 'Kiosks',superCol: 'lipi'  },
+         { name: 'lipiTxns',width: 90, displayName: 'Txns',superCol: 'lipi'  },
+         { name: 'forbesKiosks',width: 90, displayName: 'Kiosks',superCol: 'Forbes'  },
+         { name: 'forbesTxns',width: 90, displayName: 'Txns',superCol: 'Forbes'  },
+         { name: 'cmsKiosks',width: 90, displayName: 'Kiosks',superCol: 'CMS'  },
+         { name: 'cmsTxns',width: 90, displayName: 'Txns',superCol: 'CMS'  },
          { name: 'totalSwayamTxns', displayName: 'Swayam Txns',superCol: 'total'  },
          { name: 'totalBranchCounterTxns', displayName: 'Branch Counter Txns',superCol: 'total'  },
          { name: 'migrationPercentage', displayName: 'Migration Percentage(%)',superCol: 'back'  }
@@ -127,7 +136,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
           paginationOptions.pageSize = pageSize;
   	    //  Added for loader------------- START 
 			$("#loading").show(); 
-		//  Added for loader------------- END 
+			if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){
           DrillDownService.getUsers(newPage,pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
         	  $scope.gridOptions.data = data.content;
          	  $scope.gridOptions.totalItems = data.totalElements;
@@ -135,6 +144,18 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
   			$("#loading").hide(); 
   		//  Added for loader------------- END 
           });
+			}
+	        else{
+	 	 	   //	console.log("Inside else");
+	        	 UserManagementService.getSearchNext(newPage,pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate,$scope.searchText).success(function(data){
+	           	  $scope.gridOptions.data = data.content;
+	           	 	  $scope.gridOptions.totalItems = data.totalElements;
+	        
+		 	 		 $("#loading").hide();  
+		 		   
+	        	  });	 
+	        
+	        	   }
         });
      }
   };
@@ -199,9 +220,21 @@ app.service('DrillDownService',['$http', function ($http) {
                +'&fromDate='+fromDate+'&toDate='+toDate
         });
     }
+	function getSearchNext(pageNumber,size,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate, searchText) {
+		pageNumber = pageNumber > 0?pageNumber - 1:0;
+        return  $http({
+          method: 'GET',
+          url: 'td/realTimeTxn/getSearchNext?page='+pageNumber+'&size='+size+'&type='+counttype+'&circleName='+circleName
+          +'&networkName='+networkName+'&moduleName='+moduleName+'&regionName='+regionName
+          +'&fromDate='+fromDate+'&toDate='+toDate+'&searchText='+searchText
+        });
+    }
 	
     return {
-    	getUsers:getUsers
+    	getUsers:getUsers,
+    	
+    	getSearchNext:getSearchNext
+    	
     };
 	
 }]);

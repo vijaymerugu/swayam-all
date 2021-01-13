@@ -88,8 +88,7 @@ public class RealTimeTransactionController {
 		        if (page > resultPage.getTotalPages()) {
 		            //throw new MyResourceNotFoundException();
 		        }
-	//	 System.out.println("ResultPage NumberOfElements: "+resultPage.getNumberOfElements());
-	//	 System.out.println("ResultPage Content: "+resultPage.getContent());
+	
 		 
 		        return resultPage;
 		    }
@@ -98,15 +97,14 @@ public class RealTimeTransactionController {
 	public Page<RealTimeTransaction> findPaginatedAfterSearchNextRealTimeFromToDate(
 		      @RequestParam("page") int page, @RequestParam("size") int size,
 		      @RequestParam("fromdate") String fromdate,  @RequestParam("searchText") String searchText) {
-		//Page<RealTimeTransaction> resultPage = realTimeTransactionService.findPaginatedFromToDate(page, size,fromDate,toDate);
+
 		      Page<RealTimeTransaction> resultPage = realTimeTransactionService.findPaginatedSearchNext(page, size,fromdate, searchText);
 				System.out.println("Size of page: "+ size);
 				System.out.println("No of page: "+ page);
 		        if (page > resultPage.getTotalPages()) {
 		            //throw new MyResourceNotFoundException();
 		        }
-	//	 System.out.println("ResultPage NumberOfElements: "+resultPage.getNumberOfElements());
-	//	 System.out.println("ResultPage Content: "+resultPage.getContent());
+
 		 
 		        return resultPage;
 		    }
@@ -119,8 +117,6 @@ public class RealTimeTransactionController {
 		
 		 String passedDate = null;
 		 
-	//	 System.out.println("Size of page: "+ size);
-	//		System.out.println("No of page: "+ page);
 			
 		 if(fromdate!=null && !fromdate.isEmpty() && fromdate.equalsIgnoreCase("yesterday")){
 			 SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
@@ -142,22 +138,17 @@ public class RealTimeTransactionController {
 		}
 		
 		List<RealTimeTransaction> list = realTimeTxnRepository.findByDate(passedDate);
-	//	System.out.println("list: "+ list.toString());
-	//	System.out.println("list size: "+ list.size());
+	
 		
 		List<RealTimeTransaction> list2 = list.stream().filter(x-> x.getCrclName().equalsIgnoreCase(searchText) || x.getBranchCode().equalsIgnoreCase(searchText)
 				|| x.getKioskId().equalsIgnoreCase(searchText) || x.getBranchName().equalsIgnoreCase(searchText))
 				.collect(Collectors.toList());
 
-		
-	//	System.out.println("list2:"+ list2.toString());
-	//	System.out.println("list2 size: "+ list2.size());
-	//	System.out.println("Page size: "+ size);
+
 		
 		@SuppressWarnings("deprecation")
 		Page<RealTimeTransaction> resultPage = new PageImpl<RealTimeTransaction>(list2, PageRequest.of(page, size), list2.size());
-	//	 System.out.println("ResultPage NumberOfElements: "+resultPage.getNumberOfElements());
-	//	 System.out.println("ResultPage Content: "+resultPage.getContent());
+
 		        return resultPage;
 		    }
 }

@@ -61,6 +61,21 @@ public class TransactionDashBoardController {
 		return resultPage;
 	}
 	
+	@RequestMapping(value = "td/dashBoardTxnBM/getSearchNext", params = { "page", "size","fromdate",	"todate" , "searchText" }, method = RequestMethod.GET, produces = "application/json")
+	public Page<SwayamMigrationSummary> findPaginatedAfterSearchNextRealTimeFromToDate(
+		      @RequestParam("page") int page, @RequestParam("size") int size,
+		      @RequestParam("fromdate") String fromdate,  @RequestParam("todate") String todate, @RequestParam("searchText") String searchText) {
+
+		      Page<SwayamMigrationSummary> resultPage = transactionDashBoardService.findPaginatedSearchNext(page, size,fromdate,todate, searchText);
+				System.out.println("Size of page: "+ size);
+				System.out.println("No of page: "+ page);
+		        if (page > resultPage.getTotalPages()) {
+		            //throw new MyResourceNotFoundException();
+		        }
+
+		 
+		        return resultPage;
+		    }
 	
 	@GetMapping("td/getSwayamMigrationLastUpDated")
 	public ResponseEntity<String>  getLastUpdatedJob() {

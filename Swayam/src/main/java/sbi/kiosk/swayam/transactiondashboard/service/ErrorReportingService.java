@@ -9,5 +9,6 @@ public interface ErrorReportingService{
 
 	Page<ErrorReporting> findPaginated(int page, int size, String fromDate, String toDate);
 	String findSwayamTxnLastUpdatedJob();
+	Page<ErrorReporting> findPaginatedSearchNext(int page, int size, String fromDate, String toDate, String searchText);
 
 }

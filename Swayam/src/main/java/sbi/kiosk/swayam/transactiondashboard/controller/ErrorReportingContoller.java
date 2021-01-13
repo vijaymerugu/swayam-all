@@ -63,7 +63,23 @@ Logger logger = LoggerFactory.getLogger(ErrorReportingContoller.class);
 
 		return resultPage;
 	}
-	
+	@RequestMapping(value = "td/errorReporting/getSearchNext", params = { "page", "size", "fromDate",	"toDate", "searchText" }, method = RequestMethod.GET, produces = "application/json")
+	public Page<ErrorReporting> findPaginatedAfterSearchNext(@RequestParam("page") int page, @RequestParam("size") int size,
+			@RequestParam("fromDate") String fromDate, @RequestParam("toDate") String toDate,
+			@RequestParam("searchText") String searchText) {
+		
+		Page<ErrorReporting> resultPage = errorReportingService.findPaginatedSearchNext(page, size, fromDate,toDate,searchText);
+		
+		
+		  dateFrame.setFromDate(fromDate); dateFrame.setToDate(toDate);
+		  
+
+		if (page > resultPage.getTotalPages()) {
+			// throw new MyResourceNotFoundException();
+		}
+
+		return resultPage;
+	}
 	@GetMapping("td/getErrorReportingLastUpDated")
 	public ResponseEntity<String>  getLastUpdatedJob() {
 		 String lastUpdatedDate= errorReportingService.findSwayamTxnLastUpdatedJob();

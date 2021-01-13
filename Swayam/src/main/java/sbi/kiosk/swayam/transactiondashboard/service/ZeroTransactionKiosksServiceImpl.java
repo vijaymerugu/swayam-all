@@ -53,6 +53,23 @@ public Page<ZeroTransactionKiosksDto> findPaginated(final int page, final int si
 		 return pageDto;
 	}
 	
+	@Override
+	public Page<ZeroTransactionKiosks> findPaginatedByDateSearchNext(final int page, final int size, String fromdate, String todate,String searchText){
+	
+		//List<ZeroTransactionKiosks> list= nearByEntities(fromDate,toDate);
+		if((fromdate ==null || fromdate.isEmpty()) && (todate ==null || todate.isEmpty())){
+			SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+			Date curDate=new Date();
+			fromdate=sdf.format(curDate);
+			todate=sdf.format(curDate);
+		}
+				
+        Page<ZeroTransactionKiosks> pageDto = zeroTransactionKiosksRepository.findByDateSearchNext(fromdate, todate,searchText, PageRequest.of(page, size));
+		 
+		 
+		 return pageDto;
+	}
+	
 
     private List<ZeroTransactionKiosks> nearByEntities(String fromDate,String toDate) {
         StoredProcedureQuery nearByEntities= em.createNamedStoredProcedureQuery("SP_ZERO_TRANSACTION_KIOSKS");
@@ -111,6 +128,13 @@ public String findZeroTxnLastUpdatedJob() {
 	}
 	return zeroTxnDate;
 
+}
+
+@Override
+public Page<DrillDown> findPaginatedByTxnDateSearchNext(int i, int size, String type, String fromdate, String todate,
+		String circleName, String networkName, String moduleName, String regionName, String searchText) {
+	// TODO Auto-generated method stub
+	return null;
 }
 
 }

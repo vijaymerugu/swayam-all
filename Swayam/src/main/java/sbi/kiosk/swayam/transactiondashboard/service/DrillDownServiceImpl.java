@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
 
+import org.apache.commons.lang.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +80,47 @@ public class DrillDownServiceImpl implements DrillDownService{
 		 return pageDrillDown;
 	}
 	
+	@SuppressWarnings("deprecation")
+	@Override
+	public Page<DrillDown> findPaginatedByTxnDateSearchNext(final int page,final int size,String type, String fromdate, String todate, String in_circle_code, String in_network_code, String in_module_code, String in_region_code, String searchText){
+		
+		//List<DrillDown> list= nearByEntities(fromDate,toDate,circleName,networkName,moduleName,regionName);
+				
+        //Page<DrillDown> pageDto = new PageImpl<DrillDown>(list, PageRequest.of(page, size),list.size());
+		 
+		Page<DrillDown> pageDrillDown = null;
+		if((in_circle_code ==null || in_circle_code.isEmpty())){
+			in_circle_code = null;
+		}
+		if((in_network_code ==null || in_network_code.isEmpty())){
+			in_network_code = null;
+		}
+		if((in_module_code ==null || in_module_code.isEmpty())){
+			in_module_code = null;
+		}
+		if((in_region_code ==null || in_region_code.isEmpty())){
+			in_region_code = null;
+		}		
 
+		if("NW".equals(type)){
+			pageDrillDown = drillDownRepository.findByDate(fromdate, todate,in_circle_code, PageRequest.of(page, size));
+		}
+		else if("MOD".equals(type)){
+			pageDrillDown = drillDownRepository.findByDate(fromdate, todate,in_circle_code, in_network_code, PageRequest.of(page, size));
+		}
+		else if("REG".equals(type)){
+			pageDrillDown = drillDownRepository.findByDate(fromdate, todate,in_circle_code, in_network_code,in_module_code, PageRequest.of(page, size));
+		}
+		else if("BR".equals(type)){
+			pageDrillDown = drillDownRepository.findByDateSearchNext(fromdate, todate,in_circle_code, in_network_code,in_module_code,in_region_code,searchText, PageRequest.of(page, size));
+		}
+		else  {
+			
+		 pageDrillDown = drillDownRepository.findByDate(fromdate, todate, PageRequest.of(page, size));
+		}
+		 
+		 return pageDrillDown;
+	}
     private List<DrillDown> nearByEntities(String fromDate,String toDate, String circleName, String networkName, String moduleName, String regionName) {
         StoredProcedureQuery nearByEntities= em.createNamedStoredProcedureQuery("sp_drill_down_proc");
         nearByEntities.setParameter("in_fromdate", fromDate);
@@ -158,6 +199,13 @@ public class DrillDownServiceImpl implements DrillDownService{
 		
 		
 		
+	}
+
+	@Override
+	public Page<ZeroTransactionKiosks> findPaginatedByDateSearchNext(int page, int size, String fromDate, String toDate,
+			String searchText) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
