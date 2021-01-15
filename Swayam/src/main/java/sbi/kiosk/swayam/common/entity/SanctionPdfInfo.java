@@ -103,6 +103,8 @@ public class SanctionPdfInfo {
 	private String circuDt;
 	
 	private String gstTdsDisplayAmt;
+	
+	private String hindiVendor;
 
 
 }
