@@ -442,6 +442,26 @@ public class SanctionRequest {
 		
 		sanctionRequestEntity.setState(sanctionRequestEntity.getState().toUpperCase());
 		
+		
+		
+//		String s = "मेसर्स लिपि डाटा सिस्टम्स लिमिटेड";
+//		String s1 = "सीएमएस डाटा सिस्टम्स लिमिटेड";
+//		String s2 = "फोर्ब्सडाटा सिस्टम्स लिमिटेड";
+		
+		if(sanctionRequestEntity.getVendor().equalsIgnoreCase("CMS")) {
+			sanctionRequestEntity.setHindiVendor("सीएमएस  सिस्टम्स लिमिटेड");
+			
+		}else if(sanctionRequestEntity.getVendor().equalsIgnoreCase("LIPI")) {
+			sanctionRequestEntity.setHindiVendor("मेसर्स लिपि डाटा सिस्टम्स लिमिटेड");
+		}else {
+			sanctionRequestEntity.setHindiVendor("फोर्ब्स  सिस्टम्स लिमिटेड");
+		}
+
+
+		//System.out.println("Hindi Data " + s);
+		
+		
+		
 		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 		String circularDate= dateFormat.format(sanctionRequestEntity.getCircularDate());
 		
@@ -460,6 +480,8 @@ public class SanctionRequest {
 		String filename = null;
 		jrxmlPath = jrxmlPath.replaceAll(">", "");
 		reportPath = reportPath.replaceAll(">", "");
+		
+		
 		
 		File file =null;
 		if((sanctionRequestEntity.getManualEntry()==null || sanctionRequestEntity.getManualEntry().isEmpty())

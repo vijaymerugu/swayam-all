@@ -114,14 +114,14 @@
 						type="text/ng-template" id="menu">
             <a ng-click="loadHomeBodyPage(menu.url)" style="cursor: hand;cursor: pointer;">{{menu.name}}</a>
           <ul ng-if="(SiteMenu | filter:{parentId : menu.id}).length > 0" class="submenu"> 
-                <li ng-repeat="menu in SiteMenu | filter:{parentId : menu.id}" ng-include="'menu'"></li>   
+                <li ng-repeat="menu in SiteMenu | filter:{parentId : menu.id}:true" ng-include="'menu'"></li>   
 				
             </ul>
         </script>
 					<div id="topnav">
 						<ul>
 							<!-- @* Here we will load only top level menu *@-->
-							<li ng-repeat="menu in SiteMenu | filter:{parentId : 0}"
+							<li ng-repeat="menu in SiteMenu | filter:{parentId:'0'}:true"
 								ng-include="'menu'"></li>
 						</ul>
 					</div>
