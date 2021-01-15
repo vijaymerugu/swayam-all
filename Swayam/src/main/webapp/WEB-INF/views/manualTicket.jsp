@@ -12,6 +12,12 @@ input[type=text]:focus, input[type=password]:focus {
     background-color: #ddd;
     outline: none;
 }
+ .tb-bk table tr td .row .lb span b {
+            color:red;
+            }
+            select:focus,input:focus,button:focus,textarea:focus {
+                outline: none;
+            }
 
 hr {
     border: 1px solid #f1f1f1;
@@ -42,7 +48,7 @@ button {
 background-color: #FFFFFF;
     /* border: 95px; */
     color: black;
-    padding: 1px 14px;
+    padding: 1px 10px;
     text-decoration: none;
     margin: -5px 23px;
     cursor: pointer;
@@ -262,7 +268,7 @@ input[type=button], input[type=submit], input[type=reset] {
     background-color: #f2a50a;
     /* border: 95px; */
     color: black;
-    padding: 1px 14px;
+    padding: 1px 10px;
     text-decoration: none;    
     cursor: pointer;
 }
@@ -354,7 +360,8 @@ $(document).ready(function(){
 		 }else{
 			 $("#branchCode12").html('');
 			 $("#vendor12").html('');
-		 document.getElementById("brCode").innerHTML=brCode;
+			 // commented14012021ss
+		// document.getElementById("brCode").innerHTML=brCode;
 			var respos;
 		 console.log("inside bluer function...."+brCode);		 
 	         	        $.ajax({
@@ -486,6 +493,7 @@ $(document).ready(function(){
 	 
 });
 
+
 function fromValidation(){
     	
 	var errorList=[];
@@ -494,7 +502,12 @@ function fromValidation(){
 	var kioskId=$("#kioskId").val();
 	var kioskError=$("#kioskError").val();
 	var comment=$("#comment").val();
+	var contactPerson=$("#contactPerson").val();
+	var contactNo=$("#contactNo").val();
+	var mailId=$("#mailId").val();
 	
+	
+
 	
 	 if(branchcode==""){
 		 errorList.push("Please enter branchcode");
@@ -507,6 +520,14 @@ function fromValidation(){
 	 }
 	 if(kioskError=="Select"){
 		 errorList.push("Please Select kioskError");
+	 }if(contactPerson==""){
+		 errorList.push("Please enter contactPerson");
+	 }
+	 if(contactNo==""){
+		 errorList.push("Please enter contactNo");
+	 }
+	 if(mailId==""){
+		 errorList.push("Please enter mailId");
 	 }
 	 if(comment==""){
 		 errorList.push("Please enter comment");
@@ -529,8 +550,12 @@ function saveform(){
 	$("#kioskId12").html("");
 	$("#kioskError12").html("");
 	$("#comment12").html("");
-
+	$("#contactPerson12").html("");
+	$("#contactNo12").html("");
+	$("#mailId12").html("");
+	
     var errorlist=fromValidation();
+   
 	
 	 if(errorlist.length>0){
 		 displayErrorsOnPage();
@@ -540,6 +565,9 @@ function saveform(){
 		$("#kioskId12").html("");
 		$("#kioskError12").html("");
 		$("#comment12").html("");
+		$("#contactPerson12").html("");
+		$("#contactNo12").html("");
+		$("#mailId12").html("");
 	var modal = document.getElementById("myModal");
 	var span = document.getElementsByClassName("close")[0];
 	//formData = "branchCode=MUM&vendor=CMS-&kioskId=KIOSKID_4&kioskError=Kiosk&comment=jfadfjafadf"
@@ -577,18 +605,28 @@ function displayErrorsOnPage() {
 	$("#kioskId12").html("");
 	$("#kioskError12").html("");
 	$("#comment12").html("");
+	$("#contactPerson12").html("");
+	$("#contactNo12").html("");
+	$("#mailId12").html("");
 
 	var branchcode=$("#branchCode").val();
 	var vendor=$("#vendor").val();
 	var kioskId=$("#kioskId").val();
 	var kioskError=$("#kioskError").val();
 	var comment=$("#comment").val();
+	var contactPerson=$("#contactPerson").val();
+	var contactNo=$("#contactNo").val();
+	var mailId=$("#mailId").val();
 	
 	$("#branchCode12").html("");
 	$("#vendor12").html("");
 	$("#kioskId12").html("");
 	$("#kioskError12").html("");
 	$("#comment12").html("");
+	$("#contactPerson12").html("");
+	$("#contactNo12").html("");
+	$("#mailId12").html("");
+	
 
 	
 	 if(branchcode==""){
@@ -603,10 +641,26 @@ function displayErrorsOnPage() {
 	 if(kioskError=="Select"){
 		 $("#kioskError12").html("Please enter kioskError");
 	 }
+	/*  if(!contactNo.match(/^[0-9]+$/)){
+		 $("#contactPerson12").html("Please enter contact person");
+	 } */
+
+	 if(contactPerson==""){
+		$("#contactPerson12").html("Please enter contactPerson");
+	 }
+	 
+	 if(!contactNo.match('[0-9]{10}') ){
+		 $("#contactNo12").html("Please enter contactNo.");
+	 }
+	 if(mailId==""){
+		 $("#mailId12").html("Please enter mailId.");
+		}
+			 
+	
 	 if(comment==""){
 		 $("#comment12").html("Please enter comment");
 	 }
-	 else{
+	  else{
 		 if (!comment.match(/^[a-zA-Z0-9., ]+$/)) 
 		    {
 			 $("#comment12").html('Only alphabets and numbers are allowed');
@@ -660,7 +714,7 @@ function cloesBox(){
 			<h3 style="color: #000000;font-size:12 px; text-align: left;">Please complete the below form for lodging complaint</h3>
 			 <!--  <span id="mailId1" style="color: red;"></span>  --> 
 			   <!--  <span id="mailId1" style="color: red;"></span>  --> 
-			<div class="col-md-12">
+			<div class="col-md-14">
 				<table>
 					<tr>
 						<td style="top: 352px; width: 190px; height: 75px;opacity: 1;"><b style="color:purple">Branch Code <b><span style="color:red">*</span></b>
@@ -668,16 +722,19 @@ function cloesBox(){
 								</td>
 						<td><form:input path="branchCode"  id="branchCode" required="required" maxlength="5"
 							 name="branchCode"  /></td>
-							 <td colspan="2"><b></b></td>
-							 <td id="branchName1">
-								 <sapn id="branchName2" style="color:black;"></sapn>
-							</td>
+							 <td colspan="2"><b></b>
+							
+							<td style="top: 352px; width: 190px; height: 75px;opacity: 1;"><b style="color:purple">Branch Name&nbsp;&nbsp;&nbsp;:</b>
+								</td><td id="branchName1"><sapn id="branchName2" style="color:black;"></sapn></td>
+							<!-- <td><b id="brCode"></b></td> -->
+							 
+							
 					</tr>
-						<!--  <tr>
+						 <tr>
 								<td></td><td>
-								 <sapn id="branchCodeNumberVal" style="color:red"></sapn>
+								 <sapn id="branchCode12" style="color:red"></sapn>
 								</td>
-								</tr> -->	 
+								</tr>  
 					<tr>
 						<td style="top: 352px; width: 190px; height: 75px;opacity: 1;"><b style="color:purple">Vendor <b><span style="color:red">*</span></b>
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>
@@ -690,6 +747,11 @@ function cloesBox(){
 							<form:option value="${listVal.vendor}" >${listVal.vendor}</form:option>
 							</c:forEach>
 						</form:select></td>
+						
+						<td colspan="2"></td>
+						<td><b style="color:purple">Vendor &nbsp;&nbsp;&nbsp;
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b></td>
+						<td><b id="vendor1"></b></td>
 						
 					</tr>
 				      <tr>
@@ -707,6 +769,12 @@ function cloesBox(){
 							<form:option value="${listVal.kioskId}" >${listVal.kioskId}</form:option>
 							</c:forEach>				
 						</form:select></td>
+						
+						<td colspan="2"></td>
+						<td><b style="color:purple">Kiosk&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>
+						</td>
+								<td><b id="kioskId56"></b></td>
+						
 					</tr>
 					
                  <tr>
@@ -716,70 +784,59 @@ function cloesBox(){
 								</td>
 						</tr>
 					<tr>
-						<td style="top: 352px; width: 190px; height: 75px;opacity: 1;"><b style="color:purple">Branch Code	&nbsp;&nbsp;
+					<!-- 	<td style="top: 352px; width: 190px; height: 75px;opacity: 1;"><b style="color:purple">Branch Code	&nbsp;&nbsp;
 						 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b></td>
-						<td><b id="brCode"></b></td>
-						<td colspan="2"></td>
+						<td><b id="brCode"></b></td> -->
+						<!-- <td colspan="2"></td>
 						<td><b style="color:purple">Vendor &nbsp;&nbsp;&nbsp;
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b></td>
 						<td><b id="vendor1"></b></td>
-                        <!--  <span id="kioskId3456">&nbsp;</span>
+                         <span id="kioskId3456">&nbsp;</span>
 						
-						<td colspan="2" id="kioskId56"></td> -->
+						<td colspan="2" id="kioskId56"></td>
 						<td colspan="2"></td>
-						<td><b style="color:purple">Kiosk
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </b></td>
-								<td><b id="kioskId56"></b></td>
+						<td><b style="color:purple">Kiosk&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b></td>
+								<td><b id="kioskId56"></b></td> -->
 						<!-- <td><b id="kioskId1"></b></td> -->
 					</tr>
-					<%-- <tr>
-						<td style="height: 75px;opacity: 1;"><b style="color:purple">Circle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b></td>
-						<td><b id="circleNew"></b></td>
-						<form:hidden path="circle" id="circle"/>
-						<td colspan="2"></td>
-						<td><b style="color:purple">Contact Person&nbsp;:</b>
-						<form:hidden path="contactPerson" /></td>
-						<td><b id="contactPerson1"></b></td>
-						<td colspan="2"><b></b></td>
-						<td><b style="color:purple">Contact Number &nbsp; :  </b>
-						<form:hidden path="contactNo" /></td>
-						<td><b id="contactNo1"></b></td>
-					</tr><tr></tr> --%>
-
-
-
-
-
+					
             <tr>
-						<td style="height: 75px;opacity: 1;"><b style="color:purple">Circle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b></td>
+            <td style="height: 75px;opacity: 1;"><b style="color:purple">Circle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b></td>
 						<td><b id="circleNew"></b></td>
 						<form:hidden path="circle" id="circle"/>
+						
 						<td colspan="2"></td>
-						<td><b style="color:purple">Contact Person&nbsp;:</b>
-							<td><form:input path="contactPerson"  id="contactPerson" required="required" name="contactPerson" 
+						<td><b style="color:purple">Contact Person&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red">*</span> :</b>
+							<td><form:input path="contactPerson"  id="contactPerson"  name="contactPerson" 
 							style=" background-color: #F2F1EF;   border-top:#F2F1EF;  border-left:whtie;
-                              border-bottom-width: 4px #F2F1EF;  width: 96%;  border-bottom-width: 0px;"/></td>
+                              border-bottom-width: 4px #F2F1EF;  width: 96%;  border-bottom-width: 0px;" maxlength="50" required="true" /></td>
 						    <td><form:hidden path="contactPerson" id="contactPerson" /></td>
-							<!-- <td><b id="contactPerson1"></b> -->
 							
-						<%-- <td><form:hidden path="contactPerson" /></td>
-						<td><b id="contactPerson1"></b></td> --%>
 						 <td colspan="1"></td> 
-						<td><b style="color:purple">Contact Details &nbsp; : </b>
-						<td><form:input path="contactNo"  id="contactNo" required="required" name="contactNo" style=" background-color: #F2F1EF;    border-top:#F2F1EF;  border-left:whtie;
-                              border-bottom-width: 4px #F2F1EF;  width: 96%;  border-bottom-width: 0px;"/></td>
+						<td><b style="color:purple">Contact No&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red;">*</span> : </b>
+						<td><form:input path="contactNo"  id="contactNo"  name="contactNo" style=" background-color: #F2F1EF;    border-top:#F2F1EF;  border-left:whtie;
+                              border-bottom-width: 4px #F2F1EF;  width: 96%;  border-bottom-width: 0px;" minlength="10" maxlength="10" required="true" />
+                              </td>
 					   <td><form:hidden path="contactNo" id="contactNo"/></td>
 					   
-					    <td colspan="1"></td>
-					   <td><form:input path="mailId"  id="mailId" name="mailId" style=" background-color: #F2F1EF;    border-top:#F2F1EF;  border-left:whtie;
-                              border-bottom-width: 4px #F2F1EF;  width: 96%;  border-bottom-width: 0px;"/></td>
-					   <td><form:hidden path="mailId" id="mailId"/></td>
+					   
+					   
+					<%-- <td style="height: 75px;opacity: 1;"><b style="color:purple">Contact No&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b></td>
+						<td><b id="contactNo"></b></td>
+						   <td><form:hidden path="contactNo" id="contactNo"/></td> --%>
+				
 					   
 					</tr>
-
+					<tr> <td></td><td></td><td><td></td><td><span id="contactPerson12" style="color:red;"/></span></td><td></td><td></td><td></td><td><span id="contactNo12" style="color:red"></span></td> </tr>
 					
-					<br/>
+					<!-- <tr>
+					
+					<td></td><td><span id="contactPerson12" style="color:red"></td><td></td><td></td><td></td><td><span id="contactPerson12" style="color:red"></span> </td>
+					<td></td><td><span id="contactNo12" style="color:red"></td><td></td><td><span id="contactNo12" style="color:red"></span> </td>
+					
+					</tr>  -->
+					
+
 					<br/>
 					<tr>
 						<td><b style="color:purple">Error on Kiosk Screen <b><span style="color:red">*</span></b>&nbsp;&nbsp; : </b>
@@ -797,9 +854,29 @@ function cloesBox(){
 								
 								</td>
 						<td style="vertical-align: bottom;"><form:textarea path="comment" row="8" column="8"  required="required"  maxlength="200" /></td>
-					</tr><tr>
-					  <td></td><td><span id="kioskError12" style="color:red"></td><td></td><td></td><td></td><td><span id="comment12" style="color:red"></span> </td>
+					
+					  <td colspan="2"></td>
+					    <td><b style="color:purple">Mail Id <b><span style="color:red">*</span></b>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </b>
+					   <td><form:input path="mailId"  id="mailId" required="required"  name="mailId" maxlength="50" style=" background-color: #F2F1EF;    border-top:#F2F1EF;  border-left:whtie;
+                              border-bottom-width: 4px #F2F1EF;  width: 96%;  border-bottom-width: 0px;"/></td>
+					   <td><form:hidden path="mailId" id="mailId"/></td>
+					   
 					</tr>
+					
+					<!-- <tr>
+					<td></td>
+					<td align="center"><span id="mailId12" style="color:red"></td>
+					</tr> -->
+					
+					<tr>
+					  <td></td><td><span id="kioskError12" style="color:red"></span></td><td></td><td></td><td></td><td><span id="comment12" style="color:red"></span> </td><td></td><td></td><td></td><td><span id="mailId12" style="color:red"></span></td>
+					</tr>
+					
+					<tr>
+					 
+					</tr>
+					
 					<tr><td colspan="5" ></td>
 						<td> <input type="button" 
 							value="Submit" onclick="saveform()" class="buttonManual" /></td>
