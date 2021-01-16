@@ -739,10 +739,23 @@ public class JasperServiceImpl implements JasperService {
 
 			else if (identifyPage.equals("zeroTxnKoisk")) {
 				logger.info("PDF File ZeroTxnKoisk !!");
-				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+				/*SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 				Date curDate = new Date();
 				String fromdate = sdf.format(curDate);
-				String todate = sdf.format(curDate);
+				String todate = sdf.format(curDate); */
+				
+				String fromdate ="";
+				String todate ="";
+				if(dateFrame.getFromDate().isEmpty() && dateFrame.getToDate().isEmpty()) {
+				
+				 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+				 Date curDate = new Date();
+				 fromdate = sdf.format(curDate);
+				 todate = sdf.format(curDate);
+				}else {
+					fromdate = dateFrame.getFromDate();
+					 todate = dateFrame.getToDate();
+				}
 
 				List<ZeroTransactionKiosksDto> list = findAllZeroTxnKoisk(fromdate, todate);
 				 if(list.isEmpty()) {
@@ -775,10 +788,18 @@ public class JasperServiceImpl implements JasperService {
 					}
 			} else if (identifyPage.equals("errorReporting")) {
 				logger.info("PDF File ErrorReporting !!");
-				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-				Date curDate = new Date();
-				String fromdate = sdf.format(curDate);
-				String todate = sdf.format(curDate);
+				String fromdate ="";
+				String todate ="";
+				if(dateFrame.getFromDate().isEmpty() && dateFrame.getToDate().isEmpty()) {
+				
+				 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+				 Date curDate = new Date();
+				 fromdate = sdf.format(curDate);
+				 todate = sdf.format(curDate);
+				}else {
+					fromdate = dateFrame.getFromDate();
+					 todate = dateFrame.getToDate();
+				}
 
 				List<ErrorReportingDto> list = findAllErrorReprting(fromdate, todate);
 				 if(list.isEmpty()) {
@@ -1458,10 +1479,23 @@ public class JasperServiceImpl implements JasperService {
 					}
 			} else if (identifyPage.equals("zeroTxnKoisk")) {
 				logger.info("Excel File ZeroTxnKoisk !!");
-				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+				/*SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 				Date curDate = new Date();
 				String fromdate = sdf.format(curDate);
-				String todate = sdf.format(curDate);
+				String todate = sdf.format(curDate); */
+				
+				String fromdate ="";
+				String todate ="";
+				if(dateFrame.getFromDate().isEmpty() && dateFrame.getToDate().isEmpty()) {
+				
+				 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+				 Date curDate = new Date();
+				 fromdate = sdf.format(curDate);
+				 todate = sdf.format(curDate);
+				}else {
+					fromdate = dateFrame.getFromDate();
+					 todate = dateFrame.getToDate();
+				}
 
 				List<ZeroTransactionKiosksDto> list = findAllZeroTxnKoisk(fromdate, todate);
 				 if(list.isEmpty()) {
@@ -1494,11 +1528,19 @@ public class JasperServiceImpl implements JasperService {
 				xlsx(jasperPrint, filename);
 					}
 			} else if (identifyPage.equals("errorReporting")) {
-				logger.info("PDF File ErrorReporting !!");
-				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-				Date curDate = new Date();
-				String fromdate = sdf.format(curDate);
-				String todate = sdf.format(curDate);
+				logger.info("Excel File ErrorReporting !!");
+				String fromdate ="";
+				String todate ="";
+				if(dateFrame.getFromDate().isEmpty() && dateFrame.getToDate().isEmpty()) {
+				
+				 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+				 Date curDate = new Date();
+				 fromdate = sdf.format(curDate);
+				 todate = sdf.format(curDate);
+				}else {
+					fromdate = dateFrame.getFromDate();
+					 todate = dateFrame.getToDate();
+				}
 
 				List<ErrorReportingDto> list = findAllErrorReprting(fromdate, todate);
 				 if(list.isEmpty()) {
@@ -1983,7 +2025,9 @@ public class JasperServiceImpl implements JasperService {
 		  
 		  if((dateFrame.getFromDate()!= "") && (dateFrame.getToDate()!= "")) {
 		  
-		  fromdate = dateFrame.getFromDate(); todate = dateFrame.getToDate(); }
+		  fromdate = dateFrame.getFromDate(); 
+		  todate = dateFrame.getToDate();
+		  }
 		 
 		List<ErrorReporting> list = errorReportingRepositoryPaging.findAllErrReport(fromdate, todate);
 		List<ErrorReportingDto> entities = ObjectMapperUtils.mapAll(list, ErrorReportingDto.class);

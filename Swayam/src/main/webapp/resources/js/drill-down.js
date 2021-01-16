@@ -1,6 +1,6 @@
 var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter', 'ui.grid.resizeColumns']);
 
-app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function ($scope, $filter,DrillDownService) {
+app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService','uiGridConstants', function ($scope, $filter,DrillDownService,uiGridConstants) {
    var paginationOptions = {
      pageNumber: 1,
 	 pageSize: 20,
@@ -173,7 +173,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
     paginationPageSize: paginationOptions.pageSize,	
 	enableColumnMenus:false,
 	useExternalPagination: true,	
-      
+    showColumnFooter: true, 
       headerTemplate: 'km/headerTemplate',
       superColDefs: [{
           name: 'front',
@@ -200,20 +200,22 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService', function
       { name: 'name',
       	  exporterSuppressExport: true,
       	  headerCellTemplate: '<div>Circle</div>',
+      	  aggregationLabel : "Total: ",
       	  superCol: 'front',
       	  cellTemplate: '<div class="ui-grid-cell-contents"><a  style="cursor: hand;cursor: pointer;" ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.code)">{{row.entity.name}}</a></div>'
       },
-      { name: 'branchCodeCount', displayName: 'Total Swayam Branches',superCol: 'front'  },
-      { name: 'totalSwayamKiosks', displayName: 'Total Swayam Kiosks',superCol: 'front'  },
-      { name: 'lipiKiosks', displayName: 'Kiosks',superCol: 'LIPI'  },
-      { name: 'lipiTxns', displayName: 'Txns',superCol: 'LIPI'  },
-      { name: 'forbesKiosks', displayName: 'Kiosks',superCol: 'Forbes'  },
-      { name: 'forbesTxns', displayName: 'Txns',superCol: 'Forbes'  },
-      { name: 'cmsKiosks', displayName: 'Kiosks',superCol: 'CMS'  },
-      { name: 'cmsTxns', displayName: 'Txns',superCol: 'CMS'  },
-      { name: 'totalSwayamTxns', displayName: 'Swayam Txns',superCol: 'total'  },
-      { name: 'totalBranchCounterTxns', displayName: 'Branch Counter Txns',superCol: 'total'  },
-      { name: 'migrationPercentage', displayName: 'Migration Percentage(%)',superCol: 'back'  }
+      { name: 'branchCodeCount', displayName: 'Total Swayam Branches',superCol: 'front',aggregationType: uiGridConstants.aggregationTypes.sum , aggregationHideLabel: true, width: '7%'  },
+      { name: 'totalSwayamKiosks', displayName: 'Total Swayam Kiosks',superCol: 'front' ,aggregationType: uiGridConstants.aggregationTypes.sum, aggregationHideLabel: true, width: '7%'  },
+      { name: 'lipiKiosks', displayName: 'Kiosks',superCol: 'LIPI'  ,aggregationType: uiGridConstants.aggregationTypes.sum, aggregationHideLabel: true, width: '7%'},
+      { name: 'lipiTxns', displayName: 'Txns',superCol: 'LIPI' ,aggregationType: uiGridConstants.aggregationTypes.sum, aggregationHideLabel: true, width: '7%' },
+      { name: 'forbesKiosks', displayName: 'Kiosks',superCol: 'Forbes'  ,aggregationType: uiGridConstants.aggregationTypes.sum, aggregationHideLabel: true, width: '7%'},
+      { name: 'forbesTxns', displayName: 'Txns',superCol: 'Forbes' ,aggregationType: uiGridConstants.aggregationTypes.sum, aggregationHideLabel: true, width: '7%' },
+      { name: 'cmsKiosks', displayName: 'Kiosks',superCol: 'CMS' ,aggregationType: uiGridConstants.aggregationTypes.sum, aggregationHideLabel: true, width: '7%' },
+      { name: 'cmsTxns', displayName: 'Txns',superCol: 'CMS' ,aggregationType: uiGridConstants.aggregationTypes.sum, aggregationHideLabel: true, width: '7%' },
+      { name: 'totalSwayamTxns', displayName: 'Swayam Txns',superCol: 'total' ,aggregationType: uiGridConstants.aggregationTypes.sum, aggregationHideLabel: true, width: '7%' },
+      { name: 'totalBranchCounterTxns', displayName: 'Branch Counter Txns',superCol: 'total' ,aggregationType: uiGridConstants.aggregationTypes.sum, aggregationHideLabel: true, width: '7%' },
+      { name: 'migrationPercentage', displayName: 'Migration Percentage(%)',superCol: 'back'  ,aggregationType: uiGridConstants.aggregationTypes.avg , aggregationHideLabel: true,width: '7%',
+       footerCellFilter : 'number : 2'}
     ],
     onRegisterApi: function(gridApi) {
         $scope.gridApi = gridApi;
