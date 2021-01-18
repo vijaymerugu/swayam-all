@@ -99,7 +99,7 @@ public class UploadServiceImpl implements UploadService {
 			 */
 
 			inputStream = new FileInputStream(path);
-			logger.info("7 A.file read successfully!! "+ path);
+		//	logger.info("7 A.file read successfully!! "+ path);
 			// new File("C:\\Users\\Admin\\Downloads\\Swayam_Kiosk_Information.xlsx"));
 
 			// -------By Ankur END---------------------------
@@ -639,11 +639,11 @@ public class UploadServiceImpl implements UploadService {
 					try {
 					String sDate1=lidtDto1.getInstallationDate();
 					  
-					  logger.info("Installation date in entity format: "+sDate1); 
+				//	  logger.info("Installation date in entity format: "+sDate1); 
 					  
 					  sDate1= sDate1.replaceAll("/", "-")
 						  		.replaceAll("-", "-");
-						  logger.info("replaced date in entity format: "+sDate1); 
+					//	  logger.info("replaced date in entity format: "+sDate1); 
 						 				
 						  Date date =new Date();
 					
@@ -653,7 +653,7 @@ public class UploadServiceImpl implements UploadService {
 					  
 					  installationDate =  new SimpleDateFormat("dd-mm-yyyy").format(date);
 					  
-					  logger.info("installationDate date in String format: "+installationDate);
+				//	  logger.info("installationDate date in String format: "+installationDate);
 					  entity.setInstallationDate(installationDate);//3
 					}
 					catch (Exception e) {
@@ -891,7 +891,7 @@ public class UploadServiceImpl implements UploadService {
 		
 		try {
 			// this Writes the workbook KioskC
-			logger.info("Error file path: "+reportPath1+filename);
+		//	logger.info("Error file path: "+reportPath1+filename);
 			FileOutputStream out = new FileOutputStream(new File(reportPath1+filename));
 			workbook1.write(out);
 			out.close();
@@ -1953,7 +1953,7 @@ public class UploadServiceImpl implements UploadService {
 		
 		try {
 			// this Writes the workbook KioskC
-			logger.info("Error file path: "+reportPath1+filename);
+		//	logger.info("Error file path: "+reportPath1+filename);
 			FileOutputStream out = new FileOutputStream(
 					new File(reportPath1+filename));
 			workbook1.write(out);
@@ -1981,7 +1981,7 @@ public class UploadServiceImpl implements UploadService {
 			// String holidayCalendarFilePath = rb.getString("CBSBrhmFilepath");
 			// String holidayCalendarFilePath = rb.getString(path);
 			inputStream = new FileInputStream(new File(path));
-			logger.info("7 A.file read successfully!! "+ path);
+		//	logger.info("7 A.file read successfully!! "+ path);
 			// -------By Ankur END---------------------------
 
 			workbook = new XSSFWorkbook(inputStream);
@@ -2187,11 +2187,11 @@ public class UploadServiceImpl implements UploadService {
 					try {	
 						  String sDate1=lidtDto1.getHolidayDate();
 						  
-						  logger.info("Holiday date in entity format: "+sDate1);
+					//	  logger.info("Holiday date in entity format: "+sDate1);
 						 
 						  sDate1= sDate1.replaceAll("/", "-")
 						  		.replaceAll("-", "-");
-						  logger.info("replaced date in entity format: "+sDate1); 
+					//	  logger.info("replaced date in entity format: "+sDate1); 
 						 				
 						  Date date =new Date();
 					
@@ -2201,7 +2201,7 @@ public class UploadServiceImpl implements UploadService {
 					
 						  holidayDate =  new SimpleDateFormat("dd-mm-yyyy").format(date);
 						   
-						  logger.info("Holiday date in String format: "+holidayDate);
+						//  logger.info("Holiday date in String format: "+holidayDate);
 						  entity.setHolidayDate(holidayDate);
 					}
 					catch (Exception e) {
@@ -2382,7 +2382,7 @@ public class UploadServiceImpl implements UploadService {
 		try {
 
 			inputStream = new FileInputStream(new File(path));
-			logger.info("7 A.file read successfully!! "+ path);
+		//	logger.info("7 A.file read successfully!! "+ path);
 			workbook = new XSSFWorkbook(inputStream);
 			logger.info("7 B.workbook parsing started!!");
 			/* HashMap<Integer,String> map=null; */
@@ -2475,7 +2475,7 @@ public class UploadServiceImpl implements UploadService {
 						}
 
 				//	}
-					logger.info(" 1st close while loop- "+i++);
+				//	logger.info(" 1st close while loop- "+i++);
 
 				} // 1st close while loop
 				lidtDto.add(dto);
@@ -2493,7 +2493,7 @@ public class UploadServiceImpl implements UploadService {
 					return "Header missing in file";
 				}
 				//lidtDto.remove(0);
-				logger.info("2nd close while loop - "+j++);
+			//	logger.info("2nd close while loop - "+j++);
 			} // 2nd close while loop
 
 			UserKioskMapping entity = null;
@@ -2524,11 +2524,11 @@ public class UploadServiceImpl implements UploadService {
 				Optional<String> checkNullCmfPfId = Optional.ofNullable(lidtDto1.getCmfPfId());
 				Optional<String> checkNullgetKioskId = Optional.ofNullable(lidtDto1.getKioskId());
 				if (( lidtDto1.getKioskId() != null )						
-						&& ( lidtDto1.getCmfPfId() != null )) { logger.info("i m inside if clause: "+ count);
+						&& ( lidtDto1.getCmfPfId() != null )) {// logger.info("i m inside if clause: "+ count);
 					
 				}else
 				if (checkNullgetKioskId.isPresent() || checkNullCmfPfId.isPresent() || lidtDto1.getCmfPfId() == null || lidtDto1.getKioskId() == null
-						|| checkNullgetKioskId.get().trim().equals("") || checkNullCmfPfId.get().trim().equals("")) { logger.info("i m inside else-if clause: "+ count);
+						|| checkNullgetKioskId.get().trim().equals("") || checkNullCmfPfId.get().trim().equals("")) { //logger.info("i m inside else-if clause: "+ count);
 					entity = new UserKioskMapping();
 					entity.setPfId(lidtDto1.getCmfPfId());
 					entity.setKioskId(lidtDto1.getKioskId());
@@ -2639,7 +2639,7 @@ public class UploadServiceImpl implements UploadService {
 		
 		try {
 			// this Writes the workbook KioskC  reportPath1
-			logger.info("Error file path: "+reportPath1+filename);
+		//	logger.info("Error file path: "+reportPath1+filename);
 			FileOutputStream out = new FileOutputStream(
 					new File(reportPath1+filename));
 			workbook1.write(out);
@@ -2661,7 +2661,7 @@ public class UploadServiceImpl implements UploadService {
 			try {
 
 				inputStream = new FileInputStream(new File(path));
-				logger.info("7 A.file read successfully!! "+ path);
+			//	logger.info("7 A.file read successfully!! "+ path);
 				workbook = new XSSFWorkbook(inputStream);
 				logger.info("7 B.workbook parsing started!!");
 				/* HashMap<Integer,String> map=null; */
@@ -2881,7 +2881,7 @@ public class UploadServiceImpl implements UploadService {
 							}
 
 						}
-						logger.info(" 1st close while loop- "+i++);
+				//		logger.info(" 1st close while loop- "+i++);
 
 					} // 1st close while loop
 					lidtDto.add(dto);
@@ -2900,7 +2900,7 @@ public class UploadServiceImpl implements UploadService {
 						
 						return "Header missing in file";
 					}
-					logger.info("2nd close while loop - "+j++);
+				//	logger.info("2nd close while loop - "+j++);
 				} // 2nd close while loop
 
 				InvoiceVendor entity = null;
@@ -2929,11 +2929,11 @@ public class UploadServiceImpl implements UploadService {
 						try {
 						String sDate1=lidtDto1.getInvDt();
 						  
-						  logger.info("invoice date in entity format: "+sDate1); 
+					//	  logger.info("invoice date in entity format: "+sDate1); 
 						  
 						  sDate1= sDate1.replaceAll("/", "-")
 							  		.replaceAll("-", "-");
-							  logger.info("replaced date in entity format: "+sDate1); 
+					//		  logger.info("replaced date in entity format: "+sDate1); 
 							 				
 							  Date date =new Date();
 						
@@ -2943,7 +2943,7 @@ public class UploadServiceImpl implements UploadService {
 						  
 							  invoiceDate =  new SimpleDateFormat("dd-mm-yyyy").format(date);
 						  
-						  logger.info("installationDate date in String format: "+invoiceDate);
+					//	  logger.info("installationDate date in String format: "+invoiceDate);
 						  entity.setInvDt(invoiceDate);//3
 						}
 						catch (Exception e) {
@@ -2960,11 +2960,11 @@ public class UploadServiceImpl implements UploadService {
 						try {
 						String sDate1=lidtDto1.getInvoiceFrom();
 						  
-						  logger.info("invoice date in entity format: "+sDate1); 
+					//	  logger.info("invoice date in entity format: "+sDate1); 
 						  
 						  sDate1= sDate1.replaceAll("/", "-")
 							  		.replaceAll("-", "-");
-							  logger.info("replaced date in entity format: "+sDate1); 
+						//	  logger.info("replaced date in entity format: "+sDate1); 
 							 				
 							  Date date =new Date();
 						
@@ -2974,7 +2974,7 @@ public class UploadServiceImpl implements UploadService {
 						  
 							  invoiceFrom =  new SimpleDateFormat("dd-mm-yyyy").format(date);
 						  
-						  logger.info("installationDate date in String format: "+invoiceFrom);
+						//  logger.info("installationDate date in String format: "+invoiceFrom);
 						  entity.setInvoiceFrom(invoiceFrom);//3
 						}
 						catch (Exception e) {
@@ -2988,11 +2988,11 @@ public class UploadServiceImpl implements UploadService {
 						try {
 						String sDate1=lidtDto1.getInvoiceUpTo();
 						  
-						  logger.info("invoice date in entity format: "+sDate1); 
+						//  logger.info("invoice date in entity format: "+sDate1); 
 						  
 						  sDate1= sDate1.replaceAll("/", "-")
 							  		.replaceAll("-", "-");
-							  logger.info("replaced date in entity format: "+sDate1); 
+						//	  logger.info("replaced date in entity format: "+sDate1); 
 							 				
 							  Date date =new Date();
 						
@@ -3002,7 +3002,7 @@ public class UploadServiceImpl implements UploadService {
 						  
 							  invoiceUpto =  new SimpleDateFormat("dd-mm-yyyy").format(date);
 						  
-						  logger.info("installationDate date in String format: "+invoiceUpto);
+					//	  logger.info("installationDate date in String format: "+invoiceUpto);
 						  entity.setInvoiceUpTo(invoiceUpto);//3
 						}
 						catch (Exception e) {
@@ -3052,7 +3052,7 @@ public class UploadServiceImpl implements UploadService {
 							&& !checkNullInvoiceUpTo.get().equals("")
 							&& lidtDto1.getInvoiceAmt() != null
 							&& lidtDto1.getShipAdd() != null
-							&& lidtDto1.getShipState() != null) { logger.info("i m inside if clause: "+ count);
+							&& lidtDto1.getShipState() != null) { //logger.info("i m inside if clause: "+ count);
 						
 					}else
 					if (!checkNullFinYear.isPresent() || checkNullFinYear.get().trim().equals("")	|| 	lidtDto1.getFinYear()== null
@@ -3065,7 +3065,7 @@ public class UploadServiceImpl implements UploadService {
 							|| !checkNullInvoiceUpTo.isPresent() || checkNullInvoiceUpTo.get().equals("") || lidtDto1.getInvoiceUpTo().trim() == ""
 							|| !checkNullInvoiceAmt.isPresent() || checkNullInvoiceAmt.get().equals(0) || lidtDto1.getInvoiceAmt() == null
 							|| !checkNullShipAdd.isPresent() || checkNullShipAdd.get().equals("") || lidtDto1.getShipAdd() == null
-							|| !checkNullShipState.isPresent() || checkNullShipState.get().equals("") || lidtDto1.getShipState() == null) { logger.info("i m inside else-if clause: "+ count);
+							|| !checkNullShipState.isPresent() || checkNullShipState.get().equals("") || lidtDto1.getShipState() == null) {// logger.info("i m inside else-if clause: "+ count);
 						entity = new InvoiceVendor();
 						entity.setFinYear(lidtDto1.getFinYear());
 						entity.setInvNo(lidtDto1.getInvNo()== null ? 0 : lidtDto1.getInvNo() );
@@ -3209,7 +3209,7 @@ public class UploadServiceImpl implements UploadService {
 			
 			try {
 				// this Writes the workbook KioskC  reportPath1
-				logger.info("Error file path: "+reportPath1+filename);
+		//		logger.info("Error file path: "+reportPath1+filename);
 				FileOutputStream out = new FileOutputStream(
 						new File(reportPath1+filename));
 				workbook1.write(out);
