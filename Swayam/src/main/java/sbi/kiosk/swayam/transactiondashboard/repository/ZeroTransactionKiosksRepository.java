@@ -51,12 +51,14 @@ public interface ZeroTransactionKiosksRepository extends PagingAndSortingReposit
 			+ " WHERE   upper(km.kiosk_id) NOT IN ( SELECT  upper(str.kiosk_id)  FROM  tbl_swayam_txn_report str"
 			+ " WHERE TO_DATE(str.txn_date,'dd-mm-yyyy') >= TO_DATE(:fromdate,'dd-mm-yyyy')  AND  "
 			+ " TO_DATE(str.txn_date,'dd-mm-yyyy') <= TO_DATE(:todate,'dd-mm-yyyy') ) "
-			+ " AND (bm.CRCL_NAME=:searchText OR bm.NETWORK=:searchText OR bm.MODULE=:searchText OR bm.REGION=:searchText OR bm.BRANCH_CODE=:searchText OR bm.BRANCH_NAME=:searchText) "
+			+ " AND (bm.CRCL_NAME=:searchText OR bm.NETWORK=:searchText OR bm.MODULE=:searchText OR bm.REGION=:searchText OR bm.BRANCH_CODE=:searchText OR bm.BRANCH_NAME=:searchText or concat('NET-0',substr(bm.network,1,1))= :searchText "  
+								+ " or km.kiosk_id=:searchText ) "
 			,nativeQuery=true,countQuery="SELECT count(KM.BRANCH_CODE)  FROM  tbl_branch_master bm   JOIN tbl_kiosk_master km ON bm.branch_code = km.branch_code "
 					+ " WHERE   upper(km.kiosk_id) NOT IN ( SELECT  upper(str.kiosk_id)  FROM  tbl_swayam_txn_report str"
 					+ " WHERE TO_DATE(str.txn_date,'dd-mm-yyyy') >= TO_DATE(:fromdate,'dd-mm-yyyy')  AND  "
 					+ " TO_DATE(str.txn_date,'dd-mm-yyyy') <= TO_DATE(:todate,'dd-mm-yyyy') ) "
-					+ "AND (bm.CRCL_NAME=:searchText OR bm.NETWORK=:searchText OR bm.MODULE=:searchText OR bm.REGION=:searchText OR bm.BRANCH_CODE=:searchText OR bm.BRANCH_NAME=:searchText) ")
+					+ "AND (bm.CRCL_NAME=:searchText OR bm.NETWORK=:searchText OR bm.MODULE=:searchText OR bm.REGION=:searchText OR bm.BRANCH_CODE=:searchText  OR bm.BRANCH_NAME=:searchText or concat('NET-0',substr(bm.network,1,1))= :searchText "  
+					+ "or km.kiosk_id=:searchText ) ")
         
         			Page<ZeroTransactionKiosks> findByDateSearchNext(@Param("fromdate") String fromdate,@Param("todate") String todate,@Param("searchText") String searchText,Pageable pageable);
 	
