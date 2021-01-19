@@ -29,11 +29,11 @@ public interface ErrorReportingRepositoryPaging extends PagingAndSortingReposito
 			+ "   FROM TBL_BRANCH_MASTER BM  JOIN TBL_SWAYAM_TXN_REPORT STR ON BM.BRANCH_CODE = STR.BRANCH_CODE "
 			+ " LEFT OUTER JOIN TBL_ERROR_STATS ERRs ON ERRs.KIOSK_ID = STR.KIOSK_ID  WHERE to_date(STR.TXN_DATE, 'dd-mm-yyyy')"
 			+ " between trunc(to_date(:fromdate, 'dd-mm-yyyy'))  and trunc(to_date(:todate, 'dd-mm-yyyy'))"
-			+ " and (BM.CRCL_NAME=:searchText or BM.BRANCH_CODE=:searchText or STR.KIOSK_ID=:searchText )",nativeQuery=true,
+			+ " and (BM.CRCL_NAME=:searchText or BM.BRANCH_CODE=:searchText or STR.KIOSK_ID=:searchText or BM.BRANCH_NAME=:searchText )",nativeQuery=true,
 			countQuery= "SELECT count(STR.KIOSK_ID)  FROM TBL_BRANCH_MASTER BM  JOIN TBL_SWAYAM_TXN_REPORT STR ON BM.BRANCH_CODE = STR.BRANCH_CODE "
 					+ " LEFT OUTER JOIN TBL_ERROR_STATS ERRs ON ERRs.KIOSK_ID = STR.KIOSK_ID  WHERE to_date(STR.TXN_DATE, 'dd-mm-yyyy')"
 					+ " between trunc(to_date(:fromdate, 'dd-mm-yyyy'))  and trunc(to_date(:todate, 'dd-mm-yyyy'))"
-					+ "and (BM.CRCL_NAME=:searchText or BM.BRANCH_CODE=:searchText or STR.KIOSK_ID=:searchText )")
+					+ "and (BM.CRCL_NAME=:searchText or BM.BRANCH_CODE=:searchText or STR.KIOSK_ID=:searchText or BM.BRANCH_NAME=:searchText)")
 	Page<ErrorReporting> findByDateSearchNext(@Param("fromdate") String fromdate,@Param("todate") String todate, @Param("searchText") String searchText,Pageable pageable);
 
 	@Query(value=" SELECT  BM.CRCL_NAME, BM.NETWORK, BM.MODULE, BM.REGION, BM.BRANCH_CODE, BM.BRANCH_NAME, "

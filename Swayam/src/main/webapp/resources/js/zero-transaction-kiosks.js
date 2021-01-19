@@ -100,8 +100,7 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
    {  	debugger;
 	   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){
 	   		
-	   		//  Added for loader------------- START 
-	        $("#loading").show();  
+	   	$("#loading").show();  
 	     // Added for loader------------- END
 	 	   ZeroTransactionKiosksService.getUsers(paginationOptions.pageNumber,
 	 			   paginationOptions.pageSize,counttype,fromDate,toDate).success(function(data){
@@ -115,7 +114,16 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
 	 		   
 	 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
 	 	  
-	 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
+	 		//   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);	
+	 	    	  $("#loading").show(); 
+	 	    	 ZeroTransactionKiosksService.getSearchNext(paginationOptions.pageNumber,
+			 	  			paginationOptions.pageSize,counttype,fromDate,toDate,$scope.searchText).success(function(data3){
+			 	 	  		 
+			 	 	  	  $scope.gridOptions.data = data3.content;
+			 	  	   	  $scope.gridOptions.totalItems = data3.totalElements;
+			 	  	      $("#loading").hide();
+			 	  	  
+			 	 	     }); 
 	 		   
 	 	    }else{
 	 	   	//  Added for loader------------- START 
@@ -166,9 +174,9 @@ debugger;
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
           paginationOptions.pageNumber = newPage;
           paginationOptions.pageSize = pageSize;
-      	//  Added for loader------------- START 
+    
           $("#loading").show();  
-       // Added for loader------------- END
+          if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){
           ZeroTransactionKiosksService.getUsers(newPage,pageSize,counttype,fromDate,toDate).success(function(data){   debugger;     	  
         	  $scope.gridOptions.data = data.content;
          	  $scope.gridOptions.totalItems = data.totalElements;
@@ -176,6 +184,18 @@ debugger;
               $("#loading").hide();  
            // Added for loader------------- END
           });
+          }
+	        else{
+	 	 	   //	console.log("Inside else");
+	        	ZeroTransactionKiosksService.getSearchNext(newPage,pageSize,counttype,fromDate,toDate,$scope.searchText).success(function(data){
+	           	  $scope.gridOptions.data = data.content;
+	           	 	  $scope.gridOptions.totalItems = data.totalElements;
+	        
+		 	 		 $("#loading").hide();  
+		 		   
+	        	  });	 
+	        
+	        	   }
         });
      }
   };
@@ -193,7 +213,7 @@ app.service('ZeroTransactionKiosksService',['$http', function ($http) {
          
         });
     }
-	function getSearchNext(pageNumber,size,counttype,fromDate,toDate, searchText) {
+	function getSearchNext(pageNumber,size,counttype,fromDate,toDate, searchText) { debugger;
 		//alert("12= fromdate=="+begin);
 		//alert("13=todate=="+end);
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
@@ -203,7 +223,9 @@ app.service('ZeroTransactionKiosksService',['$http', function ($http) {
 	    });
 	}
     return {
-    	getUsers:getUsers
+    	getUsers:getUsers,
+    	
+    	getSearchNext:getSearchNext
     };
 	
 }]);
