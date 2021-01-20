@@ -9,6 +9,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -249,9 +252,29 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 						boolean successResp=  (boolean) map.get("success");
 						logger.info("SuccessResp="+successResp);
 						String resTicketNumber=(String) map.get("resTicketNumber");
-						map.get("error");
 						logger.info("Result resTicketNumber::" + resTicketNumber);
-						
+						ArrayList<String> errro=(ArrayList<String>)map.get("error");
+						logger.info("Result errro::" + errro);
+						  String errorCode =null;
+						  String errorMessage =null;
+						 try
+					        {
+					            JSONArray jsonArray = new JSONArray(errro);
+
+					            for(int i=0;i<jsonArray.length();i++)
+					            {
+					                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+					                 errorCode = jsonObject1.optString("errorCode");
+					                logger.info("Result value1::" + errorCode);
+					                 errorMessage = jsonObject1.optString("errorMessage");
+					                logger.info("Result value2::" + errorMessage);
+					               
+					            }
+					        }
+					        catch (JSONException e)
+					        {
+					            e.printStackTrace();
+					        }
 						if(successResp==true && resTicketNumber!=null && !resTicketNumber.isEmpty()){
 							  manualEnity.setRespTicketNo(resTicketNumber);
 						      manualEnity=manualTicketCallLogRepo.save(manualEnity);
@@ -264,7 +287,8 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 								}
 								
 						}else{
-							complaintId = "Your complaint is not registered Kindly Contact with Admin.";
+							//complaintId = "Your complaint is not registered Kindly Contact with Admin.";
+							complaintId ="Your complaint is not registered:"+errorMessage+" Please Contact Administrator.";
 						}
 						
 						
@@ -348,8 +372,29 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 					boolean successResp = (boolean) map.get("success");
 					logger.info("SuccessResp=" + successResp);
 					String resTicketNumber = (String) map.get("resTicketNumber");
-					map.get("error");
 					logger.info("Result resTicketNumber::" + resTicketNumber);
+					ArrayList<String> errro=(ArrayList<String>)map.get("error");
+					logger.info("Result errro::" + errro);
+					  String errorCode =null;
+					  String errorMessage =null;
+					 try
+				        {
+				            JSONArray jsonArray = new JSONArray(errro);
+
+				            for(int i=0;i<jsonArray.length();i++)
+				            {
+				                JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+				                 errorCode = jsonObject1.optString("errorCode");
+				                logger.info("Result value1::" + errorCode);
+				                 errorMessage = jsonObject1.optString("errorMessage");
+				                logger.info("Result value2::" + errorMessage);
+				               
+				            }
+				        }
+				        catch (JSONException e)
+				        {
+				            e.printStackTrace();
+				        }
 
 					if(successResp==true && resTicketNumber!=null && !resTicketNumber.isEmpty()){
 						  manualEnity.setRespTicketNo(resTicketNumber);
@@ -363,7 +408,9 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 							}
 							
 					}else{
-						complaintId = "Your complaint is not registered Kindly Contact with Admin.";
+						
+						//complaintId = "Your complaint is not registered Kindly Contact with Admin.";
+						complaintId ="Your complaint is not registered:"+errorMessage+" Please Contact Administrator.";
 					}
 					
 				}else{
@@ -431,7 +478,7 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 			//dto.setCircle(user.getCircle());
 			dto.setContactPerson(userObj.getUsername());
 			dto.setContactNo(userObj.getPhoneNo());
-			dto.setKioskError("Printer Error");
+			//dto.setKioskError("Printer Error");
 			dto.setMailId(userObj.getMailId());
 			dtoList.add(dto);
 		}
