@@ -434,8 +434,15 @@ $(document).ready(function(){
 	                   $("#circle").append('<option value='+respos[index].circle+'>'+respos[index].circle+'</option>'); 
 	                  /* $("#contactPerson").append('<option value='+respos[index].contactPerson+'>'+respos[index].contactPerson+'</option>');
 	                  $("#contactNo").append('<option value='+respos[index].contactNo+'>'+respos[index].contactNo+'</option>');
-	                 */ $('#kioskError').append('<option value='+respos[index].kioskError+'>'+respos[index].kioskError+'</option>');
-	                  //$("#vendor").html($("#vendor").val());
+	                 */ 
+	                 
+	                 /*  if(respos[index].kioskError === "" || respos[index].kioskError === null || respos[index].kioskError === undefined) {
+		                	// alert("111"+respos[index]);
+		                     delete respos[index];
+		                 }
+		               console.log("inside kioskError-----"+respos[index].kioskError);
+	                 $('#kioskError').append('<option value='+respos[index].kioskError+'>'+respos[index].kioskError+'</option>');
+	                */   //$("#vendor").html($("#vendor").val());
 	                   
 	                    
 	                   $("#kioskId1").html($("#kioskId").val());
@@ -451,6 +458,15 @@ $(document).ready(function(){
 	                  $("#contactPerson").val(respos[index].contactPerson);  
 	                  $("#contactNo").val(respos[index].contactNo); 
 	                  $("#mailId").val(respos[index].mailId);
+	                  if(respos[index].kioskError === "" || respos[index].kioskError === null || respos[index].kioskError === undefined) {
+		                	// alert("111"+respos[index]);
+		                     delete respos[index];
+		                 }
+		               console.log("inside kioskError-----"+respos[index].kioskError);
+	                 $('#kioskError').append('<option value='+respos[index].kioskError+'>'+respos[index].kioskError+'</option>');
+	                      
+	                  	
+	                  
 	                 //alert("inside mailId----------", $("#mailId1").html(respos[index].mailId));
 	               //console.log("inside contaNo----------"+respos[index].mailId);
 	                  //comments by sate
