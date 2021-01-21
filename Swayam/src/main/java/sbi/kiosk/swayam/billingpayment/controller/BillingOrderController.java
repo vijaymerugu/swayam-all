@@ -103,15 +103,15 @@ public class BillingOrderController  {
 	public Page<DisplayAllocation> findPaginated(
 		      @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("type") String type ) {
 		 
-		logger.info("type=========Ankur========="+type);
-		logger.info("size"+size);
+		logger.info("type=================="+type);
+		//logger.info("size"+size);
 
 		Page<DisplayAllocation> resultPage = null;
 		
 	
 			
 	      resultPage = allocationRepoistory.findAll(PageRequest.of(page, size));
-	      logger.info("resultPage"+resultPage);
+	     // logger.info("resultPage"+resultPage);
 	      
 	      
 		    if (page > resultPage.getTotalPages()){
@@ -135,43 +135,44 @@ public class BillingOrderController  {
 						List<String> fileNames = new ArrayList<String>();
 						String fileName = file.getOriginalFilename();
 						fileNames.add(fileName);
-						logger.info("1.File Name========== "+file.getOriginalFilename());
+						//logger.info("1.File Name========== "+file.getOriginalFilename());
 						File imageFile = new File(context.getRealPath("/resources/upload"));
-						logger.info("imageFile path: "+imageFile.getPath());
-						logger.info("imageFile path1: "+context.getRealPath("/resources/upload"));
+						//logger.info("imageFile path: "+imageFile.getPath());
+						//logger.info("imageFile path1: "+context.getRealPath("/resources/upload"));
 						
 						if (!imageFile.exists())
 						{
 						imageFile.mkdirs();
-						logger.info("Directory created!!!"+imageFile);
+						//logger.info("Directory created!!!"+imageFile);
 						}
 						//	imageFile = new File(context.getRealPath("/resources/upload"), fileName);
 						String path = context.getRealPath("/resources/upload") + File.separator + fileName;
-						logger.info("2.Path============ "+path);
+						//logger.info("2.Path============ "+path);
 						File destinationFile = new File(path);	
-						logger.info("3.name============= "+destinationFile.getName());
-						logger.info("//////////A.File transfer started!!!!!!!!!!!////////////////");
+						//logger.info("3.name============= "+destinationFile.getName());
+						//logger.info("//////////A.File transfer started!!!!!!!!!!!////////////////");
 						
 					//	file.transferTo(destinationFile);
 						// read and write the file to the selected location-
 						byte[] bytes = file.getBytes();
 						Path path1 = Paths.get(uploadpath + file.getOriginalFilename());
-						logger.info("File write path: "+path1.toString());
+						//logger.info("File write path: "+path1.toString());
 						Files.write(path1, bytes);
 						
-						logger.info("/////////////////File transfer completed: "+path1.toString());
-						logger.info("4.File Transfer done!!!!!!!!!");
+					//	logger.info("/////////////////File transfer completed: "+path1.toString());
+						//logger.info("4.File Transfer done!!!!!!!!!");
 						path = uploadpath  + file.getOriginalFilename();
-						logger.info("5.uploadedFiles path=========== " + path);
+					//	logger.info("5.uploadedFiles path=========== " + path);
 						uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
-						logger.info("6.uploadedFiles=========== " + uploadedFiles);
+						//logger.info("6.uploadedFiles=========== " + uploadedFiles);
 						
 						
 
 					}
 
 				} catch (Exception e) {
-					logger.error(e.getMessage());
+					logger.error("Exception "+ExceptionConstants.EXCEPTION);
+
 				}
 
 			}
@@ -199,7 +200,7 @@ public class BillingOrderController  {
 			ModelAndView modelAndView = new ModelAndView("upload");
 			modelAndView.addObject("files", uploadedFiles);
 			String name1 = uploadedFiles.get(0).getName();
-			logger.info("6.name1=======" + name1);
+			//logger.info("6.name1=======" + name1);
 
 			File dir = new File(uploadpath);
 					//new File(rootPath + File.separator + "src\\main\\webapp\\WEB-INF\\uploaded");
@@ -208,23 +209,23 @@ public class BillingOrderController  {
 
 			// Create the file on server
 			File serverFile = new File(dir.getAbsolutePath() + File.separator + name1);
-			logger.info("7.Dir AbsolutePath=============" + dir.getAbsolutePath());
+			//logger.info("7.Dir AbsolutePath=============" + dir.getAbsolutePath());
 			
 			String path = serverFile.getAbsolutePath();	
-			logger.info("8.Server File Location===========" + path);
+		//	logger.info("8.Server File Location===========" + path);
 			
 //			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 //			String vendor = gson.toJson(vendorRepository.findAll());
 //			String circle = gson.toJson(circleRepository.findAll());
 			
 			String result = billingService.upload(path);
-			logger.info("9.Result part done: " + result);
+		//	logger.info("9.Result part done: " + result);
 			 
 			//ResponseEntity<InvoiceUpdateReposne> entity = ResponseEntity.ok(new InvoiceUpdateReposne("", result));
 			
 			ResponseEntity<String> entity = ResponseEntity.ok(result);
 
-			logger.info("10.Transfer to entity");
+			//logger.info("10.Transfer to entity");
 			
 			return entity;
 		}
@@ -241,7 +242,7 @@ public class BillingOrderController  {
 	  				
 	  				logger.info("Inside updateCorrections");
 	  				UserDto user = (UserDto) session.getAttribute("userObj");
-	  				System.out.println("Username " + user.getUsername());
+	  			//	System.out.println("Username " + user.getUsername());
 	  				
 	  				//Optional<BillingPurchaseOrder> podetails=repo.findById(poNumber);
 	  				Optional<Allocation> allocationdetails=allocationRepository.findById(allocId);
@@ -261,8 +262,8 @@ public class BillingOrderController  {
 	  				order.setPoNumber(0);
 	  				order.setUpdatdBy(user.getUsername());
 	  				order.setUpdatdDate(new Date());
-	  				System.out.println("Pd oder date " + order.getPoDate());
-	  				System.out.println("Pd Quantity " + order.getPoQantity());
+	  				//System.out.println("Pd oder date " + order.getPoDate());
+	  				//System.out.println("Pd Quantity " + order.getPoQantity());
 	  				
 	  				if (allocation.getRemainingQuantity()==0) {
 	  					allocation.setStatus("0");
