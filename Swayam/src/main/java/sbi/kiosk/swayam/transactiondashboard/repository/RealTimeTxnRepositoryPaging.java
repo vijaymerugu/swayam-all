@@ -16,30 +16,78 @@ public interface RealTimeTxnRepositoryPaging extends PagingAndSortingRepository<
 	
 	//Page<RealTimeTransaction> findByFromDate(Pageable pageable,@Param("fromdate") String fromdate,@Param("todate") String todate);
 	
+	/* Commented by Manisha on 20-Jan-2021
+	 * @Query(
+	 * value="SELECT  BM.CRCL_NAME CRCL_NAME, BM.NETWORK NETWORK, BM.MODULE MODULE, BM.REGION REGION, BM.BRANCH_CODE BRANCH_CODE, BM.BRANCH_NAME BRANCH_NAME,"
+	 * + "STR.KIOSK_ID KIOSK_ID, STR.NO_OF_TXNS NO_OF_TXNS, STR.VENDOR VENDOR "+
+	 * "FROM TBL_BRANCH_MASTER BM "+
+	 * "JOIN TBL_SWAYAM_TXN_REPORT STR ON BM.BRANCH_CODE = STR.BRANCH_CODE "+
+	 * "AND to_date(STR.TXN_DATE,'dd-mm-yyyy')=to_date(:fromdate,'dd-mm-yyyy')  ORDER BY STR.TXN_DATE  DESC"
+	 * ,nativeQuery=true,countQuery =
+	 * "SELECT count(STR.BRANCH_CODE)  FROM TBL_BRANCH_MASTER BM JOIN TBL_SWAYAM_TXN_REPORT STR "
+	 * +
+	 * " ON BM.BRANCH_CODE = STR.BRANCH_CODE AND to_date(STR.TXN_DATE,'dd-mm-yyyy')=to_date(:fromdate,'dd-mm-yyyy')  ORDER BY STR.TXN_DATE  DESC"
+	 * )
+	 */
+	
 	@Query(value="SELECT  BM.CRCL_NAME CRCL_NAME, BM.NETWORK NETWORK, BM.MODULE MODULE, BM.REGION REGION, BM.BRANCH_CODE BRANCH_CODE, BM.BRANCH_NAME BRANCH_NAME,"+ 
             "STR.KIOSK_ID KIOSK_ID, STR.NO_OF_TXNS NO_OF_TXNS, STR.VENDOR VENDOR "+  
             "FROM TBL_BRANCH_MASTER BM "+ 
     "JOIN TBL_SWAYAM_TXN_REPORT STR ON BM.BRANCH_CODE = STR.BRANCH_CODE "+  
-    "AND to_date(STR.TXN_DATE,'dd-mm-yyyy')=to_date(:fromdate,'dd-mm-yyyy')  ORDER BY STR.TXN_DATE  DESC",nativeQuery=true,countQuery = "SELECT count(STR.BRANCH_CODE)  FROM TBL_BRANCH_MASTER BM JOIN TBL_SWAYAM_TXN_REPORT STR "
-    		+ " ON BM.BRANCH_CODE = STR.BRANCH_CODE AND to_date(STR.TXN_DATE,'dd-mm-yyyy')=to_date(:fromdate,'dd-mm-yyyy')  ORDER BY STR.TXN_DATE  DESC" )
+    "AND STR.TXN_DATE=to_date(:fromdate,'dd-mm-yyyy')  ORDER BY STR.TXN_DATE  DESC",nativeQuery=true,countQuery = "SELECT count(STR.BRANCH_CODE)  FROM TBL_BRANCH_MASTER BM JOIN TBL_SWAYAM_TXN_REPORT STR "
+    		+ " ON BM.BRANCH_CODE = STR.BRANCH_CODE AND STR.TXN_DATE=to_date(:fromdate,'dd-mm-yyyy')  ORDER BY STR.TXN_DATE  DESC" )
+	
 	Page<RealTimeTransaction> findByFromDate(@Param("fromdate") String fromdate, Pageable pageable);
 	
-	@Query(value="SELECT  BM.CRCL_NAME CRCL_NAME, BM.NETWORK NETWORK, BM.MODULE MODULE, BM.REGION REGION, BM.BRANCH_CODE BRANCH_CODE, BM.BRANCH_NAME BRANCH_NAME,"+ 
-            "STR.KIOSK_ID KIOSK_ID, STR.NO_OF_TXNS NO_OF_TXNS, STR.VENDOR VENDOR "+  
-            "FROM TBL_BRANCH_MASTER BM "+ 
-    "JOIN TBL_SWAYAM_TXN_REPORT STR ON BM.BRANCH_CODE = STR.BRANCH_CODE "+  
-    "AND to_date(STR.TXN_DATE,'dd-mm-yyyy')=to_date(:fromdate,'dd-mm-yyyy') "+
-    "and (BM.CRCL_NAME=:searchText or str.branch_code= :searchText or bm.branch_name=:searchText or str.kiosk_id= :searchText) ORDER BY STR.TXN_DATE  DESC",nativeQuery=true,countQuery = "SELECT count(STR.BRANCH_CODE)  FROM TBL_BRANCH_MASTER BM JOIN TBL_SWAYAM_TXN_REPORT STR "
-    		+ " ON BM.BRANCH_CODE = STR.BRANCH_CODE AND to_date(STR.TXN_DATE,'dd-mm-yyyy')=to_date(:fromdate,'dd-mm-yyyy') "+
-    		 " and (BM.CRCL_NAME=:searchText or str.branch_code= :searchText or bm.branch_name=:searchText or str.kiosk_id= :searchText) ORDER BY STR.TXN_DATE  DESC" )
-	Page<RealTimeTransaction> findByFromDateSearchText(@Param("fromdate") String fromdate,@Param("searchText") String searchText, Pageable pageable);
+	/* Commented by Manisha on 20-Jan-2021
+	 * @Query(
+	 * value="SELECT  BM.CRCL_NAME CRCL_NAME, BM.NETWORK NETWORK, BM.MODULE MODULE, BM.REGION REGION, BM.BRANCH_CODE BRANCH_CODE, BM.BRANCH_NAME BRANCH_NAME,"
+	 * + "STR.KIOSK_ID KIOSK_ID, STR.NO_OF_TXNS NO_OF_TXNS, STR.VENDOR VENDOR "+
+	 * "FROM TBL_BRANCH_MASTER BM "+
+	 * "JOIN TBL_SWAYAM_TXN_REPORT STR ON BM.BRANCH_CODE = STR.BRANCH_CODE "+
+	 * "AND to_date(STR.TXN_DATE,'dd-mm-yyyy')=to_date(:fromdate,'dd-mm-yyyy') "+
+	 * "and (BM.CRCL_NAME=:searchText or str.branch_code= :searchText or bm.branch_name=:searchText or str.kiosk_id= :searchText) ORDER BY STR.TXN_DATE  DESC"
+	 * ,nativeQuery=true,countQuery =
+	 * "SELECT count(STR.BRANCH_CODE)  FROM TBL_BRANCH_MASTER BM JOIN TBL_SWAYAM_TXN_REPORT STR "
+	 * +
+	 * " ON BM.BRANCH_CODE = STR.BRANCH_CODE AND to_date(STR.TXN_DATE,'dd-mm-yyyy')=to_date(:fromdate,'dd-mm-yyyy') "
+	 * +
+	 * " and (BM.CRCL_NAME=:searchText or str.branch_code= :searchText or bm.branch_name=:searchText or str.kiosk_id= :searchText) ORDER BY STR.TXN_DATE  DESC"
+	 * )
+	 */
 	
 	@Query(value="SELECT  BM.CRCL_NAME CRCL_NAME, BM.NETWORK NETWORK, BM.MODULE MODULE, BM.REGION REGION, BM.BRANCH_CODE BRANCH_CODE, BM.BRANCH_NAME BRANCH_NAME,"+ 
             "STR.KIOSK_ID KIOSK_ID, STR.NO_OF_TXNS NO_OF_TXNS, STR.VENDOR VENDOR "+  
             "FROM TBL_BRANCH_MASTER BM "+ 
     "JOIN TBL_SWAYAM_TXN_REPORT STR ON BM.BRANCH_CODE = STR.BRANCH_CODE "+  
-    "AND to_date(STR.TXN_DATE,'dd-mm-yyyy')=to_date(:fromdate,'dd-mm-yyyy')  ORDER BY STR.TXN_DATE  DESC",nativeQuery=true,countQuery = "SELECT count(STR.BRANCH_CODE)  FROM TBL_BRANCH_MASTER BM JOIN TBL_SWAYAM_TXN_REPORT STR "
-    		+ " ON BM.BRANCH_CODE = STR.BRANCH_CODE AND to_date(STR.TXN_DATE,'dd-mm-yyyy')=to_date(:fromdate,'dd-mm-yyyy')  ORDER BY STR.TXN_DATE  DESC" )
+    "AND STR.TXN_DATE=to_date(:fromdate,'dd-mm-yyyy') "+
+    "and (BM.CRCL_NAME=:searchText or str.branch_code= :searchText or bm.branch_name=:searchText or str.kiosk_id= :searchText) ORDER BY STR.TXN_DATE  DESC",nativeQuery=true,countQuery = "SELECT count(STR.BRANCH_CODE)  FROM TBL_BRANCH_MASTER BM JOIN TBL_SWAYAM_TXN_REPORT STR "
+    		+ " ON BM.BRANCH_CODE = STR.BRANCH_CODE AND STR.TXN_DATE = to_date(:fromdate,'dd-mm-yyyy') "+
+    		 " and (BM.CRCL_NAME=:searchText or str.branch_code= :searchText or bm.branch_name=:searchText or str.kiosk_id= :searchText) ORDER BY STR.TXN_DATE  DESC" )
+	
+	Page<RealTimeTransaction> findByFromDateSearchText(@Param("fromdate") String fromdate,@Param("searchText") String searchText, Pageable pageable);
+	
+	/* Commented by Manisha on 20-Jan-2021
+	 * @Query(
+	 * value="SELECT  BM.CRCL_NAME CRCL_NAME, BM.NETWORK NETWORK, BM.MODULE MODULE, BM.REGION REGION, BM.BRANCH_CODE BRANCH_CODE, BM.BRANCH_NAME BRANCH_NAME,"
+	 * + "STR.KIOSK_ID KIOSK_ID, STR.NO_OF_TXNS NO_OF_TXNS, STR.VENDOR VENDOR "+
+	 * "FROM TBL_BRANCH_MASTER BM "+
+	 * "JOIN TBL_SWAYAM_TXN_REPORT STR ON BM.BRANCH_CODE = STR.BRANCH_CODE "+
+	 * "AND to_date(STR.TXN_DATE,'dd-mm-yyyy')=to_date(:fromdate,'dd-mm-yyyy')  ORDER BY STR.TXN_DATE  DESC"
+	 * ,nativeQuery=true,countQuery =
+	 * "SELECT count(STR.BRANCH_CODE)  FROM TBL_BRANCH_MASTER BM JOIN TBL_SWAYAM_TXN_REPORT STR "
+	 * +
+	 * " ON BM.BRANCH_CODE = STR.BRANCH_CODE AND to_date(STR.TXN_DATE,'dd-mm-yyyy')=to_date(:fromdate,'dd-mm-yyyy')  ORDER BY STR.TXN_DATE  DESC"
+	 * )
+	 */
+	
+	@Query(value="SELECT  BM.CRCL_NAME CRCL_NAME, BM.NETWORK NETWORK, BM.MODULE MODULE, BM.REGION REGION, BM.BRANCH_CODE BRANCH_CODE, BM.BRANCH_NAME BRANCH_NAME,"+ 
+            "STR.KIOSK_ID KIOSK_ID, STR.NO_OF_TXNS NO_OF_TXNS, STR.VENDOR VENDOR "+  
+            "FROM TBL_BRANCH_MASTER BM "+ 
+    "JOIN TBL_SWAYAM_TXN_REPORT STR ON BM.BRANCH_CODE = STR.BRANCH_CODE "+  
+    "AND STR.TXN_DATE = to_date(:fromdate,'dd-mm-yyyy')  ORDER BY STR.TXN_DATE  DESC",nativeQuery=true,countQuery = "SELECT count(STR.BRANCH_CODE)  FROM TBL_BRANCH_MASTER BM JOIN TBL_SWAYAM_TXN_REPORT STR "
+    		+ " ON BM.BRANCH_CODE = STR.BRANCH_CODE AND STR.TXN_DATE = to_date(:fromdate,'dd-mm-yyyy')  ORDER BY STR.TXN_DATE  DESC" )
+	
 	List<RealTimeTransaction> findByDate(@Param("fromdate") String fromdate);
 	
 	// 12c
