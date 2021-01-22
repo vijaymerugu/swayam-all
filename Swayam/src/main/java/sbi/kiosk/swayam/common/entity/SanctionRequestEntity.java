@@ -129,5 +129,8 @@ public class SanctionRequestEntity {
 	
 	@Column(name="CIRCULAR_DT")
 	private Date circularDate;
+	
+	@Column(name="CIRCULAR_SL_NO")
+	private String circularSlNo;
 
 }

@@ -404,6 +404,7 @@ public class SanctionRequest {
 			
 			sanctionRequestEntity.setGstInvoiceAmt(cgstInvoiceAmt+ sgstInvoiceAmt);
 			sanctionRequestEntity.setGstPenaltyAmt(cgstPenAmt+sgstPenAmt);
+			
 		}else if((sanctionRequestEntity.getGstType()).equals("IGST")){
 			igstInvoiceAmt = (sanctionRequestEntity.getInvoiceAmt() * sanctionRequestEntity.getIgst())/100;
 			igstPenAmt = (sanctionRequestEntity.getPenaltyAmt() * sanctionRequestEntity.getIgst())/100;
@@ -420,20 +421,86 @@ public class SanctionRequest {
 		
 		
 		
-		if (250000 < sanctionRequestEntity.getInvoiceAmt() && sanctionRequestEntity.getInvoiceAmt() < 1000000) {
-
-			sanctionRequestEntity.setGstTdsAmt2(sanctionRequestEntity.getGstTdsAmt());
 		
-		} else if (sanctionRequestEntity.getInvoiceAmt() > 1000000) {
-
+		
+		
+		
+		
+		
+		/*
+		 * if (250000 < sanctionRequestEntity.getInvoiceAmt() &&
+		 * sanctionRequestEntity.getInvoiceAmt() < 1000000) {
+		 * 
+		 * sanctionRequestEntity.setGstTdsAmt2(sanctionRequestEntity.getGstTdsAmt());
+		 * 
+		 * } else if (sanctionRequestEntity.getInvoiceAmt() > 1000000) {
+		 * 
+		 * 
+		 * sanctionRequestEntity.setGstTdsAmt3(sanctionRequestEntity.getGstTdsAmt()); }
+		 */
+		
+		
+		if(sanctionRequestEntity.getCreditEntry()==null) {
 			
-			sanctionRequestEntity.setGstTdsAmt3(sanctionRequestEntity.getGstTdsAmt());
-		}
+			sanctionRequestEntity.setPenaltyWithGst(sanctionRequestEntity.getPenaltyAmt()
+					+ sanctionRequestEntity.getGstPenaltyAmt());
+			
+			if (250000 < sanctionRequestEntity.getInvoiceAmt() && sanctionRequestEntity.getInvoiceAmt() < 1000000) {
+
+				sanctionRequestEntity.setGstTdsAmt2(sanctionRequestEntity.getGstTdsAmt());
+			
+			} else if (sanctionRequestEntity.getInvoiceAmt() > 1000000) {
+
 				
-		netAmount = sanctionRequestEntity.getInvoiceAmt()+ sanctionRequestEntity.getGstInvoiceAmt();
-		totalamountAfterPenalty = netAmount - sanctionRequestEntity.getPenaltyAmt() - 
-				sanctionRequestEntity.getGstPenaltyAmt() - sanctionRequestEntity.getTdsAmt()
-				- sanctionRequestEntity.getGstTdsAmt();
+				sanctionRequestEntity.setGstTdsAmt3(sanctionRequestEntity.getGstTdsAmt());
+			}else if (sanctionRequestEntity.getInvoiceAmt()<=250000) {
+				
+			}
+			
+			
+			netAmount = sanctionRequestEntity.getInvoiceAmt()+ sanctionRequestEntity.getGstInvoiceAmt();
+			totalamountAfterPenalty = netAmount - sanctionRequestEntity.getPenaltyAmt() - 
+					sanctionRequestEntity.getGstPenaltyAmt() - sanctionRequestEntity.getTdsAmt()
+					- sanctionRequestEntity.getGstTdsAmt();
+			
+		}else {
+			
+			sanctionRequestEntity.setPenaltyWithGst(sanctionRequestEntity.getPenaltyAmt()+sanctionRequestEntity.getGstPenaltyAmt());
+			
+			sanctionRequestEntity.setNetPaybaleAmount(sanctionRequestEntity.getInvoiceAmt()-
+					sanctionRequestEntity.getPenaltyAmt());
+			
+			sanctionRequestEntity.setNetGst(sanctionRequestEntity.getGstInvoiceAmt()-
+					sanctionRequestEntity.getGstPenaltyAmt());
+			
+			if (250000 < sanctionRequestEntity.getNetPaybaleAmount() && sanctionRequestEntity.getNetPaybaleAmount() < 1000000) {
+
+				sanctionRequestEntity.setGstTdsAmt2(sanctionRequestEntity.getGstTdsAmt());
+			
+			} else if (sanctionRequestEntity.getInvoiceAmt() > 1000000) {
+
+				
+				sanctionRequestEntity.setGstTdsAmt3(sanctionRequestEntity.getGstTdsAmt());
+			}
+			
+			netAmount = sanctionRequestEntity.getInvoiceAmt()+ sanctionRequestEntity.getGstInvoiceAmt();
+			totalamountAfterPenalty = sanctionRequestEntity.getNetPaybaleAmount() 
+									+ sanctionRequestEntity.getNetGst()
+									- sanctionRequestEntity.getTdsAmt() 
+									- sanctionRequestEntity.getGstTdsAmt();
+			
+			
+		}
+		
+		
+				
+		/*
+		 * netAmount = sanctionRequestEntity.getInvoiceAmt()+
+		 * sanctionRequestEntity.getGstInvoiceAmt(); totalamountAfterPenalty = netAmount
+		 * - sanctionRequestEntity.getPenaltyAmt() -
+		 * sanctionRequestEntity.getGstPenaltyAmt() - sanctionRequestEntity.getTdsAmt()
+		 * - sanctionRequestEntity.getGstTdsAmt();
+		 */
 				
 		sanctionRequestEntity.setTotalamountAfterPenalty(totalamountAfterPenalty);
 		sanctionRequestEntity.setAmtWords(SanctionRequest.convertToIndianCurrency(totalamountAfterPenalty.toString()));
@@ -472,6 +539,11 @@ public class SanctionRequest {
 		logger.info("vendorFullName " + vendorFullName);
 		sanctionRequestEntity.setVendorFullName(vendorFullName);
 		logger.info("sanctionRequestEntity with vendor " + sanctionRequestEntity);
+		
+		
+		
+		
+		
 		List<SanctionPdfInfo> list = new ArrayList<SanctionPdfInfo>();
 		list.add(sanctionRequestEntity);
 		JasperReport jasperReport = null;
@@ -486,11 +558,17 @@ public class SanctionRequest {
 		File file =null;
 		if((sanctionRequestEntity.getManualEntry()==null || sanctionRequestEntity.getManualEntry().isEmpty())
 				&&(sanctionRequestEntity.getCreditEntry()==null || sanctionRequestEntity.getCreditEntry().isEmpty())) {
+			
 			file = ResourceUtils.getFile(jrxmlPath + "SanctionNoteWithoutMC.jrxml");
+			
 		}else if(sanctionRequestEntity.getManualEntry()==null || sanctionRequestEntity.getManualEntry().isEmpty()) {
+			
 			file = ResourceUtils.getFile(jrxmlPath + "SanctionNoteWithC.jrxml");
+			
 		}else if(sanctionRequestEntity.getCreditEntry()==null || sanctionRequestEntity.getCreditEntry().isEmpty()) {
+			
 			file = ResourceUtils.getFile(jrxmlPath + "SanctionNoteWithM.jrxml");
+			
 		}else {
 			file = ResourceUtils.getFile(jrxmlPath + "SanctionNote.jrxml");
 		}
