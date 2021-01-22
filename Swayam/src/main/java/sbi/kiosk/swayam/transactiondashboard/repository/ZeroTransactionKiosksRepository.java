@@ -32,34 +32,80 @@ public interface ZeroTransactionKiosksRepository extends PagingAndSortingReposit
 //        		+ "TBL_SWAYAM_TXN_REPORT STR  WHERE to_date(STR.TXN_DATE,'dd-mm-yyyy')>= to_date(:fromdate, 'dd-mm-yyyy')"
 //        		+ "   and to_date(STR.TXN_DATE,'dd-mm-yyyy')<= to_date(:todate, 'dd-mm-yyyy'))")
 	
-	@Query(value="SELECT   bm.crcl_name crcl_name, concat('NET-0',substr(bm.network,1,1)) AS network, bm.module module, "
-			+ "  bm.region region,   bm.branch_code branch_code,  bm.branch_name branch_name,  km.kiosk_id kiosk_id, "
-			+ " km.vendor vendor FROM  tbl_branch_master bm   JOIN tbl_kiosk_master km ON bm.branch_code = km.branch_code "
-			+ " WHERE   upper(km.kiosk_id) NOT IN ( SELECT  upper(str.kiosk_id)  FROM  tbl_swayam_txn_report str"
-			+ " WHERE TO_DATE(str.txn_date,'dd-mm-yyyy') >= TO_DATE(:fromdate,'dd-mm-yyyy')  AND  "
-			+ " TO_DATE(str.txn_date,'dd-mm-yyyy') <= TO_DATE(:todate,'dd-mm-yyyy') )"
-			,nativeQuery=true,countQuery="SELECT count(KM.BRANCH_CODE)  FROM  tbl_branch_master bm   JOIN tbl_kiosk_master km ON bm.branch_code = km.branch_code "
-					+ " WHERE   upper(km.kiosk_id) NOT IN ( SELECT  upper(str.kiosk_id)  FROM  tbl_swayam_txn_report str"
-					+ " WHERE TO_DATE(str.txn_date,'dd-mm-yyyy') >= TO_DATE(:fromdate,'dd-mm-yyyy')  AND  "
-					+ " TO_DATE(str.txn_date,'dd-mm-yyyy') <= TO_DATE(:todate,'dd-mm-yyyy') ) ")
-        
-        			Page<ZeroTransactionKiosks> findByDate(@Param("fromdate") String fromdate,@Param("todate") String todate,Pageable pageable);
+	/* commented by manisha on 20-01-2021 for Date type of TXN_Date
+	 * @Query(
+	 * value="SELECT   bm.crcl_name crcl_name, concat('NET-0',substr(bm.network,1,1)) AS network, bm.module module, "
+	 * +
+	 * "  bm.region region,   bm.branch_code branch_code,  bm.branch_name branch_name,  km.kiosk_id kiosk_id, "
+	 * +
+	 * " km.vendor vendor FROM  tbl_branch_master bm   JOIN tbl_kiosk_master km ON bm.branch_code = km.branch_code "
+	 * +
+	 * " WHERE   upper(km.kiosk_id) NOT IN ( SELECT  upper(str.kiosk_id)  FROM  tbl_swayam_txn_report str"
+	 * +
+	 * " WHERE TO_DATE(str.txn_date,'dd-mm-yyyy') >= TO_DATE(:fromdate,'dd-mm-yyyy')  AND  "
+	 * + " TO_DATE(str.txn_date,'dd-mm-yyyy') <= TO_DATE(:todate,'dd-mm-yyyy') )"
+	 * ,nativeQuery=true,
+	 * countQuery="SELECT count(KM.BRANCH_CODE)  FROM  tbl_branch_master bm   JOIN tbl_kiosk_master km ON bm.branch_code = km.branch_code "
+	 * +
+	 * " WHERE   upper(km.kiosk_id) NOT IN ( SELECT  upper(str.kiosk_id)  FROM  tbl_swayam_txn_report str"
+	 * +
+	 * " WHERE TO_DATE(str.txn_date,'dd-mm-yyyy') >= TO_DATE(:fromdate,'dd-mm-yyyy')  AND  "
+	 * + " TO_DATE(str.txn_date,'dd-mm-yyyy') <= TO_DATE(:todate,'dd-mm-yyyy') ) ")
+	 */
 	
 	@Query(value="SELECT   bm.crcl_name crcl_name, concat('NET-0',substr(bm.network,1,1)) AS network, bm.module module, "
 			+ "  bm.region region,   bm.branch_code branch_code,  bm.branch_name branch_name,  km.kiosk_id kiosk_id, "
 			+ " km.vendor vendor FROM  tbl_branch_master bm   JOIN tbl_kiosk_master km ON bm.branch_code = km.branch_code "
 			+ " WHERE   upper(km.kiosk_id) NOT IN ( SELECT  upper(str.kiosk_id)  FROM  tbl_swayam_txn_report str"
-			+ " WHERE TO_DATE(str.txn_date,'dd-mm-yyyy') >= TO_DATE(:fromdate,'dd-mm-yyyy')  AND  "
-			+ " TO_DATE(str.txn_date,'dd-mm-yyyy') <= TO_DATE(:todate,'dd-mm-yyyy') ) "
+			+ " WHERE str.txn_date >= TO_DATE(:fromdate,'dd-mm-yyyy')  AND  "
+			+ " str.txn_date <= TO_DATE(:todate,'dd-mm-yyyy') )"
+			,nativeQuery=true,countQuery="SELECT count(KM.BRANCH_CODE)  FROM  tbl_branch_master bm   JOIN tbl_kiosk_master km ON bm.branch_code = km.branch_code "
+					+ " WHERE   upper(km.kiosk_id) NOT IN ( SELECT  upper(str.kiosk_id)  FROM  tbl_swayam_txn_report str"
+					+ " WHERE str.txn_date >= TO_DATE(:fromdate,'dd-mm-yyyy')  AND  "
+					+ " str.txn_date <= TO_DATE(:todate,'dd-mm-yyyy') ) ")
+        
+        			Page<ZeroTransactionKiosks> findByDate(@Param("fromdate") String fromdate,@Param("todate") String todate,Pageable pageable);
+	
+					/*
+					 * commented by manisha on 20-01-2021 for Date type of TXN_Date
+					 * @Query(
+					 * value="SELECT   bm.crcl_name crcl_name, concat('NET-0',substr(bm.network,1,1)) AS network, bm.module module, "
+					 * +
+					 * "  bm.region region,   bm.branch_code branch_code,  bm.branch_name branch_name,  km.kiosk_id kiosk_id, "
+					 * +
+					 * " km.vendor vendor FROM  tbl_branch_master bm   JOIN tbl_kiosk_master km ON bm.branch_code = km.branch_code "
+					 * +
+					 * " WHERE   upper(km.kiosk_id) NOT IN ( SELECT  upper(str.kiosk_id)  FROM  tbl_swayam_txn_report str"
+					 * +
+					 * " WHERE TO_DATE(str.txn_date,'dd-mm-yyyy') >= TO_DATE(:fromdate,'dd-mm-yyyy')  AND  "
+					 * + " TO_DATE(str.txn_date,'dd-mm-yyyy') <= TO_DATE(:todate,'dd-mm-yyyy') ) " +
+					 * " AND (bm.CRCL_NAME=:searchText OR bm.NETWORK=:searchText OR bm.MODULE=:searchText OR bm.REGION=:searchText OR bm.BRANCH_CODE=:searchText OR bm.BRANCH_NAME=:searchText or concat('NET-0',substr(bm.network,1,1))= :searchText "
+					 * + " or km.kiosk_id=:searchText ) " ,nativeQuery=true,
+					 * countQuery="SELECT count(KM.BRANCH_CODE)  FROM  tbl_branch_master bm   JOIN tbl_kiosk_master km ON bm.branch_code = km.branch_code "
+					 * +
+					 * " WHERE   upper(km.kiosk_id) NOT IN ( SELECT  upper(str.kiosk_id)  FROM  tbl_swayam_txn_report str"
+					 * +
+					 * " WHERE TO_DATE(str.txn_date,'dd-mm-yyyy') >= TO_DATE(:fromdate,'dd-mm-yyyy')  AND  "
+					 * + " TO_DATE(str.txn_date,'dd-mm-yyyy') <= TO_DATE(:todate,'dd-mm-yyyy') ) " +
+					 * "AND (bm.CRCL_NAME=:searchText OR bm.NETWORK=:searchText OR bm.MODULE=:searchText OR bm.REGION=:searchText OR bm.BRANCH_CODE=:searchText  OR bm.BRANCH_NAME=:searchText or concat('NET-0',substr(bm.network,1,1))= :searchText "
+					 * + "or km.kiosk_id=:searchText ) ")
+					 */
+        
+	@Query(value="SELECT   bm.crcl_name crcl_name, concat('NET-0',substr(bm.network,1,1)) AS network, bm.module module, "
+			+ "  bm.region region,   bm.branch_code branch_code,  bm.branch_name branch_name,  km.kiosk_id kiosk_id, "
+			+ " km.vendor vendor FROM  tbl_branch_master bm   JOIN tbl_kiosk_master km ON bm.branch_code = km.branch_code "
+			+ " WHERE   upper(km.kiosk_id) NOT IN ( SELECT  upper(str.kiosk_id)  FROM  tbl_swayam_txn_report str"
+			+ " WHERE str.txn_date >= TO_DATE(:fromdate,'dd-mm-yyyy')  AND  "
+			+ " str.txn_date <= TO_DATE(:todate,'dd-mm-yyyy') ) "
 			+ " AND (bm.CRCL_NAME=:searchText OR bm.NETWORK=:searchText OR bm.MODULE=:searchText OR bm.REGION=:searchText OR bm.BRANCH_CODE=:searchText OR bm.BRANCH_NAME=:searchText or concat('NET-0',substr(bm.network,1,1))= :searchText "  
 								+ " or km.kiosk_id=:searchText ) "
 			,nativeQuery=true,countQuery="SELECT count(KM.BRANCH_CODE)  FROM  tbl_branch_master bm   JOIN tbl_kiosk_master km ON bm.branch_code = km.branch_code "
 					+ " WHERE   upper(km.kiosk_id) NOT IN ( SELECT  upper(str.kiosk_id)  FROM  tbl_swayam_txn_report str"
-					+ " WHERE TO_DATE(str.txn_date,'dd-mm-yyyy') >= TO_DATE(:fromdate,'dd-mm-yyyy')  AND  "
-					+ " TO_DATE(str.txn_date,'dd-mm-yyyy') <= TO_DATE(:todate,'dd-mm-yyyy') ) "
+					+ " WHERE str.txn_date >= TO_DATE(:fromdate,'dd-mm-yyyy')  AND  "
+					+ " str.txn_date <= TO_DATE(:todate,'dd-mm-yyyy') ) "
 					+ "AND (bm.CRCL_NAME=:searchText OR bm.NETWORK=:searchText OR bm.MODULE=:searchText OR bm.REGION=:searchText OR bm.BRANCH_CODE=:searchText  OR bm.BRANCH_NAME=:searchText or concat('NET-0',substr(bm.network,1,1))= :searchText "  
 					+ "or km.kiosk_id=:searchText ) ")
-        
+	
         			Page<ZeroTransactionKiosks> findByDateSearchNext(@Param("fromdate") String fromdate,@Param("todate") String todate,@Param("searchText") String searchText,Pageable pageable);
 	
 
@@ -77,16 +123,37 @@ public interface ZeroTransactionKiosksRepository extends PagingAndSortingReposit
 //		        		+ "TBL_SWAYAM_TXN_REPORT STR  WHERE to_date(STR.TXN_DATE,'dd-mm-yyyy')>= to_date(:fromdate, 'dd-mm-yyyy')"
 //		        		+ "   and to_date(STR.TXN_DATE,'dd-mm-yyyy')<= to_date(:todate, 'dd-mm-yyyy'))")
 	
+					/* commented by manisha on 20-01-2021 for Date type of TXN_Date
+					 * @Query(
+					 * value="SELECT   bm.crcl_name crcl_name, concat('NET-0',substr(bm.network,1,1)) AS network, bm.module module, "
+					 * +
+					 * "  bm.region region,   bm.branch_code branch_code,  bm.branch_name branch_name,  km.kiosk_id kiosk_id, "
+					 * +
+					 * " km.vendor vendor FROM  tbl_branch_master bm   JOIN tbl_kiosk_master km ON bm.branch_code = km.branch_code "
+					 * +
+					 * " WHERE   upper(km.kiosk_id) NOT IN ( SELECT  upper(str.kiosk_id)  FROM  tbl_swayam_txn_report str"
+					 * +
+					 * " WHERE TO_DATE(str.txn_date,'dd-mm-yyyy') >= TO_DATE(:fromdate,'dd-mm-yyyy')  AND  "
+					 * + " TO_DATE(str.txn_date,'dd-mm-yyyy') <= TO_DATE(:todate,'dd-mm-yyyy') )"
+					 * ,nativeQuery=true,
+					 * countQuery="SELECT count(KM.BRANCH_CODE)  FROM  tbl_branch_master bm   JOIN tbl_kiosk_master km ON bm.branch_code = km.branch_code "
+					 * +
+					 * " WHERE   upper(km.kiosk_id) NOT IN ( SELECT  upper(str.kiosk_id)  FROM  tbl_swayam_txn_report str"
+					 * +
+					 * " WHERE TO_DATE(str.txn_date,'dd-mm-yyyy') >= TO_DATE(:fromdate,'dd-mm-yyyy')  AND  "
+					 * + " TO_DATE(str.txn_date,'dd-mm-yyyy') <= TO_DATE(:todate,'dd-mm-yyyy') ) ")
+					 */
+	
 	@Query(value="SELECT   bm.crcl_name crcl_name, concat('NET-0',substr(bm.network,1,1)) AS network, bm.module module, "
 			+ "  bm.region region,   bm.branch_code branch_code,  bm.branch_name branch_name,  km.kiosk_id kiosk_id, "
 			+ " km.vendor vendor FROM  tbl_branch_master bm   JOIN tbl_kiosk_master km ON bm.branch_code = km.branch_code "
 			+ " WHERE   upper(km.kiosk_id) NOT IN ( SELECT  upper(str.kiosk_id)  FROM  tbl_swayam_txn_report str"
-			+ " WHERE TO_DATE(str.txn_date,'dd-mm-yyyy') >= TO_DATE(:fromdate,'dd-mm-yyyy')  AND  "
-			+ " TO_DATE(str.txn_date,'dd-mm-yyyy') <= TO_DATE(:todate,'dd-mm-yyyy') )"
+			+ " WHERE str.txn_date >= TO_DATE(:fromdate,'dd-mm-yyyy')  AND  "
+			+ " str.txn_date <= TO_DATE(:todate,'dd-mm-yyyy') )"
 			,nativeQuery=true,countQuery="SELECT count(KM.BRANCH_CODE)  FROM  tbl_branch_master bm   JOIN tbl_kiosk_master km ON bm.branch_code = km.branch_code "
 					+ " WHERE   upper(km.kiosk_id) NOT IN ( SELECT  upper(str.kiosk_id)  FROM  tbl_swayam_txn_report str"
-					+ " WHERE TO_DATE(str.txn_date,'dd-mm-yyyy') >= TO_DATE(:fromdate,'dd-mm-yyyy')  AND  "
-					+ " TO_DATE(str.txn_date,'dd-mm-yyyy') <= TO_DATE(:todate,'dd-mm-yyyy') ) ")
+					+ " WHERE str.txn_date >= TO_DATE(:fromdate,'dd-mm-yyyy')  AND  "
+					+ " str.txn_date <= TO_DATE(:todate,'dd-mm-yyyy') ) ")
 	
 		
 		        			List<ZeroTransactionKiosks> findByDateZeroTxn(@Param("fromdate") String fromdate,@Param("todate") String todate);
