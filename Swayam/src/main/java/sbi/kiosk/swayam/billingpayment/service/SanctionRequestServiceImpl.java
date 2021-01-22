@@ -121,6 +121,7 @@ public class SanctionRequestServiceImpl implements SanctionRequsetService {
 		mapData.put("sanLimit", sanctionRequestEntity.getSanLimit());
 		mapData.put("circularNo", sanctionRequestEntity.getCircularNo());
 		mapData.put("circularDate", circularDate);
+		mapData.put("circularSlNo", sanctionRequestEntity.getCircularSlNo());
 		
 		
 		logger.info("mapData===" + mapData);

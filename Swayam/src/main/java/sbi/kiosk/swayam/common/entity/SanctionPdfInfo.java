@@ -105,6 +105,13 @@ public class SanctionPdfInfo {
 	private String gstTdsDisplayAmt;
 	
 	private String hindiVendor;
+	
+	private Double penaltyWithGst;
 
+	private Double netPaybaleAmount;
+	
+	private Double netGst;
+	
+	private String circularSlNo;
 
 }

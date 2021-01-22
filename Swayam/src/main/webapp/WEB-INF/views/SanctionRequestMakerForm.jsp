@@ -539,7 +539,7 @@
 			</td>	
 		</tr>
 		
-		 <tr>
+		  <tr>
 		<td>
 			
                    <div class="row">
@@ -549,6 +549,47 @@
                     </div>
                     <div class="col-xs-6">
                        <input type="number"  autocomplete="off" value="${mapFormDetail['sanLimit']}" style="background: #dddddd;" disabled/>
+                    </div>
+                </div>  
+               
+			</td>
+			<%-- <td>
+                <div class="row">
+                    <div class="col-xs-6 lb">
+                        <span class="text-left">Circular No<b>*</b></span>
+                        <span class="pull-right"></span>
+                    </div>
+                    <div class="col-xs-6">
+                       <input type="text" name="circularNo" 
+                         placeholder="" autocomplete="off" value="${mapFormDetail['circularNo']}" style="background: #dddddd;" disabled/>
+                    </div>
+                </div>
+			</td>
+			<td>
+			 <div class="row">
+                    <div class="col-xs-6 lb">
+                        <span class="text-left">Circular Date<b>*</b></span>
+                        <span class="pull-right"></span>
+                    </div>
+                    <div class="col-xs-6">
+                         <input type="text" id="circularDate" name="circularDate"  
+                        placeholder="dd-mm-yyyy" value="${mapFormDetail['circularDate']}" style="background: #dddddd;"  disabled maxlength="10"/>
+                        
+                    </div>
+                </div>
+			</td>	 	 --%>
+		</tr> 
+		
+			 <tr>
+		<td>
+			
+                   <div class="row">
+                    <div class="col-xs-6 lb">
+                        <span class="text-left">Circular Sl.No.<b>*</b></span>
+                        <span class="pull-right"></span>
+                    </div>
+                    <div class="col-xs-6">
+                       <input type="text"  autocomplete="off" value="${mapFormDetail['circularSlNo']}" style="background: #dddddd;" disabled/>
                     </div>
                 </div>  
                
@@ -578,7 +619,7 @@
                     </div>
                 </div>
 			</td>	 	
-		</tr> 
+		</tr>
 			<tr>
 		<td>
                 <div class="row">

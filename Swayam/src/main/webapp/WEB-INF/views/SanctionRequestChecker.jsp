@@ -153,7 +153,6 @@
 					<tr></tr>
 
 
-
 				<tr
 						style="color: #000000; font-size: 12px; font-weight: bold; width: 119px;" >
 						<th colspan="4" style="text-align: -webkit-center;">PROGRESS STATUS</th>

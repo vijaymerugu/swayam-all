@@ -551,6 +551,48 @@
                
 			</td>
 
+			<!-- <td>
+                <div class="row">
+                    <div class="col-xs-6 lb">
+                        <span class="text-left">Circular No<b>*</b></span>
+                        <span class="pull-right"></span>
+                    </div>
+                    <div class="col-xs-6">
+                       <input type="text" ng-model="selectedCircularNo" name="circularNo"  maxlength="22" 
+                         placeholder="" autocomplete="off" required/>
+                    </div>
+                </div>
+			</td>
+			<td>
+			 <div class="row">
+                    <div class="col-xs-6 lb">
+                        <span class="text-left">Circular Date<b>*</b></span>
+                        <span class="pull-right"></span>
+                    </div>
+                    <div class="col-xs-6">
+                        <input type="text" id="circularDate" name="circularDate" class="datepicker" readonly="readonly"  
+                        ng-model="selectedCircularDate" placeholder="dd-mm-yyyy" required maxlength="10"/>
+                        
+                    </div>
+                </div>
+			</td>	  -->
+		</tr>
+		<tr>
+		<td>
+			
+                   <div class="row">
+                    <div class="col-xs-6 lb">
+                        <span class="text-left">Circular Sl.No.<b>*</b></span>
+                        <span class="pull-right"></span>
+                    </div>
+                    <div class="col-xs-6">
+                       <input type="text"  ng-model="selectedSlno" name="slno"  
+                         placeholder="" autocomplete="off" required/>
+                    </div>
+                </div>  
+               
+			</td>
+
 			<td>
                 <div class="row">
                     <div class="col-xs-6 lb">

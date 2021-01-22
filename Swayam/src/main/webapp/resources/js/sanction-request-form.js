@@ -504,15 +504,40 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	    	   
 	    	   var payload = {};
 	    	   
+	    	  
 	    	   if($scope.SelectedIGSTType == 'IGST'){
 	    		   var invoiceGstAmount = ($scope.selectedSInvoiceAmt * $scope.selectedIGST)/100;
 		    	   console.log("invoiceGstAmount "+ invoiceGstAmount);
 		    	   var penGstAmount = ($scope.selectedSPenaltyAmt * $scope.selectedIGST)/100;
 		    	   console.log("penGstAmount "+ penGstAmount);
-		    	   var tdsAmount = ($scope.selectedSInvoiceAmt * $scope.selectedTdsPer)/100;
-		    	   console.log("tdsAmount "+ tdsAmount);
-		    	   var tdsGstAmount = ( $scope.selectedSInvoiceAmt * $scope.selectedGstTdsPer)/100;
-		    	   console.log("tdsGstAmount "+ tdsGstAmount);
+		    	   var tdsAmount = 0.0;
+		    	   var tdsGstAmount=0.0;
+		    	   console.log("selectedNE "+ $scope.selectedNE);
+		    	   
+		    	   if($scope.selectedNE==undefined || $scope.selectedNE=='' || $scope.selectedNE==null){
+		    		   
+		    		
+		    		   
+		    		   tdsAmount = ($scope.selectedSInvoiceAmt * $scope.selectedTdsPer)/100;
+			    	   console.log("tdsAmount "+ tdsAmount);
+			    	   
+			    	   if($scope.selectedSInvoiceAmt>250000){
+			    		   tdsGstAmount = ( $scope.selectedSInvoiceAmt * $scope.selectedGstTdsPer)/100; 
+			    	   }
+			    	   
+			    	   console.log("tdsGstAmount "+ tdsGstAmount);
+		    		   
+		    	   }else{
+		    		   
+		    		   tdsAmount = (($scope.selectedSInvoiceAmt - $scope.selectedSPenaltyAmt) * $scope.selectedTdsPer)/100;
+			    	   console.log("tdsAmount "+ tdsAmount);
+			    	   if($scope.selectedSInvoiceAmt>250000){
+			    	   tdsGstAmount = (($scope.selectedSInvoiceAmt - $scope.selectedSPenaltyAmt) * $scope.selectedGstTdsPer)/100;
+			    	   
+			    	   }
+			    	   console.log("tdsGstAmount "+ tdsGstAmount);
+		    		   
+		    	   }
 		    	   
 		    	   payload = {sanctionAuth:$scope.SelectedSanctionAu,
 		    			   ctlrAuth:$scope.SelectedControllingAu,
@@ -547,7 +572,8 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		    			   year:$scope.SelectedYearId,
 		    			   sanLimit:$scope.selectedSanLimitAmt,
 		    			   circularNo:$scope.selectedCircularNo,
-		    			   circularDate:crclDate
+		    			   circularDate:crclDate,
+		    			   circularSlNo:$scope.selectedSlno
 		    			   
 		    	   };
 		    	   
@@ -563,12 +589,44 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		    	   var invoiceGstAmount =invoiceCGstAmount + invoiceSGstAmount;
 		    	   console.log("invoiceGstAmount "+ invoiceGstAmount);
 		    	   
-		    	   var penGstAmount = ($scope.selectedSPenaltyAmt * $scope.selectedIGST)/100;
+		    	   console.log("selectedSInvoiceAmt "+ $scope.selectedSInvoiceAmt);
+		    	   
+		    	   var penCGstAmount = ($scope.selectedSPenaltyAmt * $scope.selectedCGST)/100;
+		    	   var penSGstAmount = ($scope.selectedSPenaltyAmt * $scope.selectedSGST)/100;
+		    	   
+		    	   var penGstAmount =penSGstAmount+penCGstAmount;
 		    	   console.log("penGstAmount "+ penGstAmount);
-		    	   var tdsAmount = ($scope.selectedSInvoiceAmt * $scope.selectedTdsPer)/100;
+		    	  /* var tdsAmount = ($scope.selectedSInvoiceAmt * $scope.selectedTdsPer)/100;
 		    	   console.log("tdsAmount "+ tdsAmount);
 		    	   var tdsGstAmount = ($scope.selectedSInvoiceAmt * $scope.selectedGstTdsPer)/100;
-		    	   console.log("tdsGstAmount "+ tdsGstAmount);
+		    	   console.log("tdsGstAmount "+ tdsGstAmount);*/
+		    	   
+		    	   var tdsAmount = 0.0;
+		    	   var tdsGstAmount=0.0;
+		    	   
+		    	   console.log("selectedNE "+ $scope.selectedNE);
+		    	   
+		    	   if($scope.selectedNE==undefined || $scope.selectedNE=='' || $scope.selectedNE==null){
+		    		   
+		    		   tdsAmount = ($scope.selectedSInvoiceAmt * $scope.selectedTdsPer)/100;
+			    	   console.log("tdsAmount "+ tdsAmount);
+			    	   if($scope.selectedSInvoiceAmt>250000){
+			    	   tdsGstAmount = ( $scope.selectedSInvoiceAmt * $scope.selectedGstTdsPer)/100;
+			    	   
+			    	   }
+			    	   console.log("tdsGstAmount "+ tdsGstAmount);
+		    		   
+		    	   }else{
+		    		   
+		    		   tdsAmount = (($scope.selectedSInvoiceAmt - $scope.selectedSPenaltyAmt) * $scope.selectedTdsPer)/100;
+			    	   console.log("tdsAmount "+ tdsAmount);
+			    	   
+			    	   if($scope.selectedSInvoiceAmt>250000){
+			    	   tdsGstAmount = (($scope.selectedSInvoiceAmt - $scope.selectedSPenaltyAmt) * $scope.selectedGstTdsPer)/100;
+			    	   }
+			    	   console.log("tdsGstAmount "+ tdsGstAmount);
+		    		   
+		    	   }
 		    	   
 		    	   
 		    	   payload = {sanctionAuth:$scope.SelectedSanctionAu,
@@ -604,7 +662,8 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		    			   year:$scope.SelectedYearId,
 		    			   sanLimit:$scope.selectedSanLimitAmt,
 		    			   circularNo:$scope.selectedCircularNo,
-		    			   circularDate:crclDate
+		    			   circularDate:crclDate,
+		    			   circularSlNo:$scope.selectedSlno
 		    			   
 		    	   };
 	    		   
