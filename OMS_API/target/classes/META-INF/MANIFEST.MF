@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: OMS_API
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: vmph2382831
+Implementation-Vendor-Id: sbi.swayam.dashboard
+Build-Jdk: 1.8.0_241
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/OMS_API
+Created-By: Maven Integration for Eclipse
+
