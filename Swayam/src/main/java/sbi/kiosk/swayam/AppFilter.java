@@ -43,9 +43,11 @@ public class AppFilter implements Filter {
 	        res.setHeader("X-XSS-Protection", "1; mode=block");
 	        //res.setHeader("Content-Security-Policy", "default-src 'self'");
 	        String sessionid = req.getSession().getId();
+	        if(res!=null){
+        	res.setHeader("SET-COOKIE", "JSESSIONID=" + sessionid + "; HttpOnly; Secure; Domain= " + req.getServerName() + "");	
+        }
 	        
-	        
-	        if ("POST".equals(req.getMethod()) && "/getToken".equals(req.getServletPath())){
+	       /* if ("POST".equals(req.getMethod()) && "/getToken".equals(req.getServletPath())){
 	        	Cookie myCookie =  new Cookie("JSESSIONID", sessionid);
 	   		 	myCookie.setPath("/getToken");
 	   		 	myCookie.setDomain(req.getServerName());	
@@ -86,7 +88,9 @@ public class AppFilter implements Filter {
             } 
 	        else {
             	chain.doFilter(request, response);
-            }   
+            }   */
+	        
+	        chain.doFilter(request, response);
 
 	}
 
