@@ -1,31 +1,55 @@
 package sbi.kiosk.swayam.common.controller;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.security.GeneralSecurityException;
+import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
+import java.util.Map;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 import sbi.kiosk.swayam.common.dto.MenuMasterDto;
+import sbi.kiosk.swayam.common.dto.RequestResponseLogDto;
+import sbi.kiosk.swayam.common.dto.ResponseDto;
 import sbi.kiosk.swayam.common.dto.UserDto;
 import sbi.kiosk.swayam.common.entity.AuditLogger;
+import sbi.kiosk.swayam.common.entity.CommonUrl;
 import sbi.kiosk.swayam.common.repository.AuditInsertRepository;
+import sbi.kiosk.swayam.common.repository.CommonUrlConfigRepository;
 import sbi.kiosk.swayam.common.repository.UserRepository;
 import sbi.kiosk.swayam.common.service.LoginService;
-import sbi.kiosk.swayam.common.utils.JwtUtil;
+import sbi.kiosk.swayam.common.utils.CommonUtils;
 
 @RestController
 public class LoginController{ 
@@ -42,9 +66,55 @@ public class LoginController{
 	@Autowired
 	AuditInsertRepository audit;
 	@Autowired
-	private JwtUtil jwtTokenUtil;
+	CommonUrlConfigRepository commonUrlConfigRepo;
+	//@Autowired
+	//private JwtUtil jwtTokenUtil;
 	
-	@SuppressWarnings("deprecation")
+	
+	
+	
+	 static {
+	        // this part is needed cause Lebocoin has invalid SSL certificate, that cannot be normally processed by Java
+	        TrustManager[] trustAllCertificates = new TrustManager[]{
+	                new X509TrustManager() {
+	                    @Override
+	                    public X509Certificate[] getAcceptedIssuers() {
+	                        return null; // Not relevant.
+	                    }
+
+	                    @Override
+	                    public void checkClientTrusted(X509Certificate[] certs, String authType) {
+	                        // Do nothing. Just allow them all.
+	                    }
+
+	                    @Override
+	                    public void checkServerTrusted(X509Certificate[] certs, String authType) {
+	                        // Do nothing. Just allow them all.
+	                    }
+	                }
+	        };
+
+	        HostnameVerifier trustAllHostnames = new HostnameVerifier() {
+	            @Override
+	            public boolean verify(String hostname, SSLSession session) {
+	                return true; // Just allow them all.
+	            }
+	        };
+
+	        try {
+	            System.setProperty("jsse.enableSNIExtension", "false");
+	            SSLContext sc = SSLContext.getInstance("SSL");
+	            sc.init(null, trustAllCertificates, new SecureRandom());
+	            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+	            HttpsURLConnection.setDefaultHostnameVerifier(trustAllHostnames);
+	        } catch (GeneralSecurityException e) {
+	            throw new ExceptionInInitializerError(e);
+	        }
+	    }
+	
+	// comments 27-Jan-2021 this is method for jwt token
+	
+	/*@SuppressWarnings("deprecation")
 	@GetMapping("authenticateUser")
 	@PostAuthorize("hasPermission('login','READ')")
 	public ModelAndView home(@RequestParam(value="token")String token, HttpSession session,AuditLogger auditLogger,ModelAndView mav) {
@@ -83,7 +153,286 @@ public class LoginController{
 			mav.setViewName("error");
 		}
 		return mav;
+	}*/
+	
+	
+	@SuppressWarnings({ "finally", "restriction" })
+	@RequestMapping(value = "authenticateUser", method ={ RequestMethod.GET,RequestMethod.POST})
+	@PostAuthorize("hasPermission('login','READ')")
+	public ModelAndView  createAuthentication(@RequestParam("Token") String Token, HttpServletResponse res, final RedirectAttributes redirectAttributes, HttpSession session, AuditLogger auditLogger,
+			ModelAndView mav) throws Exception {
+		//ResponseEntity<Object>
+		String output = "";
+		ResponseDto response = null;
+		String userId =null;
+		String result =null;
+		try {
+			String dbOms_url=commonUrlConfigRepo.findOmsUrl();
+			CommonUrl certificatePaths=commonUrlConfigRepo.findURL();
+			
+			String certificatePath=certificatePaths.getSbiUrl();
+			System.setProperty("javax.net.ssl.trustStore",certificatePath);
+			  // comment out below line
+			 // System.setProperty("javax.net.ssl.trustStore","trust_store/keystore.jks");
+			  System.setProperty("javax.net.ssl.trustStorePassword", "123456");
+			  //System.setProperty("javax.net.debug", "all");
+
+			
+				boolean startIp=dbOms_url.startsWith("https");
+				logger.info("startIp::"+ startIp);
+			  if(startIp==true){
+			
+			Gson gson = new Gson();
+			logger.info("createAuthentication() Started:::::: "+dbOms_url);
+			JSONObject jsonResp=new JSONObject();
+			if ((Token != null && !Token.isEmpty()) && (!Token.equals("") && !Token.equals("null"))) {
+				logger.info("createAuthentication()==1111");
+				jsonResp=CommonUtils.decoded(Token);
+				logger.info("createAuthentication()==11112");
+				String header= (String) jsonResp.get("header");
+				String payload= (String) jsonResp.get("payload");
+				//logger.info("Result userId::" + result);
+				logger.info("Result Header::" + header);
+				logger.info("Result Payload::" + payload);
+				
+				 HashMap<String,String> hashMap = new ObjectMapper().readValue(payload, HashMap.class);
+				 logger.info("Result hashMap::" + hashMap);
+				 String tokenUserId=hashMap.get("jti");
+				 logger.info("Result tokenUserId::" +tokenUserId );
+				 
+				StringBuilder postData = new StringBuilder();
+				postData.append(URLEncoder.encode("Token", "UTF-8"));
+				postData.append('=');
+				postData.append(URLEncoder.encode(String.valueOf(Token), "UTF-8"));
+				byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+                    
+				//HttpsURLConnection conn =null;
+				HttpsURLConnection conn =null;
+					try{	
+						logger.info("postData==1="+new  sun.net.www.protocol.https.Handler());
+						conn=  (HttpsURLConnection) new URL(null,dbOms_url,new  sun.net.www.protocol.https.Handler()).openConnection();
+						logger.info("postData==2="+new  sun.net.www.protocol.https.Handler());
+						//conn=  (HttpURLConnection) new URL(dbOms_url).openConnection();
+					}catch(Exception t){
+						logger.info("Inside connection url not stablish="+t.getMessage());
+					}
+				conn.setRequestMethod("POST");
+				//conn.setRequestProperty("Content-Type","application/json");
+				conn.setRequestProperty("Content-Type", "application/json"); //NEW LINE ADD
+				logger.info("postData==91=");
+				conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length)); //NEW LINE ADD
+				conn.setDoOutput(true);
+				conn.setDoInput(true);
+				logger.info("postData==92=");
+				conn.getOutputStream().write(postDataBytes);
+				logger.info("postData==93=");
+				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+				logger.info("postData==94=");
+				if ((output = br.readLine()) != null) {
+					Map map = gson.fromJson(output, Map.class);
+					userId= (String) map.get("userId");
+					result = (String) map.get("result");
+					logger.info("Result userId::" + userId);
+					logger.info("Result Status::" + result);
+				}
+				//userId="974325";
+				//result="SUCCESS";
+					response = new ResponseDto();
+					RequestResponseLogDto reqRespLogDto = new RequestResponseLogDto();
+					reqRespLogDto.setUserId(userId);
+					reqRespLogDto.setToken(Token);
+					reqRespLogDto.setRequest(Token);
+					reqRespLogDto.setUrl(dbOms_url);
+					reqRespLogDto.setSuccess(result);
+					reqRespLogDto.setResponse(output);
+					
+					//if(tokenUserId!=null && userId!=null && userId.equals(tokenUserId)){
+					//}
+					
+					if (userId != null && !userId.isEmpty() && result != null && result.equalsIgnoreCase("SUCCESS") && tokenUserId!=null && userId.equals(tokenUserId)) {
+
+						// check userId in db
+						String dbPfId = userRepo.findIdByPfId(userId);
+						logger.info("result found::" + result);
+						response.setPfId(dbPfId);
+						response.setResponse(result);
+						if (userId!=null && userId.equals(dbPfId)) { // call login method
+							//logger.info("Inside /authenticateUser?token=" + Token + " userId " + userId);
+							UserDto userObj = loginService.getRoleByUsername(userId);
+							session.setAttribute("pfId", userObj.getPfId());
+							session.setAttribute("userObj", userObj);
+							//logger.info("Session Val"+ session.getAttribute("pfId"));
+							auditLogger.setPath("/authenticateUser");
+							auditLogger.setUser_Id(userId);
+							SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+							java.util.Date date = new java.util.Date();
+							auditLogger.setSession_Date(formatter.format(date));
+						    auditLogger.setStatus("Success");
+							auditLogger.setToken(Token);
+							audit.save(auditLogger);
+							logger.info("Before home::" + result);
+							mav = new ModelAndView("redirect:/home");
+							logger.info("After home::" + result);
+						} else {
+							response.setResponse("UserId does not Exist");
+							mav = new ModelAndView("redirect:/errorCode1");
+						}
+					} else {
+						//response.setResponse("Invalid Respons");
+						auditLogger.setPath("/authenticateUser");
+						auditLogger.setUser_Id(userId);
+						SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+						java.util.Date date = new java.util.Date();
+						auditLogger.setSession_Date(formatter.format(date));
+					    auditLogger.setStatus("FAIL");
+						auditLogger.setToken(Token);
+						audit.save(auditLogger);
+						response.setResponse("Failed");
+						mav = new ModelAndView("redirect:/errorCode4");
+					
+					}
+			}else{
+				mav = new ModelAndView("redirect:/errorCode2");
+			}
+			
+			  }else{
+				  logger.info("Http Local Host::11" + dbOms_url);
+				  HttpURLConnection conn =null;
+				  byte[] postDataBytes = null;
+				  Gson gson = new Gson();
+					try{
+						StringBuilder postData = new StringBuilder();
+						postData.append(URLEncoder.encode("Token", "UTF-8"));
+						postData.append('=');
+						postData.append(URLEncoder.encode(String.valueOf(Token), "UTF-8"));
+						 postDataBytes = postData.toString().getBytes("UTF-8");
+						logger.info("postData==1="+new  sun.net.www.protocol.https.Handler());
+						//conn=  (HttpURLConnection) new URL(null,dbOms_url,new  sun.net.www.protocol.https.Handler()).openConnection();
+						//logger.info("postData==2="+new  sun.net.www.protocol.https.Handler());
+						conn=  (HttpURLConnection) new URL(dbOms_url).openConnection();
+					}catch(Exception t){
+						logger.info("Inside connection url not stablish="+t.getMessage());
+					}
+				conn.setRequestMethod("POST");
+				//conn.setRequestProperty("Content-Type","application/json");
+				conn.setRequestProperty("Content-Type", "application/json"); //NEW LINE ADD
+				logger.info("postData==91=");
+				conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length)); //NEW LINE ADD
+				conn.setDoOutput(true);
+				conn.setDoInput(true);
+				logger.info("postData==92=");
+				conn.getOutputStream().write(postDataBytes);
+				logger.info("postData==93=");
+				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+				logger.info("postData==94=");
+				if ((output = br.readLine()) != null) {
+					Map map = gson.fromJson(output, Map.class);
+					userId= (String) map.get("userId");
+					result = (String) map.get("result");
+					logger.info("Result userId::" + userId);
+					logger.info("Result Status::" + result);
+				}
+				//userId="974325";
+				//result="SUCCESS";
+					response = new ResponseDto();
+					RequestResponseLogDto reqRespLogDto = new RequestResponseLogDto();
+					reqRespLogDto.setUserId(userId);
+					reqRespLogDto.setToken(Token);
+					reqRespLogDto.setRequest(Token);
+					reqRespLogDto.setUrl(dbOms_url);
+					reqRespLogDto.setSuccess(result);
+					reqRespLogDto.setResponse(output);
+					
+					//if(tokenUserId!=null && userId!=null && userId.equals(tokenUserId)){
+					//}
+					
+					if (userId != null && !userId.isEmpty() && result != null && result.equalsIgnoreCase("SUCCESS")) {
+
+						// check userId in db
+						String dbPfId = userRepo.findIdByPfId(userId);
+						logger.info("result found::" + result);
+						response.setPfId(dbPfId);
+						response.setResponse(result);
+						if (userId!=null && userId.equals(dbPfId)) { // call login method
+							//logger.info("Inside /authenticateUser?token=" + Token + " userId " + userId);
+							UserDto userObj = loginService.getRoleByUsername(userId);
+							session.setAttribute("pfId", userObj.getPfId());
+							session.setAttribute("userObj", userObj);
+							//logger.info("Session Val"+ session.getAttribute("pfId"));
+							auditLogger.setPath("/authenticateUser");
+							auditLogger.setUser_Id(userId);
+							SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+							java.util.Date date = new java.util.Date();
+							auditLogger.setSession_Date(formatter.format(date));
+						    auditLogger.setStatus("Success");
+							auditLogger.setToken(Token);
+							audit.save(auditLogger);
+							logger.info("Before home::" + result);
+							mav = new ModelAndView("redirect:/home");
+							logger.info("After home::" + result);
+						} else {
+							response.setResponse("UserId does not Exist");
+							mav = new ModelAndView("redirect:/errorCode1");
+						}
+					} else {
+						//response.setResponse("Invalid Respons");
+						auditLogger.setPath("/authenticateUser");
+						auditLogger.setUser_Id(userId);
+						SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+						java.util.Date date = new java.util.Date();
+						auditLogger.setSession_Date(formatter.format(date));
+					    auditLogger.setStatus("FAIL");
+						auditLogger.setToken(Token);
+						audit.save(auditLogger);
+						response.setResponse("Failed");
+						mav = new ModelAndView("redirect:/errorCode4");
+					}
+			  }
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.info("Exception");
+			//logger.error("Exception():: ",e,e.getMessage());
+			 mav = new ModelAndView("redirect:/errorCode3");
+		}
+		logger.info("Result Status END()...." + result);
+		return	mav;
 	}
+	
+	@RequestMapping(value = "errorCode1", method = RequestMethod.GET)
+	public ModelAndView redirectOmsError() {
+
+		ModelAndView mav = new ModelAndView("omsError");
+		mav.addObject("commonError","Invalid userId");
+		return mav;
+
+	}
+	
+	@RequestMapping(value = "errorCode2", method = RequestMethod.GET)
+	public ModelAndView redirectOmsError2() {
+
+		ModelAndView mav = new ModelAndView("omsError");
+		mav.addObject("commonError", "token is empty.");
+		return mav;
+
+	}
+
+	@RequestMapping(value = "errorCode3", method = RequestMethod.GET)
+	public ModelAndView redirectOmsError3() {
+		ModelAndView mav = new ModelAndView("omsError");
+		mav.addObject("commonError", "due to Server Error Please try to after some time.");
+		return mav;
+
+	}
+	
+	@RequestMapping(value = "errorCode4", method = RequestMethod.GET)
+	public ModelAndView redirectOmsError4() {
+		ModelAndView mav = new ModelAndView("omsError");
+		mav.addObject("commonError","Invalid token/token expired!");
+		return mav;
+
+	}
+	
 	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	@PostAuthorize("hasPermission('login','READ')")

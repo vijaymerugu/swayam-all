@@ -2,9 +2,7 @@ package sbi.kiosk.swayam.transactiondashboard.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,16 +13,13 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import sbi.kiosk.swayam.common.dto.RealTimeTransactionDto;
 import sbi.kiosk.swayam.common.entity.RealTimeTransaction;
-import sbi.kiosk.swayam.common.utils.ObjectMapperUtils;
 import sbi.kiosk.swayam.common.validation.ValidationCommon;
 import sbi.kiosk.swayam.transactiondashboard.repository.RealTimeTxnRepositoryPaging;
 import sbi.kiosk.swayam.transactiondashboard.service.RealTimeTransactionService;

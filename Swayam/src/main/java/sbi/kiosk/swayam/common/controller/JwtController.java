@@ -1,4 +1,4 @@
-
+/*
 package sbi.kiosk.swayam.common.controller;
 
 
@@ -50,12 +50,12 @@ public class JwtController {
 //	@Autowired
 //	AuthenticationHeaderRequest authenticationRequest;
 
-	/*@RequestMapping({ "/hello" })
+	@RequestMapping({ "/hello" })
 	public String hello(HttpServletRequest request) {
 
 		return "Hello World";
 
-	}*/
+	}
 	
 	
 	
@@ -120,7 +120,7 @@ public class JwtController {
 	
 	
 
-	/*@RequestMapping(value = "/getToken", method = RequestMethod.POST)
+	@RequestMapping(value = "/getToken", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationTocken(@RequestBody AuthenticationRequest authenticationRequest)
 			throws Exception {
 
@@ -146,6 +146,7 @@ public class JwtController {
 
 		return ResponseEntity.ok(new AuthenticationReponse("SUCESS", jwt));
 
-	}*/
+	}
 
 }
+*/
