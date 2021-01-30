@@ -12,7 +12,7 @@ import sbi.kiosk.swayam.common.entity.VendorMaster;
 
 public interface VendorRepository extends CrudRepository<Vendor, Integer> {
 	
-	@Query(value = "SELECT DISTINCT v.VENDOR_ID,v.COMPANY_SHORT_NM FROM TBL_VENDOR_DETAILS v where COMPANY_SHORT_NM IS NOT NULL",nativeQuery = true)
+	@Query(value = "SELECT DISTINCT v.VENDOR_ID,v.COMPANY_SHORT_NM FROM TBL_VENDOR_DETAILS v where COMPANY_SHORT_NM IS NOT NULL AND STATUS='1'",nativeQuery = true)
 	List<Vendor> findVendors();
 	
 	
