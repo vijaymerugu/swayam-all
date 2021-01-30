@@ -676,7 +676,7 @@
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
-                       <textarea  name="noteE" rows="4" cols="50" 
+                       <textarea  name="noteE" rows="4" cols="50" maxlength="100" 
                          placeholder="" autocomplete="off"  ng-model="selectedCommnets" Required></textarea>
                     </div>
                 </div>
@@ -713,8 +713,8 @@
 		
 		</div> 
 <br/>
-		<div class="submain">
-    </div>
+		<!-- <div class="submain">
+    </div> -->
     
     
 	</div>

@@ -1,6 +1,6 @@
 var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter', 'ui.grid.resizeColumns']);
 
-	app.controller('InvoiceSummearyCtrl', ['$scope','$filter','$http','$window','TaxSummaryService',function ($scope, $filter, $http, $window,TaxSummaryService) {
+	app.controller('TaxSummaryCtrl', ['$scope','$filter','$http','$window','TaxSummaryService',function ($scope, $filter, $http, $window,TaxSummaryService) {
 	   var paginationOptions = {
 	     pageNumber: 1,
 		 pageSize: 20,
@@ -264,7 +264,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		headerTemplate: 'km/headerTemplate',
 		  superColDefs: [{
 	          name: 'front',
-	          displayName: '',
+	          displayName: ''
 	          
 	         
 	      },
@@ -275,10 +275,12 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	      }, {
 	          name: 'PenaltyTax',
 	          displayName: 'Tax on Penalty'
+	        	 
 	        	  
 	      }, {
 	          name: 'TotalTax',
 	          displayName: 'Total Tax'
+	        	 
 	          
 	      }, {
 	          name: 'back',
@@ -287,22 +289,22 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	      }],
 		
 	      columnDefs: [
-	         { name: 'year', displayName: 'Year' ,superCol: 'front' },
-	          { name: 'rfpRefNumber', displayName: 'Rfp Ref No.' ,superCol: 'front'},
-	          { name: 'vendor', displayName: 'Vendor',superCol: 'front' },
-	          { name: 'circleName', displayName: 'Circle' ,superCol: 'front'  },
-	          { name: 'state', displayName: 'State' ,superCol: 'front'  },
-	          { name: 'q1Im', displayName: 'Q1   ',superCol: 'InvoiceAmountTax'   },
-	          { name: 'q2Im', displayName: 'Q2   ',superCol: 'InvoiceAmountTax'   },
-	          { name: 'q3Im', displayName: 'Q3   ',superCol: 'InvoiceAmountTax'  },
-	          { name: 'q4Im', displayName: 'Q4   ' ,superCol: 'InvoiceAmountTax' },
-	          { name: 'q1P', displayName: 'Q1    ' ,superCol: 'PenaltyTax'  },
-	          { name: 'q2P', displayName: 'Q2    ' ,superCol: 'PenaltyTax'  },
-	          { name: 'q3P', displayName: 'Q3    ' ,superCol: 'PenaltyTax'  },
-	          { name: 'q4P', displayName: 'Q4    ' ,superCol: 'PenaltyTax'  },
-	          { name: 'q1Ba', displayName: 'Q1   ' ,superCol: 'TotalTax'  },
-	          { name: 'q2Ba', displayName: 'Q2   ' ,superCol: 'TotalTax'  },
-	          { name: 'q3Ba', displayName: 'Q3   ' ,superCol: 'TotalTax'  },
+	         { name: 'year', displayName: 'Year' ,superCol: 'front', width: '5%'},
+	          { name: 'rfpRefNumber', displayName: 'Rfp No.' ,superCol: 'front',   width: '5%'},
+	          { name: 'vendor', displayName: 'Vendor',superCol: 'front' ,   width: '5%'},
+	          { name: 'circleName', displayName: 'Circle' ,superCol: 'front' ,   width: '5%' },
+	          { name: 'state', displayName: 'State' ,superCol: 'front' ,   width: '5%' },
+	          { name: 'q1Im', displayName: 'Q1',superCol: 'InvoiceAmountTax'},
+	          { name: 'q2Im', displayName: 'Q2',superCol: 'InvoiceAmountTax'   },
+	          { name: 'q3Im', displayName: 'Q3',superCol: 'InvoiceAmountTax'  },
+	          { name: 'q4Im', displayName: 'Q4' ,superCol: 'InvoiceAmountTax' },
+	          { name: 'q1P', displayName: 'Q1' ,superCol: 'PenaltyTax'  },
+	          { name: 'q2P', displayName: 'Q2' ,superCol: 'PenaltyTax'  },
+	          { name: 'q3P', displayName: 'Q3' ,superCol: 'PenaltyTax'  },
+	          { name: 'q4P', displayName: 'Q4' ,superCol: 'PenaltyTax'  },
+	          { name: 'q1Ba', displayName: 'Q1' ,superCol: 'TotalTax'  },
+	          { name: 'q2Ba', displayName: 'Q2' ,superCol: 'TotalTax'  },
+	          { name: 'q3Ba', displayName: 'Q3' ,superCol: 'TotalTax'  },
 	          { name: 'q4Ba', displayName: 'Q4' ,superCol: 'TotalTax'  }
 	          
 	    ],

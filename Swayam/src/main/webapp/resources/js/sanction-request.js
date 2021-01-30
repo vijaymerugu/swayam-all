@@ -117,6 +117,45 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		        });
 		    };
 		    
+		    
+		    $scope.refresh = function()
+			   {  	
+				   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
+				   	  SanctionService.getUsers(paginationOptions.pageNumber,
+								paginationOptions.pageSize, counttype).success(function(data) {
+									console.log("data4 " + data);
+							$scope.gridOptions.data = data.content;
+							$scope.gridOptions.totalItems = data.totalElements;
+
+			         });
+				 	   
+				   	}else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
+				   	  SanctionService.getUsers(paginationOptions.pageNumber,
+								paginationOptions.pageSize, counttype).success(function(data) {
+									console.log("data4 " + data);
+							$scope.gridOptions.data = data.content;
+							$scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);
+							
+							$scope.gridOptions.totalItems = data.totalElements;
+
+			         });
+				   		
+				   		
+				   		
+				 	
+				 		   		   
+				 		   
+				 	    }else{
+				 	    	  SanctionService.getUsers(paginationOptions.pageNumber,
+				 						paginationOptions.pageSize, counttype).success(function(data) {
+				 							console.log("data4 " + data);
+				 					$scope.gridOptions.data = data.content;
+				 					$scope.gridOptions.totalItems = data.totalElements;
+
+				 	         });
+				 	    }
+				    };
+		    
 		   
 		   
 		   $scope.getCountType = function(type){

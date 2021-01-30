@@ -104,6 +104,10 @@
   			padding: 2px;
   			word-break: break-word;
 			}
+			
+			.ui-grid-header-canvas {
+    padding-top: 0px;
+    padding-bottom: 0px;}
     </style>
     
     <script>
