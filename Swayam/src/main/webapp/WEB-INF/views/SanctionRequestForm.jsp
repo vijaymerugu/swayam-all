@@ -628,7 +628,7 @@
                     </div>
                     <div class="col-xs-6">
                     	<input type="checkbox" id="me" name="me">
-                       <textarea id="mce" ng-model="selectedME" name="mauualE" rows="4" cols="50" 
+                       <textarea id="mce" ng-model="selectedME" name="mauualE" rows="4" cols="50" maxlength="200" 
                          placeholder="" autocomplete="off" style="background: #dddddd;" disabled></textarea>
                     </div>
                 </div>
@@ -643,7 +643,7 @@
                     </div>
                     <div class="col-xs-6">
                     	<input type="checkbox" id="ne" name="ne">
-                       <textarea  id="nce" ng-model="selectedNE" name="noteE" rows="4" cols="50" 
+                       <textarea  id="nce" ng-model="selectedNE" name="noteE" rows="4" cols="50" maxlength="200" 
                          placeholder="" autocomplete="off" style="background: #dddddd;" disabled></textarea>
                     </div>
                 </div>
@@ -668,9 +668,9 @@
 		</form>
 		</div> 
 <br/>
-		<div class="submain">
+		<!-- <div class="submain">
     </div>
-    
+     -->
     
 	</div>
 </div>	
