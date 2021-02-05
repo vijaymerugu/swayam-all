@@ -23,8 +23,8 @@
 
     <field name="lipiTxnCount" class="java.lang.Integer"></field>    
 
-    <field name="forbesKioskCount" class="java.lang.Integer"></field>
-   <field name="forbesTxnCount" class="java.lang.Integer"></field>
+  <!--  <field name="forbesKioskCount" class="java.lang.Integer"></field>
+   <field name="forbesTxnCount" class="java.lang.Integer"></field> -->
    <field name="cmsKioskCount" class="java.lang.Integer"></field>
 
     <field name="cmsTxnCount" class="java.lang.Integer"></field>
@@ -121,7 +121,7 @@
                 <text><![CDATA[LIPI]]></text>
 
             </staticText>
-            <staticText>
+     <!--       <staticText>
 
                 <reportElement x="1044" y="21" width="200" height="20"></reportElement>
 
@@ -147,11 +147,11 @@
 
                 <text><![CDATA[FORBES]]></text>
 
-            </staticText>
+            </staticText> -->
             <staticText>
 
-                <reportElement x="1244" y="21" width="400" height="20"></reportElement>
-
+               <!-- <reportElement x="1244" y="21" width="400" height="20"></reportElement> -->
+ 				<reportElement x="1044" y="21" width="200" height="20"></reportElement>
                 <box>
 
                     <pen lineWidth="0.25"></pen>
@@ -176,8 +176,8 @@
 
             </staticText>
             <staticText>
-
-                <reportElement x="1644" y="21" width="400" height="20"></reportElement>
+				<reportElement x="1244" y="21" width="400" height="20"></reportElement> 
+            <!--    <reportElement x="1644" y="21" width="400" height="20"></reportElement>  -->
 
                 <box>
 
@@ -203,8 +203,8 @@
 
             </staticText>
              <staticText>
-
-                <reportElement x="2044" y="21" width="111" height="20"></reportElement>
+				<reportElement x="1644" y="21" width="200" height="20"></reportElement> 
+          <!--      <reportElement x="2044" y="21" width="111" height="20"></reportElement>  -->
 
                 <box>
 
@@ -445,7 +445,7 @@
                 <text><![CDATA[TXN]]></text>
 
             </staticText>
-<staticText>
+		<!--	<staticText>
 
                 <reportElement x="1044" y="41" width="100" height="20"></reportElement>
 
@@ -496,10 +496,10 @@
 
                 <text><![CDATA[TXN]]></text>
 
-            </staticText>
+            </staticText> -->
 <staticText>
-
-                <reportElement x="1244" y="41" width="200" height="20"></reportElement>
+				 <reportElement x="1044" y="41" width="100" height="20"></reportElement>
+              <!--  <reportElement x="1244" y="41" width="200" height="20"></reportElement> -->
 
                 <box>
 
@@ -524,8 +524,8 @@
 
             </staticText>
 <staticText>
-
-                <reportElement x="1444" y="41" width="200" height="20"></reportElement>
+				 <reportElement x="1144" y="41" width="100" height="20"></reportElement>
+            <!--    <reportElement x="1444" y="41" width="200" height="20"></reportElement> -->
 
                 <box>
 
@@ -550,8 +550,8 @@
 
             </staticText>
 <staticText>
-
-                <reportElement x="1644" y="41" width="200" height="20"></reportElement>
+				 <reportElement x="1244" y="41" width="200" height="20"></reportElement>
+            <!--    <reportElement x="1644" y="41" width="200" height="20"></reportElement> -->
 
                 <box>
 
@@ -576,8 +576,8 @@
 
             </staticText>
 <staticText>
-
-                <reportElement x="1844" y="41" width="200" height="20"></reportElement>
+				 <reportElement x="1444" y="41" width="200" height="20"></reportElement>
+            <!--    <reportElement x="1844" y="41" width="200" height="20"></reportElement> -->
 
                 <box>
 
@@ -602,8 +602,8 @@
 
             </staticText>
 <staticText>
-
-                <reportElement x="2044" y="41" width="111" height="20"></reportElement>
+			 <reportElement x="1644" y="41" width="200" height="20"></reportElement>
+            <!--    <reportElement x="2044" y="41" width="111" height="20"></reportElement> -->
 
                 <box>
 
@@ -838,7 +838,7 @@
                 <textFieldExpression><![CDATA[$F{lipiTxnCount}]]></textFieldExpression>
 
             </textField>
-<textField>
+<!-- <textField>
 
                 <reportElement x="1044" y="0" width="100" height="15"></reportElement>
 
@@ -863,7 +863,7 @@
                 <textFieldExpression><![CDATA[$F{forbesKioskCount}]]></textFieldExpression>
 
             </textField>
-<textField>
+ <textField>
 
                 <reportElement x="1144" y="0" width="100" height="15"></reportElement>
 
@@ -887,10 +887,10 @@
 
                 <textFieldExpression><![CDATA[$F{forbesTxnCount}]]></textFieldExpression>
 
-            </textField>
+            </textField> -->
 <textField>
-
-                <reportElement x="1244" y="0" width="200" height="15"></reportElement>
+				<reportElement x="1044" y="0" width="100" height="15"></reportElement>
+            <!--    <reportElement x="1244" y="0" width="200" height="15"></reportElement> -->
 
                 <box>
 
@@ -914,8 +914,8 @@
 
             </textField>
 <textField>
-
-                <reportElement x="1444" y="0" width="200" height="15"></reportElement>
+				<reportElement x="1144" y="0" width="100" height="15"></reportElement>
+            <!--    <reportElement x="1444" y="0" width="200" height="15"></reportElement> -->
 
                 <box>
 
@@ -939,8 +939,8 @@
 
             </textField>
 <textField>
-
-                <reportElement x="1644" y="0" width="200" height="15"></reportElement>
+				<reportElement x="1244" y="0" width="200" height="15"></reportElement>
+           <!--     <reportElement x="1644" y="0" width="200" height="15"></reportElement> -->
 
                 <box>
 
@@ -965,8 +965,8 @@
 
             </textField>
 <textField>
-
-                <reportElement x="1844" y="0" width="200" height="15"></reportElement>
+				<reportElement x="1444" y="0" width="200" height="15"></reportElement>
+          <!--      <reportElement x="1844" y="0" width="200" height="15"></reportElement>  -->
 
                 <box>
 
@@ -990,8 +990,8 @@
 
             </textField>
 <textField>
-
-                <reportElement x="2044" y="0" width="111" height="15"></reportElement>
+				<reportElement x="1644" y="0" width="200" height="15"></reportElement> 
+           <!--     <reportElement x="2044" y="0" width="111" height="15"></reportElement>  -->
 
                 <box>
 
