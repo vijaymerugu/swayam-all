@@ -18,15 +18,16 @@ public interface TicketCentorRepository extends PagingAndSortingRepository<Ticke
 	
 	// changes for status of complaint is active only
 //public Page<TicketCentor>	findByVendor(@Param("type") String type, Pageable pageable);
-	Page<TicketCentor> findAllByStatusOfComplaint(@Param("type") String type, Pageable pageable);
+    @Query(value = " SELECT * from TBL_TICKET_CENTRE where  STATUS_OF_COMPLAINT in(:type)  ORDER BY call_log_date DESC ", nativeQuery = true,countQuery="SELECT count(*) from TBL_TICKET_CENTRE where  STATUS_OF_COMPLAINT in(:type)  ORDER BY call_log_date DESC")
+	Page<TicketCentor> findAllByStatus(@Param("type") String type, Pageable pageable);
 	
- @Query(value="select * from TBL_TICKET_CENTRE a  ,tbl_CALL_TYPE b  where a.CALL_CATEGORY=b.CATEGORY " + 
-              " and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  and  B.RISK IN(:type) and a.STATUS_OF_COMPLAINT='Active' ", nativeQuery = true)
-Page<TicketCentor> findAll(@Param("type") String type, Pageable pageable);
+     @Query(value="select * from TBL_TICKET_CENTRE a  ,tbl_CALL_TYPE b  where a.CALL_CATEGORY=b.CATEGORY " + 
+              " and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  and  B.RISK IN(:type) and a.STATUS_OF_COMPLAINT='Active' ORDER BY a.call_log_date DESC ", nativeQuery = true)
+   Page<TicketCentor> findAll(@Param("type") String type, Pageable pageable);
 
- @Query(value="select * from TBL_TICKET_CENTRE a  ,tbl_CALL_TYPE b  where a.CALL_CATEGORY=b.CATEGORY " + 
-         " and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  and  B.RISK IN(:high,:medium,:low) and a.STATUS_OF_COMPLAINT='Active' ", nativeQuery = true)
-public Page<TicketCentor> findAllByRisk(@Param("high") String high,@Param("medium") String medium,@Param("low") String low, Pageable pageable);
+   @Query(value="select * from TBL_TICKET_CENTRE a  ,tbl_CALL_TYPE b  where a.CALL_CATEGORY=b.CATEGORY " + 
+         " and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  and  B.RISK IN(:high,:medium,:low) and a.STATUS_OF_COMPLAINT='Active' ORDER BY a.call_log_date DESC ", nativeQuery = true)
+   public Page<TicketCentor> findAllByRisk(@Param("high") String high,@Param("medium") String medium,@Param("low") String low, Pageable pageable);
 
 
    @Query(value = "  select CALL_CATEGORY,count(TICKET_ID) from TBL_TICKET_CENTRE GROUP BY CALL_CATEGORY", nativeQuery = true)
@@ -36,7 +37,7 @@ public Page<TicketCentor> findAllByRisk(@Param("high") String high,@Param("mediu
    @Query(value = "  select CALL_SUBCATEGORY ,count(TICKET_ID),CALL_CATEGORY from TBL_TICKET_CENTRE where CALL_CATEGORY=:category GROUP BY CALL_SUBCATEGORY, CALL_CATEGORY ", nativeQuery = true)
    List<Object[]> findByCategory(@Param("category") String category);
 	
-	@Query(value="select * from TBL_TICKET_CENTRE where CALL_CATEGORY=?1 and CALL_SUBCATEGORY=?2", nativeQuery = true)
+	@Query(value="select * from TBL_TICKET_CENTRE where CALL_CATEGORY=?1 and CALL_SUBCATEGORY=?2 ORDER BY call_log_date DESC", nativeQuery = true)
 	List<TicketCentor> findByCategoryAndSubCate(String category,String subCategory);
    
 	
@@ -50,29 +51,29 @@ public Page<TicketCentor> findAllByRisk(@Param("high") String high,@Param("mediu
 	    
 	    Page<TicketCentor> findByCallSubCategory(@Param("callSubCategory") String callSubCategory, Pageable pageable);
 	    
-	    @Query(value="select * from TBL_TICKET_CENTRE WHERE KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_KIOSK_MASTER WHERE CIRCLE=:circle) and STATUS_OF_COMPLAINT='Active' ", nativeQuery = true)
+	    @Query(value="select * from TBL_TICKET_CENTRE WHERE KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_KIOSK_MASTER WHERE CIRCLE=:circle) and STATUS_OF_COMPLAINT='Active' ORDER BY call_log_date DESC ", nativeQuery = true)
 	Page<TicketCentor> findAllByCircle(@Param("circle") String circle, Pageable pageable);
 	    
 	    @Query(value="select * from TBL_TICKET_CENTRE a  ,tbl_CALL_TYPE b  where a.CALL_CATEGORY=b.CATEGORY " + 
-	              " and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  and  B.RISK IN(:type) and a.KIOSK_ID in (SELECT KIOSK_ID FROM TBL_KIOSK_MASTER WHERE CIRCLE=:circle) and STATUS_OF_COMPLAINT='Active' " , nativeQuery = true)
+	              " and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  and  B.RISK IN(:type) and a.KIOSK_ID in (SELECT KIOSK_ID FROM TBL_KIOSK_MASTER WHERE CIRCLE=:circle) and STATUS_OF_COMPLAINT='Active' ORDER BY a.call_log_date DESC" , nativeQuery = true)
 	Page<TicketCentor> findAllByCircleAndType(@Param("circle") String circle,@Param("type") String type, Pageable pageable);
 	    
 	    @Query(value="select * from TBL_TICKET_CENTRE a  ,tbl_CALL_TYPE b  where a.CALL_CATEGORY=b.CATEGORY " + 
-	            " and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  and  B.RISK IN(:high,:medium,:low) and a.KIOSK_ID in (SELECT KIOSK_ID FROM TBL_KIOSK_MASTER WHERE CIRCLE=:circle) and STATUS_OF_COMPLAINT='Active' ", nativeQuery = true)
+	            " and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  and  B.RISK IN(:high,:medium,:low) and a.KIOSK_ID in (SELECT KIOSK_ID FROM TBL_KIOSK_MASTER WHERE CIRCLE=:circle) and STATUS_OF_COMPLAINT='Active' ORDER BY a.call_log_date DESC ", nativeQuery = true)
 	   public Page<TicketCentor> findAllByRiskByCircle(@Param("circle") String circle,@Param("high") String high,@Param("medium") String medium,@Param("low") String low, Pageable pageable);
 	    
-	    @Query(value="select * from TBL_TICKET_CENTRE WHERE KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID=:pfId) and STATUS_OF_COMPLAINT='Active' ", nativeQuery = true)
+	    @Query(value="select * from TBL_TICKET_CENTRE WHERE KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID=:pfId) and STATUS_OF_COMPLAINT='Active' ORDER BY call_log_date DESC ", nativeQuery = true)
 		Page<TicketCentor> findAllByCMFUser(@Param("pfId") String pfId, Pageable pageable); 
 	    
 	    @Query(value="select * from TBL_TICKET_CENTRE a  ,tbl_CALL_TYPE b  where a.CALL_CATEGORY=b.CATEGORY " + 
-	              " and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  and  B.RISK IN(:type) AND a.KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID=:pfId) and a.STATUS_OF_COMPLAINT='Active' ", nativeQuery = true)
+	              " and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  and  B.RISK IN(:type) AND a.KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID=:pfId) and a.STATUS_OF_COMPLAINT='Active' ORDER BY a.call_log_date DESC ", nativeQuery = true)
 	    Page<TicketCentor> findAllByRiskAndCMFUser(@Param("type") String type,@Param("pfId") String pfId, Pageable pageable);
 	    
 	    @Query(value="select * from TBL_TICKET_CENTRE a  ,tbl_CALL_TYPE b  where a.CALL_CATEGORY=b.CATEGORY " + 
-	            " and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  and  B.RISK IN(:high,:medium,:low) AND a.KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID=:pfId) and a.STATUS_OF_COMPLAINT='Active' ", nativeQuery = true)
+	            " and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  and  B.RISK IN(:high,:medium,:low) AND a.KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID=:pfId) and a.STATUS_OF_COMPLAINT='Active' ORDER BY a.call_log_date DESC ", nativeQuery = true)
 	   public Page<TicketCentor> findAllByAllRiskAndCMFUser(@Param("high") String high,@Param("medium") String medium,@Param("low") String low,@Param("pfId") String pfId,Pageable pageable);
 	   
-	    @Query(value="select * from tbl_ticket_centre where CALL_SUBCATEGORY=:callSubCategory AND KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID=:pfId) and STATUS_OF_COMPLAINT='Active' ",nativeQuery=true)
+	    @Query(value="select * from tbl_ticket_centre where CALL_SUBCATEGORY=:callSubCategory AND KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID=:pfId) and STATUS_OF_COMPLAINT='Active' ORDER BY call_log_date DESC ",nativeQuery=true)
 	    Page<TicketCentor> findByCallSubCategoryAndCMFUser(@Param("callSubCategory") String callSubCategory,@Param("pfId") String pfId, Pageable pageable);
 	    
 	    @Query(value = "select CALL_CATEGORY,count(TICKET_ID) from TBL_TICKET_CENTRE WHERE STATUS_OF_COMPLAINT='Active' and  KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID=:pfId) GROUP BY CALL_CATEGORY", nativeQuery = true)
@@ -81,28 +82,28 @@ public Page<TicketCentor> findAllByRisk(@Param("high") String high,@Param("mediu
 	    @Query(value = "select CALL_SUBCATEGORY ,count(TICKET_ID),CALL_CATEGORY from TBL_TICKET_CENTRE where STATUS_OF_COMPLAINT='Active' and KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId)) AND CALL_CATEGORY=:category GROUP BY CALL_SUBCATEGORY, CALL_CATEGORY ", nativeQuery = true)
 	    List<Object[]> findByCategoryCMF(@Param("category") String category,@Param("pfId") Set<String> pfId);
 	    
-	    @Query(value="select * from TBL_TICKET_CENTRE WHERE KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId)) and STATUS_OF_COMPLAINT='Active' ", nativeQuery = true)
+	    @Query(value="select * from TBL_TICKET_CENTRE WHERE KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId)) and STATUS_OF_COMPLAINT='Active' ORDER BY call_log_date DESC ", nativeQuery = true)
 		Page<TicketCentor> findAllByCMFUserForCMS(@Param("pfId") Set<String> pfId, Pageable pageable); 
 	    
 	    @Query(value = "select CALL_CATEGORY,count(TICKET_ID) from TBL_TICKET_CENTRE WHERE  STATUS_OF_COMPLAINT='Active' and KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId)) GROUP BY CALL_CATEGORY", nativeQuery = true)
 	    List<Object[]> findAllCategoryByCMS(@Param("pfId") Set<String> pfId);
 	    
 	    @Query(value="select * from TBL_TICKET_CENTRE a  ,tbl_CALL_TYPE b  where a.CALL_CATEGORY=b.CATEGORY " + 
-	              " and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  and  B.RISK IN(:type) AND a.KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId)) and a.STATUS_OF_COMPLAINT='Active' ", nativeQuery = true)
+	              " and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  and  B.RISK IN(:type) AND a.KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId)) and a.STATUS_OF_COMPLAINT='Active'  ORDER BY a.call_log_date DESC ", nativeQuery = true)
 	    Page<TicketCentor> findAllByRiskAndCMSUser(@Param("type") String type,@Param("pfId") Set<String> pfId, Pageable pageable);
 	    	    
 	    @Query(value="select * from TBL_TICKET_CENTRE a  ,tbl_CALL_TYPE b  where a.CALL_CATEGORY=b.CATEGORY " + 
-	            " and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  and  B.RISK IN(:high,:medium,:low) AND a.KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId)) and a.STATUS_OF_COMPLAINT='Active'", nativeQuery = true)
+	            " and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  and  B.RISK IN(:high,:medium,:low) AND a.KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId)) and a.STATUS_OF_COMPLAINT='Active'  ORDER BY a.call_log_date DESC ", nativeQuery = true)
 	   public Page<TicketCentor> findAllByAllRiskAndCMSUser(@Param("high") String high,@Param("medium") String medium,@Param("low") String low,@Param("pfId") Set<String> pfId,Pageable pageable);
 	   
-	    @Query(value="select * from tbl_ticket_centre where CALL_SUBCATEGORY=:callSubCategory AND KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId)) and STATUS_OF_COMPLAINT='Active' ",nativeQuery=true)
+	    @Query(value="select * from tbl_ticket_centre where CALL_SUBCATEGORY=:callSubCategory AND KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId)) and STATUS_OF_COMPLAINT='Active' ORDER BY call_log_date DESC ",nativeQuery=true)
 	    Page<TicketCentor> findByCallSubCategoryAndCMSUser(@Param("callSubCategory") String callSubCategory,@Param("pfId") Set<String> pfId, Pageable pageable);
 	    
-	    @Query(value="select * from TBL_TICKET_CENTRE WHERE KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId)) and STATUS_OF_COMPLAINT='Active' ", nativeQuery = true)
+	    @Query(value="select * from TBL_TICKET_CENTRE WHERE KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId)) and STATUS_OF_COMPLAINT='Active'  ORDER BY call_log_date DESC ", nativeQuery = true)
 		Page<TicketCentor> findAllByCMSUser(@Param("pfId") Set<String> pfId, Pageable pageable); 
 	    
 	    // cc user for PDF data
-	    @Query(value="select * from TBL_TICKET_CENTRE where STATUS_OF_COMPLAINT='Active'  ", nativeQuery = true)
+	    @Query(value="select * from TBL_TICKET_CENTRE where STATUS_OF_COMPLAINT='Active' ORDER BY call_log_date DESC ", nativeQuery = true)
 	    List<TicketCentor> findAll();
 	    
 	    @Query(value="select * from TBL_TICKET_CENTRE WHERE KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID=:pfId) and STATUS_OF_COMPLAINT='Active' ", nativeQuery = true)

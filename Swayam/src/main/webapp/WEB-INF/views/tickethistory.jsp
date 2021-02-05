@@ -295,7 +295,7 @@ $(document).ready(function(){
 									<option value="">Select Vendor</option>
 									<option value="CMS">CMS</option>
 									<option value="LIPI">LIPI</option>
-									<option value="FORBES">FORBES</option>
+									<!-- <option value="FORBES">FORBES</option> -->
 								</select>
                     </div>
                 </div>
