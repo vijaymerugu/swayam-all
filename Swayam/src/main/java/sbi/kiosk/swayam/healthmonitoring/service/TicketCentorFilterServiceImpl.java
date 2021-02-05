@@ -105,7 +105,7 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 		    } else if(type !=null && type !="" && type !="undefined"){	    	
 		    	entities= ticketCentorRepo.findByCallSubCategory(type, PageRequest.of(page, size,Sort.by("ticketId").descending())).map(TicketCentorDto::new);	         
 		    }else{
-				  entities =  ticketCentorRepo.findAll(PageRequest.of(page, size)).map(TicketCentorDto::new);
+				  entities =  ticketCentorRepo.findAll(PageRequest.of(page, size,Sort.by("call_log_date").descending())).map(TicketCentorDto::new);
 			      }
 			 }
 		 }catch (Exception e) {
@@ -464,7 +464,6 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 			    	logger.info("Inside======findPaginatedCountCmf======inside==else");
 					  entities =  ticketCentorRepo.findAllByCMFUser(pfId,PageRequest.of(page, size)).map(TicketCentorDto::new);
 				      }
-				 logger.info("Inside======findPaginatedCountCmf=======inside==NoOne");
 				 }
 				 else{
 				    logger.info("Inside======findPaginatedCountCmf======inside==NO ONE");
@@ -506,11 +505,11 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 			    }else{
 					  entities =  ticketCentorRepo.findAllByCMSUser(supList,PageRequest.of(page, size)).map(TicketCentorDto::new);
 				      }
-				 }
-				 else{
+				 }else{
 					  entities =  ticketCentorRepo.findAllByCMSUser(supList,PageRequest.of(page, size)).map(TicketCentorDto::new);
 				      }
 			 }catch (Exception e) {
+				 e.printStackTrace();
 				 logger.error("Exception "+ExceptionConstants.EXCEPTION);
 			}
 		 	return entities;

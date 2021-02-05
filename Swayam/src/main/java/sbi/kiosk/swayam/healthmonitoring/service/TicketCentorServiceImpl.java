@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -51,7 +52,7 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 		 logger.info("Inside======findPaginatedCC===========ALL DATA");
 		 //Page<TicketCentorDto> entities = ticketCentorRepo.findAll("Active",PageRequest.of(page, size)).map(TicketCentorDto::new);
 		// changes for status of complaint is active only
-		 Page<TicketCentorDto> entities = ticketCentorRepo.findAllByStatusOfComplaint("Active",PageRequest.of(page, size)).map(TicketCentorDto::new);
+		 Page<TicketCentorDto> entities = ticketCentorRepo.findAllByStatus("Active",PageRequest.of(page, size)).map(TicketCentorDto::new);
 		 String circle=null;
 		 TicketCentorDto ticketCentorDto= new TicketCentorDto();
 		 for(TicketCentorDto dto:entities){

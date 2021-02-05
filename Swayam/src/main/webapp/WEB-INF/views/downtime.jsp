@@ -185,7 +185,7 @@ ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
 									<option value="">Select Vendor</option>
 									<option value="CMS">CMS</option>
 									<option value="LIPI">LIPI</option>
-									<option value="VFORBES">FORBES</option>
+									<!-- <option value="VFORBES">FORBES</option> -->
 								</select>
                     </div>
                 </div>

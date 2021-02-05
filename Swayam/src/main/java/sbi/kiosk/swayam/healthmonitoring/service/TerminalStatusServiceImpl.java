@@ -111,7 +111,7 @@ public class TerminalStatusServiceImpl implements TerminalStatusService {
 			mapData = new LinkedHashMap<String, Integer>();
 			int agentStatusRedCount = terminalStatusRepo.findByAgentStatusRed("Red");
 			int agentStatusGreenCount = terminalStatusRepo.findByAgentStatusGreen("Green");
-			int agentStatusGreyCount = terminalStatusRepo.findByAgentStatusGrey("Grey");
+			int agentStatusGreyCount = terminalStatusRepo.findByAgentStatusGrey("Gray");
 			logger.info("redCount====" + agentStatusRedCount);
 			logger.info("agentStatusGreenCount====" + agentStatusGreenCount);
 			logger.info("agentStatusGreyCount====" + agentStatusGreyCount);
@@ -121,7 +121,7 @@ public class TerminalStatusServiceImpl implements TerminalStatusService {
 			mapData.put("AgentStatusGreyCount", agentStatusGreyCount);
 			int redCartriCount = terminalStatusRepo.findByCartridgeStatusRed("Red");
 			int greenCartriCount = terminalStatusRepo.findByCartridgeStatusGreen("Green");
-			int greyCartriCount = terminalStatusRepo.findByCartridgeStatusGrey("Grey");
+			int greyCartriCount = terminalStatusRepo.findByCartridgeStatusGrey("Gray");
 
 			mapData.put("RedCartriCount", redCartriCount);
 			mapData.put("GreenCartriCount", greenCartriCount);
@@ -129,7 +129,7 @@ public class TerminalStatusServiceImpl implements TerminalStatusService {
 
 			int printerStatusRedCount = terminalStatusRepo.findByPrinterStatusRed("Red");
 			int printerStatusGreenCount = terminalStatusRepo.findByPrinterStatusGreen("Green");
-			int printerStatusGreyCount = terminalStatusRepo.findByPrinterStatusGrey("Grey");
+			int printerStatusGreyCount = terminalStatusRepo.findByPrinterStatusGrey("Gray");
 
 			mapData.put("PrinterStatusRedCount", printerStatusRedCount);
 			mapData.put("PrinterStatusGreenCount", printerStatusGreenCount);
