@@ -101,10 +101,10 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService','uiGridCo
       },{
           name: 'lipi',
           displayName: 'LIPI'
-      }, {
+      }, /*{
           name: 'Forbes',
           displayName: 'Forbes'
-      }, {
+      }, */ {
           name: 'CMS',
           displayName: 'CMS'
       },  {
@@ -121,9 +121,9 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService','uiGridCo
          { name: 'totalSwayamKiosks', displayName: 'Total Swayam Kiosks',superCol: 'front'  ,aggregationType: uiGridConstants.aggregationTypes.sum , aggregationHideLabel: true, width: '7%'  },
          { name: 'lipiKiosks',width: 90, displayName: 'Kiosks',superCol: 'lipi' ,aggregationType: uiGridConstants.aggregationTypes.sum , aggregationHideLabel: true, width: '7%'  },
          { name: 'lipiTxns',width: 90, displayName: 'Txns',superCol: 'lipi' ,aggregationType: uiGridConstants.aggregationTypes.sum , aggregationHideLabel: true, width: '7%'  },
-         { name: 'forbesKiosks',width: 90, displayName: 'Kiosks',superCol: 'Forbes' ,aggregationType: uiGridConstants.aggregationTypes.sum , aggregationHideLabel: true, width: '7%'  },
+       /*  { name: 'forbesKiosks',width: 90, displayName: 'Kiosks',superCol: 'Forbes' ,aggregationType: uiGridConstants.aggregationTypes.sum , aggregationHideLabel: true, width: '7%'  },
          { name: 'forbesTxns',width: 90, displayName: 'Txns',superCol: 'Forbes' ,aggregationType: uiGridConstants.aggregationTypes.sum , aggregationHideLabel: true, width: '7%'  },
-         { name: 'cmsKiosks',width: 90, displayName: 'Kiosks',superCol: 'CMS'  ,aggregationType: uiGridConstants.aggregationTypes.sum , aggregationHideLabel: true, width: '7%' },
+       */  { name: 'cmsKiosks',width: 90, displayName: 'Kiosks',superCol: 'CMS'  ,aggregationType: uiGridConstants.aggregationTypes.sum , aggregationHideLabel: true, width: '7%' },
          { name: 'cmsTxns',width: 90, displayName: 'Txns',superCol: 'CMS'  ,aggregationType: uiGridConstants.aggregationTypes.sum , aggregationHideLabel: true, width: '7%' },
          { name: 'totalSwayamTxns', displayName: 'Swayam Txns',superCol: 'total',aggregationType: uiGridConstants.aggregationTypes.sum , aggregationHideLabel: true, width: '7%'   },
          { name: 'totalBranchCounterTxns', displayName: 'Branch Counter Txns',superCol: 'total'  ,aggregationType: uiGridConstants.aggregationTypes.sum , aggregationHideLabel: true, width: '7%' },

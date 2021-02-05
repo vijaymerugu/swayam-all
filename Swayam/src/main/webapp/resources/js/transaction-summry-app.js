@@ -175,10 +175,10 @@ sort: null
       },{
           name: 'lipi',
           displayName: 'LIPI'
-      }, {
+      }, /*{
           name: 'Forbes',
           displayName: 'Forbes'
-      }, {
+      }, */{
           name: 'CMS',
           displayName: 'CMS'
       }, {
@@ -198,8 +198,8 @@ sort: null
           { name: 'branchName', displayName: 'Branch Name',superCol: 'front'  },
           { name: 'lipiKioskCount', displayName: 'No Of Kiosk',superCol: 'lipi'},
           { name: 'lipiTxnCount', displayName: 'Txn', superCol: 'lipi'},
-          { name: 'forbesKioskCount', displayName: 'No Of Kiosk',superCol: 'Forbes' },
-          { name: 'forbesTxnCount', displayName: 'Txn',superCol: 'Forbes'},
+       /*  { name: 'forbesKioskCount', displayName: 'No Of Kiosk',superCol: 'Forbes' },
+          { name: 'forbesTxnCount', displayName: 'Txn',superCol: 'Forbes'},*/
           { name: 'cmsKioskCount', displayName: 'No Of Kiosk',superCol: 'CMS'},
           { name: 'cmsTxnCount', displayName: 'Txn',superCol: 'CMS'},
           { name: 'totalSwayamTxn', displayName: 'SWAYAM Txn',superCol: 'total'},
@@ -243,7 +243,7 @@ sort: null
 
 
 
-app.directive('superColWidthUpdate', ['$timeout', function ($timeout) {
+app.directive('superColWidthUpdate', ['$timeout', function ($timeout) { 
     return {
       'restrict': 'A',
           'link': function (scope, element) {

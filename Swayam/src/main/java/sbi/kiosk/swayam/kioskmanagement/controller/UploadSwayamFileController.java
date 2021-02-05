@@ -69,7 +69,7 @@ public class UploadSwayamFileController {
 		List<FileInfo> uploadedFiles = new ArrayList<FileInfo>();
 	//	logger.info("files" + files);
 
-		logger.info("I m inside uploadHolidayCalendar");
+	//	logger.info("I m inside uploadHolidayCalendar");
 
 		if (!files.isEmpty()) {
 			try {
@@ -93,7 +93,7 @@ public class UploadSwayamFileController {
 //					logger.info("2.Path============ "+path);
 					File destinationFile = new File(path);	
 //					logger.info("3.name============= "+destinationFile.getName());
-					logger.info("//////////A.File transfer started!!!!!!!!!!!////////////////");
+//					logger.info("//////////A.File transfer started!!!!!!!!!!!////////////////");
 					
 				//	file.transferTo(destinationFile);
 					// read and write the file to the selected location-
@@ -103,7 +103,7 @@ public class UploadSwayamFileController {
 					Files.write(path1, bytes);
 					
 //					logger.info("/////////////////File transfer completed: "+path1.toString());
-					logger.info("4.File Transfer done!!!!!!!!!");
+//					logger.info("4.File Transfer done!!!!!!!!!");
 					path = uploadpath  + file.getOriginalFilename();
 //					logger.info("5.uploadedFiles path=========== " + path);
 					uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
@@ -114,7 +114,7 @@ public class UploadSwayamFileController {
 				}
 
 			} catch (Exception e) {
-				logger.error(e.getMessage());
+//				logger.error(e.getMessage());
 			}
 
 		}
@@ -139,7 +139,7 @@ public class UploadSwayamFileController {
 		
 //		logger.info("8.Result part done: " + result);
 		ResponseEntity<String> entity = ResponseEntity.ok(result);
-		logger.info("9.Transfer to entity");
+//		logger.info("9.Transfer to entity");
 		return entity;
 	}
 
@@ -150,7 +150,7 @@ public class UploadSwayamFileController {
 		List<FileInfo> uploadedFiles = new ArrayList<FileInfo>();
 	//	logger.info("files" + files);
 
-		logger.info("I m inside uploadKioskDetails");
+//		logger.info("I m inside uploadKioskDetails");
 
 		if (!files.isEmpty()) {
 			try {
@@ -175,7 +175,7 @@ public class UploadSwayamFileController {
 		//			logger.info("2.Path============ "+path);
 					File destinationFile = new File(path);	
 		//			logger.info("3.name============= "+destinationFile.getName());
-					logger.info("//////////A.File transfer started!!!!!!!!!!!////////////////");
+		//			logger.info("//////////A.File transfer started!!!!!!!!!!!////////////////");
 					
 				//	file.transferTo(destinationFile);
 					// read and write the file to the selected location-
@@ -185,7 +185,7 @@ public class UploadSwayamFileController {
 					Files.write(path1, bytes);
 					
 			//		logger.info("/////////////////File transfer completed: "+path1.toString());
-					logger.info("4.File Transfer done!!!!!!!!!");
+			//		logger.info("4.File Transfer done!!!!!!!!!");
 					path = uploadpath  + file.getOriginalFilename();
 			//		logger.info("5.uploadedFiles path=========== " + path);
 					uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
@@ -196,7 +196,7 @@ public class UploadSwayamFileController {
 				}
 
 			} catch (Exception e) {
-				logger.error(e.getMessage());
+		//		logger.error(e.getMessage());
 			}
 
 		}
@@ -217,7 +217,7 @@ public class UploadSwayamFileController {
 		String result = uploadService.uploadKioskCMFInformation(path);
 	//	logger.info("9.Result part done: " + result);
 		ResponseEntity<String> entity = ResponseEntity.ok(result);
-		logger.info("9.Transfer to entity");
+	//	logger.info("9.Transfer to entity");
 		return entity;
 	}
 
@@ -225,10 +225,10 @@ public class UploadSwayamFileController {
 	@RequestMapping(value = "uploadKioskCMF", method = RequestMethod.POST)
 //	@PreAuthorize("hasPermission('UPDuploadKioskCMF','CREATE')")
 	public ResponseEntity<String> uploadKioskInformation(@RequestParam("CMFFile") List<MultipartFile> files) {
-		logger.info("==uploadKioskInformation================");
+//		logger.info("==uploadKioskInformation================");
 		List<FileInfo> uploadedFiles = new ArrayList<FileInfo>();
 
-		logger.info("I m inside uploadKioskCMF");
+//		logger.info("I m inside uploadKioskCMF");
 	//	logger.info("files" + files);
 		if (!files.isEmpty()) {
 			try {
@@ -252,7 +252,7 @@ public class UploadSwayamFileController {
 			//		logger.info("2.Path============ "+path);
 					File destinationFile = new File(path);	
 			//		logger.info("3.name============= "+destinationFile.getName());
-					logger.info("//////////A.File transfer started!!!!!!!!!!!////////////////");
+			//		logger.info("//////////A.File transfer started!!!!!!!!!!!////////////////");
 					
 				//	file.transferTo(destinationFile);
 					// read and write the file to the selected location-
@@ -262,7 +262,7 @@ public class UploadSwayamFileController {
 					Files.write(path1, bytes);
 					
 			//		logger.info("/////////////////File transfer completed: "+path1.toString());
-					logger.info("4.File Transfer done!!!!!!!!!");
+			//		logger.info("4.File Transfer done!!!!!!!!!");
 					path = uploadpath  + file.getOriginalFilename();
 			//		logger.info("5.uploadedFiles path=========== " + path);
 					uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
@@ -273,7 +273,7 @@ public class UploadSwayamFileController {
 				}
 
 			} catch (Exception e) {
-				logger.error(e.getMessage());
+		//		logger.error(e.getMessage());
 			}
 
 		}
@@ -297,7 +297,7 @@ public class UploadSwayamFileController {
 //		logger.info("9.Result part done: " + result);
 
 		ResponseEntity<String> entity = ResponseEntity.ok(result);
-		logger.info("9.Transfer to entity");
+	//	logger.info("9.Transfer to entity");
 		return entity;
 	}
 
@@ -307,7 +307,7 @@ public class UploadSwayamFileController {
 	public ResponseEntity<String> uploadCBSbrhm(@RequestParam("BMFile") List<MultipartFile> files) {
 		List<FileInfo> uploadedFiles = new ArrayList<FileInfo>();
 	//	logger.info("files" + files);
-		logger.info("i m inside uploadCBSbrhm");
+	//	logger.info("i m inside uploadCBSbrhm");
 		if (!files.isEmpty()) {
 			try {
 				for (MultipartFile file : files) {
@@ -330,7 +330,7 @@ public class UploadSwayamFileController {
 			//		logger.info("2.Path============ "+path);
 					File destinationFile = new File(path);	
 			//		logger.info("3.name============= "+destinationFile.getName());
-					logger.info("//////////A.File transfer started!!!!!!!!!!!////////////////");
+			//		logger.info("//////////A.File transfer started!!!!!!!!!!!////////////////");
 					
 				//	file.transferTo(destinationFile);
 					// read and write the file to the selected location-
@@ -340,7 +340,7 @@ public class UploadSwayamFileController {
 					Files.write(path1, bytes);
 					
 			//		logger.info("/////////////////File transfer completed: "+path1.toString());
-					logger.info("4.File Transfer done!!!!!!!!!");
+			//		logger.info("4.File Transfer done!!!!!!!!!");
 					path = uploadpath  + file.getOriginalFilename();
 			//		logger.info("5.uploadedFiles path=========== " + path);
 					uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
@@ -351,7 +351,7 @@ public class UploadSwayamFileController {
 				}
 
 			} catch (Exception e) {
-				logger.error(e.getMessage());
+		//		logger.error(e.getMessage());
 			}
 
 		}
@@ -378,7 +378,7 @@ public class UploadSwayamFileController {
 	//	logger.info("9.Result part done: " + result);
 
 		ResponseEntity<String> entity = ResponseEntity.ok(result);
-		logger.info("9.Transfer to entity");
+	//	logger.info("9.Transfer to entity");
 		return entity;
 	}
 	
@@ -388,7 +388,7 @@ public class UploadSwayamFileController {
 	public ResponseEntity<String> uploadInvVendor(@RequestParam("InFile") List<MultipartFile> files) {
 		List<FileInfo> uploadedFiles = new ArrayList<FileInfo>();
 	//	logger.info("files" + files);
-		logger.info("i m inside uploadInvVendor");
+	//	logger.info("i m inside uploadInvVendor");
 		if (!files.isEmpty()) {
 			try {
 				for (MultipartFile file : files) {
@@ -409,7 +409,7 @@ public class UploadSwayamFileController {
 		
 					File destinationFile = new File(path);	
 			
-					logger.info("//////////A.File transfer started!!!!!!!!!!!////////////////");
+			//		logger.info("//////////A.File transfer started!!!!!!!!!!!////////////////");
 					
 				//	file.transferTo(destinationFile);
 					// read and write the file to the selected location-
@@ -419,7 +419,7 @@ public class UploadSwayamFileController {
 					Files.write(path1, bytes);
 					
 			//		logger.info("/////////////////File transfer completed: "+path1.toString());
-					logger.info("4.File Transfer done!!!!!!!!!");
+			//		logger.info("4.File Transfer done!!!!!!!!!");
 					path = uploadpath  + file.getOriginalFilename();
 			//		logger.info("5.uploadedFiles path=========== " + path);
 					uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
@@ -430,7 +430,7 @@ public class UploadSwayamFileController {
 				}
 
 			} catch (Exception e) {
-				logger.error(e.getMessage());
+		//		logger.error(e.getMessage());
 			}
 
 		}
@@ -457,7 +457,7 @@ public class UploadSwayamFileController {
 	//	logger.info("9.Result part done: " + result);
 
 		ResponseEntity<String> entity = ResponseEntity.ok(result);
-		logger.info("9.Transfer to entity");
+	//	logger.info("9.Transfer to entity");
 		return entity;
 	}
 
