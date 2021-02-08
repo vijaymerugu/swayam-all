@@ -544,7 +544,7 @@
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
-                       <input type="number" min="1" max="500000"  ng-model="selectedSanLimitAmt" name="selectedSanLimitAmt"  
+                       <input type="number" min="1"   ng-model="selectedSanLimitAmt" name="selectedSanLimitAmt"  
                          placeholder="" autocomplete="off" required/>
                     </div>
                 </div>  

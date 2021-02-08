@@ -39,8 +39,10 @@ public class TaxServiceImpl implements TaxService {
 		try {
 			
 			logger.info("Inside getTaxCalculation with  criteria " +  criteria);
-			logger.info("Inside getTaxCalculation with  circle " +  report.getCircle());
-			logger.info("Inside getTaxCalculation with  state " +  report.getState());
+			/*
+			 * logger.info("Inside getTaxCalculation with  circle " + report.getCircle());
+			 * logger.info("Inside getTaxCalculation with  state " + report.getState());
+			 */
 			
 			logger.info("Inside getTaxCalculation with  gstType-- " +  gstType);
 			List<TaxCalculationEntity> calculationlist =null;
@@ -81,7 +83,7 @@ public class TaxServiceImpl implements TaxService {
 			gstType=null;
 			 return calculationlist;
 		} catch (Exception e) {
-			logger.error("Exception in getAvailability." + e);
+			//logger.error("Exception in getAvailability." + e);
 			return new ArrayList<TaxCalculationEntity>();
 		}		//return null;
 	}
@@ -150,10 +152,12 @@ public class TaxServiceImpl implements TaxService {
 		try {
 			
 			logger.info("Inside getTaxCalculation with  criteria " +  criteria);
-			logger.info("Inside getTaxCalculation with  circle " +  report.getCircle());
-			logger.info("Inside getTaxCalculation with  state " +  report.getState());
-			
-			logger.info("Inside getTaxCalculation with  gstType-- " +  gstType);
+			/*
+			 * logger.info("Inside getTaxCalculation with  circle " + report.getCircle());
+			 * logger.info("Inside getTaxCalculation with  state " + report.getState());
+			 */
+			 logger.info("Inside getTaxCalculation with  gstType-- " + gstType);
+			 
 			List<TaxCalculationEntity2> calculationlist =null;
 			if(gstType.equals("SGST")) {
 				
@@ -174,7 +178,7 @@ public class TaxServiceImpl implements TaxService {
 			gstType=null;
 			 return calculationlist;
 		} catch (Exception e) {
-			logger.error("Exception in getAvailability." + e);
+			//logger.error("Exception in getAvailability." + e);
 			return new ArrayList<TaxCalculationEntity2>();
 		}	
 	}

@@ -105,17 +105,17 @@ public class TaxController {
 		String year = request.getParameter("selectedYearId");
 		String selectedVendorId = request.getParameter("selectedVendorId");
 		String selectedRfpID = request.getParameter("selectedRfpID");
-		System.out.println("IGST "+ request.getParameter("selectedGST"));
+		//System.out.println("IGST "+ request.getParameter("selectedGST"));
 		Float selectedGST = Float.parseFloat(request.getParameter("selectedGST"));
 				
 		String selectedGSTType = request.getParameter("selectedGSTType");
 		Float selectedSGST = Float.parseFloat(request.getParameter("selectedSGST"));
 		Float selectedCGST = Float.parseFloat(request.getParameter("selectedCGST"));
 		
-		System.out.println("selectedGST "+ selectedGST);
+		//System.out.println("selectedGST "+ selectedGST);
 		
-		System.out.println("selectedSGST "+ selectedSGST);
-		System.out.println("selectedCGST "+ selectedCGST);
+		//System.out.println("selectedSGST "+ selectedSGST);
+		//System.out.println("selectedCGST "+ selectedCGST);
 		
 		
 		
@@ -157,15 +157,15 @@ public class TaxController {
 					taxService.getTaxCalculation(report, 1, "IGST"), TaxCalculationDto.class);
 			
 			taxEntity= ObjectMapperUtils.mapAll(taxList, TaxEntity.class);
-			System.out.println("Tax Entity " + taxEntity);
+			//System.out.println("Tax Entity " + taxEntity);
 			
 			  Iterator<TaxEntity> iterable= taxEntity.iterator();
 			  
 			  TaxEntity taxEntity2 = null;
 			  while (iterable.hasNext()) { 
 				  taxEntity2 = (TaxEntity)
-						  iterable.next(); System.out.println("Inside While taxEntity2 " + taxEntity2
-			  ); 
+						  iterable.next(); 
+				  //System.out.println("Inside While taxEntity2 " + taxEntity2); 
 						  
 				//insertRepo.insert(taxEntity2); 
 				taxRepo.save(taxEntity2);

@@ -180,19 +180,19 @@
 						</td>
 						
 						<td id="count1">
-						 <a ng-click="getCountType('RFP Management')" style="cursor: hand;cursor: pointer;"><c:out value="${mapStatusCount['snnote']}"/></a>					
+						 <a ng-click="getCountType('RFP Management')" style="cursor: hand;cursor: pointer;"><c:out value="0"/></a>					
 						</td>
 						<td id="count1">
-						 <a ng-click="getCountType('Invoice Submission')" style="cursor: hand;cursor: pointer;"><c:out value="${mapStatusCount['snnote']}"/></a>					
+						 <a ng-click="getCountType('Invoice Submission')" style="cursor: hand;cursor: pointer;"><c:out value="0"/></a>					
 						</td>
 						<td id="count1">
-						 <a ng-click="getCountType('Invoice Comparison')" style="cursor: hand;cursor: pointer;"><c:out value="${mapStatusCount['snnote']}"/></a>					
+						 <a ng-click="getCountType('Invoice Comparison')" style="cursor: hand;cursor: pointer;"><c:out value="0"/></a>					
 						</td>
 					</tr>
 					<tr align="center"
 						style="color: #000000; font-size: 12px; font-weight: bold;"
 						width="10%">
-						<td id="count2">Submitted</td>
+						<!-- <td id="count2">Submitted</td> -->
 						<td id="count2">Submitted</td>
 						<td id="count2">Approved</td>
 						<td id="count2"
