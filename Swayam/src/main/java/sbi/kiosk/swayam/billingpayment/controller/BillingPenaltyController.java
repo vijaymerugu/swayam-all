@@ -180,7 +180,7 @@ public class BillingPenaltyController {
 		//String json = gson.toJson(vendorRepository.findAll());
 		
 		String json = gson.toJson(vendorRepository.findVendors());
-		logger.info("cites "+ json);
+		//logger.info("cites "+ json);
 	
 		return ResponseEntity.ok(json);
 		

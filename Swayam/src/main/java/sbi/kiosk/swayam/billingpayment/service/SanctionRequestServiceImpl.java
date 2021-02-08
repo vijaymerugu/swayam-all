@@ -31,7 +31,7 @@ public class SanctionRequestServiceImpl implements SanctionRequsetService {
 	@Override
 	public Map<String, Integer> findAllCountRequestStatus() {
 		Map<String, Integer> mapData = null;
-		
+		logger.info("Inside findAllCountRequestStatus" );
 		mapData = new LinkedHashMap<String, Integer>();
 		
 		int submittedStatusCount = bpRepo.findByStatus("Submitted");
@@ -39,9 +39,11 @@ public class SanctionRequestServiceImpl implements SanctionRequsetService {
 		int approvedStatusCount =bpRepo.findByStatus("Approved");
 		
 		int snTypeCount = bpRepo.findCountRequestType("Sanction Note");
-		logger.info("submittedStatusCount====" + submittedStatusCount);
-		logger.info("rejectedStatusCount====" + rejectedStatusCount);
-		logger.info("approvedStatusCount====" + approvedStatusCount);
+		/*
+		 * logger.info("submittedStatusCount====" + submittedStatusCount);
+		 * logger.info("rejectedStatusCount====" + rejectedStatusCount);
+		 * logger.info("approvedStatusCount====" + approvedStatusCount);
+		 */
 		
 		mapData.put("submitted", submittedStatusCount);
 		mapData.put("rejected", rejectedStatusCount);
@@ -124,7 +126,7 @@ public class SanctionRequestServiceImpl implements SanctionRequsetService {
 		mapData.put("circularSlNo", sanctionRequestEntity.getCircularSlNo());
 		
 		
-		logger.info("mapData===" + mapData);
+		//logger.info("mapData===" + mapData);
 		
 		
 		
