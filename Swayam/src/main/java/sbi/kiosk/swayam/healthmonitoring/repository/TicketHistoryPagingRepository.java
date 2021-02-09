@@ -83,7 +83,7 @@ public interface TicketHistoryPagingRepository extends PagingAndSortingRepositor
 			+ "  AND  (?5 is null OR th.CALL_CLOSED_DATE LIKE to_date(?5,'dd-mm-yyyy') )  "
 			 + " AND th.CALL_SUB_CATEGORY LIKE %?6%"
 			 + " AND bm.CRCL_NAME LIKE %?7%"
-		     + " AND km.VENDOR LIKE %?8%"
+		     + " AND km.VENDOR LIKE %?8% order by th.CALL_LOG_DATE DESC "
 	/*
 	 * + " AND th.CALL_CLOSED_DATE LIKE %?5%" +
 	 * " AND th.CALL_SUB_CATEGORY LIKE %?6%" + " AND km.CIRCLE LIKE %?7%" +
@@ -107,7 +107,7 @@ public interface TicketHistoryPagingRepository extends PagingAndSortingRepositor
 	               + "  AND  (?5 is null OR th.CALL_CLOSED_DATE LIKE to_date(?5,'dd-mm-yyyy') )  "
 	               + " AND th.CALL_SUB_CATEGORY LIKE %?6%"
 	               + " AND bm.CRCL_NAME LIKE %?7%"
-	          	    + " AND km.VENDOR LIKE %?8%"
+	          	    + " AND km.VENDOR LIKE %?8% order by th.CALL_LOG_DATE DESC "
 	
 			)
 
@@ -140,7 +140,7 @@ public interface TicketHistoryPagingRepository extends PagingAndSortingRepositor
 			+ "  AND  (?5 is null OR th.CALL_CLOSED_DATE LIKE to_date(?5,'dd-mm-yyyy') )  "
 			 + " AND th.CALL_SUB_CATEGORY LIKE %?6%"
 			 + " AND bm.CRCL_NAME LIKE %?7%"
-		     + " AND km.VENDOR LIKE %?8%"
+		     + " AND km.VENDOR LIKE %?8%  order by th.CALL_LOG_DATE DESC"
 	/*
 	 * + " AND th.CALL_CLOSED_DATE LIKE %?5%" +
 	 * " AND th.CALL_SUB_CATEGORY LIKE %?6%" + " AND km.CIRCLE LIKE %?7%" +
@@ -164,7 +164,7 @@ public interface TicketHistoryPagingRepository extends PagingAndSortingRepositor
 	               + "  AND  (?5 is null OR th.CALL_CLOSED_DATE LIKE to_date(?5,'dd-mm-yyyy') )  "
 	               + " AND th.CALL_SUB_CATEGORY LIKE %?6%"
 	               + " AND bm.CRCL_NAME LIKE %?7%"
-	          	    + " AND km.VENDOR LIKE %?8%"
+	          	    + " AND km.VENDOR LIKE %?8% order by th.CALL_LOG_DATE DESC"
 	
 			)
 
