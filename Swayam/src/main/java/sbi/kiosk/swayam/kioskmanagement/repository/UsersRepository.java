@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import sbi.kiosk.swayam.common.entity.Circle;
 import sbi.kiosk.swayam.common.entity.User;
 
 @Repository
@@ -98,5 +99,6 @@ public interface UsersRepository extends CrudRepository<User, Long>, PagingAndSo
 	@Query(value=" SELECT COUNT(*) FROM TBL_USER WHERE ROLE IN ('LA')  and ENABLED in('1') and CIRCLE=:circle",nativeQuery=true)
 	public int findLACount(@Param("circle") String circle);
 	
-	
+	@Query(value=" SELECT circle FROM TBL_USER where pf_id=:pfId",nativeQuery=true)
+	public String findCircleByPfId(@Param("pfId") String pfId);
 }

@@ -17,7 +17,8 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService','uiGridCo
    
    $scope.getCountType = function(type){
       
-       counttype=type;
+	   $scope.counttype=type;
+	//   alert("counttype2:: "+$scope.counttype);
    //  Added for loader------------- START 
 		$("#loading").show(); 
 	//  Added for loader------------- END 
@@ -138,7 +139,8 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService','uiGridCo
   	    //  Added for loader------------- START 
 			$("#loading").show(); 
 			if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){
-          DrillDownService.getUsers(newPage,pageSize,"BR",circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
+			//	alert("counttype1:: "+$scope.counttype);
+          DrillDownService.getUsers(newPage,pageSize,$scope.counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
         	  $scope.gridOptions.data = data.content;
          	  $scope.gridOptions.totalItems = data.totalElements;
       	    //  Added for loader------------- START 
@@ -148,8 +150,9 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService','uiGridCo
 			}
 	        else{
 	 	 	   //	console.log("Inside else");
-	        	 UserManagementService.getSearchNext(newPage,pageSize,"BR",circleName,networkName,moduleName,regionName,fromDate,toDate,$scope.searchText).success(function(data){
-	           	  $scope.gridOptions.data = data.content;
+	        	 UserManagementService.getSearchNext(newPage,pageSize,$scope.counttype,circleName,networkName,moduleName,regionName,fromDate,toDate,$scope.searchText).success(function(data){
+	        //		alert("counttype2:: "+$scope.counttype);
+	        		 $scope.gridOptions.data = data.content;
 	           	 	  $scope.gridOptions.totalItems = data.totalElements;
 	        
 		 	 		 $("#loading").hide();  
