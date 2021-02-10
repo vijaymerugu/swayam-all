@@ -183,22 +183,22 @@ public class LoginController{
 			  if(startIp==true){
 			
 			Gson gson = new Gson();
-			logger.info("createAuthentication() Started:::::: "+dbOms_url);
+			//logger.info("createAuthentication() Started:::::: "+dbOms_url);
 			JSONObject jsonResp=new JSONObject();
 			if ((Token != null && !Token.isEmpty()) && (!Token.equals("") && !Token.equals("null"))) {
-				logger.info("createAuthentication()==1111");
+				//logger.info("createAuthentication()==1111");
 				jsonResp=CommonUtils.decoded(Token);
-				logger.info("createAuthentication()==11112");
+				//logger.info("createAuthentication()==11112");
 				String header= (String) jsonResp.get("header");
 				String payload= (String) jsonResp.get("payload");
 				//logger.info("Result userId::" + result);
-				logger.info("Result Header::" + header);
-				logger.info("Result Payload::" + payload);
+				//logger.info("Result Header::" + header);
+				//logger.info("Result Payload::" + payload);
 				
 				 HashMap<String,String> hashMap = new ObjectMapper().readValue(payload, HashMap.class);
-				 logger.info("Result hashMap::" + hashMap);
+				// logger.info("Result hashMap::" + hashMap);
 				 String tokenUserId=hashMap.get("jti");
-				 logger.info("Result tokenUserId::" +tokenUserId );
+				// logger.info("Result tokenUserId::" +tokenUserId );
 				 
 				StringBuilder postData = new StringBuilder();
 				postData.append(URLEncoder.encode("Token", "UTF-8"));
@@ -209,9 +209,9 @@ public class LoginController{
 				//HttpsURLConnection conn =null;
 				HttpsURLConnection conn =null;
 					try{	
-						logger.info("postData==1="+new  sun.net.www.protocol.https.Handler());
+						///logger.info("postData==1="+new  sun.net.www.protocol.https.Handler());
 						conn=  (HttpsURLConnection) new URL(null,dbOms_url,new  sun.net.www.protocol.https.Handler()).openConnection();
-						logger.info("postData==2="+new  sun.net.www.protocol.https.Handler());
+					//	logger.info("postData==2="+new  sun.net.www.protocol.https.Handler());
 						//conn=  (HttpURLConnection) new URL(dbOms_url).openConnection();
 					}catch(Exception t){
 						logger.info("Inside connection url not stablish="+t.getMessage());
@@ -219,15 +219,12 @@ public class LoginController{
 				conn.setRequestMethod("POST");
 				//conn.setRequestProperty("Content-Type","application/json");
 				conn.setRequestProperty("Content-Type", "application/json"); //NEW LINE ADD
-				logger.info("postData==91=");
+				//logger.info("postData==91=");
 				conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length)); //NEW LINE ADD
 				conn.setDoOutput(true);
 				conn.setDoInput(true);
-				logger.info("postData==92=");
 				conn.getOutputStream().write(postDataBytes);
-				logger.info("postData==93=");
 				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-				logger.info("postData==94=");
 				if ((output = br.readLine()) != null) {
 					Map map = gson.fromJson(output, Map.class);
 					userId= (String) map.get("userId");
@@ -253,7 +250,7 @@ public class LoginController{
 
 						// check userId in db
 						String dbPfId = userRepo.findIdByPfId(userId);
-						logger.info("result found::" + result);
+						//logger.info("result found::" + result);
 						response.setPfId(dbPfId);
 						response.setResponse(result);
 						if (userId!=null && userId.equals(dbPfId)) { // call login method
@@ -270,9 +267,9 @@ public class LoginController{
 						    auditLogger.setStatus("Success");
 							auditLogger.setToken(Token);
 							audit.save(auditLogger);
-							logger.info("Before home::" + result);
+							//logger.info("Before home::" + result);
 							mav = new ModelAndView("redirect:/home");
-							logger.info("After home::" + result);
+							//logger.info("After home::" + result);
 						} else {
 							response.setResponse("UserId does not Exist");
 							mav = new ModelAndView("redirect:/errorCode1");
@@ -296,7 +293,7 @@ public class LoginController{
 			}
 			
 			  }else{
-				  logger.info("Http Local Host::11" + dbOms_url);
+				 // logger.info("Http Local Host::11" + dbOms_url);
 				  HttpURLConnection conn =null;
 				  byte[] postDataBytes = null;
 				  Gson gson = new Gson();
@@ -306,7 +303,7 @@ public class LoginController{
 						postData.append('=');
 						postData.append(URLEncoder.encode(String.valueOf(Token), "UTF-8"));
 						 postDataBytes = postData.toString().getBytes("UTF-8");
-						logger.info("postData==1="+new  sun.net.www.protocol.https.Handler());
+					//	logger.info("postData==1="+new  sun.net.www.protocol.https.Handler());
 						//conn=  (HttpURLConnection) new URL(null,dbOms_url,new  sun.net.www.protocol.https.Handler()).openConnection();
 						//logger.info("postData==2="+new  sun.net.www.protocol.https.Handler());
 						conn=  (HttpURLConnection) new URL(dbOms_url).openConnection();
@@ -316,15 +313,11 @@ public class LoginController{
 				conn.setRequestMethod("POST");
 				//conn.setRequestProperty("Content-Type","application/json");
 				conn.setRequestProperty("Content-Type", "application/json"); //NEW LINE ADD
-				logger.info("postData==91=");
 				conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length)); //NEW LINE ADD
 				conn.setDoOutput(true);
 				conn.setDoInput(true);
-				logger.info("postData==92=");
 				conn.getOutputStream().write(postDataBytes);
-				logger.info("postData==93=");
 				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-				logger.info("postData==94=");
 				if ((output = br.readLine()) != null) {
 					Map map = gson.fromJson(output, Map.class);
 					userId= (String) map.get("userId");
@@ -350,7 +343,7 @@ public class LoginController{
 
 						// check userId in db
 						String dbPfId = userRepo.findIdByPfId(userId);
-						logger.info("result found::" + result);
+						//logger.info("result found::" + result);
 						response.setPfId(dbPfId);
 						response.setResponse(result);
 						if (userId!=null && userId.equals(dbPfId)) { // call login method
@@ -367,9 +360,9 @@ public class LoginController{
 						    auditLogger.setStatus("Success");
 							auditLogger.setToken(Token);
 							audit.save(auditLogger);
-							logger.info("Before home::" + result);
+						//	logger.info("Before home::" + result);
 							mav = new ModelAndView("redirect:/home");
-							logger.info("After home::" + result);
+						//	logger.info("After home::" + result);
 						} else {
 							response.setResponse("UserId does not Exist");
 							mav = new ModelAndView("redirect:/errorCode1");
@@ -395,7 +388,7 @@ public class LoginController{
 			//logger.error("Exception():: ",e,e.getMessage());
 			 mav = new ModelAndView("redirect:/errorCode3");
 		}
-		logger.info("Result Status END()...." + result);
+		//logger.info("Result Status END()...." + result);
 		return	mav;
 	}
 	
