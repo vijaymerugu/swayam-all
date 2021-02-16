@@ -461,6 +461,25 @@ public class LoginController{
 	 * return model; }
 	 */
 	
+	
+	  @RequestMapping(value="logout")
+	  @PreAuthorize("hasPermission('logout','READ')") 
+	  public ModelAndView logout(ModelAndView model,HttpSession session,AuditLogger auditLogger) {
+		UserDto userObj = (UserDto) session.getAttribute("userObj");
+		auditLogger.setUser_Id(userObj.getPfId());
+		auditLogger.setStatus("LogOut");
+		auditLogger.setPath("/logout");
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+		java.util.Date date = new java.util.Date();
+		auditLogger.setSession_Date(formatter.format(date));
+		audit.save(auditLogger);
+	    session.invalidate();
+	    logger.info("SuccessFully  LogOut:::"+userObj.getPfId());
+	    model.setViewName("redirect:https://adfs.sbi.co.in/adfs/ls/?wa=wsignout1.0");
+	  return model; 
+	  }
+	 
+	
 	@RequestMapping(value="common/menu", method=RequestMethod.GET)
 	@PreAuthorize("hasPermission('commonMenu','READ')")
 	public List<MenuMasterDto> getMenu(HttpSession session) {		

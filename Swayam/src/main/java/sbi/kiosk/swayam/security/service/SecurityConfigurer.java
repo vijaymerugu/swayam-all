@@ -1,5 +1,8 @@
 package sbi.kiosk.swayam.security.service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +13,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
@@ -41,9 +46,21 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 		auth.userDetailsService(myUserDetailService);
 
 	}*/
-
+	
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+	
+		
+		System.out.println("pfId=================");
+		
+		
+		
+		
+
+		
+
+		
 		http.//cors()
 			//.and().
 			csrf().disable()
@@ -51,9 +68,9 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 			.antMatchers("/login*").permitAll()
 			//.antMatchers("/getToken").permitAll().anyRequest().authenticated()
 			.and()
-			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))            
-			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))            
-            .logoutSuccessUrl("https://adfs.sbi.co.in/adfs/ls/?wa=wsignout1.0")
+			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout*"))            
+			.logoutRequestMatcher(new AntPathRequestMatcher("/logout/*"))            
+            .logoutSuccessUrl("/redirect:/logout")
             .deleteCookies("JSESSIONID") 
             .invalidateHttpSession(true)        // set invalidation state when logout            
 				.and()
@@ -61,7 +78,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 				.sessionFixation().migrateSession()
 				.maximumSessions(1)
 				.maxSessionsPreventsLogin(false)
-				.expiredUrl("https://adfs.sbi.co.in/adfs/ls/?wa=wsignout1.0");
+				.expiredUrl("/redirect:/logout");
 		http.headers().
 		httpStrictTransportSecurity()
 		.includeSubDomains(true)
