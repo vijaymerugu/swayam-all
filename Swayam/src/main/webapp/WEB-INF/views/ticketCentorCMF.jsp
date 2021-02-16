@@ -360,7 +360,11 @@
 					&nbsp;&nbsp;&nbsp;
 					</span>
 					<br />
-
+					
+					<div class="loading" id="loading" align="center" style="display:none;">
+   					 <img src="resources/img/loader.gif"> 
+					</div>
+					
 					<div
 						style="top: 355px; left: 15px; width: 1336px; height: 519px; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1;"
 						ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test">
@@ -517,23 +521,26 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
 $(document).ready(function(){
 
     $(".openpdfonclick").click(function(){
-    	
+    	$("#loading").show();
         $.ajax({
             url: 'report?page=ticketCenterCMF&type=pdf',
             type: 'GET',   
             success: function(data){
             	console.log(data);
-            	window.open("resources/download/"+data , '_blank');  
+            	window.open("resources/download/"+data , '_blank'); 
+            	$("#loading").hide();
             }
         });
     });
     $(".openxlonclick").click(function(){    	
+    	$("#loading").show();
         $.ajax({
             url: 'report?page=ticketCenterCMF&type=excel',
             type: 'GET',   
             success: function(data){
             	console.log(data);
-            	window.open("resources/download/"+data , '_blank');  
+            	window.open("resources/download/"+data , '_blank');
+            	$("#loading").hide();
             }
         });
     });

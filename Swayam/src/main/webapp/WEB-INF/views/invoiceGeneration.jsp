@@ -246,7 +246,9 @@
 		&nbsp;&nbsp;&nbsp;
 		</span>
 		<br/>
-		
+		<div class="loading" id="loading" align="center" style="display:none;">
+   			 <img src="resources/img/loader.gif"> 
+		</div>
 		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test"></div>
 		
         
@@ -264,7 +266,7 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
       $(document).ready(function(){
 
     	    $(".openpdfonclick").click(function(){
-    	    	
+    	    	$("#loading").show();
     	        $.ajax({
     	            url: 'report?page=invoiceReport&type=pdf',
     	            type: 'GET',   
@@ -272,15 +274,18 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
     	            	if(data.includes(".pdf")){
     	            		console.log("PDF Data1" + data);
     	            		window.open("resources/download/"+data , '_blank'); 
+    	            		$("#loading").hide();
     	            		
     	            	}else{
     	            		console.log("PDF Data" + data);
     	            		alert("No Data to Export");
+    	            		$("#loading").hide();
     	            	}  
     	            }
     	        });
     	    });
-    	    $(".openxlonclick").click(function(){    	
+    	    $(".openxlonclick").click(function(){  
+    	    	$("#loading").show();
     	        $.ajax({
     	            url: 'report?page=invoiceReport&type=excel',
     	            type: 'GET',   
@@ -288,10 +293,11 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
     	            	if(data.includes(".xlsx")){
     	            		console.log("PDF Data1" + data);
     	            		window.open("resources/download/"+data , '_blank'); 
-    	            		
+    	            		$("#loading").hide();
     	            	}else{
     	            		console.log("PDF Data" + data);
     	            		alert("No Data to Export");
+    	            		$("#loading").hide();
     	            	} 
     	            }
     	        });

@@ -216,11 +216,11 @@
 				.ready(
 						function() {
 							//$('#topnav > ul > li').bind('click', jsddm_open)   
-							$('#topnav > ul').on('click', 'li', jsddm_open)
+							$('#topnav > ul').on('mouseover', 'li', jsddm_open)
 							//$('#topnav > ul > li > a').click(function(ev){
 							$('#topnav > ul')
 									.on(
-											'click',
+											'mouseover',
 											'li > a',
 											function(ev) {
 												if ($(this).hasClass('current')) {
