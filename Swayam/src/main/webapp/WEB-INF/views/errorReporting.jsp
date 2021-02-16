@@ -170,7 +170,7 @@
   			$( ".datepicker" ).datepicker(datePickerOptions); */
 
     	    $(".openpdfonclick").click(function(){
-    	    	
+    	    	$("#loading").show(); 
     	        $.ajax({
     	            url: 'report?page=errorReporting&type=pdf',
     	            type: 'GET',   
@@ -179,15 +179,18 @@
     	            	if(data.includes(".pdf")){
     	            		console.log("PDF Data1" + data);
     	            		window.open("resources/download/"+data , '_blank'); 
+    	            		$("#loading").hide(); 
     	            		
     	            	}else{
     	            		console.log("PDF Data" + data);
     	            		alert("No Data to Export");
+    	            		$("#loading").hide(); 
     	            	} 
     	            }
     	        });
     	    });
-    	    $(".openxlonclick").click(function(){    	
+    	    $(".openxlonclick").click(function(){   
+    	    	$("#loading").show(); 
     	        $.ajax({
     	            url: 'report?page=errorReporting&type=excel',
     	            type: 'GET',   
@@ -196,10 +199,12 @@
     	            	if(data.includes(".xlsx")){
     	            		console.log("Excel Data1" + data);
     	            		window.open("resources/download/"+data , '_blank'); 
+    	            		$("#loading").hide(); 
     	            		
     	            	}else{
     	            		console.log("Excel Data" + data);
     	            		alert("No Data to Export");
+    	            		$("#loading").hide(); 
     	            	}  
     	            }
     	        });

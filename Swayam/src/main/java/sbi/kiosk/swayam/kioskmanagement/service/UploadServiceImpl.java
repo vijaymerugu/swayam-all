@@ -769,7 +769,7 @@ public class UploadServiceImpl implements UploadService {
 			if(listEntity1 !=null && listEntity1.size() > 0)
 			{	
 				KioskBranchMasterxlsx(listEntity1);
-		//		logger.info("Kiosk Details Data Not Uploaded");
+				logger.info("Kiosk Details Data Not Uploaded");
 				return "Data Not Uploaded";
 			}
 			else {
@@ -808,7 +808,7 @@ public class UploadServiceImpl implements UploadService {
 				else{
 				Iterable<KioskBranchMaster> result = kioskMasterManagementRepository.saveAll(listEntity);
 				if (result != null)
-				//	logger.info("Kiosk Details Uploaded Successfully");
+					logger.info("Kiosk Details Uploaded Successfully");
 					return "Kiosk_Branch_Master";	
 				}
 			}
@@ -1799,7 +1799,7 @@ public class UploadServiceImpl implements UploadService {
 			{	
 				
 				branchmasterxlsx(listEntity1);
-			//	logger.info("Data Not Uploaded");
+				logger.info("Data Not Uploaded");
 				return "Data Not Uploaded";
 			}
 			
@@ -1855,7 +1855,7 @@ public class UploadServiceImpl implements UploadService {
 				else{
 				Iterable<BranchMaster> result =	branchMasterRepository.saveAll(listEntity);
 				if(result != null) {
-			//		logger.info( "Branch Master Data Uploaded Successfully");
+					logger.info( "Branch Master Data Uploaded Successfully");
 				return "BranchMaster";
 				}
 			}
@@ -2258,7 +2258,7 @@ public class UploadServiceImpl implements UploadService {
 			if(listEntity1 !=null && listEntity1.size() > 0)
 			{   
 				HolidayCalendarxlsx(listEntity1);
-			//	logger.info("Holiday Calendar Data Not Uploaded");
+				logger.info("Holiday Calendar Data Not Uploaded");
 				return "Data Not Uploaded";
 			}
 		
@@ -2290,7 +2290,7 @@ public class UploadServiceImpl implements UploadService {
 					
 					Iterable<HolidayCalendar> result = holidayCalendarRepository.saveAll(listEntity);
 					if (result != null)
-				//	logger.info("Holiday Calendar Data Uploaded Successfully");
+					logger.info("Holiday Calendar Data Uploaded Successfully");
 						return "Holiday_Calendar";
 					
 				}
@@ -2541,7 +2541,7 @@ public class UploadServiceImpl implements UploadService {
 			if(listEntity1 !=null && listEntity1.size() > 0)
 			{	
 				emptyxlsx(listEntity1);
-			//	logger.info("Kiosk_CMF Data Not Uploaded");
+				logger.info("Kiosk_CMF Data Not Uploaded");
 				return "Data Not Uploaded";
 			}
 			else {
@@ -2566,7 +2566,7 @@ public class UploadServiceImpl implements UploadService {
 				else{
 				Iterable<UserKioskMapping> result = kioskCMFRepository.saveAll(listEntity);
 				if (result != null)
-			//	logger.info("Kiosk_CMF Data Uploaded Successfully");
+				logger.info("Kiosk_CMF Data Uploaded Successfully");
 					return "Kiosk_CMF";
 				}
 			}
@@ -3090,7 +3090,7 @@ public class UploadServiceImpl implements UploadService {
 				if(listEntity1 !=null && listEntity1.size() > 0)
 				{	
 					vendorInvxlsx(listEntity1);
-				//	logger.info("Vendor Invoice Data Not Uploaded");
+					logger.info("Vendor Invoice Data Not Uploaded");
 					return "Data Not Uploaded";
 				}
 				else {
@@ -3125,7 +3125,7 @@ public class UploadServiceImpl implements UploadService {
 					else{
 					Iterable<InvoiceVendor> result = invoiceVendorRepository.saveAll(listEntity);
 					if (result != null)
-				//	logger.info("Vendor Invoice Data Uploaded Successfully");
+					logger.info("Vendor Invoice Data Uploaded Successfully");
 						return "Vendor_Invoice";
 					}
 				}

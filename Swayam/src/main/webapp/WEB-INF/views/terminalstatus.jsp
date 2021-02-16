@@ -205,6 +205,9 @@
 		</span>		
 		<br/>
 		<br/>
+		<div class="loading" id="loading" align="center" style="display:none;">
+   			 <img src="resources/img/loader.gif"> 
+		</div>
 		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter id="test"></div>
     </div>
 	</div>
@@ -215,7 +218,7 @@
 $(document).ready(function(){
 	    
     $(".openpdfonclick").click(function(){
-    	
+    	$("#loading").show();
         $.ajax({
             url: 'report?page=terminalStatus&type=pdf',
             type: 'GET',   
@@ -223,15 +226,18 @@ $(document).ready(function(){
             	if(data.includes(".pdf")){
             		console.log("PDF Data1" + data);
             		window.open("resources/download/"+data , '_blank'); 
+            		$("#loading").hide();
             		
             	}else{
             		console.log("PDF Data" + data);
             		alert("No Data to Export");
+            		$("#loading").hide();
             	} 
             }
         });
     });
-    $(".openxlonclick").click(function(){    	
+    $(".openxlonclick").click(function(){  
+    	$("#loading").show();
         $.ajax({
             url: 'report?page=terminalStatus&type=excel',
             type: 'GET',   
@@ -239,10 +245,12 @@ $(document).ready(function(){
             	if(data.includes(".xlsx")){
             		console.log("Excel Data1" + data);
             		window.open("resources/download/"+data , '_blank'); 
+            		$("#loading").hide();
             		
             	}else{
             		console.log("Excel Data" + data);
             		alert("No Data to Export");
+            		$("#loading").hide();
             	}  
             }
         });

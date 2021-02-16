@@ -206,6 +206,9 @@
 		</span>	
 		
 		<br/>
+		<div class="loading" id="loading" align="center" style="display:none;">
+   			 <img src="resources/img/loader.gif"> 
+		</div> 
 		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test"></div>
 		
         
@@ -221,23 +224,26 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
 $(document).ready(function(){
 
     $(".openpdfonclick").click(function(){
-    	
+    	$("#loading").show(); 
         $.ajax({
             url: 'report?page=kioskManagementByCircle&type=pdf',
             type: 'GET',   
             success: function(data){
             	console.log(data);
             	window.open("resources/download/"+data , '_blank');  
+            	$("#loading").hide(); 
             }
         });
     });
-    $(".openxlonclick").click(function(){    	
+    $(".openxlonclick").click(function(){    
+    	$("#loading").show(); 
         $.ajax({
             url: 'report?page=kioskManagementByCircle&type=excel',
             type: 'GET',   
             success: function(data){
             	console.log(data);
             	window.open("resources/download/"+data , '_blank');  
+            	$("#loading").hide(); 
             }
         });
     });
