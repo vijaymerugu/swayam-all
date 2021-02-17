@@ -31,8 +31,8 @@ import sbi.kiosk.swayam.transactiondashboard.controller.TransactionDashBoardCont
 	  
 
 	 
-  logger.info("Inside==Jasper====generateReport===========page "+page);
-  logger.info("Inside==Jasper====generateReport===========type "+type);
+ // logger.info("Inside==Jasper====generateReport===========page "+page);
+//  logger.info("Inside==Jasper====generateReport===========type "+type);
   if(type.equals("pdf")){ return jasperService.generateReportPdf(page); } else
   if(type.equals("excel")){ return jasperService.generateReportExcel(page); }
   else{ return null; } }

@@ -188,7 +188,7 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 				}
 			
 		 }catch (Exception e) {
-			 e.printStackTrace();
+		//	 e.printStackTrace();
 			 logger.error("Exception111 "+ExceptionConstants.EXCEPTION);
 		 } 
 			
@@ -509,7 +509,7 @@ public class TicketCentorFilterServiceImpl implements TicketCentorFilterService 
 					  entities =  ticketCentorRepo.findAllByCMSUser(supList,PageRequest.of(page, size)).map(TicketCentorDto::new);
 				      }
 			 }catch (Exception e) {
-				 e.printStackTrace();
+		//		 e.printStackTrace();
 				 logger.error("Exception "+ExceptionConstants.EXCEPTION);
 			}
 		 	return entities;

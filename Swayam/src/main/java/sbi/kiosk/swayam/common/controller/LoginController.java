@@ -383,7 +383,7 @@ public class LoginController{
 			  }
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+		//	e.printStackTrace();
 			logger.info("Exception");
 			//logger.error("Exception():: ",e,e.getMessage());
 			 mav = new ModelAndView("redirect:/errorCode3");

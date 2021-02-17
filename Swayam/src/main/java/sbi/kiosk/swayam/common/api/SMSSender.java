@@ -149,7 +149,7 @@ public class SMSSender
             in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             SMSSender.logger.info("====jsonString==6===" );
             }catch (Exception e) {
-            	e.printStackTrace();
+            	//e.printStackTrace();
 			}
             
             String line;
@@ -159,7 +159,7 @@ public class SMSSender
                 SMSSender.logger.info("====result=====" + result);
             }
         } catch (Exception e) {
-			e.printStackTrace();
+		//	e.printStackTrace();
 		} finally {
 			try {
 				if (out != null) {
@@ -169,7 +169,7 @@ public class SMSSender
 					in.close();
 				}
 			} catch (IOException ex) {
-				ex.printStackTrace();
+			//	ex.printStackTrace();
 			}
 		}
         SMSSender.logger.info("=final===result=====" + result);
@@ -246,7 +246,7 @@ public class SMSSender
 				logger.info("Aftert connection url not stablish=");
 				//conn=  (HttpURLConnection) new URL(dbOms_url).openConnection();
 			}catch(Exception e){
-				e.printStackTrace();
+				
 				logger.info("Inside connection url not stablish="+e.getMessage());
 			}
 			conn.setRequestMethod("POST");
@@ -291,7 +291,7 @@ public class SMSSender
             in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             SMSSender.logger.info("====jsonString==6===" );
             }catch (Exception e) {
-            	e.printStackTrace();
+            	//e.printStackTrace();
 			}
             
             String line;
@@ -301,7 +301,7 @@ public class SMSSender
                 SMSSender.logger.info("====result=====" + result);
             }
         } catch (Exception e) {
-			e.printStackTrace();
+		//	e.printStackTrace();
 		} finally {
 			try {
 				if (out != null) {
@@ -311,7 +311,7 @@ public class SMSSender
 					in.close();
 				}
 			} catch (IOException ex) {
-				ex.printStackTrace();
+			//	ex.printStackTrace();
 			}
 		}
         SMSSender.logger.info("=final===result=====" + error_code);
@@ -329,7 +329,7 @@ public class SMSSender
 		  String smsCertificatePath=null;
 		
 		try {
-			logger.info("smsApi Start--------url--"+postData.getMobileNo());
+		//	logger.info("smsApi Start--------url--"+postData.getMobileNo());
 		      ClassLoader loader = Thread.currentThread().getContextClassLoader();
 			  Properties properties = new Properties();
 	         try {
@@ -349,11 +349,11 @@ public class SMSSender
 	            
 	         }
 	         catch (IOException e) {
-	             e.printStackTrace();
-	             logger.info("e.printStackTrace()--"+e.getMessage());
+	         //    e.printStackTrace();
+	       //      logger.info("e.printStackTrace()--"+e.getMessage());
 	         }
 	         smsCertificatePath = properties.getProperty("sms.certificatePath");
-	        logger.info("smsCertificatePath: "+smsCertificatePath);  
+	    //    logger.info("smsCertificatePath: "+smsCertificatePath);  
 			  System.setProperty("javax.net.ssl.trustStore",smsCertificatePath);
    		  // comment out below line
    		  System.setProperty("javax.net.ssl.trustStore","trust_store/keystore.jks");
@@ -397,7 +397,7 @@ public class SMSSender
 			 conn = (HttpsURLConnection) realUrl.openConnection();
 			// set request properties
 			} catch (Exception e) {
-				e.printStackTrace();
+			//	e.printStackTrace();
 				logger.info("===Exception=====" + e.getMessage());
 			}
 		conn.setRequestMethod("POST");
@@ -418,7 +418,7 @@ public class SMSSender
 				logger.info("====conn.getOutputStream()=====" + conn.getOutputStream());
 			out = new PrintWriter(conn.getOutputStream());
 			} catch (Exception e) {
-				e.printStackTrace();
+			//	e.printStackTrace();
 				logger.info("===Exception=====" + e.getMessage());
 			}
 			// send POST DATA
@@ -429,7 +429,7 @@ public class SMSSender
 			logger.info("====new BufferedReader(new InputStreamReader(conn.getInputStream())=====" + new BufferedReader(new InputStreamReader(conn.getInputStream())));
 			in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			} catch (Exception e) {
-				e.printStackTrace();
+			//	e.printStackTrace();
 				logger.info("===Exception1111=====" + e.getMessage());
 			}
 			
@@ -439,7 +439,7 @@ public class SMSSender
 				logger.info("====result=====" + result);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+		//	e.printStackTrace();
 			logger.info("===Exception22=====" + e.getMessage());
 		} finally {
 			try {
@@ -450,7 +450,7 @@ public class SMSSender
 					in.close();
 				}
 			} catch (IOException ex) {
-				ex.printStackTrace();
+			//	ex.printStackTrace();
 			}
 		}
 		logger.info("===final=result=====" + result);

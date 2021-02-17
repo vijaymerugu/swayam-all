@@ -117,9 +117,7 @@ public class PurchaseOrderController {
 		allocation.setRemainingQuantity(allocatedQuantity-poQuantity);
 		BillingPurchaseOrder order =podetails.get();
 		
-		//System.out.println("Pd oder date " + order.getPoDate());
-		//System.out.println("Pd Quantity " + order.getPoQantity());
-		
+	
 		order.setPoQantity(poQuantity);
 		order.setStatus("s");
 		
@@ -161,24 +159,21 @@ public class PurchaseOrderController {
 		int lastPoNumber=0;
 		try {
 			lastPoNumber =repo.findLastPO();
-		//	System.out.println("Last PO Number " + lastPoNumber);
+	
 		}catch (AopInvocationException e) {
 			
 			lastPoNumber=10000;
 			
 		}catch (Exception e) {
-			//e.printStackTrace();
+			
 			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
-		
-		//System.out.println("List " + lastPoNumber);
-		//logger.info("Last PO" + lastPoNumber);
 		
 	
 		int poNumber = lastPoNumber+1;
 		@SuppressWarnings("unchecked")
 		int updateStatus = repo.updatePoNumber(poNumber, poIdList);
-		//System.out.println("updateStatus" + updateStatus);
+	
 		JasperReport jasperReport = null;
 		JRBeanCollectionDataSource source = null;
 		JasperPrint jasperPrint = null;

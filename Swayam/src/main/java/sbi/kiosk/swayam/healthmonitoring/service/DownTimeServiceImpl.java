@@ -105,7 +105,7 @@ public class DownTimeServiceImpl implements DowntimeService {
 			
 			logger.info("pageEntity:::"+pageEntity);
 		} catch (Exception e) {
-			e.printStackTrace();
+		//	e.printStackTrace();
 			logger.error("DownTimeServiceImpl Exception():::",e.getMessage());
 		}
 		
