@@ -162,7 +162,7 @@ public class SMTIntegrationCallOpenApi {
 			                 urlConnection = (HttpURLConnection) url.openConnection();
 			                  logger.info("inputJson::-After conn--2---- "+inputJson);
 			            } catch (Exception e) {
-							e.printStackTrace();
+						//	e.printStackTrace();
 						}
 			            //set up some things on the connection
 			            urlConnection.setRequestMethod("POST");
@@ -172,7 +172,7 @@ public class SMTIntegrationCallOpenApi {
 			            try {
 			            urlConnection.connect();
 			            } catch (Exception e) {
-							e.printStackTrace();
+						//	e.printStackTrace();
 						}
 			             
 			            PrintWriter pw =null;
@@ -184,7 +184,7 @@ public class SMTIntegrationCallOpenApi {
 			                 logger.info("pw::---write---- "+pw);
 			             
 			            } catch (Exception e) {
-							e.printStackTrace();
+						//	e.printStackTrace();
 						}
 			            logger.info("response::---1---- ");
 			            pw.close();
@@ -207,7 +207,7 @@ public class SMTIntegrationCallOpenApi {
 			            	}
 	
 			            } catch (Exception e) {
-							e.printStackTrace();
+						//	e.printStackTrace();
 						}
 			            logger.info("response::----2------");
 			            try{
@@ -215,21 +215,21 @@ public class SMTIntegrationCallOpenApi {
 			            in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
 			            logger.info("BufferedReader---4---");
 			            }catch (Exception e) {
-				             e.printStackTrace();
+				         //    e.printStackTrace();
 				          }
 			            
 			            if ((output = in.readLine()) != null) {
-							logger.info("Result output::" + output);
+						//	logger.info("Result output::" + output);
 						}
 	
 						   in.close();	
 			            
 			       } catch (Exception e) {
-			             e.printStackTrace();
+			       //      e.printStackTrace();
 			          }
 			
 			    }catch (Exception e) {
-	               e.printStackTrace();
+	           //    e.printStackTrace();
 	             }
 			logger.info("final response::------- "+output);
 			return output;
@@ -244,7 +244,7 @@ public class SMTIntegrationCallOpenApi {
 	    try(InputStream resourceStream = loader.getResourceAsStream("application.properties")){
 	        properties.load(resourceStream);
 	    }catch(IOException e){
-	        e.printStackTrace();
+	     //   e.printStackTrace();
 	    }
 	 
 	    String filepath=properties.getProperty("pathCertificate");
@@ -264,7 +264,7 @@ public class SMTIntegrationCallOpenApi {
 			br.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+		//	e.printStackTrace();
 		}
 			    FileInputStream fis = new FileInputStream(filepath);
 		        CertificateFactory cf = CertificateFactory.getInstance("X.509");
@@ -339,7 +339,7 @@ public class SMTIntegrationCallOpenApi {
 	    	cipher.init(Cipher.ENCRYPT_MODE, publicKey);
 	    	return Base64.getEncoder().encodeToString(cipher.doFinal(plainText.getBytes("utf-8")));
 	    	} catch (Exception e) {
-	    	    e.printStackTrace();
+	   // 	    e.printStackTrace();
 	    	}
 	    	return null;
 	    	}

@@ -124,7 +124,7 @@ public String findZeroTxnLastUpdatedJob() {
 		zeroTxnDate=zeroTransactionKiosksRepository.findCurrentDateAuditJob();
 		
 	} catch (Exception e) {
-		e.printStackTrace();
+	//	e.printStackTrace();
 	}
 	return zeroTxnDate;
 

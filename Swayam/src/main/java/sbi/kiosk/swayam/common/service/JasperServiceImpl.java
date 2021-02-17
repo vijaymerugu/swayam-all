@@ -211,8 +211,7 @@ public class JasperServiceImpl implements JasperService {
 		try {
 			jrxmlPath = jrxmlPath.replaceAll(">", "");
 			reportPath = reportPath.replaceAll(">", "");
-		//	logger.info("jrxmlPath " + jrxmlPath);
-		//	logger.info("reportPath " + reportPath);
+		
 			if (identifyPage.equals("userListSA")) {
 				List<UserManagementDto> list = findUsersBySA();
 				 if(list.isEmpty()) {
@@ -394,7 +393,7 @@ public class JasperServiceImpl implements JasperService {
 				}
 				filename =fileName+".pdf";
 				//"attachment; filename=\"" + fileName + ".pdf\""
-				logger.info("PDF File filename !!"+filename);
+			
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 					}
 			}else if(identifyPage.equals("bpReport")) {
@@ -533,7 +532,7 @@ public class JasperServiceImpl implements JasperService {
 					String Q1LastDate =  "3006"+finacialYear.substring(0, 4);
 					//System.out.println("Q1LastDate "+ Q1LastDate);
 					filename = "InvoiceCompare_"+Q1StartDate+"_"+Q1LastDate+".pdf";
-					System.out.println("FileName "+ filename);
+				//	System.out.println("FileName "+ filename);
 					
 				}else if(quarter.equalsIgnoreCase("Q2")) {
 					String Q2StartDate =  "0107"+finacialYear.substring(0, 4);
@@ -892,7 +891,7 @@ public class JasperServiceImpl implements JasperService {
 				 logger.info("PDF File Terminal Status !!");
 
 			List<TerminalStatusDto> list = findTerminalStatusReport();
-			 logger.info("PDF File Terminal Status list !!"+list);
+		//	 logger.info("PDF File Terminal Status list !!"+list);
 			
 			
 			 if(list.isEmpty()) {
@@ -1136,9 +1135,9 @@ public class JasperServiceImpl implements JasperService {
 					
 				if(quarter.equalsIgnoreCase("Q1")) {
 					String Q1StartDate =  "0104"+finacialYear.substring(0, 4);
-					//System.out.println("Q1StartDate "+ Q1StartDate);
+					
 					String Q1LastDate =  "3006"+finacialYear.substring(0, 4);
-					//System.out.println("Q1LastDate "+ Q1LastDate);
+					
 					filename = "BillingPenalty_"+Q1StartDate+"_"+Q1LastDate+".xlsx";
 					System.out.println("FileName "+ filename);
 					
@@ -1259,11 +1258,11 @@ public class JasperServiceImpl implements JasperService {
 					
 				if(quarter.equalsIgnoreCase("Q1")) {
 					String Q1StartDate =  "0104"+finacialYear.substring(0, 4);
-					//System.out.println("Q1StartDate "+ Q1StartDate);
+					
 					String Q1LastDate =  "3006"+finacialYear.substring(0, 4);
-					//System.out.println("Q1LastDate "+ Q1LastDate);
+					
 					filename = "InvoiceCompare_"+Q1StartDate+"_"+Q1LastDate+".xlsx";
-					System.out.println("FileName "+ filename);
+				
 					
 				}else if(quarter.equalsIgnoreCase("Q2")) {
 					String Q2StartDate =  "0107"+finacialYear.substring(0, 4);
@@ -1455,7 +1454,7 @@ public class JasperServiceImpl implements JasperService {
 				Date curDate = new Date();
 				curDate.setTime(curDate.getTime() - 24 * 60 * 60 * 1000);
 				String yesterdayDate = sdf.format(curDate);
-				logger.info("Excel File RealTimeYesterday yesterdayDate::" + yesterdayDate);
+				
 
 				List<RealTimeTransactionDto> list = findAllDateWiseRealtimeTxn(yesterdayDate);
 				 if(list.isEmpty()) {
@@ -1971,16 +1970,14 @@ public class JasperServiceImpl implements JasperService {
 				 fromdate = sdf.format(curDate);
 				 todate = sdf.format(curDate);
 				 
-			//	 logger.info("Inside findAllTransactionSummary===========Current==========From date: "+fromdate);
-			//	 logger.info("Inside findAllTransactionSummary===========Current==========To date: "+todate);
+	
 	//	  }
 		  if((dateFrame.getFromDate().isEmpty()== false) && (dateFrame.getToDate().isEmpty()== false)) 
 		  {
 			   fromdate = dateFrame.getFromDate();
 			   todate = dateFrame.getToDate();
 			   
-			//   logger.info("Inside findAllTransactionSummary===========TimeFrame==========From date: "+fromdate);
-			//   logger.info("Inside findAllTransactionSummary===========TimeFrame==========To date: "+todate);
+
 		  }
 		
 		logger.info("Inside==Jasper====findAllTransactionSummary=======after date setting====");
@@ -1995,7 +1992,7 @@ public class JasperServiceImpl implements JasperService {
 	public List<RealTimeTransactionDto> findAllDateWiseRealtimeTxn(String fromdate) {
 		logger.info("Inside==Jasper====findAllDateWiseRealtimeTxn===========");
 		List<RealTimeTransaction> list = realTimeTxnRepositoryPaging.findByDate(fromdate);
-	//	logger.info("Inside==Jasper=list=" + list);
+
 		List<RealTimeTransactionDto> entities = ObjectMapperUtils.mapAll(list, RealTimeTransactionDto.class);
 		return entities;
 	}
@@ -2003,9 +2000,7 @@ public class JasperServiceImpl implements JasperService {
 	@Override
 	public List<ZeroTransactionKiosksDto> findAllZeroTxnKoisk(String fromdate, String todate) {
 		logger.info("Inside==Jasper====findAllZeroTxnKoisk===========");
-		//logger.info("Inside==Jasper====findAllZeroTxnKoisk=========== From date: "+dateFrame.getFromDate());
-		//  logger.info("Inside==Jasper====findAllZeroTxnKoisk===========To date: "+dateFrame.getToDate());
-		 
+	
 		  if((dateFrame.getFromDate()!= "") && (dateFrame.getToDate()!= "")) {
 				
 			  fromdate = dateFrame.getFromDate();
@@ -2241,7 +2236,7 @@ public class JasperServiceImpl implements JasperService {
 					
 			  }
 			  }catch (Exception e) {
-				  e.printStackTrace();
+				  
 			}
 			return entities;
 			  }
@@ -2317,9 +2312,7 @@ public class JasperServiceImpl implements JasperService {
 
 		}
 		
-		System.out.println("List ----" + list);
-		
-		System.out.println(list.isEmpty());
+	
 		List<BillingPenaltyDto> entities = null;
 		
 		/*
@@ -2541,7 +2534,7 @@ public class JasperServiceImpl implements JasperService {
 		//List<TerminalStatusDto> entities=null;
 		List<TerminalStatus> list=(List<TerminalStatus>) terminalStatusRepo.findAll();
 		
-		logger.info("Inside==Jasper====findTerminalStatusReport==========="+list);
+	//	logger.info("Inside==Jasper====findTerminalStatusReport==========="+list);
 		
 		
 		
@@ -2565,7 +2558,7 @@ public class JasperServiceImpl implements JasperService {
 			  
 		//	  logger.info("dto.getKioskId()-------------"+dto.getKioskId());
 			   List<BranchMaster> branchMastList = branchMasterRepo.findAllByBranchCode(dto.getBranchCode());
-			    logger.info("branchMastList==========" + branchMastList);
+		//	    logger.info("branchMastList==========" + branchMastList);
 				for (BranchMaster branchMast : branchMastList) {
 				//	logger.info("Br Code====" + branchMast.getBranchCode());
 				//	logger.info("Circle====" + branchMast.getCircle());
@@ -2577,9 +2570,9 @@ public class JasperServiceImpl implements JasperService {
 			  
 				
 			    cmfNameList = terminalStatusRepository.findByKisoskId(dto.getKioskId());
-			    logger.info("CMF User==" + cmfNameList);
+			//    logger.info("CMF User==" + cmfNameList);
 			    dto.setCmf(cmfNameList);
-				logger.info("dto::::" + dto.toString());
+		//		logger.info("dto::::" + dto.toString());
 				
 				
 				  dto.setPbPrinterStatus(ts.getPbPrinterStatus());
@@ -2591,19 +2584,19 @@ public class JasperServiceImpl implements JasperService {
 				  dto.setLastPmDttm(ts.getLastPmDttm());
 				 
 				
-				 logger.info("dto::::22222224566" + dto);
+	//			 logger.info("dto::::22222224566" + dto);
 	             
 				
 				 entities.add(dto);
 	     		//entities.add(dto);
 			}
 		
-		 logger.info("entities:::4444444444444:" + entities);
+//		 logger.info("entities:::4444444444444:" + entities);
 		 entities = ObjectMapperUtils.mapAll(entities, TerminalStatusDto.class);
-         logger.info("dto11111111111::::" + entities);
+//         logger.info("dto11111111111::::" + entities);
 		
 		
-		logger.info("terminalStatusReport22222222::::" + entities);
+//		logger.info("terminalStatusReport22222222::::" + entities);
 		return entities;
 		
 	}

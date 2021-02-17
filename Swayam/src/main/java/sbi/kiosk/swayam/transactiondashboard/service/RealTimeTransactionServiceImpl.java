@@ -107,7 +107,7 @@ public class RealTimeTransactionServiceImpl implements RealTimeTransactionServic
 		      realTime=realTimeTxnRepositoryPaging.findCurrentDateAuditJob();
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+		//	e.printStackTrace();
 		}
 		return realTime;
 	}
