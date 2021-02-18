@@ -318,7 +318,7 @@ nativeQuery=true,countQuery ="SELECT  count( B.BRANCH_CODE) from  TBL_BRANCH_MAS
 			+ " TRUNC(TO_DATE(:todate,'dd-mm-yyyy') ) GROUP BY MST.BRANCH_CODE,MST.VENDOR "
 			+ " ORDER BY MST.BRANCH_CODE,MST.VENDOR) DATA1   GROUP BY DATA1.BRANCH_CODE "
 			+ " ORDER BY DATA1.BRANCH_CODE) M ON B.BRANCH_CODE = M.BRANCH_CODE "
-			+ " AND (B.CRCL_NAME=:searchText OR B.NETWORK=:searchText OR B.MODULE=:searchText OR B.REGION=:searchText OR B.BRANCH_CODE=:searchText OR B.BRANCH_NAME=:searchText)"
+			+ " AND (B.CRCL_NAME=UPPER(:searchText) OR B.NETWORK=UPPER(:searchText) OR B.MODULE=UPPER(:searchText) OR B.REGION=UPPER(:searchText) OR B.BRANCH_CODE=UPPER(:searchText) OR B.BRANCH_NAME=UPPER(:searchText))"
 			+ " GROUP BY B.CRCL_NAME,B.NETWORK,B.MODULE,B.REGION,B.BRANCH_CODE,B.BRANCH_NAME ",
 		nativeQuery=true,
 		countQuery ="SELECT count(B.BRANCH_CODE) AS BRANCH_CODE ,B.CRCL_NAME CRCL_NAME,B.NETWORK NETWORK,B.MODULE MODULE, "
@@ -351,7 +351,7 @@ nativeQuery=true,countQuery ="SELECT  count( B.BRANCH_CODE) from  TBL_BRANCH_MAS
 				+ " TRUNC(TO_DATE(:todate,'dd-mm-yyyy') ) GROUP BY MST.BRANCH_CODE,MST.VENDOR "
 				+ " ORDER BY MST.BRANCH_CODE,MST.VENDOR) DATA1   GROUP BY DATA1.BRANCH_CODE "
 				+ " ORDER BY DATA1.BRANCH_CODE) M ON B.BRANCH_CODE = M.BRANCH_CODE "
-				+ " AND (B.CRCL_NAME=:searchText OR B.NETWORK=:searchText OR B.MODULE=:searchText OR B.REGION=:searchText OR B.BRANCH_CODE=:searchText OR B.BRANCH_NAME=:searchText)"
+				+ " AND (B.CRCL_NAME=UPPER(:searchText) OR B.NETWORK=UPPER(:searchText) OR B.MODULE=UPPER(:searchText) OR B.REGION=UPPER(:searchText) OR B.BRANCH_CODE=UPPER(:searchText) OR B.BRANCH_NAME=UPPER(:searchText))"
 				+ " GROUP BY B.CRCL_NAME,B.NETWORK,B.MODULE,B.REGION,B.BRANCH_CODE,B.BRANCH_NAME")
 	
 	Page<SwayamMigrationSummary> findByFromDateSearchText(@Param("fromdate") String fromdate,@Param("todate") String todate,@Param("searchText") String searchText,Pageable pageable);

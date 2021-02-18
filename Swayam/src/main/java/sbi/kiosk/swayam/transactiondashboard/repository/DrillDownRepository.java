@@ -2131,7 +2131,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
     		  +
     		  "  WHERE b.branch_code = m.branch_code and  b.crcl_code=:in_circle_code and b.network=:in_network_code and "
     		  +
-    		  "   b.mod_code=:in_module_code and b.region=:in_region_code and ( b.BRANCH_CODE=:searchText or b.branch_name = :searchText)  "
+    		  "   b.mod_code=:in_module_code and b.region=:in_region_code and ( b.BRANCH_CODE=UPPER(:searchText) or b.branch_name = UPPER(:searchText))  "
     		  + " GROUP BY b.branch_name , b.branch_code " + " ORDER BY b.branch_name "
     		  
     		  , nativeQuery = true,countQuery =
@@ -2177,7 +2177,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
     		  +
     		  " WHERE b.branch_code = m.branch_code and  b.crcl_code=:in_circle_code and b.network=:in_network_code and "
     		  +
-    		  "   b.mod_code=:in_module_code and b.region=:in_region_code and ( b.BRANCH_CODE=:searchText or b.branch_name = :searchText) "
+    		  "   b.mod_code=:in_module_code and b.region=:in_region_code and ( b.BRANCH_CODE=UPPER(:searchText) or b.branch_name = UPPER(:searchText)) "
     		  + "  GROUP BY b.branch_name,  b.branch_code " + " ORDER BY b.branch_name ")
     
 	  Page<DrillDown> findByDateSearchNext(@Param("fromdate") String
