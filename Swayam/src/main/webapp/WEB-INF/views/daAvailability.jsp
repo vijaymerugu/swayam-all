@@ -13,20 +13,47 @@
 <style>
 div.absolute {
 	background: #FFFFFF 0% 0% no-repeat padding-box;
-	position: absolute;
 	top: 10px;
 	right: 0;
-	width: 300px;
-	height: 795px;
+	width: 1500px;
+	 height: 100px; 
 	border-radius: 1px;
 	border: 1px solid #73AD21;
-	overflow: scroll;
+	
+	margin-bottom: 5px;
+	 overflow: auto;
+	
 }
 
-.submain {
+/* .absolute ul {
+  
+  overflow: hidden;
+  overflow-x: scroll;
+}
+ */
+/* 
+ .submain {	
     top: 242px;
     left: 8px;
-    width: 1050px;
+    width: 1500px;
+    height: fit-content;
+   
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #8D8D8D29;
+    opacity: 1;
+    padding: 7px;
+    border-radius: 1px;
+    border: 1px solid #73AD21;
+    display: inline-block; 
+  
+}  */
+
+
+
+ .submain {
+    top: 242px;
+    left: 8px;
+    width: 1500px;
     height: fit-content;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     box-shadow: 0px 3px 6px #8D8D8D29;
@@ -34,7 +61,8 @@ div.absolute {
     padding: 7px;
     border-radius: 1px;
     border: 1px solid #73AD21;
-}
+   
+} 
 
 /* .submain {
 	top: 242px;
@@ -56,15 +84,40 @@ div.absolute {
 	width: 1em;
 	margin-left: -1em;
 }
+
+.absolute .bullet {
+ display: inline-block;
+
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+} 
 </style>
 
 
 </head>
 <body>
+
+
 	<div class="main" ng-app="daAvailabilityModule" id="appId">
 		<div ng-controller="daAvailabilityController as vm">
+	
+	<div class="absolute">
+			<div><h5 style="font-weight: bold;" align="center">Urgent Information</h5></div>
+			<ul>
+				<li class="bullet" ng-repeat="item in UrgentMessages">{{item.message}}</li>
+			</ul>
+				
+		</div>	
+				
+		
+
 			<div class="submain">
 				<!-- <div id="filters"> -->
+				
+						
+
+				
 				<h5 style="font-weight: bold;">Availability (in %)</h5>
 					
 					<p style="text-align: center">
@@ -77,13 +130,13 @@ div.absolute {
 				<!-- </div> -->
 		
 			</div>
-				<div class="absolute">
+		<!-- 		<div class="absolute">
 			<div><h5 style="font-weight: bold;" align="center">Urgent Information</h5></div>
 			<ul>
 				<li class="bullet" ng-repeat="item in UrgentMessages">{{item.message}}</li>
 			</ul>
 				
-		</div>
+		</div> -->
 		</div>
 	</div>
 	<script>
