@@ -61,9 +61,9 @@ public interface RealTimeTxnRepositoryPaging extends PagingAndSortingRepository<
             "FROM TBL_BRANCH_MASTER BM "+ 
     "JOIN TBL_SWAYAM_TXN_REPORT STR ON BM.BRANCH_CODE = STR.BRANCH_CODE "+  
     "AND STR.TXN_DATE=to_date(:fromdate,'dd-mm-yyyy') "+
-    "and (BM.CRCL_NAME=:searchText or str.branch_code= :searchText or bm.branch_name=:searchText or str.kiosk_id= :searchText) ORDER BY STR.TXN_DATE  DESC",nativeQuery=true,countQuery = "SELECT count(STR.BRANCH_CODE)  FROM TBL_BRANCH_MASTER BM JOIN TBL_SWAYAM_TXN_REPORT STR "
+    "and (BM.CRCL_NAME=UPPER(:searchText) or str.branch_code= UPPER(:searchText) or bm.branch_name=UPPER(:searchText) or str.kiosk_id= UPPER(:searchText)) ORDER BY STR.TXN_DATE  DESC",nativeQuery=true,countQuery = "SELECT count(STR.BRANCH_CODE)  FROM TBL_BRANCH_MASTER BM JOIN TBL_SWAYAM_TXN_REPORT STR "
     		+ " ON BM.BRANCH_CODE = STR.BRANCH_CODE AND STR.TXN_DATE = to_date(:fromdate,'dd-mm-yyyy') "+
-    		 " and (BM.CRCL_NAME=:searchText or str.branch_code= :searchText or bm.branch_name=:searchText or str.kiosk_id= :searchText) ORDER BY STR.TXN_DATE  DESC" )
+    		 " and (BM.CRCL_NAME=UPPER(:searchText) or str.branch_code= UPPER(:searchText) or bm.branch_name=UPPER(:searchText) or str.kiosk_id= UPPER(:searchText)) ORDER BY STR.TXN_DATE  DESC" )
 	
 	Page<RealTimeTransaction> findByFromDateSearchText(@Param("fromdate") String fromdate,@Param("searchText") String searchText, Pageable pageable);
 	
