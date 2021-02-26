@@ -466,8 +466,7 @@ public class LoginController{
 			 mav.addObject("suburl", "da/cumulativeCircleData");	 
 		 }
 		 
-		 
-		 
+		 		 
 		// System.out.println("Inside /home method ---- login..... ");
 		 
 		// mav.setViewName("billingPenalty");

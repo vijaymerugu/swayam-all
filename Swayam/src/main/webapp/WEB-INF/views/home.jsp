@@ -222,7 +222,7 @@
 		}
 		$(document)
 				.ready(
-						function() {
+						function() { 
 							//$('#topnav > ul > li').bind('click', jsddm_open)   
 							$('#topnav > ul').on('mouseover', 'li', jsddm_open)
 							//$('#topnav > ul > li > a').click(function(ev){
