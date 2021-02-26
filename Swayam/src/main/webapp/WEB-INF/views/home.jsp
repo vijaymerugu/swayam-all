@@ -48,7 +48,7 @@
 <script src="resources/js/angular-aria.js"></script>
 </head>
 <body style="background: #EFF3F6; margin: 0px; padding: 0px;width: 98%;overflow-x: hidden;">
-	<div id="mainMenuHome" ng-app="HomeApp" ng-controller="menuController">
+	<div id="mainMenuHome" ng-app="HomeApp" ng-controller="menuController" ng-init='load("${suburl}")'>
 		<%
 			UserDto userObj = (UserDto) session.getAttribute("userObj");
 			//String firstName = "";
@@ -144,6 +144,14 @@
 					$scope.notifications = [];
 					$scope.updatedNotifications = [];
 					$scope.unReadNotificationCount = 0;
+					
+					 $scope.load = function(suburl) {
+						   
+							$("#contentHomeApp").load(suburl);
+					
+							
+				};  
+					
 					$scope.loadHomeBodyPage = function(url) { 
 						if (url != undefined) {
 							$("#contentHomeApp").load(url);

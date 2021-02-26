@@ -64,6 +64,9 @@ public class LoginController{
 	private String oms_url;
 	
 	@Autowired
+	HttpSession httpSession;
+	
+	@Autowired
 	AuditInsertRepository audit;
 	@Autowired
 	CommonUrlConfigRepository commonUrlConfigRepo;
@@ -427,10 +430,47 @@ public class LoginController{
 	}
 	
 	
+	/*
+	 * @RequestMapping(value = "/home", method = RequestMethod.GET)
+	 * 
+	 * @PostAuthorize("hasPermission('login','READ')") public ModelAndView
+	 * redirect() { ModelAndView mav = new ModelAndView("home"); return mav;
+	 * 
+	 * }
+	 */
+	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	@PostAuthorize("hasPermission('login','READ')")
 	   public ModelAndView redirect() {
-		 ModelAndView mav = new ModelAndView("home");			
+		UserDto user = (UserDto) httpSession.getAttribute("userObj");
+		 ModelAndView mav = new ModelAndView("home");
+		 String role = userRepo.findRoleByPfId(user.getPfId());
+		 
+		// System.out.println("Role " + role);
+		 
+		 if(role.equalsIgnoreCase("BM")) {
+			 mav.addObject("suburl", "bp/billingPenalty");	 
+		 }else if(role.equalsIgnoreCase("BC")){
+			 mav.addObject("suburl", "bp/billingPenalty");	 
+		 }else if(role.equalsIgnoreCase("CC")){
+			 mav.addObject("suburl", "da/availability");	 
+		 }else if(role.equalsIgnoreCase("SA")){
+			 mav.addObject("suburl", "km/userList");	 
+		 }else if(role.equalsIgnoreCase("LA")){
+			 mav.addObject("suburl", "km/userList");	 
+		 }else if(role.equalsIgnoreCase("CMS")){
+			 mav.addObject("suburl", "ts/terminalStatus");	 
+		 }else if(role.equalsIgnoreCase("CMF")){
+			 mav.addObject("suburl", "ts/terminalStatus");	 
+		 }else if(role.equalsIgnoreCase("C")){
+			 mav.addObject("suburl", "da/cumulativeCircleData");	 
+		 }
+		 
+		 
+		 
+		// System.out.println("Inside /home method ---- login..... ");
+		 
+		// mav.setViewName("billingPenalty");
 		 return mav;
 	    
 	   }
@@ -460,6 +500,25 @@ public class LoginController{
 	 * model.setViewName("redirect:https://adfs.sbi.co.in/adfs/ls/?wa=wsignout1.0");
 	 * return model; }
 	 */
+	
+	
+	  @RequestMapping(value="logout")
+	  @PreAuthorize("hasPermission('logout','READ')") 
+	  public ModelAndView logout(ModelAndView model,HttpSession session,AuditLogger auditLogger) {
+		UserDto userObj = (UserDto) session.getAttribute("userObj");
+		auditLogger.setUser_Id(userObj.getPfId());
+		auditLogger.setStatus("LogOut");
+		auditLogger.setPath("/logout");
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+		java.util.Date date = new java.util.Date();
+		auditLogger.setSession_Date(formatter.format(date));
+		audit.save(auditLogger);
+	    session.invalidate();
+	    logger.info("SuccessFully  LogOut:::"+userObj.getPfId());
+	    model.setViewName("redirect:https://adfs.sbi.co.in/adfs/ls/?wa=wsignout1.0");
+	  return model; 
+	  }
+	 
 	
 	@RequestMapping(value="common/menu", method=RequestMethod.GET)
 	@PreAuthorize("hasPermission('commonMenu','READ')")
