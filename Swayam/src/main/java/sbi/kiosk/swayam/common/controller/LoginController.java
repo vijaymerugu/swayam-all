@@ -64,6 +64,9 @@ public class LoginController{
 	private String oms_url;
 	
 	@Autowired
+	HttpSession httpSession;
+	
+	@Autowired
 	AuditInsertRepository audit;
 	@Autowired
 	CommonUrlConfigRepository commonUrlConfigRepo;
@@ -427,10 +430,46 @@ public class LoginController{
 	}
 	
 	
+	/*
+	 * @RequestMapping(value = "/home", method = RequestMethod.GET)
+	 * 
+	 * @PostAuthorize("hasPermission('login','READ')") public ModelAndView
+	 * redirect() { ModelAndView mav = new ModelAndView("home"); return mav;
+	 * 
+	 * }
+	 */
+	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	@PostAuthorize("hasPermission('login','READ')")
 	   public ModelAndView redirect() {
-		 ModelAndView mav = new ModelAndView("home");			
+		UserDto user = (UserDto) httpSession.getAttribute("userObj");
+		 ModelAndView mav = new ModelAndView("home");
+		 String role = userRepo.findRoleByPfId(user.getPfId());
+		 
+		// System.out.println("Role " + role);
+		 
+		 if(role.equalsIgnoreCase("BM")) {
+			 mav.addObject("suburl", "bp/billingPenalty");	 
+		 }else if(role.equalsIgnoreCase("BC")){
+			 mav.addObject("suburl", "bp/billingPenalty");	 
+		 }else if(role.equalsIgnoreCase("CC")){
+			 mav.addObject("suburl", "da/availability");	 
+		 }else if(role.equalsIgnoreCase("SA")){
+			 mav.addObject("suburl", "km/userList");	 
+		 }else if(role.equalsIgnoreCase("LA")){
+			 mav.addObject("suburl", "km/userList");	 
+		 }else if(role.equalsIgnoreCase("CMS")){
+			 mav.addObject("suburl", "ts/terminalStatus");	 
+		 }else if(role.equalsIgnoreCase("CMF")){
+			 mav.addObject("suburl", "ts/terminalStatus");	 
+		 }else if(role.equalsIgnoreCase("C")){
+			 mav.addObject("suburl", "da/cumulativeCircleData");	 
+		 }
+		 
+		 		 
+		// System.out.println("Inside /home method ---- login..... ");
+		 
+		// mav.setViewName("billingPenalty");
 		 return mav;
 	    
 	   }
