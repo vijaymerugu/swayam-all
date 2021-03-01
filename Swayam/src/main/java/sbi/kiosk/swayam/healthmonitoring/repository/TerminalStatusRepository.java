@@ -165,7 +165,7 @@ int findByCartridgeStatusGrey(@Param("agentStatus") String agentStatus);
 	 
 	 
 
-@Query(value ="SELECT * FROM TBL_TERMINAL_STATUS where CARTRIDGE_STATUS in('Gray','GRAY','gray') ",nativeQuery=true)
+@Query(value ="SELECT * FROM TBL_TERMINAL_STATUS where CARTRIDGE_STATUS in('Red','RED','red') ",nativeQuery=true)
 Page<TerminalStatus> findByCartridgeStatusRedList(Pageable pageable);
 
 @Query(value ="SELECT * FROM TBL_TERMINAL_STATUS where CARTRIDGE_STATUS in('Green','GREEN','green') ",nativeQuery=true)

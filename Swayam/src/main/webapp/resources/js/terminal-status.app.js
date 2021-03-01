@@ -11,12 +11,21 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
   
    var counttype = "";
    $scope.getCountType = function(type){
-//alert(1);
-		counttype=type;
+
+	   if ($scope.counttype != type)
+	   {
+	   paginationOptions.pageNumber = 1;
+
+	   }
+
+	   $scope.counttype=type;
+
 		   UserManagementService.getUsers(paginationOptions.pageNumber,
-				   paginationOptions.pageSize,counttype).success(function(data){				   
+				   paginationOptions.pageSize,$scope.counttype).success(function(data){	
+					
 						  $scope.gridOptions.data = data.content;
-					 	  $scope.gridOptions.totalItems = data.totalElements;
+						  $scope.gridOptions.paginationCurrentPage = paginationOptions.pageNumber;
+						  $scope.gridOptions.totalItems = data.totalElements;
 					   });
 		}
    
@@ -30,11 +39,12 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 		   $scope.gridOptions.data = $scope.gridOptions.data;
 	    }
    };
-
+  
    UserManagementService.getUsers(paginationOptions.pageNumber,
-		   paginationOptions.pageSize,counttype).success(function(data){
+		   paginationOptions.pageSize,$scope.counttype).success(function(data){
+		
 	  $scope.gridOptions.data = data.content;
- 	  $scope.gridOptions.totalItems = data.totalElements;
+	  $scope.gridOptions.totalItems = data.totalElements;
    });
 
    $scope.gridOptions = {
@@ -42,7 +52,8 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
     paginationPageSize: paginationOptions.pageSize,
     enableColumnMenus:false,
 	useExternalPagination: true,	
-     
+   
+    
       columnDefs: [
           { name: 'kioskId',width:150, headerCellTemplate: '<div>Kiosk<br/>Id</div>' },
           { name: 'kioskSrNo',width:150,headerCellTemplate: '<div>Kiosk<br/>Serial No</div>'},
@@ -104,13 +115,16 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
          //},
        
         ],
-    onRegisterApi: function(gridApi) {
+    onRegisterApi: function(gridApi) {debugger;
         $scope.gridApi = gridApi;
+   
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
           paginationOptions.pageNumber = newPage;
           paginationOptions.pageSize = pageSize;
-          UserManagementService.getUsers(newPage,pageSize,counttype).success(function(data){
+
+          UserManagementService.getUsers(newPage,pageSize,$scope.counttype).success(function(data){
         	  $scope.gridOptions.data = data.content;
+        	  
          	  $scope.gridOptions.totalItems = data.totalElements;
           });
         });
