@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -466,7 +467,7 @@ public class LoginController{
 			 mav.addObject("suburl", "da/cumulativeCircleData");	 
 		 }
 		 
-		 		 
+		 httpSession.setAttribute("csrfToken", UUID.randomUUID().toString());	 
 		// System.out.println("Inside /home method ---- login..... ");
 		 
 		// mav.setViewName("billingPenalty");

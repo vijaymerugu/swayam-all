@@ -75,6 +75,7 @@
         span.pull-right {
         padding:5px 10px;
         }
+        
          .ui-grid-header-cell-label {
 		display:inline-block;
 		white-space:initial;
@@ -105,9 +106,30 @@
   			word-break: break-word;
 			}
 			
-			.ui-grid-header-canvas {
-    padding-top: 0px;
-    padding-bottom: 0px;}
+			
+			 .ui-grid, .ui-grid-viewport {
+     height: auto !important;
+}
+.ui-grid-pager-panel {
+    position: relative;
+}
+.ui-grid .ui-grid-render-container-body .ui-grid-viewport {
+  overflow-x: auto !important;
+  overflow-y: auto !important;
+ 
+}
+.ui-grid-pager-row-count-picker {
+display:none;
+}
+
+      .ui-grid .ui-grid-render-container-body .ui-grid-viewport {
+  overflow-x: auto !important;
+  overflow-y: auto !important;
+ 
+}
+.ui-grid-header-canvas {
+   padding-top: 0px;
+   padding-bottom: 0px;}
     </style>
     
     <script>

@@ -672,7 +672,9 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	    	 //  alert("Done " + payload.data);
 	    	   console.log("Session CSRF "+ $scope.csrf);
 	    	   
-	    	   SanctionFormService.addSubmit(payload,$scope.csrf).then(function (d) {
+	    	   var encodedString = btoa(JSON.stringify(payload));
+	    	   
+	    	   SanctionFormService.addSubmit(encodedString,$scope.csrf).then(function (d) {
 		            
 		        	console.log("Successfully Added " + d.status);
 		        	console.log("Successfully Added " + d.data.status);
