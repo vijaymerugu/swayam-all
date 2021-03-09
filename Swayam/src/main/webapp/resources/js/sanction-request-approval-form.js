@@ -131,7 +131,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	    	   
 	    	   if(selectedcommnets=='' || selectedcommnets == null || selectedcommnets==undefined ){
 	    		  
-	    		   alert("please update the comments");
+	    		   alert("please update valid comments");
 	    		   
 	    	   }else{
 	    	   
@@ -162,7 +162,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	    	   
 	    	   if(selectedcommnets=='' || selectedcommnets == null || selectedcommnets==undefined ){
 	    		  
-	    		   alert("please update the comments");
+	    		   alert("please update valid comments");
 	    		   
 	    	   }else{
 	    	   
@@ -192,7 +192,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	    	   
 	    	   if(selectedcommnets=='' || selectedcommnets == null || selectedcommnets==undefined ){
 	    		  
-	    		   alert("please update the comments");
+	    		   alert("please update valid comments");
 	    		   
 	    	   }else{
 	    	   

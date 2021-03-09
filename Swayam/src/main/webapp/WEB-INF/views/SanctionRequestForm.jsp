@@ -643,7 +643,7 @@
                     <div class="col-xs-6">
                     	<input type="checkbox" id="me" name="me">
                        <textarea id="mce" ng-model="selectedME" name="mauualE" rows="4" cols="50" maxlength="200" 
-                         placeholder="" autocomplete="off" style="background: #dddddd;" disabled></textarea>
+                        pattern="^[a-zA-Z0-9 ,&.]*$" ng-pattern-restrict placeholder="Allowed special characters (&,.)" autocomplete="off" style="background: #dddddd;" disabled></textarea>
                     </div>
                 </div>
 			</td>	
@@ -658,7 +658,7 @@
                     <div class="col-xs-6">
                     	<input type="checkbox" id="ne" name="ne">
                        <textarea  id="nce" ng-model="selectedNE" name="noteE" rows="4" cols="50" maxlength="200" 
-                         placeholder="" autocomplete="off" style="background: #dddddd;" disabled></textarea>
+                        pattern="^[a-zA-Z0-9 ,&.]*$" ng-pattern-restrict placeholder="Allowed special characters (&,.)" autocomplete="off" style="background: #dddddd;" disabled></textarea>
                     </div>
                 </div>
 			</td>

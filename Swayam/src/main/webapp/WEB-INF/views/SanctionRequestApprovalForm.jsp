@@ -676,8 +676,12 @@
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
-                       <textarea  name="noteE" rows="4" cols="50" maxlength="100" 
-                         placeholder="" autocomplete="off"  ng-model="selectedCommnets" Required></textarea>
+                       <textarea  name="noteE" rows="4" cols="50" maxlength="100" pattern="^[a-zA-Z0-9 ,&.]*$" ng-pattern-restrict
+                         placeholder="Allowed special characters (&,.)" autocomplete="off"  ng-model="selectedCommnets" Required></textarea>
+                    </div>
+                     <div class="col-xs-6">
+                    <span ng-show="sanctionForm.noteE.$error.pattern">Please update valid comment</span>
+                    <span ng-show="sanctionForm.noteE.$error.required"></span>
                     </div>
                 </div>
 			</td>
