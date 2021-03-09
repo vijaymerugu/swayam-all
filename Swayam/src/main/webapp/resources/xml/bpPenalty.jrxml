@@ -374,7 +374,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{finalDowntime}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00#;(###0.00#-)">
 				<reportElement x="2200" y="0" width="200" height="20" uuid="ec99e51b-78bb-43d5-ae52-e415a6550889"/>
 				<box>
 					<pen lineWidth="0.25"/>
@@ -462,7 +462,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$V{fd}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.###;(###0.###-)">
 				<reportElement x="2200" y="0" width="200" height="20" uuid="bebd5eee-927c-4a68-a90d-e9687900a587"/>
 				<box>
 					<pen lineWidth="0.25"/>

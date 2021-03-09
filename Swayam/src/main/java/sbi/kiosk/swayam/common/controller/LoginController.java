@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -405,21 +406,26 @@ public class LoginController{
 	}
 	
 	@RequestMapping(value = "errorCode2", method = RequestMethod.GET)
-	public ModelAndView redirectOmsError2() {
+    public ModelAndView redirectOmsError2() {
+        ModelAndView mav = new ModelAndView("omsError");
+        // Message Changes 26-02-2021
+    //    mav.addObject("commonError", "token is empty.");
+        mav.addObject("commonError", "Session expired at OMS portal. Please close the browser and login again.");
+         
+        return mav;
+    }
 
-		ModelAndView mav = new ModelAndView("omsError");
-		mav.addObject("commonError", "token is empty.");
-		return mav;
+ 
 
-	}
+    @RequestMapping(value = "errorCode3", method = RequestMethod.GET)
+    public ModelAndView redirectOmsError3() {
+        ModelAndView mav = new ModelAndView("omsError");
+        // Message Changes 26-02-2021
+    //    mav.addObject("commonError", "due to Server Error Please try to after some time.");
+        mav.addObject("commonError", " Couldn't connect Swayam Dashboard due to slow network connectivity Please try after some time. User may try accessing through OMS Internet portal");
+        return mav;
 
-	@RequestMapping(value = "errorCode3", method = RequestMethod.GET)
-	public ModelAndView redirectOmsError3() {
-		ModelAndView mav = new ModelAndView("omsError");
-		mav.addObject("commonError", "due to Server Error Please try to after some time.");
-		return mav;
-
-	}
+    }
 	
 	@RequestMapping(value = "errorCode4", method = RequestMethod.GET)
 	public ModelAndView redirectOmsError4() {
@@ -466,7 +472,7 @@ public class LoginController{
 			 mav.addObject("suburl", "da/cumulativeCircleData");	 
 		 }
 		 
-		 		 
+		 httpSession.setAttribute("csrfToken", UUID.randomUUID().toString());	 
 		// System.out.println("Inside /home method ---- login..... ");
 		 
 		// mav.setViewName("billingPenalty");

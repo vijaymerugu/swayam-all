@@ -328,8 +328,12 @@
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
-                       <input type="text" maxlength="15" ng-model="selectedSInvoiceNo" name="invNo" 
-                         placeholder="" autocomplete="off" required/>
+                       <input type="text" minlength="15" maxlength="15" ng-model="selectedSInvoiceNo" name="invNo" 
+                        ng-pattern="/^[A-Z]{3}\/[0-9]{4}\/[0-9]{6}$/"  placeholder="" autocomplete="off" required/>
+                    </div>
+                    <div class="col-xs-6">
+                    <span ng-show="sanctionForm.invNo.$error.pattern">Valid format required!</span>
+                    <span ng-show="sanctionForm.invNo.$error.required">eg:AMC/2019/115405</span>
                     </div>
                 </div>
 			</td>
@@ -544,7 +548,7 @@
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
-                       <input type="number" min="1"   ng-model="selectedSanLimitAmt" name="selectedSanLimitAmt"  
+                       <input type="number" min="10000"  max="99999999"  ng-model="selectedSanLimitAmt" name="selectedSanLimitAmt"  
                          placeholder="" autocomplete="off" required/>
                     </div>
                 </div>  
@@ -586,8 +590,13 @@
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
-                       <input type="text"  ng-model="selectedSlno" name="slno"  
+                       <input type="text"  ng-model="selectedSlno" name="slno"  minlength="12" maxlength="12"
+                         ng-pattern="/^[0-9]{4}\/[0-9]{4}\-[0-9]{2}$/"
                          placeholder="" autocomplete="off" required/>
+                    </div>
+                     <div class="col-xs-6">
+                    <span ng-show="sanctionForm.slno.$error.pattern">Valid format required!</span>
+                    <span ng-show="sanctionForm.slno.$error.required">eg:1089/2020-21</span>
                     </div>
                 </div>  
                
@@ -600,8 +609,13 @@
                         <span class="pull-right"></span>
                     </div>
                     <div class="col-xs-6">
-                       <input type="text" ng-model="selectedCircularNo" name="circularNo"  maxlength="22" 
+                       <input type="text" ng-model="selectedCircularNo" name="circularNo" minlength="21"   maxlength="21" 
+                       ng-pattern="/^[A-Z]{3}\/[A-Z]{3}\-[A-Z]{3}\/[0-9]{1}\/[0-9]{4}\-[0-9]{2}$/"
                          placeholder="" autocomplete="off" required/>
+                    </div>
+                     <div class="col-xs-6">
+                    <span ng-show="sanctionForm.circularNo.$error.pattern">Valid format required!</span>
+                    <span ng-show="sanctionForm.circularNo.$error.required">eg:CDO/ORG-DFP/5/2020-21</span>
                     </div>
                 </div>
 			</td>
@@ -629,7 +643,7 @@
                     <div class="col-xs-6">
                     	<input type="checkbox" id="me" name="me">
                        <textarea id="mce" ng-model="selectedME" name="mauualE" rows="4" cols="50" maxlength="200" 
-                         placeholder="" autocomplete="off" style="background: #dddddd;" disabled></textarea>
+                        pattern="^[a-zA-Z0-9 ,&.]*$" ng-pattern-restrict placeholder="Allowed special characters (&,.)" autocomplete="off" style="background: #dddddd;" disabled></textarea>
                     </div>
                 </div>
 			</td>	
@@ -644,7 +658,7 @@
                     <div class="col-xs-6">
                     	<input type="checkbox" id="ne" name="ne">
                        <textarea  id="nce" ng-model="selectedNE" name="noteE" rows="4" cols="50" maxlength="200" 
-                         placeholder="" autocomplete="off" style="background: #dddddd;" disabled></textarea>
+                        pattern="^[a-zA-Z0-9 ,&.]*$" ng-pattern-restrict placeholder="Allowed special characters (&,.)" autocomplete="off" style="background: #dddddd;" disabled></textarea>
                     </div>
                 </div>
 			</td>

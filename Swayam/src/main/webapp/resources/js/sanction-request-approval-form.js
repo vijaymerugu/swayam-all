@@ -131,13 +131,13 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	    	   
 	    	   if(selectedcommnets=='' || selectedcommnets == null || selectedcommnets==undefined ){
 	    		  
-	    		   alert("please update the comments");
+	    		   alert("please update valid comments");
 	    		   
 	    	   }else{
 	    	   
+	    		   //console.log("Session CSRF "+ $scope.csrf);
 	    	   
-	    	   
-	    	   approveService.approve(requestId,selectedcommnets).then(function (d) {
+	    	   approveService.approve(requestId,selectedcommnets,$scope.csrf).then(function (d) {
 	    		   
 	    		   alert(d.data.status);
 	    		   $scope.loadHomeBodyPageForm();
@@ -162,13 +162,13 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	    	   
 	    	   if(selectedcommnets=='' || selectedcommnets == null || selectedcommnets==undefined ){
 	    		  
-	    		   alert("please update the comments");
+	    		   alert("please update valid comments");
 	    		   
 	    	   }else{
 	    	   
 	    	   
 	    	   
-	    	   approveService.updateMakersComments(requestId,selectedcommnets).then(function (d) {
+	    	   approveService.updateMakersComments(requestId,selectedcommnets,$scope.csrf).then(function (d) {
 	    		   
 	    		   alert(d.data.status);
 	    		   $scope.loadHomeBodyPageForm();
@@ -192,12 +192,12 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	    	   
 	    	   if(selectedcommnets=='' || selectedcommnets == null || selectedcommnets==undefined ){
 	    		  
-	    		   alert("please update the comments");
+	    		   alert("please update valid comments");
 	    		   
 	    	   }else{
 	    	   
 	    	   
-	    	   approveService.reject(requestId,selectedcommnets).then(function (d) {
+	    	   approveService.reject(requestId,selectedcommnets,$scope.csrf).then(function (d) {
 	    		   
 	    		   alert(d.data.status);
 	    		   $scope.loadHomeBodyPageForm();
@@ -225,30 +225,42 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	    }
 		*/
 		
-		function approve(reqId,selectedcommnets) {
+		function approve(reqId,selectedcommnets,csrf) {
 			
 	        return  $http({
 	          method: 'GET',
-	          url: 'approveDetails/get?reqId='+reqId+'&commnets='+selectedcommnets
+	          url: 'approveDetails/get?reqId='+reqId+'&commnets='+selectedcommnets,
+	          headers: 
+              {
+                  'X-CSRF-TOKEN': csrf
+              }
 	         
 	        });
 	    }
 		
-		function reject(reqId,selectedcommnets) {
+		function reject(reqId,selectedcommnets,csrf) {
 				
 		        return  $http({
 		          method: 'GET',
-		          url: 'rejectDetails/get?reqId='+reqId+'&commnets='+selectedcommnets
+		          url: 'rejectDetails/get?reqId='+reqId+'&commnets='+selectedcommnets,
+		          headers: 
+	              {
+	                  'X-CSRF-TOKEN': csrf
+	              }
 		         
 		        });
 		    }
 		
 		
-		function updateMakersComments(reqId,selectedcommnets) {
+		function updateMakersComments(reqId,selectedcommnets,csrf) {
 			
 	        return  $http({
 	          method: 'GET',
-	          url: 'updateComment/get?reqId='+reqId+'&commnets='+selectedcommnets
+	          url: 'updateComment/get?reqId='+reqId+'&commnets='+selectedcommnets,
+	          headers: 
+              {
+                  'X-CSRF-TOKEN': csrf
+              }
 	         
 	        });
 	    }

@@ -386,14 +386,48 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	    	   var toDate= $("#toDate").val();
 	    	   var receiptDate= $("#receiptDate").val();
 	    	   var circularDate= $("#circularDate").val();
-	    	   
-	    	
-	    	   
-	    	   console.log("sanNoteDate "+ sanNoteDate);
-	    	   console.log("invoiceDate "+ invoiceDate);
-	    	   console.log("fromDate "+ fromDate);
-	    	   console.log("toDate "+ toDate);
-	    	   console.log("circularDate "+ circularDate);
+	    	  var checkNce =  $("#nce").prop('required')
+	    	  var checkMce =  $("#mce").prop('required');
+	    	  console.log("selectedME "+ $scope.selectedME);
+	    	  console.log("selectedME "+ $scope.selectedNE);
+	    	  
+	    	  var validation = 0 ;
+	    	  
+	    	  if(checkNce == true && checkMce == true){
+	    		  
+		    	  if($scope.selectedME ==undefined || $scope.selectedNE == undefined
+		    			  || $scope.selectedME =='' || $scope.selectedNE == ''
+		    				  || $scope.selectedME ==null || $scope.selectedNE == null){
+		    		   
+		    		  validation = 1;
+		    	  }
+		    	  
+	    		  
+	    	  }else if(checkNce == true && checkMce == false){
+	    		  
+	    		  if($scope.selectedNE == undefined || $scope.selectedNE == '' || $scope.selectedNE == null){
+	    			  validation = 2; 
+	    			  
+		    	  }
+	    		  
+	    	  }else if(checkNce == false && checkMce == true){
+	    		  
+	    		  if($scope.selectedME == undefined || $scope.selectedME == '' || $scope.selectedME == null){
+	    			  validation = 3; 
+		    	  }
+	    		  
+	    	  }
+	    	  
+	    	  
+	    	  
+//	    	  console.log("test check  "+ test);
+//	    	  console.log("test check2  "+ test2);
+//	    	   
+//	    	   console.log("sanNoteDate "+ sanNoteDate);
+//	    	   console.log("invoiceDate "+ invoiceDate);
+//	    	   console.log("fromDate "+ fromDate);
+//	    	   console.log("toDate "+ toDate);
+//	    	   console.log("circularDate "+ circularDate);
 	    	   
 	    	   if(sanNoteDate=='' || sanNoteDate==undefined){
 	    		   
@@ -465,40 +499,40 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	    		    }
 	    		});
 	    	   
-	    	   console.log("circle "+ circle);
-	    	   console.log("state "+ state);
-	    	   console.log("vendor "+ vendor);
+//	    	   console.log("circle "+ circle);
+//	    	   console.log("state "+ state);
+//	    	   console.log("vendor "+ vendor);
 	    	   
 	    	   
 	    	   
-	    	   console.log("SelectedSanctionAu "+ $scope.SelectedSanctionAu);
-	    	   console.log("SelectedControllingAu "+ $scope.SelectedControllingAu);
-	    	   console.log("SelectedCircelId "+ $scope.SelectedCircelId);
-	    	   console.log("SelectedStateId "+ $scope.SelectedStateId);
-	    	   console.log("SelectedVendorId "+ $scope.SelectedVendorId);
-	    	   console.log("selectedSanNo "+ $scope.selectedSanNo);
-	    	   console.log("selectedSanNoteDate "+sanDate);
-	    	   console.log("selectedSInvoiceNo "+ $scope.selectedSInvoiceNo);
-	    	   console.log("selectedinvDate "+ invDate);
-	    	   console.log("selectedfromDate "+ frDate);
-	    	   console.log("selectedToDate "+ tDate);
-	    	   console.log("selectedReceiptDate "+ recpDate);
-	    	   console.log("selectedSInvoiceAmt "+ $scope.selectedSInvoiceAmt);
-	    	   console.log("selectedSPenaltyAmt "+ $scope.selectedSPenaltyAmt);
-	    	   console.log("SelectedIGSTType "+ $scope.SelectedIGSTType);
-	    	   console.log("selectedIGST "+ $scope.selectedIGST);
-	    	   console.log("selectedSGST "+ $scope.selectedSGST);
-	    	   console.log("selectedCGST "+ $scope.selectedCGST);
-	    	   console.log("selectedTdsPer "+ $scope.selectedTdsPer);
-	    	   console.log("selectedGstTds "+ $scope.selectedGstTds);
-	    	   console.log("selectedGstTdsPer "+ $scope.selectedGstTdsPer);
-	    	  // console.log("selectedAmtW "+ $scope.selectedAmtW);
-	    	   console.log("selectedME "+ $scope.selectedME);
-	    	   console.log("selectedME "+ $scope.selectedNE);
-	    	   console.log("selectedNoKiosk "+ $scope.selectedNoKiosk);
-	    	   console.log("selectedNoKiosk "+ $scope.selectedSanLimitAmt);
-	    	   console.log("selectedCircularNo "+ $scope.selectedCircularNo);
-	    	   console.log("selectedCircularDate "+ crclDate);
+//	    	   console.log("SelectedSanctionAu "+ $scope.SelectedSanctionAu);
+//	    	   console.log("SelectedControllingAu "+ $scope.SelectedControllingAu);
+//	    	   console.log("SelectedCircelId "+ $scope.SelectedCircelId);
+//	    	   console.log("SelectedStateId "+ $scope.SelectedStateId);
+//	    	   console.log("SelectedVendorId "+ $scope.SelectedVendorId);
+//	    	   console.log("selectedSanNo "+ $scope.selectedSanNo);
+//	    	   console.log("selectedSanNoteDate "+sanDate);
+//	    	   console.log("selectedSInvoiceNo "+ $scope.selectedSInvoiceNo);
+//	    	   console.log("selectedinvDate "+ invDate);
+//	    	   console.log("selectedfromDate "+ frDate);
+//	    	   console.log("selectedToDate "+ tDate);
+//	    	   console.log("selectedReceiptDate "+ recpDate);
+//	    	   console.log("selectedSInvoiceAmt "+ $scope.selectedSInvoiceAmt);
+//	    	   console.log("selectedSPenaltyAmt "+ $scope.selectedSPenaltyAmt);
+//	    	   console.log("SelectedIGSTType "+ $scope.SelectedIGSTType);
+//	    	   console.log("selectedIGST "+ $scope.selectedIGST);
+//	    	   console.log("selectedSGST "+ $scope.selectedSGST);
+//	    	   console.log("selectedCGST "+ $scope.selectedCGST);
+//	    	   console.log("selectedTdsPer "+ $scope.selectedTdsPer);
+//	    	   console.log("selectedGstTds "+ $scope.selectedGstTds);
+//	    	   console.log("selectedGstTdsPer "+ $scope.selectedGstTdsPer);
+//	    	  // console.log("selectedAmtW "+ $scope.selectedAmtW);
+//	    	   console.log("selectedME "+ $scope.selectedME);
+//	    	   console.log("selectedME "+ $scope.selectedNE);
+//	    	   console.log("selectedNoKiosk "+ $scope.selectedNoKiosk);
+//	    	   console.log("selectedNoKiosk "+ $scope.selectedSanLimitAmt);
+//	    	   console.log("selectedCircularNo "+ $scope.selectedCircularNo);
+//	    	   console.log("selectedCircularDate "+ crclDate);
 	    	   
 	    	   
 	    	   
@@ -670,12 +704,29 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	    		   
 	    	   }
 	    	 //  alert("Done " + payload.data);
-	    	   console.log("Session CSRF "+ $scope.csrf);
+	    	 
 	    	   
-	    	   SanctionFormService.addSubmit(payload,$scope.csrf).then(function (d) {
+	    	   var encodedString = btoa(JSON.stringify(payload));
+	    	   
+	    	   
+	    	   if(validation==1){
+	    		   
+	    		   alert("Invalid Credit note entry / Manual entry");
+	    		   
+	    	   }else if(validation==2){
+	    		   alert("Invalid Credit note entry");
+	    		   
+	    	   }else if(validation==3){
+	    		   alert("Invalid Manual entry");
+	    		   
+	    	   }else{
+	    		   
+	    	   
+	    	   
+	    	   SanctionFormService.addSubmit(encodedString,$scope.csrf).then(function (d) {
 		            
-		        	console.log("Successfully Added " + d.status);
-		        	console.log("Successfully Added " + d.data.status);
+//		        	console.log("Successfully Added " + d.status);
+//		        	console.log("Successfully Added " + d.data.status);
 		        	
 		        	alert(d.data.status);
 		        	$scope.loadHomeBodyPageForm();
@@ -687,6 +738,8 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		        	// $window.location.reload();
 		        	 
 		        });
+	    	   
+	    	   }
 	    	   } 
 	       }
 	}]);
