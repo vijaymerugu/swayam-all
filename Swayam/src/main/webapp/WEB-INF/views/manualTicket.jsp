@@ -335,7 +335,9 @@ input[type=text], select {
 
 </head>
 
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.4.1.js"></script>  -->
+
+<script src="resources/js/jquery-3.4.1.js">
 
 <script>
 $(document).ready(function(){

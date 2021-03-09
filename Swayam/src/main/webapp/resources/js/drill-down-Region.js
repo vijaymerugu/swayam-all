@@ -40,7 +40,18 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService','uiGridCo
 					//  Added for loader------------- END 
 				   });
 	}
-   
+   $scope.backUser = function()
+   {  	
+	 	  
+	        $("#loading").show();  
+	     //   alert("i m inside backUser");
+	        regionName = "";
+	        var str ='td/drillDownRegionBack?circleName='+circleName+'&networkName='+networkName+'&moduleName='+moduleName+'&regionName='+regionName+'&fromDate='+fromDate+'&toDate='+toDate;
+			$("#contentHomeApp").load(str);
+			$("#loading").hide();  
+		   
+	 	   
+	    };
    
    $scope.refresh = function()
    {  	

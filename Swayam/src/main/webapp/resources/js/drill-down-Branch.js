@@ -32,7 +32,16 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService','uiGridCo
 					//  Added for loader------------- END 
 				   });
 	}
-   
+   $scope.backUser = function()
+   {  	
+	        $("#loading").show();  
+	        
+	        var str ='td/drillDownBranchBack?circleName='+circleName+'&networkName='+networkName+'&moduleName='+moduleName+'&regionName='+regionName+'&fromDate='+fromDate+'&toDate='+toDate;
+			$("#contentHomeApp").load(str);
+	     
+		    $("#loading").hide();  
+	 	   
+	    };
    
    $scope.refresh = function()
    {  	
@@ -228,7 +237,7 @@ app.service('DrillDownService',['$http', function ($http) {
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({
           method: 'GET',
-          url: 'td/realTimeTxn/getSearchNext?page='+pageNumber+'&size='+size+'&type='+counttype+'&circleName='+circleName
+          url: 'drillDown/getSearchNext?page='+pageNumber+'&size='+size+'&type='+counttype+'&circleName='+circleName
           +'&networkName='+networkName+'&moduleName='+moduleName+'&regionName='+regionName
           +'&fromDate='+fromDate+'&toDate='+toDate+'&searchText='+searchText
         });

@@ -85,6 +85,17 @@
 			.ui-grid-header-canvas {
 			    padding-top: 0px;
 			    padding-bottom: 0px;}
+			    	button {
+ 
+  background-color: #fdd209;
+    color: #2f246c;
+    border: none;
+    padding: 5px 10px;
+    text-transform: uppercase;
+    font-weight: 600;
+    float: right;
+}
+}
 </style>
 
 </head>
@@ -92,7 +103,7 @@
 
 
 
-<div class="main" ng-app="app" id="appId">
+<div class="main_transaction" ng-app="app" id="appId">
 <div ng-controller="DrillDownCtrl as vm">
 <div>
 
@@ -131,11 +142,11 @@
 			</table> --%>
 		</div>
 <br/>
-		<div class="submain">
+		<div class="submain_transaction">
 	
 	
 	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle, No Of Branches, Kiosks, Txns, etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">
-		
+		<button  id="btnClearText" ng-click="backUser()">Back</button>	
 		
 		<br/>
 		<!-- Added for loader------------- START -->	

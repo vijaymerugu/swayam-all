@@ -217,7 +217,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService','uiGridCo
       { name: 'migrationPercentage', displayName: 'Migration Percentage(%)',superCol: 'back'  ,aggregationType: uiGridConstants.aggregationTypes.avg , aggregationHideLabel: true,width: '7%',
        footerCellFilter : 'number : 2'}
     ],
-    onRegisterApi: function(gridApi) {
+    onRegisterApi: function(gridApi) { debugger;
         $scope.gridApi = gridApi;
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
           paginationOptions.pageNumber = newPage;
@@ -238,7 +238,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService','uiGridCo
   
 }]);
 
-var getPage = function(curPage, pageSize, counttype) {
+var getPage = function(curPage, pageSize, counttype) { debugger;
     var url ='drillDown/get?page='+curPage+'&size='+pageSize+'&type='+counttype;
     
 

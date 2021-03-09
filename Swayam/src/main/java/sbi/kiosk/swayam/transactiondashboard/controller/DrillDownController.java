@@ -67,7 +67,27 @@ public class DrillDownController {
 		}
 		return model;
 	}
-	
+	@RequestMapping("td/drillDownNetworkBack")
+	public ModelAndView drillDownNetworkBack(ModelAndView model, HttpSession session, HttpServletRequest request) {
+		
+		try {
+			
+			
+			String circleName = ValidationCommon.validateString(request.getParameter("circleName"));
+			String fromDate = ValidationCommon.validateString(request.getParameter("fromDate"));
+			String toDate = ValidationCommon.validateString(request.getParameter("toDate"));
+			
+			model.addObject("circleName", circleName);
+			model.addObject("fromDate", fromDate);
+			model.addObject("toDate", toDate);
+			
+			model.setViewName("drillDown");
+			
+		} catch (Exception e) {
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
+		}
+		return model;
+	}
 	
 	@RequestMapping("td/drillDownModule")
 	public ModelAndView drillDownModule(ModelAndView model, HttpSession session, HttpServletRequest request) {
@@ -91,7 +111,28 @@ public class DrillDownController {
 		}
 		return model;
 	}
-	
+	@RequestMapping("td/drillDownModuleBack")
+	public ModelAndView drillDownModuleBack(ModelAndView model, HttpSession session, HttpServletRequest request) {
+		
+		try {
+		
+			
+			String circleName = ValidationCommon.validateString(request.getParameter("circleName"));	
+			String networkName = ValidationCommon.validateString(request.getParameter("networkName"));
+			String fromDate = ValidationCommon.validateString(request.getParameter("fromDate"));
+			String toDate = ValidationCommon.validateString(request.getParameter("toDate"));
+			
+			model.addObject("circleName", circleName);
+			model.addObject("networkName", networkName);
+			model.addObject("fromDate", fromDate);
+			model.addObject("toDate", toDate);
+			
+			model.setViewName("drillDownNetwork");
+		} catch (Exception e) {
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
+		}
+		return model;
+	}
 	
 	@RequestMapping("td/drillDownRegion")
 	public ModelAndView drillDownRegion(ModelAndView model, HttpSession session, HttpServletRequest request) {
@@ -118,7 +159,31 @@ public class DrillDownController {
 		}
 		return model;
 	}
-	
+	@RequestMapping("td/drillDownRegionBack")
+	public ModelAndView drillDownRegionBack(ModelAndView model, HttpSession session, HttpServletRequest request) {
+		
+		try {
+			
+		
+			String circleName = ValidationCommon.validateString(request.getParameter("circleName"));	
+			String networkName = ValidationCommon.validateString(request.getParameter("networkName"));
+            String moduleName = ValidationCommon.validateString(request.getParameter("moduleName"));
+            String fromDate = ValidationCommon.validateString(request.getParameter("fromDate"));
+			String toDate = ValidationCommon.validateString(request.getParameter("toDate"));
+                     
+            model.addObject("circleName", circleName);
+			model.addObject("networkName", networkName);
+			model.addObject("moduleName", moduleName);
+			model.addObject("fromDate", fromDate);
+			model.addObject("toDate", toDate);
+			
+			model.setViewName("drillDownModule");
+			
+		} catch (Exception e) {
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
+		}
+		return model;
+	}
 	
 	
 	@RequestMapping("td/drillDownBranch")
@@ -147,7 +212,32 @@ public class DrillDownController {
 		}
 		return model;
 	}
-	
+	@RequestMapping("td/drillDownBranchBack")
+	public ModelAndView drillDownBranchBack(ModelAndView model, HttpSession session, HttpServletRequest request) {
+		
+		try {
+			
+			String circleName = ValidationCommon.validateString(request.getParameter("circleName"));	
+			String networkName = ValidationCommon.validateString(request.getParameter("networkName"));
+            String moduleName = ValidationCommon.validateString(request.getParameter("moduleName"));
+            String regionName = ValidationCommon.validateString(request.getParameter("regionName"));
+            String fromDate = ValidationCommon.validateString(request.getParameter("fromDate"));
+			String toDate = ValidationCommon.validateString(request.getParameter("toDate"));
+			
+            model.addObject("circleName", circleName);
+			model.addObject("networkName", networkName);
+			model.addObject("moduleName", moduleName);
+			model.addObject("regionName", regionName);
+			model.addObject("fromDate", fromDate);
+			model.addObject("toDate", toDate);
+						
+			model.setViewName("drillDownRegion");
+			
+		} catch (Exception e) {
+			logger.error("Exception "+ExceptionConstants.EXCEPTION);
+		}
+		return model;
+	}
 	@RequestMapping(value = "drillDown/get", params = { "page", "size", "type", "circleName", "networkName", "moduleName", "regionName", "fromDate", "toDate"}, method = RequestMethod.GET, produces = "application/json")
 	public Page<DrillDown> findPaginated(
 		      @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("type") String type, @RequestParam("circleName") String circleName,

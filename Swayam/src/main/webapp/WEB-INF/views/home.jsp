@@ -77,7 +77,7 @@
 					cellspacing="0px;">
 					<tr>
 						<td
-							style="left: 187px; width: 85%; background: #280071; color: #FFFFFF"
+							style="left: 187px;width: 85%;background: #280071;color: #FFFFFF;font-size: xx-large;"
 							align="center"><b>Swayam Monitoring Tool</b></td>
 						<td
 							style="width: 200%; background: #FDD209; color: #000000; align: center"
@@ -228,7 +228,7 @@
 							//$('#topnav > ul > li > a').click(function(ev){
 							$('#topnav > ul')
 									.on(
-											'mouseover',
+											'click',
 											'li > a',
 											function(ev) {
 												if ($(this).hasClass('current')) {

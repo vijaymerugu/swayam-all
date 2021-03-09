@@ -40,14 +40,25 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService','uiGridCo
 				   });
 	}
    
-   
+   $scope.backUser = function()
+   {  	
+	 
+	        $("#loading").show();  
+	      //  alert("i m inside backUser");
+	        circleName = "";
+	        var str ='td/drillDownNetworkBack?circleName='+circleName+'&networkName='+networkName+'&fromDate='+fromDate+'&toDate='+toDate;
+			$("#contentHomeApp").load(str);
+			$("#loading").hide();  
+	 		   
+	 	   
+	    };
    $scope.refresh = function()
    {  	
 	   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){
 		    //  Added for loader------------- START 
 			$("#loading").show(); 
 		//  Added for loader------------- END 
-	 	   UserManagementService.getUsers(paginationOptions.pageNumber,
+			DrillDownService.getUsers(paginationOptions.pageNumber,
 	 			   paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
 	 		  $scope.gridOptions.data = data.content;
 	 	 	  $scope.gridOptions.totalItems = data.totalElements;
@@ -64,7 +75,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService','uiGridCo
 	 		    //  Added for loader------------- START 
 				$("#loading").show(); 
 			//  Added for loader------------- END 
-	 	    	UserManagementService.getUsers(paginationOptions.pageNumber,
+				DrillDownService.getUsers(paginationOptions.pageNumber,
 	 	 			   paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
 	 	 		  $scope.gridOptions.data = data.content;
 	 	 	 	  $scope.gridOptions.totalItems = data.totalElements;
@@ -134,7 +145,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService','uiGridCo
       { name: 'migrationPercentage', displayName: 'Migration Percentage(%)',superCol: 'back'  ,aggregationType: uiGridConstants.aggregationTypes.avg , aggregationHideLabel: true,width: '7%',
        footerCellFilter : 'number : 2'}
     ],
-    onRegisterApi: function(gridApi) {
+    onRegisterApi: function(gridApi) { debugger;
         $scope.gridApi = gridApi;
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
           paginationOptions.pageNumber = newPage;
