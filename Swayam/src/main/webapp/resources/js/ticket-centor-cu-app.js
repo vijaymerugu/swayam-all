@@ -14,11 +14,18 @@ app.controller('UserManagementCtrl1', ['$scope','$filter','UserManagementService
 	   var counttype = "";
 	   $scope.getCountType = function(type){
 	
-	counttype=type;
+		   if ($scope.counttype != type)
+		   {
+		   paginationOptions.pageNumber = 1;
+
+		   }
+
+		   $scope.counttype=type;
 		   UserManagementService.getUsers(paginationOptions.pageNumber,
-				   paginationOptions.pageSize,counttype).success(function(data){
+				   paginationOptions.pageSize,$scope.counttype).success(function(data){
 					   
 						  $scope.gridOptions.data = data.content;
+						  $scope.gridOptions.paginationCurrentPage = paginationOptions.pageNumber;
 					 	  $scope.gridOptions.totalItems = data.totalElements;
 					   });
 		}
@@ -28,7 +35,7 @@ app.controller('UserManagementCtrl1', ['$scope','$filter','UserManagementService
 	   {  	
 		   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
 		 	   UserManagementService.getUsers(paginationOptions.pageNumber,
-		 			   paginationOptions.pageSize,counttype).success(function(data){
+		 			   paginationOptions.pageSize,$scope.counttype).success(function(data){
 		 		  $scope.gridOptions.data = data.content;
 		 	 	  $scope.gridOptions.totalItems = data.totalElements;
 		 	   });	   
@@ -39,7 +46,7 @@ app.controller('UserManagementCtrl1', ['$scope','$filter','UserManagementService
 		 		   
 		 	    }else{
 		 	    	UserManagementService.getUsers(paginationOptions.pageNumber,
-		 	 			   paginationOptions.pageSize,counttype).success(function(data){
+		 	 			   paginationOptions.pageSize,$scope.counttype).success(function(data){
 		 	 		  $scope.gridOptions.data = data.content;
 		 	 	 	  $scope.gridOptions.totalItems = data.totalElements;
 		 	 	   });
@@ -48,7 +55,7 @@ app.controller('UserManagementCtrl1', ['$scope','$filter','UserManagementService
 	   
 	   
 	   UserManagementService.getUsers(paginationOptions.pageNumber,
-			   paginationOptions.pageSize,counttype).success(function(data){
+			   paginationOptions.pageSize,$scope.counttype).success(function(data){
 		  $scope.gridOptions.data = data.content;
 	 	  $scope.gridOptions.totalItems = data.totalElements;
 	   });
@@ -82,7 +89,7 @@ app.controller('UserManagementCtrl1', ['$scope','$filter','UserManagementService
 			        gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
 			          paginationOptions.pageNumber = newPage;
 			          paginationOptions.pageSize = pageSize;
-			          UserManagementService.getUsers(newPage,pageSize,counttype).success(function(data){
+			          UserManagementService.getUsers(newPage,pageSize,$scope.counttype).success(function(data){
 			        	  $scope.gridOptions.data = data.content;
 			         	  $scope.gridOptions.totalItems = data.totalElements;
 			          });

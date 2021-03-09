@@ -39,7 +39,17 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService','uiGridCo
 				   });
 	}
    
-   
+   $scope.backUser = function()
+   {  	
+	  
+	        $("#loading").show();  
+	      //  alert("i m inside backUser");
+	        moduleName ="";
+	        var str ='td/drillDownModuleBack?circleName='+circleName+'&networkName='+networkName+'&moduleName='+moduleName+'&fromDate='+fromDate+'&toDate='+toDate;
+			$("#contentHomeApp").load(str);
+			$("#loading").hide();  
+	 	   
+	    };
    $scope.refresh = function()
    {  	
 	   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){
