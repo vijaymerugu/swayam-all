@@ -46,7 +46,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService','uiGridCo
     	 regionName="";
     	 
     	 */
-    	 $scope.searchPositions= function(startDate,endDate){
+    	 $scope.searchPositions= function(startDate,endDate){ debugger;
     	  	 
     	  	 circleName="";
     	  	 networkName="";

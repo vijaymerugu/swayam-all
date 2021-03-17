@@ -5,6 +5,7 @@
 
 import sbi.kiosk.swayam.common.dto.BillingPenaltyDto;
 import sbi.kiosk.swayam.common.dto.DownTimeDto;
+import sbi.kiosk.swayam.common.dto.DrillDownDto;
 import sbi.kiosk.swayam.common.dto.ErrorReportingDto;
 import sbi.kiosk.swayam.common.dto.InvoiceCompareDto;
 import sbi.kiosk.swayam.common.dto.InvoiceGenerationDto;
@@ -21,6 +22,7 @@ import
   sbi.kiosk.swayam.common.dto.TransactionDashBoardDto; import
   sbi.kiosk.swayam.common.dto.UserManagementDto; import
   sbi.kiosk.swayam.common.dto.ZeroTransactionKiosksDto;
+import sbi.kiosk.swayam.common.entity.DrillDown;
 import sbi.kiosk.swayam.common.entity.TaxEntity;
 import sbi.kiosk.swayam.common.entity.TaxSummaryEntity;
   
@@ -73,6 +75,8 @@ import sbi.kiosk.swayam.common.entity.TaxSummaryEntity;
 	public List<TaxSummaryEntity> findTaxSummaryReport();
 
 	List<TaxEntity> findTaxCalReport();
+
+	List<DrillDown> findAllDrillDown();
 	
 	
 	

@@ -163,8 +163,13 @@
 	
 	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle, No Of Branches, Kiosks, Txns, etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">
 		
-		
+			<span style="float:right">
+		<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
+		<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>
+		&nbsp;&nbsp;&nbsp;
+		</span>		
 		<br/>
+		
 		<!-- Added for loader------------- START -->	
 	
 		<div class="loading" id="loading" align="center" style="display:none;">
@@ -193,7 +198,7 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
     		$( ".datepicker" ).datepicker(datePickerOptions); */
     	  
     	    $(".openpdfonclick").click(function(){
-    	    	
+    	    	$("#loading").show(); 
     	        $.ajax({
     	            url: 'report?page=drillDown&type=pdf',
     	            type: 'GET',   
@@ -202,15 +207,17 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
     	            	if(data.includes(".pdf")){
     	            		console.log("PDF Data1" + data);
     	            		window.open("resources/download/"+data , '_blank'); 
-    	            		
+    	            		$("#loading").hide();
     	            	}else{
     	            		console.log("PDF Data" + data);
     	            		alert("No Data to Export");
+    	            		$("#loading").hide();
     	            	}   
     	            }
     	        });
     	    });
-    	    $(".openxlonclick").click(function(){    	
+    	    $(".openxlonclick").click(function(){   
+    	    	$("#loading").show(); 
     	        $.ajax({
     	            url: 'report?page=drillDown&type=excel',
     	            type: 'GET',   
@@ -219,10 +226,12 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
     	            	if(data.includes(".xlsx")){
     	            		console.log("Excel Data1" + data);
     	            		window.open("resources/download/"+data , '_blank'); 
+    	            		$("#loading").hide(); 
     	            		
     	            	}else{
     	            		console.log("Excel Data" + data);
     	            		alert("No Data to Export");
+    	            		$("#loading").hide(); 
     	            	}    
     	            }
     	        });
