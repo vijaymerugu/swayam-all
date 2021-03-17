@@ -8,6 +8,7 @@
 
     <property name="ireport.y" value="0"></property>  
 <property name="net.sf.jasperreports.export.pdf.size.page.to.content" value="true"/>
+ <property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns=true"/>
 
     <field name="crclName" class="java.lang.String"></field>
 
@@ -48,7 +49,7 @@
 
             <staticText>
 
-                <reportElement x="61" y="0" width="300" height="25"></reportElement>
+                <reportElement x="444" y="0" width="200" height="25"></reportElement>
 
                 <textElement textAlignment="Left">
 

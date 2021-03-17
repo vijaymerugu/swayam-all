@@ -68,7 +68,7 @@
 		var datePickerOptions = { changeYear: true, 
 								  changeMonth: true,
 								  autoclose: true,
-								  endDate : '+0d',
+								  endDate : '-2d',
 								  format : 'dd-mm-yyyy',
 								  orientation : "top"
 								  }
