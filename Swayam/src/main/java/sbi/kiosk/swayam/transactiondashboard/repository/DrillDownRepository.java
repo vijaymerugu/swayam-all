@@ -1,5 +1,7 @@
 package sbi.kiosk.swayam.transactiondashboard.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -2648,6 +2650,62 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
 	  in_module_code,@Param("in_region_code") String
 	  in_region_code, @Param("searchText") String searchText,Pageable pageable);
 	 
+    @Query(value="  SELECT B.CRCL_NAME NAME, B.CRCL_CODE CODE, count(b.branch_code) BRANCH_CODE_COUNT,  " + 
+    		"    	     sum(m.total_swayam_kiosks) TOTAL_SWAYAM_KIOSKS, SUM(M.LIPI_KIOSK_CNT) LIPI_KIOSK_CNT,  " + 
+    		"    	     SUM(M.LIPI_TXN_CNT) LIPI_TXN_CNT, SUM(M.FORBES_KIOSK_CNT) FORBES_KIOSK_CNT,  " + 
+    		"    	     SUM(M.FORBES_TXN_CNT) FORBES_TXN_CNT, SUM(M.CMS_KIOSK_CNT) CMS_KIOSK_CNT, SUM(M.CMS_TXN_CNT) CMS_TXN_CNT, " + 
+    		"    	     SUM(M.TOTAL_SWAYAM_TXNS) TOTAL_SWAYAM_TXNS,NVL(SUM(BR_TXN.MANUAL_TXNS),0) MANUAL_TXNS,  " + 
+    		"    	     ( CASE     WHEN NVL(SUM(M.TOTAL_SWAYAM_TXNS), 0 ) = 0 THEN 0 " + 
+    		"    	      ELSE ROUND(SUM(M.TOTAL_SWAYAM_TXNS) * 100 / (SUM(M.TOTAL_SWAYAM_TXNS) + NVL(SUM(BR_TXN.MANUAL_TXNS),0)  " + 
+    		"    	     ),  2  )  END ) MIG_PRCNT FROM  TBL_BRANCH_MASTER B  LEFT JOIN ( SELECT  BRANCH_NO, NVL(SUM(NO_OF_ACCOUNTS),0) " + 
+    		"    	     MANUAL_TXNS  FROM  TBL_BRANCH_TXN_DAILY DATA2  WHERE TO_DATE(LAST_PBK_DT,'yyyy-mm-dd')  " + 
+    		"    	     BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )  " + 
+    		"    	     GROUP BY BRANCH_NO ) BR_TXN ON BR_TXN.BRANCH_NO = B.BRANCH_CODE  " + 
+    		"    	     INNER JOIN ( SELECT BRANCH_CODE,SUM(NO_OF_KIOSKS) TOTAL_SWAYAM_KIOSKS, SUM(CASE VENDOR  " + 
+    		"    	      WHEN 'LIPI'   THEN DATA1.NO_OF_KIOSKS  ELSE 0   END ) LIPI_KIOSK_CNT, SUM( CASE VENDOR  " + 
+    		"    	     WHEN 'LIPI'   THEN DATA1.SWAYAM_TXNS  ELSE 0  END ) LIPI_TXN_CNT, SUM( CASE VENDOR " + 
+    		"    	     WHEN 'FORBES'   THEN DATA1.NO_OF_KIOSKS  ELSE 0 END ) FORBES_KIOSK_CNT,SUM( " + 
+    		"    	     CASE VENDOR  WHEN 'FORBES'   THEN DATA1.SWAYAM_TXNS ELSE 0  END  ) FORBES_TXN_CNT, " + 
+    		"    	     SUM(CASE VENDOR WHEN 'CMS'   THEN DATA1.NO_OF_KIOSKS ELSE 0 END ) CMS_KIOSK_CNT, " + 
+    		"    	     SUM(CASE VENDOR WHEN 'CMS'   THEN DATA1.SWAYAM_TXNS ELSE 0 END ) CMS_TXN_CNT, " + 
+    		"    	     SUM(SWAYAM_TXNS) TOTAL_SWAYAM_TXNS FROM (SELECT     MST.BRANCH_CODE,   MST.VENDOR, COUNT(DISTINCT MST.KIOSK_ID) NO_OF_KIOSKS, " + 
+    		"			NVL(SUM(A.SWAYAM_TXNS),0) SWAYAM_TXNS FROM TBL_KIOSK_MASTER MST LEFT OUTER JOIN ( SELECT KIOSK_ID, NVL(NO_OF_TXNS,0) SWAYAM_TXNS  " + 
+    		"			FROM TBL_SWAYAM_TXN_REPORT WHERE TO_DATE(TXN_DATE,'dd-mm-yyyy') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') )  " + 
+    		"			AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )) A ON UPPER(MST.KIOSK_ID)=UPPER(A.KIOSK_ID) GROUP BY MST.BRANCH_CODE,MST.VENDOR " + 
+    		"			ORDER BY MST.BRANCH_CODE,MST.VENDOR) DATA1 " + 
+    		"    	     GROUP BY DATA1.BRANCH_CODE ORDER BY DATA1.BRANCH_CODE) M ON B.BRANCH_CODE = M.BRANCH_CODE  " + 
+    		"    	     GROUP BY   B.CRCL_NAME, B.CRCL_CODE ORDER BY B.CRCL_NAME ASC ",
+    	    nativeQuery=true,
+    	    countQuery="  SELECT B.CRCL_NAME NAME, B.CRCL_CODE CODE, count(b.branch_code) BRANCH_CODE_COUNT,  " + 
+    	    		"    	     sum(m.total_swayam_kiosks) TOTAL_SWAYAM_KIOSKS, SUM(M.LIPI_KIOSK_CNT) LIPI_KIOSK_CNT,  " + 
+    	    		"    	     SUM(M.LIPI_TXN_CNT) LIPI_TXN_CNT, SUM(M.FORBES_KIOSK_CNT) FORBES_KIOSK_CNT,  " + 
+    	    		"    	     SUM(M.FORBES_TXN_CNT) FORBES_TXN_CNT, SUM(M.CMS_KIOSK_CNT) CMS_KIOSK_CNT, SUM(M.CMS_TXN_CNT) CMS_TXN_CNT, " + 
+    	    		"    	     SUM(M.TOTAL_SWAYAM_TXNS) TOTAL_SWAYAM_TXNS,NVL(SUM(BR_TXN.MANUAL_TXNS),0) MANUAL_TXNS,  " + 
+    	    		"    	     ( CASE     WHEN NVL(SUM(M.TOTAL_SWAYAM_TXNS), 0 ) = 0 THEN 0 " + 
+    	    		"    	      ELSE ROUND(SUM(M.TOTAL_SWAYAM_TXNS) * 100 / (SUM(M.TOTAL_SWAYAM_TXNS) + NVL(SUM(BR_TXN.MANUAL_TXNS),0)  " + 
+    	    		"    	     ),  2  )  END ) MIG_PRCNT FROM  TBL_BRANCH_MASTER B  LEFT JOIN ( SELECT  BRANCH_NO, NVL(SUM(NO_OF_ACCOUNTS),0) " + 
+    	    		"    	     MANUAL_TXNS  FROM  TBL_BRANCH_TXN_DAILY DATA2  WHERE TO_DATE(LAST_PBK_DT,'yyyy-mm-dd')  " + 
+    	    		"    	     BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )  " + 
+    	    		"    	     GROUP BY BRANCH_NO ) BR_TXN ON BR_TXN.BRANCH_NO = B.BRANCH_CODE  " + 
+    	    		"    	     INNER JOIN ( SELECT BRANCH_CODE,SUM(NO_OF_KIOSKS) TOTAL_SWAYAM_KIOSKS, SUM(CASE VENDOR  " + 
+    	    		"    	      WHEN 'LIPI'   THEN DATA1.NO_OF_KIOSKS  ELSE 0   END ) LIPI_KIOSK_CNT, SUM( CASE VENDOR  " + 
+    	    		"    	     WHEN 'LIPI'   THEN DATA1.SWAYAM_TXNS  ELSE 0  END ) LIPI_TXN_CNT, SUM( CASE VENDOR " + 
+    	    		"    	     WHEN 'FORBES'   THEN DATA1.NO_OF_KIOSKS  ELSE 0 END ) FORBES_KIOSK_CNT,SUM( " + 
+    	    		"    	     CASE VENDOR  WHEN 'FORBES'   THEN DATA1.SWAYAM_TXNS ELSE 0  END  ) FORBES_TXN_CNT, " + 
+    	    		"    	     SUM(CASE VENDOR WHEN 'CMS'   THEN DATA1.NO_OF_KIOSKS ELSE 0 END ) CMS_KIOSK_CNT, " + 
+    	    		"    	     SUM(CASE VENDOR WHEN 'CMS'   THEN DATA1.SWAYAM_TXNS ELSE 0 END ) CMS_TXN_CNT, " + 
+    	    		"    	     SUM(SWAYAM_TXNS) TOTAL_SWAYAM_TXNS FROM (SELECT     MST.BRANCH_CODE,   MST.VENDOR, COUNT(DISTINCT MST.KIOSK_ID) NO_OF_KIOSKS, " + 
+    	    		"			NVL(SUM(A.SWAYAM_TXNS),0) SWAYAM_TXNS FROM TBL_KIOSK_MASTER MST LEFT OUTER JOIN ( SELECT KIOSK_ID, NVL(NO_OF_TXNS,0) SWAYAM_TXNS  " + 
+    	    		"			FROM TBL_SWAYAM_TXN_REPORT WHERE TO_DATE(TXN_DATE,'dd-mm-yyyy') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') )  " + 
+    	    		"			AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )) A ON UPPER(MST.KIOSK_ID)=UPPER(A.KIOSK_ID) GROUP BY MST.BRANCH_CODE,MST.VENDOR " + 
+    	    		"			ORDER BY MST.BRANCH_CODE,MST.VENDOR) DATA1 " + 
+    	    		"    	     GROUP BY DATA1.BRANCH_CODE ORDER BY DATA1.BRANCH_CODE) M ON B.BRANCH_CODE = M.BRANCH_CODE  " + 
+    	    		"    	     GROUP BY   B.CRCL_NAME, B.CRCL_CODE ORDER BY B.CRCL_NAME ASC"
+    	       )    
+   
+    List<DrillDown> findAllDate(@Param("fromdate") String fromdate,@Param("todate") String todate);
+ 
+    
     
  // 12c
  	//	@Query(value="select to_date(last_pbk_dt,'yyyy-mm-dd') from tbl_branch_txn_daily order by last_pbk_dt desc fetch first 1 row only ",nativeQuery = true )
@@ -2660,7 +2718,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
  	//	@Query(value="select to_date(last_pbk_dt,'dd-mm-yyyy') from tbl_branch_txn_daily where rownum <= 1 order by last_pbk_dt desc ",nativeQuery = true )
  	//		@Query(value="select to_char(to_date(last_pbk_dt,'dd-mm-yyyy'),'dd-mm-yyyy') from tbl_branch_txn_daily where rownum <= 1 order by last_pbk_dt desc ",nativeQuery = true )
  			
-    //@Query(value="select to_char(last_pbk_dt,'dd-mm-yyyy') from tbl_branch_txn_daily where rownum <= 1 order by last_pbk_dt desc",nativeQuery = true)
+ //   @Query(value="select to_char(last_pbk_dt,'dd-mm-yyyy') from tbl_branch_txn_daily where rownum <= 1 order by last_pbk_dt desc",nativeQuery = true)
  			String findCurrentDateAuditJob();
     
 }

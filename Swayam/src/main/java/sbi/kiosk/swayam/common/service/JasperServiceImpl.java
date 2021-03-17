@@ -44,6 +44,7 @@ import sbi.kiosk.swayam.billingpayment.service.TaxService;
 import sbi.kiosk.swayam.common.constants.Constants;
 import sbi.kiosk.swayam.common.dto.BillingPenaltyDto;
 import sbi.kiosk.swayam.common.dto.DownTimeDto;
+import sbi.kiosk.swayam.common.dto.DrillDownDto;
 import sbi.kiosk.swayam.common.dto.ErrorReportingDto;
 import sbi.kiosk.swayam.common.dto.InvoiceCompareDto;
 import sbi.kiosk.swayam.common.dto.InvoiceGenerationDto;
@@ -97,6 +98,8 @@ import sbi.kiosk.swayam.transactiondashboard.repository.ErrorReportingRepository
 import sbi.kiosk.swayam.transactiondashboard.repository.RealTimeTxnRepositoryPaging;
 import sbi.kiosk.swayam.transactiondashboard.repository.TransactionDashBoardRepositoryPaging;
 import sbi.kiosk.swayam.transactiondashboard.repository.ZeroTransactionKiosksRepository;
+import sbi.kiosk.swayam.common.entity.DrillDown;
+import sbi.kiosk.swayam.transactiondashboard.repository.DrillDownRepository;
 
 @Service
 public class JasperServiceImpl implements JasperService {
@@ -147,6 +150,9 @@ public class JasperServiceImpl implements JasperService {
 
 	@Autowired
 	ErrorReportingRepositoryPaging errorReportingRepositoryPaging;
+	
+	@Autowired
+	DrillDownRepository drilDownRepository;
 	
 	 @Autowired DateFrame dateFrame;
 	 
@@ -912,6 +918,44 @@ public class JasperServiceImpl implements JasperService {
 			 
 
 			}
+			else if (identifyPage.equals("drillDown")) {
+				logger.info("PDF File TransactionSummary !!");
+				List<DrillDown> list = findAllDrillDown();
+				 if(list.isEmpty()) {
+						return filename;
+					}else {
+				File file = ResourceUtils.getFile(jrxmlPath + "drillDown.jrxml");
+				InputStream input = new FileInputStream(file);
+				jasperReport = JasperCompileManager.compileReport(input);
+				source = new JRBeanCollectionDataSource(list);
+				Map<String, Object> parameters = new HashMap<>();
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "TransactionSummary_" + timeStamp + ".pdf";
+				
+				 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+					Date curDate = new Date();
+					curDate.setTime(curDate.getTime() - 48 * 60 * 60 * 1000);
+					String  fromdate1 = sdf.format(curDate);
+					String todate1 = sdf.format(curDate);
+				String fileName ="";
+				/*if(!dateFrame.getFromDate().isEmpty() && !dateFrame.getToDate().isEmpty()) {
+				fileName = "DrillDown_" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				}else {*/
+					
+					  
+					 fileName = "DrillDown_" + fromdate1.replace("-", "").substring(0, 6) + "_"
+							+ todate1.replace("-", "").substring(0, 6) + "_"
+							+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+			//	}
+				filename =fileName+".pdf";
+				//"attachment; filename=\"" + fileName + ".pdf\""
+			
+				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+					}
+			}
 			// xlsx(jasperPrint);
 			logger.info("PDF File Generated !!");
 			return filename;
@@ -1659,6 +1703,46 @@ public class JasperServiceImpl implements JasperService {
 		xlsx(jasperPrint, filename);
 	}
 			
+			}
+			else if (identifyPage.equals("drillDown")) {
+				logger.info("Excel File drillDown !!");
+				List<DrillDown> list = findAllDrillDown();
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
+				File file = ResourceUtils.getFile(jrxmlPath + "drillDown.jrxml");
+				InputStream input = new FileInputStream(file);
+				jasperReport = JasperCompileManager.compileReport(input);
+				source = new JRBeanCollectionDataSource(list);
+				Map<String, Object> parameters = new HashMap<>();
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+				//String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				//filename = "TransactionSummary_" + timeStamp + ".xlsx";
+				
+				    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+					Date curDate = new Date();
+					curDate.setTime(curDate.getTime() - 48 * 60 * 60 * 1000);
+					String  fromdate1 = sdf.format(curDate);
+					String todate1 = sdf.format(curDate);
+				
+				String fileName ="";
+				/*if(!dateFrame.getFromDate().isEmpty() && !dateFrame.getToDate().isEmpty()) {
+				fileName = "DrillDown" + dateFrame.getFromDate().replace("-", "").substring(0, 6) + "_"
+						+ dateFrame.getToDate().replace("-", "").substring(0, 6) + "_"
+						+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+				}else {*/
+					
+					  
+					 fileName = "DrillDown" + fromdate1.replace("-", "").substring(0, 6) + "_"
+							+ todate1.replace("-", "").substring(0, 6) + "_"
+							+ (new SimpleDateFormat("dd-MM-yyyy")).format(new Date()).replace("-", "").substring(0, 6);
+			//	}
+				filename =fileName + ".xlsx";
+				
+				xlsx(jasperPrint, filename);
+					}
 			}
 			
 			logger.info("Excel File Generated !!");
@@ -2673,6 +2757,40 @@ public class JasperServiceImpl implements JasperService {
 		return taxEntity;
 	}
 	
+	@Override
+	public List<DrillDown> findAllDrillDown() {
+		
+		logger.info("Inside==Jasper====findAllDrillDown===========");
+		String fromdate = "";
+		String todate = "";
+		
+	/*	  if((dateFrame.getFromDate()== "") && (dateFrame.getToDate()== "")) {*/
+			
+			  SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+				Date curDate = new Date();
+				curDate.setTime(curDate.getTime() - 48 * 60 * 60 * 1000);
+				 fromdate = sdf.format(curDate);
+				 todate = sdf.format(curDate);
+				 
 	
+	//	  }
+					/*
+					 * if((dateFrame.getFromDate().isEmpty()== false) &&
+					 * (dateFrame.getToDate().isEmpty()== false)) { fromdate =
+					 * dateFrame.getFromDate(); todate = dateFrame.getToDate();
+					 * 
+					 * 
+					 * }
+					 */
+		
+		logger.info("Inside==Jasper====findAllDrillDown=======after date setting====");
+		
+		
+	
+		List<DrillDown> page = drilDownRepository.findAllDate(fromdate, todate);
+		List<DrillDownDto> entities = ObjectMapperUtils.mapAll(page, DrillDownDto.class);
+	//	return entities;
+		return page;
+	}
 
 }

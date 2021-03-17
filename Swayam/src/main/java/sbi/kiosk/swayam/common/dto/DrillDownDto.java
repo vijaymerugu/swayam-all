@@ -21,6 +21,10 @@ public class DrillDownDto {
 		this.totalSwayamTxns = drillDown.getTotalSwayamTxns();
 		this.totalBranchCounterTxns = drillDown.getTotalBranchCounterTxns();
 		this.migrationPercentage = drillDown.getMigrationPercentage();
+		
+		// Added by Manisha
+		this.circleName = drillDown.getName();
+		this.branchCodeCount = drillDown.getBranchCodeCount();
 			
 	}
 
@@ -42,7 +46,7 @@ public class DrillDownDto {
 	
 	private String branchName;
 	
-	private Integer totalSwayamBranches;
+	private String totalSwayamBranches;
 	
 	private Integer totalSwayamKiosks;
 	
@@ -63,5 +67,8 @@ public class DrillDownDto {
 	private Integer totalBranchCounterTxns;
 	
 	private Double migrationPercentage;
-
+	
+	/////////
+	
+	private String branchCodeCount;
 }
