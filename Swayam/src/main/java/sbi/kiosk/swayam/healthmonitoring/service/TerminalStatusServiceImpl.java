@@ -460,7 +460,7 @@ public class TerminalStatusServiceImpl implements TerminalStatusService {
 	//			logger.info("Br Code====" + branchMast.getBranchCode());
 	//			logger.info("Circle====" + branchMast.getCircle());
 				dto.setBranchCode(branchMast.getBranchCode());
-		//		dto.setCircle(branchMast.getCircle());
+				dto.setCircle(branchMast.getCircleName());
 			}
 		  
 					
