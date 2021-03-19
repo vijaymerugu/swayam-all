@@ -1,6 +1,6 @@
 var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter']);
 
-app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService', function ($scope, $filter,UserManagementService) {
+app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService','$http', function ($scope, $filter,UserManagementService,$http) {
    var paginationOptions = {
      pageNumber: 1,
 pageSize: 20,
@@ -10,7 +10,7 @@ sort: null
    var fromDate = "";
    var toDate= "";
   
-  /*  
+    
    function convertDate(dateParam){
   var result="";
   var date = new Date(dateParam);
@@ -27,15 +27,43 @@ sort: null
      return result;
  }
 
-*/
-     
+
+
+
+       
+
+  var validateDate="";   
    $scope.CurrentDate = new Date();
    $scope.searchPositions= function(startDate,endDate){
+	
+	
+	
+	/* var req = {
+                 method: 'GET',
+                 url: 'td/getSwayamMigrationLastUpDated1',               
+                 data: $scope.studentList
+                };
+
+        $http(req).then(function(response){
+            console.log(response.status);
+            console.log("in success");
+            //$scope.studentList=[];
+           console.log(response.data);
+           validateDate=response.data;
+
+        }, function(response){
+            console.log(response.status);
+            console.log("in fail");     
+        });*/
+    
+	
+	
 	   fromDate = $("#datepickerFromDate").val();
 	   toDate = $("#datepickerToDate").val();
 	
        var $from=$("#datepickerFromDate").datepicker('getDate');
        var $to =$("#datepickerToDate").datepicker('getDate');
+      var $to1 =$("#datepickerToDate").datepicker({ dateFormat: 'dd/mm/yyyy' });
      
    if (($from== null) || ($to== null) )
 	   {
@@ -53,9 +81,22 @@ sort: null
    		}
        else
     	  {
-	    	   if($from>$to)
-	    	   {
-	         		alert("from date shouldn't greater than To date");
+	
+	//alert("$to----"+$to);
+	//var valiDate=convertDate(validateDate);
+//alert("LastUpdate--------"+validateDate);
+  //debugger;
+	//var dd1=$to1.val();
+	// var $dDate =$("#dd1").datepicker('getDate');
+	
+		    	/*   if(validateDate<dd1) {
+	         		alert("to date shouldn't greater than lastupdate date");
+                 toDate="";
+                 fromDate="";
+                $("#datepickerToDate").focus();
+                 }*/
+                   if($from>$to){
+                    alert("from date shouldn't greater than To date");
 	         		$("#datepickerFromDate").focus();
 	         	}
     	   }
@@ -68,7 +109,12 @@ sort: null
                  //console.log("$scope.gridOptions.data.length=============",$scope.gridOptions.data.length);
    
                     console.log("Response Data " + data.totalElements);	
-					$scope.allIndiaDate = "From: " +fromDate+" ToDate: "+toDate; 				
+					$scope.allIndiaDate = "From: " +fromDate+" ToDate: "+toDate; 
+						
+					 // if(validateDate>toDate)
+	    	  // {	
+		//alert("inside validateDate--"+validateDate);	
+		//    alert("in side toDate--"+toDate);	
 									if(data.totalElements==0){
 										$scope.gridOptions.data = data.content;
 										$scope.gridOptions.totalItems = data.totalElements;
@@ -79,6 +125,11 @@ sort: null
 										$scope.gridOptions.totalItems = data.totalElements;
 									  
 									}
+									
+								//	} else{
+								//	alert("Not Allowed");
+									//}
+									
 								//  Added for loader------------- START 
 									$("#loading").hide(); 
 								//  Added for loader------------- END 
