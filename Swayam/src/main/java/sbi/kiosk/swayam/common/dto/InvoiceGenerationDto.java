@@ -69,18 +69,33 @@ public class InvoiceGenerationDto {
 	
 	//private String spareParts;
 	
-	private Float spareParts;
+	/*
+	 * private Float spareParts;
+	 * 
+	 * private Float penalty;
+	 * 
+	 * private Float invoiceAmount;
+	 * 
+	 * private Float corrections;
+	 * 
+	 * private Float finalAmount;
+	 * 
+	 * 
+	 * private Float finalPenalty;
+	 */
+	
+	private Double spareParts;
 
-	private Float penalty;
+	private Double penalty;
 
-	private Float invoiceAmount;
+	private Double invoiceAmount;
 	
-	private Float corrections;
+	private Double corrections;
 	
-	private Float finalAmount;
+	private Double finalAmount;
 	
 	
-	private Float finalPenalty;
+	private Double finalPenalty;
 	
 
 }

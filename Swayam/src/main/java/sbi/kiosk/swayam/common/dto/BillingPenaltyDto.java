@@ -67,6 +67,8 @@ public class BillingPenaltyDto {
 	private Integer relaxation;
 	private Integer finalDowntime;
 	
-	private Float penalty;
+//	private Float penalty;
+	
+	private Double penalty;
 	private String prfRefNumber;
 }

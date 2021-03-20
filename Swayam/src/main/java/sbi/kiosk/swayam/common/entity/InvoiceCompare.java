@@ -29,18 +29,33 @@ public class InvoiceCompare  {
 	private String year;
 	@Column(name="RFP_NO")
 	private String rpfRefNumber;
+	
 	@Column(name="AMC_COST")
-	private Float invoiceAmountSBI;
+	private Double invoiceAmountSBI;
 	@Column(name="AMC_AMT")
-	private Float invoiceAmountVendor;	
+	private Double invoiceAmountVendor;	
 	@Column(name="PENALTY_SBI_AMT")
-	private Float penaltyAmountSBI;
+	private Double penaltyAmountSBI;
 	@Column(name="CORRECTION_AMT")
-	private Float correctionAmount;
+	private Double correctionAmount;
 	@Column(name="VENDOR_PENALTY_AMT")
-	private Float penaltyAmountVendor;
+	private Double penaltyAmountVendor;
 	@Column(name="DIFFERENCE")
-	private Float difference;
+	private Double difference;
+	
+	/*
+	 * @Column(name="AMC_COST") private Float invoiceAmountSBI;
+	 * 
+	 * @Column(name="AMC_AMT") private Float invoiceAmountVendor;
+	 * 
+	 * @Column(name="PENALTY_SBI_AMT") private Float penaltyAmountSBI;
+	 * 
+	 * @Column(name="CORRECTION_AMT") private Float correctionAmount;
+	 * 
+	 * @Column(name="VENDOR_PENALTY_AMT") private Float penaltyAmountVendor;
+	 * 
+	 * @Column(name="DIFFERENCE") private Float difference;
+	 */
 	
 	
 	

@@ -29,19 +29,33 @@ public class InvoiceGeneration {
 	private String rpfRefNumber;
 //	@Column(name="SPARE_PARTS")
 //	private String spareParts;
+	/*
+	 * @Column(name="SPARE_PARTS") private Float spareParts;
+	 * 
+	 * @Column(name="PENALTY_AMT") private Float penalty;
+	 * 
+	 * @Column(name="INVOICE_AMT") private Float invoiceAmount;
+	 * 
+	 * @Column(name="CORRECTION_AMT") private Float corrections;
+	 * 
+	 * @Column(name="FINAL_AMT") private Float finalAmount;
+	 * 
+	 * @Column(name="FINAL_PENALTY") private Float finalPenalty;
+	 */
+	
 	@Column(name="SPARE_PARTS")
-	private Float spareParts;
+	private Double spareParts;
 	@Column(name="PENALTY_AMT")
-	private Float penalty;
+	private Double penalty;
 	@Column(name="INVOICE_AMT")
-	private Float invoiceAmount;
+	private Double invoiceAmount;
 	@Column(name="CORRECTION_AMT")
-	private Float corrections;
+	private Double corrections;
 	@Column(name="FINAL_AMT")
-	private Float finalAmount;
+	private Double finalAmount;
 	
 	@Column(name="FINAL_PENALTY")
-	private Float finalPenalty;
+	private Double finalPenalty;
 	
 	
 	
