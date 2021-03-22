@@ -65,17 +65,33 @@ public class InvoiceCompareDto {
 	private String rpfRefNumber;
 	
 	
-	private Float invoiceAmountSBI;
 	
-	private Float invoiceAmountVendor;
 	
-	private Float penaltyAmountSBI;
+	/*
+	 * private Float invoiceAmountSBI;
+	 * 
+	 * private Float invoiceAmountVendor;
+	 * 
+	 * private Float penaltyAmountSBI;
+	 * 
+	 * private Float correctionAmount;
+	 * 
+	 * private Float penaltyAmountVendor;
+	 * 
+	 * private Float difference;
+	 */
 	
-	private Float correctionAmount;
+	private Double invoiceAmountSBI;
 	
-	private Float penaltyAmountVendor;
+	private Double invoiceAmountVendor;
 	
-	private Float difference;
+	private Double penaltyAmountSBI;
+	
+	private Double correctionAmount;
+	
+	private Double penaltyAmountVendor;
+	
+	private Double difference;
 
 }
 

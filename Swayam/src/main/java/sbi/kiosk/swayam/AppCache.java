@@ -11,13 +11,13 @@ import sbi.kiosk.swayam.common.entity.UserRolePrivileges;
 import sbi.kiosk.swayam.common.repository.UserRolePrivilegesRepository;
 
 @Component
-@EnableCaching
+//@EnableCaching
 public class AppCache {
 
 	@Autowired
 	UserRolePrivilegesRepository userRolePrivilege;
 	
-	@Cacheable("userPrivilegeVal")
+	//@Cacheable("userPrivilegeVal")
 	  public List<UserRolePrivileges> getAllUserRolePrivileges() {
 	   
 	    return userRolePrivilege.findAll();
