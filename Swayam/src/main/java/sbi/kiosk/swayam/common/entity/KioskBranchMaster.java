@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -14,6 +15,7 @@ import sbi.kiosk.swayam.common.dto.KioskBranchMasterUserDto;
 @Data
 @Entity
 @Table(name="TBL_KIOSK_MASTER")
+@IdClass(value = KioskBranchMasterCompositeId.class)
 public class KioskBranchMaster extends Common{
 	public KioskBranchMaster(){
 		
@@ -49,6 +51,7 @@ public class KioskBranchMaster extends Common{
 	//@Column(name="SR_NO")
 	//private String srNo;
 	
+	@Id
 	@Column(name="KIOSK_ID")
 	private String kioskId;
 	

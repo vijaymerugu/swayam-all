@@ -299,7 +299,12 @@ int findByCartridgeStatusGrey(@Param("agentStatus") String agentStatus);
 	 		"inner join TBL_KIOSK_MASTER km on UPPER(km.KIOSK_ID)=UPPER(ts.KIOSK_ID) " + 
 	 		"inner join TBL_BRANCH_MASTER bm on bm.BRANCH_CODE=TRIM(LPAD(ts.BR_CODE,5,'0')) " + 
 	 		"left join TBL_USER_KIOSK_MAPPING UKM on UPPER(km.KIOSK_ID)=upper(UKM.KIOSK_ID)  " + 
-	 		"where UPPER(ts.PRINTER_STATUS)='RED' ",nativeQuery=true)
+	 		"where UPPER(ts.PRINTER_STATUS)='RED' ",nativeQuery=true,
+	 		countQuery = "SELECT ts.* FROM TBL_TERMINAL_STATUS ts  " + 
+	 		 		"inner join TBL_KIOSK_MASTER km on UPPER(km.KIOSK_ID)=UPPER(ts.KIOSK_ID) " + 
+	 		 		"inner join TBL_BRANCH_MASTER bm on bm.BRANCH_CODE=TRIM(LPAD(ts.BR_CODE,5,'0')) " + 
+	 		 		"left join TBL_USER_KIOSK_MAPPING UKM on UPPER(km.KIOSK_ID)=upper(UKM.KIOSK_ID)  " + 
+	 		 		"where UPPER(ts.PRINTER_STATUS)='RED' ")
 	 
 	 Page<TerminalStatus> findByPrinterStatusRedList(Pageable pageable);
 	 
@@ -312,7 +317,11 @@ int findByCartridgeStatusGrey(@Param("agentStatus") String agentStatus);
 	 		"inner join TBL_KIOSK_MASTER km on UPPER(km.KIOSK_ID)=UPPER(ts.KIOSK_ID) " + 
 	 		"inner join TBL_BRANCH_MASTER bm on bm.BRANCH_CODE=TRIM(LPAD(ts.BR_CODE,5,'0')) " + 
 	 		"left join TBL_USER_KIOSK_MAPPING UKM on UPPER(km.KIOSK_ID)=upper(UKM.KIOSK_ID)  " + 
-	 		"where UPPER(ts.PRINTER_STATUS) ='GREEN' ",nativeQuery=true)
+	 		"where UPPER(ts.PRINTER_STATUS) ='GREEN' ",nativeQuery=true, countQuery = "SELECT ts.* FROM TBL_TERMINAL_STATUS ts  " + 
+	 		 		"inner join TBL_KIOSK_MASTER km on UPPER(km.KIOSK_ID)=UPPER(ts.KIOSK_ID) " + 
+	 		 		"inner join TBL_BRANCH_MASTER bm on bm.BRANCH_CODE=TRIM(LPAD(ts.BR_CODE,5,'0')) " + 
+	 		 		"left join TBL_USER_KIOSK_MAPPING UKM on UPPER(km.KIOSK_ID)=upper(UKM.KIOSK_ID)  " + 
+	 		 		"where UPPER(ts.PRINTER_STATUS) ='GREEN' " )
 	 Page<TerminalStatus> findByPrinterStatusGreenList(Pageable pageable);
 	 
 		/*
@@ -324,7 +333,11 @@ int findByCartridgeStatusGrey(@Param("agentStatus") String agentStatus);
 	 		"inner join TBL_KIOSK_MASTER km on UPPER(km.KIOSK_ID)=UPPER(ts.KIOSK_ID) " + 
 	 		"inner join TBL_BRANCH_MASTER bm on bm.BRANCH_CODE=TRIM(LPAD(ts.BR_CODE,5,'0')) " + 
 	 		"left join TBL_USER_KIOSK_MAPPING UKM on UPPER(km.KIOSK_ID)=upper(UKM.KIOSK_ID)  " + 
-	 		"where UPPER(ts.PRINTER_STATUS) ='GRAY' ",nativeQuery=true)
+	 		"where UPPER(ts.PRINTER_STATUS) ='GRAY' ",nativeQuery=true, countQuery ="SELECT ts.* FROM TBL_TERMINAL_STATUS ts  " + 
+	 		 		"inner join TBL_KIOSK_MASTER km on UPPER(km.KIOSK_ID)=UPPER(ts.KIOSK_ID) " + 
+	 		 		"inner join TBL_BRANCH_MASTER bm on bm.BRANCH_CODE=TRIM(LPAD(ts.BR_CODE,5,'0')) " + 
+	 		 		"left join TBL_USER_KIOSK_MAPPING UKM on UPPER(km.KIOSK_ID)=upper(UKM.KIOSK_ID)  " + 
+	 		 		"where UPPER(ts.PRINTER_STATUS) ='GRAY' ")
 	 Page<TerminalStatus> findByPrinterStatusGrayList(Pageable pageable);
 	 
 	 
@@ -338,7 +351,11 @@ int findByCartridgeStatusGrey(@Param("agentStatus") String agentStatus);
 	 		"inner join TBL_KIOSK_MASTER km on UPPER(km.KIOSK_ID)=UPPER(ts.KIOSK_ID) " + 
 	 		"inner join TBL_BRANCH_MASTER bm on bm.BRANCH_CODE=TRIM(LPAD(ts.BR_CODE,5,'0')) " + 
 	 		"left join TBL_USER_KIOSK_MAPPING UKM on UPPER(km.KIOSK_ID)=upper(UKM.KIOSK_ID)  " + 
-	 		"where UPPER(ts.CARTRIDGE_STATUS)='RED'",nativeQuery=true)
+	 		"where UPPER(ts.CARTRIDGE_STATUS)='RED'",nativeQuery=true, countQuery = "SELECT ts.* FROM TBL_TERMINAL_STATUS ts  " + 
+	 		 		"inner join TBL_KIOSK_MASTER km on UPPER(km.KIOSK_ID)=UPPER(ts.KIOSK_ID) " + 
+	 		 		"inner join TBL_BRANCH_MASTER bm on bm.BRANCH_CODE=TRIM(LPAD(ts.BR_CODE,5,'0')) " + 
+	 		 		"left join TBL_USER_KIOSK_MAPPING UKM on UPPER(km.KIOSK_ID)=upper(UKM.KIOSK_ID)  " + 
+	 		 		"where UPPER(ts.CARTRIDGE_STATUS)='RED'")
 Page<TerminalStatus> findByCartridgeStatusRedList(Pageable pageable);
 
 /*
@@ -350,8 +367,12 @@ Page<TerminalStatus> findByCartridgeStatusRedList(Pageable pageable);
 	 		"inner join TBL_KIOSK_MASTER km on UPPER(km.KIOSK_ID)=UPPER(ts.KIOSK_ID)  " + 
 	 		"inner join TBL_BRANCH_MASTER bm on bm.BRANCH_CODE=TRIM(LPAD(ts.BR_CODE,5,'0'))  " + 
 	 		"left join TBL_USER_KIOSK_MAPPING UKM on UPPER(km.KIOSK_ID)=upper(UKM.KIOSK_ID)  " + 
-	 		"where UPPER(ts.CARTRIDGE_STATUS) ='GREEN' ",nativeQuery=true)
-	 
+	 		"where UPPER(ts.CARTRIDGE_STATUS) ='GREEN' ",nativeQuery=true,countQuery="SELECT ts.* FROM TBL_TERMINAL_STATUS ts   " + 
+	 		 		"inner join TBL_KIOSK_MASTER km on UPPER(km.KIOSK_ID)=UPPER(ts.KIOSK_ID)  " + 
+	 		 		"inner join TBL_BRANCH_MASTER bm on bm.BRANCH_CODE=TRIM(LPAD(ts.BR_CODE,5,'0'))  " + 
+	 		 		"left join TBL_USER_KIOSK_MAPPING UKM on UPPER(km.KIOSK_ID)=upper(UKM.KIOSK_ID)  " + 
+	 		 		"where UPPER(ts.CARTRIDGE_STATUS) ='GREEN' " )
+	  
 Page<TerminalStatus> findByCartridgeStatusGreenList(Pageable pageable);
 
 /* 
@@ -363,7 +384,11 @@ Page<TerminalStatus> findByCartridgeStatusGreenList(Pageable pageable);
 	 		"inner join TBL_KIOSK_MASTER km on UPPER(km.KIOSK_ID)=UPPER(ts.KIOSK_ID)  " + 
 	 		"inner join TBL_BRANCH_MASTER bm on bm.BRANCH_CODE=TRIM(LPAD(ts.BR_CODE,5,'0'))  " + 
 	 		"left join TBL_USER_KIOSK_MAPPING UKM on UPPER(km.KIOSK_ID)=upper(UKM.KIOSK_ID)  " + 
-	 		"where UPPER(ts.CARTRIDGE_STATUS)='GRAY'",nativeQuery=true)
+	 		"where UPPER(ts.CARTRIDGE_STATUS)='GRAY'",nativeQuery=true,countQuery="SELECT ts.* FROM TBL_TERMINAL_STATUS ts   " + 
+	 		 		"inner join TBL_KIOSK_MASTER km on UPPER(km.KIOSK_ID)=UPPER(ts.KIOSK_ID)  " + 
+	 		 		"inner join TBL_BRANCH_MASTER bm on bm.BRANCH_CODE=TRIM(LPAD(ts.BR_CODE,5,'0'))  " + 
+	 		 		"left join TBL_USER_KIOSK_MAPPING UKM on UPPER(km.KIOSK_ID)=upper(UKM.KIOSK_ID)  " + 
+	 		 		"where UPPER(ts.CARTRIDGE_STATUS)='GRAY'")
 Page<TerminalStatus> findByCartridgeStatusGrayList(Pageable pageable);
 
 	 
@@ -377,7 +402,11 @@ Page<TerminalStatus> findByCartridgeStatusGrayList(Pageable pageable);
 	 		"inner join  TBL_KIOSK_MASTER km on UPPER(km.KIOSK_ID)=UPPER(ts.KIOSK_ID)  " + 
 	 		"inner join  TBL_BRANCH_MASTER bm on bm.BRANCH_CODE=TRIM(LPAD(ts.BR_CODE,5,'0'))  " + 
 	 		"left join  TBL_USER_KIOSK_MAPPING UKM on UPPER(km.KIOSK_ID)=upper(UKM.KIOSK_ID)   " + 
-	 		"where UPPER(ts.AGENT_STATUS)='RED'",nativeQuery=true)
+	 		"where UPPER(ts.AGENT_STATUS)='RED'",nativeQuery=true,countQuery="SELECT ts.* FROM  TBL_TERMINAL_STATUS ts   " + 
+	 		 		"inner join  TBL_KIOSK_MASTER km on UPPER(km.KIOSK_ID)=UPPER(ts.KIOSK_ID)  " + 
+	 		 		"inner join  TBL_BRANCH_MASTER bm on bm.BRANCH_CODE=TRIM(LPAD(ts.BR_CODE,5,'0'))  " + 
+	 		 		"left join  TBL_USER_KIOSK_MAPPING UKM on UPPER(km.KIOSK_ID)=upper(UKM.KIOSK_ID)   " + 
+	 		 		"where UPPER(ts.AGENT_STATUS)='RED'" )
 	 Page<TerminalStatus> findByAgentStatusRedList(Pageable pageable);
 	 
 
@@ -392,7 +421,11 @@ Page<TerminalStatus> findByCartridgeStatusGrayList(Pageable pageable);
 	 		"inner join TBL_KIOSK_MASTER km on UPPER(km.KIOSK_ID)=UPPER(ts.KIOSK_ID)   " + 
 	 		"inner join TBL_BRANCH_MASTER bm on bm.BRANCH_CODE=TRIM(LPAD(ts.BR_CODE,5,'0'))   " + 
 	 		"left join TBL_USER_KIOSK_MAPPING UKM on UPPER(km.KIOSK_ID)=upper(UKM.KIOSK_ID)   " + 
-	 		"where UPPER(ts.AGENT_STATUS) ='GREEN'",nativeQuery=true)
+	 		"where UPPER(ts.AGENT_STATUS) ='GREEN'",nativeQuery=true,countQuery="SELECT ts.* FROM TBL_TERMINAL_STATUS ts    " + 
+	 		 		"inner join TBL_KIOSK_MASTER km on UPPER(km.KIOSK_ID)=UPPER(ts.KIOSK_ID)   " + 
+	 		 		"inner join TBL_BRANCH_MASTER bm on bm.BRANCH_CODE=TRIM(LPAD(ts.BR_CODE,5,'0'))   " + 
+	 		 		"left join TBL_USER_KIOSK_MAPPING UKM on UPPER(km.KIOSK_ID)=upper(UKM.KIOSK_ID)   " + 
+	 		 		"where UPPER(ts.AGENT_STATUS) ='GREEN'")
 	 Page<TerminalStatus> findByAgentStatusGreenList(Pageable pageable);
 
 	 //
@@ -406,7 +439,11 @@ Page<TerminalStatus> findByCartridgeStatusGrayList(Pageable pageable);
 	 		"inner join TBL_KIOSK_MASTER km on UPPER(km.KIOSK_ID)=UPPER(ts.KIOSK_ID)   " + 
 	 		"inner join TBL_BRANCH_MASTER bm on bm.BRANCH_CODE=TRIM(LPAD(ts.BR_CODE,5,'0'))   " + 
 	 		"left join TBL_USER_KIOSK_MAPPING UKM on UPPER(km.KIOSK_ID)=upper(UKM.KIOSK_ID)    " + 
-	 		"where UPPER(ts.AGENT_STATUS) ='GRAY'",nativeQuery=true)
+	 		"where UPPER(ts.AGENT_STATUS) ='GRAY'",nativeQuery=true,countQuery="SELECT ts.* FROM TBL_TERMINAL_STATUS ts    " + 
+	 		 		"inner join TBL_KIOSK_MASTER km on UPPER(km.KIOSK_ID)=UPPER(ts.KIOSK_ID)   " + 
+	 		 		"inner join TBL_BRANCH_MASTER bm on bm.BRANCH_CODE=TRIM(LPAD(ts.BR_CODE,5,'0'))   " + 
+	 		 		"left join TBL_USER_KIOSK_MAPPING UKM on UPPER(km.KIOSK_ID)=upper(UKM.KIOSK_ID)    " + 
+	 		 		"where UPPER(ts.AGENT_STATUS) ='GRAY'")
 	 Page<TerminalStatus> findByAgentStatusGrayList(Pageable pageable);
 	 
 	 
@@ -422,7 +459,11 @@ Page<TerminalStatus> findByCartridgeStatusGrayList(Pageable pageable);
 	 		"inner join TBL_KIOSK_MASTER km on UPPER(km.KIOSK_ID)=UPPER(ts.KIOSK_ID)    " + 
 	 		"inner join TBL_BRANCH_MASTER bm on bm.BRANCH_CODE=TRIM(LPAD(ts.BR_CODE,5,'0'))    " + 
 	 		"left join TBL_USER_KIOSK_MAPPING UKM on UPPER(km.KIOSK_ID)=upper(UKM.KIOSK_ID)    " + 
-	 		"where UPPER(ts.APPLICATION_STATUS)='RED'",nativeQuery=true)
+	 		"where UPPER(ts.APPLICATION_STATUS)='RED'",nativeQuery=true,countQuery="SELECT ts.* FROM TBL_TERMINAL_STATUS ts     " + 
+	 		 		"inner join TBL_KIOSK_MASTER km on UPPER(km.KIOSK_ID)=UPPER(ts.KIOSK_ID)    " + 
+	 		 		"inner join TBL_BRANCH_MASTER bm on bm.BRANCH_CODE=TRIM(LPAD(ts.BR_CODE,5,'0'))    " + 
+	 		 		"left join TBL_USER_KIOSK_MAPPING UKM on UPPER(km.KIOSK_ID)=upper(UKM.KIOSK_ID)    " + 
+	 		 		"where UPPER(ts.APPLICATION_STATUS)='RED'")
 	 Page<TerminalStatus> findByApplicatinStatusRedList(Pageable pageable);
 	 
 		/*
@@ -430,11 +471,15 @@ Page<TerminalStatus> findByCartridgeStatusGrayList(Pageable pageable);
 		 * ="SELECT * FROM TBL_TERMINAL_STATUS where APPLICATION_STATUS in('Green','GREEN','green') "
 		 * ,nativeQuery=true)
 		 */
-	 @Query(value ="SELECT ts.* FROM TBL_TERMINAL_STATUS ts     " + 
-	 		"inner join TBL_KIOSK_MASTER km on UPPER(km.KIOSK_ID)=UPPER(ts.KIOSK_ID)    " + 
-	 		"inner join TBL_BRANCH_MASTER bm on bm.BRANCH_CODE=TRIM(LPAD(ts.BR_CODE,5,'0'))    " + 
-	 		"left join TBL_USER_KIOSK_MAPPING UKM on UPPER(km.KIOSK_ID)=upper(UKM.KIOSK_ID)     " + 
-	 		"where UPPER(ts.APPLICATION_STATUS) ='GREEN'",nativeQuery=true)
+	 @Query(value ="SELECT ts.* FROM TBL_TERMINAL_STATUS ts  " + 
+	 		"inner join TBL_KIOSK_MASTER km on UPPER(km.KIOSK_ID)=UPPER(ts.KIOSK_ID) " + 
+	 		"inner join TBL_BRANCH_MASTER bm on bm.BRANCH_CODE=TRIM(LPAD(ts.BR_CODE,5,'0'))  " + 
+	 		"left join TBL_USER_KIOSK_MAPPING UKM on UPPER(km.KIOSK_ID)=upper(UKM.KIOSK_ID)  " + 
+	 		"where UPPER(ts.APPLICATION_STATUS) ='GREEN'",nativeQuery=true, countQuery = "SELECT ts.* FROM TBL_TERMINAL_STATUS ts     " + 
+	 		 		"inner join TBL_KIOSK_MASTER km on UPPER(km.KIOSK_ID)=UPPER(ts.KIOSK_ID)  " + 
+	 		 		"inner join TBL_BRANCH_MASTER bm on bm.BRANCH_CODE=TRIM(LPAD(ts.BR_CODE,5,'0'))  " + 
+	 		 		"left join TBL_USER_KIOSK_MAPPING UKM on UPPER(km.KIOSK_ID)=upper(UKM.KIOSK_ID)  " + 
+	 		 		"where UPPER(ts.APPLICATION_STATUS) ='GREEN'")
 	 Page<TerminalStatus> findByApplicatinStatusGreenList(Pageable pageable);
 	 
 		/*
@@ -446,7 +491,11 @@ Page<TerminalStatus> findByCartridgeStatusGrayList(Pageable pageable);
 	 		"inner join TBL_KIOSK_MASTER km on UPPER(km.KIOSK_ID)=UPPER(ts.KIOSK_ID)    " + 
 	 		"inner join TBL_BRANCH_MASTER bm on bm.BRANCH_CODE=TRIM(LPAD(ts.BR_CODE,5,'0'))    " + 
 	 		"left join TBL_USER_KIOSK_MAPPING UKM on UPPER(km.KIOSK_ID)=upper(UKM.KIOSK_ID)    " + 
-	 		"where UPPER(ts.APPLICATION_STATUS) ='GRAY'",nativeQuery=true)
+	 		"where UPPER(ts.APPLICATION_STATUS) ='GRAY'",nativeQuery=true, countQuery="SELECT ts.* FROM TBL_TERMINAL_STATUS ts    " + 
+	 		 		"inner join TBL_KIOSK_MASTER km on UPPER(km.KIOSK_ID)=UPPER(ts.KIOSK_ID)    " + 
+	 		 		"inner join TBL_BRANCH_MASTER bm on bm.BRANCH_CODE=TRIM(LPAD(ts.BR_CODE,5,'0'))    " + 
+	 		 		"left join TBL_USER_KIOSK_MAPPING UKM on UPPER(km.KIOSK_ID)=upper(UKM.KIOSK_ID)    " + 
+	 		 		"where UPPER(ts.APPLICATION_STATUS) ='GRAY'")
 	 Page<TerminalStatus> findByApplicatinStatusGrayList(Pageable pageable);
 
 	 
