@@ -333,39 +333,39 @@ public class TerminalStatusServiceImpl implements TerminalStatusService {
        if(type.equals("NoOfRedPVSRed")){
 		 //entities = terminalStatusRepositoryPaging.findByPbPrinterStatus(PageRequest.of(page, size),"Red");
 		 entities =terminalStatusRepo.findByPrinterStatusRedList(PageRequest.of(page,size)).map(TerminalStatusDto::new);
-		logger.info("entities::::::::::"+entities.getContent());
+		logger.info("entities::::::NoOfRedPVSRed::::"+entities.getContent());
 		
 		terminalEntities=getAllTerminalStatusOfDto(entities);
 		
        }else  if(type.equals("NoOfGreenPVSGreen")){
    		 //entities = terminalStatusRepositoryPaging.findByPbPrinterStatus(PageRequest.of(page, size),"Green");
    		entities =terminalStatusRepo.findByPrinterStatusGreenList(PageRequest.of(page,size)).map(TerminalStatusDto::new);
-   		logger.info("entities::::::::::"+entities.getContent());
+   		logger.info("entities:::::::NoOfGreenPVSGreen:::"+entities.getContent());
    		
    		terminalEntities=getAllTerminalStatusOfDto(entities);
    		
           } else if(type.equals("NoOfGreyPVSGrey")){
    		//entities = terminalStatusRepositoryPaging.findByPbPrinterStatus(PageRequest.of(page, size),"Grey");
    		entities =terminalStatusRepo.findByPrinterStatusGrayList(PageRequest.of(page,size)).map(TerminalStatusDto::new);
-   		logger.info("entities::::::::::"+entities.getContent());
+   		logger.info("entities::::::NoOfGreyPVSGrey::::"+entities.getContent());
           
    		terminalEntities=getAllTerminalStatusOfDto(entities);
        } else if(type.equals("NoOfRedCARTRed")){
 		//entities = terminalStatusRepositoryPaging.findByCartridgeStatus(PageRequest.of(page, size),"Red");
 		entities =terminalStatusRepo.findByCartridgeStatusRedList(PageRequest.of(page,size)).map(TerminalStatusDto::new);
-	logger.info("entities::::::::::"+entities.getContent());
+	logger.info("entities::::::NoOfRedCARTRed::::"+entities.getContent());
 		terminalEntities=getAllTerminalStatusOfDto(entities);
        }
     else if(type.equals("NoOfGreenCARTGreen")){
 		//entities = terminalStatusRepositoryPaging.findByCartridgeStatus(PageRequest.of(page, size),"Green");
 		entities =terminalStatusRepo.findByCartridgeStatusGreenList(PageRequest.of(page,size)).map(TerminalStatusDto::new);
-		logger.info("entities::::::::::"+entities.getContent());
+		logger.info("entities:::::NoOfGreenCARTGreen:::::"+entities.getContent());
 		terminalEntities=getAllTerminalStatusOfDto(entities);
        }
     else if(type.equals("NoOfGreyCARTGrey")){
 		//entities = terminalStatusRepositoryPaging.findByCartridgeStatus(PageRequest.of(page, size),"Grey");
 		entities =terminalStatusRepo.findByCartridgeStatusGrayList(PageRequest.of(page,size)).map(TerminalStatusDto::new);
-		logger.info("entities::::::::::"+entities.getContent());
+		logger.info("entities::::::::NoOfGreyCARTGrey::"+entities.getContent());
 		terminalEntities=getAllTerminalStatusOfDto(entities);
        }
        
@@ -442,7 +442,7 @@ public class TerminalStatusServiceImpl implements TerminalStatusService {
 	//	    logger.info("entities terminal status===" + entities.getContent());
 	//		logger.info("=terminalStatus=====kioskId=======" + dto.getKioskId());
 			kioskMastlist = kioskMasterRepo.findByKioskId(dto.getKioskId());
-	//		logger.info("kioskId=list zise===" + kioskMastlist.size());
+			logger.info("kioskId=list zise===" + kioskMastlist.size());
             
 		  for (KioskBranchMaster kioskBranchMast : kioskMastlist) {
 		//		logger.info("SRNO=========" + kioskBranchMast.getKioskSerialNo());
@@ -455,12 +455,12 @@ public class TerminalStatusServiceImpl implements TerminalStatusService {
 		  
 	//	  logger.info("dto.getKioskId()-------------"+dto.getKioskId());
 		   List<BranchMaster> branchMastList = branchMasterRepo.findAllByBranchCode(dto.getBranchCode());
-	//		 logger.info("branchMastList==========" + branchMastList.size());
+			 logger.info("branchMastList==========" + branchMastList.size());
 			for (BranchMaster branchMast : branchMastList) {
 	//			logger.info("Br Code====" + branchMast.getBranchCode());
 	//			logger.info("Circle====" + branchMast.getCircle());
 				dto.setBranchCode(branchMast.getBranchCode());
-				dto.setCircle(branchMast.getCircleName());
+			//	dto.setCircle(branchMast.getCircleName());
 			}
 		  
 					
