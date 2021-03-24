@@ -2304,6 +2304,7 @@ public class UploadServiceImpl implements UploadService {
 
 // -----------------2 Kiosk CMF	
 
+	@SuppressWarnings("incomplete-switch")
 	@Override
 	public String uploadKioskCMFInformation(String path) {
 
@@ -2385,7 +2386,19 @@ public class UploadServiceImpl implements UploadService {
 				//		if (!(String.valueOf(cell.getRow().getRowNum()).equals("0"))) {
 							if (String.valueOf(cell.getColumnIndex()).equals("1")) {
 							
+								switch (cell.getCellType()) {
+								case NUMERIC:
 								dto.setCmfPfId((String.valueOf((int)cell.getNumericCellValue())));
+								break;
+								case STRING:
+									/*
+									 * if((cell.getStringCellValue().equalsIgnoreCase("NOT ALLOTTED")) ||
+									 * (cell.getStringCellValue().equalsIgnoreCase("#N/A")) ) {
+									 * logger.error("These values are non-acceptable as PF_ID!!"); return
+									 * "These values are non-acceptable as PF_ID"; } else
+									 */
+										dto.setCmfPfId(cell.getStringCellValue());
+								}
 							}
 							/*
 							 * if (String.valueOf(cell.getColumnIndex()).equals("2")) {
@@ -2394,6 +2407,14 @@ public class UploadServiceImpl implements UploadService {
 							 */
 
 				//			break;
+							
+							/*
+							 * if( (cell.getStringCellValue().equalsIgnoreCase("NOT ALLOTTED")) ||
+							 * (cell.getStringCellValue().equalsIgnoreCase("#N/A")) ) {
+							 * logger.error("These values are non-acceptable as PF_ID!!");
+							 * 
+							 * return "These values are non-acceptable as PF_ID"; }
+							 */
 						}
 
 				//	}
@@ -2446,11 +2467,11 @@ public class UploadServiceImpl implements UploadService {
 				Optional<String> checkNullCmfPfId = Optional.ofNullable(lidtDto1.getCmfPfId());
 				Optional<String> checkNullgetKioskId = Optional.ofNullable(lidtDto1.getKioskId());
 				if (( lidtDto1.getKioskId() != null )						
-						&& ( lidtDto1.getCmfPfId() != null )) {// logger.info("i m inside if clause: "+ count);
+						&& ( lidtDto1.getCmfPfId() != null ) && !( lidtDto1.getCmfPfId().equalsIgnoreCase( "NOT ALLOTTED" ))) {// logger.info("i m inside if clause: "+ count);
 					
 				}else
 				if (checkNullgetKioskId.isPresent() || checkNullCmfPfId.isPresent() || lidtDto1.getCmfPfId() == null || lidtDto1.getKioskId() == null
-						|| checkNullgetKioskId.get().trim().equals("") || checkNullCmfPfId.get().trim().equals("")) { //logger.info("i m inside else-if clause: "+ count);
+						|| checkNullgetKioskId.get().trim().equals("") || checkNullCmfPfId.get().trim().equals("") || (lidtDto1.getCmfPfId().equalsIgnoreCase("NOT ALLOTTED")) || (lidtDto1.getCmfPfId().equalsIgnoreCase("#N/A")) ) { //logger.info("i m inside else-if clause: "+ count);
 					entity = new UserKioskMapping();
 					entity.setPfId(lidtDto1.getCmfPfId());
 					entity.setKioskId(lidtDto1.getKioskId());
@@ -2459,6 +2480,7 @@ public class UploadServiceImpl implements UploadService {
 					//emptyxlsx(listEntity1);
 
 				}
+			
 			}
 			if(listEntity1 !=null && listEntity1.size() > 0)
 			{	
@@ -2498,6 +2520,7 @@ public class UploadServiceImpl implements UploadService {
 
 		catch (Exception e) {
 			logger.error("Exception "+ExceptionConstants.EXCEPTION);
+			return "Due to Error Data Not Uploaded";
 		
 		} finally {
 			try {
@@ -2510,10 +2533,10 @@ public class UploadServiceImpl implements UploadService {
 
 			} catch (Exception e) {
 				logger.error("Exception "+ExceptionConstants.EXCEPTION);
-				
+				return "Due to Error Data Not Uploaded";
 			}
 		}
-		return "Due to Error Data Not Uploaded";
+		//return "Due to Error Data Not Uploaded";
 	}
 
 	// create xlsx file

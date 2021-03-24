@@ -267,8 +267,8 @@ function displayErrorsOnPage() {
 						$("#uname").val(data.username);
 						$("#phone").val(data.phoneNo);
 						$("#email").val(data.mailId);
-						$("#reportingAuthorityName").val(data.mailId);
-						$("#reportingAuthorityEmail").val(data.mailId);
+						$("#reportingAuthorityName").val(data.reportingAuthorityName);
+						$("#reportingAuthorityEmail").val(data.reportingAuthorityEmail);
 					});
 				});
 		$(document).ready(

@@ -230,6 +230,16 @@
 		     			 modal.style.display = "block"; 
 				     		window.open("resources/download/Kiosk_CMF.xlsx" , '_blank');    
 			     	}
+		     		else if(data =='Due to Error Data Not Uploaded'){
+		     			$("#para").html("Due to Errorneous Data Not Uploaded"); 
+		     			 modal.style.display = "block"; 
+				     		window.open("resources/download/Kiosk_CMF.xlsx" , '_blank');    
+			     	}
+		     		else if(data =='These values are non-acceptable as PF_ID'){
+		     			$("#para").html("These values are non-acceptable as PF_ID"); 
+		     			 modal.style.display = "block"; 
+				     		window.open("resources/download/Kiosk_CMF.xlsx" , '_blank');    
+			     	}
 		     		else{
 		     			$("#para").html("Kiosk CMF Data Uploaded Successfully"); 
 		     			

@@ -460,12 +460,12 @@ public class TerminalStatusServiceImpl implements TerminalStatusService {
 	//			logger.info("Br Code====" + branchMast.getBranchCode());
 	//			logger.info("Circle====" + branchMast.getCircle());
 				dto.setBranchCode(branchMast.getBranchCode());
-			//	dto.setCircle(branchMast.getCircleName());
+				dto.setCircle(branchMast.getCircleName());
 			}
 		  
 					
 		    cmfNameList = terminalStatusRepo.findByKisoskId(dto.getKioskId());
-	//		logger.info("CMF User==" + cmfNameList);
+			logger.info("CMF User==" + cmfNameList);
 		    dto.setCmf(cmfNameList);	
 	//		logger.info("dto::::" + dto);
 		}
