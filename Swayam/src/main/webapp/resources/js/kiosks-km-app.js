@@ -76,7 +76,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
       { name: 'installationStatus', 	width:250, displayName: 'Installation Status'  },      
       { name: 'username',    	  
     	  displayName: 'Assigned CMF', 	width:350,  
-    	  cellTemplate: '<div ng-if="row.entity.pfId != undefined">{{ row.entity.username }}</div><div ng-if="row.entity.pfId == undefined"><a ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.kioskId)">Assign CMF</a></div>'
+    	  cellTemplate: '<div ng-if="row.entity.pfId != undefined">{{ row.entity.username }}</div><div ng-if="row.entity.pfId == undefined"><a style="cursor: hand;cursor: pointer;" ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.kioskId)">Assign CMF</a></div>'
       }
     ],
     onRegisterApi: function(gridApi) { 
