@@ -112,14 +112,6 @@ public class TaxController {
 		Float selectedSGST = Float.parseFloat(request.getParameter("selectedSGST"));
 		Float selectedCGST = Float.parseFloat(request.getParameter("selectedCGST"));
 		
-		//System.out.println("selectedGST "+ selectedGST);
-		
-		//System.out.println("selectedSGST "+ selectedSGST);
-		//System.out.println("selectedCGST "+ selectedCGST);
-		
-		
-		
-		
 
 		report.setCircle(selectedCircelId);
 		report.setState(selectedStateId);
@@ -132,16 +124,7 @@ public class TaxController {
 		report.setCgst(selectedCGST);
 		report.setSgst(selectedSGST);
 
-		logger.info("selectedCircelId " + selectedCircelId);
-		logger.info("selectedStateId " + selectedStateId);
-		logger.info("quarter " + quarter);
-		logger.info("year " + year);
-		logger.info("selectedVendorId " + selectedVendorId);
-		logger.info("selectedRfpID " + selectedRfpID);
-		logger.info("selectedGST " + selectedGST);
-		logger.info("selectedGSTType " + selectedGSTType);
-		logger.info("selectedSGST " + selectedSGST);
-		logger.info("selectedCGST " + selectedCGST);
+		
 		
 		ModelMapper mapper= new ModelMapper();
 		mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
@@ -157,16 +140,13 @@ public class TaxController {
 					taxService.getTaxCalculation(report, 1, "IGST"), TaxCalculationDto.class);
 			
 			taxEntity= ObjectMapperUtils.mapAll(taxList, TaxEntity.class);
-			//System.out.println("Tax Entity " + taxEntity);
-			
 			  Iterator<TaxEntity> iterable= taxEntity.iterator();
 			  
 			  TaxEntity taxEntity2 = null;
 			  while (iterable.hasNext()) { 
 				  taxEntity2 = (TaxEntity)
 						  iterable.next(); 
-				  //System.out.println("Inside While taxEntity2 " + taxEntity2); 
-						  
+								  
 				//insertRepo.insert(taxEntity2); 
 				taxRepo.save(taxEntity2);
 				
@@ -177,16 +157,13 @@ public class TaxController {
 			
 		}else {
 			
-			taxList = ObjectMapperUtils.mapAll(taxService.getTaxCalculation(report, 1, "CGST"), TaxCalculationDto.class);
-
-			taxList2 = ObjectMapperUtils.mapAll(taxService.getTaxSGST(report, 1, "SGST"), TaxCalculationDto.class);
-
+			taxList = ObjectMapperUtils.mapAll(taxService.getTaxCalculation(report, 1, "CGST"),
+					TaxCalculationDto.class);
+			taxList2 = ObjectMapperUtils.mapAll(taxService.getTaxSGST(report, 1, "SGST"),
+					TaxCalculationDto.class);
 			taxList.addAll(taxList2);
 			taxEntity= ObjectMapperUtils.mapAll(taxList, TaxEntity.class);
-			
-			
 			Iterator<TaxEntity> iterable=  taxEntity.iterator();
-
 			int i=0;
 			TaxEntity taxEntity2 =null;
 			double invoiceAmt = 0;
@@ -196,12 +173,9 @@ public class TaxController {
 			double totalGst =0;
 			while (iterable.hasNext()) {
 				taxEntity2 = (TaxEntity) iterable.next();
-				
 				gstInvoiceAmt = gstInvoiceAmt + taxEntity2.getAmcGst();
 				gstPenaltyAmt = gstPenaltyAmt + taxEntity2.getPenGst();
 				totalGst = totalGst + taxEntity2.getToatalGST();
-				
-
 			}
 			
 			taxEntity2.setGstType("SGST/CGST");
@@ -271,14 +245,7 @@ public class TaxController {
 		String selectedVendorId = request.getParameter("selectedVendorId");
 		String selectedRfpID = request.getParameter("selectedRfpID");
 
-	
 
-		logger.info("selectedCircelId " + selectedCircelId);
-		logger.info("selectedStateId " + selectedStateId);
-		logger.info("quarter " + quarter);
-		logger.info("year " + year);
-		logger.info("selectedVendorId " + selectedVendorId);
-		logger.info("selectedRfpID " + selectedRfpID);
 	
 		
 		int count = taxRepo.findCount(selectedCircelId,
