@@ -278,11 +278,7 @@ public class SanctionRequest {
 			 @RequestParam("selectedYear") String selectedYear,
 			 @RequestParam("selectedQtr") String selectedQtr) {
 		
-//		System.out.println("SelectedVendorId " + SelectedVendorId);
-//		System.out.println("SelectedStateId " + SelectedStateId);
-//		System.out.println("SelectedCircelId " + SelectedCircelId);
-//		System.out.println("selectedYear " + selectedYear);
-//		System.out.println("selectedQtr " + selectedQtr);
+
 		
 //		int count = detailRepo.findKioskCount(SelectedCircelId, SelectedStateId, SelectedVendorId);
 		int count = detailRepo.findCount(SelectedCircelId, SelectedStateId, 
@@ -577,13 +573,6 @@ public class SanctionRequest {
 		}
 		
 		
-		
-		
-		
-		
-		
-		
-		
 		/*
 		 * if (250000 < sanctionRequestEntity.getInvoiceAmt() &&
 		 * sanctionRequestEntity.getInvoiceAmt() < 1000000) {
@@ -697,10 +686,6 @@ public class SanctionRequest {
 		sanctionRequestEntity.setVendorFullName(vendorFullName);
 		logger.info("sanctionRequestEntity with vendor " + sanctionRequestEntity);
 		
-		
-		
-		
-		
 		List<SanctionPdfInfo> list = new ArrayList<SanctionPdfInfo>();
 		list.add(sanctionRequestEntity);
 		JasperReport jasperReport = null;
@@ -732,11 +717,10 @@ public class SanctionRequest {
 		
 		
 		//file = ResourceUtils.getFile(jrxmlPath + "SanctionNote.jrxml");
-		
-		
 		InputStream input = new FileInputStream(file);
 		jasperReport = JasperCompileManager.compileReport(input);
 		source = new JRBeanCollectionDataSource(list);
+		input.close();
 		Map<String, Object> parameters = new HashMap<>();
 		jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
 		String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
@@ -772,17 +756,9 @@ public class SanctionRequest {
 		}
 		
 		
-		
-		
-		
-		
 		JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
-	
 		
-		
-		
-		return ResponseEntity.ok(new 
-    			RfpResponse(filename));
+		return ResponseEntity.ok(new RfpResponse(filename));
 		
 	
 	}

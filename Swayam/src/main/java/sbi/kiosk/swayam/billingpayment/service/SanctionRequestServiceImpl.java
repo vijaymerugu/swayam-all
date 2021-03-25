@@ -74,10 +74,7 @@ public class SanctionRequestServiceImpl implements SanctionRequsetService {
 		
 		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");  
 	
-		String sanctionNoteDate = dateFormat.format(sanctionRequestEntity.getSanNoteDt());  
-		System.out.println("sanctionNoteDate  "+sanctionNoteDate +"  "+  sanctionRequestEntity.getSanNoteDt());
-		System.out.println("Receipt Date  "+ sanctionRequestEntity.getReceiptDt());
-		
+		String sanctionNoteDate = dateFormat.format(sanctionRequestEntity.getSanNoteDt()); 
 		String receiptDate = dateFormat.format(sanctionRequestEntity.getReceiptDt()); 
 		String invoiceDate = dateFormat.format(sanctionRequestEntity.getInvoiceDt()); 
 		String toDate = dateFormat.format(sanctionRequestEntity.getInvTo());
