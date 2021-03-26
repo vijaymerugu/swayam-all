@@ -2084,13 +2084,32 @@ public class JasperServiceImpl implements JasperService {
 	@Override
 	public List<ZeroTransactionKiosksDto> findAllZeroTxnKoisk(String fromdate, String todate) {
 		logger.info("Inside==Jasper====findAllZeroTxnKoisk===========");
+//	logger.info("DateFrame From Date:"+dateFrame.getFromDate());
+//	logger.info("DateFrame To Date:"+dateFrame.getToDate());
+//	 logger.info("findAllZeroTxnKoisk=======fromdate==1=="+ fromdate);
+//	  logger.info("findAllZeroTxnKoisk======todate===1=="+todate);
 	
-		  if((dateFrame.getFromDate()!= "") && (dateFrame.getToDate()!= "")) {
-				
+	//if((fromdate ==null || fromdate.isEmpty()) && (todate ==null || todate.isEmpty()) && (dateFrame.getFromDate() ==null || dateFrame.getFromDate() =="")&& (dateFrame.getToDate() ==null || dateFrame.getToDate() =="")){
+		SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+		Date curDate=new Date();
+		fromdate=sdf.format(curDate);
+		todate=sdf.format(curDate);
+	
+	
+//	 logger.info("findAllZeroTxnKoisk=======fromdate==2=="+ fromdate);
+//	  logger.info("findAllZeroTxnKoisk======todate===2=="+todate);
+	//}
+//	else {
+	//	 if((dateFrame.getFromDate()!= "") && (dateFrame.getToDate()!= "") && (fromdate== null) && (todate==null)) { 
+	  if((dateFrame.getFromDate().isEmpty()== false) && (dateFrame.getToDate().isEmpty()== false)) {		
 			  fromdate = dateFrame.getFromDate();
 			   todate = dateFrame.getToDate();
+			//   logger.info("findAllZeroTxnKoisk=======fromdate==3=="+ fromdate);
+			// logger.info("findAllZeroTxnKoisk======todate===3=="+todate);
 		  }
-		 
+		  
+	// logger.info("findAllZeroTxnKoisk=======fromdate==Final=="+ fromdate);
+	 // logger.info("findAllZeroTxnKoisk======todate===Final=="+todate);	 
 		List<ZeroTransactionKiosks> list = zeroTransactionKiosksRepo.findByDateZeroTxn(fromdate, todate);
 		List<ZeroTransactionKiosksDto> entities = ObjectMapperUtils.mapAll(list, ZeroTransactionKiosksDto.class);
 		return entities;
@@ -2631,7 +2650,7 @@ public class JasperServiceImpl implements JasperService {
 			TerminalStatusDto dto=new TerminalStatusDto();
 			//    logger.info("entities terminal status===" + entities.getContent());
 				kioskMastlist = kioskMasterRepos.findByKioskId(ts.getKioskId());
-				 logger.info("kioskMastlist===" + kioskMastlist);
+			//	 logger.info("kioskMastlist===" + kioskMastlist);
 			  for (KioskBranchMaster kioskBranchMast : kioskMastlist) {
 				  dto.setKioskSrNo(kioskBranchMast.getKioskSerialNo());
 				//	logger.info("kioskId==:: " + kioskBranchMast.getKioskId());

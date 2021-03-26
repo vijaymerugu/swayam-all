@@ -54,6 +54,10 @@ public class ZeroTransactionKiosksController {
 		
 		Page<ZeroTransactionKiosks> resultPage = null;
 		
+
+	//	  logger.info("findPaginated=ZeroTxnKoisk=======fromdate111="+ fromDate);
+	//	  logger.info("findPaginated=ZeroTxnKoisk======todate111="+toDate);
+		
 		if(fromDate.equals("undefined") || toDate.equals("undefined")) {		
 			fromDate="";
 			toDate="";
@@ -62,6 +66,8 @@ public class ZeroTransactionKiosksController {
 		  dateFrame.setFromDate(fromDate); 
 		  dateFrame.setToDate(toDate);
 		  
+//		  logger.info("findPaginated=ZeroTxnKoisk=======fromdate="+ fromDate);
+//		  logger.info("findPaginated=ZeroTxnKoisk======todate="+toDate);
 		 		  
 	      resultPage = zeroTransactionKiosksService.findPaginatedByDate(page, size, fromDate, toDate);
 		

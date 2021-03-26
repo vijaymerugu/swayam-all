@@ -8,7 +8,8 @@
 <title>Swayam</title>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<link rel="icon" href="resources/img/SBI_Logo.jpg" type="image/x-icon">
+<!-- <link rel="icon" href="resources/img/SBI_Logo.jpg" type="image/x-icon"> -->
+<link rel="icon" href="resources/img/favicon.png" type="image/x-icon">
 <script src="resources/js/angular.1.5.6.min.js"></script>
 <script src="resources/js/jquery.3.4.1.min.js"></script>
 <!-- <script src="resources/js/bootstrap.3.4.1.min.js"></script> -->
