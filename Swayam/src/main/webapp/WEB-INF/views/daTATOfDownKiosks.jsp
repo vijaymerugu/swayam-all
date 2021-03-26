@@ -13,6 +13,50 @@
 <style>
 div.absolute {
 	background: #FFFFFF 0% 0% no-repeat padding-box;
+	top: 10px;
+	right: 0;
+	width: 1500px;
+	 height: 100px; 
+	border-radius: 1px;
+	border: 1px solid #73AD21;
+	
+	margin-bottom: 5px;
+	 overflow: auto;
+	
+}
+
+.submain {
+    top: 242px;
+    left: 8px;
+    width: 1500px;
+    height: fit-content;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #8D8D8D29;
+    opacity: 1;
+    padding: 7px;
+    border-radius: 1px;
+    border: 1px solid #73AD21;
+   
+} 
+
+.bullet::before {
+	content: "\2022";
+	color: #00BFFF;;
+	font-weight: bold;
+	display: inline-block;
+	width: 1em;
+	margin-left: -1em;
+}
+
+.absolute .bullet {
+ display: inline-block;
+
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+}
+/* div.absolute {
+	background: #FFFFFF 0% 0% no-repeat padding-box;
 	position: absolute;
 	top: 10px;
 	right: 0;
@@ -22,8 +66,8 @@ div.absolute {
 	border: 1px solid #73AD21;
 	overflow: scroll;
 }
-
-.submain {
+ */
+/* .submain {
     top: 242px;
     left: 8px;
     width: 1050px;
@@ -34,7 +78,7 @@ div.absolute {
     padding: 7px;
     border-radius: 1px;
     border: 1px solid #73AD21;
-}
+} */
 
 /* .submain {
 	top: 242px;
@@ -48,19 +92,26 @@ div.absolute {
 	border: 1px solid #73AD21;
 } */
 
-.bullet::before {
+/* .bullet::before {
 	content: "\2022";
 	color: #00BFFF;;
 	font-weight: bold;
 	display: inline-block;
 	width: 1em;
 	margin-left: -1em;
-}
+} */
 </style>
 </head>
 <body>
 	<div class="main" ng-app="daTATOfDownKiosksModule" id="appId">
 		<div ng-controller="daTATOfDownKiosksController as vm">
+		<div class="absolute">
+			<div><h5 style="font-weight: bold;" align="center">Urgent Information</h5></div>
+			<ul>
+				<li class="bullet" ng-repeat="item in UrgentMessages">{{item.message}}</li>
+			</ul>
+				
+		</div>	
 			<div class="submain">
 				<h5 style="font-weight: bold;">TAT of down kiosks (out of total zero txn kiosks) : No. of
 					open calls not attended</h5>
@@ -78,13 +129,13 @@ div.absolute {
 					</p>
 				<!-- </div> -->
 			</div>
-			<div class="absolute">
+			<!-- <div class="absolute">
 		<div><h5 style="font-weight: bold;" align="center">Urgent Information</h5></div>
 			<ul>
 				<li class="bullet" ng-repeat="item in UrgentMessages">{{item.message}}</li>
 			</ul>
 				
-		</div>
+		</div> -->
 		</div>
 	</div>
 	<script>

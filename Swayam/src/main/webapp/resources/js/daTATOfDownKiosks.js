@@ -68,7 +68,7 @@ app.controller('daTATOfDownKiosksController', ['$scope','$interval','$http','daT
 					//Creating dynamic <td> to draw Chart
 					var str="<td><canvas id='doughnut"+nonNullCounter+"'></canvas></td>";
 					$(".chartDiv").append(str);
-					if(nonNullCounter % 3 == 0){
+					if(nonNullCounter % 5 == 0){
 						$(".chartDiv").append("<br/>");
 					}
 
