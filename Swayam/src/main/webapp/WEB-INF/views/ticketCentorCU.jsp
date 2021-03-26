@@ -38,9 +38,33 @@
 <script src="resources/js/ticket-centor-cu-app.js"></script>
 <link rel="stylesheet" href="resources/css/grid-style.css" />
 
+<style>
+	
+    .ui-grid-contents-wrapper {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+    		.ui-grid, .ui-grid-viewport {
+   			  height: auto !important; 
+			} 
+			.ui-grid-pager-panel {
+		     position: relative;
+			 } 
+	
+			.ui-grid-pager-row-count-picker {
+			display:none;
+			}
+			.ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
+			    overflow-x: hidden !important;
+			}
+			.ui-grid-header-canvas {
+			    padding-top: 0px;
+			    padding-bottom: 0px;}			
+</style>
 </head>
 <body>
-	<div class="main"  ng-app="app" id="appId">
+	<div class="main_transaction"  ng-app="app" id="appId">
 	<div ng-controller="UserManagementCtrl1 as vm">
 	<div class="subTable">
 	   <div class="col-md-6">
@@ -134,7 +158,7 @@
 	
 	<br/>
 			
-				<div class="submain">
+				<div class="submain_transaction">
 
 					<div   style="border-bottom: 1px solid #eee;">
 						

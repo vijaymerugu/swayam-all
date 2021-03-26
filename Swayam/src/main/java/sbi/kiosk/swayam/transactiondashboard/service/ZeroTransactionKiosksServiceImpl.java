@@ -8,6 +8,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -17,6 +20,7 @@ import org.springframework.stereotype.Service;
 import sbi.kiosk.swayam.common.dto.ZeroTransactionKiosksDto;
 import sbi.kiosk.swayam.common.entity.DrillDown;
 import sbi.kiosk.swayam.common.entity.ZeroTransactionKiosks;
+import sbi.kiosk.swayam.common.service.JasperServiceImpl;
 import sbi.kiosk.swayam.transactiondashboard.repository.ZeroTransactionKiosksRepository;
 
 @Service
@@ -27,6 +31,8 @@ public class ZeroTransactionKiosksServiceImpl implements ZeroTransactionKiosksSe
 	
 	@PersistenceContext
     private EntityManager em;
+	
+	Logger logger = LoggerFactory.getLogger(ZeroTransactionKiosksServiceImpl.class);
 
 @Override
 public Page<ZeroTransactionKiosksDto> findPaginated(final int page, final int size){
@@ -46,7 +52,11 @@ public Page<ZeroTransactionKiosksDto> findPaginated(final int page, final int si
 			fromdate=sdf.format(curDate);
 			todate=sdf.format(curDate);
 		}
-				
+		
+		
+	//	logger.info("findPaginatedByDate=ZeroTxnKoisk=======fromdate="+ fromdate);
+	//	  logger.info("findPaginatedByDate=ZeroTxnKoisk======todate="+todate);
+
         Page<ZeroTransactionKiosks> pageDto = zeroTransactionKiosksRepository.findByDate(fromdate, todate, PageRequest.of(page, size));
 		 
 		 
