@@ -98,8 +98,8 @@ app.controller('daUserWiseDataController', ['$scope','$interval','$http','daUser
 				     }*/
 			    });
 			
-			  $scope.labels1 = ["Total Down Kiosks", "Total Working Kiosks"];
-			  $scope.colors1=['#ED402A','#A0B421'];
+			  $scope.labels1 = ["Total Working Kiosks","Total Down Kiosks"];
+			  $scope.colors1=['#A0B421','#ED402A'];
 
 			
 			for(var i=0; i<$scope.apiResponse1.length; i++){

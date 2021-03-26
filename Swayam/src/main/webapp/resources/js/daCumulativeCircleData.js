@@ -382,6 +382,14 @@ app.controller('daCumulativeCircleDataController', ['$scope','$interval','$http'
 						$scope.oneToTwoWeekArray.push($scope.apiResponse4[i].oneToTwoWeek);
 						$scope.greaterThanTwoWeekArray.push($scope.apiResponse4[i].greaterThanTwoWeek);
 						
+						//Change -23-03-2021
+						
+						$scope.TotalOpenCall = $scope.TotalOpenCall + $scope.apiResponse4[i].oneDay
+						+ $scope.apiResponse4[i].twoToFiveDays 
+						+ $scope.apiResponse4[i].oneWeek
+						+ $scope.apiResponse4[i].oneToTwoWeek
+						+ $scope.apiResponse4[i].greaterThanTwoWeek;
+						
 						//Adding Percentage data
 						$scope.oneDayPercentageArray.push($scope.apiResponse4[i].percentageOfOneDays);
 						$scope.twoToFiveDayPercentageArray.push($scope.apiResponse4[i].percentOfTwoToFiveDays);

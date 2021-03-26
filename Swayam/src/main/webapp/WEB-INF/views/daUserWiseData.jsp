@@ -28,25 +28,89 @@
 </style> -->
 
 <style type="text/css">
+
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 350px;
+}
+table tr th,
+table tr td {
+  border-right: 1px solid #bbb;
+  border-bottom: 1px solid #bbb;
+  padding: 1px;
+}
+table tr th:first-child,
+table tr td:first-child {
+  border-left: 1px solid #bbb;
+}
+table tr th {
+  background: #00bfff;
+  border-top: 1px solid #bbb;
+  text-align: left;
+}
+
+/* top-left border-radius */
+table tr:first-child th:first-child {
+  border-top-left-radius: 6px;
+}
+
+/* top-right border-radius */
+table tr:first-child th:last-child {
+  border-top-right-radius: 6px;
+}
+
+/* bottom-left border-radius */
+table tr:last-child td:first-child {
+  border-bottom-left-radius: 6px;
+}
+
+/* bottom-right border-radius */
+table tr:last-child td:last-child {
+  border-bottom-right-radius: 6px;
+} 
+
+ div.absolute {
+	background: #FFFFFF 0% 0% no-repeat padding-box;
+	top: 10px;
+	right: 0;
+	width: 1500px;
+	 height: 100px; 
+	border-radius: 1px;
+	border: 1px solid #73AD21;
+	
+	margin-bottom: 5px;
+	 overflow: auto;
+	
+}
+ 
 .rcorners {
 
 	 border-radius: 1px;
 	 border: 1px solid #73AD21;
 	/* padding: 1px; */
+	width: 750px;
+  	height: 600px;
+}
+/* .rcorners {
+
+	 border-radius: 1px;
+	 border: 1px solid #73AD21;
+	
 	width: 650px;
   	height: 800px;
-}
+} */
 .chartHeighWidth {
 	/* width: 200px;
   	height: 200px; */
 }
 
-div.absolute {
+/* div.absolute {
      width: 645px;
   	height: 795px; 
   	overflow: scroll;
    
-}
+} */
 
 /* .container {
   
@@ -71,12 +135,20 @@ div.absolute {
 }
 
 .bullet::before {
-  content: "\2022";
-  color: #00BFFF;;
-  font-weight: bold;
-  display: inline-block; 
-  width: 1em;
-  margin-left: -1em;
+	content: "\2022";
+	color: #00BFFF;;
+	font-weight: bold;
+	display: inline-block;
+	width: 1em;
+	margin-left: -1em;
+}
+
+.absolute .bullet {
+ display: inline-block;
+
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
 }
 </style>
 
@@ -92,8 +164,15 @@ div.absolute {
 	<input type="hidden" id="pfId" value="<%=pfId%>">
 	<div class="main" ng-app="daUserWiseDataModule" id="appId">
 		<div ng-controller="daUserWiseDataController as vm">
+		<div class="absolute">
+			<div><h5 style="font-weight: bold;" align="center">Urgent Information</h5></div>
+			<ul>
+				<li class="bullet" ng-repeat="item in UrgentMessages">{{item.message}}</li>
+			</ul>
+				
+		</div>
 			<div class="submain">
-				<h5>User-wise Data</h5>
+				<h5 style="font-weight: bold;" align="center">User-wise Data</h5>
 				<table>
 					<tr>
 						<td>
@@ -106,15 +185,15 @@ div.absolute {
 										chart-options="options1[0]" chart-colors="colors1"> </canvas>
 									<br />
 								</div>
-								<div id="tableDiv">
-									<table align="left" style="margin-left:15px" border="1">
+								<div >
+									<table align="center">
 										<tr>
 											<th>User</th>
-											<th>Total Operational Kiosks (No.)</th>
+											<th>Available Kiosks (No.)</th>
 											<th>Total Kiosks(No.)</th>
 											<th>Availability(in %)</th>
 										</tr>
-										<tr ng-repeat="num in apiResponse1">
+										<tr ng-repeat="num in apiResponse1" ng-if="num.userName != null">
 											<td align="left">{{apiResponse1[$index].userName}}</td>
 											<td align="right">{{apiResponse1[$index].totalOperationalKiosks}}</td>
 											<td align="right">{{apiResponse1[$index].totalKiosks}}</td>
@@ -133,20 +212,6 @@ div.absolute {
 						<td>
 						<td>
 							<div class="rcorners">
-							<div class="absolute">
-								<div><h5 align="center" style="font-weight: bold;"> Urgent Information</h5></div>
-								<ul>
-									<li class="bullet" ng-repeat="item in UrgentMessages">{{item.message}}</li>
-								</ul>
-								</div>
-							</div>
-
-						</td>
-						</td>
-						</tr>
-						<tr>
-						<td>
-							<div class="rcorners">
 								<div id="chartDiv">
 									<h5 align="center" style="font-weight: bold;">User-wise Zero Txn Kiosks</h5>
 									<canvas id="doughnut2"
@@ -155,15 +220,15 @@ div.absolute {
 										chart-options="options2[0]" chart-colors="colors2"> </canvas>
 									<br />
 								</div>
-								<div id="tableDiv">
-									<table border="1" align="left" style="margin-left:15px">
+								<div >
+									<table align="center">
 										<tr>
 											<th>User</th>
 											<th>Zero Transaction Kiosks (No.)</th>
 											<th>Total Kiosks(No.)</th>
 											<th>Availability(in %)</th>
 										</tr>
-										<tr ng-repeat="num in apiResponse2">
+										<tr ng-repeat="num in apiResponse2" ng-if="num.userName != null">
 											<td align="left">{{apiResponse2[$index].userName}}</td>
 											<td align="right">{{apiResponse2[$index].totalOperationalKiosks}}</td>
 											<td align="right">{{apiResponse2[$index].totalKiosks}}</td>
@@ -179,7 +244,23 @@ div.absolute {
 								</div>
 							</div>
 						</td>
-					</tr>
+						
+						<!-- <td>
+							<div class="rcorners">
+							<div class="absolute">
+								<div><h5 align="center" style="font-weight: bold;"> Urgent Information</h5></div>
+								<ul>
+									<li class="bullet" ng-repeat="item in UrgentMessages">{{item.message}}</li>
+								</ul>
+								</div>
+							</div>
+
+						</td> -->
+						
+						</tr>
+					<!-- 	<tr>
+						
+					</tr> -->
 				</table>
 			</div>
 		</div>
