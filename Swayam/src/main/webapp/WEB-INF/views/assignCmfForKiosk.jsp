@@ -8,23 +8,33 @@
 <html>
 
 <head>
-
+<!--
 <link rel="stylesheet"
 	href="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css">
-<script
+ <script
 	src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 <script
-	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
+	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script> -->
+	
+	<link rel="stylesheet" href="resources/css/ui-grid.min.css"/> 
+	<script	src="resources/js/angular.1.5.6.min.js"></script>
+	<script src="resources/js/ui-grid.min.js"></script>
 <script src="resources/js/users-la-app.js"></script>
 <link rel="stylesheet" href="resources/css/grid-style.css" />
 <link rel="stylesheet" href="resources/css/body-page.css" />
-
+<!--
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+ <script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+	
+	<link rel="stylesheet" href="<c:url value='resources/css/bootstrap.min.css' />"/>
+	<script type="text/javascript" src="resources/js/jquery.min.js"/></script>
+	<script type="text/javascript" src="resources/js/bootstrap.min.js"/></script>
+<!--  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
 
 
 <style>
@@ -272,10 +282,10 @@ function displayErrorsOnPage() {
 					});
 				});
 		$(document).ready(
-						function() {
+						function() { debugger;
 							$('.openPopupAssign').on('click',function() {
 								var errorlist=fromValidation();							 
-								 
+					//			var modal = document.getElementById("myModal");
 								 if(errorlist.length>0){											 
 									 displayErrorsOnPage();									 
 								 }else{

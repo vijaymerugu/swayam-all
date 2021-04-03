@@ -30,7 +30,7 @@
 
             <staticText>
 
-                <reportElement x="64" y="0" width="481" height="25"></reportElement>
+                <reportElement x="222" y="0" width="111" height="25"></reportElement>
 
                 <textElement textAlignment="Center">
 
