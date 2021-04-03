@@ -33,7 +33,7 @@
 
             <staticText>
 
-                <reportElement x="64" y="0" width="481" height="25"></reportElement>
+                <reportElement x="111" y="0" width="333" height="25"></reportElement>
 
                 <textElement textAlignment="Center">
 
@@ -167,7 +167,7 @@
 
             <staticText>
 
-                <reportElement x="444" y="41" width="150" height="20"></reportElement>
+                <reportElement x="444" y="41" width="111" height="20"></reportElement>
 
                 <box>
 
@@ -194,7 +194,7 @@
 			
 			<staticText>
 
-                <reportElement x="594" y="41" width="150" height="20"></reportElement>
+                <reportElement x="555" y="41" width="150" height="20"></reportElement>
 
                 <box>
 
@@ -333,7 +333,7 @@
 
             <textField>
 
-                <reportElement x="444" y="0" width="150" height="15"></reportElement>
+                <reportElement x="444" y="0" width="111" height="15"></reportElement>
 
                 <box>
 
@@ -359,7 +359,7 @@
 			
 			<textField>
 
-                <reportElement x="594" y="0" width="150" height="15"></reportElement>
+                <reportElement x="555" y="0" width="150" height="15"></reportElement>
 
                 <box>
 
