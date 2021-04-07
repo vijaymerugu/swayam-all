@@ -80,7 +80,7 @@
         span.pull-right {
         padding:5px 10px;
         }
-         .ui-grid-header-cell-label {
+       /*   .ui-grid-header-cell-label {
 		display:inline-block;
 		white-space:initial;
 		}
@@ -132,7 +132,28 @@ display:none;
 }
 .ui-grid-header-canvas {
    padding-top: 0px;
-   padding-bottom: 0px;}
+   padding-bottom: 0px;} */
+   
+   .ui-grid, .ui-grid-viewport { 
+   			  height: auto !important; 
+   			  overflow: hidden;
+			} 
+			.ui-grid-pager-panel {
+		     position: relative;
+			 } 
+	
+			.ui-grid-pager-row-count-picker {
+			display:none;
+			}
+ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
+    overflow: hidden;
+}
+
+    .ui-grid-header-cell {float: left;}
+    
+    .ui-grid-header-canvas {
+    padding-top: 0px;
+    padding-bottom: 0px;}
     </style>
 	
 </head>
@@ -140,7 +161,7 @@ display:none;
 
 
 
-<div class="main" ng-app="app" id="appId">
+<div class="main_transaction" ng-app="app" id="appId">
 <div ng-controller="InvoiceCompareCtrl as vm">
 <div>
  		<form> <!-- ng-submit="searchPositions(SelectedCircelId,SelectedStateId,

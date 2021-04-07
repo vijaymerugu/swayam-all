@@ -11,6 +11,7 @@
 <script	src="resources/js/angular.1.5.6.min.js"></script>
 <link rel="stylesheet" href="resources/css/grid-style.css"/>
 <link rel="stylesheet" href="resources/css/body-page.css"/>
+<link rel="stylesheet" href="resources/css/style.css">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
 <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script> 
@@ -76,7 +77,7 @@
         padding:5px 10px;
         }
         
-         .ui-grid-header-cell-label {
+         /* .ui-grid-header-cell-label {
 		display:inline-block;
 		white-space:initial;
 		}
@@ -124,12 +125,33 @@ display:none;
 
       .ui-grid .ui-grid-render-container-body .ui-grid-viewport {
   overflow-x: auto !important;
-  overflow-y: auto !important;
+  overflow-y: auto !important; 
  
 }
 .ui-grid-header-canvas {
    padding-top: 0px;
-   padding-bottom: 0px;}
+   padding-bottom: 0px;}*/
+   
+   .ui-grid, .ui-grid-viewport { 
+   			  height: auto !important; 
+   			  overflow: hidden;
+			} 
+			.ui-grid-pager-panel {
+		     position: relative;
+			 } 
+	
+			.ui-grid-pager-row-count-picker {
+			display:none;
+			}
+ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
+    overflow: hidden;
+}
+
+    .ui-grid-header-cell {float: left;}
+    
+    .ui-grid-header-canvas {
+    padding-top: 0px;
+    padding-bottom: 0px;}
     </style>
 	
 </head>
@@ -137,7 +159,7 @@ display:none;
 
 
 
-<div class="main" ng-app="app" id="appId">
+<div class="main_transaction" ng-app="app" id="appId">
 <div ng-controller="BillingPenaltyCtrl as vm">
 <div>
  		<form name="myForm" id="myForm"> 
@@ -263,7 +285,8 @@ display:none;
 		</form>
 		</div> 
 <br/>
-		<div class="submain">
+		<!-- <div class="submain"> -->
+		<div class="submain_transaction">
 	
 	
 	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle, Vendor, State, Rfp. ref no., Kisok Id etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">

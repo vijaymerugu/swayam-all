@@ -87,7 +87,7 @@ span.pull-right {
 	padding: 5px 10px;
 }
 
-.ui-grid-header-cell-label {
+/* .ui-grid-header-cell-label {
 	display: inline-block;
 	white-space: initial;
 }
@@ -140,7 +140,28 @@ span.pull-right {
 .ui-grid-header-canvas {
 	padding-top: 0px;
 	padding-bottom: 0px;
+} */
+
+ .ui-grid, .ui-grid-viewport { 
+   			  height: auto !important; 
+   			  overflow: hidden;
+			} 
+			.ui-grid-pager-panel {
+		     position: relative;
+			 } 
+	
+			.ui-grid-pager-row-count-picker {
+			display:none;
+			}
+ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
+    overflow: hidden;
 }
+
+    .ui-grid-header-cell {float: left;}
+    
+    .ui-grid-header-canvas {
+    padding-top: 0px;
+    padding-bottom: 0px;}
 </style>
 	
 </head>
@@ -148,7 +169,7 @@ span.pull-right {
 
 
 
-<div class="main" ng-app="app" id="appId">
+<div class="main_transaction" ng-app="app" id="appId">
 <div ng-controller="InvoiceGenarationCtrl as vm">
 <div>
  		
@@ -273,7 +294,7 @@ span.pull-right {
 		</form>
 		</div> 
 <br/>
-		<div class="submain">
+		<div class="submain_transaction">
 	
 	
 	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle, Vendor, State, Rfp. ref no., Kisok Id etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">

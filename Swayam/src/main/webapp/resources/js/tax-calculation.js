@@ -539,17 +539,17 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		useExternalPagination: true,
 		
 	      columnDefs: [
-	          { name: 'rfpRefNumber', displayName: 'RFP REF_NO.'  },
-	          { name: 'vendor', displayName: 'VENDOR' },
-	          { name: 'circleName', displayName: 'CIRCLE'  },
-	          { name: 'state', displayName: 'STATE'  },
-	          { name: 'invoiceAmount', displayName: 'AMC AMOUNT'},
-	          { name: 'penaltyAmount', displayName: 'PENALTY'  },
-	          { name: 'gstType', displayName: 'TYPE of GST'  },
-	          { name: 'gst', displayName: 'GST %'  },
-	          { name: 'amcGst', displayName: 'GST ON AMC AMOUNT (A)'},
-	          { name: 'penGst', displayName: 'GST ON PENALTY (B)' },
-	          { name: 'toatalGST', displayName: 'TOTAL GST (A+B)'}
+	          { name: 'rfpRefNumber', displayName: 'RFP REF_NO.'  , width:180  },
+	          { name: 'vendor', displayName: 'VENDOR' , width:180  },
+	          { name: 'circleName', displayName: 'CIRCLE'  , width:180  },
+	          { name: 'state', displayName: 'STATE' , width:180   },
+	          { name: 'invoiceAmount', displayName: 'AMC AMOUNT' , width:180 },
+	          { name: 'penaltyAmount', displayName: 'PENALTY'  , width:180  },
+	          { name: 'gstType', displayName: 'TYPE of GST'  , width:180  },
+	          { name: 'gst', displayName: 'GST %'  , width:160  },
+	          { name: 'amcGst', displayName: 'GST ON AMC AMOUNT (A)'  , width:200 },
+	          { name: 'penGst', displayName: 'GST ON PENALTY (B)'  , width:180 },
+	          { name: 'toatalGST', displayName: 'TOTAL GST (A+B)' , width:180 }
 	        
 	          
 	    ],
