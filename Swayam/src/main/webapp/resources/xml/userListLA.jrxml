@@ -8,16 +8,22 @@
 
     <property name="ireport.y" value="0"></property>  
 	<property name="net.sf.jasperreports.export.pdf.size.page.to.content" value="true"/>	
+	
+	 <field name="circle" class="java.lang.String"></field>
+	 
+	 <field name="role" class="java.lang.String"></field>  
 
     <field name="pfId" class="java.lang.String"></field>
 
     <field name="username" class="java.lang.String"></field>
 
-    <field name="role" class="java.lang.String"></field>    
+    <field name="mobileNo" class="java.lang.String"></field>
+      <field name="mailId" class="java.lang.String"></field>
 
     <field name="noOfAssignedKiosks" class="java.lang.String"></field>
 	
 	<field name="reportingAuthorityName" class="java.lang.String"></field>
+	
 
     <background>
 
@@ -30,7 +36,7 @@
 
             <staticText>
 
-                <reportElement x="222" y="0" width="111" height="25"></reportElement>
+                <reportElement x="444" y="0" width="200" height="25"></reportElement>
 
                 <textElement textAlignment="Center">
 
@@ -49,10 +55,68 @@
     <columnHeader>
 
         <band height="61" splitType="Stretch">
+        
+         <staticText>
+
+                <reportElement x="0" y="41" width="111" height="20"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+
+                </box>
+
+                <textElement textAlignment="Center">
+
+                    <font size="10" isBold="true" isItalic="false"></font>
+
+                </textElement>
+
+                <text><![CDATA[CIRCLE]]></text>
+
+            </staticText>
+        
+        
+         <staticText>
+
+                <reportElement x="111" y="41" width="111" height="20"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+
+                </box>
+
+                <textElement textAlignment="Center">
+
+                    <font size="10" isBold="true" isItalic="false"></font>
+
+                </textElement>
+
+                <text><![CDATA[ROLE]]></text>
+
+            </staticText>
+        
 
             <staticText>
 
-                <reportElement x="0" y="41" width="111" height="20"></reportElement>
+                <reportElement x="222" y="41" width="111" height="20"></reportElement>
 
                 <box>
 
@@ -80,7 +144,7 @@
 
             <staticText>
 
-                <reportElement x="111" y="41" width="111" height="20"></reportElement>
+                <reportElement x="333" y="41" width="111" height="20"></reportElement>
 
                 <box>
 
@@ -102,13 +166,14 @@
 
                 </textElement>
 
-                <text><![CDATA[USERNAME]]></text>
+                <text><![CDATA[EMPLOYEE NAME]]></text>
 
             </staticText>
 
-            <staticText>
 
-                <reportElement x="222" y="41" width="111" height="20"></reportElement>
+        <staticText>
+
+                <reportElement x="444" y="41" width="200" height="20"></reportElement>
 
                 <box>
 
@@ -121,7 +186,6 @@
                     <bottomPen lineWidth="0.25"></bottomPen>
 
                     <rightPen lineWidth="0.25"></rightPen>
-
                 </box>
 
                 <textElement textAlignment="Center">
@@ -130,13 +194,41 @@
 
                 </textElement>
 
-                <text><![CDATA[ROLE]]></text>
+                <text><![CDATA[MOBILE NO]]></text>
 
             </staticText>
+            
+            
+             <staticText>
 
+                <reportElement x="644" y="41" width="200" height="20"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+                </box>
+
+                <textElement textAlignment="Center">
+
+                    <font size="10" isBold="true" isItalic="false"></font>
+
+                </textElement>
+
+                <text><![CDATA[EMAIL ID]]></text>
+
+            </staticText>
+           
             <staticText>
 
-                <reportElement x="333" y="41" width="150" height="20"></reportElement>
+                <reportElement x="844" y="41" width="200" height="20"></reportElement>
 
                 <box>
 
@@ -164,7 +256,7 @@
 
             <staticText>
 
-                <reportElement x="483" y="41" width="200" height="20"></reportElement>
+                <reportElement x="1044" y="41" width="200" height="20"></reportElement>
 
                 <box>
 
@@ -188,6 +280,9 @@
                 <text><![CDATA[REPORTING AUTHORITY NAME]]></text>
 
             </staticText>
+            
+            
+          
 
             
         </band>
@@ -198,7 +293,8 @@
 
         <band height="15" splitType="Stretch">
 
-            <textField>
+
+      <textField>
 
                 <reportElement x="0" y="0" width="111" height="15"></reportElement>
 
@@ -220,37 +316,13 @@
 					<font size="8" isItalic="false"></font>
 				</textElement>
 
-                <textFieldExpression><![CDATA[$F{pfId} == null?"":$F{pfId}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{circle} == null?"":$F{circle}]]></textFieldExpression>
 
             </textField>
 
-            <textField>
+ <textField>
 
                 <reportElement x="111" y="0" width="111" height="15"></reportElement>
-
-                <box>
-
-                    <pen lineWidth="0.25"></pen>
-
-                    <topPen lineWidth="0.25"></topPen>
-
-                    <leftPen lineWidth="0.25"></leftPen>
-                    <bottomPen lineWidth="0.25"></bottomPen>
-
-                    <rightPen lineWidth="0.25"></rightPen>
-
-                </box>
-
-                <textElement textAlignment="Center">
-					<font size="8" isItalic="false"></font>
-				</textElement>
-
-                <textFieldExpression><![CDATA[$F{username}  == null?"":$F{username}]]></textFieldExpression>
-
-            </textField>
-            <textField>
-
-                <reportElement x="222" y="0" width="111" height="15"></reportElement>
 
                 <box>
 
@@ -276,7 +348,113 @@
 
             <textField>
 
-                <reportElement x="333" y="0" width="150" height="15"></reportElement>
+                <reportElement x="222" y="0" width="111" height="15"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+
+                </box>
+
+                <textElement textAlignment="Center">
+					<font size="8" isItalic="false"></font>
+				</textElement>
+
+                <textFieldExpression><![CDATA[$F{pfId} == null?"":$F{pfId}]]></textFieldExpression>
+
+            </textField>
+
+            <textField>
+
+                <reportElement x="333" y="0" width="111" height="15"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+
+                </box>
+
+                <textElement textAlignment="Center">
+					<font size="8" isItalic="false"></font>
+				</textElement>
+
+                <textFieldExpression><![CDATA[$F{username}  == null?"":$F{username}]]></textFieldExpression>
+
+            </textField>
+       
+       
+            <textField>
+
+                <reportElement x="444" y="0" width="200" height="15"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+
+                </box>
+
+                <textElement textAlignment="Center">
+					<font size="8" isItalic="false"></font>
+				</textElement>
+
+                <textFieldExpression><![CDATA[$F{mobileNo} == null?"":$F{mobileNo}]]></textFieldExpression>
+
+            </textField>
+
+            
+
+       <textField>
+
+                <reportElement x="644" y="0" width="200" height="15"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+
+                </box>
+
+                <textElement textAlignment="Center">
+					<font size="8" isItalic="false"></font>
+				</textElement>
+
+                <textFieldExpression><![CDATA[$F{mailId} == null?"":$F{mailId}]]></textFieldExpression>
+
+            </textField>
+            
+             <textField>
+
+                <reportElement x="844" y="0" width="200" height="15"></reportElement>
 
                 <box>
 
@@ -302,7 +480,7 @@
 
             <textField>
 
-                <reportElement x="483" y="0" width="200" height="15"></reportElement>
+                <reportElement x="1044" y="0" width="200" height="15"></reportElement>
 
                 <box>
 
@@ -325,6 +503,8 @@
                 <textFieldExpression><![CDATA[$F{reportingAuthorityName} == null?"":$F{reportingAuthorityName}]]></textFieldExpression>
 
             </textField>
+                    
+            
 
         </band>
 

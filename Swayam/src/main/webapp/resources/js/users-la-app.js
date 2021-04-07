@@ -20,6 +20,14 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 			$("#contentHomeApp").load(str);
 		}						
 	}
+	
+	 $scope.loadHomeBodyPageFormsDeMap = function(url){	   
+		if(url != undefined){	
+			var str ='km/userkioskmappingpopup?username=' + url;
+			$("#contentHomeApp").load(str);
+		}						
+	}
+	
    $scope.getCountType = function(type){
       
 	   if ($scope.counttype != type)
@@ -72,10 +80,31 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	useExternalPagination: true,
 	
     columnDefs: [
-      { name: 'userId', displayName: 'SrNo'  },
+     /* { name: 'userId', displayName: 'SrNo'  },
       { name: 'pfId', displayName: 'PF ID / User Name'  },
       { name: 'username', displayName: 'Employee Name'  },      
       { name: 'role', displayName: 'Role'  },
+      { name: 'noOfAssignedKiosks', displayName: 'No of Assigned Kiosks'  },
+      { name: 'reportingAuthorityName', displayName: 'Reporting Authority'  },
+      { name: 'Edit',
+    	  exporterSuppressExport: true,
+    	  headerCellTemplate: '<div></div>',
+    	  cellTemplate: '<div class="ui-grid-cell-contents" style="cursor: hand;cursor: pointer;"><a ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.userId)">Edit</a></div>'
+      },
+      { name: 'Delete',
+    	  exporterSuppressExport: true,
+    	  headerCellTemplate: '<div></div>',
+    	  cellTemplate: '<div class="ui-grid-cell-contents" style="cursor: hand;cursor: pointer;"><a ng-click="grid.appScope.loadHomeBodyPageFormsDel(row.entity.userId)">Delete</a></div>'
+      },*/
+      
+         { name: 'userId', displayName: 'SrNo'  },
+      { name: 'circle', displayName: 'CIRCLE'  },
+       { name: 'role', displayName: 'ROLE'  },
+      { name: 'pfId', displayName: 'PF ID / USER ID'  },
+      { name: 'username', displayName: 'Employee Name'  },      
+    //  { name: 'role', displayName: 'Role'  },
+      { name: 'mobileNo', displayName: 'MOBILE NO'  },
+      { name: 'mailId',displayName: 'EMAIL ID'  },
       { name: 'noOfAssignedKiosks', displayName: 'No of Assigned Kiosks'  },
       { name: 'reportingAuthorityName', displayName: 'Reporting Authority'  },
       { name: 'Edit',
@@ -92,7 +121,8 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
     	  exporterSuppressExport: true,
     	  displayName: 'Assign Kiosk',
     	  headerCellTemplate: '<div></div>',
-          cellTemplate: '<div class="ui-grid-cell-contents" id="myBtn" style="cursor: hand;cursor: pointer;"><div ng-if="row.entity.role == \'CMF\' && row.entity.noOfAssignedKiosks > 0"><a data-href="km/userkioskmappingpopup?username="+{{ row.entity.userId }} data-val="{{ row.entity.pfId }}" class="openPopup">DeMap Kiosks</a></div></div>'
+       //   cellTemplate: '<div class="ui-grid-cell-contents" id="myBtn" style="cursor: hand;cursor: pointer;"><div ng-if="row.entity.role == \'CMF\' && row.entity.noOfAssignedKiosks > 0"><a data-href="km/userkioskmappingpopup?username="+{{ row.entity.userId }} data-val="{{ row.entity.pfId }}" class="openPopup">DeMap Kiosks</a></div></div>'
+        cellTemplate: '<div ng-if="row.entity.role == \'CMF\' && row.entity.noOfAssignedKiosks > 0"> <a ng-click="grid.appScope.loadHomeBodyPageFormsDeMap(row.entity.pfId)">DeMap Kiosks</a></div>'
       }
     ],
     onRegisterApi: function(gridApi) {

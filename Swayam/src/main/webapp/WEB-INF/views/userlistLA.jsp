@@ -35,9 +35,9 @@
 	href="resources/css/ui-grid.min.css">
 	
 <!-- 	<link rel="stylesheet"
-	href="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css"> -->
+	href="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css"> --><!-- 
 <script
-	src="resources/js/angular.min.js"></script>
+	src="resources/js/angular.min.js"></script> -->
 	<link rel="stylesheet" href="resources/css/bootstrap.min.css">
 <script
 	src="resources/js/ui-grid.min.js"></script>
@@ -152,7 +152,7 @@
 </div>	
 
 	<!-- The Modal -->
-<div class="modal fade" id="myModal" role="dialog">
+<%-- <div class="modal fade" id="myModal" role="dialog">
 <div class="modal-dialog">`
   <!-- Modal content -->
   <div class="modal-content">    
@@ -161,21 +161,21 @@
           <h4 class="modal-title"></h4>
         </div>
         <div class="modal-body">
-          <%-- <jsp:include page="kioskAssignedLA.jsp" /> --%> 
+          <jsp:include page="kioskAssignedLA.jsp" /> 
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal"></button>
         </div>
 	</div>
 </div>
-</div>
+</div> --%>
 
 	
 	
 
 
 <script src="resources/js/users-la-app.js"></script>
-<script> 
+<!-- <script> 
  $(document).ready(function(){	
     $('.openPopup').on('click',function(){    	
         var dataURL = $(this).attr('data-href');
@@ -187,7 +187,7 @@
 }); 
  
 </script>
-
+ -->
 <script type="text/javascript">
 
 
