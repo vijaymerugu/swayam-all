@@ -21,5 +21,16 @@ List<BranchMaster> findAllByBranchCode(@Param("branchCode") String branchCode);
 
 
 
+@Query(value="select BRANCH_CODE from TBL_BRANCH_MASTER  where  CRCL_CODE=:circleCode",nativeQuery=true)
+List<String> findAllByCircleCode(@Param("circleCode") String circleCode);
+
+@Query(value="select BRANCH_CODE from TBL_BRANCH_MASTER  where  network=:networkCode",nativeQuery=true)
+Iterable<String> findAllByNetworkCode(@Param("networkCode") String networkCode);
+
+@Query(value="select BRANCH_CODE from TBL_BRANCH_MASTER  where  REGION=:regionCode",nativeQuery=true)
+Iterable<String> findAllByRegionCodeCode(@Param("regionCode") String regionCode);
+
+@Query(value="select BRANCH_CODE from TBL_BRANCH_MASTER  where  MODULE=:moduleCode",nativeQuery=true)
+Iterable<String> findAllByModule(@Param("moduleCode") String moduleCode);
 
 }
