@@ -8,7 +8,8 @@
 <title>Swayam</title>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<link rel="icon" href="resources/img/SBI_Logo.jpg" type="image/x-icon">
+<!-- <link rel="icon" href="resources/img/SBI_Logo.jpg" type="image/x-icon"> -->
+<link rel="icon" href="resources/img/favicon.png" type="image/x-icon">
 <script src="resources/js/angular.1.5.6.min.js"></script>
 <script src="resources/js/jquery.3.4.1.min.js"></script>
 <!-- <script src="resources/js/bootstrap.3.4.1.min.js"></script> -->
@@ -48,7 +49,7 @@
 <script src="resources/js/angular-aria.js"></script>
 </head>
 <body style="background: #EFF3F6; margin: 0px; padding: 0px;width: 98%;overflow-x: hidden;">
-	<div id="mainMenuHome" ng-app="HomeApp" ng-controller="menuController">
+	<div id="mainMenuHome" ng-app="HomeApp" ng-controller="menuController" ng-init='load("${suburl}")'>
 		<%
 			UserDto userObj = (UserDto) session.getAttribute("userObj");
 			//String firstName = "";
@@ -77,7 +78,7 @@
 					cellspacing="0px;">
 					<tr>
 						<td
-							style="left: 187px; width: 85%; background: #280071; color: #FFFFFF"
+							style="left: 187px;width: 85%;background: #280071;color: #FFFFFF;font-size: xx-large;"
 							align="center"><b>Swayam Monitoring Tool</b></td>
 						<td
 							style="width: 200%; background: #FDD209; color: #000000; align: center"
@@ -144,6 +145,14 @@
 					$scope.notifications = [];
 					$scope.updatedNotifications = [];
 					$scope.unReadNotificationCount = 0;
+					
+					 $scope.load = function(suburl) {
+						   
+							$("#contentHomeApp").load(suburl);
+					
+							
+				};  
+					
 					$scope.loadHomeBodyPage = function(url) { 
 						if (url != undefined) {
 							$("#contentHomeApp").load(url);
@@ -214,9 +223,9 @@
 		}
 		$(document)
 				.ready(
-						function() {
+						function() { 
 							//$('#topnav > ul > li').bind('click', jsddm_open)   
-							$('#topnav > ul').on('click', 'li', jsddm_open)
+							$('#topnav > ul').on('mouseover', 'li', jsddm_open)
 							//$('#topnav > ul > li > a').click(function(ev){
 							$('#topnav > ul')
 									.on(

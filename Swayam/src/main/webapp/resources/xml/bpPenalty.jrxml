@@ -16,7 +16,7 @@
 	<field name="downTime" class="java.lang.Integer"/>
 	<field name="relaxation" class="java.lang.Integer"/>
 	<field name="finalDowntime" class="java.lang.Integer"/>
-	<field name="penalty" class="java.lang.Float"/>
+	<field name="penalty" class="java.lang.Double"/>
 	<variable name="totalhr" class="java.lang.Integer" calculation="Sum">
 		<variableExpression><![CDATA[$F{toatalhours}]]></variableExpression>
 	</variable>
@@ -29,7 +29,7 @@
 	<variable name="fd" class="java.lang.Integer" calculation="Sum">
 		<variableExpression><![CDATA[$F{finalDowntime}]]></variableExpression>
 	</variable>
-	<variable name="p" class="java.lang.Float" calculation="Sum">
+	<variable name="p" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{penalty}]]></variableExpression>
 	</variable>
 	<background>
@@ -38,11 +38,11 @@
 	<title>
 		<band height="25" splitType="Stretch">
 			<staticText>
-				<reportElement x="64" y="0" width="481" height="25" uuid="6526c9b6-fa4e-45f6-91c3-9695a04c5bb7"/>
+				<reportElement x="200" y="0" width="200" height="25" uuid="6526c9b6-fa4e-45f6-91c3-9695a04c5bb7"/>
 				<textElement textAlignment="Center">
 					<font size="15" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Billing Penalty]]></text>
+				<text><![CDATA[Penalty Calculation]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -318,7 +318,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{quarterId} == null?"":$F{quarterId}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#0.00#;(#0.00#-)">
 				<reportElement x="1400" y="0" width="200" height="20" uuid="25f9cbcd-132e-4565-8cdd-93eef501eb8a"/>
 				<box>
 					<pen lineWidth="0.25"/>
@@ -332,7 +332,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{toatalhours}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#0.00#;(#0.00#-)">
 				<reportElement x="1600" y="0" width="200" height="20" uuid="58e68b23-bad6-4dc3-9ecd-875b2c8b832b"/>
 				<box>
 					<pen lineWidth="0.25"/>
@@ -346,7 +346,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{downTime}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#0.00#;(#0.00#-)">
 				<reportElement x="1800" y="0" width="200" height="20" uuid="66ab41d0-b8a9-49ff-ad5a-fbe2bdc135ed"/>
 				<box>
 					<pen lineWidth="0.25"/>
@@ -360,7 +360,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{relaxation}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#0.00#;(#0.00#-)">
 				<reportElement x="2000" y="0" width="200" height="20" uuid="83994cba-4325-486d-a889-f6136cf300c9"/>
 				<box>
 					<pen lineWidth="0.25"/>
@@ -374,7 +374,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{finalDowntime}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#0.00#;(#0.00#-)">
 				<reportElement x="2200" y="0" width="200" height="20" uuid="ec99e51b-78bb-43d5-ae52-e415a6550889"/>
 				<box>
 					<pen lineWidth="0.25"/>
@@ -406,7 +406,7 @@
 				</textElement>
 				<text><![CDATA[Total]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="#0.00##;(#0.00##-)">
 				<reportElement x="1400" y="0" width="200" height="20" uuid="0f8794a2-2566-4eff-a70c-b26b185b95c3"/>
 				<box>
 					<pen lineWidth="0.25"/>
@@ -420,7 +420,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalhr}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#0.00##;(#0.00##-)">
 				<reportElement x="1600" y="0" width="200" height="20" uuid="85ea5048-05d0-45fd-b9b8-cd121d465944"/>
 				<box>
 					<pen lineWidth="0.25"/>
@@ -434,7 +434,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$V{dt}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#0.00##;(#0.00##-)">
 				<reportElement x="1800" y="0" width="200" height="20" uuid="4f27efd8-f97e-4f43-bca0-f01212514808"/>
 				<box>
 					<pen lineWidth="0.25"/>
@@ -448,7 +448,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$V{rex}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#0.00##;(#0.00##-)">
 				<reportElement x="2000" y="0" width="200" height="20" uuid="156ce300-592e-4218-a5e0-e6d71254f87d"/>
 				<box>
 					<pen lineWidth="0.25"/>
@@ -462,7 +462,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$V{fd}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#0.00##;(#0.00##-)">
 				<reportElement x="2200" y="0" width="200" height="20" uuid="bebd5eee-927c-4a68-a90d-e9687900a587"/>
 				<box>
 					<pen lineWidth="0.25"/>

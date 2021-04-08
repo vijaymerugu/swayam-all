@@ -35,9 +35,9 @@
 	href="resources/css/ui-grid.min.css">
 	
 <!-- 	<link rel="stylesheet"
-	href="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css"> -->
+	href="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css"> --><!-- 
 <script
-	src="resources/js/angular.min.js"></script>
+	src="resources/js/angular.min.js"></script> -->
 	<link rel="stylesheet" href="resources/css/bootstrap.min.css">
 <script
 	src="resources/js/ui-grid.min.js"></script>
@@ -114,7 +114,8 @@
     <td id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"><a ng-click="getCountType('CMF')" style="cursor: hand;cursor: pointer;">${cmfCount}</a></td> 
     <td id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"> <a ng-click="getCountType('CMS')" style="cursor: hand;cursor: pointer;"> ${cmsCount}</a>  </td> 
 	<td id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"> <a ng-click="getCountType('C')" style="cursor: hand;cursor: pointer;">${circleUserCount}</a></td>   
-    
+    <td id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"> <a ng-click="getCountType('BM')" style="cursor: hand;cursor: pointer;"> ${billingMakerCount}</a></td> 
+	<td id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"> <a ng-click="getCountType('BC')" style="cursor: hand;cursor: pointer;">${billingCheckerCount}</a></td>   
   </tr>
   <tr>
   <!-- Yogesh User Circle Wise -->
@@ -122,6 +123,8 @@
     <td id="count2" style="color: black; border-right: solid 2px #faf5f6;">CMF</td> 
 	<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">CMS</td>   
 	<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">Circle</td>   	
+	<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">BM</td>   
+	<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">BC</td>   	
   </tr>
 </table>
 </div>
@@ -139,6 +142,9 @@
 		
 		
 		<br/>
+		<div class="loading" id="loading" align="center" style="display:none;">
+   			 <img src="resources/img/loader.gif"> 
+		</div> 
 		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test"></div>
 		
         
@@ -149,7 +155,7 @@
 </div>	
 
 	<!-- The Modal -->
-<div class="modal fade" id="myModal" role="dialog">
+<%-- <div class="modal fade" id="myModal" role="dialog">
 <div class="modal-dialog">`
   <!-- Modal content -->
   <div class="modal-content">    
@@ -158,21 +164,21 @@
           <h4 class="modal-title"></h4>
         </div>
         <div class="modal-body">
-          <%-- <jsp:include page="kioskAssignedLA.jsp" /> --%> 
+          <jsp:include page="kioskAssignedLA.jsp" /> 
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal"></button>
         </div>
 	</div>
 </div>
-</div>
+</div> --%>
 
 	
 	
 
 
 <script src="resources/js/users-la-app.js"></script>
-<script> 
+<!-- <script> 
  $(document).ready(function(){	
     $('.openPopup').on('click',function(){    	
         var dataURL = $(this).attr('data-href');
@@ -184,7 +190,7 @@
 }); 
  
 </script>
-
+ -->
 <script type="text/javascript">
 
 
@@ -199,23 +205,26 @@ $(document).ready(function(){
 $(document).ready(function(){
 
     $(".openpdfonclick").click(function(){
-    	
+    	$("#loading").show(); 
         $.ajax({
             url: 'report?page=userListLA&type=pdf',
             type: 'GET',   
             success: function(data){
             	console.log(data);
-            	window.open("resources/download/"+data , '_blank');  
+            	window.open("resources/download/"+data , '_blank'); 
+            	$("#loading").hide(); 
             }
         });
     });
-    $(".openxlonclick").click(function(){    	
+    $(".openxlonclick").click(function(){ 
+    	$("#loading").show(); 
         $.ajax({
             url: 'report?page=userListLA&type=excel',
             type: 'GET',   
             success: function(data){
             	console.log(data);
             	window.open("resources/download/"+data , '_blank');  
+            	$("#loading").hide(); 
             }
         });
     });

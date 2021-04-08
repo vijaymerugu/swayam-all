@@ -1,6 +1,6 @@
 var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ngTouch','ui.grid.exporter', 'ui.grid.resizeColumns']);
 
-	app.controller('InvoiceSummearyCtrl', ['$scope','$filter','$http','$window','TaxSummaryService',function ($scope, $filter, $http, $window,TaxSummaryService) {
+	app.controller('TaxSummaryCtrl', ['$scope','$filter','$http','$window','TaxSummaryService',function ($scope, $filter, $http, $window,TaxSummaryService) {
 	   var paginationOptions = {
 	     pageNumber: 1,
 		 pageSize: 20,
@@ -261,10 +261,13 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		enableColumnMenus:false,
 		useExternalPagination: true,
 		
-		headerTemplate: 'km/headerTemplate',
+	//headerTemplate: 'km/headerTemplate',
+		
+		headerTemplate: '<div class="ui-grid-header custom-ui-grid-header"><div class="ui-grid-top-panel"><div class="ui-grid-header-viewport"><div class="ui-grid-header-canvas" style=""><div class="ui-grid-header-cell-wrapper" style="display: block;" ng-style="colContainer.headerCellWrapperStyle()"><div class="ui-grid-header-cell-row abc" style="display: block; border-bottom: 1px solid;border-bottom-color: #d4d4d4;"><div class="ui-grid-header-cell" ng-repeat="superCol in grid.options.superColDefs track by $index" col-name="{{superCol.name}}"><div class="ui-grid-cell-contents" data-ng-bind="superCol.displayName"></div></div></div><div class="ui-grid-header-cell-row"><div class="ui-grid-header-cell ui-grid-clearfix" ng-repeat="col in colContainer.renderedColumns track by col.colDef.name" ui-grid-header-cell col="col" super-col-width-update render-index="$index"></div></div></div></div></div></div></div>',
+	      
 		  superColDefs: [{
 	          name: 'front',
-	          displayName: '',
+	          displayName: ''
 	          
 	         
 	      },
@@ -275,35 +278,37 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	      }, {
 	          name: 'PenaltyTax',
 	          displayName: 'Tax on Penalty'
+	        	 
 	        	  
 	      }, {
 	          name: 'TotalTax',
 	          displayName: 'Total Tax'
+	        	 
 	          
 	      }, {
 	          name: 'back',
-	          displayName: ''
+	          displayName: '-'
 	          
 	      }],
 		
 	      columnDefs: [
-	         { name: 'year', displayName: 'Year' ,superCol: 'front' },
-	          { name: 'rfpRefNumber', displayName: 'Rfp Ref No.' ,superCol: 'front'},
-	          { name: 'vendor', displayName: 'Vendor',superCol: 'front' },
-	          { name: 'circleName', displayName: 'Circle' ,superCol: 'front'  },
-	          { name: 'state', displayName: 'State' ,superCol: 'front'  },
-	          { name: 'q1Im', displayName: 'Q1   ',superCol: 'InvoiceAmountTax'   },
-	          { name: 'q2Im', displayName: 'Q2   ',superCol: 'InvoiceAmountTax'   },
-	          { name: 'q3Im', displayName: 'Q3   ',superCol: 'InvoiceAmountTax'  },
-	          { name: 'q4Im', displayName: 'Q4   ' ,superCol: 'InvoiceAmountTax' },
-	          { name: 'q1P', displayName: 'Q1    ' ,superCol: 'PenaltyTax'  },
-	          { name: 'q2P', displayName: 'Q2    ' ,superCol: 'PenaltyTax'  },
-	          { name: 'q3P', displayName: 'Q3    ' ,superCol: 'PenaltyTax'  },
-	          { name: 'q4P', displayName: 'Q4    ' ,superCol: 'PenaltyTax'  },
-	          { name: 'q1Ba', displayName: 'Q1   ' ,superCol: 'TotalTax'  },
-	          { name: 'q2Ba', displayName: 'Q2   ' ,superCol: 'TotalTax'  },
-	          { name: 'q3Ba', displayName: 'Q3   ' ,superCol: 'TotalTax'  },
-	          { name: 'q4Ba', displayName: 'Q4' ,superCol: 'TotalTax'  }
+	         { name: 'year', displayName: 'Year' ,superCol: 'front', width: '*'},
+	          { name: 'rfpRefNumber', displayName: 'Rfp No.' ,superCol: 'front',   width: '*'},
+	          { name: 'vendor', displayName: 'Vendor',superCol: 'front' ,   width: '*'},
+	          { name: 'circleName', displayName: 'Circle' ,superCol: 'front' ,   width: '*' },
+	          { name: 'state', displayName: 'State' ,superCol: 'front' ,width: '*' },
+	          { name: 'q1Im', displayName: 'Q1',superCol: 'InvoiceAmountTax',width: '*' },
+	          { name: 'q2Im', displayName: 'Q2',superCol: 'InvoiceAmountTax' ,width: '*'   },
+	          { name: 'q3Im', displayName: 'Q3',superCol: 'InvoiceAmountTax' ,width: '*'  },
+	          { name: 'q4Im', displayName: 'Q4' ,superCol: 'InvoiceAmountTax',width: '*'  },
+	          { name: 'q1P', displayName: 'Q1' ,superCol: 'PenaltyTax' ,width: '*'  },
+	          { name: 'q2P', displayName: 'Q2' ,superCol: 'PenaltyTax' ,width: '*'  },
+	          { name: 'q3P', displayName: 'Q3' ,superCol: 'PenaltyTax'  ,width: '*' },
+	          { name: 'q4P', displayName: 'Q4' ,superCol: 'PenaltyTax'  ,width: '*' },
+	          { name: 'q1Ba', displayName: 'Q1' ,superCol: 'TotalTax'  ,width: '*' },
+	          { name: 'q2Ba', displayName: 'Q2' ,superCol: 'TotalTax'  ,width: '*' },
+	          { name: 'q3Ba', displayName: 'Q3' ,superCol: 'TotalTax'  ,width: '*' },
+	          { name: 'q4Ba', displayName: 'Q4' ,superCol: 'TotalTax'  ,width: '*'}
 	          
 	    ],
 	    onRegisterApi: function(gridApi) {

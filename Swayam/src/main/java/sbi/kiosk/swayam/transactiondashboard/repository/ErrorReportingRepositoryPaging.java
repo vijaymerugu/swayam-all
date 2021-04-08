@@ -38,10 +38,14 @@ public interface ErrorReportingRepositoryPaging extends PagingAndSortingReposito
 			+ " STR.KIOSK_ID, STR.VENDOR, (NVL(STR.NO_OF_TECH_FAIL,0) + NVL(ERRs.ERR_COUNT,0)) AS NO_OF_ERRORS"
 			+ "   FROM TBL_BRANCH_MASTER BM  JOIN TBL_SWAYAM_TXN_REPORT STR ON BM.BRANCH_CODE = STR.BRANCH_CODE "
 			+ " LEFT OUTER JOIN TBL_ERROR_STATS ERRs ON ERRs.KIOSK_ID = STR.KIOSK_ID  WHERE STR.TXN_DATE "
-			+ " between trunc(to_date(:fromdate, 'dd-mm-yy'))  and trunc(to_date(:todate, 'dd-mm-yy'))",nativeQuery=true,
-			countQuery= "SELECT count(STR.KIOSK_ID)  FROM TBL_BRANCH_MASTER BM  JOIN TBL_SWAYAM_TXN_REPORT STR ON BM.BRANCH_CODE = STR.BRANCH_CODE "
-					+ " LEFT OUTER JOIN TBL_ERROR_STATS ERRs ON ERRs.KIOSK_ID = STR.KIOSK_ID  WHERE STR.TXN_DATE"
-					+ " between trunc(to_date(:fromdate, 'dd-mm-yy'))  and trunc(to_date(:todate, 'dd-mm-yy'))")
+
+			+ " between trunc(to_date(:fromdate, 'dd-mm-yyyy'))  and trunc(to_date(:todate, 'dd-mm-yyyy'))",nativeQuery=true,
+			countQuery= "SELECT  BM.CRCL_NAME, BM.NETWORK, BM.MODULE, BM.REGION, BM.BRANCH_CODE, BM.BRANCH_NAME, " 
+					+"	STR.KIOSK_ID, STR.VENDOR, (NVL(STR.NO_OF_TECH_FAIL,0) + NVL(ERRs.ERR_COUNT,0)) AS NO_OF_ERRORS " 
+					+"	FROM TBL_BRANCH_MASTER BM  JOIN TBL_SWAYAM_TXN_REPORT STR ON BM.BRANCH_CODE = STR.BRANCH_CODE " 
+					+"	LEFT OUTER JOIN TBL_ERROR_STATS ERRs ON ERRs.KIOSK_ID = STR.KIOSK_ID  WHERE STR.TXN_DATE " 
+					+"	between trunc(to_date(:fromdate, 'dd-mm-yyyy'))  and trunc(to_date(:todate, 'dd-mm-yyyy'))")
+
 	
 	
 	Page<ErrorReporting> findByDate(@Param("fromdate") String fromdate,@Param("todate") String todate,Pageable pageable);
@@ -74,11 +78,13 @@ public interface ErrorReportingRepositoryPaging extends PagingAndSortingReposito
 			+ "   FROM TBL_BRANCH_MASTER BM  JOIN TBL_SWAYAM_TXN_REPORT STR ON BM.BRANCH_CODE = STR.BRANCH_CODE "
 			+ " LEFT OUTER JOIN TBL_ERROR_STATS ERRs ON ERRs.KIOSK_ID = STR.KIOSK_ID  WHERE STR.TXN_DATE "
 			+ " between trunc(to_date(:fromdate, 'dd-mm-yyyy'))  and trunc(to_date(:todate, 'dd-mm-yyyy'))"
-			+ " and (BM.CRCL_NAME=:searchText or BM.BRANCH_CODE=:searchText or STR.KIOSK_ID=:searchText or BM.BRANCH_NAME=:searchText )",nativeQuery=true,
-			countQuery= "SELECT count(STR.KIOSK_ID)  FROM TBL_BRANCH_MASTER BM  JOIN TBL_SWAYAM_TXN_REPORT STR ON BM.BRANCH_CODE = STR.BRANCH_CODE "
-					+ " LEFT OUTER JOIN TBL_ERROR_STATS ERRs ON ERRs.KIOSK_ID = STR.KIOSK_ID  WHERE STR.TXN_DATE "
-					+ " between trunc(to_date(:fromdate, 'dd-mm-yyyy'))  and trunc(to_date(:todate, 'dd-mm-yyyy'))"
-					+ "and (BM.CRCL_NAME=:searchText or BM.BRANCH_CODE=:searchText or STR.KIOSK_ID=:searchText or BM.BRANCH_NAME=:searchText)")
+			+ " and (BM.CRCL_NAME=UPPER(:searchText) or BM.BRANCH_CODE=UPPER(:searchText) or STR.KIOSK_ID=UPPER(:searchText) or BM.BRANCH_NAME=UPPER(:searchText) )",nativeQuery=true,
+			countQuery= "SELECT  BM.CRCL_NAME, BM.NETWORK, BM.MODULE, BM.REGION, BM.BRANCH_CODE, BM.BRANCH_NAME, " 
+					+"	 STR.KIOSK_ID, STR.VENDOR, (NVL(STR.NO_OF_TECH_FAIL,0) + NVL(ERRs.ERR_COUNT,0)) AS NO_OF_ERRORS "
+					+"	 FROM TBL_BRANCH_MASTER BM  JOIN TBL_SWAYAM_TXN_REPORT STR ON BM.BRANCH_CODE = STR.BRANCH_CODE " 
+					+"	 LEFT OUTER JOIN TBL_ERROR_STATS ERRs ON ERRs.KIOSK_ID = STR.KIOSK_ID  WHERE STR.TXN_DATE "
+					+"	 between trunc(to_date(:fromdate, 'dd-mm-yyyy'))  and trunc(to_date(:todate, 'dd-mm-yyyy')) "
+					+"	 and (BM.CRCL_NAME=UPPER(:searchText) or BM.BRANCH_CODE=UPPER(:searchText) or STR.KIOSK_ID=UPPER(:searchText) or BM.BRANCH_NAME=UPPER(:searchText) )")
 
 	
 	Page<ErrorReporting> findByDateSearchNext(@Param("fromdate") String fromdate,@Param("todate") String todate, @Param("searchText") String searchText,Pageable pageable);

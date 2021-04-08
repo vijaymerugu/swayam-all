@@ -86,8 +86,10 @@
 					</div>
 					<div class="col-sm-8"></div>
 				</div>
+			
 				<div class="row">
 					<div class="col-sm-6"></div>
+							
 					<div class="col-sm-4">
 						<button type="button" class="btn btn-primary" 
 							ng-click="reset()">Reset</button>
@@ -95,8 +97,18 @@
 						<button type="button" class="btn btn-primary" 
 							ng-click="generateReport()">Generate</button>
 					</div>
+					
+					
+					
 					<div class="col-sm-2"></div>
+	
 				</div>
+								<!-- Added for loader------------- START -->	
+	</br>
+		<div class="loading" id="loading" align="center" style="display:none;">
+   			 <img src="resources/img/loader.gif"> 
+		</div> 
+		<!-- Added for loader------------- END -->
 	
 	<script type="text/ng-template" id="component/pickListTmpl.html">
 

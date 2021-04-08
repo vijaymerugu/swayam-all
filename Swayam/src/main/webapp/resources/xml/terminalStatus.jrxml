@@ -37,11 +37,11 @@
 
             <staticText>
 
-                <reportElement x="64" y="0" width="481" height="25"></reportElement>
+                <reportElement x="300" y="0" width="100" height="25"></reportElement>
 
                 <textElement textAlignment="Center">
 
-                    <font size="15" isBold="true"></font>
+                    <font size="10" isBold="true"></font>
 
                 </textElement>
 

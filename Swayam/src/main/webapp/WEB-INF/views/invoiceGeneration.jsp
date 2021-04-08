@@ -27,84 +27,121 @@
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
 <style>
-        .tb-bk {
-            background: #f3f7fa;
-        }
-            .tb-bk table tr td {
-            width:33.33%;padding: 5px;
-            }
-            .tb-bk table {
-            width:100%;
-            }
-                .tb-bk table tr td select, .tb-bk table tr td input,.tb-bk table tr td textarea {
-                    background: #fff;
-    color: #00a9e0;
-    border-bottom: 1px solid #00a9e0 !important;
-    border: none;
-    line-height: 1;
-    padding: 5px;
-    width: 80%;
-                }
+.tb-bk {
+	background: #f3f7fa;
+}
 
-                .tb-bk table tr td .lb {
-            color: #2f246c;
-    font-weight: 600;
-    font-size: 12px;
-        }
-        .tb-bk table tr td button {
-        background-color: #fdd209;
-    color: #2f246c;
-    border: none;
-    padding: 5px 10px;
-    text-transform: uppercase;
-    font-weight: 600;
-        }
-        .tb-bk table tr td .row, .tb-bk table tr td .row .col-xs-6 {
-        margin:0 !important;
-        padding:0 !important;
-        }
-            .tb-bk table tr td .row .lb span b {
-            color:red;
-            }
-            select:focus,input:focus,button:focus,textarea:focus {
-                outline: none;
-            }
-        span.text-left {
-        line-height: 30px;
-        }
-        span.pull-right {
-        padding:5px 10px;
-        }
-         .ui-grid-header-cell-label {
-		display:inline-block;
-		white-space:initial;
-		}
-		
-		
-		.wrap-text .ui-grid-cell-contents {
- 		 white-space:normal;
-		}
+.tb-bk table tr td {
+	width: 33.33%;
+	padding: 5px;
+}
 
-		[ui-grid-row] {
-  		display: table-row;
-		}
+.tb-bk table {
+	width: 100%;
+}
 
-		.ui-grid-row, .ui-grid-cell {
-  		height: auto!important;
-		}
+.tb-bk table tr td select, .tb-bk table tr td input, .tb-bk table tr td textarea
+	{
+	background: #fff;
+	color: #00a9e0;
+	border-bottom: 1px solid #00a9e0 !important;
+	border: none;
+	line-height: 1;
+	padding: 5px;
+	width: 80%;
+}
 
-			.ui-grid-cell {
-  			float: none;
-  			display: table-cell;
-			} 
-		
-		
-			.ui-grid-header-cell, .ui-grid-cell-contents {
-  			white-space: normal;
-  			padding: 2px;
-  			word-break: break-word;
-			}
-    </style>
+.tb-bk table tr td .lb {
+	color: #2f246c;
+	font-weight: 600;
+	font-size: 12px;
+}
+
+.tb-bk table tr td button {
+	background-color: #fdd209;
+	color: #2f246c;
+	border: none;
+	padding: 5px 10px;
+	text-transform: uppercase;
+	font-weight: 600;
+}
+
+.tb-bk table tr td .row, .tb-bk table tr td .row .col-xs-6 {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.tb-bk table tr td .row .lb span b {
+	color: red;
+}
+
+select:focus, input:focus, button:focus, textarea:focus {
+	outline: none;
+}
+
+span.text-left {
+	line-height: 30px;
+}
+
+span.pull-right {
+	padding: 5px 10px;
+}
+
+.ui-grid-header-cell-label {
+	display: inline-block;
+	white-space: initial;
+}
+
+.wrap-text .ui-grid-cell-contents {
+	white-space: normal;
+}
+
+[ui-grid-row] {
+	display: table-row;
+}
+
+.ui-grid-row, .ui-grid-cell {
+	height: auto !important;
+}
+
+.ui-grid-cell {
+	float: none;
+	display: table-cell;
+}
+
+.ui-grid-header-cell, .ui-grid-cell-contents {
+	white-space: normal;
+	padding: 2px;
+	word-break: break-word;
+}
+
+.ui-grid, .ui-grid-viewport {
+	height: auto !important;
+}
+
+.ui-grid-pager-panel {
+	position: relative;
+}
+
+.ui-grid .ui-grid-render-container-body .ui-grid-viewport {
+	overflow-x: auto !important;
+	overflow-y: auto !important;
+}
+
+.ui-grid-pager-row-count-picker {
+	display: none;
+}
+
+.ui-grid .ui-grid-render-container-body .ui-grid-viewport {
+	overflow-x: auto !important;
+	overflow-y: auto !important;
+}
+
+.ui-grid-header-canvas {
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+</style>
 	
 </head>
 <body>
@@ -246,7 +283,9 @@
 		&nbsp;&nbsp;&nbsp;
 		</span>
 		<br/>
-		
+		<div class="loading" id="loading" align="center" style="display:none;">
+   			 <img src="resources/img/loader.gif"> 
+		</div>
 		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test"></div>
 		
         
@@ -264,7 +303,7 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
       $(document).ready(function(){
 
     	    $(".openpdfonclick").click(function(){
-    	    	
+    	    	$("#loading").show();
     	        $.ajax({
     	            url: 'report?page=invoiceReport&type=pdf',
     	            type: 'GET',   
@@ -272,15 +311,18 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
     	            	if(data.includes(".pdf")){
     	            		console.log("PDF Data1" + data);
     	            		window.open("resources/download/"+data , '_blank'); 
+    	            		$("#loading").hide();
     	            		
     	            	}else{
     	            		console.log("PDF Data" + data);
     	            		alert("No Data to Export");
+    	            		$("#loading").hide();
     	            	}  
     	            }
     	        });
     	    });
-    	    $(".openxlonclick").click(function(){    	
+    	    $(".openxlonclick").click(function(){  
+    	    	$("#loading").show();
     	        $.ajax({
     	            url: 'report?page=invoiceReport&type=excel',
     	            type: 'GET',   
@@ -288,10 +330,11 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
     	            	if(data.includes(".xlsx")){
     	            		console.log("PDF Data1" + data);
     	            		window.open("resources/download/"+data , '_blank'); 
-    	            		
+    	            		$("#loading").hide();
     	            	}else{
     	            		console.log("PDF Data" + data);
     	            		alert("No Data to Export");
+    	            		$("#loading").hide();
     	            	} 
     	            }
     	        });

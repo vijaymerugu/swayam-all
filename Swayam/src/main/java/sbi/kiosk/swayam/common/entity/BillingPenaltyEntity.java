@@ -35,8 +35,12 @@ public class BillingPenaltyEntity implements Serializable {
 	private Integer relaxation;
 	@Column(name="ACT_DOWNTIME")
 	private Integer finalDowntime;
+	/*
+	 * @Column(name="PENALTY_AMT") private Float penalty;
+	 */
 	@Column(name="PENALTY_AMT")
-	private Float penalty;
+	private Double penalty;
+	
 	@Column(name="RFP_NO")
 	private String prfRefNumber;
 	

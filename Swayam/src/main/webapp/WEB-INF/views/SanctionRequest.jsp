@@ -87,6 +87,7 @@
         span.pull-right {
         padding:5px 10px;
         }
+        
          .ui-grid-header-cell-label {
 		display:inline-block;
 		white-space:initial;
@@ -116,6 +117,31 @@
   			padding: 2px;
   			word-break: break-word;
 			}
+			
+			
+			 .ui-grid, .ui-grid-viewport {
+     height: auto !important;
+}
+.ui-grid-pager-panel {
+    position: relative;
+}
+.ui-grid .ui-grid-render-container-body .ui-grid-viewport {
+  overflow-x: auto !important;
+  overflow-y: auto !important;
+ 
+}
+.ui-grid-pager-row-count-picker {
+display:none;
+}
+
+      .ui-grid .ui-grid-render-container-body .ui-grid-viewport {
+  overflow-x: auto !important;
+  overflow-y: auto !important;
+ 
+}
+.ui-grid-header-canvas {
+   padding-top: 0px;
+   padding-bottom: 0px;}
     </style>
     
     <script>
@@ -179,10 +205,20 @@
 						 <a ng-click="getCountType('Sanction Note')" style="cursor: hand;cursor: pointer;"><c:out value="${mapStatusCount['snnote']}"/></a>  					
 						</td>
 						
+						<td id="count1">
+						 <a ng-click="getCountType('RFP Management')" style="cursor: hand;cursor: pointer;"><c:out value="0"/></a>					
+						</td>
+						<td id="count1">
+						 <a ng-click="getCountType('Invoice Submission')" style="cursor: hand;cursor: pointer;"><c:out value="0"/></a>					
+						</td>
+						<td id="count1">
+						 <a ng-click="getCountType('Invoice Comparison')" style="cursor: hand;cursor: pointer;"><c:out value="0"/></a>					
+						</td>
 					</tr>
 					<tr align="center"
 						style="color: #000000; font-size: 12px; font-weight: bold;"
 						width="10%">
+						<!-- <td id="count2">Submitted</td> -->
 						<td id="count2">Submitted</td>
 						<td id="count2">Approved</td>
 						<td id="count2"

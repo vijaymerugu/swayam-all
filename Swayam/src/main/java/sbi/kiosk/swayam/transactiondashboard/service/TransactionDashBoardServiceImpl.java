@@ -109,7 +109,7 @@ public class TransactionDashBoardServiceImpl implements TransactionDashBoardServ
 			swayamMigrationTxnDate=transactionDashBoardRepositoryPaging.findCurrentDateAuditJob();
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+		//	e.printStackTrace();
 		}
 		return swayamMigrationTxnDate;
 		

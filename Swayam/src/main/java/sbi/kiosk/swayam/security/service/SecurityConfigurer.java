@@ -17,6 +17,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.HeaderWriterLogoutHandler;
+import org.springframework.security.web.header.writers.ClearSiteDataHeaderWriter;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
@@ -54,13 +56,6 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 		
 		System.out.println("pfId=================");
 		
-		
-		
-		
-
-		
-
-		
 		http.//cors()
 			//.and().
 			csrf().disable()
@@ -68,21 +63,28 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 			.antMatchers("/login*").permitAll()
 			//.antMatchers("/getToken").permitAll().anyRequest().authenticated()
 			.and()
-			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout*"))            
-			.logoutRequestMatcher(new AntPathRequestMatcher("/logout/*"))            
-            .logoutSuccessUrl("/redirect:/logout")
-            .deleteCookies("JSESSIONID") 
-            .invalidateHttpSession(true)        // set invalidation state when logout            
+			.logout()
+			.logoutUrl("/logout") 
+			.addLogoutHandler(new HeaderWriterLogoutHandler( new
+					  ClearSiteDataHeaderWriter( ClearSiteDataHeaderWriter.Directive.CACHE,
+					  ClearSiteDataHeaderWriter.Directive.COOKIES,
+					  ClearSiteDataHeaderWriter.Directive.STORAGE)))         
+            .logoutSuccessUrl("https://adfs.sbi.co.in/adfs/ls/?wa=wsignout1.0")
+//            .deleteCookies("JSESSIONID") 
+//            .invalidateHttpSession(true)        // set invalidation state when logout            
 				.and()
 				.sessionManagement()
-				.sessionFixation().migrateSession()
+//				.sessionFixation().migrateSession()
 				.maximumSessions(1)
-				.maxSessionsPreventsLogin(false)
+//				.maxSessionsPreventsLogin(false)
 				.expiredUrl("/redirect:/logout");
 		http.headers().
 		httpStrictTransportSecurity()
 		.includeSubDomains(true)
 		.maxAgeInSeconds(31536000);
+		
+		
+		
 		//http.csrf()
     	//.ignoringAntMatchers("/getToken");
 

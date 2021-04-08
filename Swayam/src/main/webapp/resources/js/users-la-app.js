@@ -20,13 +20,27 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 			$("#contentHomeApp").load(str);
 		}						
 	}
+	
+	 $scope.loadHomeBodyPageFormsDeMap = function(url){	   
+		if(url != undefined){	
+			var str ='km/userkioskmappingpopup?username=' + url;
+			$("#contentHomeApp").load(str);
+		}						
+	}
+	
    $scope.getCountType = function(type){
       
-       counttype=type;
+	   if ($scope.counttype != type)
+	   {
+	   paginationOptions.pageNumber = 1;
+
+	   }
+	   $scope.counttype=type;
 	   UserManagementService.getUsers(paginationOptions.pageNumber,
-			   paginationOptions.pageSize,counttype).success(function(data){
+			   paginationOptions.pageSize,$scope.counttype).success(function(data){
 				   
 					  $scope.gridOptions.data = data.content;
+					  $scope.gridOptions.paginationCurrentPage = paginationOptions.pageNumber;
 				 	  $scope.gridOptions.totalItems = data.totalElements;
 				   });
 	}
@@ -35,7 +49,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    {  	
    	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
 	   UserManagementService.getUsers(paginationOptions.pageNumber,
-			   paginationOptions.pageSize,counttype).success(function(data){
+			   paginationOptions.pageSize,$scope.counttype).success(function(data){
 		  $scope.gridOptions.data = data.content;
 	 	  $scope.gridOptions.totalItems = data.totalElements;
 	   });	   
@@ -46,7 +60,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 		   
 	    }else{
 	    	UserManagementService.getUsers(paginationOptions.pageNumber,
-	 			   paginationOptions.pageSize,counttype).success(function(data){
+	 			   paginationOptions.pageSize,$scope.counttype).success(function(data){
 	 		  $scope.gridOptions.data = data.content;
 	 	 	  $scope.gridOptions.totalItems = data.totalElements;
 	 	   });
@@ -54,7 +68,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    };
 
    UserManagementService.getUsers(paginationOptions.pageNumber,
-		   paginationOptions.pageSize,counttype).success(function(data){
+		   paginationOptions.pageSize,$scope.counttype).success(function(data){
 	  $scope.gridOptions.data = data.content;
  	  $scope.gridOptions.totalItems = data.totalElements;
    });
@@ -66,7 +80,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	useExternalPagination: true,
 	
     columnDefs: [
-      { name: 'userId', displayName: 'SrNo'  },
+     /* { name: 'userId', displayName: 'SrNo'  },
       { name: 'pfId', displayName: 'PF ID / User Name'  },
       { name: 'username', displayName: 'Employee Name'  },      
       { name: 'role', displayName: 'Role'  },
@@ -81,12 +95,34 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
     	  exporterSuppressExport: true,
     	  headerCellTemplate: '<div></div>',
     	  cellTemplate: '<div class="ui-grid-cell-contents" style="cursor: hand;cursor: pointer;"><a ng-click="grid.appScope.loadHomeBodyPageFormsDel(row.entity.userId)">Delete</a></div>'
+      },*/
+      
+    //     { name: 'userId', displayName: 'SrNo'  },
+      { name: 'circle', displayName: 'CIRCLE'  },
+       { name: 'role', displayName: 'ROLE',width:120  },
+      { name: 'pfId', displayName: 'PF ID / USER ID'  },
+      { name: 'username', displayName: 'Employee Name'  },      
+    //  { name: 'role', displayName: 'Role'  },
+      { name: 'mobileNo', displayName: 'MOBILE NO'  },
+      { name: 'mailId',displayName: 'EMAIL ID'  },
+      { name: 'reportingAuthorityName', displayName: 'Reporting Authority'  },
+      { name: 'noOfAssignedKiosks', displayName: 'No of Assigned Kiosks'  },
+      { name: 'Edit',
+    	  exporterSuppressExport: true,
+    	  headerCellTemplate: '<div></div>',
+    	  cellTemplate: '<div class="ui-grid-cell-contents" style="cursor: hand;cursor: pointer;"><a ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.userId)">Edit</a></div>'
+      },
+      { name: 'Delete',
+    	  exporterSuppressExport: true,
+    	  headerCellTemplate: '<div></div>',
+    	  cellTemplate: '<div class="ui-grid-cell-contents" style="cursor: hand;cursor: pointer;"><a ng-click="grid.appScope.loadHomeBodyPageFormsDel(row.entity.userId)">Delete</a></div>'
       },
       { name: 'Assign',
     	  exporterSuppressExport: true,
     	  displayName: 'Assign Kiosk',
     	  headerCellTemplate: '<div></div>',
-          cellTemplate: '<div class="ui-grid-cell-contents" id="myBtn" style="cursor: hand;cursor: pointer;"><div ng-if="row.entity.role == \'CMF\' && row.entity.noOfAssignedKiosks > 0"><a data-href="km/userkioskmappingpopup?username="+{{ row.entity.userId }} data-val="{{ row.entity.pfId }}" class="openPopup">DeMap Kiosks</a></div></div>'
+       //   cellTemplate: '<div class="ui-grid-cell-contents" id="myBtn" style="cursor: hand;cursor: pointer;"><div ng-if="row.entity.role == \'CMF\' && row.entity.noOfAssignedKiosks > 0"><a data-href="km/userkioskmappingpopup?username="+{{ row.entity.userId }} data-val="{{ row.entity.pfId }}" class="openPopup">DeMap Kiosks</a></div></div>'
+        cellTemplate: '<div style="cursor: hand;cursor: pointer;" ng-if="row.entity.role == \'CMF\' && row.entity.noOfAssignedKiosks > 0"> <a ng-click="grid.appScope.loadHomeBodyPageFormsDeMap(row.entity.pfId)">DeMap Kiosks</a></div>'
       }
     ],
     onRegisterApi: function(gridApi) {
@@ -94,7 +130,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
           paginationOptions.pageNumber = newPage;
           paginationOptions.pageSize = pageSize;
-          UserManagementService.getUsers(newPage,pageSize,counttype).success(function(data){
+          UserManagementService.getUsers(newPage,pageSize,$scope.counttype).success(function(data){
         	  $scope.gridOptions.data = data.content;
          	  $scope.gridOptions.totalItems = data.totalElements;
           });

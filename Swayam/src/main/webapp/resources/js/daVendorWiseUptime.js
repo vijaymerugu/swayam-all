@@ -28,10 +28,12 @@ app.controller('daVendorWiseUptimeController', ['$scope','$interval','$http','da
 	$scope.vendorList = [{
 	    'name': 'LIPI',
 	    'value': 'LIPI'
-	  }, {
+	  },
+	  //commneted on 27-01-2021 to hide Forbes 
+	  /*{
 	    'name': 'Forbes',
 	    'value': 'Forbes'
-	  }, {
+	  },*/ {
 	    'name': 'CMS',
 	    'value': 'CMS'
 	  }];
@@ -92,7 +94,7 @@ app.controller('daVendorWiseUptimeController', ['$scope','$interval','$http','da
 								// Creating dynamic <td> to draw Chart
 								var str="<td><canvas id='doughnut"+nonNullCounter+"'></canvas></td>";
 								$(".chartDiv").append(str);
-								if(nonNullCounter % 3 == 0){
+								if(nonNullCounter % 5 == 0){
 									$(".chartDiv").append("<br/>");
 								}
 

@@ -253,6 +253,7 @@ misReportViewService2.loadAvailableColumns(removeIds)
 		console.log("Request Data toDate "+ requestData.toDate);
 		console.log("Request Data removeIds "+ requestData.removeIds);
 		
+		 $("#loading").show();  
 		//Changes
 		misReportViewService3.loadMisReportData(requestData,$scope.csrf)
 		.success(function(response, status, headers, config){
@@ -271,6 +272,8 @@ misReportViewService2.loadAvailableColumns(removeIds)
 		        }
 		    }
 		    $scope.loadHomeBodyPageForm();
+		    
+		    $("#loading").hide(); 
 		});
 		
 		

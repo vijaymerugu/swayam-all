@@ -68,7 +68,7 @@
 		var datePickerOptions = { changeYear: true, 
 								  changeMonth: true,
 								  autoclose: true,
-								  endDate : '+0d',
+								  endDate : '-2d',
 								  format : 'dd-mm-yyyy',
 								  orientation : "top"
 								  }
@@ -329,7 +329,7 @@ $("#myBtn").click(function(){
   	
     	    $(".openpdfonclick").click(function(){
     	    	
-    	    	
+    	    	$("#loading").show(); 
     	    	
     	        $.ajax({
     	            url: 'report?page=transactionSummary&type=pdf ',
@@ -338,16 +338,19 @@ $("#myBtn").click(function(){
     	            	if(data.includes(".pdf")){
     	            		console.log("PDF Data1" + data);
     	            		window.open("resources/download/"+data , '_blank'); 
+    	            		$("#loading").hide(); 
     	            		
     	            	}else{
     	            		console.log("PDF Data" + data);
     	            		alert("No Data to Export");
+    	            		$("#loading").hide(); 
     	            	}  
 
     	            }
     	        });
     	    });
-    	    $(".openxlonclick").click(function(){    	
+    	    $(".openxlonclick").click(function(){   
+    	    	$("#loading").show(); 
     	        $.ajax({
     	            url: 'report?page=transactionSummary&type=excel',
     	            type: 'GET',   
@@ -355,10 +358,12 @@ $("#myBtn").click(function(){
     	            	if(data.includes(".xlsx")){
     	            		console.log("Excel Data1" + data);
     	            		window.open("resources/download/"+data , '_blank'); 
+    	            		$("#loading").hide(); 
     	            		
     	            	}else{
     	            		console.log("Excel Data" + data);
     	            		alert("No Data to Export");
+    	            		$("#loading").hide(); 
     	            	}  
 
     	            }

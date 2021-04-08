@@ -273,7 +273,7 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 					        }
 					        catch (JSONException e)
 					        {
-					            e.printStackTrace();
+					       //     e.printStackTrace();
 					        }
 						if(successResp==true && resTicketNumber!=null && !resTicketNumber.isEmpty()){
 							  manualEnity.setRespTicketNo(resTicketNumber);
@@ -393,7 +393,7 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 				        }
 				        catch (JSONException e)
 				        {
-				            e.printStackTrace();
+				   //         e.printStackTrace();
 				        }
 
 					if(successResp==true && resTicketNumber!=null && !resTicketNumber.isEmpty()){

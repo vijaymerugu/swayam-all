@@ -37,28 +37,28 @@ public class TaxSummaryEntity {
 	
 	
 	@Column(name="Q1_INVOICE_AMT")
-	private Long q1Im;
+	private Double q1Im;
 	@Column(name="Q2_INVOICE_AMT")
-	private Long q2Im;
+	private Double q2Im;
 	@Column(name="Q3_INVOICE_AMT")
-	private Long q3Im;
+	private Double q3Im;
 	@Column(name="Q4_INVOICE_AMT")
-	private Long q4Im;
+	private Double q4Im;
 	@Column(name="Q1_PENALTY_AMT")
-	private Long q1P;
+	private Double q1P;
 	@Column(name="Q2_PENALTY_AMT")
-	private Long q2P;
+	private Double q2P;
 	@Column(name="Q3_PENALTY_AMT")
-	private Long q3P;
+	private Double q3P;
 	@Column(name="Q4_PENALTY_AMT")
-	private Long q4P;
+	private Double q4P;
 	@Column(name="Q1_FINAL_AMT")
-	private Long q1Ba;
+	private Double q1Ba;
 	@Column(name="Q2_FINAL_AMT")
-	private Long q2Ba;
+	private Double q2Ba;
 	@Column(name="Q3_FINAL_AMT")
-	private Long q3Ba;
+	private Double q3Ba;
 	@Column(name="Q4_FINAL_AMT")
-	private Long q4Ba;
+	private Double q4Ba;
 
 }

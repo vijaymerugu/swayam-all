@@ -4,25 +4,43 @@
 <html lang="en">
 <head>
 
-<meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
-<script	src="resources/js/angular.1.5.6.min.js"></script>
+<meta http-equiv="x-ua-compatible" content="IE=edge">
+<!-- <script	src="resources/js/angular.1.5.6.min.js"></script>
 <link rel="stylesheet" href="resources/css/ui-grid.min.css"/> 
 <link rel="stylesheet" href="resources/css/ui-grid.min-1.css"> 
 <script data-require="jquery@2.1.3" data-semver="2.1.3" src="resources/js/jquery-2.1.3.min.js"></script>
  <script src="resources/js/tax-summary.js"></script> 
 <link rel="stylesheet" href="resources/css/grid-style1.css"/>
 
-<!-- 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="resources/css/style.css">
-
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
- -->
 <script src="resources/js/angular.js"></script>
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
-    <script src="resources/js/angular-aria.js"></script>
+    <script src="resources/js/angular-aria.js"></script> -->
+    
+    
+    
+ <link rel="stylesheet" href="resources/css/grid-style.css"/>
+<link rel="stylesheet" href="resources/css/ui-grid.min-1.css"/> 
+
+
+<!--  <link rel="stylesheet" href="http://cdn.rawgit.com/angular-ui/ui-grid.info/gh-pages/release/3.0.0-rc.20/ui-grid.min.css"> -->
+
+<!--  <script data-require="jquery@2.1.3" data-semver="2.1.3" src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+  -->
+ <script data-require="jquery@2.1.3" data-semver="2.1.3" src="resources/js/jquery-2.1.3.min.js"></script>
+ 
+ <!--    <script src="https://code.angularjs.org/1.4.0/angular.js"></script> -->
+    
+    <script src="resources/js/angular.js"></script>
+   <!--  <script src="http://cdn.rawgit.com/angular-ui/ui-grid.info/gh-pages/release/3.0.0-rc.21/ui-grid.min.js"></script>
+ -->
+<script src="resources/js/ui-grid.min.js"></script>
+
+
+ <script src="resources/js/tax-summary.js"></script> 
+    
+
+
 
 
 <style>
@@ -73,7 +91,7 @@
         span.pull-right {
         padding:5px 10px;
         }
-          .ui-grid-header-cell-label {
+        /*   .ui-grid-header-cell-label {
 		display:inline-block;
 		white-space:initial;
 		}
@@ -101,7 +119,7 @@
 		 	.ui-grid-header-cell, .ui-grid-cell-contents {
   			white-space: normal;
   			word-break: break-word;
-			}   
+			}    */
 			/* .wrap-text .ui-grid-cell-contents {
  		 white-space:normal;
 		}
@@ -115,6 +133,60 @@
   			float: none;
   			display: table-cell;
 			}  */
+			
+			.ui-grid-header-cell-label {
+		display:inline-block;
+		white-space:normal;
+		 font-size: 15px;
+		}
+		
+		
+		.wrap-text .ui-grid-cell-contents {
+ 		 white-space:normal;
+		}
+
+		[ui-grid-row] {
+  		display: table-row;
+		}
+
+		.ui-grid-row, .ui-grid-cell {
+  		height: auto!important;
+		}
+
+			.ui-grid-cell {
+  			float: none;
+  			display: table-cell;
+			} 
+		
+		
+		 	.ui-grid-header-cell, .ui-grid-cell-contents {
+  			white-space: normal;
+  			padding: 2px;
+  			word-break: break-word;
+			} 
+ 			.ui-grid, .ui-grid-viewport {
+   			  height: auto !important; 
+			} 
+			.ui-grid-pager-panel {
+		     position: relative;
+			 }
+			 .ui-grid .ui-grid-render-container-body .ui-grid-viewport {
+ 			 	overflow-x: auto !important;
+  				overflow-y: auto !important;
+  				
+			}
+			.ui-grid-pager-row-count-picker {
+			display:none;
+			}
+			
+			.grid {
+  				width: 100%;
+				}
+				
+				.ui-grid-header-canvas {
+    padding-top: 0px;
+    padding-bottom: 0px;}
+
     </style>
 	
 </head>
@@ -123,10 +195,11 @@
 
 
 <div class="main" ng-app="app" id="appId">
-<div ng-controller="InvoiceSummearyCtrl as vm">
+<div ng-controller="TaxSummaryCtrl as vm">
 <div>
  		
-		<form name="myForm" id="myForm"> <!-- ng-submit="searchPositions(SelectedCircelId,SelectedStateId,
+		<form ng-submit="searchPositions(SelectedCircelId,SelectedStateId,
+							SelectedYearId)"> <!-- ng-submit="searchPositions(SelectedCircelId,SelectedStateId,
 							SelectedQuarterId,SelectedYearId,SelectedVendorId,RfpId)" -->
 		<div class="tb-bk">
    <table>				
@@ -187,9 +260,9 @@
                     <div class="col-xs-6">
                          <div class="text-right" style="width: 80%;" >
                              <button id="btnReset"  ng-click="resetPositions()" style="cursor: hand;cursor: pointer;">Reset</button>							
-			                 <button  ng-click="searchPositions(SelectedCircelId,SelectedStateId,
-							SelectedYearId)" style="cursor: hand;cursor: pointer;">Generate</button>
-							 <!-- <button  type="submit" id="submit">Generate</button> -->
+			                 <!-- <button  ng-click="searchPositions(SelectedCircelId,SelectedStateId,
+							SelectedYearId)" type="submit" style="cursor: hand;cursor: pointer;">Generate</button>
+							  --><button  type="submit" id="submit">Generate</button>
                          </div>
                     </div>
                 </div>
@@ -210,7 +283,9 @@
 		&nbsp;&nbsp;&nbsp;
 		</span>
 		<br/>
-		
+		<div class="loading" id="loading" align="center" style="display:none;">
+   			 <img src="resources/img/loader.gif"> 
+		</div>
 		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns  id="test"></div>
 		
         
@@ -241,7 +316,7 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
       $(document).ready(function(){
 
     	    $(".openpdfonclick").click(function(){
-    	    	
+    	    	$("#loading").show();
     	        $.ajax({
     	            url: 'report?page=taxSummaryReport&type=pdf',
     	            type: 'GET',   
@@ -249,17 +324,19 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
     	            	 if(data.includes(".pdf")){
     	            		console.log("PDF Data1" + data);
     	            		window.open("resources/download/"+data , '_blank'); 
-    	            		
+    	            		$("#loading").hide();
     	            	}else{
     	            		console.log("PDF Data" + data);
     	            		alert("No Data to Export");
+    	            		$("#loading").hide();
     	            	} 
     	            	/* console.log("PDF Data1" + data);
     	            	window.open("resources/download/"+data , '_blank');  */
     	            }
     	        });
     	    });
-    	    $(".openxlonclick").click(function(){    	
+    	    $(".openxlonclick").click(function(){  
+    	    	$("#loading").show();
     	        $.ajax({
     	            url: 'report?page=taxSummaryReport&type=excel',
     	            type: 'GET',   
@@ -267,10 +344,11 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
     	            	 if(data.includes(".xlsx")){
     	            		console.log("PDF Data1" + data);
     	            		window.open("resources/download/"+data , '_blank'); 
-    	            		
+    	            		$("#loading").hide();
     	            	}else{
     	            		console.log("PDF Data" + data);
     	            		alert("No Data to Export");
+    	            		$("#loading").hide();
     	            	}  
     	            	
     	            	/*  console.log("xsxl Data1" + data);

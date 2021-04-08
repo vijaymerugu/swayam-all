@@ -46,7 +46,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService','uiGridCo
     	 regionName="";
     	 
     	 */
-    	 $scope.searchPositions= function(startDate,endDate){
+    	 $scope.searchPositions= function(startDate,endDate){ debugger;
     	  	 
     	  	 circleName="";
     	  	 networkName="";
@@ -181,10 +181,10 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService','uiGridCo
       }, {
           name: 'LIPI',
           displayName: 'LIPI'
-      }, {
+      }, /*{
           name: 'Forbes',
           displayName: 'Forbes'
-      }, {
+      },*/ {
           name: 'CMS',
           displayName: 'CMS'
       }, {
@@ -208,16 +208,16 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService','uiGridCo
       { name: 'totalSwayamKiosks', displayName: 'Total Swayam Kiosks',superCol: 'front' ,aggregationType: uiGridConstants.aggregationTypes.sum, aggregationHideLabel: true, width: '7%'  },
       { name: 'lipiKiosks', displayName: 'Kiosks',superCol: 'LIPI'  ,aggregationType: uiGridConstants.aggregationTypes.sum, aggregationHideLabel: true, width: '7%'},
       { name: 'lipiTxns', displayName: 'Txns',superCol: 'LIPI' ,aggregationType: uiGridConstants.aggregationTypes.sum, aggregationHideLabel: true, width: '7%' },
-      { name: 'forbesKiosks', displayName: 'Kiosks',superCol: 'Forbes'  ,aggregationType: uiGridConstants.aggregationTypes.sum, aggregationHideLabel: true, width: '7%'},
+   /*   { name: 'forbesKiosks', displayName: 'Kiosks',superCol: 'Forbes'  ,aggregationType: uiGridConstants.aggregationTypes.sum, aggregationHideLabel: true, width: '7%'},
       { name: 'forbesTxns', displayName: 'Txns',superCol: 'Forbes' ,aggregationType: uiGridConstants.aggregationTypes.sum, aggregationHideLabel: true, width: '7%' },
-      { name: 'cmsKiosks', displayName: 'Kiosks',superCol: 'CMS' ,aggregationType: uiGridConstants.aggregationTypes.sum, aggregationHideLabel: true, width: '7%' },
+   */   { name: 'cmsKiosks', displayName: 'Kiosks',superCol: 'CMS' ,aggregationType: uiGridConstants.aggregationTypes.sum, aggregationHideLabel: true, width: '7%' },
       { name: 'cmsTxns', displayName: 'Txns',superCol: 'CMS' ,aggregationType: uiGridConstants.aggregationTypes.sum, aggregationHideLabel: true, width: '7%' },
       { name: 'totalSwayamTxns', displayName: 'Swayam Txns',superCol: 'total' ,aggregationType: uiGridConstants.aggregationTypes.sum, aggregationHideLabel: true, width: '7%' },
       { name: 'totalBranchCounterTxns', displayName: 'Branch Counter Txns',superCol: 'total' ,aggregationType: uiGridConstants.aggregationTypes.sum, aggregationHideLabel: true, width: '7%' },
       { name: 'migrationPercentage', displayName: 'Migration Percentage(%)',superCol: 'back'  ,aggregationType: uiGridConstants.aggregationTypes.avg , aggregationHideLabel: true,width: '7%',
        footerCellFilter : 'number : 2'}
     ],
-    onRegisterApi: function(gridApi) {
+    onRegisterApi: function(gridApi) { debugger;
         $scope.gridApi = gridApi;
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
           paginationOptions.pageNumber = newPage;
@@ -238,7 +238,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService','uiGridCo
   
 }]);
 
-var getPage = function(curPage, pageSize, counttype) {
+var getPage = function(curPage, pageSize, counttype) { debugger;
     var url ='drillDown/get?page='+curPage+'&size='+pageSize+'&type='+counttype;
     
 

@@ -4,6 +4,8 @@ public enum Constants {
 
 	MAKER("M","MAKER"),
 	CHECKER("C","CHECKER"),
+	BILLINGMAKER("BM","BILLING MAKER"),
+	BILLINGCHECKER("BC","BILLING CHECKER"),
 	APPROVER("A","APPROVER"),
 	CREATED("CRTD","CREATED"),
 	RECOMMENDED("RCMD","RECOMMENDED"),
@@ -12,6 +14,7 @@ public enum Constants {
 	LOCALADMIN("LA","LOCAL ADMIN"),
 	CIRCLE("C","CIRCLE"),
 	SYSTEMADMIN("SA","SYSTEM ADMIN");
+	
 	
 	private String code;
 	

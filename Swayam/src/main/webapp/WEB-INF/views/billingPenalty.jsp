@@ -105,6 +105,31 @@
   			padding: 2px;
   			word-break: break-word;
 			}
+			
+			
+			 .ui-grid, .ui-grid-viewport {
+     height: auto !important;
+}
+.ui-grid-pager-panel {
+    position: relative;
+}
+.ui-grid .ui-grid-render-container-body .ui-grid-viewport {
+  overflow-x: auto !important;
+  overflow-y: auto !important;
+ 
+}
+.ui-grid-pager-row-count-picker {
+display:none;
+}
+
+      .ui-grid .ui-grid-render-container-body .ui-grid-viewport {
+  overflow-x: auto !important;
+  overflow-y: auto !important;
+ 
+}
+.ui-grid-header-canvas {
+   padding-top: 0px;
+   padding-bottom: 0px;}
     </style>
 	
 </head>
@@ -248,7 +273,9 @@
 		&nbsp;&nbsp;&nbsp;
 		</span>	
 		<br/>
-		
+		<div class="loading" id="loading" align="center" style="display:none;">
+   			 <img src="resources/img/loader.gif"> 
+		</div>
 		<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test"></div>
 		
         
@@ -268,7 +295,7 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
       $(document).ready(function(){
 
     	    $(".openpdfonclick").click(function(){
-    	    	
+    	    	$("#loading").show();
     	        $.ajax({
     	            url: 'report?page=bpReport&type=pdf',
     	            type: 'GET',   
@@ -277,10 +304,12 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
     	            	if(data.includes(".pdf")){
     	            		console.log("PDF Data1" + data);
     	            		window.open("resources/download/"+data , '_blank'); 
+    	            		$("#loading").hide();
     	            		
     	            	}else{
     	            		console.log("PDF Data" + data);
     	            		alert("No Data to Export");
+    	            		$("#loading").hide();
     	            	}
     	            	
     	            	//window.open("resources/download/"+data , '_blank');  
@@ -288,6 +317,7 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
     	        });
     	    });
     	    $(".openxlonclick").click(function(){    	
+    	    	$("#loading").show();
     	        $.ajax({
     	            url: 'report?page=bpReport&type=excel',
     	            type: 'GET',   
@@ -295,10 +325,12 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
     	            	if(data.includes(".xlsx")){
     	            		console.log("PDF Data1" + data);
     	            		window.open("resources/download/"+data , '_blank'); 
+    	            		$("#loading").hide();
     	            		
     	            	}else{
     	            		console.log("PDF Data" + data);
     	            		alert("No Data to Export");
+    	            		$("#loading").hide();
     	            	}
     	            	//window.open("resources/download/"+data , '_blank');  
     	            }

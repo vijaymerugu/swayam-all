@@ -108,7 +108,8 @@ app.controller('daCumulativeDataCCController', ['$scope','$interval','$http','da
 			
 			  $scope.labels1 = ["Total Operational Kiosks", "Total Non-Operational Kiosks"];
 			  $scope.colors1=['#A0B421','#ED402A'];
-
+			  
+			  
 			
 			for(var i=0; i<$scope.apiResponse1.length; i++){
 				if ($scope.apiResponse1[i] !== null) {
@@ -129,7 +130,14 @@ app.controller('daCumulativeDataCCController', ['$scope','$interval','$http','da
 			let rowData=[$scope.sumOfOperationalKiosks1, $scope.sumOfNonOperationalKiosks1];
 			$scope.doughnutData1.push({"rowData" : rowData});
 			
-			$scope.apiResponse1.push({gtLabel:'Grand Total', gtOperationalKiosks:$scope.sumOfOperationalKiosks1, gtTotalKiosks:$scope.sumOfAllKiosks1, gtAvailabilityPercent:$scope.operationalKiosksPercent1});
+			console.log("api reponse1 "+ $scope.apiResponse1);
+			
+			$scope.apiTotal = [];
+			
+			$scope.apiTotal.push({gtLabel:'Grand Total', gtOperationalKiosks:$scope.sumOfOperationalKiosks1, gtTotalKiosks:$scope.sumOfAllKiosks1, gtAvailabilityPercent:$scope.operationalKiosksPercent1});
+		
+			console.log("api reponse1 "+ $scope.apiResponse1);
+			//console.log("api reponse2 "+ $scope.TotalOpenCall);
 		}
    });
 }//End of loadAvailabilityApiData service

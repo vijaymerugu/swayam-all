@@ -26,6 +26,7 @@ import sbi.kiosk.swayam.common.dto.UserDto;
 import sbi.kiosk.swayam.common.dto.UserManagementDto;
 import sbi.kiosk.swayam.common.entity.Circle;
 import sbi.kiosk.swayam.common.entity.User;
+import sbi.kiosk.swayam.kioskmanagement.repository.UsersRepository;
 import sbi.kiosk.swayam.kioskmanagement.service.RoleService;
 import sbi.kiosk.swayam.kioskmanagement.service.UserService;
 
@@ -38,6 +39,9 @@ public class UserManagementController {
 	UserService userService;
 	@Autowired
 	RoleService roleService;
+	
+	 @Autowired
+	 UsersRepository userRepo;
 
 	@RequestMapping(value = { "km/userList" })
 //	@PreAuthorize("hasPermission('UMuserList','CREATE')")
@@ -58,6 +62,9 @@ public class UserManagementController {
 				//int saCount= userService.findSACount();
 				int circleUserCount = userService.findCircleUserCountByCircle();
 				int laCount= userService.findLACountByCircle();
+				int bmCount=userService.findBillingMakerCountByCircle();
+				int bcCount=userService.findBillingCheckerCountByCircle();
+				
 				
 				model.addObject("cmfCount",cmfCount);
 				model.addObject("cmsCount", cmsCount);
@@ -66,6 +73,10 @@ public class UserManagementController {
 				//model.addObject("ccCount",ccCount);
 				//model.addObject("saCount",saCount);
 				model.addObject("circleUserCount",circleUserCount);
+				
+				// BC & BM USER
+				model.addObject("billingMakerCount",bmCount);
+				model.addObject("billingCheckerCount",bcCount);
 				
 				model.setViewName("userlistLA");
 			}			
@@ -186,8 +197,12 @@ public class UserManagementController {
 			resultPage= userService.findPaginatedCountByCircle(page, size, type);
 		}else if(type.equals("LA")){
 			resultPage= userService.findPaginatedCountByCircle(page, size, type);
-		}else{
-	      resultPage = userService.findPaginatedByCircle(page, size);
+		}else if(type.equals("BM")){
+			resultPage= userService.findPaginatedCountByCircle(page, size, type);
+		}else if(type.equals("BC")){
+	        resultPage= userService.findPaginatedCountByCircle(page, size, type);
+        }else{
+	       resultPage = userService.findPaginatedByCircle(page, size);
 		    if (page > resultPage.getTotalPages()){
 		        }
 		}
@@ -219,19 +234,27 @@ public class UserManagementController {
 	
 	@RequestMapping(value = { "km/addUserLA" })
 	@PreAuthorize("hasPermission('UMkmaddUserLA','CREATE')")
-	public ModelAndView addUserLa(ModelAndView model, @ModelAttribute("addUserDto") AddUserDto addUserDto) {
+	public ModelAndView addUserLa(ModelAndView model, @ModelAttribute("addUserDto") AddUserDto addUserDto ,  HttpSession session) {
 
 		try {
 	              List<RolesDto> roleList = roleService.findAllRole();	
 	              Iterator<RolesDto> itr = roleList.iterator();
 	              while(itr.hasNext()){
 	            	  String role = itr.next().getRole();
-	            	  if(role.equals("SA") || role.equals("CC")){
+	            	  if(role.equals("SA") || role.equals("CC") ){
 	            		  itr.remove();
 	            	  }
 	              }
 		           model.addObject("roleList", roleList);
-		           List<Circle> circleList = roleService.findAllCircle();  
+		        //   List<Circle> circleList = roleService.findAllCircle();  
+					
+					  UserDto user = (UserDto) session.getAttribute("userObj");
+						/*
+						 * @SuppressWarnings("unchecked") List<User> circleList = (List<User>)
+						 * userService.getUserByPfId(user.getPfId());
+						 */
+					 
+					  String circleList = userRepo.findCircleByPfId(user.getPfId());
 		          model.addObject("circleList", circleList);
 		          model.setViewName("addUserLA");
 		} catch (Exception e) {
@@ -284,7 +307,7 @@ public class UserManagementController {
 			Iterator<RolesDto> itr = roleList.iterator();
             while(itr.hasNext()){
               String role = itr.next().getRole();
-          	  if(role.equals("SA") || role.equals("CC")){
+          	  if(role.equals("SA") || role.equals("CC") || role.equals("BM") || role.equals("BC")){
           		  itr.remove();
           	  }
             }

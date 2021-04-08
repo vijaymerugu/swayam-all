@@ -31,7 +31,7 @@ public class SanctionRequestServiceImpl implements SanctionRequsetService {
 	@Override
 	public Map<String, Integer> findAllCountRequestStatus() {
 		Map<String, Integer> mapData = null;
-		
+		logger.info("Inside findAllCountRequestStatus" );
 		mapData = new LinkedHashMap<String, Integer>();
 		
 		int submittedStatusCount = bpRepo.findByStatus("Submitted");
@@ -39,9 +39,11 @@ public class SanctionRequestServiceImpl implements SanctionRequsetService {
 		int approvedStatusCount =bpRepo.findByStatus("Approved");
 		
 		int snTypeCount = bpRepo.findCountRequestType("Sanction Note");
-		logger.info("submittedStatusCount====" + submittedStatusCount);
-		logger.info("rejectedStatusCount====" + rejectedStatusCount);
-		logger.info("approvedStatusCount====" + approvedStatusCount);
+		/*
+		 * logger.info("submittedStatusCount====" + submittedStatusCount);
+		 * logger.info("rejectedStatusCount====" + rejectedStatusCount);
+		 * logger.info("approvedStatusCount====" + approvedStatusCount);
+		 */
 		
 		mapData.put("submitted", submittedStatusCount);
 		mapData.put("rejected", rejectedStatusCount);
@@ -72,10 +74,7 @@ public class SanctionRequestServiceImpl implements SanctionRequsetService {
 		
 		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");  
 	
-		String sanctionNoteDate = dateFormat.format(sanctionRequestEntity.getSanNoteDt());  
-		System.out.println("sanctionNoteDate  "+sanctionNoteDate +"  "+  sanctionRequestEntity.getSanNoteDt());
-		System.out.println("Receipt Date  "+ sanctionRequestEntity.getReceiptDt());
-		
+		String sanctionNoteDate = dateFormat.format(sanctionRequestEntity.getSanNoteDt()); 
 		String receiptDate = dateFormat.format(sanctionRequestEntity.getReceiptDt()); 
 		String invoiceDate = dateFormat.format(sanctionRequestEntity.getInvoiceDt()); 
 		String toDate = dateFormat.format(sanctionRequestEntity.getInvTo());
@@ -124,7 +123,7 @@ public class SanctionRequestServiceImpl implements SanctionRequsetService {
 		mapData.put("circularSlNo", sanctionRequestEntity.getCircularSlNo());
 		
 		
-		logger.info("mapData===" + mapData);
+		//logger.info("mapData===" + mapData);
 		
 		
 		

@@ -38,9 +38,33 @@
 <script src="resources/js/ticket-centor-cu-app.js"></script>
 <link rel="stylesheet" href="resources/css/grid-style.css" />
 
+<style>
+	
+    .ui-grid-contents-wrapper {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+    		.ui-grid, .ui-grid-viewport {
+   			  height: auto !important; 
+			} 
+			.ui-grid-pager-panel {
+		     position: relative;
+			 } 
+	
+			.ui-grid-pager-row-count-picker {
+			display:none;
+			}
+			.ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
+			    overflow-x: hidden !important;
+			}
+			.ui-grid-header-canvas {
+			    padding-top: 0px;
+			    padding-bottom: 0px;}			
+</style>
 </head>
 <body>
-	<div class="main"  ng-app="app" id="appId">
+	<div class="main_transaction"  ng-app="app" id="appId">
 	<div ng-controller="UserManagementCtrl1 as vm">
 	<div class="subTable">
 	   <div class="col-md-6">
@@ -134,7 +158,7 @@
 	
 	<br/>
 			
-				<div class="submain">
+				<div class="submain_transaction">
 
 					<div   style="border-bottom: 1px solid #eee;">
 						
@@ -146,7 +170,9 @@
 							&nbsp;&nbsp;&nbsp;
 						</span>	
 						<br />
-						
+						<div class="loading" id="loading" align="center" style="display:none;">
+   			 				<img src="resources/img/loader.gif"> 
+						</div>
 						<div style="top: 355px; left: 15px; width: 1336px; height: 519px; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1;"
 							                 ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter	ui-grid-resize-columns id="test">
 					     </div>
@@ -165,7 +191,7 @@ angular.bootstrap(document.getElementById("appId"), ['app']);
 $(document).ready(function(){
 
     $(".openpdfonclick").click(function(){
-    	
+    	$("#loading").show();
         $.ajax({
             url: 'report?page=ticketCenterCU&type=pdf',
             type: 'GET',   
@@ -174,15 +200,18 @@ $(document).ready(function(){
             	if(data.includes(".pdf")){
             		console.log("PDF Data1" + data);
             		window.open("resources/download/"+data , '_blank'); 
+            		$("#loading").hide(); 
             		
             	}else{
             		console.log("PDF Data" + data);
             		alert("No Data to Export");
+            		$("#loading").hide(); 
             	}    
             }
         });
     });
-    $(".openxlonclick").click(function(){    	
+    $(".openxlonclick").click(function(){  
+    	$("#loading").show(); 
         $.ajax({
             url: 'report?page=ticketCenterCU&type=excel',
             type: 'GET',   
@@ -191,10 +220,12 @@ $(document).ready(function(){
             	if(data.includes(".xlsx")){
             		console.log("Excel Data1" + data);
             		window.open("resources/download/"+data , '_blank'); 
+            		$("#loading").hide(); 
             		
             	}else{
             		console.log("Excel Data" + data);
             		alert("No Data to Export");
+            		$("#loading").hide(); 
             	}  
             }
         });

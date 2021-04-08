@@ -21,12 +21,14 @@
 
 <link rel="stylesheet" href="resources/css/grid-style.css" />
 <link rel="stylesheet" href="resources/css/body-page.css" />
+<link rel="stylesheet" href="resources/css/bootstrap.min.css" />
+
 <script
-	src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.js"></script>
+	src="resources/js/ui-grid.js"></script>
 <script
-	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	src="resources/js/ui-grid.min.js"></script>
+<!-- <link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
 
 <link href="resources/css/menu.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="resources/css/ui-grid.css"
@@ -761,12 +763,13 @@ $(document).ready(function(){
 						<td></td>
 						<td style="top: 352px; width: 190px; height: 75px;opacity: 1;"><b style="color: purple">Circle</b><b><span
 							 	style="color: red">*</span></b></td>
-						<td><form:select path="circle" id="circle"   value="${addUserDto.circle}" style="color:blue">
+							 	<td><form:input path="circle"  id="circle"   value="${circleList}" style="color:blue" maxlength="50"/>
+						 <%-- <td><form:select path="circle" id="circle"   value="${addUserDto.circle}" style="color:blue">
 								<form:option value="Select" label="Select"></form:option>
 								<c:forEach var="list" items="${circleList}">
 									<form:option value="${list.circleName}">${list.circleName}</form:option>
 								</c:forEach>
-							</form:select></td>	
+							</form:select></td>	  --%>
 					</tr>
 					<tr>
 						<td></td>

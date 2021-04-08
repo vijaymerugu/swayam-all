@@ -38,11 +38,8 @@ public class TaxServiceImpl implements TaxService {
 			int criteria,String gstType) {
 		try {
 			
-			logger.info("Inside getTaxCalculation with  criteria " +  criteria);
-			logger.info("Inside getTaxCalculation with  circle " +  report.getCircle());
-			logger.info("Inside getTaxCalculation with  state " +  report.getState());
-			
-			logger.info("Inside getTaxCalculation with  gstType-- " +  gstType);
+			logger.info("Inside getTaxCalculation");
+		
 			List<TaxCalculationEntity> calculationlist =null;
 			if(gstType.equals("IGST")) {
 				
@@ -81,37 +78,12 @@ public class TaxServiceImpl implements TaxService {
 			gstType=null;
 			 return calculationlist;
 		} catch (Exception e) {
-			logger.error("Exception in getAvailability." + e);
+			//logger.error("Exception in getAvailability." + e);
 			return new ArrayList<TaxCalculationEntity>();
 		}		//return null;
 	}
 
-//	@Override
-//	public List<TaxCalculationEntity> getTaxCalculation(BillingPaymentReport report,int criteria) {
-//		try {
-//			
-//			logger.info("Inside getTaxCalculation with  criteria " +  criteria);
-//			logger.info("Inside getTaxCalculation with  circle " +  report.getCircle());
-//			logger.info("Inside getTaxCalculation with  state " +  report.getState());
-//			@SuppressWarnings("unchecked")
-//			List<TaxCalculationEntity> calculationlist = 
-//			entityManager.createNamedStoredProcedureQuery("SP_TAX_CALCUALTIONS")
-//						.setParameter("CRITERIA", criteria)
-//						.setParameter("GSTTYPE", report.getGstType())
-//						.setParameter("CIRCLECODE", Integer.parseInt(report.getCircle()))
-//						.setParameter("STATDCODE", Integer.parseInt(report.getState()))
-//						.setParameter("RFPNO", report.getRpfNumber())
-//						.setParameter("VENDORID",Integer.parseInt(report.getVendor()))
-//						.setParameter("FINYEAR", report.getYear())
-//						.setParameter("QTRID", report.getQuarter())
-//						.setParameter("GST", report.getGst())
-//						.getResultList();
-//			 return calculationlist;
-//		} catch (Exception e) {
-//			logger.error("Exception in getAvailability." + e);
-//			return new ArrayList<TaxCalculationEntity>();
-//		}		//return null;
-//	}
+
 
 	@Override
 	public Page<TaxSummaryEntity> findPageByFilterIs(int page, int size, String type, String selectedCircelId,
@@ -150,10 +122,12 @@ public class TaxServiceImpl implements TaxService {
 		try {
 			
 			logger.info("Inside getTaxCalculation with  criteria " +  criteria);
-			logger.info("Inside getTaxCalculation with  circle " +  report.getCircle());
-			logger.info("Inside getTaxCalculation with  state " +  report.getState());
-			
-			logger.info("Inside getTaxCalculation with  gstType-- " +  gstType);
+			/*
+			 * logger.info("Inside getTaxCalculation with  circle " + report.getCircle());
+			 * logger.info("Inside getTaxCalculation with  state " + report.getState());
+			 */
+			 logger.info("Inside getTaxCalculation with  gstType-- " + gstType);
+			 
 			List<TaxCalculationEntity2> calculationlist =null;
 			if(gstType.equals("SGST")) {
 				
@@ -174,7 +148,7 @@ public class TaxServiceImpl implements TaxService {
 			gstType=null;
 			 return calculationlist;
 		} catch (Exception e) {
-			logger.error("Exception in getAvailability." + e);
+			
 			return new ArrayList<TaxCalculationEntity2>();
 		}	
 	}

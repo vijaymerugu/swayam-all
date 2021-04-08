@@ -67,28 +67,28 @@ public class InvoiceSummaryDto {
 //	
 //	private String q4Ba;
 	
-	private Long q1Im;
+	private Double q1Im;
 	
-	private Long q2Im;
+	private Double q2Im;
 	
-	private Long q3Im;
+	private Double q3Im;
 	
-	private Long q4Im;
+	private Double q4Im;
 	
-	private Long q1P;
+	private Double q1P;
 	
-	private Long q2P;
+	private Double q2P;
 	
-	private Long q3P;
+	private Double q3P;
 	
-	private Long q4P;
+	private Double q4P;
 	
-	private Long q1Ba;
+	private Double q1Ba;
 	
-	private Long q2Ba;
+	private Double q2Ba;
 	
-	private Long q3Ba;
+	private Double q3Ba;
 	
-	private Long q4Ba;
+	private Double q4Ba;
 
 }

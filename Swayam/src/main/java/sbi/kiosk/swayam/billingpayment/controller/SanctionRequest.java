@@ -2,11 +2,13 @@ package sbi.kiosk.swayam.billingpayment.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -14,8 +16,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +31,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ResourceUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -205,22 +217,46 @@ public class SanctionRequest {
 	
 	@RequestMapping("approveDetails/get")
 	 public ResponseEntity<RfpResponse> formApprove(@RequestParam("reqId") int requestId,
-			 @RequestParam("commnets") String commnets) {
+			 @RequestParam("commnets") String commnets,HttpServletRequest req) {
 		UserDto user = (UserDto) httpSession.getAttribute("userObj");
 		//int statusCount = bprequest.findCountApproved(requestId);
-		int approved = 0;
-		approved = bprequest.findApproved(requestId);
-		System.out.println("approved " +approved);
+		//System.out.println("Inside formApprove");
+		String csrfToken = req.getHeader("X-CSRF-TOKEN");
+		
+		
+		 if (csrfToken ==null || csrfToken.isEmpty()) {
+			 req.getSession().invalidate();
+			 return null;
+			 
+		 }else  if(req.getSession() !=null && csrfToken.equals(req.getSession().getAttribute("csrfToken"))) {
+			 httpSession.setAttribute("csrfToken", UUID.randomUUID().toString());
+		 }else{
+			 req.getSession().invalidate();
+			 return null;
+		 }
+		 
+		 
+		 String role = userRepo.findRoleByPfId(user.getPfId());
+		  if(role.equalsIgnoreCase("BC") == false) { 
+			  
+			  return ResponseEntity.ok(new RfpResponse("Authorization Required")); 
+			  }
+		 
+		
+		 int approved = 0;
+			approved = bprequest.findApproved(requestId);
 		if(approved>0){
+			
 			return ResponseEntity.ok(new 
 	    			RfpResponse("Request Id "+ requestId +" Already Approved"));
 		}
 		
 		int rejected =0;
 		rejected= bprequest.findRejected(requestId);
-		System.out.println("rejected " +rejected);
+		//System.out.println("rejected " +rejected);
 		
 		if(rejected>0) {
+			//httpSession.setAttribute("csrfToken", UUID.randomUUID().toString());
 			return ResponseEntity.ok(new 
 	    			RfpResponse("Canot approve request Id "+ requestId +" Already Rejected"));
 		}
@@ -228,7 +264,7 @@ public class SanctionRequest {
 		String pfid = user.getPfId();
 		
 		bprequest.updateApprove(requestId, new Date(), commnets, pfid);
-		
+		//httpSession.setAttribute("csrfToken", UUID.randomUUID().toString());
 		return ResponseEntity.ok(new 
     			RfpResponse("Request Id  "+ requestId +" Approved Successfully"));
 		
@@ -242,16 +278,12 @@ public class SanctionRequest {
 			 @RequestParam("selectedYear") String selectedYear,
 			 @RequestParam("selectedQtr") String selectedQtr) {
 		
-		System.out.println("SelectedVendorId " + SelectedVendorId);
-		System.out.println("SelectedStateId " + SelectedStateId);
-		System.out.println("SelectedCircelId " + SelectedCircelId);
-		System.out.println("selectedYear " + selectedYear);
-		System.out.println("selectedQtr " + selectedQtr);
+
 		
 //		int count = detailRepo.findKioskCount(SelectedCircelId, SelectedStateId, SelectedVendorId);
 		int count = detailRepo.findCount(SelectedCircelId, SelectedStateId, 
 				SelectedVendorId,selectedYear,selectedQtr);
-		System.out.println("Kiosk Count "+ count);
+		//System.out.println("Kiosk Count "+ count);
 		
 				return count;
 	}
@@ -274,7 +306,7 @@ public class SanctionRequest {
 			
 		}
 		
-		System.out.println("tax entity "+ taxEntity);
+		//System.out.println("tax entity "+ taxEntity);
 		
 		return ResponseEntity.ok(taxEntity);
 						
@@ -283,8 +315,27 @@ public class SanctionRequest {
 	
 	@RequestMapping("rejectDetails/get")
 	 public ResponseEntity<RfpResponse> formReject(
-			 @RequestParam("reqId") int requestId, @RequestParam("commnets") String commnets) {
+			 @RequestParam("reqId") int requestId, @RequestParam("commnets") String commnets,HttpServletRequest req) {
 		UserDto user = (UserDto) httpSession.getAttribute("userObj");
+		String csrfToken = req.getHeader("X-CSRF-TOKEN");
+		 if (csrfToken ==null || csrfToken.isEmpty()) {
+			 req.getSession().invalidate();
+			 return null;
+			 
+		 }else  if(req.getSession() !=null && csrfToken.equals(req.getSession().getAttribute("csrfToken"))) {
+			 httpSession.setAttribute("csrfToken", UUID.randomUUID().toString());
+		 }else{
+			 req.getSession().invalidate();
+			 return null;
+		 }
+		 
+		 	String role = userRepo.findRoleByPfId(user.getPfId());
+		 	if(role.equalsIgnoreCase("BC") == false) { 
+			  return ResponseEntity.ok(new RfpResponse("Authorization Required")); 
+			  }
+		
+		
+		
 		int rejected =0;
 		rejected= bprequest.findRejected(requestId);
 		
@@ -312,11 +363,26 @@ public class SanctionRequest {
 	
 	@RequestMapping("updateComment/get")
 	 public ResponseEntity<RfpResponse> updateMakersComment(
-			 @RequestParam("reqId") int requestId, @RequestParam("commnets") String commnets) {
+			 @RequestParam("reqId") int requestId, @RequestParam("commnets") String commnets,HttpServletRequest req) {
 		UserDto user = (UserDto) httpSession.getAttribute("userObj");
-		
+		String csrfToken = req.getHeader("X-CSRF-TOKEN");
+		 if (csrfToken ==null || csrfToken.isEmpty()) {
+			 req.getSession().invalidate();
+			 return null;
+			 
+		 }else  if(req.getSession() !=null && csrfToken.equals(req.getSession().getAttribute("csrfToken"))) {
+			 httpSession.setAttribute("csrfToken", UUID.randomUUID().toString());
+		 }else{
+			 req.getSession().invalidate();
+			 return null;
+		 }
 		
 		String pfid = user.getPfId();
+		
+		String role = userRepo.findRoleByPfId(pfid);
+		  if(role.equalsIgnoreCase("BM") == false) { 
+			  return ResponseEntity.ok(new RfpResponse("Authorization Required"));  
+			  }
 		
 		bprequest.updateComment(requestId,commnets, pfid);
 		
@@ -325,12 +391,50 @@ public class SanctionRequest {
 	}
 	
 	
-	
 	@RequestMapping(value = "bp/sanctionInsert", method = RequestMethod.POST)
 	//@PreAuthorize("hasPermission('AddRFP','CREATE')")
-    public ResponseEntity<RfpResponse> addSanctionRequest(@RequestBody SanctionRequestEntity request) {
-			System.out.println("Inside addSanctionRequest ");
+    public ResponseEntity<RfpResponse> addSanctionRequest(@RequestBody String payload,
+    		HttpServletRequest req) throws JsonParseException, JsonMappingException, IOException {
+			ObjectMapper objectMapper = new ObjectMapper();
+			//System.out.println("Inside addSanctionRequest");
+			byte[] decodedBytes = Base64.getMimeDecoder().decode(payload);
+			
+			String decodedString = new String(decodedBytes);
+			//System.out.println("Decoded String " + decodedString);
+			
+			
+			@Valid
+			SanctionRequestEntity request = objectMapper.readValue(decodedString, SanctionRequestEntity.class);
+			
+			
 			UserDto user = (UserDto) httpSession.getAttribute("userObj");
+			
+			String csrfToken = req.getHeader("X-CSRF-TOKEN");
+			
+			 if (csrfToken ==null || csrfToken.isEmpty()) {
+				 req.getSession().invalidate();
+				 return null;
+				 
+			 }else  if(req.getSession() !=null && csrfToken.equals(req.getSession().getAttribute("csrfToken"))) {
+				 httpSession.setAttribute("csrfToken", UUID.randomUUID().toString());
+			 }else{
+				 req.getSession().invalidate();
+				 return null;
+			 }
+			 
+			 String role = userRepo.findRoleByPfId(user.getPfId());
+			  if(role.equalsIgnoreCase("BM") == false) { 
+				  return ResponseEntity.ok(new RfpResponse("Authorization Required"));  
+				  }
+			  
+					/*
+					 * if(result.hasErrors()) { //System.out.println("Error " +
+					 * result.getAllErrors()); logger.error("Validation Failed" +
+					 * result.getAllErrors()); return ResponseEntity.ok(new
+					 * RfpResponse("Server side validation fail"));
+					 * 
+					 * }
+					 */
 			
 			requestRepo.save(request);
 			
@@ -343,9 +447,6 @@ public class SanctionRequest {
 			request2.setStatus("Submitted");
 			
 			bprequest.save(request2);
-			
-			
-			System.out.println("Request Id "+ request2.getRequestId()  +" submitted Successfully");
         		
         	
         	//logger.info("Request Id "+ request.getRequestId()  +" Added Successfully");
@@ -353,6 +454,58 @@ public class SanctionRequest {
         			RfpResponse("Request Id  "+request2.getRequestId()  +" submitted Successfully"));
     }
 	
+	
+	
+//	@RequestMapping(value = "bp/sanctionInsert", method = RequestMethod.POST)
+//	//@PreAuthorize("hasPermission('AddRFP','CREATE')")
+//    public ResponseEntity<RfpResponse> addSanctionRequest(@Valid @RequestBody SanctionRequestEntity request,
+//    		HttpServletRequest req, BindingResult result) {
+//			System.out.println("Inside addSanctionRequest ");
+//			UserDto user = (UserDto) httpSession.getAttribute("userObj");
+//			
+//			String csrfToken = req.getHeader("X-CSRF-TOKEN");
+//			System.out.println("Inside addSanctionRequest " + csrfToken);
+//			 if (csrfToken ==null || csrfToken.isEmpty()) {
+//				 req.getSession().invalidate();
+//				 return null;
+//				 
+//			 }else  if(req.getSession() !=null && csrfToken.equals(req.getSession().getAttribute("csrfToken"))) {
+//				 httpSession.setAttribute("csrfToken", UUID.randomUUID().toString());
+//			 }else{
+//				 req.getSession().invalidate();
+//				 return null;
+//			 }
+//			 
+//			 String role = userRepo.findRoleByPfId(user.getPfId());
+//			  if(role.equalsIgnoreCase("BM") == false) { 
+//				  return ResponseEntity.ok(new RfpResponse("Authorization Required"));  
+//				  }
+//			  
+//			  if(result.hasErrors()) {
+//      			//System.out.println("Error " + result.getAllErrors());
+//      			logger.error("Validation Failed" + result.getAllErrors());
+//      			return ResponseEntity.ok(new RfpResponse("Server side validation fail"));
+//      			
+//      		}
+//			
+//			requestRepo.save(request);
+//			
+//			BpRequest request2 = new BpRequest();
+//			
+//			request2.setRequestId(request.getRequestId());
+//			request2.setReqType("Sanction Note");
+//			request2.setReqDate(new Date());
+//			request2.setMakerPfid(user.getPfId());
+//			request2.setStatus("Submitted");
+//			
+//			bprequest.save(request2);
+//        		
+//        	
+//        	//logger.info("Request Id "+ request.getRequestId()  +" Added Successfully");
+//        	return ResponseEntity.ok(new 
+//        			RfpResponse("Request Id  "+request2.getRequestId()  +" submitted Successfully"));
+//    }
+//	
 	
 	
 	@RequestMapping(value = "generate/sanctionPdf",params = { "requestId"}, method = RequestMethod.GET)
@@ -418,13 +571,6 @@ public class SanctionRequest {
 			
 			
 		}
-		
-		
-		
-		
-		
-		
-		
 		
 		
 		/*
@@ -540,10 +686,6 @@ public class SanctionRequest {
 		sanctionRequestEntity.setVendorFullName(vendorFullName);
 		logger.info("sanctionRequestEntity with vendor " + sanctionRequestEntity);
 		
-		
-		
-		
-		
 		List<SanctionPdfInfo> list = new ArrayList<SanctionPdfInfo>();
 		list.add(sanctionRequestEntity);
 		JasperReport jasperReport = null;
@@ -575,11 +717,10 @@ public class SanctionRequest {
 		
 		
 		//file = ResourceUtils.getFile(jrxmlPath + "SanctionNote.jrxml");
-		
-		
 		InputStream input = new FileInputStream(file);
 		jasperReport = JasperCompileManager.compileReport(input);
 		source = new JRBeanCollectionDataSource(list);
+		input.close();
 		Map<String, Object> parameters = new HashMap<>();
 		jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
 		String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
@@ -615,17 +756,9 @@ public class SanctionRequest {
 		}
 		
 		
-		
-		
-		
-		
 		JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
-	
 		
-		
-		
-		return ResponseEntity.ok(new 
-    			RfpResponse(filename));
+		return ResponseEntity.ok(new RfpResponse(filename));
 		
 	
 	}

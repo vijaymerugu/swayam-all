@@ -17,7 +17,8 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService','uiGridCo
    
    $scope.getCountType = function(type){
       
-       counttype=type;
+	   $scope.counttype=type;
+	//   alert("counttype2:: "+$scope.counttype);
    //  Added for loader------------- START 
 		$("#loading").show(); 
 	//  Added for loader------------- END 
@@ -31,7 +32,16 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService','uiGridCo
 					//  Added for loader------------- END 
 				   });
 	}
-   
+   $scope.backUser = function()
+   {  	
+	        $("#loading").show();  
+	        
+	        var str ='td/drillDownBranchBack?circleName='+circleName+'&networkName='+networkName+'&moduleName='+moduleName+'&regionName='+regionName+'&fromDate='+fromDate+'&toDate='+toDate;
+			$("#contentHomeApp").load(str);
+	     
+		    $("#loading").hide();  
+	 	   
+	    };
    
    $scope.refresh = function()
    {  	
@@ -101,10 +111,10 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService','uiGridCo
       },{
           name: 'lipi',
           displayName: 'LIPI'
-      }, {
+      }, /*{
           name: 'Forbes',
           displayName: 'Forbes'
-      }, {
+      }, */ {
           name: 'CMS',
           displayName: 'CMS'
       },  {
@@ -121,9 +131,9 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService','uiGridCo
          { name: 'totalSwayamKiosks', displayName: 'Total Swayam Kiosks',superCol: 'front'  ,aggregationType: uiGridConstants.aggregationTypes.sum , aggregationHideLabel: true, width: '7%'  },
          { name: 'lipiKiosks',width: 90, displayName: 'Kiosks',superCol: 'lipi' ,aggregationType: uiGridConstants.aggregationTypes.sum , aggregationHideLabel: true, width: '7%'  },
          { name: 'lipiTxns',width: 90, displayName: 'Txns',superCol: 'lipi' ,aggregationType: uiGridConstants.aggregationTypes.sum , aggregationHideLabel: true, width: '7%'  },
-         { name: 'forbesKiosks',width: 90, displayName: 'Kiosks',superCol: 'Forbes' ,aggregationType: uiGridConstants.aggregationTypes.sum , aggregationHideLabel: true, width: '7%'  },
+       /*  { name: 'forbesKiosks',width: 90, displayName: 'Kiosks',superCol: 'Forbes' ,aggregationType: uiGridConstants.aggregationTypes.sum , aggregationHideLabel: true, width: '7%'  },
          { name: 'forbesTxns',width: 90, displayName: 'Txns',superCol: 'Forbes' ,aggregationType: uiGridConstants.aggregationTypes.sum , aggregationHideLabel: true, width: '7%'  },
-         { name: 'cmsKiosks',width: 90, displayName: 'Kiosks',superCol: 'CMS'  ,aggregationType: uiGridConstants.aggregationTypes.sum , aggregationHideLabel: true, width: '7%' },
+       */  { name: 'cmsKiosks',width: 90, displayName: 'Kiosks',superCol: 'CMS'  ,aggregationType: uiGridConstants.aggregationTypes.sum , aggregationHideLabel: true, width: '7%' },
          { name: 'cmsTxns',width: 90, displayName: 'Txns',superCol: 'CMS'  ,aggregationType: uiGridConstants.aggregationTypes.sum , aggregationHideLabel: true, width: '7%' },
          { name: 'totalSwayamTxns', displayName: 'Swayam Txns',superCol: 'total',aggregationType: uiGridConstants.aggregationTypes.sum , aggregationHideLabel: true, width: '7%'   },
          { name: 'totalBranchCounterTxns', displayName: 'Branch Counter Txns',superCol: 'total'  ,aggregationType: uiGridConstants.aggregationTypes.sum , aggregationHideLabel: true, width: '7%' },
@@ -138,7 +148,8 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService','uiGridCo
   	    //  Added for loader------------- START 
 			$("#loading").show(); 
 			if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){
-          DrillDownService.getUsers(newPage,pageSize,"BR",circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
+			//	alert("counttype1:: "+$scope.counttype);
+          DrillDownService.getUsers(newPage,pageSize,$scope.counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
         	  $scope.gridOptions.data = data.content;
          	  $scope.gridOptions.totalItems = data.totalElements;
       	    //  Added for loader------------- START 
@@ -148,8 +159,9 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService','uiGridCo
 			}
 	        else{
 	 	 	   //	console.log("Inside else");
-	        	 UserManagementService.getSearchNext(newPage,pageSize,"BR",circleName,networkName,moduleName,regionName,fromDate,toDate,$scope.searchText).success(function(data){
-	           	  $scope.gridOptions.data = data.content;
+	        	 UserManagementService.getSearchNext(newPage,pageSize,$scope.counttype,circleName,networkName,moduleName,regionName,fromDate,toDate,$scope.searchText).success(function(data){
+	        //		alert("counttype2:: "+$scope.counttype);
+	        		 $scope.gridOptions.data = data.content;
 	           	 	  $scope.gridOptions.totalItems = data.totalElements;
 	        
 		 	 		 $("#loading").hide();  
@@ -225,7 +237,7 @@ app.service('DrillDownService',['$http', function ($http) {
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({
           method: 'GET',
-          url: 'td/realTimeTxn/getSearchNext?page='+pageNumber+'&size='+size+'&type='+counttype+'&circleName='+circleName
+          url: 'drillDown/getSearchNext?page='+pageNumber+'&size='+size+'&type='+counttype+'&circleName='+circleName
           +'&networkName='+networkName+'&moduleName='+moduleName+'&regionName='+regionName
           +'&fromDate='+fromDate+'&toDate='+toDate+'&searchText='+searchText
         });

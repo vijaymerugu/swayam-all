@@ -165,7 +165,7 @@ public class ErrorReportingServiceImpl implements ErrorReportingService {
 			//swayamMigrationTxnDate=errorReportingRepo.findCurrentDateAuditJob();
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+		//	e.printStackTrace();
 		}
 		return swayamMigrationTxnDate;
 		

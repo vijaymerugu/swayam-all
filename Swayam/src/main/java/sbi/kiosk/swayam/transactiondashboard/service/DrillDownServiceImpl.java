@@ -190,7 +190,7 @@ public class DrillDownServiceImpl implements DrillDownService{
 			swayamMigrationTxnDate=drillDownRepository.findCurrentDateAuditJob();
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+		//	e.printStackTrace();
 		}
 		return swayamMigrationTxnDate;
 		

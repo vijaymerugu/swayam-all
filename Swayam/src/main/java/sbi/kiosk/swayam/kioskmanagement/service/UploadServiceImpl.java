@@ -86,32 +86,13 @@ public class UploadServiceImpl implements UploadService {
 //Kiosk Master
 	@Override
 	public String uploadKioskInformation(String path) {
-		// upload kiosk file information
+		
 		
 		Map<String, String> map = new HashMap();
 		try {
 
-			// By Ankur 28-04-2020-----------STARTS---------
-
-			/*
-			 * rb = ResourceBundle.getBundle("rb"+rb);
-			 * rb.getString("kioskFilepath");
-			 */
-
 			inputStream = new FileInputStream(path);
-		//	logger.info("7 A.file read successfully!! "+ path);
-			// new File("C:\\Users\\Admin\\Downloads\\Swayam_Kiosk_Information.xlsx"));
-
-			// -------By Ankur END---------------------------
-
 			workbook = new XSSFWorkbook(inputStream);
-
-			logger.info("7 B.workbook parsing started!!");
-			// By Ankur 28-04-2020-----------STARTS---------
-
-			/* HashMap<Integer,String> map = map=new HashMap<Integer,String>(); */
-
-			// -------By Ankur END---------------------------
 
 			org.apache.poi.ss.usermodel.Sheet firstSheet = workbook.getSheetAt(0);
 			DataFormatter objDefaultFormat = new DataFormatter();
@@ -129,14 +110,7 @@ public class UploadServiceImpl implements UploadService {
 					
 					if(String.valueOf(cell.getRow().getRowNum()).equals("0")) 
 					{
-						/*
-						 * if(String.valueOf(cell.getColumnIndex()).equals("0")) {
-						 * if(!((String.valueOf(cell.getColumnIndex()).equals("0")) &&
-						 * (cell.getStringCellValue().equalsIgnoreCase("ID")))) {
-						 * logger.error("Wrong File or Data Sequence or header is missing for upload!!");
-						 * 
-						 * return "Wrong File or Data Sequence or header is missing for upload"; } }
-						 */
+						
 						if(String.valueOf(cell.getColumnIndex()).equals("1")) {
 						if(!((String.valueOf(cell.getColumnIndex()).equals("1")) && (cell.getStringCellValue().equalsIgnoreCase("KIOSK_ID"))))
 						{
@@ -582,7 +556,7 @@ public class UploadServiceImpl implements UploadService {
 
 						
 					} // switch close
-					logger.info(" - ");
+				
 				} // 1st close while loop
 				lidtDto.add(dto);
 				if((lidtDto.get(0).getKioskID() ==null || lidtDto.get(0).getKioskID().trim().equals(""))
@@ -639,11 +613,9 @@ public class UploadServiceImpl implements UploadService {
 					try {
 					String sDate1=lidtDto1.getInstallationDate();
 					  
-				//	  logger.info("Installation date in entity format: "+sDate1); 
-					  
+				  
 					  sDate1= sDate1.replaceAll("/", "-")
 						  		.replaceAll("-", "-");
-					//	  logger.info("replaced date in entity format: "+sDate1); 
 						 				
 						  Date date =new Date();
 					
@@ -653,7 +625,6 @@ public class UploadServiceImpl implements UploadService {
 					  
 					  installationDate =  new SimpleDateFormat("dd-mm-yyyy").format(date);
 					  
-				//	  logger.info("installationDate date in String format: "+installationDate);
 					  entity.setInstallationDate(installationDate);//3
 					}
 					catch (Exception e) {
@@ -826,7 +797,7 @@ public class UploadServiceImpl implements UploadService {
 
 			} catch (Exception e) {
 				logger.error("Exception "+ExceptionConstants.EXCEPTION);
-				e.printStackTrace();
+				
 			}
 		}
 		return "Data Not Uploaded";
@@ -891,13 +862,13 @@ public class UploadServiceImpl implements UploadService {
 		
 		try {
 			// this Writes the workbook KioskC
-		//	logger.info("Error file path: "+reportPath1+filename);
+	
 			FileOutputStream out = new FileOutputStream(new File(reportPath1+filename));
 			workbook1.write(out);
 			out.close();
 		} catch (Exception e) {
 			logger.error("Exception "+ExceptionConstants.EXCEPTION);
-			e.printStackTrace();
+			
 		}
 
 	}
@@ -910,20 +881,9 @@ public class UploadServiceImpl implements UploadService {
 		// upload kiosk file information
 		try {
 
-			// By Ankur 28-04-2020-----------STARTS---------
-
-
-			// rb = ResourceBundle.getBundle("stream");
-
-			// String CBSBrhmFilepath = rb.getString(path);
-
+			
 			inputStream = new FileInputStream(new File(path));
-			logger.info("7 A.file read successfully!!");
 			workbook = new XSSFWorkbook(inputStream);
-			logger.info("7 B.workbook parsing started!!");
-			// List<String> errorList = new ArrayList<String>();
-
-			// -------By Ankur END---------------------------
 
 			org.apache.poi.ss.usermodel.Sheet firstSheet = workbook.getSheetAt(0);
 			Iterator<Row> iterator = firstSheet.iterator();
@@ -931,13 +891,6 @@ public class UploadServiceImpl implements UploadService {
 			while (iterator.hasNext()) {
 				Row nextRow = iterator.next();
 
-				// By Ankur 28-04-2020-----------STARTS---------
-
-				// map=new HashMap<Integer,String>();
-
-				// errorList = new ArrayList<String>();
-
-				// -------By Ankur END---------------------------
 
 				Iterator<Cell> cellIterator = nextRow.cellIterator();
 				CbsBrhmDto dto = new CbsBrhmDto();
@@ -1551,7 +1504,7 @@ public class UploadServiceImpl implements UploadService {
 						}				
 
 					}// switch close
-					logger.info(" - ");
+				//	logger.info(" - ");
 				} // 1st close while loop
 	/*			if((dto.getBranchCode() ==null || dto.getBranchCode().trim().equals(""))
 						&& (dto.getBranchName() ==null || dto.getBranchName().trim().equals(""))
@@ -1874,7 +1827,7 @@ public class UploadServiceImpl implements UploadService {
 				}
 			} catch (Exception e) {
 				logger.error("Exception "+ExceptionConstants.EXCEPTION);
-				e.printStackTrace();
+				
 			}
 		}
 		return "Data Not Uploaded";
@@ -1953,14 +1906,14 @@ public class UploadServiceImpl implements UploadService {
 		
 		try {
 			// this Writes the workbook KioskC
-		//	logger.info("Error file path: "+reportPath1+filename);
+
 			FileOutputStream out = new FileOutputStream(
 					new File(reportPath1+filename));
 			workbook1.write(out);
 			out.close();
 		} catch (Exception e) {
 			logger.error("Exception "+ExceptionConstants.EXCEPTION);
-			e.printStackTrace();
+			
 		}
 
 	}
@@ -1975,18 +1928,11 @@ public class UploadServiceImpl implements UploadService {
 
 		try {
 
-			// By Ankur 28-04-2020-----------STARTS---------
-			// rb = ResourceBundle.getBundle("system");
-
-			// String holidayCalendarFilePath = rb.getString("CBSBrhmFilepath");
-			// String holidayCalendarFilePath = rb.getString(path);
+		
 			inputStream = new FileInputStream(new File(path));
-		//	logger.info("7 A.file read successfully!! "+ path);
-			// -------By Ankur END---------------------------
-
+	
 			workbook = new XSSFWorkbook(inputStream);
-			logger.info("7 B.workbook parsing started!!");
-			// HashMap<Integer,String> map=null;  
+	
 			org.apache.poi.ss.usermodel.Sheet firstSheet = workbook.getSheetAt(0);
 
 			DataFormatter objDefaultFormat = new DataFormatter();
@@ -2130,7 +2076,7 @@ public class UploadServiceImpl implements UploadService {
 
 					}
 					
-					logger.info(" - ");
+				//	logger.info(" - ");
 
 				} // 1st close while loop
 				lidtDto.add(dto);
@@ -2169,30 +2115,13 @@ public class UploadServiceImpl implements UploadService {
 				if (count != 0) {
 					entity = new HolidayCalendar();
 					
-				//	entity.setHolidayDate(lidtDto1.getHolidayDate());
-					/*
-					 * String holidayDate = ""; try { String sDate1=lidtDto1.getHolidayDate();
-					 * 
-					 * logger.info("Holiday date in entity format: "+sDate1); // SimpleDateFormat
-					 * formatter = new SimpleDateFormat("mm/dd/yyyy"); SimpleDateFormat formatter =
-					 * new SimpleDateFormat("dd-mm-yyyy"); Date date = formatter.parse(sDate1);
-					 * holidayDate = new SimpleDateFormat("dd-mm-yyyy").format(date);
-					 * 
-					 * logger.info("Holiday date in String format: "+holidayDate);
-					 * entity.setHolidayDate(holidayDate); } catch (Exception e) {
-					 * logger.error("Exception "+ExceptionConstants.DATE_EXCEPTION); holidayDate =
-					 * ""; lidtDto1.setHolidayDate(""); entity.setHolidayDate(holidayDate);//3 }
-					 */
+			
 					String holidayDate = "";
 					try {	
 						  String sDate1=lidtDto1.getHolidayDate();
-						  
-					//	  logger.info("Holiday date in entity format: "+sDate1);
-						 
+				
 						  sDate1= sDate1.replaceAll("/", "-")
 						  		.replaceAll("-", "-");
-					//	  logger.info("replaced date in entity format: "+sDate1); 
-						 				
 						  Date date =new Date();
 					
 						  SimpleDateFormat formatter = new SimpleDateFormat("dd-mm-yyyy");
@@ -2201,7 +2130,7 @@ public class UploadServiceImpl implements UploadService {
 					
 						  holidayDate =  new SimpleDateFormat("dd-mm-yyyy").format(date);
 						   
-						//  logger.info("Holiday date in String format: "+holidayDate);
+						
 						  entity.setHolidayDate(holidayDate);
 					}
 					catch (Exception e) {
@@ -2301,7 +2230,7 @@ public class UploadServiceImpl implements UploadService {
 
 		catch (Exception e) {
 			logger.error("Exception "+ExceptionConstants.EXCEPTION);
-			e.printStackTrace();
+			
 		} finally {
 			try {
 				if (workbook != null) {
@@ -2313,7 +2242,7 @@ public class UploadServiceImpl implements UploadService {
 
 			} catch (Exception e) {
 				logger.error("Exception "+ExceptionConstants.EXCEPTION);
-				e.printStackTrace();
+				
 			}
 		}
 		return "Data Not Uploaded";
@@ -2360,7 +2289,7 @@ public class UploadServiceImpl implements UploadService {
 		
 		try {
 			// this Writes the workbook KioskC
-			logger.info("Error file path: "+reportPath1+filename);
+	
 			FileOutputStream out = new FileOutputStream(
 					new File(reportPath1+filename));
 			
@@ -2368,13 +2297,14 @@ public class UploadServiceImpl implements UploadService {
 			out.close();
 		} catch (Exception e) {
 			logger.error("Exception "+ExceptionConstants.EXCEPTION);
-			e.printStackTrace();
+	
 		}
 
 	}
 
 // -----------------2 Kiosk CMF	
 
+	@SuppressWarnings("incomplete-switch")
 	@Override
 	public String uploadKioskCMFInformation(String path) {
 
@@ -2382,18 +2312,11 @@ public class UploadServiceImpl implements UploadService {
 		try {
 
 			inputStream = new FileInputStream(new File(path));
-		//	logger.info("7 A.file read successfully!! "+ path);
 			workbook = new XSSFWorkbook(inputStream);
-			logger.info("7 B.workbook parsing started!!");
-			/* HashMap<Integer,String> map=null; */
+	
 			org.apache.poi.ss.usermodel.Sheet firstSheet = workbook.getSheetAt(0);
 
-			logger.info("7 C.First worksheet fetched!!");
-			/*
-			 * DataFormatter objDefaultFormat = new DataFormatter(); FormulaEvaluator
-			 * objFormulaEvaluator = new XSSFFormulaEvaluator((XSSFWorkbook) workbook);
-			 */
-
+	
 			Iterator<Row> iterator = firstSheet.iterator();
 			List<KioskCMFDto> lidtDto = new ArrayList<>();
 			int i = 0, j=0;
@@ -2463,7 +2386,19 @@ public class UploadServiceImpl implements UploadService {
 				//		if (!(String.valueOf(cell.getRow().getRowNum()).equals("0"))) {
 							if (String.valueOf(cell.getColumnIndex()).equals("1")) {
 							
+								switch (cell.getCellType()) {
+								case NUMERIC:
 								dto.setCmfPfId((String.valueOf((int)cell.getNumericCellValue())));
+								break;
+								case STRING:
+									/*
+									 * if((cell.getStringCellValue().equalsIgnoreCase("NOT ALLOTTED")) ||
+									 * (cell.getStringCellValue().equalsIgnoreCase("#N/A")) ) {
+									 * logger.error("These values are non-acceptable as PF_ID!!"); return
+									 * "These values are non-acceptable as PF_ID"; } else
+									 */
+										dto.setCmfPfId(cell.getStringCellValue());
+								}
 							}
 							/*
 							 * if (String.valueOf(cell.getColumnIndex()).equals("2")) {
@@ -2472,6 +2407,14 @@ public class UploadServiceImpl implements UploadService {
 							 */
 
 				//			break;
+							
+							/*
+							 * if( (cell.getStringCellValue().equalsIgnoreCase("NOT ALLOTTED")) ||
+							 * (cell.getStringCellValue().equalsIgnoreCase("#N/A")) ) {
+							 * logger.error("These values are non-acceptable as PF_ID!!");
+							 * 
+							 * return "These values are non-acceptable as PF_ID"; }
+							 */
 						}
 
 				//	}
@@ -2524,11 +2467,11 @@ public class UploadServiceImpl implements UploadService {
 				Optional<String> checkNullCmfPfId = Optional.ofNullable(lidtDto1.getCmfPfId());
 				Optional<String> checkNullgetKioskId = Optional.ofNullable(lidtDto1.getKioskId());
 				if (( lidtDto1.getKioskId() != null )						
-						&& ( lidtDto1.getCmfPfId() != null )) {// logger.info("i m inside if clause: "+ count);
+						&& ( lidtDto1.getCmfPfId() != null ) && !( lidtDto1.getCmfPfId().equalsIgnoreCase( "NOT ALLOTTED" ))) {// logger.info("i m inside if clause: "+ count);
 					
 				}else
 				if (checkNullgetKioskId.isPresent() || checkNullCmfPfId.isPresent() || lidtDto1.getCmfPfId() == null || lidtDto1.getKioskId() == null
-						|| checkNullgetKioskId.get().trim().equals("") || checkNullCmfPfId.get().trim().equals("")) { //logger.info("i m inside else-if clause: "+ count);
+						|| checkNullgetKioskId.get().trim().equals("") || checkNullCmfPfId.get().trim().equals("") || (lidtDto1.getCmfPfId().equalsIgnoreCase("NOT ALLOTTED")) || (lidtDto1.getCmfPfId().equalsIgnoreCase("#N/A")) ) { //logger.info("i m inside else-if clause: "+ count);
 					entity = new UserKioskMapping();
 					entity.setPfId(lidtDto1.getCmfPfId());
 					entity.setKioskId(lidtDto1.getKioskId());
@@ -2537,6 +2480,7 @@ public class UploadServiceImpl implements UploadService {
 					//emptyxlsx(listEntity1);
 
 				}
+			
 			}
 			if(listEntity1 !=null && listEntity1.size() > 0)
 			{	
@@ -2576,7 +2520,8 @@ public class UploadServiceImpl implements UploadService {
 
 		catch (Exception e) {
 			logger.error("Exception "+ExceptionConstants.EXCEPTION);
-			e.printStackTrace();
+			return "Due to Error Data Not Uploaded";
+		
 		} finally {
 			try {
 				if (workbook != null) {
@@ -2588,10 +2533,10 @@ public class UploadServiceImpl implements UploadService {
 
 			} catch (Exception e) {
 				logger.error("Exception "+ExceptionConstants.EXCEPTION);
-				e.printStackTrace();
+				return "Due to Error Data Not Uploaded";
 			}
 		}
-		return "Due to Error Data Not Uploaded";
+		//return "Due to Error Data Not Uploaded";
 	}
 
 	// create xlsx file
@@ -2639,14 +2584,14 @@ public class UploadServiceImpl implements UploadService {
 		
 		try {
 			// this Writes the workbook KioskC  reportPath1
-		//	logger.info("Error file path: "+reportPath1+filename);
+		
 			FileOutputStream out = new FileOutputStream(
 					new File(reportPath1+filename));
 			workbook1.write(out);
 			out.close();
 		} catch (Exception e) {
 			logger.error("Exception "+ExceptionConstants.EXCEPTION);
-			e.printStackTrace();
+			
 		}
 
 	}
@@ -2661,14 +2606,10 @@ public class UploadServiceImpl implements UploadService {
 			try {
 
 				inputStream = new FileInputStream(new File(path));
-			//	logger.info("7 A.file read successfully!! "+ path);
 				workbook = new XSSFWorkbook(inputStream);
-				logger.info("7 B.workbook parsing started!!");
-				/* HashMap<Integer,String> map=null; */
+			
 				org.apache.poi.ss.usermodel.Sheet firstSheet = workbook.getSheetAt(0);
-
-				logger.info("7 C.First worksheet fetched!!");
-				
+		
 				DataFormatter objDefaultFormat = new DataFormatter();
 				FormulaEvaluator objFormulaEvaluator = new XSSFFormulaEvaluator((XSSFWorkbook) workbook);
 
@@ -2928,14 +2869,9 @@ public class UploadServiceImpl implements UploadService {
 						String invoiceDate = "";
 						try {
 						String sDate1=lidtDto1.getInvDt();
-						  
-					//	  logger.info("invoice date in entity format: "+sDate1); 
-						  
 						  sDate1= sDate1.replaceAll("/", "-")
 							  		.replaceAll("-", "-");
-					//		  logger.info("replaced date in entity format: "+sDate1); 
-							 				
-							  Date date =new Date();
+								  Date date =new Date();
 						
 							  SimpleDateFormat formatter = new SimpleDateFormat("dd-mm-yyyy");
 						
@@ -2943,7 +2879,7 @@ public class UploadServiceImpl implements UploadService {
 						  
 							  invoiceDate =  new SimpleDateFormat("dd-mm-yyyy").format(date);
 						  
-					//	  logger.info("installationDate date in String format: "+invoiceDate);
+					
 						  entity.setInvDt(invoiceDate);//3
 						}
 						catch (Exception e) {
@@ -2959,12 +2895,8 @@ public class UploadServiceImpl implements UploadService {
 						String invoiceFrom = "";
 						try {
 						String sDate1=lidtDto1.getInvoiceFrom();
-						  
-					//	  logger.info("invoice date in entity format: "+sDate1); 
-						  
 						  sDate1= sDate1.replaceAll("/", "-")
 							  		.replaceAll("-", "-");
-						//	  logger.info("replaced date in entity format: "+sDate1); 
 							 				
 							  Date date =new Date();
 						
@@ -2973,8 +2905,7 @@ public class UploadServiceImpl implements UploadService {
 							  date = formatter.parse(sDate1);
 						  
 							  invoiceFrom =  new SimpleDateFormat("dd-mm-yyyy").format(date);
-						  
-						//  logger.info("installationDate date in String format: "+invoiceFrom);
+					
 						  entity.setInvoiceFrom(invoiceFrom);//3
 						}
 						catch (Exception e) {
@@ -2988,11 +2919,8 @@ public class UploadServiceImpl implements UploadService {
 						try {
 						String sDate1=lidtDto1.getInvoiceUpTo();
 						  
-						//  logger.info("invoice date in entity format: "+sDate1); 
-						  
 						  sDate1= sDate1.replaceAll("/", "-")
 							  		.replaceAll("-", "-");
-						//	  logger.info("replaced date in entity format: "+sDate1); 
 							 				
 							  Date date =new Date();
 						
@@ -3002,7 +2930,6 @@ public class UploadServiceImpl implements UploadService {
 						  
 							  invoiceUpto =  new SimpleDateFormat("dd-mm-yyyy").format(date);
 						  
-					//	  logger.info("installationDate date in String format: "+invoiceUpto);
 						  entity.setInvoiceUpTo(invoiceUpto);//3
 						}
 						catch (Exception e) {
@@ -3041,7 +2968,8 @@ public class UploadServiceImpl implements UploadService {
 							&& (checkNullInvoiceUpTo.isPresent() || !checkNullInvoiceUpTo.get().equals(""))
 							&& (checkNullInvoiceAmt.isPresent() || !checkNullInvoiceAmt.get().equals(0))
 							&& (checkNullShipAdd.isPresent() || !checkNullShipAdd.get().equals(""))
-							&& (checkNullShipState.isPresent() || !checkNullShipState.get().equals(""))) { logger.info("i m inside if clause: "+ count);*/
+							&& (checkNullShipState.isPresent() || !checkNullShipState.get().equals(""))) { 
+							logger.info("i m inside if clause: "+ count);*/
 					if (lidtDto1.getFinYear() != null
 							&& lidtDto1.getInvNo() != null
 							&& !checkNullInvDt.get().equals("")
@@ -3134,7 +3062,7 @@ public class UploadServiceImpl implements UploadService {
 
 			catch (Exception e) {
 				logger.error("Exception "+ExceptionConstants.EXCEPTION);
-				e.printStackTrace();
+			
 			} finally {
 				try {
 					if (workbook != null) {
@@ -3146,7 +3074,7 @@ public class UploadServiceImpl implements UploadService {
 
 				} catch (Exception e) {
 					logger.error("Exception "+ExceptionConstants.EXCEPTION);
-					e.printStackTrace();
+					
 				}
 			}
 			return "Due to Error Data Not Uploaded";
@@ -3209,14 +3137,14 @@ public class UploadServiceImpl implements UploadService {
 			
 			try {
 				// this Writes the workbook KioskC  reportPath1
-		//		logger.info("Error file path: "+reportPath1+filename);
+		
 				FileOutputStream out = new FileOutputStream(
 						new File(reportPath1+filename));
 				workbook1.write(out);
 				out.close();
 			} catch (Exception e) {
 				logger.error("Exception "+ExceptionConstants.EXCEPTION);
-				e.printStackTrace();
+		
 			}
 
 		}
