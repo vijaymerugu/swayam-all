@@ -18,11 +18,11 @@
     <field name="username" class="java.lang.String"></field>
 
     <field name="mobileNo" class="java.lang.String"></field>
-      <field name="mailId" class="java.lang.String"></field>
-
+    <field name="mailId" class="java.lang.String"></field>
+    <field name="reportingAuthorityName" class="java.lang.String"></field>
     <field name="noOfAssignedKiosks" class="java.lang.String"></field>
 	
-	<field name="reportingAuthorityName" class="java.lang.String"></field>
+	
 	
 
     <background>
@@ -250,7 +250,7 @@
 
                 </textElement>
 
-                <text><![CDATA[NO OF ASSIGNED KIOSKS]]></text>
+                <text><![CDATA[REPORTING AUTHORITY NAME]]></text>
 
             </staticText>
 
@@ -277,7 +277,8 @@
 
                 </textElement>
 
-                <text><![CDATA[REPORTING AUTHORITY NAME]]></text>
+               
+                 <text><![CDATA[NO OF ASSIGNED KIOSKS]]></text>
 
             </staticText>
             
@@ -473,8 +474,8 @@
                 <textElement textAlignment="Center">
 					<font size="8" isItalic="false"></font>
 				</textElement>
-
-                <textFieldExpression><![CDATA[$F{noOfAssignedKiosks} == null?"":$F{noOfAssignedKiosks}]]></textFieldExpression>
+                     <textFieldExpression><![CDATA[$F{reportingAuthorityName} == null?"":$F{reportingAuthorityName}]]></textFieldExpression>
+              
 
             </textField>
 
@@ -499,8 +500,8 @@
                 <textElement textAlignment="Center">
 					<font size="8" isItalic="false"></font>
 				</textElement>
-
-                <textFieldExpression><![CDATA[$F{reportingAuthorityName} == null?"":$F{reportingAuthorityName}]]></textFieldExpression>
+ 
+                 <textFieldExpression><![CDATA[$F{noOfAssignedKiosks} == null?"":$F{noOfAssignedKiosks}]]></textFieldExpression>
 
             </textField>
                     

@@ -114,7 +114,8 @@
     <td id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"><a ng-click="getCountType('CMF')" style="cursor: hand;cursor: pointer;">${cmfCount}</a></td> 
     <td id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"> <a ng-click="getCountType('CMS')" style="cursor: hand;cursor: pointer;"> ${cmsCount}</a>  </td> 
 	<td id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"> <a ng-click="getCountType('C')" style="cursor: hand;cursor: pointer;">${circleUserCount}</a></td>   
-    
+    <td id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"> <a ng-click="getCountType('BM')" style="cursor: hand;cursor: pointer;"> ${billingMakerCount}</a></td> 
+	<td id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"> <a ng-click="getCountType('BC')" style="cursor: hand;cursor: pointer;">${billingCheckerCount}</a></td>   
   </tr>
   <tr>
   <!-- Yogesh User Circle Wise -->
@@ -122,6 +123,8 @@
     <td id="count2" style="color: black; border-right: solid 2px #faf5f6;">CMF</td> 
 	<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">CMS</td>   
 	<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">Circle</td>   	
+	<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">BM</td>   
+	<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">BC</td>   	
   </tr>
 </table>
 </div>

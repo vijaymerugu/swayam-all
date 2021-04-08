@@ -97,16 +97,16 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
     	  cellTemplate: '<div class="ui-grid-cell-contents" style="cursor: hand;cursor: pointer;"><a ng-click="grid.appScope.loadHomeBodyPageFormsDel(row.entity.userId)">Delete</a></div>'
       },*/
       
-         { name: 'userId', displayName: 'SrNo'  },
+    //     { name: 'userId', displayName: 'SrNo'  },
       { name: 'circle', displayName: 'CIRCLE'  },
-       { name: 'role', displayName: 'ROLE'  },
+       { name: 'role', displayName: 'ROLE',width:120  },
       { name: 'pfId', displayName: 'PF ID / USER ID'  },
       { name: 'username', displayName: 'Employee Name'  },      
     //  { name: 'role', displayName: 'Role'  },
       { name: 'mobileNo', displayName: 'MOBILE NO'  },
       { name: 'mailId',displayName: 'EMAIL ID'  },
-      { name: 'noOfAssignedKiosks', displayName: 'No of Assigned Kiosks'  },
       { name: 'reportingAuthorityName', displayName: 'Reporting Authority'  },
+      { name: 'noOfAssignedKiosks', displayName: 'No of Assigned Kiosks'  },
       { name: 'Edit',
     	  exporterSuppressExport: true,
     	  headerCellTemplate: '<div></div>',
@@ -122,7 +122,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
     	  displayName: 'Assign Kiosk',
     	  headerCellTemplate: '<div></div>',
        //   cellTemplate: '<div class="ui-grid-cell-contents" id="myBtn" style="cursor: hand;cursor: pointer;"><div ng-if="row.entity.role == \'CMF\' && row.entity.noOfAssignedKiosks > 0"><a data-href="km/userkioskmappingpopup?username="+{{ row.entity.userId }} data-val="{{ row.entity.pfId }}" class="openPopup">DeMap Kiosks</a></div></div>'
-        cellTemplate: '<div ng-if="row.entity.role == \'CMF\' && row.entity.noOfAssignedKiosks > 0"> <a ng-click="grid.appScope.loadHomeBodyPageFormsDeMap(row.entity.pfId)">DeMap Kiosks</a></div>'
+        cellTemplate: '<div style="cursor: hand;cursor: pointer;" ng-if="row.entity.role == \'CMF\' && row.entity.noOfAssignedKiosks > 0"> <a ng-click="grid.appScope.loadHomeBodyPageFormsDeMap(row.entity.pfId)">DeMap Kiosks</a></div>'
       }
     ],
     onRegisterApi: function(gridApi) {

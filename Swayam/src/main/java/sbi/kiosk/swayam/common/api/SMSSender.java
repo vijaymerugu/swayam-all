@@ -373,7 +373,7 @@ public class SMSSender
 			//String postData = "content_type=text&sender_id=SBIBNK&mobile=9022795630&message=Call ID TEST001  has been logged for Swayam Kiosk Sr. No SRNOTEAT01 in Branch 04430 on 03.03.2020 at 16:00 for Issue:Test call log.&intflag=0&charging=0";
 			
 			
-			  String finalTextMessage = "Call Id " + postData.getCallLogId() + " has been logged for Swayam Kiosk Sr. No " + postData.getKioskSrNo() + " in Branch " + postData.getBranchCode() + " on " + postData.getDateTime() + " for Issue:Test call log.";
+			  String finalTextMessage = "Call Id " + postData.getCallLogId() + " has been logged for SBI Swayam Kiosk Sr. No " + postData.getKioskSrNo() + " in Branch " + postData.getBranchCode() + " on " + postData.getDateTime() + " for Issue:Test call log.";
 	            logger.info("finalTextMessage:::::" + finalTextMessage);
 	            postData.setContentType("text");
 	            postData.setSenderId("SBIBNK");

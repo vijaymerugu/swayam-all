@@ -398,7 +398,10 @@ public class LoginController {
 	public ModelAndView redirectOmsError() {
 
 		ModelAndView mav = new ModelAndView("omsError");
-		mav.addObject("commonError", "Invalid userId");
+		//mav.addObject("commonError", "Invalid userId");
+		
+		// changes mess 22-03-2021
+	    mav.addObject("commonError", "User not created in Swayam Monitoring Tool - Please contact your Circle/CC Admin");
 		return mav;
 
 	}
