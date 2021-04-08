@@ -99,6 +99,13 @@ public interface UsersRepository extends CrudRepository<User, Long>, PagingAndSo
 	@Query(value=" SELECT COUNT(*) FROM TBL_USER WHERE ROLE IN ('LA')  and ENABLED in('1') and CIRCLE=:circle",nativeQuery=true)
 	public int findLACount(@Param("circle") String circle);
 	
+	@Query(value=" SELECT COUNT(*) FROM TBL_USER WHERE ROLE IN ('BC')  and ENABLED in('1') and CIRCLE=:circle",nativeQuery=true)
+	public int findBCCount(@Param("circle") String circle);
+
+	@Query(value=" SELECT COUNT(*) FROM TBL_USER WHERE ROLE IN ('BM')  and ENABLED in('1') and CIRCLE=:circle",nativeQuery=true)
+	public int findBMCount(@Param("circle") String circle);
+
+	
 	@Query(value=" SELECT circle FROM TBL_USER where pf_id=:pfId",nativeQuery=true)
 	public String findCircleByPfId(@Param("pfId") String pfId);
 }

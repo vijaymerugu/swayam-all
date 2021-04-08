@@ -62,6 +62,9 @@ public class UserManagementController {
 				//int saCount= userService.findSACount();
 				int circleUserCount = userService.findCircleUserCountByCircle();
 				int laCount= userService.findLACountByCircle();
+				int bmCount=userService.findBillingMakerCountByCircle();
+				int bcCount=userService.findBillingCheckerCountByCircle();
+				
 				
 				model.addObject("cmfCount",cmfCount);
 				model.addObject("cmsCount", cmsCount);
@@ -70,6 +73,10 @@ public class UserManagementController {
 				//model.addObject("ccCount",ccCount);
 				//model.addObject("saCount",saCount);
 				model.addObject("circleUserCount",circleUserCount);
+				
+				// BC & BM USER
+				model.addObject("billingMakerCount",bmCount);
+				model.addObject("billingCheckerCount",bcCount);
 				
 				model.setViewName("userlistLA");
 			}			
@@ -190,8 +197,12 @@ public class UserManagementController {
 			resultPage= userService.findPaginatedCountByCircle(page, size, type);
 		}else if(type.equals("LA")){
 			resultPage= userService.findPaginatedCountByCircle(page, size, type);
-		}else{
-	      resultPage = userService.findPaginatedByCircle(page, size);
+		}else if(type.equals("BM")){
+			resultPage= userService.findPaginatedCountByCircle(page, size, type);
+		}else if(type.equals("BC")){
+	        resultPage= userService.findPaginatedCountByCircle(page, size, type);
+        }else{
+	       resultPage = userService.findPaginatedByCircle(page, size);
 		    if (page > resultPage.getTotalPages()){
 		        }
 		}
@@ -230,7 +241,7 @@ public class UserManagementController {
 	              Iterator<RolesDto> itr = roleList.iterator();
 	              while(itr.hasNext()){
 	            	  String role = itr.next().getRole();
-	            	  if(role.equals("SA") || role.equals("CC") || role.equals("BC") || role.equals("BM") ){
+	            	  if(role.equals("SA") || role.equals("CC") ){
 	            		  itr.remove();
 	            	  }
 	              }

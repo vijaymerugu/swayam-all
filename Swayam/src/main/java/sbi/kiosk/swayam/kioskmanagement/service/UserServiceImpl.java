@@ -209,9 +209,10 @@ public class UserServiceImpl implements UserService {
 		UserDto user = (UserDto) session().getAttribute("userObj");
 		Page<UserManagementDto> entities =null;		
 	    entities =userRepositoryPagingRepo.findByCircleAndRoleAndEnabled(user.getCircle(),type,"1",PageRequest.of(page, size)).map(UserManagementDto::new);
-	    
+	   
 		if(entities !=null){
 			 for(UserManagementDto dto:entities){
+				 logger.info("entities========="+dto.getRole());
 				 if(Constants.SYSTEMADMIN.getCode().equals(dto.getRole())){
 					 dto.setRole(Constants.SYSTEMADMIN.getValue());
 				 }
@@ -221,6 +222,23 @@ public class UserServiceImpl implements UserService {
 				 if(Constants.CIRCLE.getCode().equals(dto.getRole())){
 					 dto.setRole(Constants.CIRCLE.getValue());
 				 }
+				 
+				 
+				 if(Constants.BILLINGMAKER.getCode().equals(dto.getRole())){
+					 dto.setRole(Constants.BILLINGMAKER.getValue());
+				 }
+				 
+				 if(Constants.BILLINGCHECKER.getCode().equals(dto.getRole())){
+					 dto.setRole(Constants.BILLINGCHECKER.getValue());
+				 }
+				 
+				 
+				 
+				 if(Constants.SYSTEMADMIN.getCode().equals(dto.getRole())){
+					 dto.setRole(Constants.SYSTEMADMIN.getValue());
+				 }
+				 
+				 
 				 if(dto.getPfId() !=null && dto.getPfId() !="" && dto.getRole().equals("CMF")){
 					 int kioskCountCmf = userKioskMappingRepository.findKiosksCountByPfId(dto.getPfId());
 					 dto.setNoOfAssignedKiosks(String.valueOf(kioskCountCmf));
@@ -427,6 +445,20 @@ public class UserServiceImpl implements UserService {
 	    	int circleCountByRole=userRepo.findCircleCountByRole(circle);
 			return circleCountByRole;
 	    }
+
+		@Override
+		public int findBillingMakerCountByCircle() {
+			UserDto user = (UserDto) session().getAttribute("userObj");
+	    	int bmCount=userRepo.findBMCount(user.getCircle());
+			return bmCount;
+		}
+
+		@Override
+		public int findBillingCheckerCountByCircle() {
+			UserDto user = (UserDto) session().getAttribute("userObj");
+	    	int bcCount=userRepo.findBCCount(user.getCircle());
+			return bcCount;		
+			}
 	
 	
 }
