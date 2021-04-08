@@ -5,21 +5,20 @@
 <html lang="en">
 
 <head>
-
+<!-- 
 
 <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
 <link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
 <script src="resources/js/moment-with-locales.min.js"></script>
 <script	src="resources/js/angular.1.5.6.min.js"></script>
- <script src="resources/js/transaction-error-reporting-app.js"></script>
-<script	src="resources/js/angular.1.5.6.min.js"></script>
+ <script src="resources/js/error-reporting-drilldown.js"></script>
 <link rel="stylesheet" href="resources/css/grid-style.css"/>
 <link rel="stylesheet" href="resources/css/body-page.css"/>
 <link rel="stylesheet" href="resources/css/style.css">
 
 <script src="resources/js/jquery.3.4.1.min.js"></script>
 <script src="resources/js/bootstrap.3.4.1.min.js"></script>
-<!-- Include Date Range Picker -->
+Include Date Range Picker
 <script type="text/javascript"
 	src="resources/js/bootstrap-datepicker.min.js"></script>
 <link rel="stylesheet"
@@ -29,7 +28,33 @@
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
-    
+ -->    
+ 
+ <!-- UPDATE -->
+ 
+ 
+<meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
+<link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
+<!-- <script src="resources/js/moment-with-locales.min.js"></script> -->
+<script	src="resources/js/angular.1.5.6.min.js"></script>
+ <script src="resources/js/error-reporting-drilldown.js"></script>
+<script	src="resources/js/angular.1.5.6.min.js"></script>
+<link rel="stylesheet" href="resources/css/grid-style.css"/>
+<link rel="stylesheet" href="resources/css/body-page.css"/>
+<link rel="stylesheet" href="resources/css/style.css">
+
+<script src="resources/js/jquery.3.4.1.min.js"></script>
+<script src="resources/js/bootstrap.3.4.1.min.js"></script>
+<!-- Include Date Range Picker -->
+<script type="text/javascript" src="resources/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet"	href="resources/css/bootstrap-datepicker3.css" />
+	
+<script src="resources/js/angular.js"></script>
+    <script src="resources/js/angular-touch.js"></script>
+    <script src="resources/js/angular-animate.js"></script>
+    <script src="resources/js/angular-aria.js"></script>
+ 
+ 
    <script>
 		  $.ajax({
 		  	type:"GET",
@@ -50,7 +75,7 @@
 		var datePickerOptions = { changeYear: true, 
 				  changeMonth: true,
 				  autoclose: true,
-				  endDate : '+0d',
+				  endDate : '-2d',
 				  format : 'dd-mm-yyyy',
 				  orientation : "top"
 				  }
@@ -59,11 +84,12 @@
 	});
 </script>
 
-<style>
+
+<!-- <style>
        .ui-grid-header-cell-label {
 		display:inline-block;
 		white-space:initial;
-		 font-size: 15px;
+		font-size: 15px;
 		}
 		
 		
@@ -89,40 +115,157 @@
   			white-space: normal;
   			padding: 2px;
   			word-break: break-word;
-  			
 			}
-				 .ui-grid, .ui-grid-viewport {
+			.ui-grid, .ui-grid-viewport {
    			  height: auto !important; 
 			} 
 			.ui-grid-pager-panel {
-			    position: relative;
-			}
-  			 .ui-grid .ui-grid-render-container-body .ui-grid-viewport {
+		     position: relative;
+			 } 
+			 .ui-grid .ui-grid-render-container-body .ui-grid-viewport {
  			 	overflow-x: auto !important;
   				overflow-y: auto !important;
   				
 			}
+			.ui-grid-pager-row-count-picker {
+			display:none;
+			}
 			.ui-grid-header-canvas {
 			    padding-top: 0px;
 			    padding-bottom: 0px;}
-			    .ui-grid-pager-row-count-picker {
+</style> -->	
+
+
+
+<style>
+       .ui-grid-header-cell-label {
+		display:inline-block;
+		white-space:initial;
+		font-size: 15px;
+		}
+		
+		
+		.wrap-text .ui-grid-cell-contents {
+ 		 white-space:normal;
+		}
+
+		[ui-grid-row] {
+  		display: table-row;
+		}
+
+		.ui-grid-row, .ui-grid-cell {
+  		height: auto!important;
+		}
+
+			.ui-grid-cell {
+  			float: none;
+  			display: table-cell;
+			} 
+		
+		
+			.ui-grid-header-cell, .ui-grid-cell-contents {
+  			white-space: normal;
+  			padding: 2px;
+  			word-break: break-word;
+			}
+			.ui-grid, .ui-grid-viewport {
+   			  height: auto !important; 
+			} 
+			.ui-grid-pager-panel {
+		     position: relative;
+			 } 
+			 .ui-grid .ui-grid-render-container-body .ui-grid-viewport {
+ 			 	overflow-x: auto !important;
+  				overflow-y: auto !important;
+  				
+			}
+			.ui-grid-pager-row-count-picker {
 			display:none;
 			}
-			    			
-    .ui-grid-header-cell {float: left;}
-    .ui-grid-render-container-body {
-    float: left;
-    width: 95%;}
-			
+			.ui-grid-header-canvas {
+			    padding-top: 0px;
+			    padding-bottom: 0px;}
 </style>	
 
+
+ <script type="text/javascript">
+    var myApp = angular.module("MyApp", []);
+    myApp.controller('MyController', function ($scope) {
+
+        $scope.open = function () {
+            $scope.showModal = true;
+        };
+
+        $scope.ok = function () {
+            $scope.showModal = false;
+        };
+
+        $scope.cancel = function () {
+            $scope.showModal = false;
+        };
+    });
+</script>
 </head>
 <body>
           
 	<div class="main_transaction" ng-app="app" id="appId">
-		<div ng-controller="UserManagementCtrl as vm">
+		<div ng-controller="ErrorReportDrillDownCtrl as vm">
+		<input type="hidden" id="circleName" value="${code}">
+            <input type="hidden" id="fromDate" value="${fromDate}">
+            <input type="hidden" id="toDate" value="${toDate}">
+            
+<!-- 	 -->
 
+<div class="container">
+  <!-- Trigger the modal with a button 
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+-->
+  <!-- Modal -->
+  <%-- <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
 
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+            <!--	 <jsp:include page="ErrorSummary.jsp" />  -->
+          <div style="margin-left: 40px;margin-right: 40px">
+        <table id="myTable">  
+        <thead >  
+          <tr style="top: 244px;left: 282px;width: 801px;height: 42px;background: #13A8E0 0% 0% no-repeat padding-box;opacity: 1;">  
+        <!-- <th><input type="checkbox" id="selectAll" />&nbsp;Select ALL</th>  --> 
+            <th>Error Code :</th>  
+            <th>Error Count :</th> 
+            <th>Description :</th>  
+          </tr>  
+        </thead>  
+        <tbody>  
+          <tr>  
+            <td><input type="checkbox" name="check_list[]" value="${user.kioskId}"></td>  
+            <td>${swayamTxnList}</td>  
+            <td>${errorDesc}</td>  
+             <td> {{errorCode}} </td>  
+          </tr>  
+        </tbody>  
+      </table>  
+      
+     
+</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div> --%>
+
+</div>
+ 
         <div>
 				<table class="" style="border: 1px solid #eee;">
 					<div>
@@ -153,14 +296,21 @@
 		<div class="loading" id="loading" align="center" style="display:none;">
    			 <img src="resources/img/loader.gif"> 
 		</div> 
+		<div class="openBackPopup"> </div>
 		<!-- Added for loader------------- END -->	
-					<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-selection ui-grid-exporter id="test"></div>
+					<div id="container" ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-selection ui-grid-exporter id="test"></div>
 			</div>
 		</div>
 	</div>
+	
+	
+
+	
 	<script>
 		angular.bootstrap(document.getElementById("appId"), [ 'app' ]);
 	</script>
+	
+
 <script type="text/javascript">
       
       $(document).ready(function(){
@@ -203,10 +353,12 @@
     	            	}  
     	            }
     	        });
+
+    	      
     	    });
     	}); 
-    		
-    		
+    
+
       
       </script>
 </body>
