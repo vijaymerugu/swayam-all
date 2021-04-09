@@ -699,34 +699,34 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.edit','ui.grid.pag
 		
 	      columnDefs: [
 	    	 
-	          { name: 'rfpId', displayName: 'RFP Id',field: "rfpId"},
+	          { name: 'rfpId', displayName: 'RFP Id',field: "rfpId" , width:100 },
 	          { name: 'rfpNo', displayName: 'RFP RefNO.', field: "rfpNo",
 	    		  cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div '+ 
-	             	 ' ng-if="row.entity.editrow"><input type="text" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width: 140},
+	             	 ' ng-if="row.entity.editrow"><input type="text" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width:180 },
 	          { name: 'vendor', displayName: 'Vendor' ,field: "vendor", 
 	        	  cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div '+ 
-	             	 ' ng-if="row.entity.editrow"><input type="text" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width: 140},
+	             	 ' ng-if="row.entity.editrow"><input type="text" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width:180 },
 	          { name: 'kisokCost', displayName: 'Cost of Kiosk (in Rs)',field: "kisokCost",  visible: false ,
 	        	  cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div '+ 
-	             	 ' ng-if="row.entity.editrow"><input type="number" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width: 140},
+	             	 ' ng-if="row.entity.editrow"><input type="number" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width:180 },
 	          { name: 'amcCost', displayName: 'Cost of Amc (in Rs)' ,field: "amcCost", 
 	        	  cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div '+ 
-	             	 ' ng-if="row.entity.editrow"><input type="number" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width: 140},
+	             	 ' ng-if="row.entity.editrow"><input type="number" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width:180 },
 	          { name: 'companyPenaltyHour', displayName: 'Compaint Penalty/hour' ,field: "companyPenaltyHour", 
 	        	  cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div '+ 
-	             	 ' ng-if="row.entity.editrow"><input type="number" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width: 140},
+	             	 ' ng-if="row.entity.editrow"><input type="number" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width:180 },
 	          { name: 'companyPermDntmMuHrs', displayName: 'Permissible Downtime in Metro/Urban (in hrs)' ,field: "companyPermDntmMuHrs", visible: false ,
 	        	  cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div '+ 
-	             	 ' ng-if="row.entity.editrow"><input type="number" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width: 140},
+	             	 ' ng-if="row.entity.editrow"><input type="number" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width:180 },
 	          { name: 'companyPermDntmSrHrs', displayName: 'Permissible downtime in Semi-Urban/Rural areas (in hrs)' ,field: "companyPermDntmSrHrs",visible: false ,
 	        	  cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div '+ 
-	             	 ' ng-if="row.entity.editrow"><input type="number" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width: 140},
+	             	 ' ng-if="row.entity.editrow"><input type="number" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width:180 },
 	          { name: 'companyPermDntmPct', displayName: 'Circle Permissible Downtime(in %)',field: "companyPermDntmPct", visible: false ,
 	        	  cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div '+ 
-	             	 ' ng-if="row.entity.editrow"><input type="number" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width: 140},
+	             	 ' ng-if="row.entity.editrow"><input type="number" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width:180 },
 	          { name: 'maxPenaltyPct', displayName: 'Maximum Penalty(in %)',field: "maxPenaltyPct",	  
 	        	  cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div '+ 
-             	 ' ng-if="row.entity.editrow"><input type="number" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width: 140
+             	 ' ng-if="row.entity.editrow"><input type="number" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width:180 
 	          },
 	          { name: 'rfpDate', displayName: 'RFP Date' , type: 'date', cellFilter: 'date:"dd.MM.yyyy"', visible: false ,
 	        	  width: '10%' },
@@ -756,23 +756,23 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.edit','ui.grid.pag
 					             	 
 			{ name: 'penaltyToRange', displayName: 'Penalty To Range' ,field: "penaltyToRange", 
 							   	        	  cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div '+ 
-							   	             	 ' ng-if="row.entity.editrow"><input type="number" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width: 140},
+							   	             	 ' ng-if="row.entity.editrow"><input type="number" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width:180 },
 							   	          
 			{ name: 'penaltyfromRange', displayName: 'Penalty From Range' ,field: "penaltyfromRange", 
 									   	        	  cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div '+ 
-									   	             	 ' ng-if="row.entity.editrow"><input type="number" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width: 140},
+									   	             	 ' ng-if="row.entity.editrow"><input type="number" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width:180 },
 			{
                   name: 'Actions', field: 'edit', enableFiltering: false, enableSorting: false,
                   cellTemplate: '<div><button ng-show="!row.entity.editrow" class="btn primary" ng-click="grid.appScope.edit(row.entity)"><i class="fa fa-edit"></i></button>' +  //Edit Button
                                  '<button ng-show="row.entity.editrow" class="btn primary" ng-click="grid.appScope.saveRow(row.entity)"><i class="fa fa-floppy-o"></i></button>' +//Save Button
                                  '<button ng-show="row.entity.editrow" class="btn primary" ng-click="grid.appScope.cancelEdit(row.entity)"><i class="fa fa-times"></i></button>' + //Cancel Button
-                                 '</div>', width: 140
+                                 '</div>', width:140 
               },
               {
                   name: 'Delete Action', field: 'delete', enableFiltering: false, enableSorting: false,
                   cellTemplate: '<div>'+
                                  '<button class="btn primary" ng-click="grid.appScope.deleteRow(row.entity)"><i class="fa fa-trash"></i></button>' + //delete Button
-                                 '</div>', width: 140
+                                 '</div>', width:140 
               }
 	          
 	          

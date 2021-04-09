@@ -11,7 +11,7 @@
 <script src="resources/js/angular-chart.min.js"></script>
 <script src="resources/js/chartjs-plugin-labels.js"></script>
 <style>
-div.absolute {
+/* div.absolute {
 	background: #FFFFFF 0% 0% no-repeat padding-box;
 	top: 10px;
 	right: 0;
@@ -38,7 +38,39 @@ div.absolute {
     border: 1px solid #73AD21;
    
 } 
+ */
+ 
+ div.absolute {
+	background: #FFFFFF 0% 0% no-repeat padding-box;
+	top: 10px;
+	right: 0;
+	/* width: 1500px; */
+	width: 100%;
+	 height: 100px; 
+	border-radius: 1px;
+	border: 1px solid #73AD21;
+	
+	margin-bottom: 5px;
+	 overflow: auto;
+	
+}
 
+.submain {
+    top: 242px;
+    left: 8px;
+     /*  width: 1500px; */
+   	width: 100%;
+	overflow:auto;
+    height: fit-content;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #8D8D8D29;
+    opacity: 1;
+    padding: 7px;
+    border-radius: 1px;
+    border: 1px solid #73AD21;
+   
+}
+ 
 .bullet::before {
 	content: "\2022";
 	color: #00BFFF;;
@@ -104,7 +136,7 @@ div.absolute {
 </style>
 </head>
 <body>
-	<div class="main" ng-app="daSummaryOfDownKiosksModule" id="appId">
+	<div class="main_transaction" ng-app="daSummaryOfDownKiosksModule" id="appId">
 		<div ng-controller="daSummaryOfDownKiosksController as vm">
 		<div class="absolute">
 			<div><h5 style="font-weight: bold;" align="center">Urgent Information</h5></div>

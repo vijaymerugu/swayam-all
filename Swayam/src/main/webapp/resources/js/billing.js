@@ -277,32 +277,32 @@ app.controller(
 
 								columnDefs : [ {
 									name : 'repRefNo',
-									displayName : 'RFP_REF_NO'
+									displayName : 'RFP_REF_NO', width:180
 								},
 								{ name: 'allocId', displayName: 'Allocation ID' , visible: false },
 								{
 									name : 'vendor',
-									displayName : 'VENDOR'
+									displayName : 'VENDOR', width:180
 								}, {
 									name : 'circle',
-									displayName : 'CIRCLE'
+									displayName : 'CIRCLE', width:180
 								}, {
 									name : 'allocatedQuantity',
-									displayName : 'ALLOCATED QUANTITY'
+									displayName : 'ALLOCATED QUANTITY', width:190
 								},
-								{ name: 'remainingQuantity', displayName: 'REMAINING QUANTITY'},
+								{ name: 'remainingQuantity', displayName: 'REMAINING QUANTITY', width:190},
 								 {
 					                  name: "poQuantity", displayName: "QUANTITY", field: "poQuantity",
 					                  cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div '+ 
-					                	 ' ng-if="row.entity.editrow"><input type="number" min="0"  style="height:30px" ng-model="MODEL_COL_FIELD"</div>'
+					                	 ' ng-if="row.entity.editrow"><input type="number" min="0"  style="height:30px" ng-model="MODEL_COL_FIELD"</div>', width:180
 					              },
-					              { name: 'poDate', displayName: 'LAST PO ISSUE DATE' },
+					              { name: 'poDate', displayName: 'LAST PO ISSUE DATE' , width:180},
 								 {
 					                  name: 'ACTIONS', field: 'edit', enableFiltering: false, enableSorting: false,
 					                  cellTemplate: '<div><button ng-show="!row.entity.editrow" class="btn primary" ng-click="grid.appScope.edit(row.entity)"><i class="fa fa-edit"></i></button>' +  //Edit Button
 					                                 '<button ng-show="row.entity.editrow" class="btn primary" ng-click="grid.appScope.saveRow(row.entity)"><i class="fa fa-floppy-o"></i></button>' +//Save Button
 					                                 '<button ng-show="row.entity.editrow" class="btn primary" ng-click="grid.appScope.cancelEdit(row.entity)"><i class="fa fa-times"></i></button>' + //Cancel Button
-					                                 '</div>'
+					                                 '</div>', width:150
 					              }
 
 								],

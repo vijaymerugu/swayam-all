@@ -94,7 +94,8 @@ tr:nth-child(even) {background-color: #f2f2f2;}  */
 	background: #FFFFFF 0% 0% no-repeat padding-box;
 	top: 10px;
 	right: 0;
-	width: 1500px;
+	/* width: 1500px; */
+	width: 100%;
 	 height: 100px; 
 	border-radius: 1px;
 	border: 1px solid #73AD21;
@@ -109,7 +110,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}  */
 	 border-radius: 1px;
 	 border: 1px solid #73AD21;
 	/* padding: 1px; */
-	width: 750px;
+	width: 700px;
   	height: 1000px;
 }
 .rcorners1 {
@@ -117,7 +118,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}  */
 	 border-radius: 1px;
 	 border: 1px solid #73AD21;
 	/* padding: 1px; */
-	width: 750px;
+	width: 700px;
   	height: 600px;
 }
 .rcorners2 {
@@ -125,7 +126,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}  */
 	 border-radius: 1px;
 	 border: 1px solid #73AD21;
 	/* padding: 1px; */
-	width: 750px;
+	width: 700px;
   	height: 1000px;
 }
 
@@ -155,7 +156,9 @@ tr:nth-child(even) {background-color: #f2f2f2;}  */
 .submain {
     top: 242px;
     left: 8px;
-    width: fit-content;
+   /*  width: fit-content; */
+   	width: 100%;
+	overflow:auto;
     height: fit-content;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     box-shadow: 0px 3px 6px #8D8D8D29;
@@ -190,7 +193,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}  */
 </style>
 </head>
 <body>
-	<div class="main" ng-app="daCumulativeDataCCModule" id="appId">
+	<div class="main_transaction" ng-app="daCumulativeDataCCModule" id="appId">
 		<div ng-controller="daCumulativeDataCCController as vm">
 		<div class="absolute">
 			<div><h5 style="font-weight: bold;" align="center">Urgent Information</h5></div>

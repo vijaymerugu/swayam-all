@@ -430,29 +430,29 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		useExternalPagination: true,
 		
 	      columnDefs: [
-	    	  { name: 'rpfRefNumber', displayName: 'RFP REF_NO'  },
-	          { name: 'vendor', displayName: 'VENDOR' },
-	          { name: 'circleName', displayName: 'CIRCLE'  },
-	          { name: 'state', displayName: 'STATE'  },
-	          { name: 'kisokId', displayName: 'KIOSK ID'  },
-	          { name: 'kioskSerialNumber', displayName: 'KIOSK SERIAL NO'  },
-	          { name: 'quarterId', displayName: 'TIME PERIOD' },
+	    	  { name: 'rpfRefNumber', displayName: 'RFP REF_NO'  , width:180},
+	          { name: 'vendor', displayName: 'VENDOR' , width:180},
+	          { name: 'circleName', displayName: 'CIRCLE' , width:180 },
+	          { name: 'state', displayName: 'STATE' , width:180 },
+	          { name: 'kisokId', displayName: 'KIOSK ID' , width:180  },
+	          { name: 'kioskSerialNumber', displayName: 'KIOSK SERIAL NO' , width:180 },
+	          { name: 'quarterId', displayName: 'TIME PERIOD', width:180 },
 	          { name: 'year',  displayName: 'year', visible: false},
-	          { name: 'invoiceAmountSBI', displayName: 'INVOICE AMOUNT SBI(A)' },
-	          { name: 'invoiceAmountVendor', displayName: 'INVOICE AMOUNT VENDOR(B)' },
-	          { name: 'penaltyAmountSBI', displayName: 'PENALTY AMOUNT SBI(C)' },
-	          { name: 'penaltyAmountVendor', displayName: 'PENALTY AMOUNT VENDOR(D)' },
-	          { name: 'difference', displayName: 'DIFFERENCE IN PENALTY(C-D)' },
-	          { name: 'correctionAmount', displayName: 'LAST CORRECTION AMT' },
+	          { name: 'invoiceAmountSBI', displayName: 'INVOICE AMOUNT SBI(A)', width:190 },
+	          { name: 'invoiceAmountVendor', displayName: 'INVOICE AMOUNT VENDOR(B)' , width:230},
+	          { name: 'penaltyAmountSBI', displayName: 'PENALTY AMOUNT SBI(C)', width:200 },
+	          { name: 'penaltyAmountVendor', displayName: 'PENALTY AMOUNT VENDOR(D)', width:240 },
+	          { name: 'difference', displayName: 'DIFFERENCE IN PENALTY(C-D)' , width:240},
+	          { name: 'correctionAmount', displayName: 'LAST CORRECTION AMT' , width:200},
 	          {
                   name: "Corrections", displayName: "CORRECTIONS", field: "Corrections",
                   cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div '+ 
-                	 ' ng-if="row.entity.editrow"><input type="number" min="0"  step="0.01"  style="height:30px" ng-model="MODEL_COL_FIELD"</div>', width: 100
+                	 ' ng-if="row.entity.editrow"><input type="number" min="0"  step="0.01"  style="height:30px" ng-model="MODEL_COL_FIELD"</div>', width: 180
               },
               {
                   name: "Remarks", displayName: "REMARKS", field: "Remarks",
                   cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div '+ 
-                	 ' ng-if="row.entity.editrow"><input type="text" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width: 100
+                	 ' ng-if="row.entity.editrow"><input type="text" style="height:30px"  ng-model="MODEL_COL_FIELD"</div>', width: 180
               },
               {
                   name: 'Actions', field: 'edit', enableFiltering: false, enableSorting: false,

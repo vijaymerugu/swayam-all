@@ -7,36 +7,36 @@
 <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
 
 <script	src="resources/js/angular.1.5.6.min.js"></script>
-<!-- <link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css"> -->
 
 <link rel="stylesheet" href="resources/css/ui-grid.min.css"/> 
-
  <link rel="stylesheet" href="resources/css/ui-grid.min-1.css"> 
-
-<!-- 
-  <link rel="stylesheet" href="http://cdn.rawgit.com/angular-ui/ui-grid.info/gh-pages/release/3.0.0-rc.20/ui-grid.min.css">
-   
- -->
  <script data-require="jquery@2.1.3" data-semver="2.1.3" src="resources/js/jquery-2.1.3.min.js"></script>
-     <!-- <script data-require="jquery@2.1.3" data-semver="2.1.3" src="http://code.jquery.com/jquery-2.1.3.min.js"></script>  -->
-<!--     <script src="https://code.angularjs.org/1.4.0/angular.js"></script> -->
- <!--    <script src="http://cdn.rawgit.com/angular-ui/ui-grid.info/gh-pages/release/3.0.0-rc.21/ui-grid.min.js"></script> -->
 
  <script src="resources/js/invoice-Summary.js"></script>   
-
 <link rel="stylesheet" href="resources/css/grid-style1.css"/>
-
-<!-- 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="resources/css/style.css">
-
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
- -->
 <script src="resources/js/angular.js"></script>
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
+
+
+
+
+<!-- <link rel="stylesheet" href="resources/css/grid-style.css" />
+<link rel="stylesheet" href="resources/css/ui-grid.min-1.css" />
+
+<script data-require="jquery@2.1.3" data-semver="2.1.3"
+	src="resources/js/jquery-2.1.3.min.js"></script>
+
+<script src="resources/js/angular.js"></script>
+
+<script src="resources/js/ui-grid.min.js"></script>
+
+
+
+<script src="resources/js/invoice-Summary.js"></script> -->
+
+
 
 
 <style>
@@ -147,7 +147,7 @@ display:none;
 
 
 
-<div class="main" ng-app="app" id="appId">
+<div class="main_transaction" ng-app="app" id="appId">
 <div ng-controller="InvoiceSummearyCtrl as vm">
 <div>
  		
@@ -225,7 +225,7 @@ display:none;
 		</form>
 		</div> 
 <br/>
-		<div class="submain">
+		<div class="submain_transaction">
 	
 	
 	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle, Vendor, State etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">

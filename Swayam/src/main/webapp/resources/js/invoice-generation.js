@@ -349,19 +349,19 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		useExternalPagination: true,
 		
 	      columnDefs: [
-	          { name: 'rpfRefNumber', displayName: 'RFP REF_NO.'  },
-	          { name: 'vendor', displayName: 'VENDOR' },
-	          { name: 'circleName', displayName: 'CIRCLE'  },
-	          { name: 'state', displayName: 'STATE'  },
-	          { name: 'kisokId', displayName: 'KIOSK ID'  },
-	          { name: 'kioskSerialNumber', displayName: 'KIOSK SERIAL NO'  },
-	          { name: 'quarterId', displayName: 'TIME PERIOD' },
-	          { name: 'spareParts', displayName: 'AMC/SPARE PARTS(A)' },
-	          { name: 'penalty', displayName: 'PENALTY(B)' },
+	          { name: 'rpfRefNumber', displayName: 'RFP REF_NO.' , width:180 },
+	          { name: 'vendor', displayName: 'VENDOR', width:180 },
+	          { name: 'circleName', displayName: 'CIRCLE' , width:180 },
+	          { name: 'state', displayName: 'STATE' , width:180 },
+	          { name: 'kisokId', displayName: 'KIOSK ID' , width:180 },
+	          { name: 'kioskSerialNumber', displayName: 'KIOSK SERIAL NO' , width:180 },
+	          { name: 'quarterId', displayName: 'TIME PERIOD' , width:180},
+	          { name: 'spareParts', displayName: 'AMC/SPARE PARTS(A)', width:180 },
+	          { name: 'penalty', displayName: 'PENALTY(B)' , width:180},
 	          { name: 'invoiceAmount', displayName: 'INVOICE AMOUNT (C=A-B)', visible: false },
-	          { name: 'corrections', displayName: 'CORRECTION IN PENALTY (C)' },
-	          { name: 'finalPenalty', displayName: 'FINAL PENALTY AMOUNT(D=B-C)'  },
-	          { name: 'finalAmount', displayName: 'FINAL AMOUNT(A-D)', visible: true  }
+	          { name: 'corrections', displayName: 'CORRECTION IN PENALTY (C)' , width:230},
+	          { name: 'finalPenalty', displayName: 'FINAL PENALTY AMOUNT(D=B-C)' , width:240 },
+	          { name: 'finalAmount', displayName: 'FINAL AMOUNT(A-D)', visible: true  , width:180}
 	          
 	    ],
 	    onRegisterApi: function(gridApi) {

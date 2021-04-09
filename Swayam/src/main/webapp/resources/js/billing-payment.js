@@ -360,18 +360,18 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		useExternalPagination: true,
 		
 	      columnDefs: [
-	          { name: 'prfRefNumber', displayName: 'RFP REF NO.'  },
-	          { name: 'vendor', displayName: 'VENDOR' },
-	          { name: 'circleName', displayName: 'CIRCLE'  },
-	          { name: 'state', displayName: 'STATE'  },
-	          { name: 'kisokId', displayName: 'KIOSK ID'  },
-	          { name: 'kioskSerialNumber', displayName: 'KIOSK SERIAL NO'  },
-	          { name: 'quarterId', displayName: 'TIME PERIOD' },
-	          { name: 'toatalhours', displayName: 'TOTAL WORKING HRS' },
-	          { name: 'downTime', displayName: 'TOTAL DOWNTIME(A)' },
-	          { name: 'relaxation', displayName: 'RELAXATION IN DOWNTIME (B)' },
-	          { name: 'finalDowntime', displayName: 'FINAL DOWNTIME (A-B)' },
-	          { name: 'penalty', displayName: 'PENALTY(INR)' }
+	          { name: 'prfRefNumber', displayName: 'RFP REF NO.' , width:180 },
+	          { name: 'vendor', displayName: 'VENDOR' ,	width:180 },
+	          { name: 'circleName', displayName: 'CIRCLE'  ,width:180},
+	          { name: 'state', displayName: 'STATE' ,width:180 },
+	          { name: 'kisokId', displayName: 'KIOSK ID' ,width:180 },
+	          { name: 'kioskSerialNumber', displayName: 'KIOSK SERIAL NO' ,width:180 },
+	          { name: 'quarterId', displayName: 'TIME PERIOD' ,width:180},
+	          { name: 'toatalhours', displayName: 'TOTAL WORKING HRS',width:180 },
+	          { name: 'downTime', displayName: 'TOTAL DOWNTIME(A)' ,width:180},
+	          { name: 'relaxation', displayName: 'RELAXATION IN DOWNTIME(B)',width:220},
+	          { name: 'finalDowntime', displayName: 'FINAL DOWNTIME (A-B)' ,width:200},
+	          { name: 'penalty', displayName: 'PENALTY(INR)' ,width:160}
 	          
 	    ],
 	    onRegisterApi: function(gridApi) {

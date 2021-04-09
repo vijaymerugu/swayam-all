@@ -11,19 +11,7 @@
 <script src="resources/js/Chart.min.js"></script>
 <script src="resources/js/angular-chart.min.js"></script>
 <script src="resources/js/chartjs-plugin-labels.js"></script>
-<!-- <style type="text/css">
-.rcorners {
-	 border-radius: 1px;
-	 border: 1px solid #73AD21;
-	/* padding: 1px; */
-	width: 650px;
-  	height: 800px;
-}
-.chartHeighWidth {
-	/* width: 200px;
-  	height: 200px; */
-}
-</style> -->
+
 <style type="text/css">
 
 table {
@@ -71,7 +59,8 @@ table tr:last-child td:last-child {
 	background: #FFFFFF 0% 0% no-repeat padding-box;
 	top: 10px;
 	right: 0;
-	width: 1500px;
+	width: 100%;
+	overflow:auto;
 	 height: 100px; 
 	border-radius: 1px;
 	border: 1px solid #73AD21;
@@ -86,7 +75,7 @@ table tr:last-child td:last-child {
 	 border-radius: 1px;
 	 border: 1px solid #73AD21;
 	/* padding: 1px; */
-	width: 750px;
+	width: 700px;
   	height: 1000px;
 }
 .rcorners1 {
@@ -94,7 +83,7 @@ table tr:last-child td:last-child {
 	 border-radius: 1px;
 	 border: 1px solid #73AD21;
 	/* padding: 1px; */
-	width: 750px;
+	width: 700px;
   	height: 600px;
 }
 .rcorners2 {
@@ -102,7 +91,7 @@ table tr:last-child td:last-child {
 	 border-radius: 1px;
 	 border: 1px solid #73AD21;
 	/* padding: 1px; */
-	width: 750px;
+	width: 700px;
   	height: 1000px;
 }
 
@@ -110,7 +99,7 @@ table tr:last-child td:last-child {
 
 	 border-radius: 1px;
 	 border: 1px solid #73AD21;
-	/* padding: 1px; */
+	/* padding: 1px; 
 	width: 650px;
   	height: 800px;
 } */
@@ -140,7 +129,8 @@ table tr:last-child td:last-child {
 .submain {
     top: 242px;
     left: 8px;
-    width: fit-content;
+    width: 100%;
+	overflow:auto;
     height: fit-content;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     box-shadow: 0px 3px 6px #8D8D8D29;
@@ -176,7 +166,7 @@ table tr:last-child td:last-child {
 		}
 	%>
 	<input type="hidden" id="pfId" value="<%=pfId%>">
-	<div class="main" ng-app="daCumulativeCircleDataModule" id="appId">
+	<div class="main_transaction" ng-app="daCumulativeCircleDataModule" id="appId">
 		<div ng-controller="daCumulativeCircleDataController as vm">
 		<div class="absolute">
 			<div><h5 style="font-weight: bold;" align="center">Urgent Information</h5></div>
@@ -185,7 +175,7 @@ table tr:last-child td:last-child {
 			</ul>
 				
 		</div>
-			<div class="submain">
+			<div class="submain" align="center">
 				<h5 style="font-weight: bold;" align="center">Cumulative Circle Data</h5>
 				<table>
 					<!-- <tr>

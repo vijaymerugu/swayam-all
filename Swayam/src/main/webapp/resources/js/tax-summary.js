@@ -287,7 +287,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	          
 	      }, {
 	          name: 'back',
-	          displayName: '-'
+	          displayName: ''
 	          
 	      }],
 		

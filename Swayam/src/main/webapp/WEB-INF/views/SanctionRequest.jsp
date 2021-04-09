@@ -165,7 +165,7 @@ display:none;
 
 
 
-<div class="main" ng-app="app" id="appId">
+<div class="main_terminal" ng-app="app" id="appId">
 <div ng-controller="SanctionRequestCtrl as vm">
 <div>
 
@@ -246,7 +246,7 @@ display:none;
 		
 		
    <table>				
-    
+     <tr>
             <td>
                 <div class="row">
                     <div class="col-xs-6"></div>
@@ -264,7 +264,7 @@ display:none;
 		</form>
 		</div> 
 <br/>
-		<div class="submain">
+		<div class="submain_transaction">
 	
 	
 	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle, Vendor, State, Rfp. ref no. etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">

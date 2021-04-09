@@ -281,27 +281,27 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	          
 	      }, {
 	          name: 'back',
-	          displayName: ''
+	          displayName: '-'
 	          
 	      }],
 		
 	      columnDefs: [
-	          { name: 'year', displayName: 'Year' ,superCol: 'front' },
-	          { name: 'vendor', displayName: 'Vendor',superCol: 'front' },
-	          { name: 'circleName', displayName: 'Circle' ,superCol: 'front'  },
-	          { name: 'state', displayName: 'State' ,superCol: 'front'  },
-	          { name: 'q1Im', displayName: 'Q1   ',superCol: 'InvoiceAmount'   },
-	          { name: 'q2Im', displayName: 'Q2   ',superCol: 'InvoiceAmount'   },
-	          { name: 'q3Im', displayName: 'Q3   ',superCol: 'InvoiceAmount'  },
-	          { name: 'q4Im', displayName: 'Q4   ' ,superCol: 'InvoiceAmount' },
-	          { name: 'q1P', displayName: 'Q1    ' ,superCol: 'Penalty'  },
-	          { name: 'q2P', displayName: 'Q2    ' ,superCol: 'Penalty'  },
-	          { name: 'q3P', displayName: 'Q3    ' ,superCol: 'Penalty'  },
-	          { name: 'q4P', displayName: 'Q4    ' ,superCol: 'Penalty'  },
-	          { name: 'q1Ba', displayName: 'Q1   ' ,superCol: 'BilledAmount'  },
-	          { name: 'q2Ba', displayName: 'Q2   ' ,superCol: 'BilledAmount'  },
-	          { name: 'q3Ba', displayName: 'Q3   ' ,superCol: 'BilledAmount'  },
-	          { name: 'q4Ba', displayName: 'Q4' ,superCol: 'BilledAmount'  }
+	          { name: 'year', displayName: 'Year' ,superCol: 'front' , width: '*'},
+	          { name: 'vendor', displayName: 'Vendor',superCol: 'front', width: '*' },
+	          { name: 'circleName', displayName: 'Circle' ,superCol: 'front' , width: '*' },
+	          { name: 'state', displayName: 'State' ,superCol: 'front'  , width: '*'},
+	          { name: 'q1Im', displayName: 'Q1   ',superCol: 'InvoiceAmount' , width: '*'  },
+	          { name: 'q2Im', displayName: 'Q2   ',superCol: 'InvoiceAmount', width: '*'   },
+	          { name: 'q3Im', displayName: 'Q3   ',superCol: 'InvoiceAmount' , width: '*' },
+	          { name: 'q4Im', displayName: 'Q4   ' ,superCol: 'InvoiceAmount' , width: '*'},
+	          { name: 'q1P', displayName: 'Q1    ' ,superCol: 'Penalty'  , width: '*'},
+	          { name: 'q2P', displayName: 'Q2    ' ,superCol: 'Penalty', width: '*'  },
+	          { name: 'q3P', displayName: 'Q3    ' ,superCol: 'Penalty' , width: '*' },
+	          { name: 'q4P', displayName: 'Q4    ' ,superCol: 'Penalty'  , width: '*'},
+	          { name: 'q1Ba', displayName: 'Q1   ' ,superCol: 'BilledAmount'  , width: '*'},
+	          { name: 'q2Ba', displayName: 'Q2   ' ,superCol: 'BilledAmount'  , width: '*'},
+	          { name: 'q3Ba', displayName: 'Q3   ' ,superCol: 'BilledAmount'  , width: '*'},
+	          { name: 'q4Ba', displayName: 'Q4' ,superCol: 'BilledAmount' , width: '*' }
 	          
 	    ],
 	    onRegisterApi: function(gridApi) {
