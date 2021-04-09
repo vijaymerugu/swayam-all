@@ -596,7 +596,7 @@ input[type=button], input[type=submit], input[type=reset] {
 <br>
 <div class="submain_upload">
 <div class="row">
-			<div class="column">
+			<!-- <div class="column">
 				<label>Holiday Calendar</label>
 			</div>
 			<div class="columnUpload">
@@ -605,7 +605,7 @@ input[type=button], input[type=submit], input[type=reset] {
 			
 			<div class="columnSubmit">
 				<input type="submit" value="UPLOAD" class="openPopupAssignHoliday">
-			</div>
+			</div> -->
 
 			<div class="column">
 				<label>Kiosk CMF</label>
@@ -615,10 +615,20 @@ input[type=button], input[type=submit], input[type=reset] {
 			</div>
 			<div class="columnSubmit">
 				<input type="submit" value="UPLOAD" class="openPopupKioskCMF">	</div>
+				
+				<div class="column">
+				<label>Vendor Invoice</label>
+			</div>
+			<div class="columnUpload">
+				<input type="file" id="InFile" name="myFile">
+			</div>
+			<div class="columnSubmit">
+				<input type="submit" value="UPLOAD" class="openPopupAssignInVen">
+			</div>
 		</div>
 <br>
 <br>	
-<div class="row">
+<!-- <div class="row">
 			<div class="column">
 				<label>Kiosk Details</label>
 			</div>
@@ -641,10 +651,10 @@ input[type=button], input[type=submit], input[type=reset] {
 				<input type="submit" value="UPLOAD" class="openPopupAssignCBS">
 			
 	</div>
-</div>
+</div> -->
 <br>
 <br>	
-<div class="row">
+<!-- <div class="row">
 			<div class="column">
 				<label>Vendor Invoice</label>
 			</div>
@@ -657,7 +667,7 @@ input[type=button], input[type=submit], input[type=reset] {
 
 		
 			
-	</div>
+	</div> -->
 </div>	
 	<div id="myModal" class="modal">
 		<!-- Modal content -->

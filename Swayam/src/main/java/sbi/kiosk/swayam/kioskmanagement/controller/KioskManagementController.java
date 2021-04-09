@@ -214,6 +214,10 @@ public class KioskManagementController {
 				resultPage= kioskManagementService.findPaginatedCountByCircle(page, size, type);
 			}else if(type.equals("DeleviredLIPIVendor")){
 			   resultPage= kioskManagementService.findPaginatedCountByCircle(page, size, type);
+		    }else if(type.equals("Assigned")){ logger.info("if Assigned!!!!!!!!!!");
+			   resultPage= kioskManagementService.findPaginatedCountByCircle(page, size, type);
+		    }else if(type.equals("ToBeAssigned")){ logger.info("if ToBeAssigned!!!!!!!!!!");
+			   resultPage= kioskManagementService.findPaginatedCountByCircle(page, size, type);
 		    }else{
 		         resultPage = kioskManagementService.findPaginatedByCircle(page, size);
 		        if (page > resultPage.getTotalPages()) {
