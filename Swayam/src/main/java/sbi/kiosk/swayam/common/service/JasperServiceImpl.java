@@ -64,6 +64,7 @@ import sbi.kiosk.swayam.common.entity.BranchMaster;
 import sbi.kiosk.swayam.common.entity.DateFrame;
 import sbi.kiosk.swayam.common.entity.DownTime;
 import sbi.kiosk.swayam.common.entity.ErrorReporting;
+import sbi.kiosk.swayam.common.entity.ErrorReportingDrillDown;
 import sbi.kiosk.swayam.common.entity.InvoiceCompare;
 import sbi.kiosk.swayam.common.entity.InvoiceGeneration;
 import sbi.kiosk.swayam.common.entity.InvoiceSummaryEntity;
@@ -2127,7 +2128,8 @@ public class JasperServiceImpl implements JasperService {
 		  todate = dateFrame.getToDate();
 		  }
 		 
-		List<ErrorReporting> list = errorReportingRepositoryPaging.findAllErrReport(fromdate, todate);
+		List<ErrorReportingDrillDown> list = errorReportingRepositoryPaging.findAllErrReport(fromdate, todate);
+		logger.info("Inside==Jasper====list==========="+list);
 		List<ErrorReportingDto> entities = ObjectMapperUtils.mapAll(list, ErrorReportingDto.class);
 		return entities;
 	}

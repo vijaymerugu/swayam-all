@@ -446,6 +446,8 @@ Logger logger = LoggerFactory.getLogger(ErrorReportingContoller.class);
 		      @RequestParam("networkName") String networkName, @RequestParam("moduleName") String moduleName, @RequestParam("regionName") String regionName, @RequestParam("fromDate") String fromDate, @RequestParam("toDate") String toDate) {
 		 Page<ErrorReportingDrillDown> resultPage = null;
 		 
+		 dateFrame.setFromDate(fromDate); 
+		 dateFrame.setToDate(toDate);
 		 if(networkName.equals("undefined") || moduleName.equals("undefined") || regionName.equals("undefined")) {	 
 			 networkName="";
 			 moduleName="";
