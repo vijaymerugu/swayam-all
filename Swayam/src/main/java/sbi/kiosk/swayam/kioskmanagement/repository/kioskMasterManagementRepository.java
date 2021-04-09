@@ -27,4 +27,10 @@ public interface kioskMasterManagementRepository extends CrudRepository<KioskBra
 	
 	@Query(value="select * from  TBL_KIOSK_MASTER km where exists (select * from tbl_user_kiosk_mapping ukm where upper(km.kiosk_id)=upper(ukm.kiosk_id)) ", nativeQuery = true)
 	Page<KioskBranchMaster> findAllByInUserKiosk( Pageable pageable); 
+	
+	@Query(value="select * from  TBL_KIOSK_MASTER km where not exists (select * from tbl_user_kiosk_mapping ukm where upper(km.kiosk_id)=upper(ukm.kiosk_id)) and km.circle=:circle", nativeQuery = true)
+	Page<KioskBranchMaster> findAllByNotInUserKioskByCircle( @Param("circle") String circle,Pageable pageable); 
+	
+	@Query(value="select * from  TBL_KIOSK_MASTER km where exists (select * from tbl_user_kiosk_mapping ukm where upper(km.kiosk_id)=upper(ukm.kiosk_id)) and km.circle=:circle ", nativeQuery = true)
+	Page<KioskBranchMaster> findAllByInUserKioskByCircle( @Param("circle") String circle,Pageable pageable); 
 }

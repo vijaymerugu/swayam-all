@@ -232,4 +232,42 @@ vertical-align:top;
 .Column-VerticalLine {
 	border-right: thin solid #A9A9A9;
 }
+#count11{
+top: 213px;
+
+width: 20%;
+
+/* text-align: left; */
+font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+font-size: 21px;
+font-weight: bold;
+letter-spacing: 0;
+color: #13A8E0;
+opacity: 1;
+border: 1px solid black;
+padding:0px; 
+border-width:0px; 
+margin:0px; 
+bottom: 0;
+border: 0px solid black;
+vertical-align:bottom;
+}
+#count21{
+top: 246px;
+
+width: 20%;
+
+/* text-align: right; */
+font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+font-size: 16px;
+letter-spacing: 0;
+color: #000000;
+opacity: 0.75;
+border: 1px solid black;
+padding:0px; 
+border-width:0px; 
+margin:0px; 
+border: 0px solid black;
+vertical-align:top;
+}
 	

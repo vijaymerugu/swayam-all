@@ -17,6 +17,14 @@
     <field name="branchCode" class="java.lang.String"></field>    
 
     <field name="vendor" class="java.lang.String"></field>
+    
+    <field name="kioskSerialNo" class="java.lang.String"></field>
+    
+    <field name="kioskMacAddress" class="java.lang.String"></field>
+    
+    <field name="kioskIp" class="java.lang.String"></field>
+    
+    <field name="refId" class="java.lang.String"></field>
 	
 	<field name="installationStatus" class="java.lang.String"></field>
 	
@@ -164,10 +172,118 @@
                 <text><![CDATA[VENDOR]]></text>
 
             </staticText>
-
             <staticText>
 
                 <reportElement x="444" y="41" width="111" height="20"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+
+                </box>
+
+                <textElement textAlignment="Center">
+
+                    <font size="10" isBold="true" isItalic="false"></font>
+
+                </textElement>
+
+                <text><![CDATA[SERIAL NO]]></text>
+
+            </staticText>
+            <staticText>
+
+                <reportElement x="555" y="41" width="111" height="20"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+
+                </box>
+
+                <textElement textAlignment="Center">
+
+                    <font size="10" isBold="true" isItalic="false"></font>
+
+                </textElement>
+
+                <text><![CDATA[MAC ID]]></text>
+
+            </staticText>
+            <staticText>
+
+                <reportElement x="666" y="41" width="111" height="20"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+
+                </box>
+
+                <textElement textAlignment="Center">
+
+                    <font size="10" isBold="true" isItalic="false"></font>
+
+                </textElement>
+
+                <text><![CDATA[IP ADDRESS]]></text>
+
+            </staticText>
+            <staticText>
+
+                <reportElement x="777" y="41" width="111" height="20"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+
+                </box>
+
+                <textElement textAlignment="Center">
+
+                    <font size="10" isBold="true" isItalic="false"></font>
+
+                </textElement>
+
+                <text><![CDATA[RFP ID]]></text>
+
+            </staticText>
+
+          <!--  <staticText>
+
+                <reportElement x="888" y="41" width="111" height="20"></reportElement>
 
                 <box>
 
@@ -190,11 +306,11 @@
 
                 <text><![CDATA[INSTALLATION STATUS]]></text>
 
-            </staticText>
+            </staticText> -->
 			
 			<staticText>
 
-                <reportElement x="555" y="41" width="150" height="20"></reportElement>
+                <reportElement x="888" y="41" width="150" height="20"></reportElement>
 
                 <box>
 
@@ -330,10 +446,109 @@
                 <textFieldExpression><![CDATA[$F{vendor} == null?"":$F{vendor}]]></textFieldExpression>
 
             </textField>
-
-            <textField>
+			 <textField>
 
                 <reportElement x="444" y="0" width="111" height="15"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+
+                </box>
+
+                <textElement textAlignment="Center">
+					<font size="8" isItalic="false"></font>
+				</textElement>
+
+                <textFieldExpression><![CDATA[$F{kioskSerialNo} == null?"":$F{kioskSerialNo}]]></textFieldExpression>
+
+            </textField>
+              <textField>
+
+                <reportElement x="555" y="0" width="111" height="15"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+
+                </box>
+
+                <textElement textAlignment="Center">
+					<font size="8" isItalic="false"></font>
+				</textElement>
+
+                <textFieldExpression><![CDATA[$F{kioskMacAddress} == null?"":$F{kioskMacAddress}]]></textFieldExpression>
+
+            </textField>
+             <textField>
+
+                <reportElement x="666" y="0" width="111" height="15"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+
+                </box>
+
+                <textElement textAlignment="Center">
+					<font size="8" isItalic="false"></font>
+				</textElement>
+
+                <textFieldExpression><![CDATA[$F{kioskIp} == null?"":$F{kioskIp}]]></textFieldExpression>
+
+            </textField>
+             <textField>
+
+                <reportElement x="777" y="0" width="111" height="15"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+
+                </box>
+
+                <textElement textAlignment="Center">
+					<font size="8" isItalic="false"></font>
+				</textElement>
+
+                <textFieldExpression><![CDATA[$F{refId} == null?"":$F{refId}]]></textFieldExpression>
+
+            </textField>
+            <textField>
+
+                <reportElement x="888" y="0" width="111" height="15"></reportElement>
 
                 <box>
 
@@ -359,7 +574,7 @@
 			
 			<textField>
 
-                <reportElement x="555" y="0" width="150" height="15"></reportElement>
+                <reportElement x="888" y="0" width="150" height="15"></reportElement>
 
                 <box>
 

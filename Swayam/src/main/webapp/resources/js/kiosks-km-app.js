@@ -14,7 +14,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 			$("#contentHomeApp").load(str);
 		}						
 	}
-   $scope.getCountType = function(type){
+   $scope.getCountType = function(type){ debugger;
 
 	   if ($scope.counttype != type)
 	   {
@@ -69,13 +69,18 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	useExternalPagination: true,
 	
     columnDefs: [
-      { name: 'kioskId', 	width:350, displayName: 'Kiosk Id'  },
-      { name: 'circle', 	width:350, displayName: 'Circle'  },
-      { name: 'branchCode', 	width:250, displayName: 'Branch Code'  },
-      { name: 'vendor', 	width:250, displayName: 'Vendor'  },
-      { name: 'installationStatus', 	width:250, displayName: 'Installation Status'  },      
+    	{ name: 'kioskId', displayName: 'Kiosk Id'  },
+        { name: 'circle', displayName: 'Circle'  },
+        { name: 'branchCode',displayName: 'Branch Code'  },
+        { name: 'vendor',  displayName: 'Vendor'  },
+        { name: 'kioskSerialNo', displayName: 'Serial No'  }, 
+        { name: 'kioskMacAddress',  displayName: 'MAC ID'  },
+        { name: 'kioskIp',  displayName: 'IP Address'  },
+        { name: 'refId', displayName: 'RFP ID'  },
+     /*   Commented temporarily by Manisha
+      * { name: 'installationStatus',  displayName: 'Installation Status'  }, */   
       { name: 'username',    	  
-    	  displayName: 'Assigned CMF', 	width:350,  
+    	  displayName: 'Assigned CMF', 	  
     	  cellTemplate: '<div ng-if="row.entity.pfId != undefined">{{ row.entity.username }}</div><div ng-if="row.entity.pfId == undefined"><a style="cursor: hand;cursor: pointer;" ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.kioskId)">Assign CMF</a></div>'
       }
     ],
@@ -97,7 +102,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 
 app.service('UserManagementService',['$http', function ($http) {
 	
-	function getUsers(pageNumber,size,counttype) {
+	function getUsers(pageNumber,size,counttype) {debugger;
 		
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({

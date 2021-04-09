@@ -487,6 +487,10 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 		  entities =  kioskBranchMasterRepositoryPaging.findByVendorAndInstallationStatusAndCircle("LIPI","Installed",circle,PageRequest.of(page, size)).map(KioskBranchMasterUserDto::new);
 	  }else if(type!=null &&type.equals("DeleviredLIPIVendor")){
 		  entities =  kioskBranchMasterRepositoryPaging.findByVendorAndInstallationStatusAndCircle("LIPI","Pending",circle,PageRequest.of(page, size)).map(KioskBranchMasterUserDto::new);
+	  } if(type!=null && type.equals("Assigned")){logger.info("if Assigned!!!!!!!!!!11111111");
+		   entities = kioskMasterManagementRepository.findAllByInUserKioskByCircle(circle,PageRequest.of(page, size)).map(KioskBranchMasterUserDto::new);  
+	  }else if(type!=null &&type.equals("ToBeAssigned")){logger.info("if ToBeAssigned!!!!!!!!!!11111111");
+		  entities = kioskMasterManagementRepository.findAllByNotInUserKioskByCircle(circle,PageRequest.of(page, size)).map(KioskBranchMasterUserDto::new); 
 	  }
 	  
 	 }

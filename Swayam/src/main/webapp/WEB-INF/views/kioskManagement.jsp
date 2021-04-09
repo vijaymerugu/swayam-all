@@ -115,10 +115,11 @@
 
 					<tr
 						style="color: #000000; font-size: 12px; font-weight: bold; width: 119px;" >
-						<th colspan="4" style="text-align: -webkit-center;">NO OF KIOSKS</th>
+					<th colspan="3" style="text-align: center;">NO OF KIOSKS</th>
+					<!-- Commented temporarily by Manisha
 						<th colspan="3" style="text-align: centor;">CMS ROLLOUT</th>
-						<th colspan="3" style="text-align: centor;">LIPI ROLLOUT</th>
-						<th colspan="3" style="text-align: centor;">ASSIGNED KIOSKS</th>
+						<th colspan="3" style="text-align: centor;">LIPI ROLLOUT</th> -->
+						<th colspan="3" style="text-align: center;">ASSIGNED KIOSKS</th>
 					</tr>
 
 
@@ -126,19 +127,20 @@
 
 				<tbody>
 					<tr align="center">
-						<td id="count1">
+						<td id="count11">
 						  <a ng-click="getCountType('InstalledKiosks')" style="cursor: hand;cursor: pointer;"><c:out value="${mapDataCount['InstalledKiosks']}" /></a>
 						</td>
 						
-						<td id="count1">
+						<td id="count11">
 						 <a ng-click="getCountType('CMS')" style="cursor: hand;cursor: pointer;"> <c:out value="${mapDataCount['CMS']}" /></a>						
 						</td>
 						
-						<td id="count1" style="border-right: solid 1px #0307fc;">
+						<td id="count11" style="border-right: solid 1px #0307fc;">
 						<a ng-click="getCountType('LIPI')" style="cursor: hand;cursor: pointer;"> <c:out value="${mapDataCount['LIPI']}"/></a>	
 						</td>
 
-						 <td id="count1">
+					<%-- 	Commented temporarily by Manisha
+					 <td id="count1">
 						 <a ng-click="getCountType('CMS')" style="cursor: hand;cursor: pointer;"> <c:out value="${mapDataCount['CMS']}" /></a>
 						 </td>
 						 
@@ -157,12 +159,12 @@
 						</td>
 						<td id="count1" style="border-right: solid 1px #0307fc;">
 						<a ng-click="getCountType('DeleviredLIPIVendor')" style="cursor: hand;cursor: pointer;"> <c:out value="${mapDataCount['DeleviredLIPIVendor']}" /></a>
-						</td>
+						</td> --%>
 
-						<td id="count1">
+						<td id="count11">
 						<a ng-click="getCountType('Assigned')" style="cursor: hand;cursor: pointer;"> <c:out value="${mapDataCount['Assigned']}" /></a>
 						</td>
-						<td id="count1">
+						<td id="count11">
 						<a ng-click="getCountType('ToBeAssigned')" style="cursor: hand;cursor: pointer;"> <c:out value="${mapDataCount['ToBeAssigned']}" /></a>
 						</td>
 						
@@ -170,11 +172,12 @@
 					<tr align="center"
 						style="color: #000000; font-size: 12px; font-weight: bold;"
 						width="10%">
-						<td id="count2">Installed Kiosks</td>
-						<td id="count2">CMS</td>
-						<td id="count2"
+						<td id="count21">Installed Kiosks</td>
+						<td id="count21">CMS</td>
+						<td id="count21"
 							style="color: black; border-right: solid 1px #0307fc;">LIPI</td>
 
+						<!-- Commented temporarily by Manisha
 						<td id="count2">Total Kiosks</td>
 						<td id="count2" style="color: black;">Installed</td>
 						<td id="count2"
@@ -183,10 +186,10 @@
 						<td id="count2">Total Kiosks</td>
 						<td id="count2" style="color: black;">Installed</td>
 						<td id="count2"
-							style="color: black; border-right: solid 1px #0307fc;">Delivered</td>
+							style="color: black; border-right: solid 1px #0307fc;">Delivered</td> -->
 
-						<td id="count2" class="vi" style="color: black;">Assigned</td>
-						<td id="count2" style="color: black;">To be Assigned</td>
+						<td id="count21" class="vi" style="color: black;">Assigned</td>
+						<td id="count21" style="color: black;">To be Assigned</td>
 
 					</tr>
 				</tbody>
