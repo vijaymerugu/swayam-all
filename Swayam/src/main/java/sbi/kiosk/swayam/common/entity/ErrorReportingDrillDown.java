@@ -34,6 +34,6 @@ public class ErrorReportingDrillDown implements Serializable{
 	@Column(name = "No_of_technical_failure_Txns")
 	private Integer noOfTchFailTxns;
 	@Column(name = "No_of_business_failure_Txns")
-	private Double noOfBsnsFailTxns;
+	private Integer noOfBsnsFailTxns;
 
 }
