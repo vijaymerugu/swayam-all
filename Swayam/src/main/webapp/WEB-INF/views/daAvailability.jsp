@@ -15,7 +15,8 @@ div.absolute {
 	background: #FFFFFF 0% 0% no-repeat padding-box;
 	top: 10px;
 	right: 0;
-	width: 1500px;
+	/* width: 1500px; */
+	width: 100%;
 	 height: 100px; 
 	border-radius: 1px;
 	border: 1px solid #73AD21;
@@ -53,7 +54,10 @@ div.absolute {
  .submain {
     top: 242px;
     left: 8px;
-    width: 1500px;
+   /*  width: 1500px; */
+   	width: 100%;
+	overflow:auto;
+   	/* display: inline-block; */
     height: fit-content;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     box-shadow: 0px 3px 6px #8D8D8D29;
@@ -99,7 +103,7 @@ div.absolute {
 <body>
 
 
-	<div class="main" ng-app="daAvailabilityModule" id="appId">
+	<div class="main_transaction" ng-app="daAvailabilityModule" id="appId">
 		<div ng-controller="daAvailabilityController as vm">
 	
 	<div class="absolute">

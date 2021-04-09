@@ -74,7 +74,7 @@ table tr:last-child td:last-child {
 	background: #FFFFFF 0% 0% no-repeat padding-box;
 	top: 10px;
 	right: 0;
-	width: 1500px;
+	width: 100%;
 	 height: 100px; 
 	border-radius: 1px;
 	border: 1px solid #73AD21;
@@ -89,7 +89,7 @@ table tr:last-child td:last-child {
 	 border-radius: 1px;
 	 border: 1px solid #73AD21;
 	/* padding: 1px; */
-	width: 750px;
+	width: 700px;
   	height: 600px;
 }
 /* .rcorners {
@@ -126,7 +126,8 @@ table tr:last-child td:last-child {
 .submain {
     top: 242px;
     left: 8px;
-    width: fit-content;
+    width: 100%;
+	overflow:auto;
     height: fit-content;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     box-shadow: 0px 3px 6px #8D8D8D29;
@@ -162,7 +163,7 @@ table tr:last-child td:last-child {
 		}
 	%>
 	<input type="hidden" id="pfId" value="<%=pfId%>">
-	<div class="main" ng-app="daUserWiseDataModule" id="appId">
+	<div class="main_transaction" ng-app="daUserWiseDataModule" id="appId">
 		<div ng-controller="daUserWiseDataController as vm">
 		<div class="absolute">
 			<div><h5 style="font-weight: bold;" align="center">Urgent Information</h5></div>

@@ -4,11 +4,29 @@
 <script	src="resources/js/angular.1.5.6.min.js"></script>
 <script src="resources/js/jquery.3.4.1.min.js"></script>
 <script src="resources/js/bootstrap.3.4.1.min.js"></script>
-<link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
-
+<!-- <link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css"> -->
 
 
 <script
+	src="resources/js/ui-grid.min.js"></script>
+<script src="resources/js/purchaseOrder.js"></script>
+<script	src="resources/js/angular.1.5.6.min.js"></script>
+<link rel="stylesheet" href="resources/css/grid-style.css"/>
+<link rel="stylesheet" href="resources/css/body-page.css"/>
+<link rel="stylesheet" href="resources/css/style.css">
+
+<link rel="stylesheet" href="resources/css/bootstrap.min.css"> 
+<link rel="stylesheet" href="resources/css/font-awesome.min.css">
+<script src="resources/js/a076d05399.js"></script>
+<script src="resources/js/angular-route.min.js"></script>
+<script src="resources/js/angular.js"></script>
+    <script src="resources/js/angular-touch.js"></script>
+    <script src="resources/js/angular-animate.js"></script>
+    <script src="resources/js/angular-aria.js"></script>
+
+
+
+<!-- <script
 	src="//cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
 <script src="resources/js/purchaseOrder.js"></script>
 <script	src="resources/js/angular.1.5.6.min.js"></script>
@@ -24,43 +42,10 @@
 <script src="resources/js/angular.js"></script>
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
-    <script src="resources/js/angular-aria.js"></script>
-
-
-
-
-<!-- <script	src="resources/js/angular.1.5.6.min.js"></script>
-<script src="resources/js/jquery.3.4.1.min.js"></script>
-<script src="resources/js/bootstrap.3.4.1.min.js"></script>
-<link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
-
-<script
-	src="resources/js/ui-grid.min.js"></script>
-<script src="resources/js/purchaseOrder.js"></script>
-<script	src="resources/js/angular.1.5.6.min.js"></script>
-<link rel="stylesheet" href="resources/css/grid-style.css"/>
-<link rel="stylesheet" href="resources/css/body-page.css"/>
-
-<link rel="stylesheet" href="resources/css/bootstrap.min.css"> 
-<script src="resources/js/ui-grid.js"></script> 
-<link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/>
-
-<link rel="stylesheet" href="resources/css/font-awesome.min.css">
- 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="resources/css/style.css">
-<script src="resources/js/jquery-1.12.4.js"></script>
-<script src="resources/js/jquery-ui.js"></script>
-
-<script src="resources/js/a076d05399.js"></script>
-
-<script src="resources/js/angular-route.min.js"></script>
-
-
-<script src="resources/js/angular.js"></script>
-    <script src="resources/js/angular-touch.js"></script>
-    <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script> -->
+
+
+
 <style>
         .tb-bk {
             background: #f3f7fa;
@@ -111,39 +96,26 @@
         padding:5px 10px;
         }
         
-        .ui-grid-header-canvas {
+      .ui-grid, .ui-grid-viewport { 
+   			  height: auto !important; 
+   			  overflow: hidden;
+			} 
+			.ui-grid-pager-panel {
+		     position: relative;
+			 } 
+	
+			.ui-grid-pager-row-count-picker {
+			display:none;
+			}
+ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
+    overflow: hidden;
+}
+
+    .ui-grid-header-cell {float: left;}
+    
+    .ui-grid-header-canvas {
     padding-top: 0px;
     padding-bottom: 0px;}
-        
-       /*    .ui-grid-header-cell-label {
-		display:inline-block;
-		white-space:initial;
-		}
-		
-		
-		.wrap-text .ui-grid-cell-contents {
- 		 white-space:normal;
-		}
-
-		[ui-grid-row] {
-  		display: table-row;
-		}
-
-		.ui-grid-row, .ui-grid-cell {
-  		height: auto!important;
-		}
-
-			.ui-grid-cell {
-  			float: none;
-  			display: table-cell;
-			} 
-		
-		
-			.ui-grid-header-cell, .ui-grid-cell-contents {
-  			white-space: normal;
-  			padding: 2px;
-  			word-break: break-word;
-			} */
  
     </style>
 	
@@ -152,7 +124,7 @@
 
 
 
-<div class="main" ng-app="app" id="appId">
+<div class="main_transaction" ng-app="app" id="appId">
 <div ng-controller="PurchaseOrderCtrl as vm">
 <%-- <input type="hidden" name="_csrf" ng-model="csrf"  value="<%=session.getAttribute("csrfToken")%>">  --%>
  <input type="hidden" ng-init="csrf ='<%=session.getAttribute("csrfToken")%>'" >
@@ -219,7 +191,7 @@
 	<!-- 	<button  id="getData" ng-click="getRowsData()">Ge</button> -->
 		</div>
 <br/>
-		<div class="submain">
+		<div class="submain_transaction">
 	
 	<!-- 
 	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle, No Of Branches, Kiosks, Txns, etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">

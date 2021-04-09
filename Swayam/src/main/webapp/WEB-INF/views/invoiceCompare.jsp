@@ -285,7 +285,7 @@ ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
 		</form>
 		</div> 
 <br/>
-		<div class="submain">
+		<div class="submain_transaction">
 	
 	
 	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle, Vendor, State, Rfp. ref no., Kisok Id etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">

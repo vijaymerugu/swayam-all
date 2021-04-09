@@ -294,7 +294,7 @@ app.controller(
 								 {
 					                  name: "poQuantity", displayName: "QUANTITY", field: "poQuantity",
 					                  cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div '+ 
-					                	 ' ng-if="row.entity.editrow"><input type="number" min="0"  style="height:30px" ng-model="MODEL_COL_FIELD"</div>', width:150
+					                	 ' ng-if="row.entity.editrow"><input type="number" min="0"  style="height:30px" ng-model="MODEL_COL_FIELD"</div>', width:180
 					              },
 					              { name: 'poDate', displayName: 'LAST PO ISSUE DATE' , width:180},
 								 {
@@ -302,7 +302,7 @@ app.controller(
 					                  cellTemplate: '<div><button ng-show="!row.entity.editrow" class="btn primary" ng-click="grid.appScope.edit(row.entity)"><i class="fa fa-edit"></i></button>' +  //Edit Button
 					                                 '<button ng-show="row.entity.editrow" class="btn primary" ng-click="grid.appScope.saveRow(row.entity)"><i class="fa fa-floppy-o"></i></button>' +//Save Button
 					                                 '<button ng-show="row.entity.editrow" class="btn primary" ng-click="grid.appScope.cancelEdit(row.entity)"><i class="fa fa-times"></i></button>' + //Cancel Button
-					                                 '</div>', width:100
+					                                 '</div>', width:150
 					              }
 
 								],

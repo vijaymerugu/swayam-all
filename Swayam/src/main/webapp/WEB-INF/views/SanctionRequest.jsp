@@ -165,7 +165,7 @@ display:none;
 
 
 
-<div class="main_transaction" ng-app="app" id="appId">
+<div class="main_terminal" ng-app="app" id="appId">
 <div ng-controller="SanctionRequestCtrl as vm">
 <div>
 
@@ -246,7 +246,7 @@ display:none;
 		
 		
    <table>				
-    
+     <tr>
             <td>
                 <div class="row">
                     <div class="col-xs-6"></div>

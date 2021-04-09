@@ -17,21 +17,9 @@
 <link rel="stylesheet" href="resources/css/style.css">
 
 <link rel="stylesheet" href="resources/css/bootstrap.min.css"> 
-<!-- <script src="resources/js/ui-grid.js"></script> 
-<link rel="stylesheet" href="resources/css/ui-grid.css" type="text/css"/> -->
-
 <link rel="stylesheet" href="resources/css/font-awesome.min.css">
- 
-<!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-<script src="resources/js/jquery-1.12.4.js"></script>
-<script src="resources/js/jquery-ui.js"></script> -->
-
 <script src="resources/js/a076d05399.js"></script>
-
 <script src="resources/js/angular-route.min.js"></script>
-
-
 <script src="resources/js/angular.js"></script>
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
@@ -134,42 +122,12 @@ ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
     .ui-grid-header-canvas {
     padding-top: 0px;
     padding-bottom: 0px;}
-        
-       /*    .ui-grid-header-cell-label {
-		display:inline-block;
-		white-space:initial;
-		}
-		
-		
-		.wrap-text .ui-grid-cell-contents {
- 		 white-space:normal;
-		}
-
-		[ui-grid-row] {
-  		display: table-row;
-		}
-
-		.ui-grid-row, .ui-grid-cell {
-  		height: auto!important;
-		}
-
-			.ui-grid-cell {
-  			float: none;
-  			display: table-cell;
-			} 
-		
-		
-			.ui-grid-header-cell, .ui-grid-cell-contents {
-  			white-space: normal;
-  			padding: 2px;
-  			word-break: break-word;
-			} */
  
     </style>
 	
 </head>
 <body>
-	<div class="main" ng-app="app" id="appId">
+	<div class="main_transaction" ng-app="app" id="appId">
 		<div ng-controller="BillingCtrl as vm">
 		 <input type="hidden" ng-init="csrf ='<%=session.getAttribute("csrfToken")%>'" >
 			<form class="form-horizontal">
@@ -196,7 +154,7 @@ ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
 			</form>
 			<br>
 
-			<div class="submain">
+			<div class="submain_transaction">
 				<input ng-model="searchText" ng-change="refresh()"
 					placeholder="Enter Circle,vendor, Allocated Qty., Remaining Qty., etc." style="font-size: 12px"
 					size="150" height="80" class="form-group has-search" id="input">
