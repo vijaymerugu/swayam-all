@@ -5,7 +5,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -307,7 +306,9 @@ element.style {
     padding: 122px;
 }
 
-
+   table#tableId {
+  display: none;
+}
 </style>
 
 <script type="text/javascript">
@@ -393,6 +394,7 @@ function fromValidation(){
 		 errorList.push("Please enter Reporting Authority Name");
 	 }
 	 else{
+		// alert("reportingAuthorityName==="+reportingAuthorityName);
 		 if (!reportingAuthorityName.match(/^[a-zA-Z ]+$/)) 
 		    {
 			 errorList.push('Only alphabets are allowed');
@@ -676,7 +678,6 @@ $(document).ready(function(){
 
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
-
 </head>
 
 <body>
@@ -753,7 +754,7 @@ $(document).ready(function(){
 					<tr>						
 						<td style="top: 352px; width: 190px; height: 75px;opacity: 1;"><b style="color: purple">Role</b><b><span
 							 	style="color: red">*</span></b></td>
-						<td><form:select path="role" id="role"   value="${addUserDto.role}" style="color:blue">
+						<td><form:select path="role" id="role"   value="${addUserDto.role}"  style="color:blue">
 								<form:option value="Select" label="Select"></form:option>
 								<c:forEach var="list" items="${roleList}">
 									<form:option value="${list.role}">${list.roleDescription}</form:option>
@@ -764,13 +765,29 @@ $(document).ready(function(){
 						<td style="top: 352px; width: 190px; height: 75px;opacity: 1;"><b style="color: purple">Circle</b><b><span
 							 	style="color: red">*</span></b></td>
 							 	<td><form:input path="circle"  id="circle"   value="${circleList}" style="color:blue" maxlength="50"/>
-						 <%-- <td><form:select path="circle" id="circle"   value="${addUserDto.circle}" style="color:blue">
+						<%--   <td><form:select path="circle" id="circle"   value="${addUserDto.circle}" style="color:blue">
 								<form:option value="Select" label="Select"></form:option>
 								<c:forEach var="list" items="${circleList}">
 									<form:option value="${list.circleName}">${list.circleName}</form:option>
 								</c:forEach>
-							</form:select></td>	  --%>
+							</form:select></td>	  --%> 
+							
+						<td></td>
+						
 					</tr>
+					
+					<tr id="roleID1"  style="display: none;">
+						<td  style="top: 352px; width: 190px; height: 75px;opacity: 1;"><b style="color: purple">Reporting Authority PF ID</b><b><span
+							 	style="color: red">*</span></b></td>
+						<td><form:select path="reportingAuthorityPfId" id="reportingAuthorityPfId"  value="${addUserDto.reportingAuthorityPfId}" style="color:blue">
+								<form:option value="SelectedPfID" id="SelectedPfID"></form:option>
+								<%-- <c:forEach var="list" items="${listSupPfId}">
+									<form:option value="${list.pfId}">${list.pfId}</form:option>
+								</c:forEach> --%>
+				
+							</form:select></td>
+					</tr>     
+    
 					<tr>
 						<td></td>
 						<td><span id="role12" style="color: red"></span></td>
@@ -782,12 +799,12 @@ $(document).ready(function(){
 					<tr>
 						<td><b style="color: purple">Reporting Authority Name</b><b><span
 								style="color: red">*</span></b></td>
-						<td><form:input path="reportingAuthorityName" value="${addUserDto.reportingAuthorityName}" maxlength="50"/></td>
+						<td><form:input path="reportingAuthorityName" id="reportingAuthorityName" value="${addUserDto.reportingAuthorityName}"  maxlength="50"/></td>
 						<td></td>
 						<td></td>
 						<td><b style="color: purple">Reporting Authority Email</b><b><span
 								style="color: red">*</span></b></td>
-						<td><form:input path="reportingAuthorityEmail" value="${addUserDto.reportingAuthorityEmail}" maxlength="50"/></td>
+						<td><form:input path="reportingAuthorityEmail" id="reportingAuthorityEmail" value="${addUserDto.reportingAuthorityEmail}" maxlength="50"/></td>
 					</tr>
 					<tr>
 					</tr>
@@ -852,6 +869,7 @@ $(document).ready(function(){
 	</div>
 	<div class="error-div"></div>
 	
+
 	
 	
 	
@@ -866,6 +884,75 @@ $(document).ready(function(){
 });
 
 </script>	
+
+
+<script>
+
+$(function(){
+		
+		 $("#role").change(function(){
+		     var roleName = this.value;
+		   if(roleName=="BM" || roleName=="CMF" ){
+			   $.ajax({
+				    	type:"GET",
+				    	url:"km/getRoleName/"+roleName,
+				        success: function(data){
+				    	   // respos=data;
+				    	 console.log("response "+data);
+					      $('#reportingAuthorityPfId').empty();
+					      $('#reportingAuthorityPfId').append('<option value="">--Select--</option>');
+					      $.each(data,function(i,o){
+						   //   alert("For-Each");
+					    	  console.log("response--o.pfId-- "+o.pfId);
+					    	 // $("#reportingAuthorityName").val(o.username).attr('readonly','readonly');
+						      // $('#SelectedPfID').val(o.pfId);
+						     
+						       var div_data="<option value="+o.pfId+">"+o.pfId+"</option>";
+					           // alert(div_data);
+					            $(div_data).appendTo('#reportingAuthorityPfId'); 
+						      // $('#reportingAuthorityEmail').val(o.reportingAuthorityEmail);
+						     //  $("#reportingAuthorityEmail").val(o.mailId).attr('readonly','readonly');
+					      });				   
+				        }
+				    });
+			  
+			   $("#roleID1").show();  
+			   $("#reportingAuthorityPfId").change(function() {
+					var respos='';
+				    var pfId = $(this).val();
+				 //   alert("pfId:::"+pfId);
+				    $('#reportingAuthorityPfId option[value!='+pfId+']');
+				    $.ajax({
+				    	type:"GET",
+				    	url:"km/getReportingAuthMailIdByPfId/"+pfId,
+				        success: function(data){
+				      $.each(data,function(i,o){
+					   //   alert("For-Each");
+				    	  console.log("response "+o.mailId);
+				    	  $("#reportingAuthorityName").val(o.username).attr('readonly','readonly');
+					      // $('#reportingAuthorityName').val(o.reportingAuthorityName);
+					      // $('#reportingAuthorityEmail').val(o.reportingAuthorityEmail);
+					       $("#reportingAuthorityEmail").val(o.mailId).attr('readonly','readonly');
+				      });
+				        }
+				    });
+				});
+								
+			   
+   }else{
+	
+				  $("#roleID1").hide();
+				  $("#reportingAuthorityName").val('').prop("readonly", false);
+			      $("#reportingAuthorityEmail").val('').prop("readonly", false);
+				
+				   }
+		     
+		  });
+
+		});
+	
+
+</script>
 </body>
 <input type="hidden" name="_csrf" value="<%=session.getAttribute("csrfToken")%>">
 </html>

@@ -49,6 +49,9 @@ public interface UserRepository extends CrudRepository<User, String>{
     
     @Query(value="SELECT ROLE FROM TBL_USER WHERE PF_ID=:pfid",nativeQuery=true)
     String findRoleByPfId(@Param("pfid") String pfid);
+    
+    @Query(value="SELECT * FROM TBL_USER WHERE PF_ID=:pfid",nativeQuery=true)
+    List<User> getReportingAMailIdByPfId(@Param("pfid") String pfId);
 	
     
 }

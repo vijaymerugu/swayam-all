@@ -7,7 +7,7 @@
 <head>
  <!-- UPDATE -->
 <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
-<link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
+<!-- <link rel="stylesheet" href="resources/css/ui-grid.group.min.css"> -->
 <!-- <script src="resources/js/moment-with-locales.min.js"></script> -->
 <script	src="resources/js/angular.1.5.6.min.js"></script>
  <script src="resources/js/error-reporting-drilldown.js"></script>
@@ -140,52 +140,7 @@
 <!-- 	 -->
 
 <div class="container">
-  <!-- Trigger the modal with a button 
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
--->
-  <!-- Modal -->
-  <%-- <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
-        </div>
-        <div class="modal-body">
-          <p>Some text in the modal.</p>
-            <!--	 <jsp:include page="ErrorSummary.jsp" />  -->
-          <div style="margin-left: 40px;margin-right: 40px">
-        <table id="myTable">  
-        <thead >  
-          <tr style="top: 244px;left: 282px;width: 801px;height: 42px;background: #13A8E0 0% 0% no-repeat padding-box;opacity: 1;">  
-        <!-- <th><input type="checkbox" id="selectAll" />&nbsp;Select ALL</th>  --> 
-            <th>Error Code :</th>  
-            <th>Error Count :</th> 
-            <th>Description :</th>  
-          </tr>  
-        </thead>  
-        <tbody>  
-          <tr>  
-            <td><input type="checkbox" name="check_list[]" value="${user.kioskId}"></td>  
-            <td>${swayamTxnList}</td>  
-            <td>${errorDesc}</td>  
-             <td> {{errorCode}} </td>  
-          </tr>  
-        </tbody>  
-      </table>  
-      
-     
-</div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-
-    </div>
-  </div> --%>
+ 
 
 </div>
  
@@ -199,15 +154,16 @@
  				</table>
 			</div>
 			<br/>
+						
 			<div>
-				<pre align="left" style="background-color: #00BFFF; color: white; font-size: 18px; font-weight: bold; font-family: Helvetica;">
-                  <span align="center" style="font-size: 18px; font-weight: bold; font-family: Helvetica">Errors Reporting Transactions<span
-						colspan="4" align="center"	style="color: white; font-size: 18px; font-weight: bold; float: right; margin-right: 1em">Last Updated :<span id="dateId"></span></span></span>
+		<pre align="left" style="background-color: #00BFFF;color: white;font-size:18px;font-weight: bold;font-family:Helvetica;">
+ <span align="center" style="font-family:Helvetica">Errors Reporting Transactions<span colspan="4" align="center" style="color: white;font-size: 18px;font-weight: bold;float:right; margin-right:1em">Last Updated :<span id="dateId"></span></span></span>
 </pre>
-			</div>
+			</div> 
+			
+			
 			<div class="submain_transaction">
-				<br /> <br /> <input class="form-group has-search"	ng-model="searchText" ng-change="refresh()"	placeholder="Enter Kiosk Id, Branch Code, Circle etc."
-					style="font-size: 12px" size="150" height="80" id="input">
+					<input class="form-group has-search" ng-model="searchText" ng-change="refresh()" placeholder="Enter Kiosk Id, Branch Code, Circle etc." style="font-size: 12px" size="150" height="80" id="input">
                  <span style="float:right">
 		<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
 		<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>
@@ -221,7 +177,7 @@
 		</div> 
 		<div class="openBackPopup"> </div>
 		<!-- Added for loader------------- END -->	
-					<div id="container" ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-selection ui-grid-exporter id="test"></div>
+			       <div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-selection ui-grid-exporter id="test"></div>
 			</div>
 		</div>
 	</div>

@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -108,7 +110,7 @@ public class UserManagementController {
 	@RequestMapping(value = { "km/userListCC" })
 //	@PreAuthorize("hasPermission('UMuserListCC','CREATE')")
 	public ModelAndView userListCC(HttpSession session) {
-		ModelAndView model = new ModelAndView("userlistCC");
+		ModelAndView model = new ModelAndView();
 		try {			
 			UserDto user = (UserDto) session.getAttribute("userObj");
 			List<UserManagementDto> userList = userService.findAllUsers(user);
@@ -122,7 +124,6 @@ public class UserManagementController {
 				int laCount= userService.findLACount();
 				int saCount= userService.findSACount();
 				int circleUserCount = userService.findCircleUserCount();
-				
 				model.addObject("cmfCount",cmfCount);
 				model.addObject("cmsCount", cmsCount);
 				model.addObject("circleCount", circleCount);
@@ -133,12 +134,15 @@ public class UserManagementController {
 				model.setViewName("userlist");
 			}
 			else {
+				logger.info("CC User Count");
 				int cmsCount=userService.findCMSCount();
 				int circleCount=userService.findCircleUserCount();
 				int ccCount=userService.findCCCount();
 				int cmfCount= userService.findCMFCount();
 				int laCount= userService.findLACount();
 				int saCount= userService.findSACount();
+				int bmCount=userService.findBillingMakerCountByCC();
+				int bcCount=userService.findBillingCheckerCountByCC();
 				
 				model.addObject("cmfCount",cmfCount);
 				model.addObject("cmsCount", cmsCount);
@@ -146,6 +150,12 @@ public class UserManagementController {
 				model.addObject("laCount",laCount);
 				model.addObject("ccCount",ccCount);
 				model.addObject("saCount",saCount);		
+				// BC & BM USER
+				model.addObject("billingMakerCount",bmCount);
+				model.addObject("billingCheckerCount",bcCount);
+				model.setViewName("userlistCC");
+				
+
 			}			
 			
 		} catch (Exception e) {
@@ -174,7 +184,13 @@ public class UserManagementController {
 			resultPage= userService.findPaginatedCount(page, size, type);
 		}else if(type.equals("CC")){
 		   resultPage= userService.findPaginatedCount(page, size, type);
-	    }else{
+	    }else if(type.equals("BM")){
+		   resultPage= userService.findPaginatedCount(page, size, type);
+		}else if(type.equals("BC")){
+		   resultPage= userService.findPaginatedCount(page, size, type);
+	    }
+		
+		else{
 	      resultPage = userService.findPaginated(page, size);
 		    if (page > resultPage.getTotalPages()){
 		            //throw new MyResourceNotFoundException();
@@ -253,16 +269,45 @@ public class UserManagementController {
 						 * @SuppressWarnings("unchecked") List<User> circleList = (List<User>)
 						 * userService.getUserByPfId(user.getPfId());
 						 */
-					 
+					 //comment by satendra 
 					  String circleList = userRepo.findCircleByPfId(user.getPfId());
+					 // List<Circle> circleList = roleService.findAllCircle();
+					  logger.info("addUserDto.getCircle()::::::::::"+user.getRole());
+					  logger.info("addUserDto.getRole()::::::::::"+addUserDto);
+					// List<User> listSupPfId= userService.findByPfIdAndRole(user.getCircle());
+					 //logger.info("listSupPfId::::::::::"+listSupPfId);
+					// model.addObject("listSupPfId", listSupPfId);
+
 		          model.addObject("circleList", circleList);
 		          model.setViewName("addUserLA");
 		} catch (Exception e) {
-			logger.error("Exception "+ExceptionConstants.EXCEPTION);
+			e.printStackTrace();
+			//logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
 		return model;
 	}
+	@GetMapping("km/getRoleName/{roleName}")
+	public ResponseEntity<List<User>>  getByPfIdLA(@PathVariable("roleName") String roleName, HttpSession session) {
+		  UserDto user = (UserDto) session.getAttribute("userObj");
+		 logger.info("roleName======="+roleName);
+		  List<User> listSupPfId=null;
+		  if(roleName.equals("BM")) {
+			  listSupPfId= userService.findByRoleAndCircle("BC",user.getCircle());
+		  }else {
+			    listSupPfId= userService.findByRoleAndCircle("CMS",user.getCircle());
+		  }
 
+		 
+		ResponseEntity<List<User>> entity=ResponseEntity.ok(listSupPfId);
+		return entity;
+	}
+	
+	
+	@RequestMapping(value ="km/getUserByRoleName")
+	public User getUserByRoleName(@RequestParam("roleName") String pfId){
+		logger.info("pfId==111============"+pfId);
+		return userService.getUserByPfId(pfId);		
+	}
 	
 	
 	@RequestMapping(value = "km/editUserMaster")

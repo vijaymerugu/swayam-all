@@ -1,7 +1,11 @@
 package sbi.kiosk.swayam.kioskmanagement.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,10 +19,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sbi.kiosk.swayam.common.dto.AddUserDto;
+import sbi.kiosk.swayam.common.entity.User;
 import sbi.kiosk.swayam.kioskmanagement.service.AddUserService;
 
 @RestController
 public class AddController {
+	Logger logger = LoggerFactory.getLogger(AddController.class);
 
 	@Autowired
 	private AddUserService addUserService;
@@ -66,6 +72,13 @@ public class AddController {
 		return entity;
 	}
 	
+	@GetMapping("km/getReportingAuthMailIdByPfId/{pfId}")
+	public ResponseEntity<List<User>>  getRepAuthByPfIdLA(@PathVariable("pfId") String pfId) {
+		List<User> result=addUserService.getReportingAutMailIdByPfId(pfId);
+		ResponseEntity<List<User>> entity=ResponseEntity.ok(result);
+		return entity;
+	}
+	
 	@PostMapping("km/addUsersLA")
 //	@PreAuthorize("hasPermission('ACkmaddUserLA','CREATE')")
 	public ResponseEntity<String> addUserLA(ModelAndView model,@ModelAttribute("addUserDto") AddUserDto addUserDto,HttpServletRequest request,RedirectAttributes redirectAttributes) {
@@ -80,9 +93,22 @@ public class AddController {
 			String result="User: "+addUserResut+ " has been successfully Updated";
 			entity=ResponseEntity.ok(result);
 	} else {
-		    addUserResut=addUserService.addUser(addUserDto,request.getParameter("role"),request.getParameter("circle"));
 		
+		logger.info("pfId:::::::::::"+request.getParameter("pfId"));
+		logger.info("addUserDto::::::reportingAuthorityPfId:::::"+addUserDto.getReportingAuthorityPfId());
+		
+		logger.info("addUserDto::::::reportingAuthorityPfId:::::"+request.getParameter("reportingAuthorityPfId"));
+		
+		logger.info("Role:::::::::::"+request.getParameter("role"));
+        if(request.getParameter("role").equals("BM") || request.getParameter("role").equals("CMF")) {
+        	logger.info("Role::::::::if:::");
+        	
+        	addUserResut=addUserService.addUserBMAndCMF(addUserDto,request.getParameter("role"),request.getParameter("circle"));
+          }else {
+		    addUserResut=addUserService.addUser(addUserDto,request.getParameter("role"),request.getParameter("circle"));
+          }
 		if(addUserResut.equals("User is Allready Exist")){
+			entity=ResponseEntity.ok(addUserResut);
 		 }else{
 			String result="User: "+addUserResut+ " has been successfully Created";
 			entity=ResponseEntity.ok(result);
