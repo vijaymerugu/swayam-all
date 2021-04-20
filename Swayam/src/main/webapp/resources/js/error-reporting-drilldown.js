@@ -198,12 +198,12 @@ app.controller('ErrorReportDrillDownCtrl', ['$scope','$filter','ErrorReportDrill
 
 
     columnDefs: [
-      { name: 'name', headerCellTemplate: '<div>Circle</div>' ,aggregationLabel : "Total: ",  cellTemplate: '<div><a  style="cursor: hand;cursor: pointer;" ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.code)">{{row.entity.name}}</a></div>'},
-      { name: 'totalNoOfTxns',headerCellTemplate: '<div>No Of Txns</div>'  ,aggregationType: uiGridConstants.aggregationTypes.sum, aggregationHideLabel: true },
-      { name: 'noOfSuccTxns', headerCellTemplate: '<div>No Of Success Txns</div>',aggregationType: uiGridConstants.aggregationTypes.sum, aggregationHideLabel: true  },
-      { name: 'noOfFailTxns', headerCellTemplate: '<div>No Of Fail TXNS</div>'  ,aggregationType: uiGridConstants.aggregationTypes.sum, aggregationHideLabel: true},
-      { name: 'noOfTchFailTxns', aggregationType: uiGridConstants.aggregationTypes.sum, aggregationHideLabel: true, headerCellTemplate: '<div>No Of Technical Failure Txns</div>' , cellTemplate: '<div data-toggle="modal" data-target="#myModal"><a   style="cursor: hand;cursor: pointer;" ng-click="grid.appScope.loadHomeBodyPageForms1(row.entity.code)">{{row.entity.noOfTchFailTxns}}</a></div>'},
-      { name: 'noOfBsnsFailTxns',aggregationType: uiGridConstants.aggregationTypes.sum, aggregationHideLabel: true, headerCellTemplate: '<div>No Of Business Failure Txns</div>' , cellTemplate: '<div><a  style="cursor: hand;cursor: pointer;" ng-click="grid.appScope.loadHomeBodyPageForms2(row.entity.code)">{{row.entity.noOfBsnsFailTxns}}</a></div>'},
+      { name: 'name',headerCellTemplate: '<div>Circle</div>' ,aggregationLabel : "Total: ",  cellTemplate: '<div><a  style="cursor: hand;cursor: pointer;" ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.code)">{{row.entity.name}}</a></div>'},
+      { name: 'totalNoOfTxns', displayName:'No Of Txns'  ,aggregationType: uiGridConstants.aggregationTypes.sum, aggregationHideLabel: true },
+      { name: 'noOfSuccTxns', displayName:'No Of Success Txns',aggregationType: uiGridConstants.aggregationTypes.sum, aggregationHideLabel: true  },
+      { name: 'noOfFailTxns', displayName:'No Of Fail TXNS'  ,aggregationType: uiGridConstants.aggregationTypes.sum, aggregationHideLabel: true},
+      { name: 'noOfTchFailTxns', aggregationType: uiGridConstants.aggregationTypes.sum, aggregationHideLabel: true,  displayName: 'No Of Technical Failure Txns' , cellTemplate: '<div data-toggle="modal" data-target="#myModal"><a   style="cursor: hand;cursor: pointer;" ng-click="grid.appScope.loadHomeBodyPageForms1(row.entity.code)">{{row.entity.noOfTchFailTxns}}</a></div>'},
+      { name: 'noOfBsnsFailTxns',aggregationType: uiGridConstants.aggregationTypes.sum, aggregationHideLabel: true,  displayName: 'No Of Business Failure Txns' , cellTemplate: '<div><a  style="cursor: hand;cursor: pointer;" ng-click="grid.appScope.loadHomeBodyPageForms2(row.entity.code)">{{row.entity.noOfBsnsFailTxns}}</a></div>'},
 
 
     ],

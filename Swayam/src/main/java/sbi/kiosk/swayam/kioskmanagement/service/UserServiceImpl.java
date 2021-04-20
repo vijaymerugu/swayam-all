@@ -179,6 +179,19 @@ public class UserServiceImpl implements UserService {
 				 if(Constants.CIRCLE.getCode().equals(dto.getRole())){
 					 dto.setRole(Constants.CIRCLE.getValue());
 				 }
+				 
+				 // add user
+				 if(Constants.BILLINGMAKER.getCode().equals(dto.getRole())){
+					 dto.setRole(Constants.BILLINGMAKER.getCode());
+				 }
+				 
+				 if(Constants.BILLINGCHECKER.getCode().equals(dto.getRole())){
+					 dto.setRole(Constants.BILLINGCHECKER.getCode());
+				 }
+
+				 
+				 
+				 
 				 if(dto.getPfId() !=null && dto.getPfId() !="" && dto.getRole().equals("CMF")){
 					 int kioskCountCmf = userKioskMappingRepository.findKiosksCountByPfId(dto.getPfId());
 					 dto.setNoOfAssignedKiosks(String.valueOf(kioskCountCmf));
@@ -225,11 +238,11 @@ public class UserServiceImpl implements UserService {
 				 
 				 
 				 if(Constants.BILLINGMAKER.getCode().equals(dto.getRole())){
-					 dto.setRole(Constants.BILLINGMAKER.getValue());
+					 dto.setRole(Constants.BILLINGMAKER.getCode());
 				 }
 				 
 				 if(Constants.BILLINGCHECKER.getCode().equals(dto.getRole())){
-					 dto.setRole(Constants.BILLINGCHECKER.getValue());
+					 dto.setRole(Constants.BILLINGCHECKER.getCode());
 				 }
 				 
 				 
@@ -459,6 +472,44 @@ public class UserServiceImpl implements UserService {
 	    	int bcCount=userRepo.findBCCount(user.getCircle());
 			return bcCount;		
 			}
+
+		// BM/BC without circle passing
+		@Override
+		public int findBillingMakerCountByCC() {
+			int bmCount=userRepo.findBMakerCorporateCCount();
+			return bmCount;
+		}
+
+		@Override
+		public int findBillingCheckerCountByCC() {
+			int bcCount=userRepo.findBCheckerCorporateCCount();
+			return bcCount;
+		}
 	
-	
+		@Override
+	public	List<User>  findByPfIdAndRole(String circle){
+			List<User> listPfId=null;
+					try{
+						//listPfId=	userRepo.findByPfIdAndRole(circle);
+						// logger.info("listPfId"+listPfId);
+					}catch (Exception e) {
+                      e.printStackTrace();					
+                      }
+			         
+		return listPfId;
+			
+		}
+		
+		@Override
+		public List<User> findByRoleAndCircle(String role, String circle) {
+			List<User> listPfId = null;
+			try {
+				listPfId = userRepo.findByPfIdAndRole(role, circle);
+				logger.info("findByRoleAndCircle---listPfId::::::" + listPfId);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return listPfId;
+			
+		}
 }

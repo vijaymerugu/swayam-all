@@ -33,6 +33,10 @@ public interface UserService extends IOperations<UserManagementDto>{
 	int findLACountByCircle();
 	int findBillingMakerCountByCircle();
 	int findBillingCheckerCountByCircle();
+	public int findBillingMakerCountByCC();
+	public int findBillingCheckerCountByCC();
+	List<User> findByPfIdAndRole(String circle);
+	List<User> findByRoleAndCircle(String role, String circle);
 	
 	
 

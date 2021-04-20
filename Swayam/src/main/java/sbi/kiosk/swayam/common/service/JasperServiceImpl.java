@@ -236,6 +236,24 @@ public class JasperServiceImpl implements JasperService {
 				filename = "UserList_" + timeStamp + ".pdf";
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 					}
+				 // CC User without circle
+			} else if (identifyPage.equals("userListCC")) {
+						List<UserManagementDto> list = findUsersBySA();
+						 if(list.isEmpty()) {
+								
+								
+								return filename;
+							}else {
+						File file = ResourceUtils.getFile(jrxmlPath + "userListCC.jrxml");
+						InputStream input = new FileInputStream(file);
+						jasperReport = JasperCompileManager.compileReport(input);
+						source = new JRBeanCollectionDataSource(list);
+						Map<String, Object> parameters = new HashMap<>();
+						jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+						String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+						filename = "UserList_" + timeStamp + ".pdf";
+						JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+							}
 			} else if (identifyPage.equals("userListLA")) {
 				List<UserManagementDto> list = findPaginatedByCircle();
 				 if(list.isEmpty()) {
@@ -1013,6 +1031,24 @@ public class JasperServiceImpl implements JasperService {
 				filename = "UserList_" + timeStamp + ".xlsx";
 				xlsx(jasperPrint, filename);
 					}
+				 // CC user without circle
+			} else if (identifyPage.equals("userListCC")) {
+						List<UserManagementDto> list = findUsersBySA();
+						 if(list.isEmpty()) {
+								
+								
+								return filename;
+							}else {
+						File file = ResourceUtils.getFile(jrxmlPath + "userListCC.jrxml");
+						InputStream input = new FileInputStream(file);
+						jasperReport = JasperCompileManager.compileReport(input);
+						source = new JRBeanCollectionDataSource(list);
+						Map<String, Object> parameters = new HashMap<>();
+						jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+						String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+						filename = "UserList_" + timeStamp + ".xlsx";
+						xlsx(jasperPrint, filename);
+							}
 			} else if (identifyPage.equals("kioskManagementByCircle")) {
 				List<KioskBranchMasterUserDto> list = findKiosksPaginatedByCircle();
 				 if(list.isEmpty()) {

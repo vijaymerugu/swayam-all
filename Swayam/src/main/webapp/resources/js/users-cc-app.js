@@ -73,11 +73,13 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	useExternalPagination: true,
 	
     columnDefs: [
-      { name: 'userId',width:300, displayName: 'Sr No'  },
-      { name: 'pfId',width:300, displayName: 'PF ID / User Name'  },
-      { name: 'username',width:350, displayName: 'Employee Name'  },      
-      { name: 'role',width:350, displayName: 'Role'  },
-      { name: 'reportingAuthorityName',width:350, displayName: 'Reporting Authority'  }
+     // { name: 'userId',width:300, displayName: 'Sr No'  },
+      { name: 'pfId',width:200, displayName: 'PF ID / User Name'  },
+      { name: 'username',width:250, displayName: 'Employee Name'  }, 
+      { name: 'role',width:150, displayName: 'Role'  },
+      { name: 'mobileNo',width:150, displayName: 'MOBILE NO'  },
+      { name: 'mailId',width:300,displayName: 'EMAIL ID'  },
+      { name: 'reportingAuthorityName',width:200, displayName: 'Reporting Authority'  }
     ],
     onRegisterApi: function(gridApi) { 
         $scope.gridApi = gridApi;

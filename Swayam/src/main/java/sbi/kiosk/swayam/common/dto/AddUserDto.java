@@ -15,6 +15,7 @@ public class AddUserDto {
 	private String reportingAuthorityName;
 	private String reportingAuthorityEmail;
 	private String checkAction = null;
+	private String reportingAuthorityPfId;
 	
 	
 	

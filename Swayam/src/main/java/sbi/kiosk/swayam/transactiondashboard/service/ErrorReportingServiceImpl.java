@@ -162,7 +162,7 @@ public class ErrorReportingServiceImpl implements ErrorReportingService {
 		String swayamMigrationTxnDate=null;
 		
 		try {
-			//swayamMigrationTxnDate=errorReportingRepo.findCurrentDateAuditJob();
+			swayamMigrationTxnDate=errorReportingRepo.findCurrentDateAuditJob();
 			
 		} catch (Exception e) {
 		//	e.printStackTrace();

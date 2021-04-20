@@ -80,7 +80,6 @@
 <div style="text-align: right;float: right;"><a class="openFinalPopup" style="cursor: hand;cursor: pointer;"><img src="resources/img/plus.png">&nbsp;AddUser</a></div>
 <div>
 			<table class="table1" style="border: 1px solid #eee;width: 100%;">
-				
 
 
 				<tr>
@@ -95,6 +94,8 @@
 					<td  id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"><a ng-click="getCountType('CC')" style="cursor: hand;cursor: pointer;">${ccCount}</a></td>
 					<td  id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"><a ng-click="getCountType('SA')" style="cursor: hand;cursor: pointer;">${saCount}</a></td>
 					<td  id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"><a ng-click="getCountType('C')" style="cursor: hand;cursor: pointer;">${circleCount}</a></td>
+				 <td id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"> <a ng-click="getCountType('BM')" style="cursor: hand;cursor: pointer;"> ${billingMakerCount}</a></td> 
+	                <td id="count1" style="color: #13A8E0; border-right: solid 2px #faf5f6;"> <a ng-click="getCountType('BC')" style="cursor: hand;cursor: pointer;">${billingCheckerCount}</a></td>   
 				</tr>
 				<tr>
 					<!-- Vijay All Circle wise -->
@@ -105,6 +106,8 @@
 					<td id="count2" style="color: black; border-right: solid 1px #faf5f6;">CC</td>
 					<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">System Admin</td>
 					<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">Circle</td>
+					<td id="count2" style="color: black; border-right: solid 2px #faf5f6;">BM</td>   
+	                <td id="count2" style="color: black; border-right: solid 2px #faf5f6;">BC</td>   
 				</tr>
 			</table>
 		</div>
@@ -150,7 +153,7 @@ $(document).ready(function(){
     $(".openpdfonclick").click(function(){
     	$("#loading").show(); 
         $.ajax({
-            url: 'report?page=userListSA&type=pdf',
+            url: 'report?page=userListCC&type=pdf',
             type: 'GET',   
             success: function(data){
             	console.log(data);
@@ -162,7 +165,7 @@ $(document).ready(function(){
     $(".openxlonclick").click(function(){    	
     	$("#loading").show(); 
         $.ajax({
-            url: 'report?page=userListSA&type=excel',
+            url: 'report?page=userListCC&type=excel',
             type: 'GET',   
             success: function(data){
             	console.log(data);
