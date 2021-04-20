@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -63,7 +62,7 @@ import sbi.kiosk.swayam.common.entity.BillingPenaltyEntity;
 import sbi.kiosk.swayam.common.entity.BranchMaster;
 import sbi.kiosk.swayam.common.entity.DateFrame;
 import sbi.kiosk.swayam.common.entity.DownTime;
-import sbi.kiosk.swayam.common.entity.ErrorReporting;
+import sbi.kiosk.swayam.common.entity.DrillDown;
 import sbi.kiosk.swayam.common.entity.ErrorReportingDrillDown;
 import sbi.kiosk.swayam.common.entity.InvoiceCompare;
 import sbi.kiosk.swayam.common.entity.InvoiceGeneration;
@@ -95,12 +94,11 @@ import sbi.kiosk.swayam.healthmonitoring.repository.TicketCentorRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.TicketHistoryPagingRepository;
 import sbi.kiosk.swayam.kioskmanagement.repository.BranchMasterRepository;
 import sbi.kiosk.swayam.kioskmanagement.repository.UserKioskMappingRepository;
+import sbi.kiosk.swayam.transactiondashboard.repository.DrillDownRepository;
 import sbi.kiosk.swayam.transactiondashboard.repository.ErrorReportingRepositoryPaging;
 import sbi.kiosk.swayam.transactiondashboard.repository.RealTimeTxnRepositoryPaging;
 import sbi.kiosk.swayam.transactiondashboard.repository.TransactionDashBoardRepositoryPaging;
 import sbi.kiosk.swayam.transactiondashboard.repository.ZeroTransactionKiosksRepository;
-import sbi.kiosk.swayam.common.entity.DrillDown;
-import sbi.kiosk.swayam.transactiondashboard.repository.DrillDownRepository;
 
 @Service
 public class JasperServiceImpl implements JasperService {
@@ -815,11 +813,19 @@ public class JasperServiceImpl implements JasperService {
 				String fromdate ="";
 				String todate ="";
 				if(dateFrame.getFromDate().isEmpty() && dateFrame.getToDate().isEmpty()) {
-				
+			/*	
 				 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 				 Date curDate = new Date();
 				 fromdate = sdf.format(curDate);
 				 todate = sdf.format(curDate);
+				*/ 
+				 SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+				 Date curDate=new Date();
+				 curDate.setTime(curDate.getTime()-48*60*60*1000); 
+				 String passedDate=sdf.format(curDate);
+				 fromdate=passedDate;
+				 todate=passedDate;
+				 
 				}else {
 					fromdate = dateFrame.getFromDate();
 					 todate = dateFrame.getToDate();
@@ -1612,11 +1618,19 @@ public class JasperServiceImpl implements JasperService {
 				String fromdate ="";
 				String todate ="";
 				if(dateFrame.getFromDate().isEmpty() && dateFrame.getToDate().isEmpty()) {
-				
+			
+					/*
 				 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 				 Date curDate = new Date();
 				 fromdate = sdf.format(curDate);
 				 todate = sdf.format(curDate);
+				 */
+				 SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+				 Date curDate=new Date();
+				 curDate.setTime(curDate.getTime()-48*60*60*1000); 
+				 String passedDate=sdf.format(curDate);
+				 fromdate=passedDate;
+				  todate=passedDate;
 				}else {
 					fromdate = dateFrame.getFromDate();
 					 todate = dateFrame.getToDate();
@@ -2163,7 +2177,14 @@ public class JasperServiceImpl implements JasperService {
 		  fromdate = dateFrame.getFromDate(); 
 		  todate = dateFrame.getToDate();
 		  }
+		  
+		/*  
+		  if((dateFrame.getFromDate().isEmpty()== false) && (dateFrame.getToDate().isEmpty()== false)) {		
+			   fromdate = dateFrame.getFromDate();
+			   todate = dateFrame.getToDate();
+		  }
 		 
+		 */
 		List<ErrorReportingDrillDown> list = errorReportingRepositoryPaging.findAllErrReport(fromdate, todate);
 		logger.info("Inside==Jasper====list==========="+list);
 		List<ErrorReportingDto> entities = ObjectMapperUtils.mapAll(list, ErrorReportingDto.class);
