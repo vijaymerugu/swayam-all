@@ -113,7 +113,8 @@ Kiosk Assigned to : <c:out value="${kiosksList[0].username}" />
 			<!-- Modal content -->
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<!-- <button type="button" value="OK" class="close" data-dismiss="modal" style="background-color: black;color: white;">OK</button> -->
+					<button type="button" class="btn" data-dismiss="modal" >OK</button>
 					<h4 class="modal-title"></h4>
 				</div>
 				<div class="modal-body">
@@ -123,7 +124,6 @@ Kiosk Assigned to : <c:out value="${kiosksList[0].username}" />
 			</div>
 		</div>
 	</div>
-
 
 
 <script>
@@ -148,9 +148,23 @@ $(document).ready(function(){
             $('#myModal').modal({show:true});
         });
     }); 
+
+    
 });
 
 
+
+</script>
+
+<script>
+$(document).ready(function(){
+    $('.btn').on('click',function(){      
+    	$("#contentHomeApp").load('km/userList');    	
+    	$('.modal-backdrop').remove();
+    	$("body").css({"overflow":"visible"});
+    }); 
+    
+});	
 </script>
 
 

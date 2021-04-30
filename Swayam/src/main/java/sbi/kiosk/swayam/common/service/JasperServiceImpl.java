@@ -57,6 +57,7 @@ import sbi.kiosk.swayam.common.dto.TicketHistoryDto;
 import sbi.kiosk.swayam.common.dto.TransactionDashBoardDto;
 import sbi.kiosk.swayam.common.dto.UserDto;
 import sbi.kiosk.swayam.common.dto.UserManagementDto;
+import sbi.kiosk.swayam.common.dto.UserManagementReportDto;
 import sbi.kiosk.swayam.common.dto.ZeroTransactionKiosksDto;
 import sbi.kiosk.swayam.common.entity.BillingPenaltyEntity;
 import sbi.kiosk.swayam.common.entity.BranchMaster;
@@ -218,7 +219,7 @@ public class JasperServiceImpl implements JasperService {
 			reportPath = reportPath.replaceAll(">", "");
 		
 			if (identifyPage.equals("userListSA")) {
-				List<UserManagementDto> list = findUsersBySA();
+				List<UserManagementReportDto> list = findUsersBySA();
 				 if(list.isEmpty()) {
 						
 						
@@ -236,7 +237,7 @@ public class JasperServiceImpl implements JasperService {
 					}
 				 // CC User without circle
 			} else if (identifyPage.equals("userListCC")) {
-						List<UserManagementDto> list = findUsersBySA();
+						List<UserManagementReportDto> list = findUsersBySA();
 						 if(list.isEmpty()) {
 								
 								
@@ -253,7 +254,7 @@ public class JasperServiceImpl implements JasperService {
 						JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 							}
 			} else if (identifyPage.equals("userListLA")) {
-				List<UserManagementDto> list = findPaginatedByCircle();
+				List<UserManagementReportDto> list = findPaginatedByCircle();
 				 if(list.isEmpty()) {
 						
 						
@@ -1004,7 +1005,7 @@ public class JasperServiceImpl implements JasperService {
 		//	logger.info("jrxmlPath " + jrxmlPath);
 		//	logger.info("reportPath " + reportPath);
 			if (identifyPage.equals("userListSA")) {
-				List<UserManagementDto> list = findUsersBySA();
+				List<UserManagementReportDto> list = findUsersBySA();
 				 if(list.isEmpty()) {
 						
 						
@@ -1021,7 +1022,7 @@ public class JasperServiceImpl implements JasperService {
 				xlsx(jasperPrint, filename);
 					}
 			} else if (identifyPage.equals("userListLA")) {
-				List<UserManagementDto> list = findPaginatedByCircle();
+				List<UserManagementReportDto> list = findPaginatedByCircle();
 				 if(list.isEmpty()) {
 						
 						
@@ -1039,7 +1040,7 @@ public class JasperServiceImpl implements JasperService {
 					}
 				 // CC user without circle
 			} else if (identifyPage.equals("userListCC")) {
-						List<UserManagementDto> list = findUsersBySA();
+						List<UserManagementReportDto> list = findUsersBySA();
 						 if(list.isEmpty()) {
 								
 								
@@ -1833,12 +1834,12 @@ public class JasperServiceImpl implements JasperService {
 	}
 
 	@Override
-	public List<UserManagementDto> findUsersBySA() {
+	public List<UserManagementReportDto> findUsersBySA() {
 		logger.info("Inside==Jasper====findUsersBySA===========");
-		List<UserManagementDto> entities = ObjectMapperUtils.mapAll(userRepo.findByEnabled("1"),
-				UserManagementDto.class);
+		List<UserManagementReportDto> entities = ObjectMapperUtils.mapAll(userRepo.findByEnabled("1"),
+				UserManagementReportDto.class);
 		if (entities != null) {
-			for (UserManagementDto dto : entities) {
+			for (UserManagementReportDto dto : entities) {
 				if (Constants.SYSTEMADMIN.getCode().equals(dto.getRole())) {
 					dto.setRole(Constants.SYSTEMADMIN.getValue());
 				}
@@ -1872,7 +1873,7 @@ public class JasperServiceImpl implements JasperService {
 	}
 
 	@Override
-	public List<UserManagementDto> findPaginatedByCircle() {
+	public List<UserManagementReportDto> findPaginatedByCircle() {
 		logger.info("Inside==Jasper====findPaginatedByCircle===========");
 		// List<UserManagementDto> userManaDTOList=new ArrayList<UserManagementDto>();
 		// Page<User> userList = userRepositoryPagingRepo.findAll(PageRequest.of(page,
@@ -1882,12 +1883,14 @@ public class JasperServiceImpl implements JasperService {
 		// roleList.add("LA");
 		roleList.add("SA");
 		roleList.add("CC");
+		
+		//List<User> findByCircleAndEnabledAndRoleNotIn = userRepo.findByCircleAndEnabledAndRoleNotIn(user.getCircle(), "1", roleList);
+		//logger.info("Inside==Jasper====findByCircleAndEnabledAndRoleNotIn==========="+findByCircleAndEnabledAndRoleNotIn);
 
-		List<UserManagementDto> entities = ObjectMapperUtils.mapAll(
-				userRepo.findByCircleAndEnabledAndRoleNotIn(user.getCircle(), "1", roleList), UserManagementDto.class);
+		List<UserManagementReportDto> entities = ObjectMapperUtils.mapAll(userRepo.findByCircleAndEnabledAndRoleNotIn(user.getCircle(), "1", roleList),UserManagementReportDto.class);
 
 		if (entities != null) {
-			for (UserManagementDto dto : entities) {
+			for (UserManagementReportDto dto : entities) {
 				if (Constants.LOCALADMIN.getCode().equals(dto.getRole())) {
 					dto.setRole(Constants.LOCALADMIN.getValue());
 				}
