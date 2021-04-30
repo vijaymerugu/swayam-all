@@ -20,7 +20,9 @@ import
 import sbi.kiosk.swayam.common.dto.TicketHistoryDto;
 import
   sbi.kiosk.swayam.common.dto.TransactionDashBoardDto; import
-  sbi.kiosk.swayam.common.dto.UserManagementDto; import
+  sbi.kiosk.swayam.common.dto.UserManagementDto;
+import sbi.kiosk.swayam.common.dto.UserManagementReportDto;
+import
   sbi.kiosk.swayam.common.dto.ZeroTransactionKiosksDto;
 import sbi.kiosk.swayam.common.entity.DrillDown;
 import sbi.kiosk.swayam.common.entity.TaxEntity;
@@ -32,9 +34,9 @@ import sbi.kiosk.swayam.common.entity.TaxSummaryEntity;
   
   String generateReportExcel(String identifyPage);
   
-  List<UserManagementDto> findUsersBySA();
+  List<UserManagementReportDto> findUsersBySA();
   
-  List<UserManagementDto> findPaginatedByCircle();
+  List<UserManagementReportDto> findPaginatedByCircle();
   
   List<KioskBranchMasterUserDto> findKiosksPaginatedByCircle();
   

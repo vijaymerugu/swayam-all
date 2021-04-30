@@ -17,7 +17,7 @@
 
     <field name="username" class="java.lang.String"></field>
 
-    <field name="mobileNo" class="java.lang.String"></field>
+    <field name="phoneNo" class="java.lang.String"></field>
     <field name="mailId" class="java.lang.String"></field>
     <field name="reportingAuthorityName" class="java.lang.String"></field>
     <field name="noOfAssignedKiosks" class="java.lang.String"></field>
@@ -421,7 +421,7 @@
 					<font size="8" isItalic="false"></font>
 				</textElement>
 
-                <textFieldExpression><![CDATA[$F{mobileNo} == null?"":$F{mobileNo}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{phoneNo} == null?"":$F{phoneNo}]]></textFieldExpression>
 
             </textField>
 

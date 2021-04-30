@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -58,12 +57,13 @@ import sbi.kiosk.swayam.common.dto.TicketHistoryDto;
 import sbi.kiosk.swayam.common.dto.TransactionDashBoardDto;
 import sbi.kiosk.swayam.common.dto.UserDto;
 import sbi.kiosk.swayam.common.dto.UserManagementDto;
+import sbi.kiosk.swayam.common.dto.UserManagementReportDto;
 import sbi.kiosk.swayam.common.dto.ZeroTransactionKiosksDto;
 import sbi.kiosk.swayam.common.entity.BillingPenaltyEntity;
 import sbi.kiosk.swayam.common.entity.BranchMaster;
 import sbi.kiosk.swayam.common.entity.DateFrame;
 import sbi.kiosk.swayam.common.entity.DownTime;
-import sbi.kiosk.swayam.common.entity.ErrorReporting;
+import sbi.kiosk.swayam.common.entity.DrillDown;
 import sbi.kiosk.swayam.common.entity.ErrorReportingDrillDown;
 import sbi.kiosk.swayam.common.entity.InvoiceCompare;
 import sbi.kiosk.swayam.common.entity.InvoiceGeneration;
@@ -95,12 +95,11 @@ import sbi.kiosk.swayam.healthmonitoring.repository.TicketCentorRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.TicketHistoryPagingRepository;
 import sbi.kiosk.swayam.kioskmanagement.repository.BranchMasterRepository;
 import sbi.kiosk.swayam.kioskmanagement.repository.UserKioskMappingRepository;
+import sbi.kiosk.swayam.transactiondashboard.repository.DrillDownRepository;
 import sbi.kiosk.swayam.transactiondashboard.repository.ErrorReportingRepositoryPaging;
 import sbi.kiosk.swayam.transactiondashboard.repository.RealTimeTxnRepositoryPaging;
 import sbi.kiosk.swayam.transactiondashboard.repository.TransactionDashBoardRepositoryPaging;
 import sbi.kiosk.swayam.transactiondashboard.repository.ZeroTransactionKiosksRepository;
-import sbi.kiosk.swayam.common.entity.DrillDown;
-import sbi.kiosk.swayam.transactiondashboard.repository.DrillDownRepository;
 
 @Service
 public class JasperServiceImpl implements JasperService {
@@ -220,7 +219,7 @@ public class JasperServiceImpl implements JasperService {
 			reportPath = reportPath.replaceAll(">", "");
 		
 			if (identifyPage.equals("userListSA")) {
-				List<UserManagementDto> list = findUsersBySA();
+				List<UserManagementReportDto> list = findUsersBySA();
 				 if(list.isEmpty()) {
 						
 						
@@ -238,7 +237,7 @@ public class JasperServiceImpl implements JasperService {
 					}
 				 // CC User without circle
 			} else if (identifyPage.equals("userListCC")) {
-						List<UserManagementDto> list = findUsersBySA();
+						List<UserManagementReportDto> list = findUsersBySA();
 						 if(list.isEmpty()) {
 								
 								
@@ -255,7 +254,7 @@ public class JasperServiceImpl implements JasperService {
 						JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 							}
 			} else if (identifyPage.equals("userListLA")) {
-				List<UserManagementDto> list = findPaginatedByCircle();
+				List<UserManagementReportDto> list = findPaginatedByCircle();
 				 if(list.isEmpty()) {
 						
 						
@@ -815,11 +814,19 @@ public class JasperServiceImpl implements JasperService {
 				String fromdate ="";
 				String todate ="";
 				if(dateFrame.getFromDate().isEmpty() && dateFrame.getToDate().isEmpty()) {
-				
+			/*	
 				 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 				 Date curDate = new Date();
 				 fromdate = sdf.format(curDate);
 				 todate = sdf.format(curDate);
+				*/ 
+				 SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+				 Date curDate=new Date();
+				 curDate.setTime(curDate.getTime()-48*60*60*1000); 
+				 String passedDate=sdf.format(curDate);
+				 fromdate=passedDate;
+				 todate=passedDate;
+				 
 				}else {
 					fromdate = dateFrame.getFromDate();
 					 todate = dateFrame.getToDate();
@@ -998,7 +1005,7 @@ public class JasperServiceImpl implements JasperService {
 		//	logger.info("jrxmlPath " + jrxmlPath);
 		//	logger.info("reportPath " + reportPath);
 			if (identifyPage.equals("userListSA")) {
-				List<UserManagementDto> list = findUsersBySA();
+				List<UserManagementReportDto> list = findUsersBySA();
 				 if(list.isEmpty()) {
 						
 						
@@ -1015,7 +1022,7 @@ public class JasperServiceImpl implements JasperService {
 				xlsx(jasperPrint, filename);
 					}
 			} else if (identifyPage.equals("userListLA")) {
-				List<UserManagementDto> list = findPaginatedByCircle();
+				List<UserManagementReportDto> list = findPaginatedByCircle();
 				 if(list.isEmpty()) {
 						
 						
@@ -1033,7 +1040,7 @@ public class JasperServiceImpl implements JasperService {
 					}
 				 // CC user without circle
 			} else if (identifyPage.equals("userListCC")) {
-						List<UserManagementDto> list = findUsersBySA();
+						List<UserManagementReportDto> list = findUsersBySA();
 						 if(list.isEmpty()) {
 								
 								
@@ -1612,11 +1619,19 @@ public class JasperServiceImpl implements JasperService {
 				String fromdate ="";
 				String todate ="";
 				if(dateFrame.getFromDate().isEmpty() && dateFrame.getToDate().isEmpty()) {
-				
+			
+					/*
 				 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 				 Date curDate = new Date();
 				 fromdate = sdf.format(curDate);
 				 todate = sdf.format(curDate);
+				 */
+				 SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+				 Date curDate=new Date();
+				 curDate.setTime(curDate.getTime()-48*60*60*1000); 
+				 String passedDate=sdf.format(curDate);
+				 fromdate=passedDate;
+				  todate=passedDate;
 				}else {
 					fromdate = dateFrame.getFromDate();
 					 todate = dateFrame.getToDate();
@@ -1819,12 +1834,12 @@ public class JasperServiceImpl implements JasperService {
 	}
 
 	@Override
-	public List<UserManagementDto> findUsersBySA() {
+	public List<UserManagementReportDto> findUsersBySA() {
 		logger.info("Inside==Jasper====findUsersBySA===========");
-		List<UserManagementDto> entities = ObjectMapperUtils.mapAll(userRepo.findByEnabled("1"),
-				UserManagementDto.class);
+		List<UserManagementReportDto> entities = ObjectMapperUtils.mapAll(userRepo.findByEnabled("1"),
+				UserManagementReportDto.class);
 		if (entities != null) {
-			for (UserManagementDto dto : entities) {
+			for (UserManagementReportDto dto : entities) {
 				if (Constants.SYSTEMADMIN.getCode().equals(dto.getRole())) {
 					dto.setRole(Constants.SYSTEMADMIN.getValue());
 				}
@@ -1858,7 +1873,7 @@ public class JasperServiceImpl implements JasperService {
 	}
 
 	@Override
-	public List<UserManagementDto> findPaginatedByCircle() {
+	public List<UserManagementReportDto> findPaginatedByCircle() {
 		logger.info("Inside==Jasper====findPaginatedByCircle===========");
 		// List<UserManagementDto> userManaDTOList=new ArrayList<UserManagementDto>();
 		// Page<User> userList = userRepositoryPagingRepo.findAll(PageRequest.of(page,
@@ -1868,12 +1883,14 @@ public class JasperServiceImpl implements JasperService {
 		// roleList.add("LA");
 		roleList.add("SA");
 		roleList.add("CC");
+		
+		//List<User> findByCircleAndEnabledAndRoleNotIn = userRepo.findByCircleAndEnabledAndRoleNotIn(user.getCircle(), "1", roleList);
+		//logger.info("Inside==Jasper====findByCircleAndEnabledAndRoleNotIn==========="+findByCircleAndEnabledAndRoleNotIn);
 
-		List<UserManagementDto> entities = ObjectMapperUtils.mapAll(
-				userRepo.findByCircleAndEnabledAndRoleNotIn(user.getCircle(), "1", roleList), UserManagementDto.class);
+		List<UserManagementReportDto> entities = ObjectMapperUtils.mapAll(userRepo.findByCircleAndEnabledAndRoleNotIn(user.getCircle(), "1", roleList),UserManagementReportDto.class);
 
 		if (entities != null) {
-			for (UserManagementDto dto : entities) {
+			for (UserManagementReportDto dto : entities) {
 				if (Constants.LOCALADMIN.getCode().equals(dto.getRole())) {
 					dto.setRole(Constants.LOCALADMIN.getValue());
 				}
@@ -2163,7 +2180,14 @@ public class JasperServiceImpl implements JasperService {
 		  fromdate = dateFrame.getFromDate(); 
 		  todate = dateFrame.getToDate();
 		  }
+		  
+		/*  
+		  if((dateFrame.getFromDate().isEmpty()== false) && (dateFrame.getToDate().isEmpty()== false)) {		
+			   fromdate = dateFrame.getFromDate();
+			   todate = dateFrame.getToDate();
+		  }
 		 
+		 */
 		List<ErrorReportingDrillDown> list = errorReportingRepositoryPaging.findAllErrReport(fromdate, todate);
 		logger.info("Inside==Jasper====list==========="+list);
 		List<ErrorReportingDto> entities = ObjectMapperUtils.mapAll(list, ErrorReportingDto.class);
