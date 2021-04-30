@@ -30,6 +30,7 @@ public class KioskBranchMasterUserDto {
 		this.installationStatus = master.getInstallationStatus();
 		this.refId=master.getRefId();
 		this.installationType=master.getInstallationType();
+		
 	}
 	
 	private Integer id;
@@ -74,4 +75,5 @@ public class KioskBranchMasterUserDto {
 	private String os;
 	private String refId;
 	private String installationType;
+	private String phoneNo;
 }

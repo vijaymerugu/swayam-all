@@ -81,7 +81,11 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
       { name: 'username',    	  
     	  displayName: 'Assigned CMF',	  
     	  cellTemplate: '<div ng-if="row.entity.pfId != undefined">{{ row.entity.username }}</div><div ng-if="row.entity.pfId == undefined">Not Assigned</a></div>'
-      }
+      },
+      { name: 'phoneNo', displayName: 'Assigned CMF Phone No' ,	  
+    	  cellTemplate: '<div ng-if="row.entity.pfId != undefined">{{ row.entity.phoneNo }}</div><div ng-if="row.entity.pfId == undefined">NA</a></div>'
+    		      }
+      
     ],
     onRegisterApi: function(gridApi) { debugger;
         $scope.gridApi = gridApi;

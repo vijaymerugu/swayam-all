@@ -54,10 +54,21 @@ public interface KioskMasterRepository extends CrudRepository<KioskBranchMaster,
 	 * =" SELECT COUNT(KIOSK_ID)  FROM  TBL_USER_KIOSK_MAPPING ",nativeQuery=true)
 	 */
 	
-	@Query(value="select count(KIOSK_ID) from TBL_KIOSK_MASTER where  KIOSK_ID in ( SELECT KIOSK_ID FROM  TBL_USER_KIOSK_MAPPING)  ",nativeQuery=true)
+	/* Commented by Manisha for change in query on 29-Apr-2021
+	 * @Query(
+	 * value="select count(KIOSK_ID) from TBL_KIOSK_MASTER where  KIOSK_ID in ( SELECT KIOSK_ID FROM  TBL_USER_KIOSK_MAPPING)  "
+	 * ,nativeQuery=true)
+	 */
+	
+	@Query(value="select count(km.KIOSK_ID) from c##swaym.TBL_KIOSK_MASTER km where exists (select * from c##swaym.tbl_user_kiosk_mapping ukm where upper(km.kiosk_id)=upper(ukm.kiosk_id)) ",nativeQuery=true) 
 	int findAssignedCount();
 	
-	@Query(value ="select count(KIOSK_ID) from TBL_KIOSK_MASTER where  KIOSK_ID  not in ( SELECT KIOSK_ID FROM  TBL_USER_KIOSK_MAPPING) ",nativeQuery=true)
+	/* Commented by Manisha for change in query on 29-Apr-2021
+	 * @Query(value
+	 * ="select count(KIOSK_ID) from TBL_KIOSK_MASTER where  KIOSK_ID  not in ( SELECT KIOSK_ID FROM  TBL_USER_KIOSK_MAPPING) "
+	 * ,nativeQuery=true)
+	 */
+	@Query(value ="select count(km.KIOSK_ID) from c##swaym.TBL_KIOSK_MASTER km where not exists (select * from c##swaym.tbl_user_kiosk_mapping ukm where upper(km.kiosk_id)=upper(ukm.kiosk_id)) ",nativeQuery=true)
 	int findToBeAssignedCount();
 	
 	KioskBranchMaster findByKioskId(String kiosId);
