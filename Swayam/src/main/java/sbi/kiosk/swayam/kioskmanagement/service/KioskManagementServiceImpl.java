@@ -190,6 +190,7 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 			 User usr = userRepository.findByPfId(us.getPfId());
 			 if(usr !=null && usr.getUsername() !=null && usr.getUsername() !=""){
 				 dto.setUsername(usr.getUsername());
+				 dto.setPhoneNo(usr.getPhoneNo());
 			 }
 		 }
 		 
@@ -339,7 +340,7 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 			  if(us !=null && us.getPfId() !=null && us.getPfId() !=""){
 			  dto.setPfId(us.getPfId()); User usr =
 			  userRepository.findByPfId(us.getPfId()); if(usr !=null && usr.getUsername()
-			  !=null && usr.getUsername() !=""){ dto.setUsername(usr.getUsername()); } }
+			  !=null && usr.getUsername() !=""){ dto.setUsername(usr.getUsername()); dto.setPhoneNo(usr.getPhoneNo());} }
 			 
 		 
 			
@@ -397,6 +398,7 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 			 User usr = userRepository.findByPfId(us.getPfId());
 			 if(usr !=null && usr.getUsername() !=null && usr.getUsername() !=""){
 				 dto.setUsername(usr.getUsername());
+				 dto.setPhoneNo(usr.getPhoneNo());
 			 }
 		 }
 		 
@@ -448,6 +450,7 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 			 User usr = userRepository.findByPfId(us.getPfId());
 			 if(usr !=null && usr.getUsername() !=null && usr.getUsername() !=""){
 				 dto.setUsername(usr.getUsername());
+				 dto.setPhoneNo(usr.getPhoneNo());
 			 }
 		 }
 		 
@@ -503,6 +506,7 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 			 User usr = userRepository.findByPfId(us.getPfId());
 			 if(usr !=null && usr.getUsername() !=null && usr.getUsername() !=""){
 				 dto.setUsername(usr.getUsername());
+				 dto.setPhoneNo(usr.getPhoneNo());
 			 }
 		 }
 		 
