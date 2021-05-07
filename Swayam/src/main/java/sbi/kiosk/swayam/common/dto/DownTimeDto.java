@@ -28,7 +28,7 @@ public class DownTimeDto {
 	private String branchCode;
 	private String vendor;
 	private String cmsCmf;
-	private String totalOperatingHours;
-	private String  totalDowntime;
+	private Integer totalOperatingHours;
+	private Integer  totalDowntime;
 
 }

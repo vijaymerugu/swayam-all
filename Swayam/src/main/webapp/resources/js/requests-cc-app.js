@@ -58,16 +58,16 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	useExternalPagination: true,
 	
     columnDefs: [
-      { name: 'id', displayName: 'Case Id', width:150,
+      { name: 'id', displayName: 'Case Id', width:120,
     	  cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.id)">{{ row.entity.id }}</a></div>'  
       },
      /* { name: 'category', displayName: 'Category', width:150  },
       { name: 'subCategory', displayName: 'Sub Category', width:200  },*/
-      { name: 'kioskId', displayName: 'ATM Id', width:150  },
+      { name: 'kioskId', displayName: 'Kiosk Id', width:150  },
       { name: 'modifiedDate', width:250, displayName: 'Request Date Time     ',type: 'date',cellFilter: 'date:"dd-MM-yyyy hh:mm:ss a"'
     	  //cellTemplate:'<div class="ui-grid-cell-contents">{{grid.appScope.showDate(row.entity.modifiedDate)}}</div>'
     		  },
-      { name: 'modifiedBy', displayName: 'Request By', width:200  },
+      { name: 'modifiedBy', displayName: 'Request By', width:160  },
       { name: 'comments', headerCellTemplate: '<div>Comments By Requestor</div>', width:250  },
       { name: 'remarks',
     	  exporterSuppressExport: true, width:300,

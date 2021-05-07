@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="employee-rpt" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="employee-rpt" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="47a8141a-c098-4449-8632-796c1e37bef0">
 
     <property name="ireport.zoom" value="1.0"></property>
 
@@ -15,9 +15,19 @@
     <field name="kioskId" class="java.lang.String"></field>
 	 <field name="vendor" class="java.lang.String"></field>
 	<field name="cmsCmf" class="java.lang.String"></field>
-	<field name="totalOperatingHours" class="java.lang.String"></field>
-    <field name="totalDowntime" class="java.lang.String"></field>
+	<field name="totalOperatingHours" class="java.lang.Integer"></field>
+    <field name="totalDowntime" class="java.lang.Integer"></field>
+    
+    	 
+	   <variable name="branchOperatingHours" class="java.lang.Integer" calculation="Sum">
+        <variableExpression><![CDATA[$F{totalOperatingHours}]]></variableExpression>
+    </variable>
+    
+     <variable name="totalDowntimeHourse" class="java.lang.Integer" calculation="Sum">
+        <variableExpression><![CDATA[$F{totalDowntime}]]></variableExpression>
+    </variable>
 	 
+
 
     <background>
 
@@ -263,7 +273,7 @@
 
                 </textElement>
 
-                <text><![CDATA[Total Operating Hours]]></text>
+                <text><![CDATA[Branch Operating Hours]]></text>
 
             </staticText>
 			<staticText>
@@ -289,7 +299,7 @@
 
                 </textElement>
 
-                <text><![CDATA[Total Down time]]></text>
+                <text><![CDATA[Total Downtime in Hours]]></text>
 
             </staticText>
 			
@@ -532,9 +542,67 @@
                 <textFieldExpression><![CDATA[$F{totalDowntime}]]></textFieldExpression>
 
             </textField>
+            
+            
+
+          
 			
         </band>
 
+
     </detail>
+    
+    
+                
+            
+            <columnFooter>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="1200" y="0" width="200" height="20" uuid="d410f0c6-6cb8-4e76-9545-116ad26b5c55"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+	
+    
+    <textField pattern="###0.00#;(###0.00#-)">
+				<reportElement x="1400" y="0" width="200" height="20" uuid="156ce300-592e-4218-a5e0-e6d71254f87d"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{branchOperatingHours}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00#;(###0.00#-)">
+				<reportElement x="1600" y="0" width="200" height="20" uuid="156ce300-592e-4218-a5e0-e6d71254f87d"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalDowntimeHourse}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+    
 
 </jasperReport>

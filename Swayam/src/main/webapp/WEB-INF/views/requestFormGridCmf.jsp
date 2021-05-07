@@ -42,14 +42,14 @@ ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
 </style>
 </head>
 <body>
-<div class="main_request" ng-app="app" id="appId">
+<div class="main_requestUpdate" ng-app="app" id="appId">
 <div ng-controller="UserManagementCtrl as vm">
 
 
 <!-- <div style="text-align: right;float: right;"> -->
 <div style="text-align: right;position: relative;float: right;right: 150px;">
 <a class="openFinalPopup"><img src="resources/img/plus.png">&nbsp;Add Request</a></div>
-		<div class="submain_request">
+		<div class="submain_requestUpdate">
 	<!-- <a href="/hm/requestFormCmf"><img src="/resources/img/plus.png">  Add Request</a> -->
 	
 	

@@ -31,9 +31,9 @@ public class DownTime implements Serializable{
 	private String vendor;
 	@Column(name="CMS_CMF")
 	private String cmsCmf;
-	@Column(name="TOTAL_OPERATING_HRS")
-	private String totalOperatingHours;
+	@Column(name="Branch_Operating_Hours")
+	private Integer totalOperatingHours;
 	@Column(name="TOTAL_DOWNTIME")
-	private String  totalDowntime;
+	private Integer  totalDowntime;
 
 }
