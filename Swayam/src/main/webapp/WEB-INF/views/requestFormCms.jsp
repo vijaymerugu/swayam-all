@@ -43,11 +43,11 @@ ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
 </style>
 </head>
 <body>
-<div class="main_request" ng-app="app" id="appId">
+<div class="main_requestUpdate" ng-app="app" id="appId">
 <div ng-controller="UserManagementCtrl as vm">
 
 
-		<div class="submain_request">
+		<div class="submain_requestUpdate">
 	
 	
 	

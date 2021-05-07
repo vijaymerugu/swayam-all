@@ -239,20 +239,22 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 			
 				    columnDefs: [		
 				     { name: 'circle',width:180, displayName: 'Circle'  },	
-				     { name: 'network',width:180, displayName: 'NW'  }, 
+				     { name: 'network',width:100, displayName: 'NW'  }, 
 				     { name: 'module',width:180, displayName: 'Mod'  },  
-				     { name: 'branchCode',width:180, displayName: 'Branch Code '  },   
-				     { name: 'kioskId',width:180, displayName: 'Kiosk Id'  },   
-				     { name: 'vendor',width:180, displayName: 'Vendor'  },
+				     { name: 'branchCode',width:110, displayName: 'Branch Code '  },   
+				     { name: 'kioskId',width:130, displayName: 'Kiosk Id'  },   
+				     { name: 'vendor',width:100, displayName: 'Vendor'  },
 				     { name: 'cmsCmf',width:180,displayName: 'CMS/CMF'},
-				     { name: 'totalOperatingHours',width:180,headerCellTemplate: '<div>Total Oprating Hours</div>' },  
-				     { name: 'totalDowntime',width:180,headerCellTemplate: '<div>Total Downtime</div>' }, 	
+				     { name: 'totalOperatingHours',headerCellTemplate: '<div>Branch Operating <br/>Hours</div>' },  
+				     { name: 'totalDowntime',headerCellTemplate: '<div>Total Downtime in <br/>Hours</div>' }, 	
 				    ],
 			    onRegisterApi: function(gridApi) {
 			        $scope.gridApi = gridApi;
 			        gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
 			          paginationOptions.pageNumber = newPage;
 			          paginationOptions.pageSize = pageSize;
+			           selectedFromDateId=$('#datepickerFromDate').val();
+			          selectedToDateId=$('#datepickerToDate').val();
 			          UserManagementService.getUsers(newPage,pageSize, counttype,selectedCircelId,
 						selectedVendorId,selectedCmsCmfId,selectedFromDateId,selectedToDateId).success(function(data){
 			        	  $scope.gridOptions.data = data.content;

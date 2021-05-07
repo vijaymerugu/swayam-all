@@ -49,9 +49,7 @@ public class DownTimeServiceImpl implements DowntimeService {
 				selectedCmsCmfId="";	
 			}
 				
-			SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
-			Date curDate=new Date();
-			String date=sdf.format(curDate);
+			
 			/*if(selectedFromDateId.equals("undefined") || selectedFromDateId.isEmpty()) {
 				selectedFromDateId=date;	
 			}
@@ -69,6 +67,9 @@ public class DownTimeServiceImpl implements DowntimeService {
 
 			if(selectedToDateId.equals("undefined") || selectedToDateId.isEmpty() &&
 					(selectedFromDateId.equals("undefined") || selectedFromDateId.isEmpty())) {
+				SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+				Date curDate=new Date();
+				String date=sdf.format(curDate);
 				selectedToDateId=date;
 				selectedFromDateId=date;
 				logger.info("downtime selectedCircelId----inside current date----1---------"+selectedCircelId);
@@ -76,15 +77,15 @@ public class DownTimeServiceImpl implements DowntimeService {
 				logger.info("downtime selectedCmsCmfId----inside current date----3---------"+selectedCmsCmfId);
 				logger.info("downtime selectedFromDateId---inside current date-----4---------"+selectedFromDateId);
 				logger.info("downtime selectedToDateId-----inside current date---5---------"+selectedToDateId);
-				pageEntity=downtimePagingRepo.findAllByFilter(selectedToDateId,selectedFromDateId, selectedCircelId, selectedVendorId,
+				pageEntity=downtimePagingRepo.findAllByFilter(selectedFromDateId,selectedToDateId, selectedCircelId, selectedVendorId,
 						 selectedCmsCmfId, PageRequest.of(page, size)).map(DownTimeDto::new);
 			}else{
-				logger.info("downtime selectedCircelId---inside not-current date-----1---------"+selectedCircelId);
-				logger.info("downtime selectedVendorId----inside not-current date----2---------"+selectedVendorId);
-				logger.info("downtime selectedCmsCmfId-----inside not-current date---3---------"+selectedCmsCmfId);
-				logger.info("downtime selectedFromDateId---inside not-current date-----4---------"+selectedFromDateId);
-				logger.info("downtime selectedToDateId-----inside not-current date---5---------"+selectedToDateId);
-				pageEntity=downtimePagingRepo.findAllByFilter(selectedToDateId,selectedFromDateId, selectedCircelId, selectedVendorId,
+				logger.info("downtime selectedCircelId---inside not-current date-----1--e-------"+selectedCircelId);
+				logger.info("downtime selectedVendorId----inside not-current date----2------e---"+selectedVendorId);
+				logger.info("downtime selectedCmsCmfId-----inside not-current date---3----e-----"+selectedCmsCmfId);
+				logger.info("downtime selectedFromDateId---inside not-current date-----4----e-----"+selectedFromDateId);
+				logger.info("downtime selectedToDateId-----inside not-current date---5---e------"+selectedToDateId);
+				pageEntity=downtimePagingRepo.findAllByFilter(selectedFromDateId,selectedToDateId, selectedCircelId, selectedVendorId,
 						 selectedCmsCmfId, PageRequest.of(page, size)).map(DownTimeDto::new);
 			}
 			
@@ -105,7 +106,7 @@ public class DownTimeServiceImpl implements DowntimeService {
 			
 			logger.info("pageEntity:::"+pageEntity);
 		} catch (Exception e) {
-		//	e.printStackTrace();
+			//e.printStackTrace();
 			logger.error("DownTimeServiceImpl Exception():::",e.getMessage());
 		}
 		

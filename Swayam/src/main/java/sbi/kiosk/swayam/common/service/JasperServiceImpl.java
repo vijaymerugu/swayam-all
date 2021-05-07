@@ -2364,7 +2364,7 @@ public class JasperServiceImpl implements JasperService {
 					
 					
 				  List<DownTime> list = null;
-				  list=downTimePagingRepo.findAllByFilterDTimeReports(toDate, fromDate, circle,vendor ,cmsCmf);
+				  list=downTimePagingRepo.findAllByFilterDTimeReports( fromDate,toDate, circle,vendor ,cmsCmf);
 				  logger.info("list downtime ...PDF  "+list);
 				  
 				  if(list!=null && !list.isEmpty()) {
@@ -2391,7 +2391,7 @@ public class JasperServiceImpl implements JasperService {
 					}
 					
 					 List<DownTime> list = null;
-					  list=downTimePagingRepo.findAllByFilterDTimeReports(toDate, fromDate, circle,vendor ,cmsCmf);
+					  list=downTimePagingRepo.findAllByFilterDTimeReports(fromDate,toDate, circle,vendor ,cmsCmf);
 					  logger.info("list downtime ...PDF  "+list);
 					 // List<DownTimeDto> entities =null;
 					  if(list!=null && !list.isEmpty()) {
