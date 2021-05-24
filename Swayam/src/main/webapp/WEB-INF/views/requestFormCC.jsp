@@ -58,9 +58,10 @@ ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
 		
         
     </div>
+    <br/>
     <div align="center"style=" width: 85%;">
-      <input type="submit" value="REJECT" class="openRejectPopup">
-      <input type="submit" value="APPROVE" class="openFinalPopup">
+      <input type="submit" value="REJECT" class="openRejectPopup" style=" background-color: #FDD209; border-top: 2px #FDD209;border-bottom-width: 4px #FDD209; left: 579px; width: 97px;  height: 32px;opacity: 1;">
+      <input type="submit" value="APPROVE" class="openFinalPopup" style=" background-color: #FDD209; border-top: 2px #FDD209;border-bottom-width: 4px #FDD209; left: 579px; width: 97px;  height: 32px;opacity: 1;">
       </div>
     
 	</div>

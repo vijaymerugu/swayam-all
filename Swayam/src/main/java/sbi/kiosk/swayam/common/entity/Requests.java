@@ -14,6 +14,7 @@ import javax.persistence.TemporalType;
 
 import lombok.Data;
 
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.envers.Audited;
 
 import sbi.kiosk.swayam.common.dto.RequestsDto;
@@ -45,6 +46,8 @@ public class Requests  {
 		this.createdBy = requests.getCreatedBy();
 		this.modifiedDate = requests.getModifiedDate();
 		this.modifiedBy = requests.getModifiedBy();
+		this.fromDate=requests.getFromDate();
+		this.toDate=requests.getToDate();
 	}
 	
 
@@ -98,7 +101,15 @@ public class Requests  {
 	public String modifiedBy;
 	
 	@Column(name="MODIFIED_DATE")
+	//@UpdateTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
 	public Date modifiedDate;
+	
+	
+	@Column(name="FROM_DATE")
+	public Date fromDate;
+	
+	@Column(name="TO_DATE")
+	public Date toDate;
 	
 }

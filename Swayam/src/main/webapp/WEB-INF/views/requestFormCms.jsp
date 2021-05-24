@@ -39,7 +39,8 @@ ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
 }
 .ui-grid-header-canvas {
     padding-top: 0px;
-    padding-bottom: 0px;}				
+    padding-bottom: 0px;}	
+   			
 </style>
 </head>
 <body>
@@ -59,9 +60,11 @@ ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
 		
         
     </div>
+    <br/>
     <div align="center"style=" width: 85%;">
-      <input type="button" value="REJECT" class="openRejectPopup">
-      <input type="button" value="SEND TO APPROVER" class="openFinalPopup" >
+      <input type="button" value="REJECT" class="openRejectPopup" style=" background-color: #FDD209; border-top: 2px #FDD209;border-bottom-width: 4px #FDD209; left: 579px; width: 97px;  height: 32px;opacity: 1;">
+      <input type="button" value="SEND TO APPROVER" class="openFinalPopup" style=" background-color: #FDD209; border-top: 2px #FDD209;border-bottom-width: 4px #FDD209; left: 579px; width: 200px;  height: 32px;
+    opacity: 1;">
       </div>
     
 	</div>
@@ -141,7 +144,7 @@ $(document).ready(function(){
         	    	$("#myModal").modal();
                 	$("#para").html("Only alphabets and numbers are allowed in Remarks by Checker");
        		 	}else{
-        	       
+        	       //alert(JSON.stringify(all_rows));
                 $.ajax({
                     type: "POST",
                     //url: "/hm/saveCheckerComments?array="+all_rows,
