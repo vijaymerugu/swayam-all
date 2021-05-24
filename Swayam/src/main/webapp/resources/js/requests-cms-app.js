@@ -7,6 +7,15 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	 pageSize: 20,
 	 sort: null
    };
+   
+ /*  $scope.loadHomeBodyPageForms1 = function(url){	
+   alert(url);   
+   if(url != undefined){	
+			var str ='hm/activateCmsCaseId?caseId=' + url;
+			$("#contentHomeApp").load(str);
+		}	
+							
+	}*/
    var counttype = "";
    $scope.loadHomeBodyPageForms = function(url){	   
 		if(url != undefined){	
@@ -58,21 +67,32 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	useExternalPagination: true,
 	
     columnDefs: [
-      { name: 'id', displayName: 'Case Id', width:120,
+{ name: 'id', displayName: 'Case Id', width:150,
     	  cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.id)">{{ row.entity.id }}</a></div>'  
       },
     
-      { name: 'kioskId', displayName: 'Kiosk Id', width:150  },
+      { name: 'kioskId', displayName: 'Kiosk Id', width:250  },
       { name: 'modifiedDate', width:250, displayName: 'Request Date Time     ',type: 'date',cellFilter: 'date:"dd-MM-yyyy hh:mm:ss a"'
     	  //cellTemplate:'<div class="ui-grid-cell-contents">{{grid.appScope.showDate(row.entity.modifiedDate)}}</div>'
     		  },
-      { name: 'modifiedBy', displayName: 'Request By', width:200  },
-      { name: 'comments', headerCellTemplate: '<div>Comments By Requestor</div>', width:250  },
+      { name: 'modifiedBy', displayName: 'Request By', width:250  },
+      { name: 'comments', headerCellTemplate: '<div>Comments By Requestor</div>', width:390  },
       { name: 'remarks',
-    	  exporterSuppressExport: true, width:250,
+    	  exporterSuppressExport: true, width:400,
     	  headerCellTemplate: '<div>Remarks By Checker</div>',
     	  cellTemplate: '<div class="addedRows"><input type="text" name="remarks[{{row.entity.id}}]" id="remarks" maxlength="100" /></div>'
-      }
+      },
+      { name: 'fromDate', width:200,type: 'date', cellFilter: 'date:"dd-MM-yy"',
+    	  headerCellTemplate: '<div>From Date</div>'
+      },
+      { name: 'toDate',type: 'date', cellFilter: 'date:"dd-MM-yy"',
+    	  width:200,
+    	  headerCellTemplate: '<div>To Date</div>',
+      },
+     /*  { name: 'Active',
+    	  headerCellTemplate: '<div></div>',width:100,
+    	  cellTemplate: '<div><input type="button" ng-click="grid.appScope.loadHomeBodyPageForms1(row.entity.id)" id="button" class="button" value="Active" id="active" /></div>'
+      },*/
     ],
     onRegisterApi: function(gridApi) {
         $scope.gridApi = gridApi;

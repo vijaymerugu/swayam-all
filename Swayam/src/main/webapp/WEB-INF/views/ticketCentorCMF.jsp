@@ -24,7 +24,7 @@
 
 <link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css">
 <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" /> -->
-<link rel="stylesheet" href="resources/css//font-awesome.css" /> 
+<!-- <link rel="stylesheet" href="resources/css/font-awesome.css" />  -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
 
     

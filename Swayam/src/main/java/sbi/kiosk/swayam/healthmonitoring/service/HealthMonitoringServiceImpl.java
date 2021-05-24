@@ -1,5 +1,7 @@
 package sbi.kiosk.swayam.healthmonitoring.service;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -10,6 +12,8 @@ import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,6 +31,8 @@ import sbi.kiosk.swayam.common.entity.KioskBranchMaster;
 import sbi.kiosk.swayam.common.entity.Requests;
 import sbi.kiosk.swayam.common.entity.Supervisor;
 import sbi.kiosk.swayam.common.entity.User;
+import sbi.kiosk.swayam.common.entity.VendorMaster;
+import sbi.kiosk.swayam.common.repository.AllVendorRepository;
 import sbi.kiosk.swayam.common.repository.KioskMasterRepository;
 import sbi.kiosk.swayam.common.repository.SupervisorRepository;
 import sbi.kiosk.swayam.common.repository.UserRepository;
@@ -36,6 +42,8 @@ import sbi.kiosk.swayam.healthmonitoring.repository.RequestsRepositoryPaging;
 
 @Service
 public class HealthMonitoringServiceImpl implements HealthMonitoringService {
+	
+	Logger logger = LoggerFactory.getLogger(HealthMonitoringServiceImpl.class);
 	
 	@Autowired
 	RequestsRepository requestsRepository;
@@ -51,6 +59,8 @@ public class HealthMonitoringServiceImpl implements HealthMonitoringService {
 	
 	@Autowired
 	KioskMasterRepository kioskMasterRepository;
+	@Autowired
+	AllVendorRepository vendorRepo;
 	
 	public static HttpSession session() {
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
@@ -83,15 +93,35 @@ public class HealthMonitoringServiceImpl implements HealthMonitoringService {
 		dto.setCreatedDate(new Date());
 		dto.setModifiedBy(user.getPfId());
 		dto.setModifiedDate(new Date());
+		
+		String result=null;
+		 
+		logger.info("Before save dto:::"+dto);
+		int kioskIdCount=requestsRepository.findByKioskIdAndUserType(dto.getKioskId(),"M");
+		logger.info("After:::kioskId:::"+kioskIdCount);
+		if(kioskIdCount>0) {	
+			String kioskId=requestsRepository.findKioskId(dto.getKioskId(),"M");
+			//result="Requested: "+kioskId+ " KioskId Already Exist";
+			result= "Request already exist for Kioskid "+kioskId;
+	    }else {
+		
 		Requests requests = new Requests(dto);
+		logger.info("Before save ELSE dto:::"+dto);
+		logger.info("requests=fromdate=="+requests.getFromDate());
+		logger.info("requests=todate=="+requests.getToDate());
+		logger.info("Before save ELSE requests CreatedDate:::"+requests.getCreatedDate());
+		logger.info("Before save ELSE requests ModifiedDate:::"+requests.getModifiedDate());
+		logger.info("Before save ELSE requests:::"+requests);
 		Requests request= requestsRepository.save(requests);
-		
-		String result="REQ"+request.getId();
-		if(result!=null && !result.isEmpty()){
+		logger.info("requests=id=="+request.getId());
+		String resultResp="REQ"+request.getId();
+		result="Request: "+resultResp+ " has been successfully created";
+		if(resultResp!=null && !resultResp.isEmpty()){
 			
-		 requestsRepository.update(result,request.getId());
+		 requestsRepository.update(resultResp,request.getId());
 		}
-		
+	    }
+		logger.info("result::::"+result);
 		return result;
 	}
 	
@@ -125,14 +155,18 @@ public class HealthMonitoringServiceImpl implements HealthMonitoringService {
 		Set<String> set = new HashSet<String>();
 		set.add(Constants.APPROVED.getCode());
 		set.add(Constants.REJECTED.getCode());
+		// add by satendra
+		set.add(Constants.CREATED.getCode());
 		
 		Page<RequestsDto> entities = 
 			 requestsRepositoryPaging.findByCreatedByAndReqCategoryIn(pfId, set, PageRequest.of(page, size,Sort.by("id").descending()))
 			.map(RequestsDto::new);
+		System.err.println("entities=id=="+entities.getContent());
 	    return entities;
 	  }
 	
 	@Override
+	@Transactional
 	public void saveCheckerCommentsCms(String array){
 		UserDto user = (UserDto) session().getAttribute("userObj");
 		Map<String, String> map = new HashMap<>();
@@ -152,18 +186,33 @@ public class HealthMonitoringServiceImpl implements HealthMonitoringService {
 			for (Map.Entry<String, String> entry : map.entrySet()) {    
 			    
 			    Requests entity = requestsRepository.findById(Integer.parseInt(entry.getKey()));
-			    entity.setComments(entry.getValue());
-			    entity.setReqCategory(Constants.RECOMMENDED.getCode());
-			    entity.setUserType(Constants.CHECKER.getCode());		    
-			    entity.setModifiedBy(user.getPfId());
-			    entity.setModifiedDate(new Date());
-			    requestsRepository.save(entity);
+			    
+			    Requests reqEntity =new  Requests();
+			    
+			    reqEntity.setComments(entry.getValue());
+			    reqEntity.setReqCategory(Constants.RECOMMENDED.getCode());
+			    reqEntity.setUserType(Constants.CHECKER.getCode());		    
+			    reqEntity.setModifiedBy(user.getPfId());
+			    reqEntity.setCreatedDate(new Date());
+			    reqEntity.setModifiedDate(new Date()); 
+		    //  entity.setFromDate(date1);
+			 // entity.setToDate(date1);
+		    //  requestsRepository.save(entity);
+					
+			    try {		
+				  
+			    	 requestsRepository.updateAndSave(reqEntity.getComments(),reqEntity.getReqCategory(),reqEntity.getUserType(),reqEntity.getModifiedBy(),getFormatTS(),Integer.parseInt(entry.getKey()));
+			   // requestsReposDemo.save(entity);
+			}catch(Exception e) {  
+				e.printStackTrace();
+			}
 			}
 		}	
 		
 	}
 	
 	@Override
+	@Transactional
 	public void rejectCheckerCommentsCms(String array){
 		UserDto user = (UserDto) session().getAttribute("userObj");
 		Map<String, String> map = new HashMap<>();
@@ -183,12 +232,17 @@ public class HealthMonitoringServiceImpl implements HealthMonitoringService {
 			for (Map.Entry<String, String> entry : map.entrySet()) {    
 			    
 			    Requests entity = requestsRepository.findById(Integer.parseInt(entry.getKey()));
-			    entity.setComments(entry.getValue());
-			    entity.setReqCategory(Constants.REJECTED.getCode());
-			    entity.setUserType(Constants.CHECKER.getCode());		    
-			    entity.setModifiedBy(user.getPfId());
-			    entity.setModifiedDate(new Date());
-			    requestsRepository.save(entity);
+			   
+			    Requests reqEntity = new Requests();
+			    reqEntity.setComments(entry.getValue());
+			    reqEntity.setReqCategory(Constants.REJECTED.getCode());
+			    reqEntity.setUserType(Constants.CHECKER.getCode());		    
+			    reqEntity.setModifiedBy(user.getPfId());
+			    //reqEntity.setModifiedDate(new Date());
+			    //requestsRepository.save(entity);
+			    //String modifiedDate=getFormatTS();
+			    
+			    requestsRepository.updateAndSave(reqEntity.getComments(),reqEntity.getReqCategory(),reqEntity.getUserType(),reqEntity.getModifiedBy(),getFormatTS(),Integer.parseInt(entry.getKey()));
 			}
 		}	
 		
@@ -196,7 +250,25 @@ public class HealthMonitoringServiceImpl implements HealthMonitoringService {
 	
 	
 	
+	private String getFormatTS() {
+		String format =null;
+		try {
+			    Date date=new Date();
+				SimpleDateFormat dateFormat2 = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss.ms a");
+				 format = dateFormat2.format(date);
+				 if (format!=null) {
+					 System.out.println("format :" + format);
+				  }
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return format;
+	}
+
 	@Override
+	@Transactional
 	public void saveApproverCommentsCC(String array){
 		UserDto user = (UserDto) session().getAttribute("userObj");
 		Map<String, String> map = new HashMap<>();
@@ -215,19 +287,31 @@ public class HealthMonitoringServiceImpl implements HealthMonitoringService {
 		if(map !=null && map.size() > 0){
 			for (Map.Entry<String, String> entry : map.entrySet()) {    
 			    
-			    Requests entity = requestsRepository.findById(Integer.parseInt(entry.getKey()));
-			    entity.setComments(entry.getValue());
-			    entity.setReqCategory(Constants.APPROVED.getCode());
-			    entity.setUserType(Constants.APPROVER.getCode());		    
-			    entity.setModifiedBy(user.getPfId());
-			    entity.setModifiedDate(new Date());
-			    requestsRepository.save(entity);
+			   Requests entity = requestsRepository.findById(Integer.parseInt(entry.getKey()));
+				 Requests reqEntity = new Requests();
+				 reqEntity.setComments(entry.getValue());
+				 reqEntity.setReqCategory(Constants.APPROVED.getCode());
+				 reqEntity.setUserType(Constants.APPROVER.getCode());		    
+				 reqEntity.setModifiedBy(user.getPfId());
+				 reqEntity.setModifiedDate(new Date());
+			    // added by satendra 13052021
+			  //  SimpleDateFormat   date = new SimpleDateFormat("dd-MM-YY");
+			//	String date1 = date.format(new Date());
+			  //  entity.setFromDate(date1);
+			  //  entity.setToDate(date1);
+			    
+			   // requestsRepository.save(entity);
+			    
+				 requestsRepository.updateAndSave(reqEntity.getComments(),reqEntity.getReqCategory(),reqEntity.getUserType(),reqEntity.getModifiedBy(),getFormatTS(),Integer.parseInt(entry.getKey()));
+			    
+			    
 			}
 		}	
 		
 	}
 	
 	@Override
+	@Transactional
 	public void rejectApproverCommentsCC(String array){
 		UserDto user = (UserDto) session().getAttribute("userObj");
 		Map<String, String> map = new HashMap<>();
@@ -247,12 +331,20 @@ public class HealthMonitoringServiceImpl implements HealthMonitoringService {
 			for (Map.Entry<String, String> entry : map.entrySet()) {    
 			    
 			    Requests entity = requestsRepository.findById(Integer.parseInt(entry.getKey()));
-			    entity.setComments(entry.getValue());
-			    entity.setReqCategory(Constants.REJECTED.getCode());
-			    entity.setUserType(Constants.APPROVER.getCode());		    
-			    entity.setModifiedBy(user.getPfId());
-			    entity.setModifiedDate(new Date());
-			    requestsRepository.save(entity);
+			    Requests reqEntity =new  Requests();
+			    reqEntity.setComments(entry.getValue());
+			    reqEntity.setReqCategory(Constants.REJECTED.getCode());
+			    reqEntity.setUserType(Constants.APPROVER.getCode());		    
+			    reqEntity.setModifiedBy(user.getPfId());
+			    reqEntity.setModifiedDate(new Date());
+			    // added by satendra 13052021
+			    SimpleDateFormat   date = new SimpleDateFormat("dd-MM-YY");
+				String date1 = date.format(new Date());
+			   // entity.setFromDate(date1);
+			    //entity.setToDate(date1);
+			    //requestsRepository.save(entity);
+			    
+				 requestsRepository.updateAndSave(reqEntity.getComments(),reqEntity.getReqCategory(),reqEntity.getUserType(),reqEntity.getModifiedBy(),getFormatTS(),Integer.parseInt(entry.getKey()));
 			}
 		}	
 		
@@ -336,6 +428,50 @@ public class HealthMonitoringServiceImpl implements HealthMonitoringService {
 			String type) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Iterable<VendorMaster> getVendor(String brachCode) {
+		
+		Iterable<VendorMaster> findAll = vendorRepo.findAll();
+		return findAll;
+	}
+
+	@Override
+	public List<RequestsDto> getByVendorAndBranchCode(String vendor, String branchcode) {
+		
+		List<KioskBranchMaster> findAllByVendorAndBrachCode = kioskMasterRepository.findAllByVendorAndBranchCode(vendor,branchcode);
+		List<RequestsDto> requestDotList= new ArrayList<>();
+		
+		findAllByVendorAndBrachCode.forEach(reqDto ->{
+			RequestsDto dto=new RequestsDto();
+			dto.setKioskId(reqDto.getKioskId());
+			requestDotList.add(dto);
+		});
+		
+		
+		
+		return requestDotList;
+	}
+	
+	@Override
+	@Transactional
+	public RequestsManagementDto activateKiosk(int caseId) {
+
+		 SimpleDateFormat   date = new SimpleDateFormat("dd-MM-YY");
+			String toDate = date.format(new Date());
+		   requestsRepository.updateToDate(toDate,caseId);
+		   System.err.println("caseId==");
+		
+		return null;
 	}	
 	
+	
+	
+	
+	
+	
+	
+	
+
 }

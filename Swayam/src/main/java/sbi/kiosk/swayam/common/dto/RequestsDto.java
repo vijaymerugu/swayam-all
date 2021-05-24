@@ -42,6 +42,8 @@ public class RequestsDto {
 		this.createdBy = requests.getCreatedBy();
 		this.modifiedDate = requests.getModifiedDate();
 		this.modifiedBy = requests.getModifiedBy();
+		this.fromDate=requests.getFromDate();
+		this.toDate=requests.getToDate();
 		/*try {
 			this.createdDate = requests.getCreatedDate() !=null ?formatStringToDate(requests.getCreatedDate().toString()):requests.getCreatedDate();
 		} catch (ParseException e) {
@@ -102,6 +104,11 @@ public class RequestsDto {
 	
 	
 	private String modifiedBy;
+	
+	
+	public Date fromDate;
+	
+	public Date toDate;    
 	
 
 }

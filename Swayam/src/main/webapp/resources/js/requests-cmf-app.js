@@ -7,7 +7,48 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	 pageSize: 20,
 	 sort: null
    };
-   var counttype = "";
+   
+    var counttype = "";
+   
+$scope.ddMMyyyy = $filter('date')(new Date(), 'dd-MM-yyyy');
+console.log("$scope.ddMMyyyy::::::::"+$scope.ddMMyyyy );
+
+ function convertDate(dateParam){
+  var result="";
+  var date = new Date(dateParam);
+       var year = date.getFullYear();
+       var rawMonth = parseInt(date.getMonth()) + 1;
+       var month = rawMonth < 10 ? '0' + rawMonth : rawmonth;
+       var rawDay = parseInt(date.getDate());
+       var day = rawDay < 10 ? '0' + rawDay : rawDay;
+       console.log(year + '-' + month + '-' + day);
+ 
+    // result= year+"-"+month+"-"+day;
+       result= day+"-"+month+"-"+year;
+     //alert("return --result::: "+result);
+     return result;
+ }
+
+		    $scope.activateCheck = function (status,toDate){
+		      var sysDate=convertDate(toDate);
+		      console.log("in side activateCheck::status::"+status+" sysDate::"+sysDate);
+		    	if(status=='APRD' && sysDate>$scope.ddMMyyyy){
+		    	console.log("in side if::status::"+sysDate+"status::"+status);
+		    		return true;
+		    	}else{
+		    	console.log("in side else"+status);
+		    		return false;
+		    	}
+		    }
+
+     $scope.loadHomeBodyPageFormsUpdate = function(url,kioskId){	
+          alert(""+kioskId+" Activated");   
+      if(url != undefined){	
+			var str ='hm/activateCmsCaseId?caseId=' + url;
+			$("#contentHomeApp").load(str);
+		}	
+	}
+   
    $scope.loadHomeBodyPageForms = function(url){	   
 		if(url != undefined){	
 			var str ='hm/viewCmfCaseId?caseId=' + url;
@@ -58,21 +99,35 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	useExternalPagination: true,
 
     columnDefs: [
-      { name: 'id', displayName: 'Case Id', width:110,
+      { name: 'id', displayName: 'Case Id', width:170,
     	  //cellTemplate: '<div class="ui-grid-cell-contents"><a href="/hm/viewCaseId?caseId={{ row.entity.id }}">{{ row.entity.id }}</a></div>'
     	  cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.id)">{{ row.entity.id }}</a></div>'  
       },
-      { name: 'kioskId', displayName: 'Kiosk Id', width:150  },
+      { name: 'kioskId', displayName: 'Kiosk Id', width:200  },
       { name: 'modifiedDate', width:250, displayName: 'Request Date Time',type: 'date',cellFilter: 'date:"dd-MM-yyyy hh:mm:ss a"'
     	  //cellTemplate:'<div class="ui-grid-cell-contents">{{grid.appScope.showDate(row.entity.modifiedDate)}}</div>'
     		  },
-      { name: 'modifiedBy', displayName: 'Request By', width:180  },
-      { name: 'comments', headerCellTemplate: '<div>Comments By <br/> Checker/Approver</div>', width:250  },
+      { name: 'modifiedBy', displayName: 'Request By', width:220  },
+      { name: 'comments', headerCellTemplate: '<div>Comments By <br/> Checker/Approver</div>', width:400  },
       { name: 'reqCategory',
-    	  exporterSuppressExport: true, width:250,
+    	  exporterSuppressExport: true, width:200,
     	  headerCellTemplate: '<div>Status</div>',
-    	  cellTemplate: '<div ng-if="row.entity.reqCategory == \'APRD\'">APPROVED</div><div ng-if="row.entity.reqCategory == \'REJ\'">REJECTED</div>'
-      }
+    	cellTemplate: '<div ng-if="row.entity.reqCategory == \'APRD\'">APPROVED</div><div ng-if="row.entity.reqCategory == \'REJ\'">REJECTED</div><div ng-if="row.entity.reqCategory == \'CRTD\'">CREATED</div>'
+      },
+      { name: 'fromDate', width:200,type: 'date', cellFilter: 'date:"dd-MM-yy"',
+    	  headerCellTemplate: '<div>From Date</div>',
+      },
+      { name: 'toDate',type: 'date',cellFilter: 'date:"dd-MM-yy"',
+    	  width:200,
+    	  headerCellTemplate: '<div>To Date</div>',
+      },
+      {   
+         name: 'Active',
+    	 headerCellTemplate: '<div></div>',width:200,
+    	 // cellTemplate: '<div ng-if="row.entity.reqCategory == \'APRD\'  "  ><div><input type="button" ng-click="grid.appScope.loadHomeBodyPageForms1(row.entity.id,row.entity.kioskId,row.entity.toDate)" id="button" class="button" value="Activate" id="active" /></div> </div>'
+         cellTemplate: '<div ng-show="grid.appScope.activateCheck(row.entity.reqCategory,row.entity.toDate) "><div><input type="button" ng-click="grid.appScope.loadHomeBodyPageFormsUpdate(row.entity.id,row.entity.kioskId)" id="button" class="button" value="Activate" id="active" style=" background-color: #FDD209; border-top: 2px #FDD209;border-bottom-width: 4px #FDD209; left: 579px; width: 97px;  height: 32px;opacity: 1;" /></div> </div>'
+     
+      },
     ],
     onRegisterApi: function(gridApi) {
         $scope.gridApi = gridApi;

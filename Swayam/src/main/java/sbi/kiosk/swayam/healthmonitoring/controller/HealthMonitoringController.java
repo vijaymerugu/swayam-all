@@ -1,7 +1,13 @@
 package sbi.kiosk.swayam.healthmonitoring.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
+import org.codehaus.jettison.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +26,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import sbi.kiosk.swayam.common.dto.ManualTicketCallLogDto;
 import sbi.kiosk.swayam.common.dto.RequestsDto;
 import sbi.kiosk.swayam.common.dto.RequestsManagementDto;
+import sbi.kiosk.swayam.common.entity.VendorMaster;
 import sbi.kiosk.swayam.common.validation.ValidationCommon;
 import sbi.kiosk.swayam.healthmonitoring.service.HealthMonitoringService;
 
@@ -81,7 +89,9 @@ public class HealthMonitoringController {
 	@PreAuthorize("hasPermission('saveRequestForCmf','CREATE')")
 	public ResponseEntity<String>  saveRequestForCmf(ModelAndView model, HttpServletRequest request,
 			RedirectAttributes redirectAttributes,@ModelAttribute("requestDto") RequestsManagementDto requestDto) {
-		System.err.println("saveRequestForCmf==="+requestDto.getBranchCode());
+		
+		
+		logger.info("saveRequestForCmf==="+requestDto);
 		ResponseEntity<String> entity=null;
 		RequestsDto dto = new RequestsDto();		
 		dto.setBranchCode(ValidationCommon.validateString(request.getParameter("branchCode")));
@@ -91,10 +101,30 @@ public class HealthMonitoringController {
 		//dto.setCategory(ValidationCommon.validateString(request.getParameter("category")));
 		//dto.setSubCategory(ValidationCommon.validateString(request.getParameter("subCategory")));
 		dto.setSubject(ValidationCommon.validateString(request.getParameter("subject")));
-		dto.setComments(ValidationCommon.validateStringChar(request.getParameter("comments")));		
+		dto.setComments(ValidationCommon.validateStringChar(request.getParameter("comments")));
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy");
+		Date date;
+		Date date1;
+		try {
+			date = sdf.parse(requestDto.getFromDate());
+			date1 = sdf.parse(requestDto.getToDate());
+			logger.info("date :" + date);  //Mar 2016
+			logger.info("date1 :" + date1);  //Mar 2016
+			 dto.setFromDate(date);
+		      dto.setToDate(date1);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		logger.info("saveRequestForCmf::::::::::dto::::::"+dto);
 		String result=healthMonitoringService.saveRequestForCmf(dto);
+		logger.info("saveRequestForCmf= result=="+result);
 		entity=ResponseEntity.ok(result);
 		
+		logger.info("saveRequestForCmf= entity=="+entity);
 		return entity;
 	}
 	
@@ -106,6 +136,8 @@ public class HealthMonitoringController {
 		      @RequestParam("page") int page, @RequestParam("size") int size) {
 		 
 		        Page<RequestsDto> resultPage = healthMonitoringService.findPaginatedCmf(page, size);
+		        logger.info("resultPage:::"+resultPage.getContent());
+
 		        if (page > resultPage.getTotalPages()) {
 		            //throw new MyResourceNotFoundException();
 		        }
@@ -216,4 +248,52 @@ public class HealthMonitoringController {
 		mav.addObject("dto", dto);
 		return mav;
 	}
+	
+	
+	///////////
+	
+	
+	
+	
+	@PostMapping("hm/getVendorByBranchCode/{brachCode}")
+	//@PreAuthorize("hasPermission('HMgetVendorByBranchCode','CREATE')")
+	public ResponseEntity<Iterable<VendorMaster>> getByBranchCode(@PathVariable("brachCode") String brachCode,
+			ModelAndView model, @ModelAttribute("RequestsDto") RequestsDto requestsDto)
+			throws JSONException {
+
+		logger.info("calling for ajax with brach code :::"+brachCode);
+
+		Iterable<VendorMaster> requDtoList = healthMonitoringService.getVendor(brachCode);
+		logger.info("calling for ajax with brach code--requDtoList :::"+requDtoList);
+
+		ResponseEntity<Iterable<VendorMaster>> respEntity = ResponseEntity.ok(requDtoList);
+		return respEntity;
+
+	}
+	
+	
+	@GetMapping("getKioskIdByVendor/{vendor}/{branchcode}")
+	public ResponseEntity<List<RequestsDto>> getKioskIdFindByVendor(@PathVariable("vendor") String vendor,
+			@PathVariable("branchcode") String branchcode,@ModelAttribute("requestsDto") RequestsDto requestsDto,
+			ModelAndView model) {
+		
+		logger.info("ajax call for assiging vendor "+vendor);
+		List<RequestsDto> requDtoKioskList = healthMonitoringService.getByVendorAndBranchCode(vendor, branchcode);
+		logger.info("ajax call for assiging requDtoKioskList "+requDtoKioskList);
+		ResponseEntity<List<RequestsDto>> entityPage = ResponseEntity.ok(requDtoKioskList);
+		return entityPage;
+
+	}
+
+	
+	@RequestMapping(value = "hm/activateCmsCaseId")	
+	public ModelAndView activateCmsCaseId(@RequestParam("caseId") int caseId,@ModelAttribute("requestDto") RequestsManagementDto requestDto) {
+		logger.info("activateCmsCaseId::::::::: "+caseId);
+		RequestsManagementDto dto = healthMonitoringService.activateKiosk(caseId);
+		ModelAndView mav = new ModelAndView("requestFormGridCmf");
+		//mav.addObject("dto", dto);
+		return mav;
+	}
+	
+	
 }
