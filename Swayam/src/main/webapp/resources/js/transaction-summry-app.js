@@ -172,14 +172,15 @@ sort: null
 			     // Added for loader------------- END
 	   			   });   
 	 		   
-	 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
+	 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){debugger;
 	 	  
 	 		  /* $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);	*/	   
 	 	    	
 	 	    	$("#loading").show(); 
-		 	  	 UserManagementService.getSearchNext(paginationOptions.pageNumber,
-		 	  			paginationOptions.pageSize,fromDate,toDate,$scope.searchText).success(function(data3){
-		 	 	  		 
+		 	  /*	 UserManagementService.getSearchNext(paginationOptions.pageNumber,
+		 	  			paginationOptions.pageSize,fromDate,toDate,$scope.searchText).success(function(data3){*/
+	 	  	 UserManagementService.getSearchNext(0,
+		 	  			paginationOptions.pageSize,fromDate,toDate,$scope.searchText).success(function(data3){ 		 
 		 	 	  	  $scope.gridOptions.data = data3.content;
 		 	  	   	  $scope.gridOptions.totalItems = data3.totalElements;
 		 	  	      $("#loading").hide();
@@ -199,7 +200,25 @@ sort: null
 	 	    			   });
 	 	    }
 	    };
-
+	    $scope.clearSearch = function()
+	    {  	debugger;
+	 	  
+	    	$scope.searchText='';	
+	 	   
+	 	        $("#loading").show();  
+	 	    
+	 	   	 UserManagementService.getUsers(0,
+	 	   			paginationOptions.pageSize,fromDate,toDate).success(function(data){
+	 	  	  $scope.gridOptions.data = data.content;
+	 	  	  $scope.gridOptions.paginationCurrentPage = data.number;
+	 	   	  $scope.gridOptions.totalItems = data.totalElements;
+	 	   	
+	 	        $("#loading").hide();  
+	 	     
+	 	     }); 
+	 	 		   
+	 	 	   
+	 	    };
 	//  Added for loader------------- START 
         $("#loading").show();  
      // Added for loader------------- END
@@ -274,7 +293,7 @@ sort: null
 	     // Added for loader------------- END
           });
         }
-        else{
+        else{debugger;
  	 	   	console.log("Inside else");
         	 UserManagementService.getSearchNext(newPage,pageSize,fromDate,toDate,$scope.searchText).success(function(data){
            	  $scope.gridOptions.data = data.content;

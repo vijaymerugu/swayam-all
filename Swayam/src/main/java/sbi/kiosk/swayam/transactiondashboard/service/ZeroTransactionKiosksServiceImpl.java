@@ -1,6 +1,7 @@
 package sbi.kiosk.swayam.transactiondashboard.service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +20,8 @@ import org.springframework.stereotype.Service;
 
 import sbi.kiosk.swayam.common.dto.ZeroTransactionKiosksDto;
 import sbi.kiosk.swayam.common.entity.DrillDown;
+import sbi.kiosk.swayam.common.entity.RealTimeTransaction;
+import sbi.kiosk.swayam.common.entity.SwayamMigrationSummary;
 import sbi.kiosk.swayam.common.entity.ZeroTransactionKiosks;
 import sbi.kiosk.swayam.common.service.JasperServiceImpl;
 import sbi.kiosk.swayam.transactiondashboard.repository.ZeroTransactionKiosksRepository;
@@ -42,10 +45,13 @@ public Page<ZeroTransactionKiosksDto> findPaginated(final int page, final int si
 	 
 }
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public Page<ZeroTransactionKiosks> findPaginatedByDate(final int page, final int size, String fromdate, String todate){
 	
 		//List<ZeroTransactionKiosks> list= nearByEntities(fromDate,toDate);
+		
+		 List<ZeroTransactionKiosks> list=new ArrayList<ZeroTransactionKiosks>(); 
 		if((fromdate ==null || fromdate.isEmpty()) && (todate ==null || todate.isEmpty())){
 			SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
 			Date curDate=new Date();
@@ -53,20 +59,39 @@ public Page<ZeroTransactionKiosksDto> findPaginated(final int page, final int si
 			todate=sdf.format(curDate);
 		}
 		
-		
-	//	logger.info("findPaginatedByDate=ZeroTxnKoisk=======fromdate="+ fromdate);
-	//	  logger.info("findPaginatedByDate=ZeroTxnKoisk======todate="+todate);
 
-        Page<ZeroTransactionKiosks> pageDto = zeroTransactionKiosksRepository.findByDate(fromdate, todate, PageRequest.of(page, size));
+   //     Page<ZeroTransactionKiosks> pageDto = zeroTransactionKiosksRepository.findByDate(fromdate, todate, PageRequest.of(page, size));
 		 
-		 
+		try {
+			
+			 StoredProcedureQuery nearByEntities= em.createNamedStoredProcedureQuery("SP_ZERO_TRANSACTION_KIOSKS");
+		        nearByEntities.setParameter("fromdate", fromdate);
+		        nearByEntities.setParameter("todate", todate);
+		        nearByEntities.setParameter("searchText", "");
+		        list=nearByEntities.getResultList();
+		       
+		
+			} catch (Exception e) {
+				logger.error("Exception in ZeroTransactionKiosksDataList ." + e.getMessage());
+				
+			}
+	//	Page<ZeroTransactionKiosks> pageDto = new PageImpl<ZeroTransactionKiosks>(list,PageRequest.of(page, size), list.size());
+		 @SuppressWarnings("deprecation")
+			int start =  (int) new PageRequest(page, size).getOffset();
+		        @SuppressWarnings("deprecation")
+				int end = (start + new PageRequest(page, size).getPageSize()) > list.size() ? list.size() : (start + new PageRequest(page, size).getPageSize());
+		        @SuppressWarnings("deprecation")
+				Page<ZeroTransactionKiosks> pageDto = new PageImpl<ZeroTransactionKiosks>(list.subList(start, end), new PageRequest(page, size), list.size());
+			
 		 return pageDto;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public Page<ZeroTransactionKiosks> findPaginatedByDateSearchNext(final int page, final int size, String fromdate, String todate,String searchText){
 	
 		//List<ZeroTransactionKiosks> list= nearByEntities(fromDate,toDate);
+		 List<ZeroTransactionKiosks> list=new ArrayList<ZeroTransactionKiosks>();
 		if((fromdate ==null || fromdate.isEmpty()) && (todate ==null || todate.isEmpty())){
 			SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
 			Date curDate=new Date();
@@ -74,9 +99,29 @@ public Page<ZeroTransactionKiosksDto> findPaginated(final int page, final int si
 			todate=sdf.format(curDate);
 		}
 				
-        Page<ZeroTransactionKiosks> pageDto = zeroTransactionKiosksRepository.findByDateSearchNext(fromdate, todate,searchText, PageRequest.of(page, size));
+  //      Page<ZeroTransactionKiosks> pageDto = zeroTransactionKiosksRepository.findByDateSearchNext(fromdate, todate,searchText, PageRequest.of(page, size));
 		 
-		 
+		try {
+			
+			 StoredProcedureQuery nearByEntities= em.createNamedStoredProcedureQuery("SP_ZERO_TRANSACTION_KIOSKS");
+		        nearByEntities.setParameter("fromdate", fromdate);
+		        nearByEntities.setParameter("todate", todate);
+		        nearByEntities.setParameter("searchText", searchText);
+		        list=nearByEntities.getResultList();
+		       
+		
+			} catch (Exception e) {
+				logger.error("Exception in ZeroTransactionKiosksDataList ." + e.getMessage());
+				
+			}
+		//Page<ZeroTransactionKiosks> pageDto = new PageImpl<ZeroTransactionKiosks>(list,PageRequest.of(page, size), list.size());
+		 @SuppressWarnings("deprecation")
+			int start =  (int) new PageRequest(page, size).getOffset();
+		        @SuppressWarnings("deprecation")
+				int end = (start + new PageRequest(page, size).getPageSize()) > list.size() ? list.size() : (start + new PageRequest(page, size).getPageSize());
+		        @SuppressWarnings("deprecation")
+				Page<ZeroTransactionKiosks> pageDto = new PageImpl<ZeroTransactionKiosks>(list.subList(start, end), new PageRequest(page, size), list.size());
+			
 		 return pageDto;
 	}
 	

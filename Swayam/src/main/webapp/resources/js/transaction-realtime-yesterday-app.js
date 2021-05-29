@@ -81,9 +81,10 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
 	 	    	
 	 	     $("#loading").show(); 
-	 	  	 UserManagementService.getSearchNext(paginationOptions.pageNumber,
-	 	  			paginationOptions.pageSize,yesterdayType,$scope.searchText).success(function(data3){
-	 	 	  		 
+	 	  	/* UserManagementService.getSearchNext(paginationOptions.pageNumber,
+	 	  			paginationOptions.pageSize,yesterdayType,$scope.searchText).success(function(data3){*/
+	 	    UserManagementService.getSearchNext(0,
+	 	  			paginationOptions.pageSize,yesterdayType,$scope.searchText).success(function(data3){		 
 	 	 	  	  $scope.gridOptions.data = data3.content;
 	 	  	   	  $scope.gridOptions.totalItems = data3.totalElements;
 	 	  	      $("#loading").hide();
@@ -110,9 +111,10 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	 	   
 	 	        $("#loading").show();  
 	 	    
-	 	   	 UserManagementService.getUsers(paginationOptions.pageNumber,
+	 	   	 UserManagementService.getUsers(0,
 	 	   			paginationOptions.pageSize,yesterdayType).success(function(data){
 	 	  	  $scope.gridOptions.data = data.content;
+	 	  	$scope.gridOptions.paginationCurrentPage = data.number;
 	 	   	  $scope.gridOptions.totalItems = data.totalElements;
 	 	   	
 	 	        $("#loading").hide();  

@@ -20,7 +20,9 @@ import lombok.Data;
 @NamedStoredProcedureQuery(name = "SP_MIGRATION_SUMMARY", procedureName = "SP_MIGRATION_SUMMARY", resultClasses = SwayamMigrationSummary.class, parameters = {
 		@StoredProcedureParameter(name = "fromdate", type = String.class, mode = ParameterMode.IN),
 		@StoredProcedureParameter(name = "todate", type = String.class, mode = ParameterMode.IN),
-		@StoredProcedureParameter(name = "cur", type = void.class, mode = ParameterMode.REF_CURSOR) })
+		@StoredProcedureParameter(name = "searchText", type = String.class, mode = ParameterMode.IN),
+		//@StoredProcedureParameter(name = "RESULT_SET", type = void.class, mode = ParameterMode.REF_CURSOR)
+		 @StoredProcedureParameter(mode = ParameterMode.REF_CURSOR, name = "RESULT_SET", type= String.class)})
 
 @IdClass(value = SwayamMigrationSummaryCompositeId.class)
 public class SwayamMigrationSummary implements Serializable {
