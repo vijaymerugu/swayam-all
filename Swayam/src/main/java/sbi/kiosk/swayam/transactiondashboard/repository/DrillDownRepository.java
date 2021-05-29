@@ -2719,11 +2719,11 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
 	 * ,nativeQuery = true)
 	 */
  // new query
-	//	@Query(value="select to_char(last_pbk_dt,'dd-mm-yyyy') from tbl_branch_txn_daily order by last_pbk_dt desc fetch first 1 row only",nativeQuery = true)
+		@Query(value="select to_char(last_pbk_dt,'dd-mm-yyyy') from tbl_branch_txn_daily order by last_pbk_dt desc fetch first 1 row only",nativeQuery = true)
 
  			//for 11g
 		
-		@Query(value="select to_char(last_pbk_dt,'dd-mm-yyyy') from tbl_branch_txn_daily where rownum <= 1 order by last_pbk_dt desc ",nativeQuery = true)
+	//	@Query(value="select to_char(last_pbk_dt,'dd-mm-yyyy') from tbl_branch_txn_daily where rownum <= 1 order by last_pbk_dt desc ",nativeQuery = true)
  	//	@Query(value="select to_date(last_pbk_dt,'dd-mm-yyyy') from tbl_branch_txn_daily where rownum <= 1 order by last_pbk_dt desc ",nativeQuery = true )
  	//		@Query(value="select to_char(to_date(last_pbk_dt,'dd-mm-yyyy'),'dd-mm-yyyy') from tbl_branch_txn_daily where rownum <= 1 order by last_pbk_dt desc ",nativeQuery = true )
  			
