@@ -69,9 +69,10 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	 	  
 	 		 /*  $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		*/   
 	 	    	 $("#loading").show(); 
-		 	  	 UserManagementService.getSearchNext(paginationOptions.pageNumber,
-		 	  			paginationOptions.pageSize,yesterdayType,$scope.searchText).success(function(data3){
-		 	 	  		 
+		 	  	/* UserManagementService.getSearchNext(paginationOptions.pageNumber,
+		 	  			paginationOptions.pageSize,yesterdayType,$scope.searchText).success(function(data3){*/
+	 	    	 UserManagementService.getSearchNext(0,
+			 	  			paginationOptions.pageSize,yesterdayType,$scope.searchText).success(function(data3){  		 
 		 	 	  	  $scope.gridOptions.data = data3.content;
 		 	  	   	  $scope.gridOptions.totalItems = data3.totalElements;
 		 	  	      $("#loading").hide();
@@ -90,7 +91,25 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	 	    	   });
 	 	    }
 	    };
-
+	    $scope.clearSearch = function()
+	    {  	
+	 	  
+	    	$scope.searchText='';	
+	 	   
+	 	        $("#loading").show();  
+	 	    
+	 	   	 UserManagementService.getUsers(0,
+	 	   			paginationOptions.pageSize,yesterdayType).success(function(data){
+	 	  	  $scope.gridOptions.data = data.content;
+	 	  	$scope.gridOptions.paginationCurrentPage = data.number;
+	 	   	  $scope.gridOptions.totalItems = data.totalElements;
+	 	   	
+	 	        $("#loading").hide();  
+	 	     
+	 	     }); 
+	 	 		   
+	 	 	   
+	 	    };
 	    //  Added for loader------------- START 
         $("#loading").show();  
      // Added for loader------------- END
@@ -116,8 +135,9 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	enableColumnMenus:false,
 	useExternalPagination: true,
 	
-      columnDefs: [{name: 'crclName', displayName: 'Real-time Swayam Transaction'}
-    	  ],
+	
+    /*  columnDefs: [{name: 'crclName', displayName: 'Real-time Swayam Transaction'}
+    	  ],*/
     columnDefs: [
       { name: 'crclName', displayName: 'Circle'  },
       { name: 'network', displayName: 'NW'  },
@@ -134,6 +154,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
      
       
     ],
+    
     onRegisterApi: function(gridApi) {
         $scope.gridApi = gridApi;
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
@@ -162,7 +183,9 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	        
 	        	   }
         });
+     
      }
+   
   };
   
 }]);
@@ -184,7 +207,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
     */
     
     
-    app.service('UserManagementService',['$http', function ($http) {
+    app.service('UserManagementService',['$http', function ($http) {debugger;
     	function getUsers(pageNumber,size,yesterdayType) {
     		pageNumber = pageNumber > 0?pageNumber - 1:0;
             return  $http({

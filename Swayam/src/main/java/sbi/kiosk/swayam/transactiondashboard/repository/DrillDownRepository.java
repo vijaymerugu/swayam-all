@@ -355,7 +355,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
     		"    	     ( CASE     WHEN NVL(SUM(M.TOTAL_SWAYAM_TXNS), 0 ) = 0 THEN 0 " + 
     		"    	      ELSE ROUND(SUM(M.TOTAL_SWAYAM_TXNS) * 100 / (SUM(M.TOTAL_SWAYAM_TXNS) + NVL(SUM(BR_TXN.MANUAL_TXNS),0)  " + 
     		"    	     ),  2  )  END ) MIG_PRCNT FROM  TBL_BRANCH_MASTER B  LEFT JOIN ( SELECT  BRANCH_NO, NVL(SUM(NO_OF_ACCOUNTS),0) " + 
-    		"    	     MANUAL_TXNS  FROM  TBL_BRANCH_TXN_DAILY DATA2  WHERE TO_DATE(LAST_PBK_DT,'yyyy-mm-dd')  " + 
+    		"    	     MANUAL_TXNS  FROM  TBL_BRANCH_TXN_DAILY DATA2  WHERE LAST_PBK_DT  " + 
     		"    	     BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )  " + 
     		"    	     GROUP BY BRANCH_NO ) BR_TXN ON BR_TXN.BRANCH_NO = B.BRANCH_CODE  " + 
     		"    	     INNER JOIN ( SELECT BRANCH_CODE,SUM(NO_OF_KIOSKS) TOTAL_SWAYAM_KIOSKS, SUM(CASE VENDOR  " + 
@@ -367,7 +367,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
     		"    	     SUM(CASE VENDOR WHEN 'CMS'   THEN DATA1.SWAYAM_TXNS ELSE 0 END ) CMS_TXN_CNT, " + 
     		"    	     SUM(SWAYAM_TXNS) TOTAL_SWAYAM_TXNS FROM (SELECT     MST.BRANCH_CODE,   MST.VENDOR, COUNT(DISTINCT MST.KIOSK_ID) NO_OF_KIOSKS, " + 
     		"			NVL(SUM(A.SWAYAM_TXNS),0) SWAYAM_TXNS FROM TBL_KIOSK_MASTER MST LEFT OUTER JOIN ( SELECT KIOSK_ID, NVL(NO_OF_TXNS,0) SWAYAM_TXNS  " + 
-    		"			FROM TBL_SWAYAM_TXN_REPORT WHERE TO_DATE(TXN_DATE,'dd-mm-yyyy') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') )  " + 
+    		"			FROM TBL_SWAYAM_TXN_REPORT WHERE TXN_DATE BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') )  " + 
     		"			AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )) A ON UPPER(MST.KIOSK_ID)=UPPER(A.KIOSK_ID) GROUP BY MST.BRANCH_CODE,MST.VENDOR " + 
     		"			ORDER BY MST.BRANCH_CODE,MST.VENDOR) DATA1 " + 
     		"    	     GROUP BY DATA1.BRANCH_CODE ORDER BY DATA1.BRANCH_CODE) M ON B.BRANCH_CODE = M.BRANCH_CODE  " + 
@@ -381,7 +381,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
     	    		"    	     ( CASE     WHEN NVL(SUM(M.TOTAL_SWAYAM_TXNS), 0 ) = 0 THEN 0 " + 
     	    		"    	      ELSE ROUND(SUM(M.TOTAL_SWAYAM_TXNS) * 100 / (SUM(M.TOTAL_SWAYAM_TXNS) + NVL(SUM(BR_TXN.MANUAL_TXNS),0)  " + 
     	    		"    	     ),  2  )  END ) MIG_PRCNT FROM  TBL_BRANCH_MASTER B  LEFT JOIN ( SELECT  BRANCH_NO, NVL(SUM(NO_OF_ACCOUNTS),0) " + 
-    	    		"    	     MANUAL_TXNS  FROM  TBL_BRANCH_TXN_DAILY DATA2  WHERE TO_DATE(LAST_PBK_DT,'yyyy-mm-dd')  " + 
+    	    		"    	     MANUAL_TXNS  FROM  TBL_BRANCH_TXN_DAILY DATA2  WHERE LAST_PBK_DT " + 
     	    		"    	     BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )  " + 
     	    		"    	     GROUP BY BRANCH_NO ) BR_TXN ON BR_TXN.BRANCH_NO = B.BRANCH_CODE  " + 
     	    		"    	     INNER JOIN ( SELECT BRANCH_CODE,SUM(NO_OF_KIOSKS) TOTAL_SWAYAM_KIOSKS, SUM(CASE VENDOR  " + 
@@ -393,7 +393,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
     	    		"    	     SUM(CASE VENDOR WHEN 'CMS'   THEN DATA1.SWAYAM_TXNS ELSE 0 END ) CMS_TXN_CNT, " + 
     	    		"    	     SUM(SWAYAM_TXNS) TOTAL_SWAYAM_TXNS FROM (SELECT     MST.BRANCH_CODE,   MST.VENDOR, COUNT(DISTINCT MST.KIOSK_ID) NO_OF_KIOSKS, " + 
     	    		"			NVL(SUM(A.SWAYAM_TXNS),0) SWAYAM_TXNS FROM TBL_KIOSK_MASTER MST LEFT OUTER JOIN ( SELECT KIOSK_ID, NVL(NO_OF_TXNS,0) SWAYAM_TXNS  " + 
-    	    		"			FROM TBL_SWAYAM_TXN_REPORT WHERE TO_DATE(TXN_DATE,'dd-mm-yyyy') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') )  " + 
+    	    		"			FROM TBL_SWAYAM_TXN_REPORT WHERE TXN_DATE BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') )  " + 
     	    		"			AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )) A ON UPPER(MST.KIOSK_ID)=UPPER(A.KIOSK_ID) GROUP BY MST.BRANCH_CODE,MST.VENDOR " + 
     	    		"			ORDER BY MST.BRANCH_CODE,MST.VENDOR) DATA1 " + 
     	    		"    	     GROUP BY DATA1.BRANCH_CODE ORDER BY DATA1.BRANCH_CODE) M ON B.BRANCH_CODE = M.BRANCH_CODE  " + 
@@ -840,7 +840,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
     		"    		 NVL(SUM(BR_TXN.MANUAL_TXNS),0) MANUAL_TXNS, ( CASE WHEN NVL(SUM(M.TOTAL_SWAYAM_TXNS),0 ) = 0 THEN 0 " + 
     		"			 ELSE ROUND( SUM(M.TOTAL_SWAYAM_TXNS) * 100 / (SUM(M.TOTAL_SWAYAM_TXNS) + NVL(SUM(BR_TXN.MANUAL_TXNS),0) ), 2  )END	) MIG_PRCNT" + 
     		"    		FROM TBL_BRANCH_MASTER B LEFT JOIN ( SELECT BRANCH_NO, NVL(SUM(NO_OF_ACCOUNTS),0) MANUAL_TXNS FROM TBL_BRANCH_TXN_DAILY DATA2" + 
-    		"    		WHERE   TO_DATE(LAST_PBK_DT,'yyyy-mm-dd') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) " + 
+    		"    		WHERE   LAST_PBK_DT BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) " + 
     		"    		 AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )  GROUP BY  BRANCH_NO  ) BR_TXN ON BR_TXN.BRANCH_NO = B.BRANCH_CODE " + 
     		"    		INNER JOIN ( SELECT   BRANCH_CODE,SUM(NO_OF_KIOSKS) TOTAL_SWAYAM_KIOSKS,SUM(CASE VENDOR  WHEN 'LIPI' THEN DATA1.NO_OF_KIOSKS " + 
     		"    		ELSE 0 END ) LIPI_KIOSK_CNT,SUM(CASE VENDOR   WHEN 'LIPI'   THEN DATA1.SWAYAM_TXNS " + 
@@ -850,7 +850,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
     		"    		   SUM( CASE VENDOR  WHEN 'CMS'   THEN DATA1.SWAYAM_TXNS    ELSE 0   END   ) CMS_TXN_CNT," + 
     		"    		   SUM(SWAYAM_TXNS) TOTAL_SWAYAM_TXNS     FROM     (  SELECT     MST.BRANCH_CODE,   MST.VENDOR, COUNT(DISTINCT MST.KIOSK_ID) NO_OF_KIOSKS," + 
     		"				NVL(SUM(A.SWAYAM_TXNS),0) SWAYAM_TXNS FROM TBL_KIOSK_MASTER MST LEFT OUTER JOIN (SELECT KIOSK_ID,NVL(NO_OF_TXNS,0) SWAYAM_TXNS" + 
-    		"        FROM TBL_SWAYAM_TXN_REPORT WHERE TO_DATE(TXN_DATE,'dd-mm-yyyy') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )" + 
+    		"        FROM TBL_SWAYAM_TXN_REPORT WHERE TXN_DATE BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )" + 
     		"    ) A ON UPPER(MST.KIOSK_ID)=UPPER(A.KIOSK_ID) GROUP BY MST.BRANCH_CODE, MST.VENDOR" + 
     		"         ORDER BY MST.BRANCH_CODE, MST.VENDOR) DATA1  GROUP BY   DATA1.BRANCH_CODE" + 
     		"    		  ORDER BY DATA1.BRANCH_CODE ) M ON B.BRANCH_CODE = M.BRANCH_CODE where  B.CRCL_CODE=:in_circle_code " + 
@@ -862,7 +862,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
     	   		"    		 NVL(SUM(BR_TXN.MANUAL_TXNS),0) MANUAL_TXNS, ( CASE WHEN NVL(SUM(M.TOTAL_SWAYAM_TXNS),0 ) = 0 THEN 0 " + 
     	   		"			 ELSE ROUND( SUM(M.TOTAL_SWAYAM_TXNS) * 100 / (SUM(M.TOTAL_SWAYAM_TXNS) + NVL(SUM(BR_TXN.MANUAL_TXNS),0) ), 2  )END	) MIG_PRCNT" + 
     	   		"    		FROM TBL_BRANCH_MASTER B LEFT JOIN ( SELECT BRANCH_NO, NVL(SUM(NO_OF_ACCOUNTS),0) MANUAL_TXNS FROM TBL_BRANCH_TXN_DAILY DATA2" + 
-    	   		"    		WHERE   TO_DATE(LAST_PBK_DT,'yyyy-mm-dd') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) " + 
+    	   		"    		WHERE   LAST_PBK_DT BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) " + 
     	   		"    		 AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )  GROUP BY  BRANCH_NO  ) BR_TXN ON BR_TXN.BRANCH_NO = B.BRANCH_CODE " + 
     	   		"    		INNER JOIN ( SELECT   BRANCH_CODE,SUM(NO_OF_KIOSKS) TOTAL_SWAYAM_KIOSKS,SUM(CASE VENDOR  WHEN 'LIPI' THEN DATA1.NO_OF_KIOSKS " + 
     	   		"    		ELSE 0 END ) LIPI_KIOSK_CNT,SUM(CASE VENDOR   WHEN 'LIPI'   THEN DATA1.SWAYAM_TXNS " + 
@@ -872,7 +872,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
     	   		"    		   SUM( CASE VENDOR  WHEN 'CMS'   THEN DATA1.SWAYAM_TXNS    ELSE 0   END   ) CMS_TXN_CNT," + 
     	   		"    		   SUM(SWAYAM_TXNS) TOTAL_SWAYAM_TXNS     FROM     (  SELECT     MST.BRANCH_CODE,   MST.VENDOR, COUNT(DISTINCT MST.KIOSK_ID) NO_OF_KIOSKS," + 
     	   		"				NVL(SUM(A.SWAYAM_TXNS),0) SWAYAM_TXNS FROM TBL_KIOSK_MASTER MST LEFT OUTER JOIN (SELECT KIOSK_ID,NVL(NO_OF_TXNS,0) SWAYAM_TXNS" + 
-    	   		"        FROM TBL_SWAYAM_TXN_REPORT WHERE TO_DATE(TXN_DATE,'dd-mm-yyyy') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )" + 
+    	   		"        FROM TBL_SWAYAM_TXN_REPORT WHERE TXN_DATE BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )" + 
     	   		"    ) A ON UPPER(MST.KIOSK_ID)=UPPER(A.KIOSK_ID) GROUP BY MST.BRANCH_CODE, MST.VENDOR" + 
     	   		"         ORDER BY MST.BRANCH_CODE, MST.VENDOR) DATA1  GROUP BY   DATA1.BRANCH_CODE" + 
     	   		"    		  ORDER BY DATA1.BRANCH_CODE ) M ON B.BRANCH_CODE = M.BRANCH_CODE where  B.CRCL_CODE=:in_circle_code " + 
@@ -1315,7 +1315,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
     		"    	     SUM(M.TOTAL_SWAYAM_TXNS) * 100 / (SUM(M.TOTAL_SWAYAM_TXNS) + NVL(SUM(BR_TXN.MANUAL_TXNS),0) ), " + 
     		"    	     2 ) END ) MIG_PRCNT  FROM TBL_BRANCH_MASTER B LEFT JOIN (SELECT BRANCH_NO, " + 
     		"    	     NVL(SUM(NO_OF_ACCOUNTS),0) MANUAL_TXNS   FROM TBL_BRANCH_TXN_DAILY DATA2 " + 
-    		"    	     WHERE TO_DATE(LAST_PBK_DT,'yyyy-mm-dd') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') )" + 
+    		"    	     WHERE LAST_PBK_DT BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') )" + 
     		"    	     AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') ) GROUP BY BRANCH_NO ) BR_TXN " + 
     		"    	     ON BR_TXN.BRANCH_NO = B.BRANCH_CODE  INNER JOIN (SELECT BRANCH_CODE, " + 
     		"    	     SUM(NO_OF_KIOSKS) TOTAL_SWAYAM_KIOSKS, SUM(CASE VENDOR WHEN 'LIPI'   " + 
@@ -1327,7 +1327,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
     		"    	      SUM(CASE VENDOR WHEN 'CMS'   THEN DATA1.SWAYAM_TXNS  ELSE 0 END  ) CMS_TXN_CNT," + 
     		"    	     SUM(SWAYAM_TXNS) TOTAL_SWAYAM_TXNS  FROM  (  SELECT     MST.BRANCH_CODE,   MST.VENDOR,    COUNT(DISTINCT MST.KIOSK_ID) NO_OF_KIOSKS," + 
     		"		NVL(SUM(A.SWAYAM_TXNS),0) SWAYAM_TXNS FROM TBL_KIOSK_MASTER MST LEFT OUTER JOIN ( SELECT KIOSK_ID,NVL(NO_OF_TXNS,0) SWAYAM_TXNS" + 
-    		"        FROM TBL_SWAYAM_TXN_REPORT WHERE TO_DATE(TXN_DATE,'dd-mm-yyyy') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )" + 
+    		"        FROM TBL_SWAYAM_TXN_REPORT WHERE TXN_DATE BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )" + 
     		"    ) A ON UPPER(MST.KIOSK_ID)=UPPER(A.KIOSK_ID) GROUP BY MST.BRANCH_CODE, MST.VENDOR ORDER BY MST.BRANCH_CODE,MST.VENDOR ) DATA1 " + 
     		"    	     GROUP BY  DATA1.BRANCH_CODE ORDER BY DATA1.BRANCH_CODE ) M  " + 
     		"    	     ON B.BRANCH_CODE = M.BRANCH_CODE   where b.crcl_code=:in_circle_code and " + 
@@ -1344,7 +1344,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
     	    		"    	     SUM(M.TOTAL_SWAYAM_TXNS) * 100 / (SUM(M.TOTAL_SWAYAM_TXNS) + NVL(SUM(BR_TXN.MANUAL_TXNS),0) ), " + 
     	    		"    	     2 ) END ) MIG_PRCNT  FROM TBL_BRANCH_MASTER B LEFT JOIN (SELECT BRANCH_NO, " + 
     	    		"    	     NVL(SUM(NO_OF_ACCOUNTS),0) MANUAL_TXNS   FROM TBL_BRANCH_TXN_DAILY DATA2 " + 
-    	    		"    	     WHERE TO_DATE(LAST_PBK_DT,'yyyy-mm-dd') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') )" + 
+    	    		"    	     WHERE LAST_PBK_DT BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') )" + 
     	    		"    	     AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') ) GROUP BY BRANCH_NO ) BR_TXN " + 
     	    		"    	     ON BR_TXN.BRANCH_NO = B.BRANCH_CODE  INNER JOIN (SELECT BRANCH_CODE, " + 
     	    		"    	     SUM(NO_OF_KIOSKS) TOTAL_SWAYAM_KIOSKS, SUM(CASE VENDOR WHEN 'LIPI'   " + 
@@ -1356,7 +1356,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
     	    		"    	      SUM(CASE VENDOR WHEN 'CMS'   THEN DATA1.SWAYAM_TXNS  ELSE 0 END  ) CMS_TXN_CNT," + 
     	    		"    	     SUM(SWAYAM_TXNS) TOTAL_SWAYAM_TXNS  FROM  (  SELECT     MST.BRANCH_CODE,   MST.VENDOR,    COUNT(DISTINCT MST.KIOSK_ID) NO_OF_KIOSKS," + 
     	    		"		NVL(SUM(A.SWAYAM_TXNS),0) SWAYAM_TXNS FROM TBL_KIOSK_MASTER MST LEFT OUTER JOIN ( SELECT KIOSK_ID,NVL(NO_OF_TXNS,0) SWAYAM_TXNS" + 
-    	    		"        FROM TBL_SWAYAM_TXN_REPORT WHERE TO_DATE(TXN_DATE,'dd-mm-yyyy') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )" + 
+    	    		"        FROM TBL_SWAYAM_TXN_REPORT WHERE TXN_DATE BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )" + 
     	    		"    ) A ON UPPER(MST.KIOSK_ID)=UPPER(A.KIOSK_ID) GROUP BY MST.BRANCH_CODE, MST.VENDOR ORDER BY MST.BRANCH_CODE,MST.VENDOR ) DATA1 " + 
     	    		"    	     GROUP BY  DATA1.BRANCH_CODE ORDER BY DATA1.BRANCH_CODE ) M  " + 
     	    		"    	     ON B.BRANCH_CODE = M.BRANCH_CODE   where b.crcl_code=:in_circle_code and " + 
@@ -1840,7 +1840,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
     		"    		ELSE ROUND(   SUM(M.TOTAL_SWAYAM_TXNS) * 100 / (SUM(M.TOTAL_SWAYAM_TXNS) + NVL(SUM(BR_TXN.MANUAL_TXNS),0) )," + 
     		"    		2    )    END ) MIG_PRCNT  FROM  TBL_BRANCH_MASTER B  LEFT JOIN (   SELECT  BRANCH_NO," + 
     		"    		NVL(SUM(NO_OF_ACCOUNTS),0) MANUAL_TXNS   FROM   TBL_BRANCH_TXN_DAILY DATA2" + 
-    		"    		WHERE  TO_DATE(LAST_PBK_DT,'yyyy-mm-dd') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') )" + 
+    		"    		WHERE  LAST_PBK_DT BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') )" + 
     		"    		AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )    GROUP BY   BRANCH_NO  ) BR_TXN" + 
     		"    		ON BR_TXN.BRANCH_NO = B.BRANCH_CODE  INNER JOIN ( SELECT  BRANCH_CODE, SUM(NO_OF_KIOSKS) TOTAL_SWAYAM_KIOSKS," + 
     		"    		 SUM( CASE VENDOR  WHEN 'LIPI'   THEN DATA1.NO_OF_KIOSKS  ELSE 0  END ) LIPI_KIOSK_CNT," + 
@@ -1851,7 +1851,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
     		"    		SUM( CASE VENDOR  WHEN 'CMS'   THEN DATA1.SWAYAM_TXNS   ELSE 0    END   ) CMS_TXN_CNT," + 
     		"    		SUM(SWAYAM_TXNS) TOTAL_SWAYAM_TXNS FROM  ( SELECT MST.BRANCH_CODE,   MST.VENDOR,    COUNT(DISTINCT MST.KIOSK_ID) NO_OF_KIOSKS," + 
     		"    NVL(SUM(A.SWAYAM_TXNS),0) SWAYAM_TXNS FROM TBL_KIOSK_MASTER MST LEFT OUTER JOIN (" + 
-    		"        SELECT KIOSK_ID, NVL(NO_OF_TXNS,0) SWAYAM_TXNS FROM TBL_SWAYAM_TXN_REPORT WHERE TO_DATE(TXN_DATE,'dd-mm-yyyy') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )" + 
+    		"        SELECT KIOSK_ID, NVL(NO_OF_TXNS,0) SWAYAM_TXNS FROM TBL_SWAYAM_TXN_REPORT WHERE TXN_DATE BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )" + 
     		"    ) A ON UPPER(MST.KIOSK_ID)=UPPER(A.KIOSK_ID) GROUP BY  MST.BRANCH_CODE, MST.VENDOR" + 
     		"         ORDER BY MST.BRANCH_CODE, MST.VENDOR  ) DATA1  GROUP BY  DATA1.BRANCH_CODE" + 
     		"    		ORDER BY DATA1.BRANCH_CODE ) M ON B.BRANCH_CODE = M.BRANCH_CODE" + 
@@ -1867,7 +1867,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
     				"    		ELSE ROUND(   SUM(M.TOTAL_SWAYAM_TXNS) * 100 / (SUM(M.TOTAL_SWAYAM_TXNS) + NVL(SUM(BR_TXN.MANUAL_TXNS),0) )," + 
     				"    		2    )    END ) MIG_PRCNT  FROM  TBL_BRANCH_MASTER B  LEFT JOIN (   SELECT  BRANCH_NO," + 
     				"    		NVL(SUM(NO_OF_ACCOUNTS),0) MANUAL_TXNS   FROM   TBL_BRANCH_TXN_DAILY DATA2" + 
-    				"    		WHERE  TO_DATE(LAST_PBK_DT,'yyyy-mm-dd') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') )" + 
+    				"    		WHERE  LAST_PBK_DT BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') )" + 
     				"    		AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )    GROUP BY   BRANCH_NO  ) BR_TXN" + 
     				"    		ON BR_TXN.BRANCH_NO = B.BRANCH_CODE  INNER JOIN ( SELECT  BRANCH_CODE, SUM(NO_OF_KIOSKS) TOTAL_SWAYAM_KIOSKS," + 
     				"    		 SUM( CASE VENDOR  WHEN 'LIPI'   THEN DATA1.NO_OF_KIOSKS  ELSE 0  END ) LIPI_KIOSK_CNT," + 
@@ -1878,7 +1878,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
     				"    		SUM( CASE VENDOR  WHEN 'CMS'   THEN DATA1.SWAYAM_TXNS   ELSE 0    END   ) CMS_TXN_CNT," + 
     				"    		SUM(SWAYAM_TXNS) TOTAL_SWAYAM_TXNS FROM  ( SELECT MST.BRANCH_CODE,   MST.VENDOR,    COUNT(DISTINCT MST.KIOSK_ID) NO_OF_KIOSKS," + 
     				"    NVL(SUM(A.SWAYAM_TXNS),0) SWAYAM_TXNS FROM TBL_KIOSK_MASTER MST LEFT OUTER JOIN (" + 
-    				"        SELECT KIOSK_ID, NVL(NO_OF_TXNS,0) SWAYAM_TXNS FROM TBL_SWAYAM_TXN_REPORT WHERE TO_DATE(TXN_DATE,'dd-mm-yyyy') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )" + 
+    				"        SELECT KIOSK_ID, NVL(NO_OF_TXNS,0) SWAYAM_TXNS FROM TBL_SWAYAM_TXN_REPORT WHERE TXN_DATE BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )" + 
     				"    ) A ON UPPER(MST.KIOSK_ID)=UPPER(A.KIOSK_ID) GROUP BY  MST.BRANCH_CODE, MST.VENDOR" + 
     				"         ORDER BY MST.BRANCH_CODE, MST.VENDOR  ) DATA1  GROUP BY  DATA1.BRANCH_CODE" + 
     				"    		ORDER BY DATA1.BRANCH_CODE ) M ON B.BRANCH_CODE = M.BRANCH_CODE" + 
@@ -2350,7 +2350,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
     		"    		 (CASE WHEN NVL(  SUM(M.TOTAL_SWAYAM_TXNS),    0 ) = 0 THEN 0  " + 
     		"    		 ELSE ROUND(SUM(M.TOTAL_SWAYAM_TXNS) * 100 / (SUM(M.TOTAL_SWAYAM_TXNS) + NVL(SUM(BR_TXN.MANUAL_TXNS),0) ) ," + 
     		"    		 2 )  END) MIG_PRCNT  FROM  TBL_BRANCH_MASTER B  LEFT JOIN (SELECT  BRANCH_NO,NVL(SUM(NO_OF_ACCOUNTS),0) MANUAL_TXNS" + 
-    		"    		 FROM  TBL_BRANCH_TXN_DAILY DATA2    WHERE  TO_DATE(LAST_PBK_DT,'yyyy-mm-dd') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') )" + 
+    		"    		 FROM  TBL_BRANCH_TXN_DAILY DATA2    WHERE  LAST_PBK_DT BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') )" + 
     		"    		 AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )   GROUP BY  BRANCH_NO  ) BR_TXN" + 
     		"    		 ON BR_TXN.BRANCH_NO = B.BRANCH_CODE  INNER JOIN (SELECT  BRANCH_CODE, SUM(NO_OF_KIOSKS) TOTAL_SWAYAM_KIOSKS," + 
     		"    		 SUM( CASE VENDOR   WHEN 'LIPI'   THEN DATA1.NO_OF_KIOSKS  ELSE 0  END  ) LIPI_KIOSK_CNT," + 
@@ -2363,7 +2363,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
     		"    		 FROM  ( SELECT     MST.BRANCH_CODE,   MST.VENDOR,    COUNT(DISTINCT MST.KIOSK_ID) NO_OF_KIOSKS," + 
     		"			NVL(SUM(A.SWAYAM_TXNS),0) SWAYAM_TXNS FROM TBL_KIOSK_MASTER MST LEFT OUTER JOIN (" + 
     		"			SELECT KIOSK_ID, NVL(NO_OF_TXNS,0) SWAYAM_TXNS FROM TBL_SWAYAM_TXN_REPORT WHERE" + 
-    		"            TO_DATE(TXN_DATE,'dd-mm-yyyy') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )" + 
+    		"            TXN_DATE BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )" + 
     		"			) A ON UPPER(MST.KIOSK_ID)=UPPER(A.KIOSK_ID) GROUP BY MST.BRANCH_CODE, MST.VENDOR ORDER BY MST.BRANCH_CODE," + 
     		"			MST.VENDOR) DATA1 GROUP BY DATA1.BRANCH_CODE  ORDER BY DATA1.BRANCH_CODE) M ON B.BRANCH_CODE = M.BRANCH_CODE" + 
     		"    		WHERE b.branch_code = m.branch_code and  b.crcl_code=:in_circle_code and b.network=:in_network_code and" + 
@@ -2377,7 +2377,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
     				"    		 (CASE WHEN NVL(  SUM(M.TOTAL_SWAYAM_TXNS),    0 ) = 0 THEN 0  " + 
     				"    		 ELSE ROUND(SUM(M.TOTAL_SWAYAM_TXNS) * 100 / (SUM(M.TOTAL_SWAYAM_TXNS) + NVL(SUM(BR_TXN.MANUAL_TXNS),0) ) ," + 
     				"    		 2 )  END) MIG_PRCNT  FROM  TBL_BRANCH_MASTER B  LEFT JOIN (SELECT  BRANCH_NO,NVL(SUM(NO_OF_ACCOUNTS),0) MANUAL_TXNS" + 
-    				"    		 FROM  TBL_BRANCH_TXN_DAILY DATA2    WHERE  TO_DATE(LAST_PBK_DT,'yyyy-mm-dd') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') )" + 
+    				"    		 FROM  TBL_BRANCH_TXN_DAILY DATA2    WHERE  LAST_PBK_DT BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') )" + 
     				"    		 AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )   GROUP BY  BRANCH_NO  ) BR_TXN" + 
     				"    		 ON BR_TXN.BRANCH_NO = B.BRANCH_CODE  INNER JOIN (SELECT  BRANCH_CODE, SUM(NO_OF_KIOSKS) TOTAL_SWAYAM_KIOSKS," + 
     				"    		 SUM( CASE VENDOR   WHEN 'LIPI'   THEN DATA1.NO_OF_KIOSKS  ELSE 0  END  ) LIPI_KIOSK_CNT," + 
@@ -2390,7 +2390,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
     				"    		 FROM  ( SELECT     MST.BRANCH_CODE,   MST.VENDOR,    COUNT(DISTINCT MST.KIOSK_ID) NO_OF_KIOSKS," + 
     				"			NVL(SUM(A.SWAYAM_TXNS),0) SWAYAM_TXNS FROM TBL_KIOSK_MASTER MST LEFT OUTER JOIN (" + 
     				"			SELECT KIOSK_ID, NVL(NO_OF_TXNS,0) SWAYAM_TXNS FROM TBL_SWAYAM_TXN_REPORT WHERE" + 
-    				"            TO_DATE(TXN_DATE,'dd-mm-yyyy') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )" + 
+    				"            TXN_DATE BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )" + 
     				"			) A ON UPPER(MST.KIOSK_ID)=UPPER(A.KIOSK_ID) GROUP BY MST.BRANCH_CODE, MST.VENDOR ORDER BY MST.BRANCH_CODE," + 
     				"			MST.VENDOR) DATA1 GROUP BY DATA1.BRANCH_CODE  ORDER BY DATA1.BRANCH_CODE) M ON B.BRANCH_CODE = M.BRANCH_CODE" + 
     				"    		WHERE b.branch_code = m.branch_code and  b.crcl_code=:in_circle_code and b.network=:in_network_code and" + 
@@ -2595,7 +2595,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
   		  		"    		 (CASE WHEN NVL(  SUM(M.TOTAL_SWAYAM_TXNS),    0 ) = 0 THEN 0  " + 
   		  		"    		 ELSE ROUND(SUM(M.TOTAL_SWAYAM_TXNS) * 100 / (SUM(M.TOTAL_SWAYAM_TXNS) + NVL(SUM(BR_TXN.MANUAL_TXNS),0) ) ," + 
   		  		"    		 2 )  END) MIG_PRCNT  FROM  TBL_BRANCH_MASTER B  LEFT JOIN (SELECT  BRANCH_NO,NVL(SUM(NO_OF_ACCOUNTS),0) MANUAL_TXNS" + 
-  		  		"    		 FROM  TBL_BRANCH_TXN_DAILY DATA2    WHERE  TO_DATE(LAST_PBK_DT,'yyyy-mm-dd') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') )" + 
+  		  		"    		 FROM  TBL_BRANCH_TXN_DAILY DATA2    WHERE  LAST_PBK_DT BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') )" + 
   		  		"    		 AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )   GROUP BY  BRANCH_NO  ) BR_TXN" + 
   		  		"    		 ON BR_TXN.BRANCH_NO = B.BRANCH_CODE  INNER JOIN (SELECT  BRANCH_CODE, SUM(NO_OF_KIOSKS) TOTAL_SWAYAM_KIOSKS," + 
   		  		"    		 SUM( CASE VENDOR   WHEN 'LIPI'   THEN DATA1.NO_OF_KIOSKS  ELSE 0  END  ) LIPI_KIOSK_CNT," + 
@@ -2608,7 +2608,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
   		  		"    		 FROM  ( SELECT     MST.BRANCH_CODE,   MST.VENDOR,    COUNT(DISTINCT MST.KIOSK_ID) NO_OF_KIOSKS," + 
   		  		"			NVL(SUM(A.SWAYAM_TXNS),0) SWAYAM_TXNS FROM TBL_KIOSK_MASTER MST LEFT OUTER JOIN (" + 
   		  		"			SELECT KIOSK_ID, NVL(NO_OF_TXNS,0) SWAYAM_TXNS FROM TBL_SWAYAM_TXN_REPORT WHERE" + 
-  		  		"            TO_DATE(TXN_DATE,'dd-mm-yyyy') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )" + 
+  		  		"            TXN_DATE BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )" + 
   		  		"			) A ON UPPER(MST.KIOSK_ID)=UPPER(A.KIOSK_ID) GROUP BY MST.BRANCH_CODE, MST.VENDOR ORDER BY MST.BRANCH_CODE," + 
   		  		"			MST.VENDOR) DATA1 GROUP BY DATA1.BRANCH_CODE  ORDER BY DATA1.BRANCH_CODE) M ON B.BRANCH_CODE = M.BRANCH_CODE" + 
   		  		"    		WHERE b.branch_code = m.branch_code and  b.crcl_code=:in_circle_code and b.network=:in_network_code and" + 
@@ -2623,7 +2623,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
   		  "    		 (CASE WHEN NVL(  SUM(M.TOTAL_SWAYAM_TXNS),    0 ) = 0 THEN 0  " + 
   		  "    		 ELSE ROUND(SUM(M.TOTAL_SWAYAM_TXNS) * 100 / (SUM(M.TOTAL_SWAYAM_TXNS) + NVL(SUM(BR_TXN.MANUAL_TXNS),0) ) ," + 
   		  "    		 2 )  END) MIG_PRCNT  FROM  TBL_BRANCH_MASTER B  LEFT JOIN (SELECT  BRANCH_NO,NVL(SUM(NO_OF_ACCOUNTS),0) MANUAL_TXNS" + 
-  		  "    		 FROM  TBL_BRANCH_TXN_DAILY DATA2    WHERE  TO_DATE(LAST_PBK_DT,'yyyy-mm-dd') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') )" + 
+  		  "    		 FROM  TBL_BRANCH_TXN_DAILY DATA2    WHERE  LAST_PBK_DT BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') )" + 
   		  "    		 AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )   GROUP BY  BRANCH_NO  ) BR_TXN" + 
   		  "    		 ON BR_TXN.BRANCH_NO = B.BRANCH_CODE  INNER JOIN (SELECT  BRANCH_CODE, SUM(NO_OF_KIOSKS) TOTAL_SWAYAM_KIOSKS," + 
   		  "    		 SUM( CASE VENDOR   WHEN 'LIPI'   THEN DATA1.NO_OF_KIOSKS  ELSE 0  END  ) LIPI_KIOSK_CNT," + 
@@ -2636,7 +2636,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
   		  "    		 FROM  ( SELECT     MST.BRANCH_CODE,   MST.VENDOR,    COUNT(DISTINCT MST.KIOSK_ID) NO_OF_KIOSKS," + 
   		  "			NVL(SUM(A.SWAYAM_TXNS),0) SWAYAM_TXNS FROM TBL_KIOSK_MASTER MST LEFT OUTER JOIN (" + 
   		  "			SELECT KIOSK_ID, NVL(NO_OF_TXNS,0) SWAYAM_TXNS FROM TBL_SWAYAM_TXN_REPORT WHERE" + 
-  		  "            TO_DATE(TXN_DATE,'dd-mm-yyyy') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )" + 
+  		  "           TXN_DATE BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )" + 
   		  "			) A ON UPPER(MST.KIOSK_ID)=UPPER(A.KIOSK_ID) GROUP BY MST.BRANCH_CODE, MST.VENDOR ORDER BY MST.BRANCH_CODE," + 
   		  "			MST.VENDOR) DATA1 GROUP BY DATA1.BRANCH_CODE  ORDER BY DATA1.BRANCH_CODE) M ON B.BRANCH_CODE = M.BRANCH_CODE" + 
   		  "    		WHERE b.branch_code = m.branch_code and  b.crcl_code=:in_circle_code and b.network=:in_network_code and" + 
@@ -2658,7 +2658,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
     		"    	     ( CASE     WHEN NVL(SUM(M.TOTAL_SWAYAM_TXNS), 0 ) = 0 THEN 0 " + 
     		"    	      ELSE ROUND(SUM(M.TOTAL_SWAYAM_TXNS) * 100 / (SUM(M.TOTAL_SWAYAM_TXNS) + NVL(SUM(BR_TXN.MANUAL_TXNS),0)  " + 
     		"    	     ),  2  )  END ) MIG_PRCNT FROM  TBL_BRANCH_MASTER B  LEFT JOIN ( SELECT  BRANCH_NO, NVL(SUM(NO_OF_ACCOUNTS),0) " + 
-    		"    	     MANUAL_TXNS  FROM  TBL_BRANCH_TXN_DAILY DATA2  WHERE TO_DATE(LAST_PBK_DT,'yyyy-mm-dd')  " + 
+    		"    	     MANUAL_TXNS  FROM  TBL_BRANCH_TXN_DAILY DATA2  WHERE LAST_PBK_DT  " + 
     		"    	     BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )  " + 
     		"    	     GROUP BY BRANCH_NO ) BR_TXN ON BR_TXN.BRANCH_NO = B.BRANCH_CODE  " + 
     		"    	     INNER JOIN ( SELECT BRANCH_CODE,SUM(NO_OF_KIOSKS) TOTAL_SWAYAM_KIOSKS, SUM(CASE VENDOR  " + 
@@ -2670,7 +2670,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
     		"    	     SUM(CASE VENDOR WHEN 'CMS'   THEN DATA1.SWAYAM_TXNS ELSE 0 END ) CMS_TXN_CNT, " + 
     		"    	     SUM(SWAYAM_TXNS) TOTAL_SWAYAM_TXNS FROM (SELECT     MST.BRANCH_CODE,   MST.VENDOR, COUNT(DISTINCT MST.KIOSK_ID) NO_OF_KIOSKS, " + 
     		"			NVL(SUM(A.SWAYAM_TXNS),0) SWAYAM_TXNS FROM TBL_KIOSK_MASTER MST LEFT OUTER JOIN ( SELECT KIOSK_ID, NVL(NO_OF_TXNS,0) SWAYAM_TXNS  " + 
-    		"			FROM TBL_SWAYAM_TXN_REPORT WHERE TO_DATE(TXN_DATE,'dd-mm-yyyy') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') )  " + 
+    		"			FROM TBL_SWAYAM_TXN_REPORT WHERE TXN_DATE BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') )  " + 
     		"			AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )) A ON UPPER(MST.KIOSK_ID)=UPPER(A.KIOSK_ID) GROUP BY MST.BRANCH_CODE,MST.VENDOR " + 
     		"			ORDER BY MST.BRANCH_CODE,MST.VENDOR) DATA1 " + 
     		"    	     GROUP BY DATA1.BRANCH_CODE ORDER BY DATA1.BRANCH_CODE) M ON B.BRANCH_CODE = M.BRANCH_CODE  " + 
@@ -2684,7 +2684,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
     	    		"    	     ( CASE     WHEN NVL(SUM(M.TOTAL_SWAYAM_TXNS), 0 ) = 0 THEN 0 " + 
     	    		"    	      ELSE ROUND(SUM(M.TOTAL_SWAYAM_TXNS) * 100 / (SUM(M.TOTAL_SWAYAM_TXNS) + NVL(SUM(BR_TXN.MANUAL_TXNS),0)  " + 
     	    		"    	     ),  2  )  END ) MIG_PRCNT FROM  TBL_BRANCH_MASTER B  LEFT JOIN ( SELECT  BRANCH_NO, NVL(SUM(NO_OF_ACCOUNTS),0) " + 
-    	    		"    	     MANUAL_TXNS  FROM  TBL_BRANCH_TXN_DAILY DATA2  WHERE TO_DATE(LAST_PBK_DT,'yyyy-mm-dd')  " + 
+    	    		"    	     MANUAL_TXNS  FROM  TBL_BRANCH_TXN_DAILY DATA2  WHERE LAST_PBK_DT  " + 
     	    		"    	     BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )  " + 
     	    		"    	     GROUP BY BRANCH_NO ) BR_TXN ON BR_TXN.BRANCH_NO = B.BRANCH_CODE  " + 
     	    		"    	     INNER JOIN ( SELECT BRANCH_CODE,SUM(NO_OF_KIOSKS) TOTAL_SWAYAM_KIOSKS, SUM(CASE VENDOR  " + 
@@ -2696,7 +2696,7 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
     	    		"    	     SUM(CASE VENDOR WHEN 'CMS'   THEN DATA1.SWAYAM_TXNS ELSE 0 END ) CMS_TXN_CNT, " + 
     	    		"    	     SUM(SWAYAM_TXNS) TOTAL_SWAYAM_TXNS FROM (SELECT     MST.BRANCH_CODE,   MST.VENDOR, COUNT(DISTINCT MST.KIOSK_ID) NO_OF_KIOSKS, " + 
     	    		"			NVL(SUM(A.SWAYAM_TXNS),0) SWAYAM_TXNS FROM TBL_KIOSK_MASTER MST LEFT OUTER JOIN ( SELECT KIOSK_ID, NVL(NO_OF_TXNS,0) SWAYAM_TXNS  " + 
-    	    		"			FROM TBL_SWAYAM_TXN_REPORT WHERE TO_DATE(TXN_DATE,'dd-mm-yyyy') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') )  " + 
+    	    		"			FROM TBL_SWAYAM_TXN_REPORT WHERE TXN_DATE BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') )  " + 
     	    		"			AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )) A ON UPPER(MST.KIOSK_ID)=UPPER(A.KIOSK_ID) GROUP BY MST.BRANCH_CODE,MST.VENDOR " + 
     	    		"			ORDER BY MST.BRANCH_CODE,MST.VENDOR) DATA1 " + 
     	    		"    	     GROUP BY DATA1.BRANCH_CODE ORDER BY DATA1.BRANCH_CODE) M ON B.BRANCH_CODE = M.BRANCH_CODE  " + 
@@ -2711,10 +2711,19 @@ public interface DrillDownRepository extends PagingAndSortingRepository<DrillDow
  	//	@Query(value="select to_date(last_pbk_dt,'yyyy-mm-dd') from tbl_branch_txn_daily order by last_pbk_dt desc fetch first 1 row only ",nativeQuery = true )
  // new query commented for data type change in last_pbk_dt
  	//		@Query(value="select to_char(to_date(last_pbk_dt,'dd-mm-yyyy'),'dd-mm-yyyy') from tbl_branch_txn_daily order by last_pbk_dt desc fetch first 1 row only",nativeQuery = true)
- 		// new query
- 			@Query(value="select to_char(to_date(last_pbk_dt,'yyyy-mm-dd'),'dd-mm-yyyy') from tbl_branch_txn_daily order by last_pbk_dt desc fetch first 1 row only",nativeQuery = true)
- 	
+	/*
+	 * // new query
+	 * 
+	 * @Query(
+	 * value="select to_char(to_date(last_pbk_dt,'yyyy-mm-dd'),'dd-mm-yyyy') from tbl_branch_txn_daily order by last_pbk_dt desc fetch first 1 row only"
+	 * ,nativeQuery = true)
+	 */
+ // new query
+	//	@Query(value="select to_char(last_pbk_dt,'dd-mm-yyyy') from tbl_branch_txn_daily order by last_pbk_dt desc fetch first 1 row only",nativeQuery = true)
+
  			//for 11g
+		
+		@Query(value="select to_char(last_pbk_dt,'dd-mm-yyyy') from tbl_branch_txn_daily where rownum <= 1 order by last_pbk_dt desc ",nativeQuery = true)
  	//	@Query(value="select to_date(last_pbk_dt,'dd-mm-yyyy') from tbl_branch_txn_daily where rownum <= 1 order by last_pbk_dt desc ",nativeQuery = true )
  	//		@Query(value="select to_char(to_date(last_pbk_dt,'dd-mm-yyyy'),'dd-mm-yyyy') from tbl_branch_txn_daily where rownum <= 1 order by last_pbk_dt desc ",nativeQuery = true )
  			

@@ -57,7 +57,7 @@
        .ui-grid-header-cell-label {
 		display:inline-block;
 		white-space:initial;
-		 font-size: 15px;
+		font-size: 15px;
 		}
 		
 		
@@ -83,7 +83,6 @@
   			white-space: normal;
   			padding: 2px;
   			word-break: break-word;
-  			
 			}
 			.ui-grid, .ui-grid-viewport {
    			  height: auto !important; 
@@ -102,6 +101,21 @@
 			.ui-grid-header-canvas {
 			    padding-top: 0px;
 			    padding-bottom: 0px;}
+			    
+			    input[type="reset"]
+   {
+     background-image: url(resources/img/Close.png );
+      background-position: center center;
+      background-repeat: no-repeat;
+      height: 30px;
+      width: 25px;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+      position: relative;
+      top: 9px;
+      left: -44px;
+   }
 	
 </style>	
 
@@ -176,7 +190,10 @@ $("#myBtn").click(function(){
 </div>  -->
 		<div class="submain_transaction">
 	
-	<input class="form-group has-search" ng-model="searchText" ng-change="refresh()" placeholder="Enter Kiosk Id, Branch Code, Circle etc." style="font-size: 12px" size="150" height="80" id="input">
+	<input type="search" class="form-group has-search" ng-model="searchText" placeholder="Enter Kiosk Id, Branch Code, Branch Name, Circle " style="font-size: 12px" size="150" height="80" id="input">
+	<!--  <input type="reset" value="" alt="clear" ng-click="clearSearch()" /> -->
+			 <button  id="btnSearchText" ng-click="refresh()">Search</button> 
+		  <button  id="btnClearText" ng-click="clearSearch()">ClearSearch</button>	 
 			<span style="float:right">
 		<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
 		<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>

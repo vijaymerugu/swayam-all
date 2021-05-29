@@ -89,14 +89,32 @@
  			 	overflow-x: auto !important;
   				overflow-y: auto !important;
   				
-			}
+			} 
+				.ui-grid-cell-contents {
+  height: auto !important;
+}
 			.ui-grid-pager-row-count-picker {
 			display:none;
 			}
 			.ui-grid-header-canvas {
 			    padding-top: 0px;
 			    padding-bottom: 0px;}
-
+	
+	/* For close button in input text */		    
+	input[type="reset"]
+   {
+     background-image: url(resources/img/Close.png );
+      background-position: center center;
+      background-repeat: no-repeat;
+      height: 30px;
+      width: 25px;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+      position: relative;
+      top: 9px;
+      left: -44px;
+   }
 </style>	
 <script type="text/javascript">
 $("#myBtn").click(function(){
@@ -148,8 +166,9 @@ $("#myBtn").click(function(){
 
 		<div class="submain_transaction">
 	<!-- ng-change="refresh()" -->
-	<input class="form-group has-search" ng-model="searchText"  placeholder="Enter Kiosk Id, Branch Code, Circle etc." style="font-size: 12px" size="150" height="80" id="input">
-		 <button  id="btnSearchText" ng-click="refresh()">SearchText</button> 
+	<input class="form-group has-search" ng-model="searchText"  placeholder="Enter Kiosk Id, Branch Code, Branch Name, Circle" style="font-size: 12px" size="150" height="80" id="input">
+		<!-- <input type="reset" value="" alt="clear" ng-click="clearSearch()" /> -->
+		 <button  id="btnSearchText" ng-click="refresh()">Search</button> 
 		 <button  id="btnClearText" ng-click="clearSearch()">ClearSearch</button>	
 		<span style="float:right">
 		<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>

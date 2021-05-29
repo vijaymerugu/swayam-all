@@ -29,8 +29,9 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
 	  } */
   
   
-   
-  
+   var date = new Date();
+   $scope.ddMMyyyy = $filter('date')(new Date(), 'dd-MM-yyyy');
+   console.log("ddMMyyyy::"+$scope.ddMMyyyy);
   $scope.CurrentDate = new Date();
 	   $scope.searchPositions= function(startDate,endDate){ debugger;
 		
@@ -39,7 +40,7 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
 		        
 		        var $from=$("#datepickerFromDate").datepicker('getDate');
 		        var $to =$("#datepickerToDate").datepicker('getDate');
-		        
+		       
 		        if (($from== null) || ($to== null) )
 		 	   {
 		 	   
@@ -67,12 +68,16 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
 		        $("#loading").show();  
 		     // Added for loader------------- END
     	 ZeroTransactionKiosksService.getUsers(paginationOptions.pageNumber,
-     			   paginationOptions.pageSize,counttype,fromDate,toDate).success(function(data){ 
+     			   paginationOptions.pageSize,counttype,fromDate,toDate).success(function(data){ debugger;
      			 console.log("data========",$scope.gridOptions.totalItems);
      			  $scope.allIndiaDate = "From: " +fromDate+" ToDate: "+toDate; 
      			   if(data.totalElements==0){
-										$scope.gridOptions.data = data.content;
-										$scope.gridOptions.totalItems = data.totalElements;
+									/*	$scope.gridOptions.data = data.content;
+										$scope.gridOptions.totalItems = data.totalElements;*/
+										
+										 $scope.gridOptions.data = data.content;
+									//	  $scope.gridOptions.paginationCurrentPage = paginationOptions.pageNumber;
+										  $scope.gridOptions.totalItems = data.totalElements;
 										alert("No results found for given search criteria")
 									}else{
 									   
@@ -116,9 +121,12 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
 	 	  
 	 		//   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);	
 	 	    	  $("#loading").show(); 
-	 	    	 ZeroTransactionKiosksService.getSearchNext(paginationOptions.pageNumber,
+	 	    	/* ZeroTransactionKiosksService.getSearchNext(paginationOptions.pageNumber,
 			 	  			paginationOptions.pageSize,counttype,fromDate,toDate,$scope.searchText).success(function(data3){
-			 	 	  		 
+			 	*/ 	  
+	 	    	 ZeroTransactionKiosksService.getSearchNext(0,
+			 	  			paginationOptions.pageSize,counttype,fromDate,toDate,$scope.searchText).success(function(data3){
+			 	
 			 	 	  	  $scope.gridOptions.data = data3.content;
 			 	  	   	  $scope.gridOptions.totalItems = data3.totalElements;
 			 	  	      $("#loading").hide();
@@ -141,12 +149,32 @@ app.controller('ZeroTransactionKiosksCtrl', ['$scope','$filter','ZeroTransaction
 	 	    }
 	    };
 debugger;
+$scope.clearSearch = function()
+{  	
+	  
+	$scope.searchText='';	
+	   
+	        $("#loading").show();  
+	        
+	        ZeroTransactionKiosksService.getUsers(0,
+	   			paginationOptions.pageSize,counttype,fromDate,toDate).success(function(data){
+	  	  $scope.gridOptions.data = data.content;
+	  	  $scope.gridOptions.paginationCurrentPage = data.number;
+	   	  $scope.gridOptions.totalItems = data.totalElements;
+	   	
+	        $("#loading").hide();  
+	     
+	     }); 
+	 		   
+	 	   
+	    };
 	//  Added for loader------------- START 
         $("#loading").show();  
      // Added for loader------------- END
    ZeroTransactionKiosksService.getUsers(paginationOptions.pageNumber,
 		   paginationOptions.pageSize,counttype,fromDate,toDate).success(function(data){	debugger;
 		             $scope.gridOptions.data = data.content;
+		     //  	  $scope.gridOptions.paginationCurrentPage = paginationOptions.pageNumber;
 			         $scope.gridOptions.totalItems = data.totalElements;	
 			     //  Added for loader------------- START 
 				        $("#loading").hide();  
@@ -160,14 +188,22 @@ debugger;
 	useExternalPagination: true,
 	
       columnDefs: [
-          { name: 'circleName',width:220, displayName: 'Circle'  },
-          { name: 'network',width:120, displayName: 'NW'  },
+       /*   { name: 'circleName',width:220, displayName: 'Circle'  },
+          { name: 'network',width:150, displayName: 'NW'  },
           { name: 'module',width:250, displayName: 'Mod'  },
-          { name: 'region',width:120, displayName: 'Reg'  },
+          { name: 'region',width:150, displayName: 'Reg'  },
           { name: 'branchCode',width:120, displayName: 'Branch Code'  },
           { name: 'branchName',width:250, displayName: 'Branch Name'  },
-          { name: 'kioskId',width:250, displayName: 'Kiosk ID'  },
-          { name: 'vendor',width:220, displayName: 'Vendor'  }
+          { name: 'kioskId',width:220, displayName: 'Kiosk ID'  },
+          { name: 'vendor',width:180, displayName: 'Vendor'  }*/
+    	   { name: 'circleName', displayName: 'Circle'  },
+           { name: 'network', displayName: 'NW'  },
+           { name: 'module', displayName: 'Mod'  },
+           { name: 'region', displayName: 'Reg'  },
+           { name: 'branchCode', displayName: 'Branch Code'  },
+           { name: 'branchName', displayName: 'Branch Name'  },
+           { name: 'kioskId', displayName: 'Kiosk ID'  },
+           { name: 'vendor', displayName: 'Vendor'  }
     ],
     onRegisterApi: function(gridApi) {
         $scope.gridApi = gridApi;

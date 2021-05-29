@@ -8,6 +8,8 @@ import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
 
+import org.springframework.data.repository.CrudRepository;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,7 +22,8 @@ import lombok.NoArgsConstructor;
 	                            		  resultClasses = {RealTimeTransaction.class},
 	                              parameters = {
 	                                 @StoredProcedureParameter(mode = ParameterMode.IN, name = "fromdate_param", type = String.class),
-	                                @StoredProcedureParameter(mode = ParameterMode.REF_CURSOR, name = "cur", type= String.class)
+	                                 @StoredProcedureParameter(mode = ParameterMode.IN, name = "searchText", type = String.class),
+	                                 @StoredProcedureParameter(mode = ParameterMode.REF_CURSOR, name = "RESULT_SET", type= String.class)
 	                              })
 	})
 

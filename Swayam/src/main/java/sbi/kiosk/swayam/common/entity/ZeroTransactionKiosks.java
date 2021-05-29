@@ -19,7 +19,9 @@ resultClasses=ZeroTransactionKiosks.class,
 parameters={
 @StoredProcedureParameter( name="fromdate",type=String.class, mode= ParameterMode.IN),
 @StoredProcedureParameter(name="todate", type=String.class, mode= ParameterMode.IN),
-@StoredProcedureParameter(name="cur", type=void.class, mode= ParameterMode.REF_CURSOR)
+@StoredProcedureParameter(name = "searchText", type = String.class, mode = ParameterMode.IN),
+//@StoredProcedureParameter(name="RESULT_SET", type=void.class, mode= ParameterMode.REF_CURSOR)
+@StoredProcedureParameter(mode = ParameterMode.REF_CURSOR, name = "RESULT_SET", type= String.class)
 }
 )
 public class ZeroTransactionKiosks implements Serializable{

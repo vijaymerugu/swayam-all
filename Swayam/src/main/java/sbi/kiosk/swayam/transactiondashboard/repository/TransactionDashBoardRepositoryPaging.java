@@ -228,7 +228,7 @@ nativeQuery=true,countQuery ="SELECT  count( B.BRANCH_CODE) from  TBL_BRANCH_MAS
 			"			   SUM(M.TOTAL_SWAYAM_TXNS) * 100 / (SUM(M.TOTAL_SWAYAM_TXNS) + NVL(SUM(BR_TXN.MANUAL_TXNS),0)), 2 ) " + 
 			"			END) MIG_PRCNT FROM TBL_BRANCH_MASTER B LEFT JOIN (  SELECT" + 
 			"			  BRANCH_NO,NVL(SUM(NO_OF_ACCOUNTS),0) MANUAL_TXNS  FROM TBL_BRANCH_TXN_DAILY DATA2 " + 
-			"			 WHERE  TO_DATE(LAST_PBK_DT,'yyyy-mm-dd') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND " + 
+			"			 WHERE  LAST_PBK_DT BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND " + 
 			"			 TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )  GROUP BY   BRANCH_NO) BR_TXN " + 
 			"			 ON BR_TXN.BRANCH_NO = B.BRANCH_CODE INNER JOIN (SELECT BRANCH_CODE, " + 
 			"			  SUM(NO_OF_KIOSKS) TOTAL_SWAYAM_KIOSKS, SUM(CASE VENDOR   WHEN 'LIPI' " + 
@@ -241,7 +241,7 @@ nativeQuery=true,countQuery ="SELECT  count( B.BRANCH_CODE) from  TBL_BRANCH_MAS
 			"			   WHEN 'CMS'   THEN DATA1.SWAYAM_TXNS   ELSE 0  END) CMS_TXN_CNT, " + 
 			"			  SUM(SWAYAM_TXNS) TOTAL_SWAYAM_TXNS  FROM  ( SELECT     MST.BRANCH_CODE, MST.VENDOR,COUNT(DISTINCT MST.KIOSK_ID) NO_OF_KIOSKS," + 
 			"			NVL(SUM(A.SWAYAM_TXNS),0) SWAYAM_TXNS FROM TBL_KIOSK_MASTER MST LEFT OUTER JOIN ( SELECT KIOSK_ID," + 
-			"            NVL(NO_OF_TXNS,0) SWAYAM_TXNS FROM TBL_SWAYAM_TXN_REPORT WHERE TO_DATE(TXN_DATE,'dd-mm-yyyy') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) " + 
+			"            NVL(NO_OF_TXNS,0) SWAYAM_TXNS FROM TBL_SWAYAM_TXN_REPORT WHERE TXN_DATE BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) " + 
 			"			AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') ) ) A ON UPPER(MST.KIOSK_ID)=UPPER(A.KIOSK_ID) GROUP BY MST.BRANCH_CODE, MST.VENDOR" + 
 			"			ORDER BY MST.BRANCH_CODE,MST.VENDOR ) DATA1   GROUP BY DATA1.BRANCH_CODE  ORDER BY DATA1.BRANCH_CODE) M ON B.BRANCH_CODE = M.BRANCH_CODE " + 
 			"			GROUP BY B.CRCL_NAME,B.NETWORK,B.MODULE,B.REGION,B.BRANCH_CODE,B.BRANCH_NAME 	 ",
@@ -256,7 +256,7 @@ nativeQuery=true,countQuery ="SELECT  count( B.BRANCH_CODE) from  TBL_BRANCH_MAS
 				"			   SUM(M.TOTAL_SWAYAM_TXNS) * 100 / (SUM(M.TOTAL_SWAYAM_TXNS) + NVL(SUM(BR_TXN.MANUAL_TXNS),0)), 2 ) " + 
 				"			END) MIG_PRCNT FROM TBL_BRANCH_MASTER B LEFT JOIN (  SELECT" + 
 				"			  BRANCH_NO,NVL(SUM(NO_OF_ACCOUNTS),0) MANUAL_TXNS  FROM TBL_BRANCH_TXN_DAILY DATA2 " + 
-				"			 WHERE  TO_DATE(LAST_PBK_DT,'yyyy-mm-dd') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND " + 
+				"			 WHERE  LAST_PBK_DT BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND " + 
 				"			 TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )  GROUP BY   BRANCH_NO) BR_TXN " + 
 				"			 ON BR_TXN.BRANCH_NO = B.BRANCH_CODE INNER JOIN (SELECT BRANCH_CODE, " + 
 				"			  SUM(NO_OF_KIOSKS) TOTAL_SWAYAM_KIOSKS, SUM(CASE VENDOR   WHEN 'LIPI' " + 
@@ -269,7 +269,7 @@ nativeQuery=true,countQuery ="SELECT  count( B.BRANCH_CODE) from  TBL_BRANCH_MAS
 				"			   WHEN 'CMS'   THEN DATA1.SWAYAM_TXNS   ELSE 0  END) CMS_TXN_CNT, " + 
 				"			  SUM(SWAYAM_TXNS) TOTAL_SWAYAM_TXNS  FROM  ( SELECT     MST.BRANCH_CODE, MST.VENDOR,COUNT(DISTINCT MST.KIOSK_ID) NO_OF_KIOSKS," + 
 				"			NVL(SUM(A.SWAYAM_TXNS),0) SWAYAM_TXNS FROM TBL_KIOSK_MASTER MST LEFT OUTER JOIN ( SELECT KIOSK_ID," + 
-				"            NVL(NO_OF_TXNS,0) SWAYAM_TXNS FROM TBL_SWAYAM_TXN_REPORT WHERE TO_DATE(TXN_DATE,'dd-mm-yyyy') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) " + 
+				"            NVL(NO_OF_TXNS,0) SWAYAM_TXNS FROM TBL_SWAYAM_TXN_REPORT WHERE TXN_DATE BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) " + 
 				"			AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') ) ) A ON UPPER(MST.KIOSK_ID)=UPPER(A.KIOSK_ID) GROUP BY MST.BRANCH_CODE, MST.VENDOR" + 
 				"			ORDER BY MST.BRANCH_CODE,MST.VENDOR ) DATA1   GROUP BY DATA1.BRANCH_CODE  ORDER BY DATA1.BRANCH_CODE) M ON B.BRANCH_CODE = M.BRANCH_CODE " + 
 				"			GROUP BY B.CRCL_NAME,B.NETWORK,B.MODULE,B.REGION,B.BRANCH_CODE,B.BRANCH_NAME 	")
@@ -446,7 +446,7 @@ nativeQuery=true,countQuery ="SELECT  count( B.BRANCH_CODE) from  TBL_BRANCH_MAS
 	  		"			   SUM(M.TOTAL_SWAYAM_TXNS) * 100 / (SUM(M.TOTAL_SWAYAM_TXNS) + NVL(SUM(BR_TXN.MANUAL_TXNS),0)), 2 ) " + 
 	  		"			END) MIG_PRCNT FROM TBL_BRANCH_MASTER B LEFT JOIN (  SELECT" + 
 	  		"			  BRANCH_NO,NVL(SUM(NO_OF_ACCOUNTS),0) MANUAL_TXNS  FROM TBL_BRANCH_TXN_DAILY DATA2 " + 
-	  		"			 WHERE  TO_DATE(LAST_PBK_DT,'yyyy-mm-dd') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND " + 
+	  		"			 WHERE LAST_PBK_DT BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND " + 
 	  		"			 TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )  GROUP BY   BRANCH_NO) BR_TXN " + 
 	  		"			 ON BR_TXN.BRANCH_NO = B.BRANCH_CODE INNER JOIN (SELECT BRANCH_CODE, " + 
 	  		"			  SUM(NO_OF_KIOSKS) TOTAL_SWAYAM_KIOSKS, SUM(CASE VENDOR   WHEN 'LIPI' " + 
@@ -459,7 +459,7 @@ nativeQuery=true,countQuery ="SELECT  count( B.BRANCH_CODE) from  TBL_BRANCH_MAS
 	  		"			   WHEN 'CMS'   THEN DATA1.SWAYAM_TXNS   ELSE 0  END) CMS_TXN_CNT, " + 
 	  		"			  SUM(SWAYAM_TXNS) TOTAL_SWAYAM_TXNS  FROM  ( SELECT     MST.BRANCH_CODE, MST.VENDOR,COUNT(DISTINCT MST.KIOSK_ID) NO_OF_KIOSKS," + 
 	  		"			NVL(SUM(A.SWAYAM_TXNS),0) SWAYAM_TXNS FROM TBL_KIOSK_MASTER MST LEFT OUTER JOIN ( SELECT KIOSK_ID," + 
-	  		"            NVL(NO_OF_TXNS,0) SWAYAM_TXNS FROM TBL_SWAYAM_TXN_REPORT WHERE TO_DATE(TXN_DATE,'dd-mm-yyyy') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) " + 
+	  		"            NVL(NO_OF_TXNS,0) SWAYAM_TXNS FROM TBL_SWAYAM_TXN_REPORT WHERE TXN_DATE BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) " + 
 	  		"			AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') ) ) A ON UPPER(MST.KIOSK_ID)=UPPER(A.KIOSK_ID) GROUP BY MST.BRANCH_CODE, MST.VENDOR" + 
 	  		"			ORDER BY MST.BRANCH_CODE,MST.VENDOR ) DATA1   GROUP BY DATA1.BRANCH_CODE  ORDER BY DATA1.BRANCH_CODE) M ON B.BRANCH_CODE = M.BRANCH_CODE " + 
 	  		" AND (B.CRCL_NAME=UPPER(:searchText) OR B.NETWORK=UPPER(:searchText) OR B.MODULE=UPPER(:searchText) OR B.REGION=UPPER(:searchText) OR B.BRANCH_CODE=UPPER(:searchText) OR B.BRANCH_NAME=UPPER(:searchText))" +
@@ -475,7 +475,7 @@ nativeQuery=true,countQuery ="SELECT  count( B.BRANCH_CODE) from  TBL_BRANCH_MAS
 	  		"			   SUM(M.TOTAL_SWAYAM_TXNS) * 100 / (SUM(M.TOTAL_SWAYAM_TXNS) + NVL(SUM(BR_TXN.MANUAL_TXNS),0)), 2 ) " + 
 	  		"			END) MIG_PRCNT FROM TBL_BRANCH_MASTER B LEFT JOIN (  SELECT" + 
 	  		"			  BRANCH_NO,NVL(SUM(NO_OF_ACCOUNTS),0) MANUAL_TXNS  FROM TBL_BRANCH_TXN_DAILY DATA2 " + 
-	  		"			 WHERE  TO_DATE(LAST_PBK_DT,'yyyy-mm-dd') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND " + 
+	  		"			 WHERE  LAST_PBK_DT BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND " + 
 	  		"			 TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )  GROUP BY   BRANCH_NO) BR_TXN " + 
 	  		"			 ON BR_TXN.BRANCH_NO = B.BRANCH_CODE INNER JOIN (SELECT BRANCH_CODE, " + 
 	  		"			  SUM(NO_OF_KIOSKS) TOTAL_SWAYAM_KIOSKS, SUM(CASE VENDOR   WHEN 'LIPI' " + 
@@ -488,7 +488,7 @@ nativeQuery=true,countQuery ="SELECT  count( B.BRANCH_CODE) from  TBL_BRANCH_MAS
 	  		"			   WHEN 'CMS'   THEN DATA1.SWAYAM_TXNS   ELSE 0  END) CMS_TXN_CNT, " + 
 	  		"			  SUM(SWAYAM_TXNS) TOTAL_SWAYAM_TXNS  FROM  ( SELECT     MST.BRANCH_CODE, MST.VENDOR,COUNT(DISTINCT MST.KIOSK_ID) NO_OF_KIOSKS," + 
 	  		"			NVL(SUM(A.SWAYAM_TXNS),0) SWAYAM_TXNS FROM TBL_KIOSK_MASTER MST LEFT OUTER JOIN ( SELECT KIOSK_ID," + 
-	  		"            NVL(NO_OF_TXNS,0) SWAYAM_TXNS FROM TBL_SWAYAM_TXN_REPORT WHERE TO_DATE(TXN_DATE,'dd-mm-yyyy') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) " + 
+	  		"            NVL(NO_OF_TXNS,0) SWAYAM_TXNS FROM TBL_SWAYAM_TXN_REPORT WHERE TXN_DATE BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) " + 
 	  		"			AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') ) ) A ON UPPER(MST.KIOSK_ID)=UPPER(A.KIOSK_ID) GROUP BY MST.BRANCH_CODE, MST.VENDOR" + 
 	  		"			ORDER BY MST.BRANCH_CODE,MST.VENDOR ) DATA1   GROUP BY DATA1.BRANCH_CODE  ORDER BY DATA1.BRANCH_CODE) M ON B.BRANCH_CODE = M.BRANCH_CODE " + 
 	  		"			GROUP BY B.CRCL_NAME,B.NETWORK,B.MODULE,B.REGION,B.BRANCH_CODE,B.BRANCH_NAME  	"
@@ -708,7 +708,7 @@ nativeQuery=true,countQuery ="SELECT  count( B.BRANCH_CODE) from  TBL_BRANCH_MAS
 	  		"			   SUM(M.TOTAL_SWAYAM_TXNS) * 100 / (SUM(M.TOTAL_SWAYAM_TXNS) + NVL(SUM(BR_TXN.MANUAL_TXNS),0)), 2 ) " + 
 	  		"			END) MIG_PRCNT FROM TBL_BRANCH_MASTER B LEFT JOIN (  SELECT" + 
 	  		"			  BRANCH_NO,NVL(SUM(NO_OF_ACCOUNTS),0) MANUAL_TXNS  FROM TBL_BRANCH_TXN_DAILY DATA2 " + 
-	  		"			 WHERE  TO_DATE(LAST_PBK_DT,'yyyy-mm-dd') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND " + 
+	  		"			 WHERE LAST_PBK_DT BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND " + 
 	  		"			 TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )  GROUP BY   BRANCH_NO) BR_TXN " + 
 	  		"			 ON BR_TXN.BRANCH_NO = B.BRANCH_CODE INNER JOIN (SELECT BRANCH_CODE, " + 
 	  		"			  SUM(NO_OF_KIOSKS) TOTAL_SWAYAM_KIOSKS, SUM(CASE VENDOR   WHEN 'LIPI' " + 
@@ -721,7 +721,7 @@ nativeQuery=true,countQuery ="SELECT  count( B.BRANCH_CODE) from  TBL_BRANCH_MAS
 	  		"			   WHEN 'CMS'   THEN DATA1.SWAYAM_TXNS   ELSE 0  END) CMS_TXN_CNT, " + 
 	  		"			  SUM(SWAYAM_TXNS) TOTAL_SWAYAM_TXNS  FROM  ( SELECT     MST.BRANCH_CODE, MST.VENDOR,COUNT(DISTINCT MST.KIOSK_ID) NO_OF_KIOSKS," + 
 	  		"			NVL(SUM(A.SWAYAM_TXNS),0) SWAYAM_TXNS FROM TBL_KIOSK_MASTER MST LEFT OUTER JOIN ( SELECT KIOSK_ID," + 
-	  		"            NVL(NO_OF_TXNS,0) SWAYAM_TXNS FROM TBL_SWAYAM_TXN_REPORT WHERE TO_DATE(TXN_DATE,'dd-mm-yyyy') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) " + 
+	  		"            NVL(NO_OF_TXNS,0) SWAYAM_TXNS FROM TBL_SWAYAM_TXN_REPORT WHERE TXN_DATE BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) " + 
 	  		"			AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') ) ) A ON UPPER(MST.KIOSK_ID)=UPPER(A.KIOSK_ID) GROUP BY MST.BRANCH_CODE, MST.VENDOR" + 
 	  		"			ORDER BY MST.BRANCH_CODE,MST.VENDOR ) DATA1   GROUP BY DATA1.BRANCH_CODE  ORDER BY DATA1.BRANCH_CODE) M ON B.BRANCH_CODE = M.BRANCH_CODE " + 
 	  		"			GROUP BY B.CRCL_NAME,B.NETWORK,B.MODULE,B.REGION,B.BRANCH_CODE,B.BRANCH_NAME  ",
@@ -736,7 +736,7 @@ nativeQuery=true,countQuery ="SELECT  count( B.BRANCH_CODE) from  TBL_BRANCH_MAS
 					"			   SUM(M.TOTAL_SWAYAM_TXNS) * 100 / (SUM(M.TOTAL_SWAYAM_TXNS) + NVL(SUM(BR_TXN.MANUAL_TXNS),0)), 2 ) " + 
 					"			END) MIG_PRCNT FROM TBL_BRANCH_MASTER B LEFT JOIN (  SELECT" + 
 					"			  BRANCH_NO,NVL(SUM(NO_OF_ACCOUNTS),0) MANUAL_TXNS  FROM TBL_BRANCH_TXN_DAILY DATA2 " + 
-					"			 WHERE  TO_DATE(LAST_PBK_DT,'yyyy-mm-dd') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND " + 
+					"			 WHERE  LAST_PBK_DT BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) AND " + 
 					"			 TRUNC(TO_DATE(:todate,'dd-mm-yyyy') )  GROUP BY   BRANCH_NO) BR_TXN " + 
 					"			 ON BR_TXN.BRANCH_NO = B.BRANCH_CODE INNER JOIN (SELECT BRANCH_CODE, " + 
 					"			  SUM(NO_OF_KIOSKS) TOTAL_SWAYAM_KIOSKS, SUM(CASE VENDOR   WHEN 'LIPI' " + 
@@ -749,7 +749,7 @@ nativeQuery=true,countQuery ="SELECT  count( B.BRANCH_CODE) from  TBL_BRANCH_MAS
 					"			   WHEN 'CMS'   THEN DATA1.SWAYAM_TXNS   ELSE 0  END) CMS_TXN_CNT, " + 
 					"			  SUM(SWAYAM_TXNS) TOTAL_SWAYAM_TXNS  FROM  ( SELECT     MST.BRANCH_CODE, MST.VENDOR,COUNT(DISTINCT MST.KIOSK_ID) NO_OF_KIOSKS," + 
 					"			NVL(SUM(A.SWAYAM_TXNS),0) SWAYAM_TXNS FROM TBL_KIOSK_MASTER MST LEFT OUTER JOIN ( SELECT KIOSK_ID," + 
-					"            NVL(NO_OF_TXNS,0) SWAYAM_TXNS FROM TBL_SWAYAM_TXN_REPORT WHERE TO_DATE(TXN_DATE,'dd-mm-yyyy') BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) " + 
+					"            NVL(NO_OF_TXNS,0) SWAYAM_TXNS FROM TBL_SWAYAM_TXN_REPORT WHERE TXN_DATE BETWEEN TRUNC(TO_DATE(:fromdate,'dd-mm-yyyy') ) " + 
 					"			AND TRUNC(TO_DATE(:todate,'dd-mm-yyyy') ) ) A ON UPPER(MST.KIOSK_ID)=UPPER(A.KIOSK_ID) GROUP BY MST.BRANCH_CODE, MST.VENDOR" + 
 					"			ORDER BY MST.BRANCH_CODE,MST.VENDOR ) DATA1   GROUP BY DATA1.BRANCH_CODE  ORDER BY DATA1.BRANCH_CODE) M ON B.BRANCH_CODE = M.BRANCH_CODE " + 
 					"			GROUP BY B.CRCL_NAME,B.NETWORK,B.MODULE,B.REGION,B.BRANCH_CODE,B.BRANCH_NAME ")
@@ -760,10 +760,20 @@ nativeQuery=true,countQuery ="SELECT  count( B.BRANCH_CODE) from  TBL_BRANCH_MAS
 		
 // new query commented for data type change in last_pbk_dt
 	//	@Query(value="select to_char(to_date(last_pbk_dt,'yyyy-mm-dd'),'dd-mm-yyyy') from tbl_branch_txn_daily order by last_pbk_dt desc fetch first 1 row only",nativeQuery = true)
-		// new query
-				@Query(value="select to_char(to_date(last_pbk_dt,'yyyy-mm-dd'),'dd-mm-yyyy') from tbl_branch_txn_daily order by last_pbk_dt desc fetch first 1 row only",nativeQuery = true)
+	/*
+	 * // new query
+	 * 
+	 * @Query(
+	 * value="select to_char(to_date(last_pbk_dt,'yyyy-mm-dd'),'dd-mm-yyyy') from tbl_branch_txn_daily order by last_pbk_dt desc fetch first 1 row only"
+	 * ,nativeQuery = true)
+	 */
+	// new query
+		@Query(value="select to_char(last_pbk_dt,'dd-mm-yyyy') from tbl_branch_txn_daily order by last_pbk_dt desc fetch first 1 row only",nativeQuery = true)
 
 		//for 11g
+		
+		// new query
+			//	@Query(value="select to_char(last_pbk_dt,'dd-mm-yyyy') from tbl_branch_txn_daily where rownum <= 1 order by last_pbk_dt desc",nativeQuery = true)
 	//	@Query(value="select to_char(end_dttm,'dd-Mon-yy hh24:mm:ss') from  tbl_audit_job where job_name='TBL_SWAYAM_TXN_DAILY' and rownum <= 1 order by end_dttm desc ",nativeQuery = true )
 			
 				//@Query(value="select to_char(last_pbk_dt,'dd-mm-yyyy') from tbl_branch_txn_daily where rownum <= 1 order by last_pbk_dt desc",nativeQuery = true)

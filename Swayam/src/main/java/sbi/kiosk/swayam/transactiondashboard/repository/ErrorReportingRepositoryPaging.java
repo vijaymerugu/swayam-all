@@ -36,11 +36,11 @@ public interface ErrorReportingRepositoryPaging extends PagingAndSortingReposito
 			+ "	sum(txn.no_of_success_txns) as No_of_success_Txns,sum(txn.no_of_fail) as No_of_failure_Txns, "
 			+ " sum(txn.no_of_tech_fail) as No_of_technical_failure_Txns, sum(txn.no_of_business_fail) as No_of_business_failure_Txns from "
 			+ "	 tbl_swayam_txn_report txn inner join tbl_branch_master bm on txn.branch_code=bm.branch_code "
-			+ " where to_date(txn_date,'dd-mm-yy') BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') "
+			+ " where txn_date BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') "
 			+ " group by bm.crcl_code,bm.crcl_name ORDER BY   bm.crcl_name ASC",
 			nativeQuery = true,countQuery = "select count(bm.crcl_code) as CODE "
 					+ "	from  tbl_swayam_txn_report txn inner join tbl_branch_master bm on txn.branch_code=bm.branch_code "
-					+ " where to_date(txn_date,'dd-mm-yy') BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') "
+					+ " where txn_date BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') "
 					+ " group by bm.crcl_code,bm.crcl_name ORDER BY   bm.crcl_name ASC ")
 	Page<ErrorReporting> findByDate(@Param("fromdate") String fromdate,@Param("todate") String todate,Pageable pageable);
 	
@@ -64,14 +64,14 @@ public interface ErrorReportingRepositoryPaging extends PagingAndSortingReposito
 			+ "	sum(txn.no_of_success_txns) as No_of_success_Txns,sum(txn.no_of_fail) as No_of_failure_Txns, "
 			+ " sum(txn.no_of_tech_fail) as No_of_technical_failure_Txns, sum(txn.no_of_business_fail) as No_of_business_failure_Txns from "
 			+ "	 tbl_swayam_txn_report txn inner join tbl_branch_master bm on txn.branch_code=bm.branch_code "
-			+ " where to_date(txn_date,'dd-mm-yy') BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') "
+			+ " where txn_date BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') "
 		    + " and (BM.CRCL_NAME=UPPER(:searchText) "
             + " or BM.BRANCH_CODE=UPPER(:searchText) "
             + " or BM.BRANCH_NAME=UPPER(:searchText) ) "
 			+ " group by bm.crcl_code,bm.crcl_name ORDER BY   bm.crcl_name ASC",
 			nativeQuery = true,countQuery = "select count(bm.crcl_code) as CODE "
 			+ "	from  tbl_swayam_txn_report txn inner join tbl_branch_master bm on txn.branch_code=bm.branch_code "
-			+ " where to_date(txn_date,'dd-mm-yy') BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') "
+			+ " where txn_date BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') "
 		    + " and (BM.CRCL_NAME=UPPER(:searchText) "
 			+ " or BM.BRANCH_CODE=UPPER(:searchText) "
 			+ " or BM.BRANCH_NAME=UPPER(:searchText) ) "
@@ -98,11 +98,11 @@ public interface ErrorReportingRepositoryPaging extends PagingAndSortingReposito
 			+ "	sum(txn.no_of_success_txns) as No_of_success_Txns,sum(txn.no_of_fail) as No_of_failure_Txns, "
 			+ " sum(txn.no_of_tech_fail) as No_of_technical_failure_Txns, sum(txn.no_of_business_fail) as No_of_business_failure_Txns from "
 			+ "	 tbl_swayam_txn_report txn inner join tbl_branch_master bm on txn.branch_code=bm.branch_code "
-			+ " where to_date(txn_date,'dd-mm-yy') BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') "
+			+ " where txn_date BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') "
 			+ " group by bm.crcl_code,bm.crcl_name ORDER BY   bm.crcl_name ASC",
 			nativeQuery = true,countQuery = "select count(bm.crcl_code) as CODE "
 					+ "	from  tbl_swayam_txn_report txn inner join tbl_branch_master bm on txn.branch_code=bm.branch_code "
-					+ " where to_date(txn_date,'dd-mm-yy') BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') "
+					+ " where txn_date BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') "
 					+ " group by bm.crcl_code,bm.crcl_name ORDER BY   bm.crcl_name ASC ")
 	
 	List<ErrorReportingDrillDown> findAllErrReport(@Param("fromdate") String fromdate,@Param("todate") String todate);

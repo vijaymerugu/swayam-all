@@ -5,11 +5,13 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import sbi.kiosk.swayam.common.entity.RealTimeTransaction;
+import sbi.kiosk.swayam.common.entity.SwayamTransactionReport;
 
 @Repository
 public interface RealTimeTxnRepositoryPaging extends PagingAndSortingRepository<RealTimeTransaction, String>{
@@ -44,18 +46,32 @@ public interface RealTimeTxnRepositoryPaging extends PagingAndSortingRepository<
 	 * )
 	 */
 	
-	@Query(value="			  SELECT  BM.CRCL_NAME CRCL_NAME,BM.NETWORK NETWORK,BM.MODULE MODULE,BM.REGION REGION,	BM.BRANCH_CODE BRANCH_CODE," + 
-			"				BM.BRANCH_NAME BRANCH_NAME,	km.KIOSK_ID KIOSK_ID,STR.NO_OF_TXNS NO_OF_TXNS,	km.VENDOR VENDOR " + 
-			"				FROM  tbl_kiosk_master km	INNER JOIN TBL_BRANCH_MASTER BM ON KM.BRANCH_CODE = BM.BRANCH_CODE " + 
-			"				INNER JOIN TBL_SWAYAM_TXN_REPORT STR ON KM.BRANCH_CODE = STR.BRANCH_CODE AND UPPER(STR.KIOSK_ID)=UPPER(KM.KIOSK_ID) " + 
-			"				AND STR.TXN_DATE=to_date(:fromdate,'dd-mm-yyyy')  ORDER BY STR.TXN_DATE  DESC ",nativeQuery=true,countQuery = "	SELECT  BM.CRCL_NAME CRCL_NAME,BM.NETWORK NETWORK,BM.MODULE MODULE,BM.REGION REGION,BM.BRANCH_CODE BRANCH_CODE," + 
-					"				BM.BRANCH_NAME BRANCH_NAME,	km.KIOSK_ID KIOSK_ID,STR.NO_OF_TXNS NO_OF_TXNS,	km.VENDOR VENDOR " + 
-					"				FROM  tbl_kiosk_master km	INNER JOIN TBL_BRANCH_MASTER BM ON KM.BRANCH_CODE = BM.BRANCH_CODE " + 
-					"				INNER JOIN TBL_SWAYAM_TXN_REPORT STR ON KM.BRANCH_CODE = STR.BRANCH_CODE AND UPPER(STR.KIOSK_ID)=UPPER(KM.KIOSK_ID) " + 
-					"				AND STR.TXN_DATE=to_date(:fromdate,'dd-mm-yyyy')  ORDER BY STR.TXN_DATE  DESC " )
 	
-	
+	  @Query(
+	  value="			  SELECT  BM.CRCL_NAME CRCL_NAME,BM.NETWORK NETWORK,BM.MODULE MODULE,BM.REGION REGION,	BM.BRANCH_CODE BRANCH_CODE,"
+	  +
+	  "				BM.BRANCH_NAME BRANCH_NAME,	km.KIOSK_ID KIOSK_ID,STR.NO_OF_TXNS NO_OF_TXNS,	km.VENDOR VENDOR "
+	  +
+	  "				FROM  tbl_kiosk_master km	INNER JOIN TBL_BRANCH_MASTER BM ON KM.BRANCH_CODE = BM.BRANCH_CODE "
+	  +
+	  "				INNER JOIN TBL_SWAYAM_TXN_REPORT STR ON KM.BRANCH_CODE = STR.BRANCH_CODE AND UPPER(STR.KIOSK_ID)=UPPER(KM.KIOSK_ID) "
+	  +
+	  "				AND STR.TXN_DATE=to_date(:fromdate,'dd-mm-yyyy')  ORDER BY STR.TXN_DATE  DESC "
+	  ,nativeQuery=true,countQuery =
+	  "	SELECT  BM.CRCL_NAME CRCL_NAME,BM.NETWORK NETWORK,BM.MODULE MODULE,BM.REGION REGION,BM.BRANCH_CODE BRANCH_CODE,"
+	  +
+	  "				BM.BRANCH_NAME BRANCH_NAME,	km.KIOSK_ID KIOSK_ID,STR.NO_OF_TXNS NO_OF_TXNS,	km.VENDOR VENDOR "
+	  +
+	  "				FROM  tbl_kiosk_master km	INNER JOIN TBL_BRANCH_MASTER BM ON KM.BRANCH_CODE = BM.BRANCH_CODE "
+	  +
+	  "				INNER JOIN TBL_SWAYAM_TXN_REPORT STR ON KM.BRANCH_CODE = STR.BRANCH_CODE AND UPPER(STR.KIOSK_ID)=UPPER(KM.KIOSK_ID) "
+	  +
+	  "				AND STR.TXN_DATE=to_date(:fromdate,'dd-mm-yyyy')  ORDER BY STR.TXN_DATE  DESC "
+	  )
+	 
 	Page<RealTimeTransaction> findByFromDate(@Param("fromdate") String fromdate, Pageable pageable);
+	
+	
 	
 	/* Commented by Manisha on 20-Jan-2021
 	 * @Query(

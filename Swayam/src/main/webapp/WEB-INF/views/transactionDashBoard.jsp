@@ -12,7 +12,7 @@
 <!-- <script src="resources/js/moment-with-locales.min.js"></script> -->
 <script	src="resources/js/angular.1.5.6.min.js"></script>
  <script src="resources/js/transaction-summry-app.js"></script>
-<script	src="resources/js/angular.1.5.6.min.js"></script>
+<!--<script	src="resources/js/angular.1.5.6.min.js"></script>  -->
 <link rel="stylesheet" href="resources/css/grid-style.css"/>
 <link rel="stylesheet" href="resources/css/body-page.css"/>
 <link rel="stylesheet" href="resources/css/style.css">
@@ -29,10 +29,7 @@
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
-      <!--   Added for loader------------- START -->  
  
-    <%--  <script src="http://malsup.github.io/jquery.blockUI.js"></script> --%>
-     <!-- Added for loader------------- END  -->  
      <script>
   $.ajax({
   	type:"GET",
@@ -144,7 +141,7 @@
   			
 			}
     
-    		.ui-grid, .ui-grid-viewport {
+    	 	.ui-grid, .ui-grid-viewport {
    			  height: auto !important; 
 			} 
 			.ui-grid-pager-panel {
@@ -154,7 +151,10 @@
  			 	overflow-x: auto !important;
   				overflow-y: auto !important;
   				
-			}
+			} 
+			.ui-grid-cell-contents {
+  height: auto !important;
+}
 			.ui-grid-pager-row-count-picker {
 			display:none;
 			}
@@ -184,6 +184,22 @@
 			.ui-grid-header-canvas {
 			    padding-top: 0px;
 			    padding-bottom: 0px;}
+			    
+			    /* For close button in input text */
+	input[type="reset"]
+   {
+     background-image: url(resources/img/Close.png );
+      background-position: center center;
+      background-repeat: no-repeat;
+      height: 30px;
+      width: 25px;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+      position: relative;
+      top: 9px;
+      left: -44px;
+   }
 </style>
 
 <script type="text/javascript">
@@ -286,12 +302,14 @@ $("#myBtn").click(function(){
  
 
 		<div class="submain_transaction">
-		  <input class="form-group has-search" ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle,Network,Branch Name, Branch Code etc."  style="font-size: 10px;"  size="130" height="50" id="input">
+		  <input class="form-group has-search" ng-model="searchText" placeholder="Enter Circle, Network, Module, Region, Branch Name, Branch Code "  style="font-size: 10px;"  size="130" height="50" id="input">
 	<%-- <h1 colspan="4" align="center" style="color: #00BFFF;font-size: 14px;font-weight: bold; "> 
    All India branch view on <span  id="mySpan">  {{CurrentDate | date:'EEE,dd MMM, yyyy hh:mm:ss a'}}</span> 
     <span  id="mySpan1"> {{allIndiaDate}} </span> 
   </h1> --%> 
-		
+ <!--  <input type="reset" value="" alt="clear" ng-click="clearSearch()" />  -->
+		 <button  id="btnSearchText" ng-click="refresh()">Search</button> 
+		 <button  id="btnClearText" ng-click="clearSearch()">ClearSearch</button>	 
 		<span style="float:right">
 		<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
 		<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>

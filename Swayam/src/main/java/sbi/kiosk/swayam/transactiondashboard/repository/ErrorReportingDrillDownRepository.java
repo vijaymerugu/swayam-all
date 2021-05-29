@@ -61,11 +61,11 @@ public interface ErrorReportingDrillDownRepository
 			+ "	sum(txn.no_of_success_txns) as No_of_success_Txns,sum(txn.no_of_fail) as No_of_failure_Txns, "
 			+ " sum(txn.no_of_tech_fail) as No_of_technical_failure_Txns, sum(txn.no_of_business_fail) as No_of_business_failure_Txns from "
 			+ "	 tbl_swayam_txn_report txn inner join tbl_branch_master bm on txn.branch_code=bm.branch_code "
-			+ " where to_date(txn_date,'dd-mm-yy') BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') "
+			+ " where txn_date BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') "
 			+ " group by bm.crcl_code,bm.crcl_name ORDER BY   bm.crcl_name ASC",
 			nativeQuery = true,countQuery = "select count(bm.crcl_code) as CODE "
 					+ "	from  tbl_swayam_txn_report txn inner join tbl_branch_master bm on txn.branch_code=bm.branch_code "
-					+ " where to_date(txn_date,'dd-mm-yy') BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') "
+					+ " where txn_date BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') "
 					+ " group by bm.crcl_code,bm.crcl_name ORDER BY   bm.crcl_name ASC ")
 
 	Page<ErrorReportingDrillDown> findByDate(@Param("fromdate") String fromdate, @Param("todate") String todate, Pageable pageable);
@@ -117,11 +117,11 @@ public interface ErrorReportingDrillDownRepository
 			+ "	sum(txn.no_of_success_txns) as No_of_success_Txns,sum(txn.no_of_fail) as No_of_failure_Txns, "
 			+ " sum(txn.no_of_tech_fail) as No_of_technical_failure_Txns, sum(txn.no_of_business_fail) as No_of_business_failure_Txns from "
 			+ "	 tbl_swayam_txn_report txn inner join tbl_branch_master bm on txn.branch_code=bm.branch_code "
-			+ " where to_date(txn_date,'dd-mm-yy') BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') and crcl_code=:in_circle_code "
+			+ " where txn_date BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') and crcl_code=:in_circle_code "
 			+ " group by bm.network,bm.network ORDER BY   bm.NETWORK ASC ",
 			nativeQuery = true,countQuery = "select count(bm.network) as CODE "
 					+ "	from  tbl_swayam_txn_report txn inner join tbl_branch_master bm on txn.branch_code=bm.branch_code "
-					+ " where to_date(txn_date,'dd-mm-yy') BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') and crcl_code=:in_circle_code "
+					+ " where txn_date BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') and crcl_code=:in_circle_code "
 					+ "	 group by bm.network,bm.network ORDER BY   bm.NETWORK AS")
 	
 
@@ -181,11 +181,11 @@ public interface ErrorReportingDrillDownRepository
 			+ "	sum(txn.no_of_success_txns) as No_of_success_Txns,sum(txn.no_of_fail) as No_of_failure_Txns, "
 			+ " sum(txn.no_of_tech_fail) as No_of_technical_failure_Txns, sum(txn.no_of_business_fail) as No_of_business_failure_Txns from "
 			+ "	 tbl_swayam_txn_report txn inner join tbl_branch_master bm on txn.branch_code=bm.branch_code "
-			+ " where to_date(txn_date,'dd-mm-yy') BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') and crcl_code=:in_circle_code "
+			+ " where txn_date BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') and crcl_code=:in_circle_code "
 			+ " and bm.NETWORK=:in_network_code  group by bm.mod_code, bm.MODULE ORDER BY   bm.MODULE ASC ",
 			nativeQuery = true,countQuery = "select count(bm.mod_code) as CODE "
 					+ "	from  tbl_swayam_txn_report txn inner join tbl_branch_master bm on txn.branch_code=bm.branch_code "
-					+ " where to_date(txn_date,'dd-mm-yy') BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') and crcl_code=:in_circle_code "
+					+ " where txn_date BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') and crcl_code=:in_circle_code "
 					+ "	and bm.NETWORK=:in_network_code  group by bm.mod_code, bm.MODULE ORDER BY   bm.MODULE ASC ")
 	
 	
@@ -248,11 +248,11 @@ public interface ErrorReportingDrillDownRepository
 			+ "	sum(txn.no_of_success_txns) as No_of_success_Txns,sum(txn.no_of_fail) as No_of_failure_Txns, "
 			+ " sum(txn.no_of_tech_fail) as No_of_technical_failure_Txns, sum(txn.no_of_business_fail) as No_of_business_failure_Txns from "
 			+ "	 tbl_swayam_txn_report txn inner join tbl_branch_master bm on txn.branch_code=bm.branch_code "
-			+ " where to_date(txn_date,'dd-mm-yy') BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') and crcl_code=:in_circle_code "
+			+ " where txn_date BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') and crcl_code=:in_circle_code "
 			+ " and bm.NETWORK=:in_network_code and bm.mod_code=:in_module_code group by bm.region,bm.region ORDER BY   bm.region ASC ",
 			nativeQuery = true,countQuery = "select count(bm.region) as CODE "
 					+ "	from  tbl_swayam_txn_report txn inner join tbl_branch_master bm on txn.branch_code=bm.branch_code "
-					+ " where to_date(txn_date,'dd-mm-yy') BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') and crcl_code=:in_circle_code "
+					+ " where txn_date BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') and crcl_code=:in_circle_code "
 					+ "	and bm.NETWORK=:in_network_code and bm.mod_code=:in_module_code group by bm.region,bm.region ORDER BY   bm.region ASC  ")
 
 	Page<ErrorReportingDrillDown> findByDate(@Param("fromdate") String fromdate, @Param("todate") String todate,
@@ -315,12 +315,12 @@ public interface ErrorReportingDrillDownRepository
 			+ "	sum(txn.no_of_success_txns) as No_of_success_Txns,sum(txn.no_of_fail) as No_of_failure_Txns, "
 			+ " sum(txn.no_of_tech_fail) as No_of_technical_failure_Txns, sum(txn.no_of_business_fail) as No_of_business_failure_Txns from "
 			+ "	 tbl_swayam_txn_report txn inner join tbl_branch_master bm on txn.branch_code=bm.branch_code "
-			+ " where to_date(txn_date,'dd-mm-yy') BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') and crcl_code=:in_circle_code "
+			+ " where txn_date BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') and crcl_code=:in_circle_code "
 			+ " and bm.NETWORK=:in_network_code and bm.mod_code=:in_module_code  and bm.region=:in_region_code "
 			+ " group by bm.branch_code,bm.branch_name ORDER BY   bm.branch_name ASC ",
 			nativeQuery = true,countQuery = "select count(bm.branch_code) as CODE "
 					+ "	from  tbl_swayam_txn_report txn inner join tbl_branch_master bm on txn.branch_code=bm.branch_code "
-					+ " where to_date(txn_date,'dd-mm-yy') BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') and crcl_code=:in_circle_code "
+					+ " where txn_date BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') and crcl_code=:in_circle_code "
 					+ "	and bm.NETWORK=:in_network_code and bm.mod_code=:in_module_code  and bm.region=:in_region_code "
 					+ " group by bm.branch_code,bm.branch_name ORDER BY   bm.branch_name ASC  ")
 
@@ -383,13 +383,13 @@ public interface ErrorReportingDrillDownRepository
 			+ "	sum(txn.no_of_success_txns) as No_of_success_Txns,sum(txn.no_of_fail) as No_of_failure_Txns, "
 			+ " sum(txn.no_of_tech_fail) as No_of_technical_failure_Txns, sum(txn.no_of_business_fail) as No_of_business_failure_Txns from "
 			+ "	 tbl_swayam_txn_report txn inner join tbl_branch_master bm on txn.branch_code=bm.branch_code "
-			+ " where to_date(txn_date,'dd-mm-yy') BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') and crcl_code=:in_circle_code "
+			+ " where txn_date BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') and crcl_code=:in_circle_code "
 			+ " and bm.NETWORK=:in_network_code and bm.mod_code=:in_module_code  and bm.region=:in_region_code "
 			+ " and ( bb.branch_code=:searchText or bm.branch_name = :searchText) "
 			+ " group by bm.branch_code,bm.branch_name ORDER BY   bm.branch_name ASC ",
 			nativeQuery = true,countQuery = "select count(bm.branch_code) as CODE "
 					+ "	from  tbl_swayam_txn_report txn inner join tbl_branch_master bm on txn.branch_code=bm.branch_code "
-					+ " where to_date(txn_date,'dd-mm-yy') BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') and crcl_code=:in_circle_code "
+					+ " where txn_date BETWEEN TO_DATE(:fromdate, 'dd-mm-yy') AND TO_DATE(:todate, 'dd-mm-yy') and crcl_code=:in_circle_code "
 					+ "	and bm.NETWORK=:in_network_code and bm.mod_code=:in_module_code  and bm.region=:in_region_code "
 					+ " and ( bb.branch_code=:searchText or bm.branch_name = :searchText) "
 					+ " group by bm.branch_code,bm.branch_name ORDER BY   bm.branch_name ASC  ")
