@@ -359,7 +359,7 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 					data1.setIssueDescription(manualEnity.getComments());
 					data1.setContactName(manualEnity.getContactPerson());
 					data1.setContactNumber(manualEnity.getContactNo());
-					data1.setContactEmailId("pranay.nakhale@lipi.in");
+					data1.setContactEmailId(manualEnity.getMailId());
 					data1.setStatus("p");
 					String apiRespo=SMTIntegrationCallOpenApi.makeWebServiceCall(data1);
 					logger.info("Manual Callog ApiResponse::------- "+apiRespo);

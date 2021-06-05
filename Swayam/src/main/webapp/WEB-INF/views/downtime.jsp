@@ -231,21 +231,58 @@ ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
                      </div>
                 </div>
 			</td>
+			
+			
 			 <td>
+                <div class="row">
+                    <div class="col-xs-6 lb">
+                        <span class="text-left" >Branch Code</span>
+                        <span class="pull-right">:</span>
+                    </div>
+                    <div class="col-xs-6">
+                     <input type="text" id="branchCode" name="SelectedBranchCodeId" 
+                      ng-model="SelectedBranchCodeId"  maxlength="5"/>
+                      </div>
+                      
+                </div>                                
+	        </td>
+			 					
+		</tr>
+       		<tr>
+       		 <td>
+                <div class="row">
+                    <div class="col-xs-6 lb">
+                        <span class="text-left" >Kiosk Id</span>
+                        <span class="pull-right">:</span>
+                    </div>
+                    <div class="col-xs-6">
+                     <input type="text" id="kioskId" name="SelectedKioskId" 
+                      ng-model="SelectedKioskId" />
+                      </div>
+                      
+                </div>                                
+	        </td>
+	        
+	        <td>
                 <div class="row">
                     <div class="col-xs-6"></div>
                     <div class="col-xs-6">
                          <div class="text-right" style="width: 80%;" >
-                             <!--  <button  id="btnReset" ng-click="">Reset</button> --> 
-                               <button id="btnReset"  ng-click="resetPositions()">Reset</button>	
-                            <!-- <input type="reset" value="Reset form">	 -->						
-			                 <button   ng-click="searchPositions(SelectedCircelId,SelectedVendorId,SelectedCmsCmf,SelectedFromDateId,SelectedToDateId)" >Generate</button>
+			                 <button   ng-click="searchPositions(SelectedCircelId,SelectedVendorId,SelectedCmsCmf,SelectedFromDateId,SelectedToDateId,SelectedBranchCodeId,SelectedKioskId)" >Generate</button>
                          </div>
                     </div>
                 </div>
-			</td>						
-		</tr>
-       		   
+			</td>	
+			
+			<td>
+                <div class="row">
+                         <div class="text-right" style="width: 0%;" >
+                               <button id="btnReset"  ng-click="resetPositions()">Reset</button>	
+                         </div>
+                </div>
+			</td>	
+       		</tr> 
+       		  
 			</table> 
 		</div>
 		</form>
@@ -254,7 +291,7 @@ ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
 		<div class="submain_terminal">
 	
 	
-	<input ng-model="searchText" ng-change="refresh()" placeholder="Circle,KioskId,Vendor,CMS,CMF etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">
+	<!-- <input ng-model="searchText" ng-change="refresh()" placeholder="Circle,KioskId,Vendor,CMS,CMF etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input"> -->
 		<span style="float:right">
 		<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
 		<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>
@@ -334,6 +371,12 @@ $(document).ready(function(){
            $("#vendor")[0].selectedIndex = null;
            $("#datepickerFromDate").datepicker('setDate', null);
            $("#datepickerToDate").datepicker('setDate', null);
+          // $("#branchCode")[0].selectedIndex = '';
+          // $("#kioskId")[0].selectedIndex = '';
+
+          // $("#branchCode").html("");
+           $('input[name=SelectedBranchCodeId').val('');
+           $('input[name=SelectedKioskId').val('');
         });
     });
 </script>

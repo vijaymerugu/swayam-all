@@ -16,6 +16,8 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 		var selectedCmsCmfId = "";
 		var selectedFromDateId="";
 		var selectedToDateId =""; 
+		var selectedKioskId="";
+		var selectedBranchCodeId="";
 		
 			
 		
@@ -107,7 +109,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 			        return formatedDate;
 			}
 			  $scope.resetPositions=function(){
-				   console.log("Inside resetPositions "+$scope.selectedCircelId);
+				   console.log("Inside resetPositions "+$scope.SelectedBranchCodeId);
 				   $scope.selectedCircelId =''; 
 				   $scope.SelectedCircelId =''; 
 				   $scope.selectedVendorId ='';
@@ -116,13 +118,16 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 				   $scope.SelectedCmsCmf ='';
 				   $scope.selectedFromDateId ='';
 				   $scope.selectedToDateId ='';
-		    	    $scope.LoadDropDown('', 0);
+				   $scope.SelectedBranchCodeId = '';
+				 //  $scope.selectedBranchCodeId = '';
+		           $scope.SelectedKioskId ='';
+		    	   $scope.LoadDropDown('', 0);
 		   		    $scope.LoadDropCmsCmf();
 		   		    loadGrid();
 		       }
        
 	  
-		$scope.searchPositions = function(CircelId,VendorId,CmsCmfId,FromDateId,ToDateId) {
+		$scope.searchPositions = function(CircelId,VendorId,CmsCmfId,FromDateId,ToDateId,BranchCodeId,KioskId) {
 			debugger;
 		     //  alert("CircelId==="+CircelId);
 		    //    alert("FromDateId==="+FromDateId);
@@ -138,6 +143,9 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 					
 					$scope.selectedFromDateId=FromDateId;
 					$scope.selectedToDateId=ToDateId;
+					$scope.selectedBranchCodeId=BranchCodeId;
+		            $scope.selectedKioskId=KioskId;
+		
 			//}
 					
 					
@@ -147,6 +155,8 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 					console.log("selectedCmsCmfId " + $scope.selectedCmsCmfId);
 					console.log("selectedFromDateId " + $scope.selectedFromDateId);
 					console.log("selectedToDateId " + $scope.selectedToDateId);
+					console.log("selectedBranchCodeId "+$scope.selectedBranchCodeId);
+					console.log("selectedKioskId " + $scope.selectedKioskId);
 					
 					if($('#datepickerFromDate').val() == '' || $('#datepickerToDate').val() == '') {
 						alert('From date & To date can not be null.');
@@ -161,7 +171,8 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 			    	   
 			         	UserManagementService
 							.getUsers(paginationOptions.pageNumber,paginationOptions.pageSize, $scope.counttype,$scope.selectedCircelId,
-									$scope.selectedVendorId,$scope.selectedCmsCmfId,$('#datepickerFromDate').val(),$('#datepickerToDate').val()).success(function(data) {
+									$scope.selectedVendorId,$scope.selectedCmsCmfId,$('#datepickerFromDate').val(),$('#datepickerToDate').val(),
+									$scope.selectedBranchCodeId,$scope.selectedKioskId).success(function(data) {
 								console.log("data1 " + data);
 								$scope.gridOptions.data = data.content;
 								$scope.gridOptions.totalItems = data.totalElements;
@@ -180,10 +191,10 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 			function loadGrid(){
 				   console.log("loadGrid:::", paginationOptions.pageNumber,
 						   paginationOptions.pageSize,  $scope.counttype, $scope.selectedCircelId,
-						   $scope.selectedVendorId, $scope.selectedCmsCmfId, $scope.selectedFromDateId, $scope.selectedToDateId);
+						   $scope.selectedVendorId, $scope.selectedCmsCmfId, $scope.selectedFromDateId, $scope.selectedToDateId,$scope.selectedBranchCodeId, $scope.selectedKioskId);
 				  UserManagementService.getUsers( paginationOptions.pageNumber,
 						  paginationOptions.pageSize,  $scope.counttype, $scope.selectedCircelId,
-						  $scope.selectedVendorId, $scope.selectedCmsCmfId, $scope.selectedFromDateId, $scope.selectedToDateId).success(function(data){
+						  $scope.selectedVendorId, $scope.selectedCmsCmfId, $scope.selectedFromDateId,$scope.selectedBranchCodeId, $scope.selectedKioskId).success(function(data){
 					  $scope.gridOptions.data = data.content;
 					  $scope.gridOptions.totalItems = data.totalElements;
 				});
@@ -201,7 +212,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 		   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
 		 	   UserManagementService.getUsers(paginationOptions.pageNumber,
 		 			   paginationOptions.pageSize, counttype,selectedCircelId,
-						selectedVendorId,selectedCmsCmfId,selectedFromDateId,selectedToDateId).success(function(data){
+						selectedVendorId,selectedCmsCmfId,selectedFromDateId,selectedToDateId,selectedBranchCodeId,selectedKioskId).success(function(data){
 		 		  $scope.gridOptions.data = data.content;
 		 	 	  $scope.gridOptions.totalItems = data.totalElements;
 		 	   });	   
@@ -213,7 +224,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 		 	    }else{
 		 	    	UserManagementService.getUsers(paginationOptions.pageNumber,
 		 	 			   paginationOptions.pageSize, counttype,selectedCircelId,
-						selectedVendorId,selectedCmsCmfId,selectedFromDateId,selectedToDateId).success(function(data){
+						selectedVendorId,selectedCmsCmfId,selectedFromDateId,selectedToDateId,selectedBranchCodeId,selectedKioskId).success(function(data){
 		 	 		  $scope.gridOptions.data = data.content;
 		 	 	 	  $scope.gridOptions.totalItems = data.totalElements;
 		 	 	   });
@@ -223,7 +234,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 	   
 	   UserManagementService.getUsers(paginationOptions.pageNumber,
 			   paginationOptions.pageSize, counttype,selectedCircelId,
-						selectedVendorId,selectedCmsCmfId,selectedFromDateId,selectedToDateId).success(function(data){
+						selectedVendorId,selectedCmsCmfId,selectedFromDateId,selectedToDateId,$scope.selectedBranchCodeId, $scope.selectedKioskId).success(function(data){
 		  $scope.gridOptions.data = data.content;
 	 	  $scope.gridOptions.totalItems = data.totalElements;
 	   });
@@ -256,7 +267,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 			           selectedFromDateId=$('#datepickerFromDate').val();
 			          selectedToDateId=$('#datepickerToDate').val();
 			          UserManagementService.getUsers(newPage,pageSize, counttype,selectedCircelId,
-						selectedVendorId,selectedCmsCmfId,selectedFromDateId,selectedToDateId).success(function(data){
+						selectedVendorId,selectedCmsCmfId,selectedFromDateId,selectedToDateId,selectedBranchCodeId,selectedKioskId).success(function(data){
 			        	  $scope.gridOptions.data = data.content;
 			         	  $scope.gridOptions.totalItems = data.totalElements;
 			          });
@@ -275,7 +286,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 app.service('UserManagementService',['$http', function ($http) {
 	
 	function getUsers(pageNumber,size, counttype,selectedCircelId,
-						selectedVendorId,selectedCmsCmfId,selectedFromDateId,selectedToDateId) {
+						selectedVendorId,selectedCmsCmfId,selectedFromDateId,selectedToDateId,selectedBranchCodeId,selectedKioskId) {
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({
           method: 'GET',
@@ -285,6 +296,9 @@ app.service('UserManagementService',['$http', function ($http) {
           +'&selectedCmsCmfId='+selectedCmsCmfId
           +'&selectedFromDateId='+selectedFromDateId
           +'&selectedToDateId='+selectedToDateId
+          +'&selectedBranchCodeId='+selectedBranchCodeId
+          +'&selectedKioskId='+selectedKioskId
+          
         });
     }
     return {

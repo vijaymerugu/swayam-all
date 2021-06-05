@@ -29,7 +29,8 @@ public class DownTimeServiceImpl implements DowntimeService {
 
 	@Override
 	public Page<DownTimeDto> findAllPaginated(int size, int page, String type, String selectedCircelId,
-			String selectedVendorId, String selectedCmsCmfId, String selectedFromDateId, String selectedToDateId) {
+			String selectedVendorId, String selectedCmsCmfId, String selectedFromDateId, 
+			String selectedToDateId,String selectedBranchCodeId,String selectedKioskId) {
 		Page<DownTimeDto> pageEntity=null;
 		try {
 			
@@ -50,19 +51,21 @@ public class DownTimeServiceImpl implements DowntimeService {
 			}
 				
 			
-			/*if(selectedFromDateId.equals("undefined") || selectedFromDateId.isEmpty()) {
-				selectedFromDateId=date;	
+			if(selectedBranchCodeId.equals("undefined") || selectedBranchCodeId.isEmpty()) {
+				selectedBranchCodeId="";	
 			}
 
-			if(selectedToDateId.equals("undefined") || selectedToDateId.isEmpty()) {
-				selectedToDateId=date;	
-			}*/
+			if(selectedKioskId.equals("undefined") || selectedKioskId.isEmpty()) {
+				selectedKioskId="";	
+			}
 			
 			logger.info("downtime selectedCircelId--------1---------"+selectedCircelId);
 			logger.info("downtime selectedVendorId--------2---------"+selectedVendorId);
 			logger.info("downtime selectedCmsCmfId--------3---------"+selectedCmsCmfId);
 			logger.info("downtime selectedFromDateId--------4---------"+selectedFromDateId);
 			logger.info("downtime selectedToDateId--------5---------"+selectedToDateId);
+			logger.info("downtime selectedBranchCodeId--------6---------"+selectedBranchCodeId);
+			logger.info("downtime selectedKioskId--------7---------"+selectedKioskId);
 			
 
 			if(selectedToDateId.equals("undefined") || selectedToDateId.isEmpty() &&
@@ -78,7 +81,7 @@ public class DownTimeServiceImpl implements DowntimeService {
 				logger.info("downtime selectedFromDateId---inside current date-----4---------"+selectedFromDateId);
 				logger.info("downtime selectedToDateId-----inside current date---5---------"+selectedToDateId);
 				pageEntity=downtimePagingRepo.findAllByFilter(selectedFromDateId,selectedToDateId, selectedCircelId, selectedVendorId,
-						 selectedCmsCmfId, PageRequest.of(page, size)).map(DownTimeDto::new);
+						 selectedCmsCmfId,selectedBranchCodeId,selectedKioskId, PageRequest.of(page, size)).map(DownTimeDto::new);
 			}else{
 				logger.info("downtime selectedCircelId---inside not-current date-----1--e-------"+selectedCircelId);
 				logger.info("downtime selectedVendorId----inside not-current date----2------e---"+selectedVendorId);
@@ -86,7 +89,7 @@ public class DownTimeServiceImpl implements DowntimeService {
 				logger.info("downtime selectedFromDateId---inside not-current date-----4----e-----"+selectedFromDateId);
 				logger.info("downtime selectedToDateId-----inside not-current date---5---e------"+selectedToDateId);
 				pageEntity=downtimePagingRepo.findAllByFilter(selectedFromDateId,selectedToDateId, selectedCircelId, selectedVendorId,
-						 selectedCmsCmfId, PageRequest.of(page, size)).map(DownTimeDto::new);
+						 selectedCmsCmfId,selectedBranchCodeId,selectedKioskId,  PageRequest.of(page, size)).map(DownTimeDto::new);
 			}
 			
 			
