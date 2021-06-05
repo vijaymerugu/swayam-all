@@ -5,15 +5,19 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+
+import com.auth10.federation.WSFederationFilter;
 
 @Configuration
 @EnableWebMvc
@@ -28,6 +32,21 @@ public class AppConfig implements WebMvcConfigurer {
 	private String username;
 	@Value(value="${spring.datasource.password}")
 	private String password;
+	
+	
+	@Bean
+	@Profile("!local")
+	public FilterRegistrationBean<WSFederationFilter> filterRegistrationBean() {
+	FilterRegistrationBean<WSFederationFilter> registration = new FilterRegistrationBean<WSFederationFilter>();
+	registration.setFilter(new WSFederationFilter());
+	registration.addUrlPatterns("/SMTSSO/*");
+	//registration.addUrlPatterns("/*");
+	registration.addInitParameter("login-page-url", "login.jsp");
+	registration.addInitParameter("exclude-urls-regex", "/img/|/js/|/css/|/app/|/templates/");
+	registration.setName("WSFederationFilter");
+	registration.setAsyncSupported(false);
+	return registration;
+	}
 	
 	
 	
