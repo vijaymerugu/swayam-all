@@ -21,7 +21,6 @@
 
 
 
-
 <!-- <link rel="stylesheet" href="resources/css/grid-style.css" />
 <link rel="stylesheet" href="resources/css/ui-grid.min-1.css" />
 
@@ -87,35 +86,7 @@
         span.pull-right {
         padding:5px 10px;
         }
-        /*   .ui-grid-header-cell-label {
-		display:inline-block;
-		white-space:initial;
-		}
-		
-		
-		.wrap-text .ui-grid-cell-contents {
- 		 white-space:normal;
-		}
-
-	 	[ui-grid-row] {
-  		display: table-row;
-		}
-
-		.ui-grid-row, .ui-grid-cell {
-  		height: auto!important;
-		}
-
-			.ui-grid-cell {
-  			float: none;
-  			display: table-cell;
-			}  */
-		
-		
-		/* 	.ui-grid-header-cell, .ui-grid-cell-contents {
-  			white-space: normal;
-  			word-break: break-word;
-			}  */ 
-			
+       
 			
 			 .ui-grid, .ui-grid-viewport {
      height: auto !important;

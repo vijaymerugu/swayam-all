@@ -19,6 +19,8 @@ public class BillingPaymentReport {
 	private String quarter;
 	private String year;
 	private String gstType;
+	private String kioskID;
+	private String branchCode;
 	
 	/*
 	 * public String getCircle() { return circle; } public void setCircle(String

@@ -210,6 +210,40 @@ ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
                 </div>
 			</td>							
         </tr>
+      <!--    <tr>
+        
+        
+        
+	       <td>
+                <div class="row">
+                    <div class="col-xs-6 lb">
+                        <span class="text-left">Kiosk ID<b>*</b></span>
+                        <span class="pull-right">:</span>
+                    </div>
+                    <div class="col-xs-6">
+                        <select id="kiosk" class="form-group" name="Circle" ng-model="SelectedKisokId"
+								ng-change="LoadKiosk('kioskId',SelectedKisokId)" required>
+									  <option value="" selected>--Select Kisok--</option>
+									<option ng-repeat="" value=""></option>
+							</select>
+                    </div>
+                </div>
+	        </td>
+	        <td>
+                <div class="row">
+                    <div class="col-xs-6 lb">
+                        <span class="text-left">Branch Code<b></b></span>
+                        <span class="pull-right">:</span>
+                    </div>
+                    <div class="col-xs-6">
+                        <select id="branch"  class="form-group" name="State" ng-model="SelectedBranch">
+									 <option value="" selected>--Select Branch--</option> 
+									<option ng-repeat="" value=""></option>
+							</select>
+                    </div>
+                </div>                                
+	        </td>						
+        </tr> -->
 		<tr>
 			<td>
                 <div class="row">
@@ -264,6 +298,36 @@ ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
                 </div>
 			</td>							
 		</tr>
+		  <tr>
+         <td>
+                <div class="row">
+                    <div class="col-xs-6 lb">
+                        <span class="text-left">Kiosk ID<b></b></span>
+                        <span class="pull-right">:</span>
+                    </div>
+                    <div class="col-xs-6">
+                    
+                    <input type="text" id="kiosk" name="kioskId" 
+                      ng-model="SelectedKisokId"/>
+                        
+                        
+                    </div>
+                </div>
+	        </td>
+	        <td>
+                <div class="row">
+                    <div class="col-xs-6 lb">
+                        <span class="text-left">Branch Code<b></b></span>
+                        <span class="pull-right">:</span>
+                    </div>
+                    <div class="col-xs-6">
+                     <input type="text" id="branch" name="branchId" 
+                      ng-model="selectedBranch"/>
+                    </div>
+                </div>                                
+	        </td>	
+        					
+        </tr>
         <tr>
             <td></td><td></td>
             <td>
@@ -273,7 +337,7 @@ ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
                          <div class="text-right" style="width: 80%;" >
                              <button  id="btnReset" ng-click="resetPositions()">Reset</button>							
 			                 <button  ng-click="searchPositions(SelectedCircelId,SelectedStateId,
-							SelectedQuarterId,SelectedYearId,SelectedVendorId,RfpId)">Generate</button>
+							SelectedQuarterId,SelectedYearId,SelectedVendorId,RfpId,SelectedKisokId,selectedBranch)">Generate</button>
 							 <!-- <button  type="submit" id="submit">Generate</button> -->
                          </div>
                     </div>
@@ -289,8 +353,8 @@ ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
 		<div class="submain_transaction">
 	
 	
-	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle, Vendor, State, Rfp. ref no., Kisok Id etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">
-		<span style="float:right">
+	<!-- <input ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle, Vendor, State, Rfp. ref no., Kisok Id etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">
+		 --><span style="float:right">
 		<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
 		<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>
 		&nbsp;&nbsp;&nbsp;

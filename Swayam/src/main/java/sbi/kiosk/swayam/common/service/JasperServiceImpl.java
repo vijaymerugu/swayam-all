@@ -2433,6 +2433,9 @@ public class JasperServiceImpl implements JasperService {
 			
 		}
 		
+		String kioskId= report.getKioskID();
+		String branchCode = report.getBranchCode();
+		
 		String quarter= timePeriod.substring(0, 2);
 		String finacialYear= timePeriod.substring(3);
 		
@@ -2443,10 +2446,10 @@ public class JasperServiceImpl implements JasperService {
 			if (rpfNumber.equalsIgnoreCase("1")) {
 				
 				if(circle.equals("0")) {
-					list =bpRepository.findbyWithoutStateFilterCCReport(quarter,finacialYear, vendor);
+					list =bpRepository.findbyWithoutStateFilterCCReport(quarter,finacialYear, vendor,kioskId,branchCode);
 				}else {
 
-					list =bpRepository.findbyWithoutStateFilterReport(circle, quarter,finacialYear, vendor);
+					list =bpRepository.findbyWithoutStateFilterReport(circle, quarter,finacialYear, vendor,kioskId,branchCode);
 
 				}
 				
@@ -2455,11 +2458,11 @@ public class JasperServiceImpl implements JasperService {
 
 			} else {
 				if(circle.equals("0")) {
-					list=bpRepository.findbyFilterRfpWithoutStateCCReport(quarter,finacialYear, vendor, rpfNumber);
+					list=bpRepository.findbyFilterRfpWithoutStateCCReport(quarter,finacialYear, vendor, rpfNumber,kioskId,branchCode);
 
 				}else {
 
-					list=bpRepository.findbyFilterRfpWithoutStateReport(circle, quarter,finacialYear, vendor, rpfNumber);
+					list=bpRepository.findbyFilterRfpWithoutStateReport(circle, quarter,finacialYear, vendor, rpfNumber,kioskId,branchCode);
 
 				}
 				
@@ -2469,10 +2472,10 @@ public class JasperServiceImpl implements JasperService {
 
 		} else {
 			if (rpfNumber.equalsIgnoreCase("1")) {
-				list=bpRepository.findbyFilterReport(circle, state, quarter,finacialYear, vendor);
+				list=bpRepository.findbyFilterReport(circle, state, quarter,finacialYear, vendor,kioskId,branchCode);
 				
 			} else {
-				list= bpRepository.findbyFilterWithRFPReport(circle, state, quarter,finacialYear, vendor, rpfNumber);
+				list= bpRepository.findbyFilterWithRFPReport(circle, state, quarter,finacialYear, vendor, rpfNumber,kioskId,branchCode);
 			}
 
 		}
@@ -2523,6 +2526,9 @@ public class JasperServiceImpl implements JasperService {
 		String quarter= timePeriod.substring(0, 2);
 		String finacialYear= timePeriod.substring(3);
 		
+		String kioskId= report.getKioskID();
+		String branchCode = report.getBranchCode();
+		
 		List<InvoiceGeneration> list =null;
 		
 		if (state.equals("0")) {
@@ -2530,10 +2536,10 @@ public class JasperServiceImpl implements JasperService {
 			if (rpfNumber.equalsIgnoreCase("1")) {
 				
 				if(circle.equals("0")) {
-					list =IgRepository.findbyWithoutStateFilterCCReport(quarter,finacialYear, vendor);
+					list =IgRepository.findbyWithoutStateFilterCCReport(quarter,finacialYear, vendor,kioskId,branchCode);
 				}else {
 
-					list =IgRepository.findbyWithoutStateFilterReport(circle, quarter,finacialYear, vendor);
+					list =IgRepository.findbyWithoutStateFilterReport(circle, quarter,finacialYear, vendor,kioskId,branchCode);
 
 				}
 				
@@ -2545,10 +2551,10 @@ public class JasperServiceImpl implements JasperService {
 				
 				
 				if(circle.equals("0")) {
-					list=IgRepository.findbyFilterRfpWithoutStateCCReport(quarter,finacialYear, vendor, rpfNumber);
+					list=IgRepository.findbyFilterRfpWithoutStateCCReport(quarter,finacialYear, vendor, rpfNumber,kioskId,branchCode);
 				}else {
 
-					list=IgRepository.findbyFilterRfpWithoutStateReport(circle, quarter,finacialYear, vendor, rpfNumber);
+					list=IgRepository.findbyFilterRfpWithoutStateReport(circle, quarter,finacialYear, vendor, rpfNumber,kioskId,branchCode);
 
 				}
 				
@@ -2558,10 +2564,10 @@ public class JasperServiceImpl implements JasperService {
 
 		} else {
 			if (rpfNumber.equalsIgnoreCase("1")) {
-				list=IgRepository.findbyFilterReport(circle, state, quarter,finacialYear, vendor);
+				list=IgRepository.findbyFilterReport(circle, state, quarter,finacialYear, vendor,kioskId,branchCode);
 				
 			} else {
-				list= IgRepository.findbyFilterWithRFPReport(circle, state, quarter,finacialYear, vendor, rpfNumber);
+				list= IgRepository.findbyFilterWithRFPReport(circle, state, quarter,finacialYear, vendor, rpfNumber,kioskId,branchCode);
 			}
 
 		}
@@ -2598,6 +2604,11 @@ public class JasperServiceImpl implements JasperService {
 			timePeriod= report.getTimePeiod();
 			
 		}
+		
+		
+		String kioskId= report.getKioskID();
+		String branchCode = report.getBranchCode();
+		
 		String quarter= timePeriod.substring(0, 2);
 		String finacialYear= timePeriod.substring(3);
 		List<InvoiceCompare> list =null;
@@ -2608,11 +2619,11 @@ public class JasperServiceImpl implements JasperService {
 				
 				if(circle.equals("0")) {
 					list =icRepository
-							.findbyWithoutStateFilterCCReport(quarter,finacialYear, vendor);
+							.findbyWithoutStateFilterCCReport(quarter,finacialYear, vendor,kioskId,branchCode);
 				}else {
 
 					list =icRepository
-							.findbyWithoutStateFilterReport(circle, quarter,finacialYear, vendor);
+							.findbyWithoutStateFilterReport(circle, quarter,finacialYear, vendor,kioskId,branchCode);
 
 				}
 				
@@ -2625,10 +2636,10 @@ public class JasperServiceImpl implements JasperService {
 				
 				if(circle.equals("0")) {
 					list =icRepository
-							.findbyFilterRfpWithoutStateCCReport(quarter,finacialYear, vendor, rpfNumber);
+							.findbyFilterRfpWithoutStateCCReport(quarter,finacialYear, vendor, rpfNumber,kioskId,branchCode);
 				}else {
 					list=icRepository
-							.findbyFilterRfpWithoutStateReport(circle, quarter,finacialYear, vendor, rpfNumber);
+							.findbyFilterRfpWithoutStateReport(circle, quarter,finacialYear, vendor, rpfNumber,kioskId,branchCode);
 
 				}
 				
@@ -2638,10 +2649,10 @@ public class JasperServiceImpl implements JasperService {
 
 		} else {
 			if (rpfNumber.equalsIgnoreCase("1")) {
-				list=icRepository.findbyFilterReport(circle, state, quarter,finacialYear, vendor);
+				list=icRepository.findbyFilterReport(circle, state, quarter,finacialYear, vendor,kioskId,branchCode);
 				
 			} else {
-				list= icRepository.findbyFilterWithRFPReport(circle, state, quarter,finacialYear, vendor, rpfNumber);
+				list= icRepository.findbyFilterWithRFPReport(circle, state, quarter,finacialYear, vendor, rpfNumber,kioskId,branchCode);
 			}
 
 		}

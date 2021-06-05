@@ -273,6 +273,36 @@ ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
                 </div>
 			</td>							
 		</tr>
+		<tr>
+         <td>
+                <div class="row">
+                    <div class="col-xs-6 lb">
+                        <span class="text-left">Kiosk ID<b></b></span>
+                        <span class="pull-right">:</span>
+                    </div>
+                    <div class="col-xs-6">
+                    
+                    <input type="text" id="kiosk" name="kioskId" 
+                      ng-model="SelectedKisokId"/>
+                        
+                        
+                    </div>
+                </div>
+	        </td>
+	        <td>
+                <div class="row">
+                    <div class="col-xs-6 lb">
+                        <span class="text-left">Branch Code<b></b></span>
+                        <span class="pull-right">:</span>
+                    </div>
+                    <div class="col-xs-6">
+                     <input type="text" id="branch" name="branchId" 
+                      ng-model="selectedBranch"/>
+                    </div>
+                </div>                                
+	        </td>	
+        					
+        </tr>
         <tr>
             <td></td><td></td>
             <td>
@@ -282,7 +312,7 @@ ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
                          <div class="text-right" style="width: 80%;" >
                              <button  id="btnReset" ng-click="resetPositions()">Reset</button>							
 			                 <button  ng-click="searchPositions(SelectedCircelId,SelectedStateId,
-							SelectedQuarterId,SelectedYearId,SelectedVendorId,RfpId)">Generate</button>
+							SelectedQuarterId,SelectedYearId,SelectedVendorId,RfpId,SelectedKisokId,selectedBranch)">Generate</button>
 							 <!-- <button  type="submit" id="submit">Generate</button> -->
                          </div>
                     </div>

@@ -148,13 +148,13 @@ public class BillingPenaltyController {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		// String json = gson.toJson(circleRepository.findAll());
 		 String json = gson.toJson(circleRepository.findCircles());
-		//logger.info("circles "+ json);
-		 
+		//logger.info("circles "+ json);		 
 		
 		return ResponseEntity.ok(json);
 		
 		
 	}
+
 	
 	
 	
@@ -171,6 +171,22 @@ public class BillingPenaltyController {
 		
 		
 	}
+	
+	
+	@RequestMapping(value = "bp/getKisok", method = RequestMethod.GET)
+	public ResponseEntity<?> getKiosk(@RequestHeader(value="circleId") String circleID){
+		
+		//circleRepo.findAll();
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		 String json = gson.toJson(stateRepository.findByCirclehCode(circleID));
+		//logger.info("cites "+ json);
+		 
+		
+		return ResponseEntity.ok(json);
+		
+		
+	}
+	
 	
 	@RequestMapping(value = "bp/getVendor", method = RequestMethod.GET)
 	public ResponseEntity<?> getVendors(){
@@ -206,11 +222,14 @@ public class BillingPenaltyController {
 		
 	}
 	
-	@RequestMapping(value = "billingPenalty/get", params = { "page", "size" ,"type", "selectedCircelId", "selectedStateId","quterTimePeriod","selectedVendorId","selectedRfpID"}, method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "billingPenalty/get", params = { "page", "size" ,"type", "selectedCircelId", "selectedStateId",
+			"quterTimePeriod","selectedVendorId","selectedRfpID","selectedKioskId","selectedbranchCode"}, method = RequestMethod.GET, produces = "application/json")
 	public Page<BillingPenaltyEntity> findPaginated(
 		      @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("type") String type, @RequestParam("selectedCircelId")
 		      String selectedCircelId, @RequestParam("selectedStateId") String selectedStateId,
-		      @RequestParam("quterTimePeriod") String quterTimePeriod,@RequestParam("selectedVendorId") String selectedVendorId,@RequestParam("selectedRfpID") String selectedRfpID) {
+		      @RequestParam("quterTimePeriod") String quterTimePeriod,@RequestParam("selectedVendorId") String selectedVendorId,@RequestParam("selectedRfpID") String selectedRfpID,
+		      @RequestParam("selectedKioskId") String selectedKioskId,
+		      @RequestParam("selectedbranchCode") String selectedBranch) {
 		logger.info("Inside findPaginated"); 
 
 
@@ -221,38 +240,52 @@ public class BillingPenaltyController {
 		report.setRpfNumber(selectedRfpID);
 		
 		
-		
-		
 		Page<BillingPenaltyEntity> resultPage = null;
 		
 		if(selectedCircelId.equals("undefined") ||
 			selectedStateId.equals("undefined") ||
 			quterTimePeriod.equals("undefined")  ||
-			selectedVendorId.equals("undefined")
+			selectedVendorId.equals("undefined")||
+			selectedBranch.equals("undefined")||
+			selectedKioskId.equals("undefined")
 			) {		
 			selectedCircelId="";
 			selectedStateId="";
 			quterTimePeriod="";
 			selectedVendorId="";
+			selectedBranch="";
+			selectedKioskId="";
 		}
+		
+		report.setKioskID(selectedKioskId);
+		report.setBranchCode(selectedBranch);
+		
 		if(selectedStateId.equals("0"))	{
 			
-			resultPage = billingPenaltyService.findPaginatedWithoutState(page, size, type, selectedCircelId, quterTimePeriod, selectedVendorId,selectedRfpID);
+			resultPage = billingPenaltyService.findPaginatedWithoutStateSS(page, size, type, selectedCircelId,
+					quterTimePeriod, selectedVendorId,selectedRfpID,selectedKioskId,selectedBranch);
 		
 		}else{
 			resultPage = 
-					billingPenaltyService.findPaginatedByFilter(page, size, type, selectedCircelId, selectedStateId, quterTimePeriod, selectedVendorId,selectedRfpID);
+					billingPenaltyService.findPaginatedByFilterSS(page, size, type, selectedCircelId, selectedStateId,
+							quterTimePeriod, selectedVendorId,selectedRfpID,selectedKioskId,selectedBranch);
 		}
 		
 		  return resultPage;
 	}
 	
 	
-	@RequestMapping(value = "invoicegenaration/get", params = { "page", "size" ,"type", "selectedCircelId", "selectedStateId","quterTimePeriod","selectedVendorId","selectedRfpID"}, method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "invoicegenaration/get", params = { "page", "size" ,"type", 
+			"selectedCircelId", "selectedStateId","quterTimePeriod","selectedVendorId",
+			"selectedRfpID","selectedKioskId","selectedbranchCode"}, method = RequestMethod.GET, produces = "application/json")
 	public Page<InvoiceGeneration> findPaginatedIg(
 		      @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("type") String type, @RequestParam("selectedCircelId")
 		      String selectedCircelId, @RequestParam("selectedStateId") String selectedStateId,
-		      @RequestParam("quterTimePeriod") String quterTimePeriod,@RequestParam("selectedVendorId") String selectedVendorId,@RequestParam("selectedRfpID") String selectedRfpID) {
+		      @RequestParam("quterTimePeriod") String quterTimePeriod,
+		      @RequestParam("selectedVendorId") String selectedVendorId,
+		      @RequestParam("selectedRfpID") String selectedRfpID,
+		      @RequestParam("selectedKioskId") String selectedKioskId,
+		      @RequestParam("selectedbranchCode") String selectedBranch) {
 		logger.info("Inside findPaginatedIg"); 
 		/*
 		 * logger.info("type=================="+type);
@@ -274,31 +307,44 @@ public class BillingPenaltyController {
 		if(selectedCircelId.equals("undefined") ||
 			selectedStateId.equals("undefined") ||
 			quterTimePeriod.equals("undefined")  ||
-			selectedVendorId.equals("undefined")
-			) {		
+			selectedVendorId.equals("undefined") ||
+			selectedBranch.equals("undefined")||
+			selectedKioskId.equals("undefined")
+			) {	
 			selectedCircelId="";
 			selectedStateId="";
 			quterTimePeriod="";
 			selectedVendorId="";
+			selectedBranch="";
+			selectedKioskId="";
 		}
+		report.setKioskID(selectedKioskId);
+		report.setBranchCode(selectedBranch);
+		
 		if(selectedStateId.equals("0"))	{
 			
-			resultPage = billingPenaltyService.findPageWithoutStateIg(page, size, type, selectedCircelId, quterTimePeriod, selectedVendorId, selectedRfpID);
+			resultPage = billingPenaltyService.findPageWithoutStateIg(page, size, type, selectedCircelId, 
+					quterTimePeriod, selectedVendorId, selectedRfpID,selectedKioskId,selectedBranch);
 		
 		}else{
 			resultPage = 
-					billingPenaltyService.findPageByFilterIg(page, size, type, selectedCircelId, selectedStateId, quterTimePeriod, selectedVendorId,selectedRfpID);
+					billingPenaltyService.findPageByFilterIg(page, size, type, selectedCircelId, 
+							selectedStateId, quterTimePeriod, selectedVendorId,selectedRfpID ,selectedKioskId,selectedBranch);
 		}
 		  
 		  return resultPage;
 	}
 	
 	
-	@RequestMapping(value = "invoiceCompare/get", params = { "page", "size" ,"type", "selectedCircelId", "selectedStateId","quterTimePeriod","selectedVendorId","selectedRfpID"}, method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "invoiceCompare/get", params = { "page", "size" ,"type", "selectedCircelId",
+			"selectedStateId","quterTimePeriod","selectedVendorId","selectedRfpID","selectedKioskId","selectedbranchCode"}, method = RequestMethod.GET, produces = "application/json")
 	public Page<InvoiceCompare> findPaginatedIc(
 		      @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("type") String type, @RequestParam("selectedCircelId")
 		      String selectedCircelId, @RequestParam("selectedStateId") String selectedStateId,
-		      @RequestParam("quterTimePeriod") String quterTimePeriod,@RequestParam("selectedVendorId") String selectedVendorId,@RequestParam("selectedRfpID") String selectedRfpID) {
+		      @RequestParam("quterTimePeriod") String quterTimePeriod,
+		      @RequestParam("selectedVendorId") String selectedVendorId,@RequestParam("selectedRfpID") String selectedRfpID,
+		      @RequestParam("selectedKioskId") String selectedKioskId,
+		      @RequestParam("selectedbranchCode") String selectedBranch) {
 		logger.info("Inside findPaginatedIc");
 		/*
 		 * logger.info("type=================="+type);
@@ -328,15 +374,25 @@ public class BillingPenaltyController {
 			selectedStateId="";
 			quterTimePeriod="";
 			selectedVendorId="";
+			
+			
 		}
+		
+		
+		report.setKioskID(selectedKioskId);
+		report.setBranchCode(selectedBranch);
+		
 		if(selectedStateId.equals("0"))	{
 			logger.info("IF selectedRfpID IC--- "+selectedRfpID);
-			resultPage = invoiceCompareService.findPageWithoutStateIc(page, size, type, selectedCircelId, quterTimePeriod, selectedVendorId, selectedRfpID);
+			resultPage = invoiceCompareService.findPageWithoutStateIc(page, size, type, 
+					selectedCircelId, quterTimePeriod, selectedVendorId, selectedRfpID,selectedKioskId,selectedBranch);
 		
 		}else{
 			logger.info("else selectedRfpID IC--- "+selectedRfpID);
 			resultPage = 
-					invoiceCompareService.findPageByFilterIc(page, size, type, selectedCircelId, selectedStateId, quterTimePeriod, selectedVendorId,selectedRfpID);
+					invoiceCompareService.findPageByFilterIc(page, size, type,
+							selectedCircelId, selectedStateId, quterTimePeriod, 
+							selectedVendorId,selectedRfpID,selectedKioskId,selectedBranch);
 		}
 		 
 		  return resultPage;

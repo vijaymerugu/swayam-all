@@ -88,6 +88,8 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 			var selectedYearId ="";
 			var selectedVendorId="";
 			var selectedRfpID="";
+			var selectedkiokId="";
+			var selectedbranchCode="";
 
 			$scope.LoadDropDown = function(type, value) {
 				switch (type) {
@@ -177,11 +179,13 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
       
        
 			$scope.searchPositions = function(CircelId,StateId,
-					QuarterId,YearId,VendorId,RfpId) {
+					QuarterId,YearId,VendorId,RfpId,kiokId,branchcode) {
 				
 				
 				
 				console.log("RfpId " + RfpId);
+				console.log("kiokId " + kiokId);
+				//console.log("branchCode " + branchCode);
 				
 				selectedCircelId = CircelId;
 				
@@ -190,6 +194,25 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 				selectedYearId = YearId;
 				selectedVendorId= VendorId
 				selectedRfpID= RfpId;
+				
+				selectedkiokId=kiokId;
+				selectedbranchCode=branchcode;
+				
+				
+				
+				if(typeof kiokId === 'undefined'){
+					
+					selectedkiokId="";
+					
+				}
+				
+				if(typeof branchcode === 'undefined'){
+					selectedbranchCode="";
+					
+				}
+				
+				
+				
 				if(typeof RfpId === 'undefined') {
 					
 					selectedRfpID= "1";
@@ -243,7 +266,8 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 						.getUsers(paginationOptions.pageNumber,
 								paginationOptions.pageSize, counttype,
 								selectedCircelId,selectedStateId,
-								quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
+								quterTimePeriod,selectedVendorId,selectedRfpID
+								,selectedkiokId,selectedbranchCode).success(function(data) {
 									console.log("Response Data " + data.totalElements);	
 									
 									if(data.totalElements==0){
@@ -269,11 +293,13 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		    	   	$scope.SelectedVendorId='';
 		    	   	$scope.RfpId='';
 					selectedRfpID="";
+					$scope.SelectedKisokId='';
+					$scope.selectedBranch='';
 					
 					BillingPenaltyService.getUsers(paginationOptions.pageNumber,
 							paginationOptions.pageSize, counttype,
 							selectedCircelId,selectedStateId,
-							quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
+							quterTimePeriod,selectedVendorId,selectedRfpID,selectedkiokId,selectedbranchCode).success(function(data) {
 							
 						$scope.gridOptions.data = data.content;
 						$scope.gridOptions.totalItems = data.totalElements;
@@ -290,7 +316,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	       BillingPenaltyService.getUsers(paginationOptions.pageNumber,
 					paginationOptions.pageSize, counttype,
 					selectedCircelId,selectedStateId,
-					quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
+					quterTimePeriod,selectedVendorId,selectedRfpID,selectedkiokId,selectedbranchCode).success(function(data) {
 						console.log("data2 " + data);
 				$scope.gridOptions.data = data.content;
 				$scope.gridOptions.totalItems = data.totalElements;
@@ -306,7 +332,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		   		BillingPenaltyService.getUsers(paginationOptions.pageNumber,
 						paginationOptions.pageSize, counttype,
 						selectedCircelId,selectedStateId,
-						quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
+						quterTimePeriod,selectedVendorId,selectedRfpID,selectedkiokId,selectedbranchCode).success(function(data) {
 							console.log("data3 " + data);
 					$scope.gridOptions.data = data.content;
 					$scope.gridOptions.totalItems = data.totalElements;
@@ -318,7 +344,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		 	    	BillingPenaltyService.getUsers(paginationOptions.pageNumber,
 							paginationOptions.pageSize, counttype,
 							selectedCircelId,selectedStateId,
-							quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
+							quterTimePeriod,selectedVendorId,selectedRfpID,selectedkiokId,selectedbranchCode).success(function(data) {
 								console.log("data3 " + data);
 						$scope.gridOptions.data = data.content;
 						$scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);	
@@ -333,7 +359,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		 	    	BillingPenaltyService.getUsers(paginationOptions.pageNumber,
 							paginationOptions.pageSize, counttype,
 							selectedCircelId,selectedStateId,
-							quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
+							quterTimePeriod,selectedVendorId,selectedRfpID,selectedkiokId,selectedbranchCode).success(function(data) {
 								console.log("data3 " + data);
 						$scope.gridOptions.data = data.content;
 						$scope.gridOptions.totalItems = data.totalElements;
@@ -346,7 +372,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	  BillingPenaltyService.getUsers(paginationOptions.pageNumber,
 				paginationOptions.pageSize, counttype,
 				selectedCircelId,selectedStateId,
-				quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
+				quterTimePeriod,selectedVendorId,selectedRfpID,selectedkiokId,selectedbranchCode).success(function(data) {
 					console.log("data " + data);
 			$scope.gridOptions.data = data.content;
 			$scope.gridOptions.totalItems = data.totalElements;
@@ -382,7 +408,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	          BillingPenaltyService.getUsers(paginationOptions.pageNumber,
 						paginationOptions.pageSize, counttype,
 						selectedCircelId,selectedStateId,
-						quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
+						quterTimePeriod,selectedVendorId,selectedRfpID,selectedkiokId,selectedbranchCode).success(function(data) {
 							console.log("data4 " + data);
 					$scope.gridOptions.data = data.content;
 					$scope.gridOptions.totalItems = data.totalElements;
@@ -398,14 +424,14 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	app.service('BillingPenaltyService',['$http', function ($http) {
 		
 		function getUsers(pageNumber,size,counttype,selectedCircelId,selectedStateId,
-				quterTimePeriod,selectedVendorId,selectedRfpID) {
+				quterTimePeriod,selectedVendorId,selectedRfpID,selectedKioskId,selectedbranchCode) {
 			pageNumber = pageNumber > 0?pageNumber - 1:0;
 	        return  $http({
 	          method: 'GET',
 	          url: 'billingPenalty/get?page='+pageNumber+
 	     '&size='+size+'&type='+counttype+'&selectedCircelId='+selectedCircelId+'&selectedStateId='+selectedStateId+
 	          '&quterTimePeriod='+quterTimePeriod+'&selectedVendorId='+selectedVendorId+'&selectedRfpID='+selectedRfpID
-	          
+	          +'&selectedKioskId='+selectedKioskId+'&selectedbranchCode='+selectedbranchCode
 	         
 	        });
 	    }

@@ -23,7 +23,8 @@ public class InvoiceCompareServices implements InvoiceCompareService{
 	
 	@Override
 	public Page<InvoiceCompare> findPageByFilterIc(int page, int size, String type, String selectedCircelId,
-			String selectedStateId, String quterTimePeriod, String selectedVendorId, String selectedRfpID) {
+			String selectedStateId, String quterTimePeriod, String selectedVendorId, String selectedRfpID,
+			String selectedKioskId,String selectedBranch) {
 	
 		logger.info("Inside findPageByFilterIc "); 
 		String quarter =null;
@@ -38,11 +39,11 @@ public class InvoiceCompareServices implements InvoiceCompareService{
 			
 			entities =
 					invoiceCompareRepository.findbyFilter(selectedCircelId, selectedStateId,
-							quarter,finacialYear, selectedVendorId, PageRequest.of(page, size));
+							quarter,finacialYear, selectedVendorId, PageRequest.of(page, size),selectedKioskId,selectedBranch);
 		}else {
 			
 			entities = invoiceCompareRepository.findbyFilterWithRFP(selectedCircelId, selectedStateId, 
-					quarter,finacialYear, selectedVendorId, selectedRfpID, PageRequest.of(page, size));
+					quarter,finacialYear, selectedVendorId, selectedRfpID, PageRequest.of(page, size),selectedKioskId,selectedBranch);
 		}
 		}
 		//System.out.println("Inside findPaginatedByFilter " +entities);
@@ -51,7 +52,8 @@ public class InvoiceCompareServices implements InvoiceCompareService{
 
 	@Override
 	public Page<InvoiceCompare> findPageWithoutStateIc(int page, int size, String type, String selectedCircelId,
-			String quterTimePeriod, String selectedVendorId, String selectedRfpID) {
+			String quterTimePeriod, String selectedVendorId, String selectedRfpID,
+			String selectedKioskId,String selectedBranch) {
 		
 		logger.info("Inside findPageWithoutStateIc "); 
 		String quarter =null;
@@ -69,11 +71,13 @@ public class InvoiceCompareServices implements InvoiceCompareService{
 			
 			if(selectedCircelId.equals("0")) {
 				logger.info("Inside Without RFID and CC");
-				entities =invoiceCompareRepository.findbyWithoutStateFilterCC(quarter,finacialYear, selectedVendorId, PageRequest.of(page, size));
+				entities =invoiceCompareRepository.findbyWithoutStateFilterCC(quarter,finacialYear,
+						selectedVendorId, PageRequest.of(page, size),selectedKioskId,selectedBranch);
 				
 			}else {
 				logger.info("Inside Without RFID and without CC");
-				entities =invoiceCompareRepository.findbyWithoutStateFilter(selectedCircelId, quarter,finacialYear, selectedVendorId, PageRequest.of(page, size));
+				entities =invoiceCompareRepository.findbyWithoutStateFilter(selectedCircelId, quarter,
+						finacialYear, selectedVendorId, PageRequest.of(page, size),selectedKioskId,selectedBranch);
 				
 			}
 			
@@ -87,11 +91,12 @@ public class InvoiceCompareServices implements InvoiceCompareService{
 				logger.info("Inside With RFID and CC");
 				
 				entities =invoiceCompareRepository.findbyFilterRfpWithoutStateCC(quarter,finacialYear, 
-								selectedVendorId, selectedRfpID, PageRequest.of(page, size));
+								selectedVendorId, selectedRfpID, PageRequest.of(page, size),selectedKioskId,selectedBranch);
 				
 			}else {
 				logger.info("Inside With RFID and without CC");
-				entities =invoiceCompareRepository.findbyFilterRfpWithoutState(selectedCircelId, quarter,finacialYear, selectedVendorId, selectedRfpID, PageRequest.of(page, size));
+				entities =invoiceCompareRepository.findbyFilterRfpWithoutState(selectedCircelId, quarter,finacialYear, 
+						selectedVendorId, selectedRfpID, PageRequest.of(page, size),selectedKioskId,selectedBranch);
 			}
 		
 			
@@ -106,6 +111,49 @@ public class InvoiceCompareServices implements InvoiceCompareService{
 		return entities;
 	}
 	
+
+
+	/*
+	 * @Override public Page<InvoiceGeneration> findPageByFilterIg(int page, int
+	 * size, String type, String selectedCircelId, String selectedStateId, String
+	 * quterTimePeriod, String selectedVendorId, String selectedRfpID) { // TODO
+	 * Auto-generated method stub return null; }
+	 * 
+	 * @Override public Page<InvoiceGeneration> findPageWithoutStateIg(int page, int
+	 * size, String type, String selectedCircelId, String quterTimePeriod, String
+	 * selectedVendorId, String selectedRfpID) { // TODO Auto-generated method stub
+	 * return null; }
+	 */
+
+	@Override
+	public Page<InvoiceSummaryDto> findPageByFilterIs(int page, int size, String type, String selectedCircelId,
+			String selectedStateId, String quterTimePeriod) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<InvoiceSummaryDto> findPageWithoutStateIs(int page, int size, String type, String selectedCircelId,
+			String quterTimePeriod) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<BillingPenaltyEntity> findPaginatedByFilterSS(int page, int size, String type, String selectedCircelId,
+			String selectedStateId, String quterTimePeriod, String selectedVendorId, String selectedRfpID,
+			String selectedKioskId, String selectedBranch) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<BillingPenaltyEntity> findPaginatedWithoutStateSS(int page, int size, String type,
+			String selectedCircelId, String quterTimePeriod, String selectedVendorId, String selectedRfpID,
+			String selectedKioskId, String selectedBranch) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public Page<BillingPenaltyEntity> findPaginatedByFilter(int page, int size, String type, String selectedCircelId,
@@ -123,28 +171,16 @@ public class InvoiceCompareServices implements InvoiceCompareService{
 
 	@Override
 	public Page<InvoiceGeneration> findPageByFilterIg(int page, int size, String type, String selectedCircelId,
-			String selectedStateId, String quterTimePeriod, String selectedVendorId, String selectedRfpID) {
+			String selectedStateId, String quterTimePeriod, String selectedVendorId, String selectedRfpID,
+			String selectedKioskId, String selectedBranch) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Page<InvoiceGeneration> findPageWithoutStateIg(int page, int size, String type, String selectedCircelId,
-			String quterTimePeriod, String selectedVendorId, String selectedRfpID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Page<InvoiceSummaryDto> findPageByFilterIs(int page, int size, String type, String selectedCircelId,
-			String selectedStateId, String quterTimePeriod) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Page<InvoiceSummaryDto> findPageWithoutStateIs(int page, int size, String type, String selectedCircelId,
-			String quterTimePeriod) {
+			String quterTimePeriod, String selectedVendorId, String selectedRfpID, String selectedKioskId,
+			String selectedBranch) {
 		// TODO Auto-generated method stub
 		return null;
 	}

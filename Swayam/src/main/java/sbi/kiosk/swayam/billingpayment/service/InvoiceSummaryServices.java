@@ -73,12 +73,58 @@ public class InvoiceSummaryServices implements InvoiceSummaryService {
 
 
 
+
+	/*
+	 * @Override public Page<InvoiceGeneration> findPageByFilterIg(int page, int
+	 * size, String type, String selectedCircelId, String selectedStateId, String
+	 * quterTimePeriod, String selectedVendorId, String selectedRfpID) { // TODO
+	 * Auto-generated method stub return null; }
+	 * 
+	 * @Override public Page<InvoiceGeneration> findPageWithoutStateIg(int page, int
+	 * size, String type, String selectedCircelId, String quterTimePeriod, String
+	 * selectedVendorId, String selectedRfpID) { // TODO Auto-generated method stub
+	 * return null; }
+	 */
+
+	/*
+	 * @Override public Page<InvoiceCompare> findPageByFilterIc(int page, int size,
+	 * String type, String selectedCircelId, String selectedStateId, String
+	 * quterTimePeriod, String selectedVendorId, String selectedRfpID) { // TODO
+	 * Auto-generated method stub return null; }
+	 * 
+	 * @Override public Page<InvoiceCompare> findPageWithoutStateIc(int page, int
+	 * size, String type, String selectedCircelId, String quterTimePeriod, String
+	 * selectedVendorId, String selectedRfpID) { // TODO Auto-generated method stub
+	 * return null; }
+	 */
+
+
+
+	@Override
+	public Page<BillingPenaltyEntity> findPaginatedByFilterSS(int page, int size, String type, String selectedCircelId,
+			String selectedStateId, String quterTimePeriod, String selectedVendorId, String selectedRfpID,
+			String selectedKioskId, String selectedBranch) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public Page<BillingPenaltyEntity> findPaginatedWithoutStateSS(int page, int size, String type,
+			String selectedCircelId, String quterTimePeriod, String selectedVendorId, String selectedRfpID,
+			String selectedKioskId, String selectedBranch) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 	@Override
 	public Page<BillingPenaltyEntity> findPaginatedByFilter(int page, int size, String type, String selectedCircelId,
 			String selectedStateId, String quterTimePeriod, String selectedVendorId, String selectedRfpID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 	@Override
 	public Page<BillingPenaltyEntity> findPaginatedWithoutState(int page, int size, String type,
@@ -87,30 +133,38 @@ public class InvoiceSummaryServices implements InvoiceSummaryService {
 		return null;
 	}
 
+
 	@Override
 	public Page<InvoiceGeneration> findPageByFilterIg(int page, int size, String type, String selectedCircelId,
-			String selectedStateId, String quterTimePeriod, String selectedVendorId, String selectedRfpID) {
+			String selectedStateId, String quterTimePeriod, String selectedVendorId, String selectedRfpID,
+			String selectedKioskId, String selectedBranch) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 	@Override
 	public Page<InvoiceGeneration> findPageWithoutStateIg(int page, int size, String type, String selectedCircelId,
-			String quterTimePeriod, String selectedVendorId, String selectedRfpID) {
+			String quterTimePeriod, String selectedVendorId, String selectedRfpID, String selectedKioskId,
+			String selectedBranch) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 	@Override
 	public Page<InvoiceCompare> findPageByFilterIc(int page, int size, String type, String selectedCircelId,
-			String selectedStateId, String quterTimePeriod, String selectedVendorId, String selectedRfpID) {
+			String selectedStateId, String quterTimePeriod, String selectedVendorId, String selectedRfpID,
+			String selectedKioskId, String selectedBranch) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+
 	@Override
 	public Page<InvoiceCompare> findPageWithoutStateIc(int page, int size, String type, String selectedCircelId,
-			String quterTimePeriod, String selectedVendorId, String selectedRfpID) {
+			String quterTimePeriod, String selectedVendorId, String selectedRfpID, String selectedKioskId,
+			String selectedBranch) {
 		// TODO Auto-generated method stub
 		return null;
 	}
