@@ -161,8 +161,9 @@
 
 		<div class="submain_transaction">	
 	
-	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle, No Of Branches, Kiosks, Txns, etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">
-		
+	<input ng-model="searchText"  placeholder="Enter Circle, No Of Branches, Kiosks, Txns, etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">
+		 <button  id="btnSearchText" ng-click="refresh()">Search</button> 
+		 <button  id="btnClearSearch" ng-click="clearSearch()">ClearSearch</button>	
 			<span style="float:right">
 		<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
 		<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>

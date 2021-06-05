@@ -86,7 +86,7 @@
 			.ui-grid-header-canvas {
 			    padding-top: 0px;
 			    padding-bottom: 0px;}
-	button {
+	#btnClearText {
  
  background-color: #fdd209;
     color: #2f246c;
@@ -147,9 +147,11 @@
 		<div class="submain_transaction">
 	
 	
-	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle, No Of Branches, Kiosks, Txns, etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">
-		<button  id="btnClearText" ng-click="backUser()">Back</button>	
+	<input ng-model="searchText"  placeholder="Enter Circle, No Of Branches, Kiosks, Txns, etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">
 		
+		 <button  id="btnSearchText" ng-click="refresh()">Search</button> 
+		 <button  id="btnClearSearch" ng-click="clearSearch()">ClearSearch</button>	
+		 <button  id="btnClearText" ng-click="backUser()">Back</button>	
 		<br/>
 		<!-- Added for loader------------- START -->	
 	

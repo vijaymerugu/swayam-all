@@ -59,7 +59,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService','uiGridCo
 		    //  Added for loader------------- START 
 			$("#loading").show(); 
 		//  Added for loader------------- END 
-	 	   UserManagementService.getUsers(paginationOptions.pageNumber,
+			DrillDownService.getUsers(paginationOptions.pageNumber,
 	 			   paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
 	 		  $scope.gridOptions.data = data.content;
 	 	 	  $scope.gridOptions.totalItems = data.totalElements;
@@ -76,7 +76,7 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService','uiGridCo
 	 		    //  Added for loader------------- START 
 				$("#loading").show(); 
 			//  Added for loader------------- END 
-	 	    	UserManagementService.getUsers(paginationOptions.pageNumber,
+				DrillDownService.getUsers(paginationOptions.pageNumber,
 	 	 			   paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
 	 	 		  $scope.gridOptions.data = data.content;
 	 	 	 	  $scope.gridOptions.totalItems = data.totalElements;
@@ -86,6 +86,26 @@ app.controller('DrillDownCtrl', ['$scope','$filter','DrillDownService','uiGridCo
 	 	 	   });
 	 	    }
 	    };
+	    
+	    $scope.clearSearch = function()
+	    {  	debugger;
+	 	  
+	    	$scope.searchText='';	
+	 	   
+	 	        $("#loading").show();  
+	 	    
+	 	       DrillDownService.getUsers(0,
+	 	   			paginationOptions.pageSize,counttype,circleName,networkName,moduleName,regionName,fromDate,toDate).success(function(data){
+	 	  	  $scope.gridOptions.data = data.content;
+	 	  //	  $scope.gridOptions.paginationCurrentPage = data.number;
+	 	   	  $scope.gridOptions.totalItems = data.totalElements;
+	 	   	
+	 	        $("#loading").hide();  
+	 	     
+	 	     }); 
+	 	 		   
+	 	 	   
+	 	    };
 	    //  Added for loader------------- START 
 		$("#loading").show(); 
 	//  Added for loader------------- END 
