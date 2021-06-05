@@ -121,6 +121,8 @@ public interface DowntimePagingRepository extends PagingAndSortingRepository<Dow
 			    + " AND km.circle LIKE %?3% "
 			    + " AND km.vendor LIKE %?4% "
 			    + " AND  nvl(uk.pf_id,0) LIKE %?5% "
+			    +" AND bm.branch_code LIKE %?6% "
+			    +" AND km.kiosk_id LIKE %?7% "
 			    + " GROUP BY uk.pf_id, km.circle,bm.network,bm.module,bm.branch_code,km.kiosk_id,km.vendor,us.username",
 			    
 			    nativeQuery = true,countQuery ="	SELECT count(km.kiosk_id)  FROM  tbl_kiosk_master km  "
@@ -131,6 +133,8 @@ public interface DowntimePagingRepository extends PagingAndSortingRepository<Dow
 					    + " AND km.circle LIKE %?3% "
 					    + " AND km.vendor LIKE %?4% "
 					    + " AND  nvl(uk.pf_id,0) LIKE %?5% "
+					    +" AND bm.branch_code LIKE %?6% "
+					    +" AND km.kiosk_id LIKE %?7% "
 					    + " GROUP BY uk.pf_id, km.circle,bm.network,bm.module,bm.branch_code,km.kiosk_id,km.vendor,us.username")
 	
 	
@@ -138,7 +142,7 @@ public interface DowntimePagingRepository extends PagingAndSortingRepository<Dow
 	
 	
 	Page<DownTime> findAllByFilter(String selectedFromDateId, String selectedToDateId, String selectedCircelId,
-			String selectedVendorId ,String selectedCmsCmfId, Pageable pageable);
+			String selectedVendorId ,String selectedCmsCmfId,String selectedBranchCodeId,String selectedKioskId,  Pageable pageable);
 	
 	
 	@Query(value = "select USERNAME from tbl_User where pf_id in(select pf_id from tbl_User_Kiosk_Mapping where KIOSK_ID=:kioskId )",nativeQuery = true)
@@ -260,6 +264,8 @@ public interface DowntimePagingRepository extends PagingAndSortingRepository<Dow
 					    + " AND km.circle LIKE %?3% "
 					    + " AND km.vendor LIKE %?4% "
 					    + " AND  nvl(uk.pf_id,0) LIKE %?5% "
+					    +" AND bm.branch_code LIKE %?6% "
+					    +" AND km.kiosk_id LIKE %?7% "
 					    + " GROUP BY uk.pf_id, km.circle,bm.network,bm.module,bm.branch_code,km.kiosk_id,km.vendor,us.username",
 					    
 					    nativeQuery = true,countQuery ="	SELECT count(km.kiosk_id)  FROM  tbl_kiosk_master km  "
@@ -270,13 +276,15 @@ public interface DowntimePagingRepository extends PagingAndSortingRepository<Dow
 							    + " AND km.circle LIKE %?3% "
 							    + " AND km.vendor LIKE %?4% "
 							    + " AND  nvl(uk.pf_id,0) LIKE %?5% "
+							    +" AND bm.branch_code LIKE %?6% "
+							    +" AND km.kiosk_id LIKE %?7% "
 							    + " GROUP BY uk.pf_id, km.circle,bm.network,bm.module,bm.branch_code,km.kiosk_id,km.vendor,us.username")
 			
 			
 				
 				
 				List<DownTime> findAllByFilterDTimeReports( String selectedFromDateId, String selectedToDateId, String selectedCircelId,
-						String selectedVendorId ,String selectedCmsCmfId);
+						String selectedVendorId ,String selectedCmsCmfId,String selectedBranchCodeId,String selectedKioskId);
 			  
 			  
 			  

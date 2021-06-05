@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 		private String cmsCmf;
 		private String fromDate;
 		private String toDate;
+		private String branchCode;
+		private String kioskId;
 		public String getCircle() {
 			return circle;
 		}
@@ -40,6 +42,18 @@ import org.springframework.stereotype.Component;
 		}
 		public void setToDate(String toDate) {
 			this.toDate = toDate;
+		}
+		public String getBranchCode() {
+			return branchCode;
+		}
+		public void setBranchCode(String branchCode) {
+			this.branchCode = branchCode;
+		}
+		public String getKioskId() {
+			return kioskId;
+		}
+		public void setKioskId(String kioskId) {
+			this.kioskId = kioskId;
 		}
 		
 		

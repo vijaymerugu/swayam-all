@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import sbi.kiosk.swayam.common.dto.KioskBranchMasterUserDto;
 import sbi.kiosk.swayam.common.dto.TerminalStatusDto;
+import sbi.kiosk.swayam.common.dto.TerminalStatusSearchTextDto;
 import sbi.kiosk.swayam.common.dto.TicketCentorDto;
 import sbi.kiosk.swayam.common.entity.BranchMaster;
 import sbi.kiosk.swayam.common.entity.KioskBranchMaster;
@@ -24,6 +25,7 @@ import sbi.kiosk.swayam.healthmonitoring.repository.BranchMasterRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.KioskMasterRepo;
 import sbi.kiosk.swayam.healthmonitoring.repository.TerminalStatusRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.TerminalStatusRepositoryPaging;
+import sbi.kiosk.swayam.healthmonitoring.repository.TerminalStatusSearchTextRepositoryPaging;
 import sbi.kiosk.swayam.transactiondashboard.controller.TransactionDashBoardController;
 
 @Service
@@ -37,7 +39,8 @@ public class TerminalStatusServiceImpl implements TerminalStatusService {
 	BranchMasterRepository branchMasterRepo;
 	@Autowired
 	KioskMasterRepo kioskMasterRepo;
-
+	@Autowired
+	TerminalStatusSearchTextRepositoryPaging terminalStatusSearchTextRepo;
 
 	/*@Override
 	public Page<TerminalStatusDto> findPaginated(int page, int size) {
@@ -472,6 +475,218 @@ public class TerminalStatusServiceImpl implements TerminalStatusService {
 	return entities;
 		
 	}
+	
+	
+	
+	@Override
+	public Page<TerminalStatusSearchTextDto> findPaginatedSearchText(int page, int size,String searchText) {
+		logger.info("Service-=====findPaginatedSearchText===" + page);
+		logger.info("size=======findPaginatedSearchText==========="+size);
+		Page<TerminalStatusSearchTextDto> entities = terminalStatusSearchTextRepo.findBySearchText(searchText,PageRequest.of(page, size)).map(TerminalStatusSearchTextDto::new);
+
+			logger.info("findPaginatedSearchText entities::::" + entities);
+		
+		return entities;
+	}
+	
+	@Override
+	public Page<TerminalStatusSearchTextDto> findPaginatedNew(int page, int size) {
+		logger.info("Service-===findPaginatedNew=====" + page);
+		logger.info("size=======findPaginatedNew==========="+size);
+		Page<TerminalStatusSearchTextDto> entities = terminalStatusSearchTextRepo.findByAll(PageRequest.of(page, size)).map(TerminalStatusSearchTextDto::new);
+
+			logger.info("findPaginatedSearchText entities::::" + entities);
+		
+		return entities;
+	}
+	
+	
+	
+	
+	
+	@Override
+	public Page<TerminalStatusSearchTextDto> findPaginatedCount_NQ(int page, int size, String type) {
+         logger.info("findPaginatedCount Service=====size"+size);
+         logger.info("findPaginatedCount Service=====page"+page);
+          Page<TerminalStatusSearchTextDto> entities =null;
+          Page<TerminalStatusDto> terminalEntities =null;
+
+       if(type.equals("NoOfRedPVSRed")){
+		 //entities = terminalStatusRepositoryPaging.findByPbPrinterStatus(PageRequest.of(page, size),"Red");
+		 entities =terminalStatusSearchTextRepo.findByPrinterStatusRedList(PageRequest.of(page,size)).map(TerminalStatusSearchTextDto::new);
+		logger.info("entities::::::NoOfRedPVSRed::::"+entities.getContent());
+		
+		//terminalEntities=getAllTerminalStatusOfDto(entities);
+		
+       }else  if(type.equals("NoOfGreenPVSGreen")){
+   		 //entities = terminalStatusRepositoryPaging.findByPbPrinterStatus(PageRequest.of(page, size),"Green");
+   		entities =terminalStatusSearchTextRepo.findByPrinterStatusGreenList(PageRequest.of(page,size)).map(TerminalStatusSearchTextDto::new);
+   		logger.info("entities:::::::NoOfGreenPVSGreen:::"+entities.getContent());
+   		
+   		//terminalEntities=getAllTerminalStatusOfDto(entities);
+   		
+          } else if(type.equals("NoOfGreyPVSGrey")){
+   		//entities = terminalStatusRepositoryPaging.findByPbPrinterStatus(PageRequest.of(page, size),"Grey");
+   		entities =terminalStatusSearchTextRepo.findByPrinterStatusGrayList(PageRequest.of(page,size)).map(TerminalStatusSearchTextDto::new);
+   		logger.info("entities::::::NoOfGreyPVSGrey::::"+entities.getContent());
+          
+   		//terminalEntities=getAllTerminalStatusOfDto(entities);
+       } else if(type.equals("NoOfRedCARTRed")){
+		//entities = terminalStatusRepositoryPaging.findByCartridgeStatus(PageRequest.of(page, size),"Red");
+		entities =terminalStatusSearchTextRepo.findByCartridgeStatusRedList(PageRequest.of(page,size)).map(TerminalStatusSearchTextDto::new);
+	logger.info("entities::::::NoOfRedCARTRed::::"+entities.getContent());
+		//terminalEntities=getAllTerminalStatusOfDto(entities);
+       }
+    else if(type.equals("NoOfGreenCARTGreen")){
+		//entities = terminalStatusRepositoryPaging.findByCartridgeStatus(PageRequest.of(page, size),"Green");
+		entities =terminalStatusSearchTextRepo.findByCartridgeStatusGreenList(PageRequest.of(page,size)).map(TerminalStatusSearchTextDto::new);
+		logger.info("entities:::::NoOfGreenCARTGreen:::::"+entities.getContent());
+		//terminalEntities=getAllTerminalStatusOfDto(entities);
+       }
+    else if(type.equals("NoOfGreyCARTGrey")){
+		//entities = terminalStatusRepositoryPaging.findByCartridgeStatus(PageRequest.of(page, size),"Grey");
+		entities =terminalStatusSearchTextRepo.findByCartridgeStatusGrayList(PageRequest.of(page,size)).map(TerminalStatusSearchTextDto::new);
+		logger.info("entities::::::::NoOfGreyCARTGrey::"+entities.getContent());
+		//terminalEntities=getAllTerminalStatusOfDto(entities);
+       }
+       
+    else if(type.equals("NoOfRedANTRed")){
+		//entities = terminalStatusRepositoryPaging.findByAgentStatus(PageRequest.of(page, size),"Red");
+		//entities = terminalStatusRepositoryPaging.findByAgentStatus(PageRequest.of(page, size),"red","RED","Red");
+    	entities =terminalStatusSearchTextRepo.findByAgentStatusRedList(PageRequest.of(page,size)).map(TerminalStatusSearchTextDto::new);
+	    logger.info("entitiesList=====111111111111111111=========:NoOfRedANTRed:::::::::"+entities.getContent().size());
+		
+	//logger.info("entities:NoOfRedANTRed:::::::::"+entities11.getContent().size());
+	
+	
+		//terminalEntities=getAllTerminalStatusOfDto(entities);
+		
+       }
+       
+       
+    else if(type.equals("NoOfGreenANTGreen")){
+		//entities = terminalStatusRepositoryPaging.findByAgentStatus(PageRequest.of(page, size),"Green");
+		entities =terminalStatusSearchTextRepo.findByAgentStatusGreenList(PageRequest.of(page,size)).map(TerminalStatusSearchTextDto::new);
+	logger.info("entities::::NoOfGreenANTGreen::::::"+entities.getContent().size());
+		//terminalEntities=getAllTerminalStatusOfDto(entities);
+       }
+       
+    else if(type.equals("NoOfGreyANTGrey")){
+		//entities = terminalStatusRepositoryPaging.findByAgentStatus(PageRequest.of(page, size),"Grey");
+		entities =terminalStatusSearchTextRepo.findByAgentStatusGrayList(PageRequest.of(page,size)).map(TerminalStatusSearchTextDto::new);
+		logger.info("entities::::::::::"+entities.getContent().size());
+		//terminalEntities=getAllTerminalStatusOfDto(entities);
+       }
+    else if(type.equals("NoOfRedAPPSRed")){
+		//entities = terminalStatusRepositoryPaging.findByAplicationStatus(PageRequest.of(page, size),"Red");
+		entities =terminalStatusSearchTextRepo.findByApplicatinStatusRedList(PageRequest.of(page,size)).map(TerminalStatusSearchTextDto::new);
+		logger.info("entities::::::::::"+entities.getContent());
+		//terminalEntities=getAllTerminalStatusOfDto(entities);
+       }
+    else if(type.equals("NoOfGreenAPPSGreen")){
+		//entities = terminalStatusRepositoryPaging.findByAplicationStatus(PageRequest.of(page, size),"Green");
+		entities =terminalStatusSearchTextRepo.findByApplicatinStatusGreenList(PageRequest.of(page,size)).map(TerminalStatusSearchTextDto::new);
+		logger.info("entities::::::::::"+entities.getContent());
+		//terminalEntities=getAllTerminalStatusOfDto(entities);
+       }
+    else if(type.equals("NoOfGreyAPPSGrey")){
+		//entities = terminalStatusRepositoryPaging.findByAplicationStatus(PageRequest.of(page, size),"Grey");
+		entities =terminalStatusSearchTextRepo.findByApplicatinStatusGrayList(PageRequest.of(page,size)).map(TerminalStatusSearchTextDto::new);
+		logger.info("entities::::::::::"+entities.getContent());
+		//terminalEntities=getAllTerminalStatusOfDto(entities);
+       }
+       else{
+    	   		entities = terminalStatusSearchTextRepo.findByAplicationStatus(PageRequest.of(page, size),type).map(TerminalStatusSearchTextDto::new);
+    	  		logger.info("entities::::::::::"+entities.getContent());
+    	   		//terminalEntities=getAllTerminalStatusOfDto(entities);
+       }
+       
+		return entities;
+	}
+
+
+	@Override
+	public Page<TerminalStatusSearchTextDto> findPaginatedCount_SearchTextNQ(int page, int size, String type,String searchText) {
+		
+	       logger.info("findPaginatedCount Service=====size"+size);
+           logger.info("findPaginatedCount Service=====page"+page);
+          Page<TerminalStatusSearchTextDto> entities =null;
+
+         if(type.equals("NoOfRedPVSRed")){
+		 entities =terminalStatusSearchTextRepo.findByPrinterStatusRedSearchTextList(searchText,PageRequest.of(page,size)).map(TerminalStatusSearchTextDto::new);
+		logger.info("entities::::::NoOfRedPVSRed::::"+entities.getContent());
+		//terminalEntities=getAllTerminalStatusOfDto(entities);
+      }else  if(type.equals("NoOfGreenPVSGreen")){
+  		entities =terminalStatusSearchTextRepo.findByPrinterStatusGreenSearchTextList(searchText,PageRequest.of(page,size)).map(TerminalStatusSearchTextDto::new);
+  		logger.info("entities:::::::NoOfGreenPVSGreen:::"+entities.getContent());
+  		//terminalEntities=getAllTerminalStatusOfDto(entities);
+         } else if(type.equals("NoOfGreyPVSGrey")){
+  		//entities = terminalStatusRepositoryPaging.findByPbPrinterStatus(PageRequest.of(page, size),"Grey");
+  		entities =terminalStatusSearchTextRepo.findByPrinterStatusGraySearchTextList(searchText,PageRequest.of(page,size)).map(TerminalStatusSearchTextDto::new);
+  		logger.info("entities::::::NoOfGreyPVSGrey::::"+entities.getContent());
+  		//terminalEntities=getAllTerminalStatusOfDto(entities);
+      } else if(type.equals("NoOfRedCARTRed")){
+		entities =terminalStatusSearchTextRepo.findByCartridgeStatusRedSearchTextList(searchText,PageRequest.of(page,size)).map(TerminalStatusSearchTextDto::new);
+	    logger.info("entities::::::NoOfRedCARTRed::::"+entities.getContent());
+		//terminalEntities=getAllTerminalStatusOfDto(entities);
+      }  else if(type.equals("NoOfGreenCARTGreen")){
+		entities =terminalStatusSearchTextRepo.findByCartridgeStatusGreenSearchTextList(searchText,PageRequest.of(page,size)).map(TerminalStatusSearchTextDto::new);
+		logger.info("entities:::::NoOfGreenCARTGreen:::::"+entities.getContent());
+		//terminalEntities=getAllTerminalStatusOfDto(entities);
+      }else if(type.equals("NoOfGreyCARTGrey")){
+		entities =terminalStatusSearchTextRepo.findByCartridgeStatusGraySearchTextList(searchText,PageRequest.of(page,size)).map(TerminalStatusSearchTextDto::new);
+		logger.info("entities::::::::NoOfGreyCARTGrey::"+entities.getContent());
+		//terminalEntities=getAllTerminalStatusOfDto(entities);
+      }  else if(type.equals("NoOfRedANTRed")){
+     	entities =terminalStatusSearchTextRepo.findByAgentStatusRedSearchTextList(searchText,PageRequest.of(page,size)).map(TerminalStatusSearchTextDto::new);
+	    logger.info("entitiesList=====111111111111111111=========:NoOfRedANTRed:::::::::"+entities.getContent().size());
+		//terminalEntities=getAllTerminalStatusOfDto(entities);
+      }else if(type.equals("NoOfGreenANTGreen")){
+		entities =terminalStatusSearchTextRepo.findByAgentStatusGreenSearchTextList(searchText,PageRequest.of(page,size)).map(TerminalStatusSearchTextDto::new);
+	    logger.info("entities::::NoOfGreenANTGreen::::::"+entities.getContent().size());
+		//terminalEntities=getAllTerminalStatusOfDto(entities);
+      }  else if(type.equals("NoOfGreyANTGrey")){
+		entities =terminalStatusSearchTextRepo.findByAgentStatusGraySearchTextList(searchText,PageRequest.of(page,size)).map(TerminalStatusSearchTextDto::new);
+		logger.info("entities::::::::::"+entities.getContent().size());
+		//terminalEntities=getAllTerminalStatusOfDto(entities);
+      }  else if(type.equals("NoOfRedAPPSRed")){
+		entities =terminalStatusSearchTextRepo.findByApplicatinStatusRedSearchTextList(searchText,PageRequest.of(page,size)).map(TerminalStatusSearchTextDto::new);
+		logger.info("entities::::::::::"+entities.getContent());
+      }   else if(type.equals("NoOfGreenAPPSGreen")){
+		entities =terminalStatusSearchTextRepo.findByApplicatinStatusGreenSearchTextList(searchText,PageRequest.of(page,size)).map(TerminalStatusSearchTextDto::new);
+		logger.info("entities::::::::::"+entities.getContent());
+		//terminalEntities=getAllTerminalStatusOfDto(entities);
+      }
+   else if(type.equals("NoOfGreyAPPSGrey")){
+		entities =terminalStatusSearchTextRepo.findByApplicatinStatusGraySearchTextList(searchText,PageRequest.of(page,size)).map(TerminalStatusSearchTextDto::new);
+		logger.info("entities::::::::::"+entities.getContent());
+		//terminalEntities=getAllTerminalStatusOfDto(entities);
+      }
+      else{
+   	   		entities = terminalStatusSearchTextRepo.findByAplicationStatus(PageRequest.of(page, size),type).map(TerminalStatusSearchTextDto::new);
+   	  		logger.info("entities::::::::::"+entities.getContent());
+   	   		//terminalEntities=getAllTerminalStatusOfDto(entities);
+      }
+      
+		return entities;
+	}
+	
+	
+	/*
+	@Override
+	public Page<TerminalStatusDto> findPaginated(int page, int size) {
+		logger.info("Service-========--" + page);
+		List<KioskBranchMaster> kioskMastlist = null;
+		String cmfNameList = null;
+		Page<TerminalStatusDto> entities = terminalStatusRepositoryPaging.findAll(PageRequest.of(page, size))
+				.map(TerminalStatusDto::new);
+
+		
+		
+		return entities;
+	}
+	*/
+	
 	
 	
 

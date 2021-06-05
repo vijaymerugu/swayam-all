@@ -22,13 +22,13 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 
 		   UserManagementService.getUsers(paginationOptions.pageNumber,
 				   paginationOptions.pageSize,$scope.counttype).success(function(data){	
-					
+					//alert("$scope.counttype "+$scope.counttype);
 						  $scope.gridOptions.data = data.content;
 						  $scope.gridOptions.paginationCurrentPage = paginationOptions.pageNumber;
 						  $scope.gridOptions.totalItems = data.totalElements;
 					   });
 		}
-   
+  /* 
   
    $scope.refresh = function()
    {  		if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
@@ -47,6 +47,144 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	  $scope.gridOptions.totalItems = data.totalElements;
    });
 
+
+*/
+
+
+/*   $scope.refresh = function()
+   {  	
+	   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){
+	   	//  Added for loader------------- START 
+	        $("#loading").show();  
+	     // Added for loader------------- END
+	   		UserManagementService.getUsers(paginationOptions.pageNumber,
+	   			  paginationOptions.pageSize,counttype).success(function(data){
+	   			 $scope.gridOptions.data = data.content;
+	   			   $scope.gridOptions.totalItems = data.totalElements;
+	   		//  Added for loader------------- START 
+			        $("#loading").hide();  
+			     // Added for loader------------- END
+	   			   });   
+	 		   
+	 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
+	 	  
+	 	    	
+	 	    	$("#loading").show(); 
+		 	  	 UserManagementService.getSearchNext(paginationOptions.pageNumber,
+		 	  			paginationOptions.pageSize,counttype,$scope.searchText).success(function(data3){
+		 	 	  		 
+		 	 	  	  $scope.gridOptions.data = data3.content;
+		 	  	   	  $scope.gridOptions.totalItems = data3.totalElements;
+		 	  	      $("#loading").hide();
+		 	 	     });
+	 		   
+	 	    }else{
+	 	   //  Added for loader------------- START 
+		        $("#loading").show();  
+		     // Added for loader------------- END
+	 	    	UserManagementService.getUsers(paginationOptions.pageNumber,
+	 	    			  paginationOptions.pageSize,counttype).success(function(data){
+	 	    			 $scope.gridOptions.data = data.content;
+	 	    			   $scope.gridOptions.totalItems = data.totalElements;
+	 	    			//  Added for loader------------- START 
+					        $("#loading").hide();  
+					     // Added for loader------------- END
+	 	    			   });
+	 	    }
+	    };
+
+	//  Added for loader------------- START 
+        $("#loading").show();  
+     // Added for loader------------- END
+   UserManagementService.getUsers(paginationOptions.pageNumber,
+    paginationOptions.pageSize,counttype).success(function(data){
+  
+   $scope.gridOptions.data = data.content;
+   $scope.gridOptions.totalItems = data.totalElements;
+// Added for loader------------- START 
+   $("#loading").hide();  
+// Added for loader------------- END
+   });
+*/
+
+
+
+   $scope.refresh = function()
+   {  
+  if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){
+  //  Added for loader------------- START
+       $("#loading").show();  
+    // Added for loader------------- END
+  UserManagementService.getUsers(paginationOptions.pageNumber,
+   paginationOptions.pageSize,counttype).success(function(data){
+  $scope.gridOptions.data = data.content;
+    $scope.gridOptions.totalItems = data.totalElements;
+  //  Added for loader------------- START
+       $("#loading").hide();  
+    // Added for loader------------- END
+    });  
+ 
+   }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){debugger;
+ 
+ /* $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText); */  
+   
+    $("#loading").show();
+ /* UserManagementService.getSearchNext(paginationOptions.pageNumber,
+  paginationOptions.pageSize,fromDate,toDate,$scope.searchText).success(function(data3){*/
+  UserManagementService.getSearchNext(0,
+  paginationOptions.pageSize,counttype,$scope.searchText).success(function(data3){
+   $scope.gridOptions.data = data3.content;
+     $scope.gridOptions.totalItems = data3.totalElements;
+       $("#loading").hide();
+    });
+ 
+   }else{
+  //  Added for loader------------- START
+       $("#loading").show();  
+    // Added for loader------------- END
+    UserManagementService.getUsers(paginationOptions.pageNumber,
+     paginationOptions.pageSize,counttype).success(function(data){
+    $scope.gridOptions.data = data.content;
+      $scope.gridOptions.totalItems = data.totalElements;
+    //  Added for loader------------- START
+       $("#loading").hide();  
+    // Added for loader------------- END
+      });
+   }
+   };
+   $scope.clearSearch = function()
+   {   debugger;
+ 
+    $scope.searchText='';
+ 
+       $("#loading").show();  
+   
+  UserManagementService.getUsers(0,
+  paginationOptions.pageSize,counttype).success(function(data){
+   $scope.gridOptions.data = data.content;
+   $scope.gridOptions.paginationCurrentPage = data.number;
+   $scope.gridOptions.totalItems = data.totalElements;
+ 
+       $("#loading").hide();  
+   
+    });
+ 
+ 
+   };
+//  Added for loader------------- START
+        $("#loading").show();  
+     // Added for loader------------- END
+   UserManagementService.getUsers(paginationOptions.pageNumber,
+    paginationOptions.pageSize,counttype).success(function(data){
+ 
+   $scope.gridOptions.data = data.content;
+   $scope.gridOptions.totalItems = data.totalElements;
+// Added for loader------------- START
+   $("#loading").hide();  
+// Added for loader------------- END
+   });
+
+
    $scope.gridOptions = {
     /*paginationPageSizes: [20, 30, 40],*/
     paginationPageSize: paginationOptions.pageSize,
@@ -55,19 +193,19 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    
     
       columnDefs: [
-          { name: 'kioskId',width:150, headerCellTemplate: '<div>Kiosk<br/>Id</div>' },
-          { name: 'kioskSrNo',width:150,headerCellTemplate: '<div>Kiosk<br/>Serial No</div>'},
-          { name: 'branchCode',width:150, displayName: 'BR Code'},
-          {name:'circle',width:150,displayName: 'Circle' },
-          { name: 'cmf',width:150, displayName: 'CMF' }, 
+          { name: 'kioskId', headerCellTemplate: '<div>Kiosk<br/>Id</div>' },
+          { name: 'kioskSrNo',headerCellTemplate: '<div>Kiosk<br/>Serial No</div>'},
+          { name: 'brCode', displayName: 'BR Code'},
+          {name:'circle',displayName: 'Circle' },
+          { name: 'cmf', displayName: 'CMF' }, 
          // { name: 'rmmsConnectivity',headerCellTemplate: '<div>Ticket<br/>No</div>' ,
          //cellTemplate: '<div ng-if="row.entity.rmmsConnectivity == \'Red\'"><span><img src="resources/img/red.gif"></span></div><div ng-if="row.entity.rmmsConnectivity == \'Green\'"><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.rmmsConnectivity == \'Gray\'"><span><img src="resources/img/gray.gif"></span></div>'},
           
-           { name: 'rmmsConnectivity',width:170,headerCellTemplate: '<div>Ticket<br/>No</div>'}, //rmmsConnectivity map with Ticket No
+           { name: 'rmmsConnectivity',headerCellTemplate: '<div>Ticket<br/>No</div>'}, //rmmsConnectivity map with Ticket No
           
-          { name: 'pbPrinterStatus',width:150,headerCellTemplate: '<div>Printer<br/>Status</div>' ,
+          { name: 'pbPrinterStatus',headerCellTemplate: '<div>Printer<br/>Status</div>' ,
          cellTemplate: '<div ng-if="row.entity.pbPrinterStatus == \'Red\'"><span><img src="resources/img/red.gif"></span></div>  <div ng-if="row.entity.pbPrinterStatus == \'red\'"><span><img src="resources/img/red.gif"></span></div> <div ng-if="row.entity.pbPrinterStatus == \'RED\'"><span><img src="resources/img/red.gif"></span></div>  	 <div ng-if="row.entity.pbPrinterStatus == \'Green\'"><span><img src="resources/img/green.gif"></span></div>     	 <div ng-if="row.entity.pbPrinterStatus == \'green\'"><span><img src="resources/img/green.gif"></span></div>    	 <div ng-if="row.entity.pbPrinterStatus == \'GREEN\'"><span><img src="resources/img/green.gif"></span></div>   	 <div ng-if="row.entity.pbPrinterStatus == \'Gray\'"><span><img src="resources/img/gray.gif"></span></div>      	 <div ng-if="row.entity.pbPrinterStatus == \'gray\'"><span><img src="resources/img/gray.gif"></span></div>    	 <div ng-if="row.entity.pbPrinterStatus == \'GRAY\'"><span><img src="resources/img/gray.gif"></span></div> '},
-          { name: 'cartridgeStatus',width:150,headerCellTemplate: '<div>Cartridge<br/>Status</div>',
+          { name: 'cartridgeStatus',headerCellTemplate: '<div>Cartridge<br/>Status</div>',
          cellTemplate: '<div ng-if="row.entity.cartridgeStatus == \'Red\'"><span><img src="resources/img/red.gif"></span></div> <div ng-if="row.entity.cartridgeStatus == \'red\'"><span><img src="resources/img/red.gif"></span></div> <div ng-if="row.entity.cartridgeStatus == \'RED\'"><span><img src="resources/img/red.gif"></span></div>    	 <div ng-if="row.entity.cartridgeStatus == \'Green\'"><span><img src="resources/img/green.gif"></span></div>   	 <div ng-if="row.entity.cartridgeStatus == \'green\'"><span><img src="resources/img/green.gif"></span></div>  	 <div ng-if="row.entity.cartridgeStatus == \'GREEN\'"><span><img src="resources/img/green.gif"></span></div>    	 <div ng-if="row.entity.cartridgeStatus == \'Gray\'"><span><img src="resources/img/gray.gif"></span></div>    	 <div ng-if="row.entity.cartridgeStatus == \'gray\'"><span><img src="resources/img/gray.gif"></span></div>     	 <div ng-if="row.entity.cartridgeStatus == \'GRAY\'"><span><img src="resources/img/gray.gif"></span></div> '},
          // { name: 'agentStatus', headerCellTemplate: '<div>Agent<br/>Status</div>',
          //cellTemplate: '<div ng-if="row.entity.antivirusStatus == \'Red\'"><span><img src="resources/img/red.gif"></span></div><div ng-if="row.entity.antivirusStatus == \'Green\'"><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.antivirusStatus == \'Gray\'"><span><img src="resources/img/gray.gif"></span></div>' },
@@ -75,12 +213,12 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
          /*  { name: 'agentStatus', headerCellTemplate: '<div>Agent<br/>Status</div>',
          cellTemplate: '<div ng-if="row.entity.agentStatus == \'Red\'"><span><img src="resources/img/red.gif"></span></div><div ng-if="row.entity.agentStatus == \'Green\'"><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.agentStatus == \'Gray\'"><span><img src="resources/img/gray.gif"></span></div>' },
         */  
-        { name: 'agentStatus',width:150, headerCellTemplate: '<div>Agent<br/>Status</div>',  cellTemplate: '<div ng-if="row.entity.agentStatus == \'Red\'"> <span><img src="resources/img/red.gif"></span></div><div ng-if="row.entity.agentStatus == \'red\'"><span><img src="resources/img/red.gif"></span></div> <div ng-if="row.entity.agentStatus == \'RED\'"><span><img src="resources/img/red.gif"></span></div><div ng-if="row.entity.agentStatus == \'Green\' "><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.agentStatus == \'green\' "><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.agentStatus == \'GREEN\' "><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.agentStatus == \'Gray\'"><span><img src="resources/img/gray.gif"></span></div> <div ng-if="row.entity.agentStatus == \'gray\'"><span><img src="resources/img/gray.gif"></span></div> <div ng-if="row.entity.agentStatus == \'GRAY\'"><span><img src="resources/img/gray.gif"></span></div>'
+        { name: 'agentStatus', headerCellTemplate: '<div>Agent<br/>Status</div>',  cellTemplate: '<div ng-if="row.entity.agentStatus == \'Red\'"> <span><img src="resources/img/red.gif"></span></div><div ng-if="row.entity.agentStatus == \'red\'"><span><img src="resources/img/red.gif"></span></div> <div ng-if="row.entity.agentStatus == \'RED\'"><span><img src="resources/img/red.gif"></span></div><div ng-if="row.entity.agentStatus == \'Green\' "><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.agentStatus == \'green\' "><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.agentStatus == \'GREEN\' "><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.agentStatus == \'Gray\'"><span><img src="resources/img/gray.gif"></span></div> <div ng-if="row.entity.agentStatus == \'gray\'"><span><img src="resources/img/gray.gif"></span></div> <div ng-if="row.entity.agentStatus == \'GRAY\'"><span><img src="resources/img/gray.gif"></span></div>'
             	 },
-         { name: 'aplicationStatus',width:150,   headerCellTemplate: '<div>Aplication<br/>Status</div>' ,
+         { name: 'aplicationStatus',   headerCellTemplate: '<div>Aplication<br/>Status</div>' ,
          cellTemplate: '<div ng-if="row.entity.aplicationStatus == \'Red\'"><span><img src="resources/img/red.gif"></span></div> <div ng-if="row.entity.aplicationStatus == \'red\'"><span><img src="resources/img/red.gif"></span></div> <div ng-if="row.entity.aplicationStatus == \'RED\'"><span><img src="resources/img/red.gif"></span></div>  	 <div ng-if="row.entity.aplicationStatus == \'Green\'"><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.aplicationStatus == \'green\'"><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.aplicationStatus == \'GREEN\'"><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.aplicationStatus == \'Gray\'"><span><img src="resources/img/gray.gif"></span></div><div ng-if="row.entity.aplicationStatus == \'gray\'"><span><img src="resources/img/gray.gif"></span></div><div ng-if="row.entity.aplicationStatus == \'GRAY\'"><span><img src="resources/img/gray.gif"></span></div>'
           },
-          { name: 'lastPrntTxnDttm', width:160,headerCellTemplate:'<div>Last Print<br/>TxnDate</div>' ,type:'date',
+          { name: 'lastPrntTxnDttm', headerCellTemplate:'<div>Last Print<br/>TxnDate</div>' ,type:'date',
           //cellFilter:'date:"dd-MM-yyyy hh:mm:ss a " ' //'date:\"dd-MM-yyyy hh:mm:ss a\"'
             filterCellFiltered : 'true',
                                            // width : '100',
@@ -91,7 +229,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
          // { name: 'lastPmDttm', width:150, displayName: 'Last PM TxnDate  ',type: 'date',cellFilter: '<div>date:dd-MM-yyyy<br/>hh:mm:ss a</div>' //'date:\"dd-MM-yyyy hh:mm:ss a\"'
              
          // },
-           { name: 'lastPmDttm', width:160,headerCellTemplate:'<div>Last PM<br/>TxnDate</div>',
+           { name: 'lastPmDttm',headerCellTemplate:'<div>Last PM<br/>TxnDate</div>',
            // displayName: 'Last PM TxnDate  ',
            type: 'date',    //cellFilter: 'date:"dd-MM-yyyy hh:mm:ss a"' //'date:\"dd-MM-yyyy hh:mm:ss a\"'
              
@@ -115,7 +253,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
          //},
        
         ],
-    onRegisterApi: function(gridApi) {debugger;
+/*    onRegisterApi: function(gridApi) {debugger;
         $scope.gridApi = gridApi;
    
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
@@ -132,21 +270,77 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
   };
   
 }]);
+*/
+
+
+
+    onRegisterApi: function(gridApi) {
+        $scope.gridApi = gridApi;
+        gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
+          paginationOptions.pageNumber = newPage;
+          paginationOptions.pageSize = pageSize;
+      //  Added for loader------------- START 
+	        $("#loading").show();  
+	     // Added for loader------------- END
+	        if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){
+          UserManagementService.getUsers(newPage,pageSize,$scope.counttype).success(function(data){
+	//alert("$scope.counttype On Register "+$scope.counttype);
+         $scope.gridOptions.data = data.content;
+           $scope.gridOptions.totalItems = data.totalElements;
+       //  Added for loader------------- START 
+	        $("#loading").hide();  
+	     // Added for loader------------- END
+          });
+        }
+        else{
+ 	 	   	console.log("Inside else"+$scope.counttype);
+        	 UserManagementService.getSearchNext(newPage,pageSize,$scope.counttype,$scope.searchText).success(function(data){
+           	 // alert("$scope.counttype====Serach "+$scope.counttype);
+                  $scope.gridOptions.data = data.content;
+           	 	  $scope.gridOptions.totalItems = data.totalElements;
+        
+	 	 		 $("#loading").hide();  
+	 		   
+        	  });	 
+        
+        	   }
+        });
+     }
+  };
+ 
+}]);
+
+
+
+
 
 
 app.service('UserManagementService',['$http', function ($http) {
 	
 	function getUsers(pageNumber,size,counttype) {	
-		//alert("ts"+counttype);
+		//alert("counttype===ts:::: "+counttype);
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({
           method: 'GET',
           url: 'ts/terminalStatusGet/get?page='+pageNumber+'&size='+size+'&type='+counttype
         });
     }
+    
+    
+    
+function getSearchNext(pageNumber,size,counttype, searchText) {
+	//alert("counttype= searchText=="+counttype);
+	//alert("13=todate=="+end);
+	pageNumber = pageNumber > 0?pageNumber - 1:0;
+    return  $http({
+      method: 'GET',
+      url: 'ts/terminalStatusSearch/getSearchNext?page='+pageNumber+'&size='+size+'&type='+counttype+'&searchText='+searchText
+    });
+}
 	
     return {
-    	getUsers:getUsers
+    	getUsers:getUsers,
+        getSearchNext:getSearchNext
     };
 	
 }]);

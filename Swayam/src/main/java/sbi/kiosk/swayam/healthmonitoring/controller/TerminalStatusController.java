@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import sbi.kiosk.swayam.common.dto.TerminalStatusDto;
+import sbi.kiosk.swayam.common.dto.TerminalStatusSearchTextDto;
 import sbi.kiosk.swayam.healthmonitoring.service.TerminalStatusService;
 
 @RestController
@@ -35,6 +36,9 @@ public class TerminalStatusController {
 	
 	
 	
+	//changes by satendra 28052021
+	
+	/*
 		
 	@RequestMapping(value = "ts/terminalStatusGet/get", params = { "page", "size","type"}, method = RequestMethod.GET, produces = "application/json")
 	public Page<TerminalStatusDto> findPaginated(
@@ -53,6 +57,51 @@ public class TerminalStatusController {
 		        }
 		 return resultPage;
 	}
+	
+	*/
+	
+	@RequestMapping(value = "ts/terminalStatusGet/get", params = { "page", "size","type"}, method = RequestMethod.GET, produces = "application/json")
+	public Page<TerminalStatusSearchTextDto> findPaginated(
+		      @RequestParam("page") int page, @RequestParam("size") int size,@RequestParam("type") String type) {
+		logger.info("type=======1134==========="+type);
+		 Page<TerminalStatusSearchTextDto> resultPage = null;
+		 
+		 if(type!=null && !type.isEmpty() && !type.equals("undefined")){
+			 logger.info("If=="+type);
+			 // resultPage = terminalStatusService.findPaginatedCount(page, size,type);
+			  resultPage = terminalStatusService.findPaginatedCount_NQ(page, size,type);
+		 }else{
+		      resultPage = terminalStatusService.findPaginatedNew(page, size);
+	    logger.info("resultPage==="+resultPage.getContent());
+	    }if (page > resultPage.getTotalPages()){
+		            //throw new MyResourceNotFoundException();
+		        }
+		 return resultPage;
+	}
+	
+	
+	
+	@RequestMapping(value = "ts/terminalStatusSearch/getSearchNext", params = { "page", "size","type", "searchText" }, method = RequestMethod.GET, produces = "application/json")
+	public Page<TerminalStatusSearchTextDto> findPaginatedAfterSearchNext(
+		      @RequestParam("page") int page, @RequestParam("size") int size,@RequestParam("type") String type,@RequestParam("searchText") String searchText) {
+		logger.info("type=======1134==========="+type);
+		logger.info("=======searchText==========="+searchText);
+		 Page<TerminalStatusSearchTextDto> resultPage = null;
+		 
+		 if(type!=null && !type.isEmpty() && !type.equals("undefined")){
+			 logger.info("If=="+type);
+			  //resultPage = terminalStatusService.findPaginatedCount(page, size,type);
+			  resultPage = terminalStatusService.findPaginatedCount_SearchTextNQ(page, size,type,searchText);
+			  
+		 }else{
+		      resultPage = terminalStatusService.findPaginatedSearchText(page, size,searchText);
+	    logger.info("resultPage==="+resultPage.getContent());
+	    }if (page > resultPage.getTotalPages()){
+		            //throw new MyResourceNotFoundException();
+		        }
+		 return resultPage;
+	}
+	
 	
 	
 	

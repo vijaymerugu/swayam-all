@@ -52,6 +52,7 @@ import sbi.kiosk.swayam.common.dto.KioskBranchMasterUserDto;
 import sbi.kiosk.swayam.common.dto.RealTimeTransactionDto;
 import sbi.kiosk.swayam.common.dto.TaxCalculationDto;
 import sbi.kiosk.swayam.common.dto.TerminalStatusDto;
+import sbi.kiosk.swayam.common.dto.TerminalStatusSearchTextDto;
 import sbi.kiosk.swayam.common.dto.TicketCentorDto;
 import sbi.kiosk.swayam.common.dto.TicketHistoryDto;
 import sbi.kiosk.swayam.common.dto.TransactionDashBoardDto;
@@ -75,6 +76,7 @@ import sbi.kiosk.swayam.common.entity.SwayamMigrationSummary;
 import sbi.kiosk.swayam.common.entity.TaxEntity;
 import sbi.kiosk.swayam.common.entity.TaxSummaryEntity;
 import sbi.kiosk.swayam.common.entity.TerminalStatus;
+import sbi.kiosk.swayam.common.entity.TerminalStatusSearchText;
 import sbi.kiosk.swayam.common.entity.TicketHistory;
 import sbi.kiosk.swayam.common.entity.User;
 import sbi.kiosk.swayam.common.entity.UserKioskMapping;
@@ -91,6 +93,7 @@ import sbi.kiosk.swayam.healthmonitoring.repository.DowntimePagingRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.KioskMasterRepo;
 import sbi.kiosk.swayam.healthmonitoring.repository.TerminalStatusRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.TerminalStatusRepositoryPaging;
+import sbi.kiosk.swayam.healthmonitoring.repository.TerminalStatusSearchTextRepositoryPaging;
 import sbi.kiosk.swayam.healthmonitoring.repository.TicketCentorRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.TicketHistoryPagingRepository;
 import sbi.kiosk.swayam.kioskmanagement.repository.BranchMasterRepository;
@@ -200,6 +203,9 @@ public class JasperServiceImpl implements JasperService {
     
     @Autowired
 	TaxService taxReportService;
+    
+    @Autowired
+    TerminalStatusSearchTextRepositoryPaging terminalStatusSearchTextRepo;
 
     
 	public static HttpSession session() {
@@ -922,7 +928,7 @@ public class JasperServiceImpl implements JasperService {
 				
 				 logger.info("PDF File Terminal Status !!");
 
-			List<TerminalStatusDto> list = findTerminalStatusReport();
+			List<TerminalStatusSearchTextDto> list = findTerminalStatusReport();
 		//	 logger.info("PDF File Terminal Status list !!"+list);
 			
 			
@@ -1734,7 +1740,7 @@ public class JasperServiceImpl implements JasperService {
 			
 			 logger.info("Excel File Terminal Status !!");
 
-		List<TerminalStatusDto> list = findTerminalStatusReport();
+		List<TerminalStatusSearchTextDto> list = findTerminalStatusReport();
 		 if(list.isEmpty()) {
 				
 				
@@ -2320,6 +2326,8 @@ public class JasperServiceImpl implements JasperService {
 			  String vendor =downtimeReport.getVendor();
 			  String fromDate=downtimeReport.getFromDate(); 
 			  String toDate=downtimeReport.getToDate();
+			  String branchCode=downtimeReport.getBranchCode();
+			  String kioskId=downtimeReport.getKioskId();
 			  List<DownTimeDto> entities =null;
 			  
 			  try {
@@ -2338,7 +2346,9 @@ public class JasperServiceImpl implements JasperService {
 			  
 			  
 			  
-			  if( !downtimeReport.getFromDate().isEmpty() && !downtimeReport.getFromDate().equals("undefined") && !downtimeReport.getToDate().isEmpty() && !downtimeReport.getToDate().equals("undefined")) {
+			  if( !downtimeReport.getFromDate().isEmpty() && !downtimeReport.getFromDate().equals("undefined") 
+					  && !downtimeReport.getToDate().isEmpty() 
+					  && !downtimeReport.getToDate().equals("undefined")) {
 				  
 			 
 					
@@ -2349,14 +2359,13 @@ public class JasperServiceImpl implements JasperService {
 					if(downtimeReport.getCmsCmf().equals("undefined") ) {
 						cmsCmf="";
 					}
-//					if(!downtimeReport.getFromDate().equals("null") && !downtimeReport.getFromDate().isEmpty() && !downtimeReport.getFromDate().equals("undefined")) {
-//						fromDate="";
-//					}
-//					
-//					
-//					if(downtimeReport.getToDate().equals("null")  && !downtimeReport.getToDate().isEmpty() && !downtimeReport.getToDate().equals("undefined"))  {
-//						toDate=toDate;
-//					}
+				if(downtimeReport.getBranchCode().equals("undefined")  && !downtimeReport.getBranchCode().isEmpty())  {
+					branchCode="";
+				}
+				
+				if(downtimeReport.getKioskId().equals("undefined")  && !downtimeReport.getKioskId().isEmpty())  {
+					kioskId="";
+				}
 					
 					if (downtimeReport.getVendor().equals("0") || downtimeReport.getVendor().equals("undefined")) {
 						vendor = "";
@@ -2364,7 +2373,7 @@ public class JasperServiceImpl implements JasperService {
 					
 					
 				  List<DownTime> list = null;
-				  list=downTimePagingRepo.findAllByFilterDTimeReports( fromDate,toDate, circle,vendor ,cmsCmf);
+				  list=downTimePagingRepo.findAllByFilterDTimeReports( fromDate,toDate, circle,vendor ,cmsCmf,branchCode,kioskId);
 				  logger.info("list downtime ...PDF  "+list);
 				  
 				  if(list!=null && !list.isEmpty()) {
@@ -2376,8 +2385,8 @@ public class JasperServiceImpl implements JasperService {
 				    circle = downtimeReport.getCircle();
 					cmsCmf = downtimeReport.getCmsCmf();
 					vendor = downtimeReport.getVendor();
-					//fromDate = downtimeReport.getFromDate();
-					//toDate = downtimeReport.getToDate();
+					branchCode = downtimeReport.getBranchCode();
+					kioskId = downtimeReport.getKioskId();
 				 
 				  SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
 					Date curDate=new Date();
@@ -2391,7 +2400,7 @@ public class JasperServiceImpl implements JasperService {
 					}
 					
 					 List<DownTime> list = null;
-					  list=downTimePagingRepo.findAllByFilterDTimeReports(fromDate,toDate, circle,vendor ,cmsCmf);
+					  list=downTimePagingRepo.findAllByFilterDTimeReports(fromDate,toDate, circle,vendor ,cmsCmf,branchCode,kioskId);
 					  logger.info("list downtime ...PDF  "+list);
 					 // List<DownTimeDto> entities =null;
 					  if(list!=null && !list.isEmpty()) {
@@ -2694,19 +2703,20 @@ public class JasperServiceImpl implements JasperService {
 	
 	
 	@Override
-	public List<TerminalStatusDto> findTerminalStatusReport() {
+	public List<TerminalStatusSearchTextDto> findTerminalStatusReport() {
 		
 		//List<TerminalStatusDto> entities=null;
-		List<TerminalStatus> list=(List<TerminalStatus>) terminalStatusRepo.findAll();
+		//List<TerminalStatus> list=(List<TerminalStatus>) terminalStatusRepo.findAll();
 		
-	//	logger.info("Inside==Jasper====findTerminalStatusReport==========="+list);
+		List<TerminalStatusSearchText> terminalStatusReport = terminalStatusSearchTextRepo.getReport();
+		logger.info("Inside==Jasper====findTerminalStatusReport====size======="+terminalStatusReport.size());
+		
+		List<TerminalStatusSearchTextDto> entities =null;
 		
 		
-		
-		
-		List<KioskBranchMaster> kioskMastlist = null;
+		/*List<KioskBranchMaster> kioskMastlist = null;
 		String cmfNameList = null;
-		List<TerminalStatusDto> entities =new ArrayList<>();
+		
 		for (TerminalStatus ts : list) {
 		
 			TerminalStatusDto dto=new TerminalStatusDto();
@@ -2746,18 +2756,17 @@ public class JasperServiceImpl implements JasperService {
 				  dto.setAplicationStatus(ts.getAplicationStatus());
 				  dto.setRmmsConnectivity(ts.getRmmsConnectivity());
 				  dto.setLastPrntTxnDttm(ts.getLastPrntTxnDttm());
-				  dto.setLastPmDttm(ts.getLastPmDttm());
+				  dto.setLastPmDttm(ts.getLastPmDttm());*/
 				 
 				
 	//			 logger.info("dto::::22222224566" + dto);
 	             
 				
-				 entities.add(dto);
+				// entities.add(dto);
 	     		//entities.add(dto);
-			}
 		
 //		 logger.info("entities:::4444444444444:" + entities);
-		 entities = ObjectMapperUtils.mapAll(entities, TerminalStatusDto.class);
+		 entities = ObjectMapperUtils.mapAll(terminalStatusReport, TerminalStatusSearchTextDto.class);
 //         logger.info("dto11111111111::::" + entities);
 		
 		

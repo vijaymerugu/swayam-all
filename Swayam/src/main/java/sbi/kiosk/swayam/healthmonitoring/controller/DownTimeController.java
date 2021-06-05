@@ -90,7 +90,8 @@ public class DownTimeController {
 
 	
 	@RequestMapping(value = "hm/downtime/get", params = { "page", "size","type","selectedCircelId"
-			,"selectedVendorId" ,"selectedCmsCmfId","selectedFromDateId","selectedToDateId"}, method = RequestMethod.GET, produces = "application/json")
+			,"selectedVendorId" ,"selectedCmsCmfId","selectedFromDateId","selectedToDateId",
+			"selectedBranchCodeId","selectedKioskId"}, method = RequestMethod.GET, produces = "application/json")
 	
 	@PreAuthorize("hasPermission('HMdowntimeFindPaginated','CREATE')")
 	public Page<DownTimeDto> findPaginated( @RequestParam("type") String type,
@@ -99,26 +100,34 @@ public class DownTimeController {
 		      ,@RequestParam("selectedVendorId") String selectedVendorId
 		      ,@RequestParam("selectedCmsCmfId") String selectedCmsCmfId
 		      ,@RequestParam("selectedFromDateId") String selectedFromDateId
-		      ,@RequestParam("selectedToDateId") String selectedToDateId) {
+		      ,@RequestParam("selectedToDateId") String selectedToDateId
+		      ,@RequestParam("selectedBranchCodeId") String selectedBranchCodeId
+		      ,@RequestParam("selectedKioskId") String selectedKioskId) {
 		
 		 logger.info("downtime selectedCircelId:::"+selectedCircelId);
 		 logger.info("downtime selectedVendorId:::"+selectedVendorId);
 		 logger.info("downtime selectedCmsCmfId:::"+selectedCmsCmfId);
 		 logger.info("downtime selectedFromDateId:::"+selectedFromDateId);
 		 logger.info("downtime selectedToDateId:::"+selectedToDateId);
+		 logger.info("downtime selectedBranchCodeId:::"+selectedBranchCodeId);
+		 logger.info("downtime selectedKioskId:::"+selectedKioskId);
 		 
 		 downtimeReport.setCircle(selectedCircelId);
 		 downtimeReport.setVendor(selectedVendorId);
 		 downtimeReport.setCmsCmf(selectedCmsCmfId);
 		 downtimeReport.setFromDate(selectedFromDateId);
 		 downtimeReport.setToDate(selectedToDateId);
+		 downtimeReport.setBranchCode(selectedBranchCodeId);
+		 downtimeReport.setKioskId(selectedKioskId);
+		 
 		 
 		 
 	
 		 
 		
 		 Page<DownTimeDto> resultPage = downtimeService.findAllPaginated(size, page,type,selectedCircelId,selectedVendorId
-				 ,selectedCmsCmfId,selectedFromDateId,selectedToDateId);
+				 ,selectedCmsCmfId,selectedFromDateId,selectedToDateId,
+				 selectedBranchCodeId,selectedKioskId);
 		 logger.info("resultPage:::"+resultPage.getContent());
 	     
 		    

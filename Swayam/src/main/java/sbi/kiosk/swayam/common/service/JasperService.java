@@ -15,6 +15,7 @@ import
   sbi.kiosk.swayam.common.dto.RealTimeTransactionDto;
 import sbi.kiosk.swayam.common.dto.TaxCalculationDto;
 import sbi.kiosk.swayam.common.dto.TerminalStatusDto;
+import sbi.kiosk.swayam.common.dto.TerminalStatusSearchTextDto;
 import
   sbi.kiosk.swayam.common.dto.TicketCentorDto;
 import sbi.kiosk.swayam.common.dto.TicketHistoryDto;
@@ -72,7 +73,7 @@ import sbi.kiosk.swayam.common.entity.TaxSummaryEntity;
 	
 	List<InvoiceSummaryDto> findInvoiceSummaryReport();
 	
-	List<TerminalStatusDto> findTerminalStatusReport();
+	List<TerminalStatusSearchTextDto> findTerminalStatusReport();
 	
 	public List<TaxSummaryEntity> findTaxSummaryReport();
 

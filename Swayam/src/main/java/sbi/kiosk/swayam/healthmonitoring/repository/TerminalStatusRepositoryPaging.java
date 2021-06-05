@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import sbi.kiosk.swayam.common.dto.TerminalStatusDto;
 import sbi.kiosk.swayam.common.entity.TerminalStatus;
+import sbi.kiosk.swayam.common.entity.TerminalStatusSearchText;
 
 public interface TerminalStatusRepositoryPaging extends PagingAndSortingRepository<TerminalStatus,Integer> {
 
@@ -27,6 +28,6 @@ public interface TerminalStatusRepositoryPaging extends PagingAndSortingReposito
 	 @Query(value ="SELECT * FROM TBL_TERMINAL_STATUS where AGENT_STATUS in('Red','RED','red') ",nativeQuery=true)
 	 Page<TerminalStatus> findByAgentStatusRed(Pageable pageable);
 //public Page<TerminalStatus> findByKioskId(Pageable pageable,String kioskId);
-	
-	
+
+   	
 }
