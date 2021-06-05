@@ -1,5 +1,6 @@
 package sbi.kiosk.swayam.transactiondashboard.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -10,11 +11,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import sbi.kiosk.swayam.common.dto.DrillDownDto;
 import sbi.kiosk.swayam.common.entity.DrillDown;
+import sbi.kiosk.swayam.common.entity.SwayamMigrationSummary;
 import sbi.kiosk.swayam.common.entity.ZeroTransactionKiosks;
 import sbi.kiosk.swayam.transactiondashboard.repository.DrillDownRepository;
 
@@ -36,14 +39,18 @@ public class DrillDownServiceImpl implements DrillDownService{
 
 }
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public Page<DrillDown> findPaginatedByTxnDate(final int page,final int size,String type, String fromdate, String todate, String in_circle_code, String in_network_code, String in_module_code, String in_region_code){
 		
 		//List<DrillDown> list= nearByEntities(fromDate,toDate,circleName,networkName,moduleName,regionName);
-				
+		
         //Page<DrillDown> pageDto = new PageImpl<DrillDown>(list, PageRequest.of(page, size),list.size());
+		
+		 List<DrillDown> list=new ArrayList<DrillDown>(); 		
 		 
-		Page<DrillDown> pageDrillDown = null;
+	//	Page<DrillDown> pageDrillDown = null;
+		
 		if((in_circle_code ==null || in_circle_code.isEmpty())){
 			in_circle_code = null;
 		}
@@ -58,23 +65,149 @@ public class DrillDownServiceImpl implements DrillDownService{
 		}		
 	
 		if("NW".equals(type)){
-			pageDrillDown = drillDownRepository.findByDate(fromdate, todate,in_circle_code, PageRequest.of(page, size));
+			
+			try {
+				
+				 StoredProcedureQuery nearByEntities= em.createNamedStoredProcedureQuery("SP_DRILL_DOWN_PROC");
+			        nearByEntities.setParameter("FROMDATE", fromdate);
+			        nearByEntities.setParameter("TODATE", todate);
+			        nearByEntities.setParameter("IN_CIRCLE_CODE", in_circle_code);
+			        nearByEntities.setParameter("IN_NETWORK_CODE", "");
+			        nearByEntities.setParameter("IN_MODULE_CODE", "");
+			        nearByEntities.setParameter("IN_REGION_CODE", "");
+			        nearByEntities.setParameter("IN_TYPE", type);
+			        list=nearByEntities.getResultList();
+			       
+			
+				} catch (Exception e) {
+					logger.error("Exception in DrillDownDataList ." + e.getMessage());
+					
+				}
+			 @SuppressWarnings("deprecation")
+				int start =  (int) new PageRequest(page, size).getOffset();
+			        @SuppressWarnings("deprecation")
+					int end = (start + new PageRequest(page, size).getPageSize()) > list.size() ? list.size() : (start + new PageRequest(page, size).getPageSize());
+			        @SuppressWarnings("deprecation")
+			        Page<DrillDown> pageDrillDown1 = new PageImpl<DrillDown>(list.subList(start, end), new PageRequest(page, size), list.size());
+			        
+			        return pageDrillDown1;
+		//	pageDrillDown = drillDownRepository.findByDate(fromdate, todate,in_circle_code, PageRequest.of(page, size));
 		}
 		else if("MOD".equals(type)){
-			pageDrillDown = drillDownRepository.findByDate(fromdate, todate,in_circle_code, in_network_code, PageRequest.of(page, size));
+			
+			try {
+				
+				 StoredProcedureQuery nearByEntities= em.createNamedStoredProcedureQuery("SP_DRILL_DOWN_PROC");
+			        nearByEntities.setParameter("FROMDATE", fromdate);
+			        nearByEntities.setParameter("TODATE", todate);
+			        nearByEntities.setParameter("IN_CIRCLE_CODE", in_circle_code);
+			        nearByEntities.setParameter("IN_NETWORK_CODE", in_network_code);
+			        nearByEntities.setParameter("IN_MODULE_CODE", "");
+			        nearByEntities.setParameter("IN_REGION_CODE", "");
+			        nearByEntities.setParameter("IN_TYPE", type);
+			        list=nearByEntities.getResultList();
+			       
+			
+				} catch (Exception e) {
+					logger.error("Exception in DrillDownDataList ." + e.getMessage());
+					
+				}
+			 @SuppressWarnings("deprecation")
+				int start =  (int) new PageRequest(page, size).getOffset();
+			        @SuppressWarnings("deprecation")
+					int end = (start + new PageRequest(page, size).getPageSize()) > list.size() ? list.size() : (start + new PageRequest(page, size).getPageSize());
+			        @SuppressWarnings("deprecation")
+			        Page<DrillDown> pageDrillDown1 = new PageImpl<DrillDown>(list.subList(start, end), new PageRequest(page, size), list.size());
+			        
+			        return pageDrillDown1;
+		//	pageDrillDown = drillDownRepository.findByDate(fromdate, todate,in_circle_code, in_network_code, PageRequest.of(page, size));
 		}
 		else if("REG".equals(type)){
-			pageDrillDown = drillDownRepository.findByDate(fromdate, todate,in_circle_code, in_network_code,in_module_code, PageRequest.of(page, size));
+			
+			
+			try {
+				
+				 StoredProcedureQuery nearByEntities= em.createNamedStoredProcedureQuery("SP_DRILL_DOWN_PROC");
+			        nearByEntities.setParameter("FROMDATE", fromdate);
+			        nearByEntities.setParameter("TODATE", todate);
+			        nearByEntities.setParameter("IN_CIRCLE_CODE", in_circle_code);
+			        nearByEntities.setParameter("IN_NETWORK_CODE", in_network_code);
+			        nearByEntities.setParameter("IN_MODULE_CODE", in_module_code);
+			        nearByEntities.setParameter("IN_REGION_CODE", "");
+			        nearByEntities.setParameter("IN_TYPE", type);
+			        list=nearByEntities.getResultList();
+			       
+			
+				} catch (Exception e) {
+					logger.error("Exception in DrillDownDataList ." + e.getMessage());
+					
+				}
+			 @SuppressWarnings("deprecation")
+				int start =  (int) new PageRequest(page, size).getOffset();
+			        @SuppressWarnings("deprecation")
+					int end = (start + new PageRequest(page, size).getPageSize()) > list.size() ? list.size() : (start + new PageRequest(page, size).getPageSize());
+			        @SuppressWarnings("deprecation")
+			        Page<DrillDown> pageDrillDown1 = new PageImpl<DrillDown>(list.subList(start, end), new PageRequest(page, size), list.size());
+			        
+			        return pageDrillDown1;
+		//	pageDrillDown = drillDownRepository.findByDate(fromdate, todate,in_circle_code, in_network_code,in_module_code, PageRequest.of(page, size));
 		}
 		else if("BR".equals(type)){
-			pageDrillDown = drillDownRepository.findByDate(fromdate, todate,in_circle_code, in_network_code,in_module_code,in_region_code, PageRequest.of(page, size));
+			try {
+				
+				 StoredProcedureQuery nearByEntities= em.createNamedStoredProcedureQuery("SP_DRILL_DOWN_PROC");
+			        nearByEntities.setParameter("FROMDATE", fromdate);
+			        nearByEntities.setParameter("TODATE", todate);
+			        nearByEntities.setParameter("IN_CIRCLE_CODE", in_circle_code);
+			        nearByEntities.setParameter("IN_NETWORK_CODE", in_network_code);
+			        nearByEntities.setParameter("IN_MODULE_CODE", in_module_code);
+			        nearByEntities.setParameter("IN_REGION_CODE", in_region_code);
+			        nearByEntities.setParameter("IN_TYPE", type);
+			        list=nearByEntities.getResultList();
+			       
+			
+				} catch (Exception e) {
+					logger.error("Exception in DrillDownDataList ." + e.getMessage());
+					
+				}
+			 @SuppressWarnings("deprecation")
+				int start =  (int) new PageRequest(page, size).getOffset();
+			        @SuppressWarnings("deprecation")
+					int end = (start + new PageRequest(page, size).getPageSize()) > list.size() ? list.size() : (start + new PageRequest(page, size).getPageSize());
+			        @SuppressWarnings("deprecation")
+			        Page<DrillDown> pageDrillDown1 = new PageImpl<DrillDown>(list.subList(start, end), new PageRequest(page, size), list.size());
+			        
+			        return pageDrillDown1;
+		//	pageDrillDown = drillDownRepository.findByDate(fromdate, todate,in_circle_code, in_network_code,in_module_code,in_region_code, PageRequest.of(page, size));
 		}
 		else  {
+			try {
+				
+				 StoredProcedureQuery nearByEntities= em.createNamedStoredProcedureQuery("SP_DRILL_DOWN_PROC");
+			        nearByEntities.setParameter("FROMDATE", fromdate);
+			        nearByEntities.setParameter("TODATE", todate);
+			        nearByEntities.setParameter("IN_CIRCLE_CODE", "");
+			        nearByEntities.setParameter("IN_NETWORK_CODE", "");
+			        nearByEntities.setParameter("IN_MODULE_CODE", "");
+			        nearByEntities.setParameter("IN_REGION_CODE", "");
+			        nearByEntities.setParameter("IN_TYPE", "");
+			        list=nearByEntities.getResultList();
+			       
 			
-		 pageDrillDown = drillDownRepository.findByDate(fromdate, todate, PageRequest.of(page, size));
+				} catch (Exception e) {
+					logger.error("Exception in DrillDownDataList ." + e.getMessage());
+					
+				}
+			 @SuppressWarnings("deprecation")
+				int start =  (int) new PageRequest(page, size).getOffset();
+			        @SuppressWarnings("deprecation")
+					int end = (start + new PageRequest(page, size).getPageSize()) > list.size() ? list.size() : (start + new PageRequest(page, size).getPageSize());
+			        @SuppressWarnings("deprecation")
+			        Page<DrillDown> pageDrillDown1 = new PageImpl<DrillDown>(list.subList(start, end), new PageRequest(page, size), list.size());
+			        
+			        return pageDrillDown1;
+	//	 pageDrillDown = drillDownRepository.findByDate(fromdate, todate, PageRequest.of(page, size));
 		}
-		 
-		 return pageDrillDown;
 	}
 	
 	@SuppressWarnings("deprecation")

@@ -13,19 +13,20 @@ import lombok.Data;
 @Data
 @Entity
 @NamedStoredProcedureQuery(
-name="sp_drill_down_proc",
-procedureName="sp_drill_down_proc",
+name="SP_DRILL_DOWN_PROC",
+procedureName="SP_DRILL_DOWN_PROC",
 resultClasses=DrillDown.class,
 parameters={
-@StoredProcedureParameter(name="in_fromdate",type=String.class, mode= ParameterMode.IN),
-@StoredProcedureParameter(name="in_todate", type=String.class, mode= ParameterMode.IN),
-@StoredProcedureParameter(name="in_circle_code", type=String.class, mode= ParameterMode.IN),
-@StoredProcedureParameter(name="in_network_code", type=String.class, mode= ParameterMode.IN),
-@StoredProcedureParameter(name="in_module_code", type=String.class, mode= ParameterMode.IN),
-@StoredProcedureParameter(name="in_region_code", type=String.class, mode= ParameterMode.IN),
-@StoredProcedureParameter(name="cur", type=void.class, mode= ParameterMode.REF_CURSOR)
-}
-)
+@StoredProcedureParameter(name="FROMDATE",type=String.class, mode= ParameterMode.IN),
+@StoredProcedureParameter(name="TODATE", type=String.class, mode= ParameterMode.IN),
+@StoredProcedureParameter(name="IN_CIRCLE_CODE", type=String.class, mode= ParameterMode.IN),
+@StoredProcedureParameter(name="IN_NETWORK_CODE", type=String.class, mode= ParameterMode.IN),
+@StoredProcedureParameter(name="IN_MODULE_CODE", type=String.class, mode= ParameterMode.IN),
+@StoredProcedureParameter(name="IN_REGION_CODE", type=String.class, mode= ParameterMode.IN),
+//@StoredProcedureParameter(name = "SEARCHTEXT", type = String.class, mode = ParameterMode.IN),
+@StoredProcedureParameter(name = "IN_TYPE", type = String.class, mode = ParameterMode.IN),
+@StoredProcedureParameter(mode = ParameterMode.REF_CURSOR, name = "RESULT_SET", type= String.class)})
+
 public class DrillDown implements Serializable{
 	/**
 	 * 
