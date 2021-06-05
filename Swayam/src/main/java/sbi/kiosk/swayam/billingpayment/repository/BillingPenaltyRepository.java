@@ -29,7 +29,9 @@ public interface BillingPenaltyRepository extends PagingAndSortingRepository<Bil
 			" where \r\n" + 
 			"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 			"s3.FIN_YR=:finacialYear AND\r\n" + 
-			"s3.QTR_ID=:quterTimePeriod",nativeQuery = true,
+			"s3.QTR_ID=:quterTimePeriod AND "
+			+ "s3.KIOSK_ID LIKE %:selectedKioskId% AND "
+			+ "s1.BRANCH_CODE LIKE %:selectedBranch% ",nativeQuery = true,
 						countQuery ="select count(s3.KIOSK_ID)\r\n" + 
 								"from TBL_DOWNTIME_QTR s3\r\n" + 
 								"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
@@ -41,9 +43,13 @@ public interface BillingPenaltyRepository extends PagingAndSortingRepository<Bil
 								" where \r\n" + 
 								"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 								"s3.FIN_YR=:finacialYear AND\r\n" + 
-								"s3.QTR_ID=:quterTimePeriod" )
+								"s3.QTR_ID=:quterTimePeriod AND "
+								+ "s3.KIOSK_ID LIKE %:selectedKioskId% AND "
+								+ "s1.BRANCH_CODE LIKE %:selectedBranch% " )
 	Page<BillingPenaltyEntity> findbyWithoutStateFilterCC(@Param("quterTimePeriod") String quterTimePeriod,@Param("finacialYear")String finacialYear,
-    @Param("selectedVendorId") String selectedVendorId,Pageable pageable);
+    @Param("selectedVendorId") String selectedVendorId,
+    @Param("selectedKioskId")String selectedKioskId,@Param("selectedBranch")String selectedBranch,
+    Pageable pageable);
 	
 	
 	@Query(value = 
@@ -59,7 +65,9 @@ public interface BillingPenaltyRepository extends PagingAndSortingRepository<Bil
 			"s4.VENDOR_ID=:selectedVendorId AND\r\n" +
 			"s3.FIN_YR=:finacialYear AND\r\n" + 
 			"s3.QTR_ID=:quterTimePeriod AND\r\n" + 
-			"s5.RFP_NO=:selectedRfpID",nativeQuery = true,
+			"s5.RFP_NO=:selectedRfpID  AND "
+			+ "s3.KIOSK_ID LIKE %:selectedKioskId% AND "
+			+ "s1.BRANCH_CODE LIKE %:selectedBranch% ",nativeQuery = true,
 						countQuery ="select count(s3.KIOSK_ID)\r\n" + 
 								"from TBL_DOWNTIME_QTR s3\r\n" + 
 								"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
@@ -72,9 +80,12 @@ public interface BillingPenaltyRepository extends PagingAndSortingRepository<Bil
 								"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 								"s3.FIN_YR=:finacialYear AND\r\n" + 
 								"s3.QTR_ID=:quterTimePeriod AND\r\n" + 
-								"s5.RFP_NO=:selectedRfpID" )
+								"s5.RFP_NO=:selectedRfpID AND "
+								+ "s3.KIOSK_ID LIKE %:selectedKioskId% AND "
+								+ "s1.BRANCH_CODE LIKE %:selectedBranch% ")
 	Page<BillingPenaltyEntity> findbyFilterRfpWithoutStateCC(@Param("quterTimePeriod") String quterTimePeriod,@Param("finacialYear")String finacialYear,
-    @Param("selectedVendorId") String selectedVendorId, @Param("selectedRfpID")String selectedRfpID, Pageable pageable);
+    @Param("selectedVendorId") String selectedVendorId, @Param("selectedRfpID")String selectedRfpID,
+    @Param("selectedKioskId")String selectedKioskId,@Param("selectedBranch")String selectedBranch,Pageable pageable);
 	
 	
 	
@@ -96,7 +107,9 @@ public interface BillingPenaltyRepository extends PagingAndSortingRepository<Bil
 			"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
 			"s2.STAT_CODE=:selectedStateId AND\r\n" + 
 			"s3.FIN_YR=:finacialYear AND\r\n" + 
-			"s3.QTR_ID=:quterTimePeriod",nativeQuery = true,
+			"s3.QTR_ID=:quterTimePeriod AND "
+			+ "s3.KIOSK_ID LIKE %:selectedKioskId% AND " 
+			+ "s1.BRANCH_CODE LIKE %:selectedBranch% ",nativeQuery = true,
 						countQuery ="select count(s3.KIOSK_ID)\r\n" + 
 								"from TBL_DOWNTIME_QTR s3\r\n" + 
 								"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
@@ -110,11 +123,14 @@ public interface BillingPenaltyRepository extends PagingAndSortingRepository<Bil
 								"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
 								"s2.STAT_CODE=:selectedStateId AND\r\n" + 
 								"s3.FIN_YR=:finacialYear AND\r\n" + 
-								"s3.QTR_ID=:quterTimePeriod" )
+								"s3.QTR_ID=:quterTimePeriod AND "
+								+ "s3.KIOSK_ID LIKE %:selectedKioskId% AND " 
+								+ "s1.BRANCH_CODE LIKE %:selectedBranch% ")
 	Page<BillingPenaltyEntity> findbyFilter(@Param("selectedCircelId")
     String selectedCircelId, @Param("selectedStateId") String selectedStateId,
     @Param("quterTimePeriod") String quterTimePeriod,@Param("finacialYear")String finacialYear,
-    @Param("selectedVendorId") String selectedVendorId,Pageable pageable);
+    @Param("selectedVendorId") String selectedVendorId,
+    @Param("selectedKioskId")String selectedKioskId,@Param("selectedBranch")String selectedBranch,Pageable pageable);
 	
 	
 	
@@ -132,7 +148,9 @@ public interface BillingPenaltyRepository extends PagingAndSortingRepository<Bil
 			"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 			"s2.CRCL_CODE=:selectedCircelId AND \r\n" +
 			"s3.FIN_YR=:finacialYear AND\r\n" + 
-			"s3.QTR_ID=:quterTimePeriod",nativeQuery = true,
+			"s3.QTR_ID=:quterTimePeriod AND "
+			+ "s3.KIOSK_ID LIKE %:selectedKioskId% AND " 
+			+ "s1.BRANCH_CODE LIKE %:selectedBranch% ",nativeQuery = true,
 						countQuery ="select count(s3.KIOSK_ID)\r\n" + 
 								"from TBL_DOWNTIME_QTR s3\r\n" + 
 								"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
@@ -145,11 +163,15 @@ public interface BillingPenaltyRepository extends PagingAndSortingRepository<Bil
 								"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 								"s2.CRCL_CODE=:selectedCircelId AND \r\n" +
 								"s3.FIN_YR=:finacialYear AND\r\n" + 
-								"s3.QTR_ID=:quterTimePeriod" )
+								"s3.QTR_ID=:quterTimePeriod  AND " 
+										+ "s3.KIOSK_ID LIKE %:selectedKioskId% AND " 
+										+ "s1.BRANCH_CODE LIKE %:selectedBranch% ")
 	Page<BillingPenaltyEntity> findbyWithoutStateFilter(@Param("selectedCircelId")
     String selectedCircelId,
     @Param("quterTimePeriod") String quterTimePeriod,@Param("finacialYear")String finacialYear,
-    @Param("selectedVendorId") String selectedVendorId,Pageable pageable);
+    @Param("selectedVendorId") String selectedVendorId,
+    @Param("selectedKioskId")String selectedKioskId,@Param("selectedBranch")String selectedBranch,
+    Pageable pageable);
 
 
 	
@@ -168,7 +190,9 @@ public interface BillingPenaltyRepository extends PagingAndSortingRepository<Bil
 			"s2.STAT_CODE=:selectedStateId AND\r\n" + 
 			"s3.FIN_YR=:finacialYear AND\r\n" + 
 			"s3.QTR_ID=:quterTimePeriod AND\r\n" + 
-			"s5.RFP_NO=:selectedRfpID",nativeQuery = true,
+			"s5.RFP_NO=:selectedRfpID AND "
+			+ "s3.KIOSK_ID LIKE %:selectedKioskId% AND " 
+			+ "s1.BRANCH_CODE LIKE %:selectedBranch% ",nativeQuery = true,
 						countQuery ="select count(s3.KIOSK_ID)\r\n" + 
 								"from TBL_DOWNTIME_QTR s3\r\n" + 
 								"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
@@ -183,11 +207,15 @@ public interface BillingPenaltyRepository extends PagingAndSortingRepository<Bil
 								"s2.STAT_CODE=:selectedStateId AND\r\n" + 
 								"s3.FIN_YR=:finacialYear AND\r\n" + 
 								"s3.QTR_ID=:quterTimePeriod AND\r\n" + 
-								"s5.RFP_NO=:selectedRfpID" )
+								"s5.RFP_NO=:selectedRfpID AND "
+								+ "s3.KIOSK_ID LIKE %:selectedKioskId% AND " 
+								+ "s1.BRANCH_CODE LIKE %:selectedBranch% ")
 	Page<BillingPenaltyEntity> findbyFilterWithRFP(@Param("selectedCircelId")
     String selectedCircelId, @Param("selectedStateId") String selectedStateId,
     @Param("quterTimePeriod") String quterTimePeriod,@Param("finacialYear")String finacialYear,
-    @Param("selectedVendorId") String selectedVendorId, @Param("selectedRfpID")String selectedRfpID, Pageable pageable);
+    @Param("selectedVendorId") String selectedVendorId, @Param("selectedRfpID")String selectedRfpID, 
+    @Param("selectedKioskId")String selectedKioskId,@Param("selectedBranch")String selectedBranch,
+    Pageable pageable);
 	
 	@Query(value = 
 			"select s5.RFP_NO,s1.VENDOR,  s2.CRCL_NAME, s2.STAT_DESC, s3.KIOSK_ID, s1.KIOSK_SERIAL_NO,s3.QTR_ID,s3.FIN_YR,s3.TOT_HRS,s3.TOT_DOWNTIME,s3.RELAXATION_HRS,s3.ACT_DOWNTIME, s3.PENALTY_AMT \r\n" + 
@@ -203,7 +231,9 @@ public interface BillingPenaltyRepository extends PagingAndSortingRepository<Bil
 			"s2.CRCL_CODE=:selectedCircelId AND \r\n"+
 			"s3.FIN_YR=:finacialYear AND\r\n" + 
 			"s3.QTR_ID=:quterTimePeriod AND\r\n" + 
-			"s5.RFP_NO=:selectedRfpID",nativeQuery = true,
+			"s5.RFP_NO=:selectedRfpID AND "
+			+ "s3.KIOSK_ID LIKE %:selectedKioskId% AND "
+			+ "s1.BRANCH_CODE LIKE %:selectedBranch% ",nativeQuery = true,
 						countQuery ="select count(s3.KIOSK_ID)\r\n" + 
 								"from TBL_DOWNTIME_QTR s3\r\n" + 
 								"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
@@ -217,11 +247,15 @@ public interface BillingPenaltyRepository extends PagingAndSortingRepository<Bil
 								"s2.CRCL_CODE=:selectedCircelId AND \r\n"+
 								"s3.FIN_YR=:finacialYear AND\r\n" + 
 								"s3.QTR_ID=:quterTimePeriod AND\r\n" + 
-								"s5.RFP_NO=:selectedRfpID" )
+								"s5.RFP_NO=:selectedRfpID AND "
+								+ "s3.KIOSK_ID LIKE %:selectedKioskId% AND "
+								+ "s1.BRANCH_CODE LIKE %:selectedBranch% ")
 	Page<BillingPenaltyEntity> findbyFilterRfpWithoutState(@Param("selectedCircelId")
     String selectedCircelId,
     @Param("quterTimePeriod") String quterTimePeriod,@Param("finacialYear")String finacialYear,
-    @Param("selectedVendorId") String selectedVendorId, @Param("selectedRfpID")String selectedRfpID, Pageable pageable);
+    @Param("selectedVendorId") String selectedVendorId, @Param("selectedRfpID")String selectedRfpID, 
+    @Param("selectedKioskId")String selectedKioskId,@Param("selectedBranch")String selectedBranch,
+    Pageable pageable);
 	
 	
 	@Query(value = 
@@ -238,7 +272,9 @@ public interface BillingPenaltyRepository extends PagingAndSortingRepository<Bil
 			"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
 			"s2.STAT_CODE=:selectedStateId AND\r\n" + 
 			"s3.FIN_YR=:finacialYear AND\r\n" + 
-			"s3.QTR_ID=:quterTimePeriod",nativeQuery = true,
+			"s3.QTR_ID=:quterTimePeriod AND "
+			+ "s3.KIOSK_ID LIKE %:selectedKioskId% AND "
+			+ "s1.BRANCH_CODE LIKE %:selectedBranch% ",nativeQuery = true,
 						countQuery ="select count(s3.KIOSK_ID)\r\n" + 
 								"from TBL_DOWNTIME_QTR s3\r\n" + 
 								"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
@@ -252,11 +288,14 @@ public interface BillingPenaltyRepository extends PagingAndSortingRepository<Bil
 								"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
 								"s2.STAT_CODE=:selectedStateId AND\r\n" + 
 								"s3.FIN_YR=:finacialYear AND\r\n" + 
-								"s3.QTR_ID=:quterTimePeriod" )
+								"s3.QTR_ID=:quterTimePeriod AND "
+								+ "s3.KIOSK_ID LIKE %:selectedKioskId% AND "
+								+ "s1.BRANCH_CODE LIKE %:selectedBranch% ")
 	List<BillingPenaltyEntity> findbyFilterReport(@Param("selectedCircelId")
     String selectedCircelId, @Param("selectedStateId") String selectedStateId,
     @Param("quterTimePeriod") String quterTimePeriod,@Param("finacialYear")String finacialYear,
-    @Param("selectedVendorId") String selectedVendorId);
+    @Param("selectedVendorId") String selectedVendorId, 
+    @Param("selectedKioskId")String selectedKioskId,@Param("selectedBranch")String selectedBranch);
 	
 	
 	
@@ -274,7 +313,9 @@ public interface BillingPenaltyRepository extends PagingAndSortingRepository<Bil
 			"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 			"s2.CRCL_CODE=:selectedCircelId AND \r\n" +
 			"s3.FIN_YR=:finacialYear AND\r\n" + 
-			"s3.QTR_ID=:quterTimePeriod",nativeQuery = true,
+			"s3.QTR_ID=:quterTimePeriod AND "
+			+ "s3.KIOSK_ID LIKE %:selectedKioskId% AND "
+			+ "s1.BRANCH_CODE LIKE %:selectedBranch% ",nativeQuery = true,
 						countQuery ="select count(s3.KIOSK_ID)\r\n" + 
 								"from TBL_DOWNTIME_QTR s3\r\n" + 
 								"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
@@ -287,11 +328,14 @@ public interface BillingPenaltyRepository extends PagingAndSortingRepository<Bil
 								"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 								"s2.CRCL_CODE=:selectedCircelId AND \r\n" +
 								"s3.FIN_YR=:finacialYear AND\r\n" + 
-								"s3.QTR_ID=:quterTimePeriod" )
+								"s3.QTR_ID=:quterTimePeriod AND "
+								+ "s3.KIOSK_ID LIKE %:selectedKioskId% AND "
+								+ "s1.BRANCH_CODE LIKE %:selectedBranch% ")
 	List<BillingPenaltyEntity> findbyWithoutStateFilterReport(@Param("selectedCircelId")
     String selectedCircelId,
     @Param("quterTimePeriod") String quterTimePeriod,@Param("finacialYear")String finacialYear,
-    @Param("selectedVendorId") String selectedVendorId);
+    @Param("selectedVendorId") String selectedVendorId, 
+    @Param("selectedKioskId")String selectedKioskId,@Param("selectedBranch")String selectedBranch);
 
 
 	
@@ -310,7 +354,9 @@ public interface BillingPenaltyRepository extends PagingAndSortingRepository<Bil
 			"s2.STAT_CODE=:selectedStateId AND\r\n" + 
 			"s3.FIN_YR=:finacialYear AND\r\n" + 
 			"s3.QTR_ID=:quterTimePeriod AND\r\n" + 
-			"s5.RFP_NO=:selectedRfpID",nativeQuery = true,
+			"s5.RFP_NO=:selectedRfpID AND "
+			+ "s3.KIOSK_ID LIKE %:selectedKioskId% AND "
+			+ "s1.BRANCH_CODE LIKE %:selectedBranch% ",nativeQuery = true,
 						countQuery ="select count(s3.KIOSK_ID)\r\n" + 
 								"from TBL_DOWNTIME_QTR s3\r\n" + 
 								"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
@@ -325,11 +371,14 @@ public interface BillingPenaltyRepository extends PagingAndSortingRepository<Bil
 								"s2.STAT_CODE=:selectedStateId AND\r\n" + 
 								"s3.FIN_YR=:finacialYear AND\r\n" + 
 								"s3.QTR_ID=:quterTimePeriod AND\r\n" + 
-								"s5.RFP_NO=:selectedRfpID" )
+								"s5.RFP_NO=:selectedRfpID AND "
+								+ "s3.KIOSK_ID LIKE %:selectedKioskId% AND "
+								+ "s1.BRANCH_CODE LIKE %:selectedBranch% ")
 	List<BillingPenaltyEntity> findbyFilterWithRFPReport(@Param("selectedCircelId")
     String selectedCircelId, @Param("selectedStateId") String selectedStateId,
     @Param("quterTimePeriod") String quterTimePeriod,@Param("finacialYear")String finacialYear,
-    @Param("selectedVendorId") String selectedVendorId, @Param("selectedRfpID")String selectedRfpID);
+    @Param("selectedVendorId") String selectedVendorId, @Param("selectedRfpID")String selectedRfpID, 
+    @Param("selectedKioskId")String selectedKioskId,@Param("selectedBranch")String selectedBranch);
 	
 	@Query(value = 
 			"select s5.RFP_NO,s1.VENDOR,  s2.CRCL_NAME, s2.STAT_DESC, s3.KIOSK_ID, s1.KIOSK_SERIAL_NO,s3.QTR_ID,s3.FIN_YR,s3.TOT_HRS,s3.TOT_DOWNTIME,s3.RELAXATION_HRS,s3.ACT_DOWNTIME, s3.PENALTY_AMT \r\n" + 
@@ -345,7 +394,9 @@ public interface BillingPenaltyRepository extends PagingAndSortingRepository<Bil
 			"s2.CRCL_CODE=:selectedCircelId AND \r\n" +
 			"s3.FIN_YR=:finacialYear AND\r\n" + 
 			"s3.QTR_ID=:quterTimePeriod AND\r\n" + 
-			"s5.RFP_NO=:selectedRfpID",nativeQuery = true,
+			"s5.RFP_NO=:selectedRfpID AND "
+			+ "s3.KIOSK_ID LIKE %:selectedKioskId% AND "
+			+ "s1.BRANCH_CODE LIKE %:selectedBranch% ",nativeQuery = true,
 						countQuery ="select count(s3.KIOSK_ID)\r\n" + 
 								"from TBL_DOWNTIME_QTR s3\r\n" + 
 								"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
@@ -359,11 +410,14 @@ public interface BillingPenaltyRepository extends PagingAndSortingRepository<Bil
 								"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
 								"s3.FIN_YR=:finacialYear AND\r\n" + 
 								"s3.QTR_ID=:quterTimePeriod AND\r\n" + 
-								"s5.RFP_NO=:selectedRfpID")
+								"s5.RFP_NO=:selectedRfpID AND" 
+								+ "s3.KIOSK_ID LIKE %:selectedKioskId% AND "
+								+ "s1.BRANCH_CODE LIKE %:selectedBranch% ")
 	List<BillingPenaltyEntity> findbyFilterRfpWithoutStateReport(@Param("selectedCircelId")
     String selectedCircelId,
     @Param("quterTimePeriod") String quterTimePeriod,@Param("finacialYear")String finacialYear,
-    @Param("selectedVendorId") String selectedVendorId, @Param("selectedRfpID")String selectedRfpID);
+    @Param("selectedVendorId") String selectedVendorId, @Param("selectedRfpID")String selectedRfpID, 
+    @Param("selectedKioskId")String selectedKioskId,@Param("selectedBranch")String selectedBranch);
 	
 	
 	//Changes for CC
@@ -380,7 +434,9 @@ public interface BillingPenaltyRepository extends PagingAndSortingRepository<Bil
 				" where \r\n" + 
 				"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 				"s3.FIN_YR=:finacialYear AND\r\n" + 
-				"s3.QTR_ID=:quterTimePeriod",nativeQuery = true,
+				"s3.QTR_ID=:quterTimePeriod AND "
+				+ "s3.KIOSK_ID LIKE %:selectedKioskId% AND "
+				+ "s1.BRANCH_CODE LIKE %:selectedBranch% ",nativeQuery = true,
 							countQuery ="select count(s3.KIOSK_ID)\r\n" + 
 									"from TBL_DOWNTIME_QTR s3\r\n" + 
 									"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
@@ -392,9 +448,12 @@ public interface BillingPenaltyRepository extends PagingAndSortingRepository<Bil
 									" where \r\n" + 
 									"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 									"s3.FIN_YR=:finacialYear AND\r\n" + 
-									"s3.QTR_ID=:quterTimePeriod" )
+									"s3.QTR_ID=:quterTimePeriod AND "
+									+ "s3.KIOSK_ID LIKE %:selectedKioskId% AND "
+									+ "s1.BRANCH_CODE LIKE %:selectedBranch% ")
 		List<BillingPenaltyEntity> findbyWithoutStateFilterCCReport(@Param("quterTimePeriod") String quterTimePeriod,@Param("finacialYear")String finacialYear,
-	    @Param("selectedVendorId") String selectedVendorId);
+	    @Param("selectedVendorId") String selectedVendorId, 
+	    @Param("selectedKioskId")String selectedKioskId,@Param("selectedBranch")String selectedBranch);
 		
 		
 		@Query(value = 
@@ -410,7 +469,9 @@ public interface BillingPenaltyRepository extends PagingAndSortingRepository<Bil
 				"s4.VENDOR_ID=:selectedVendorId AND\r\n" +
 				"s3.FIN_YR=:finacialYear AND\r\n" + 
 				"s3.QTR_ID=:quterTimePeriod AND\r\n" + 
-				"s5.RFP_NO=:selectedRfpID",nativeQuery = true,
+				"s5.RFP_NO=:selectedRfpID AND "
+				+ "s3.KIOSK_ID LIKE %:selectedKioskId% AND "
+				+ "s1.BRANCH_CODE LIKE %:selectedBranch% ",nativeQuery = true,
 							countQuery ="select count(s3.KIOSK_ID)\r\n" + 
 									"from TBL_DOWNTIME_QTR s3\r\n" + 
 									"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
@@ -423,9 +484,12 @@ public interface BillingPenaltyRepository extends PagingAndSortingRepository<Bil
 									"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 									"s3.FIN_YR=:finacialYear AND\r\n" + 
 									"s3.QTR_ID=:quterTimePeriod AND\r\n" + 
-									"s5.RFP_NO=:selectedRfpID" )
+									"s5.RFP_NO=:selectedRfpID AND "
+									+ "s3.KIOSK_ID LIKE %:selectedKioskId% AND "
+									+ "s1.BRANCH_CODE LIKE %:selectedBranch% ")
 		List<BillingPenaltyEntity> findbyFilterRfpWithoutStateCCReport(@Param("quterTimePeriod") String quterTimePeriod,@Param("finacialYear")String finacialYear,
-	    @Param("selectedVendorId") String selectedVendorId, @Param("selectedRfpID")String selectedRfpID);
+	    @Param("selectedVendorId") String selectedVendorId, @Param("selectedRfpID")String selectedRfpID, 
+	    @Param("selectedKioskId")String selectedKioskId,@Param("selectedBranch")String selectedBranch);
 		
 		
 	

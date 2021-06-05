@@ -25,6 +25,112 @@ public class BillingPenaltyService  implements PenaltyServices{
 	
 	@Autowired
 	InvoiceGenerationRepository invoiceGenerationRepository;
+	
+	
+	@Override
+	public Page<BillingPenaltyEntity> findPaginatedByFilterSS(int page, int size, String type, String selectedCircelId,
+			String selectedStateId, String quterTimePeriod, String selectedVendorId, String selectedRfpID, String selectedKioskId,String selectedBranch) {
+	
+		logger.info("Inside findPaginatedByFilter "); 
+		logger.info("quterTimePeriod-----" + quterTimePeriod); 
+		Page<BillingPenaltyEntity> entities = null;
+		String quarter =null;
+		String finacialYear= null;
+		try {			
+		if(quterTimePeriod!="") {
+		quarter= quterTimePeriod.substring(0, 2);
+		finacialYear= quterTimePeriod.substring(3);
+		
+		
+		
+		if(selectedRfpID.equalsIgnoreCase("1")){
+			//System.out.println("selectedRfpID "+ selectedRfpID);
+			
+			entities =
+					billingPenaltyRepository.findbyFilter(selectedCircelId, selectedStateId,
+							quarter,finacialYear, selectedVendorId,selectedKioskId,selectedBranch, PageRequest.of(page, size));
+		}else {
+			//System.out.println("selectedRfpID "+ selectedRfpID);
+			entities =
+					billingPenaltyRepository.findbyFilterWithRFP(selectedCircelId, selectedStateId,
+							quarter,finacialYear, selectedVendorId, selectedRfpID,selectedKioskId,selectedBranch, PageRequest.of(page, size));
+		}
+		
+		}
+	}catch (NullPointerException e) {
+		logger.error("Exception quaterperiod undefined");
+	}
+		return entities;
+	}
+
+	@Override
+	public Page<BillingPenaltyEntity> findPaginatedWithoutStateSS(int page, int size, String type,
+			String selectedCircelId, String quterTimePeriod, String selectedVendorId, String selectedRfpID,
+			String selectedKioskId,String selectedBranch) {
+		logger.info("Inside findPaginatedWithoutState "); 
+		logger.info("quterTimePeriod-----" + quterTimePeriod); 
+		Page<BillingPenaltyEntity> entities = null;
+		try {
+			
+		
+		String quarter =null;
+		String finacialYear= null;
+		
+		if(quterTimePeriod!="") {
+		quarter= quterTimePeriod.substring(0, 2);
+		finacialYear= quterTimePeriod.substring(3);
+		
+		
+		
+		if(selectedRfpID.equalsIgnoreCase("1")){
+			logger.info("Selected RfpID " +selectedRfpID );
+			logger.info("Selected CircleId  " +selectedCircelId );
+			
+			if(selectedCircelId.equals("0")) {
+				logger.info("Inside Without RFID and CC");
+				entities =billingPenaltyRepository.findbyWithoutStateFilterCC(quarter,finacialYear,
+						selectedVendorId,selectedKioskId,selectedBranch, PageRequest.of(page, size));
+				
+			}else {
+				logger.info("Inside Without RFID and without CC");
+				entities =billingPenaltyRepository.findbyWithoutStateFilter(selectedCircelId, quarter,finacialYear,
+						selectedVendorId, selectedKioskId,selectedBranch,PageRequest.of(page, size));
+			
+			}
+			
+		}else {
+			
+			if(selectedCircelId.equals("0")) {
+				
+				logger.info("Inside With RFID and CC");
+				
+				entities =billingPenaltyRepository
+						.findbyFilterRfpWithoutStateCC(quarter,finacialYear, 
+								selectedVendorId, selectedRfpID, selectedKioskId,selectedBranch,PageRequest.of(page, size));
+				
+			}else {
+				logger.info("Inside With RFID and without CC");
+				entities =billingPenaltyRepository
+						.findbyFilterRfpWithoutState(selectedCircelId, 
+								quarter,finacialYear, selectedVendorId, selectedRfpID, 
+								selectedKioskId,selectedBranch,PageRequest.of(page, size));
+			}
+			
+			
+
+		}
+		
+		}
+		//System.out.println("Inside findPaginatedWithoutState " +entities);
+		
+		}catch (NullPointerException e) {
+			logger.error("Exception quaterperiod undefined");
+		}
+		return entities;
+	}
+	
+	
+	
 
 
 	@Override
@@ -46,13 +152,18 @@ public class BillingPenaltyService  implements PenaltyServices{
 		if(selectedRfpID.equalsIgnoreCase("1")){
 			//System.out.println("selectedRfpID "+ selectedRfpID);
 			
-			entities =
-					billingPenaltyRepository.findbyFilter(selectedCircelId, selectedStateId,
-							quarter,finacialYear, selectedVendorId, PageRequest.of(page, size));
+			/*
+			 * entities = billingPenaltyRepository.findbyFilter(selectedCircelId,
+			 * selectedStateId, quarter,finacialYear, selectedVendorId, PageRequest.of(page,
+			 * size));
+			 */
 		}else {
 			//System.out.println("selectedRfpID "+ selectedRfpID);
-			entities =
-					billingPenaltyRepository.findbyFilterWithRFP(selectedCircelId, selectedStateId, quarter,finacialYear, selectedVendorId, selectedRfpID, PageRequest.of(page, size));
+			/*
+			 * entities = billingPenaltyRepository.findbyFilterWithRFP(selectedCircelId,
+			 * selectedStateId, quarter,finacialYear, selectedVendorId, selectedRfpID,
+			 * PageRequest.of(page, size));
+			 */
 		}
 		
 		}
@@ -86,11 +197,11 @@ public class BillingPenaltyService  implements PenaltyServices{
 			
 			if(selectedCircelId.equals("0")) {
 				logger.info("Inside Without RFID and CC");
-				entities =billingPenaltyRepository.findbyWithoutStateFilterCC(quarter,finacialYear, selectedVendorId, PageRequest.of(page, size));
+			//	entities =billingPenaltyRepository.findbyWithoutStateFilterCC(quarter,finacialYear, selectedVendorId, PageRequest.of(page, size));
 				
 			}else {
 				logger.info("Inside Without RFID and without CC");
-				entities =billingPenaltyRepository.findbyWithoutStateFilter(selectedCircelId, quarter,finacialYear, selectedVendorId, PageRequest.of(page, size));
+			//	entities =billingPenaltyRepository.findbyWithoutStateFilter(selectedCircelId, quarter,finacialYear, selectedVendorId, PageRequest.of(page, size));
 			
 			}
 			
@@ -100,15 +211,19 @@ public class BillingPenaltyService  implements PenaltyServices{
 				
 				logger.info("Inside With RFID and CC");
 				
-				entities =billingPenaltyRepository
-						.findbyFilterRfpWithoutStateCC(quarter,finacialYear, 
-								selectedVendorId, selectedRfpID, PageRequest.of(page, size));
+				/*
+				 * entities =billingPenaltyRepository
+				 * .findbyFilterRfpWithoutStateCC(quarter,finacialYear, selectedVendorId,
+				 * selectedRfpID, PageRequest.of(page, size));
+				 */
 				
 			}else {
 				logger.info("Inside With RFID and without CC");
-				entities =billingPenaltyRepository
-						.findbyFilterRfpWithoutState(selectedCircelId, 
-								quarter,finacialYear, selectedVendorId, selectedRfpID, PageRequest.of(page, size));
+				/*
+				 * entities =billingPenaltyRepository
+				 * .findbyFilterRfpWithoutState(selectedCircelId, quarter,finacialYear,
+				 * selectedVendorId, selectedRfpID, PageRequest.of(page, size));
+				 */
 			}
 			
 			
@@ -126,7 +241,8 @@ public class BillingPenaltyService  implements PenaltyServices{
 
 	@Override
 	public Page<InvoiceGeneration> findPageByFilterIg(int page, int size, String type, String selectedCircelId,
-			String selectedStateId, String quterTimePeriod, String selectedVendorId, String selectedRfpID) {
+			String selectedStateId, String quterTimePeriod, String selectedVendorId, String selectedRfpID,
+			String selectedKioskId,String selectedBranch) {
 		logger.info("Inside findPageByFilterIg "); 
 		
 		String quarter =null;
@@ -143,11 +259,11 @@ public class BillingPenaltyService  implements PenaltyServices{
 			
 			entities =
 					invoiceGenerationRepository.findbyFilter(selectedCircelId, selectedStateId,
-							quarter,finacialYear,selectedVendorId, PageRequest.of(page, size));
+							quarter,finacialYear,selectedVendorId, selectedKioskId,selectedBranch,PageRequest.of(page, size));
 		}else {
 			//System.out.println("selectedRfpID "+ selectedRfpID);
 			entities = invoiceGenerationRepository.findbyFilterWithRFP(selectedCircelId, selectedStateId, 
-					quarter,finacialYear, selectedVendorId, selectedRfpID, PageRequest.of(page, size));
+					quarter,finacialYear, selectedVendorId, selectedRfpID, selectedKioskId,selectedBranch,PageRequest.of(page, size));
 		}
 		
 		}
@@ -160,7 +276,8 @@ public class BillingPenaltyService  implements PenaltyServices{
 
 	@Override
 	public Page<InvoiceGeneration> findPageWithoutStateIg(int page, int size, String type, String selectedCircelId,
-			String quterTimePeriod, String selectedVendorId, String selectedRfpID) {
+			String quterTimePeriod, String selectedVendorId, String selectedRfpID,
+			String selectedKioskId,String selectedBranch) {
 		logger.info("Inside findPageWithoutStateIg "); 
 		String quarter =null;
 		String finacialYear= null;
@@ -177,11 +294,13 @@ public class BillingPenaltyService  implements PenaltyServices{
 			
 			if(selectedCircelId.equals("0")) {
 				logger.info("Inside Without RFID and CC");
-				entities =invoiceGenerationRepository.findbyWithoutStateFilterCC(quarter,finacialYear, selectedVendorId, PageRequest.of(page, size));
+				entities =invoiceGenerationRepository.findbyWithoutStateFilterCC(quarter,finacialYear, 
+						selectedVendorId,selectedKioskId,selectedBranch, PageRequest.of(page, size));
 				
 			}else {
 				logger.info("Inside Without RFID and without CC");
-				entities =invoiceGenerationRepository.findbyWithoutStateFilter(selectedCircelId, quarter,finacialYear, selectedVendorId, PageRequest.of(page, size));
+				entities =invoiceGenerationRepository.findbyWithoutStateFilter(selectedCircelId, quarter,
+						finacialYear, selectedVendorId,selectedKioskId,selectedBranch, PageRequest.of(page, size));
 				
 			}
 			
@@ -195,11 +314,12 @@ public class BillingPenaltyService  implements PenaltyServices{
 				logger.info("Inside With RFID and CC");
 				
 				entities =invoiceGenerationRepository.findbyFilterRfpWithoutStateCC(quarter,finacialYear, 
-								selectedVendorId, selectedRfpID, PageRequest.of(page, size));
+								selectedVendorId, selectedRfpID,selectedKioskId,selectedBranch, PageRequest.of(page, size));
 				
 			}else {
 				logger.info("Inside With RFID and without CC");
-				entities =invoiceGenerationRepository.findbyFilterRfpWithoutState(selectedCircelId, quarter,finacialYear, selectedVendorId, selectedRfpID, PageRequest.of(page, size));
+				entities =invoiceGenerationRepository.findbyFilterRfpWithoutState(selectedCircelId, quarter,
+						finacialYear, selectedVendorId, selectedRfpID,selectedKioskId,selectedBranch, PageRequest.of(page, size));
 			}
 		
 			//entities =invoiceGenerationRepository.findbyFilterRfpWithoutState(selectedCircelId, quarter,finacialYear, selectedVendorId, selectedRfpID, PageRequest.of(page, size));
@@ -210,20 +330,17 @@ public class BillingPenaltyService  implements PenaltyServices{
 		return entities;
 	}
 
-	@Override
-	public Page<InvoiceCompare> findPageByFilterIc(int page, int size, String type, String selectedCircelId,
-			String selectedStateId, String quterTimePeriod, String selectedVendorId, String selectedRfpID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Page<InvoiceCompare> findPageWithoutStateIc(int page, int size, String type, String selectedCircelId,
-			String quterTimePeriod, String selectedVendorId, String selectedRfpID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	/*
+	 * @Override public Page<InvoiceCompare> findPageByFilterIc(int page, int size,
+	 * String type, String selectedCircelId, String selectedStateId, String
+	 * quterTimePeriod, String selectedVendorId, String selectedRfpID) { // TODO
+	 * Auto-generated method stub return null; }
+	 * 
+	 * @Override public Page<InvoiceCompare> findPageWithoutStateIc(int page, int
+	 * size, String type, String selectedCircelId, String quterTimePeriod, String
+	 * selectedVendorId, String selectedRfpID) { // TODO Auto-generated method stub
+	 * return null; }
+	 */
 	@Override
 	public Page<InvoiceSummaryDto> findPageByFilterIs(int page, int size, String type, String selectedCircelId,
 			String selectedStateId, String quterTimePeriod) {
@@ -234,6 +351,22 @@ public class BillingPenaltyService  implements PenaltyServices{
 	@Override
 	public Page<InvoiceSummaryDto> findPageWithoutStateIs(int page, int size, String type, String selectedCircelId,
 			String quterTimePeriod) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<InvoiceCompare> findPageByFilterIc(int page, int size, String type, String selectedCircelId,
+			String selectedStateId, String quterTimePeriod, String selectedVendorId, String selectedRfpID,
+			String selectedKioskId, String selectedBranch) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<InvoiceCompare> findPageWithoutStateIc(int page, int size, String type, String selectedCircelId,
+			String quterTimePeriod, String selectedVendorId, String selectedRfpID, String selectedKioskId,
+			String selectedBranch) {
 		// TODO Auto-generated method stub
 		return null;
 	}

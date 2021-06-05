@@ -7,7 +7,7 @@ import sbi.kiosk.swayam.common.entity.BillingPenaltyEntity;
 import sbi.kiosk.swayam.common.entity.InvoiceCompare;
 import sbi.kiosk.swayam.common.entity.InvoiceGeneration;
 
-public interface IOperations<T> {
+public interface BillingIOperations<T> {
 		
 	
 		Page<BillingPenaltyEntity> findPaginatedByFilterSS(int page, int size, String type,
@@ -25,16 +25,24 @@ public interface IOperations<T> {
 			      String selectedCircelId, String quterTimePeriod, String selectedVendorId, String selectedRfpID);
 		
 		Page<InvoiceGeneration> findPageByFilterIg(int page, int size, String type,
-			      String selectedCircelId, String selectedStateId, String quterTimePeriod, String selectedVendorId,String selectedRfpID);
+			      String selectedCircelId, String selectedStateId, String quterTimePeriod, 
+			      String selectedVendorId,String selectedRfpID,
+			      String selectedKioskId,String selectedBranch);
 				
 		Page<InvoiceGeneration> findPageWithoutStateIg(int page, int size, String type,
-					      String selectedCircelId, String quterTimePeriod, String selectedVendorId, String selectedRfpID);
+					      String selectedCircelId, String quterTimePeriod,
+					      String selectedVendorId, String selectedRfpID,
+					      String selectedKioskId,String selectedBranch);
 		
 		Page<InvoiceCompare> findPageByFilterIc(int page, int size, String type,
-			      String selectedCircelId, String selectedStateId, String quterTimePeriod, String selectedVendorId,String selectedRfpID);
+			      String selectedCircelId, String selectedStateId, String quterTimePeriod, 
+			      String selectedVendorId,String selectedRfpID,
+			      String selectedKioskId,String selectedBranch);
 				
 		Page<InvoiceCompare> findPageWithoutStateIc(int page, int size, String type,
-					      String selectedCircelId, String quterTimePeriod, String selectedVendorId, String selectedRfpID);
+					      String selectedCircelId, String quterTimePeriod,
+					      String selectedVendorId, String selectedRfpID,
+					      String selectedKioskId,String selectedBranch);
 		
 		Page<InvoiceSummaryDto> findPageByFilterIs(int page, int size, String type,
 			      String selectedCircelId, String selectedStateId, String quterTimePeriod);

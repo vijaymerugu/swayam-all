@@ -7,7 +7,9 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		 sort: null
 	   };
 	   
-	   $scope.yearOptions = [
+	
+	   
+	  $scope.yearOptions = [
    	    { name: '2020-2021', value: '2020-2021' }, 
    	    { name: '2021-2022', value: '2021-2022' }, 
    	    { name: '2022-2023', value: '2022-2023' }
@@ -26,11 +28,13 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	    	   	$scope.SelectedVendorId='';
 	    	   	$scope.RfpId='';
 				selectedRfpID="";
+				$scope.SelectedKisokId='';
+				$scope.selectedBranch='';
 				
 				InvoiceCompareService.getUsers(paginationOptions.pageNumber,
 						paginationOptions.pageSize, counttype,
 						selectedCircelId,selectedStateId,
-						quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
+						quterTimePeriod,selectedVendorId,selectedRfpID,selectedkiokId,selectedbranchCode).success(function(data) {
 							console.log("data3 " + data);
 					$scope.gridOptions.data = data.content;
 					$scope.gridOptions.totalItems = data.totalElements;
@@ -41,25 +45,6 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 
 	   	   
 	
-	   
-	   
-	  /* $scope.LoadYear=function(){
-			var year = new Date().getFullYear();
-			   //var year = "2020"
-		    var range = [];
-		    //range.push(year);
-		    for (var i = 1; i <100; i++) {
-		    	var selectYear = ((year-10) + i);
-		    	
-		    	var second=selectYear+1;
-		    	var modifiedyear = (selectYear)+"-"+(second);
-		    	
-		        range.push(modifiedyear);
-		    }
-		    
-		    console.log("Range "+ range)
-		    $scope.Years = range;
-		   }*/
 		   
 	   
 	   //Load Vendor
@@ -109,6 +94,8 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 			var selectedYearId ="";
 			var selectedVendorId="";
 			var selectedRfpID="";
+			var selectedkiokId="";
+			var selectedbranchCode="";
 
 			$scope.LoadDropDown = function(type, value) {
 				switch (type) {
@@ -195,8 +182,8 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 			}*/
        
 			$scope.searchPositions = function(CircelId,StateId,
-					QuarterId,YearId,VendorId,RfpId) {
-				console.log("RfpId " + RfpId);
+					QuarterId,YearId,VendorId,RfpId,kiosk,branchcode) {
+				console.log("kiosk" + kiosk);
 				
 				selectedCircelId = CircelId;
 				
@@ -205,6 +192,24 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 				selectedYearId = YearId;
 				selectedVendorId= VendorId
 				selectedRfpID= RfpId;
+				
+				selectedkiokId=kiosk;
+				selectedbranchCode=branchcode;
+				
+				
+				
+				if(typeof kiosk === 'undefined'){
+					
+					selectedkiokId="";
+					
+				}
+				
+				if(typeof branchcode === 'undefined'){
+					selectedbranchCode="";
+					
+				}
+				
+				
 				if(typeof RfpId === 'undefined') {
 					
 					selectedRfpID= "1";
@@ -248,7 +253,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 						.getUsers(paginationOptions.pageNumber,
 								paginationOptions.pageSize, counttype,
 								selectedCircelId,selectedStateId,
-								quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
+								quterTimePeriod,selectedVendorId,selectedRfpID,selectedkiokId,selectedbranchCode).success(function(data) {
 									console.log("Response Data " + data.totalElements);	
 									
 									if(data.totalElements==0){
@@ -277,7 +282,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 					   });
 		}
 	   
-	   
+	 /*  
 	   $scope.refresh = function()
 	   {  	
 		   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
@@ -316,12 +321,12 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 
 		 	 	   });
 		 	    }
-		    };
+		    };*/
 
 		    InvoiceCompareService.getUsers(paginationOptions.pageNumber,
 				paginationOptions.pageSize, counttype,
 				selectedCircelId,selectedStateId,
-				quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
+				quterTimePeriod,selectedVendorId,selectedRfpID,selectedkiokId,selectedbranchCode).success(function(data) {
 					console.log("data " + data);
 			$scope.gridOptions.data = data.content;
 			$scope.gridOptions.totalItems = data.totalElements;
@@ -471,7 +476,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	          InvoiceCompareService.getUsers(paginationOptions.pageNumber,
 						paginationOptions.pageSize, counttype,
 						selectedCircelId,selectedStateId,
-						quterTimePeriod,selectedVendorId,selectedRfpID).success(function(data) {
+						quterTimePeriod,selectedVendorId,selectedRfpID,selectedkiokId,selectedbranchCode).success(function(data) {
 							console.log("data4 " + data);
 					$scope.gridOptions.data = data.content;
 					$scope.gridOptions.totalItems = data.totalElements;
@@ -487,14 +492,14 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	app.service('InvoiceCompareService',['$http', function ($http) {
 		
 		function getUsers(pageNumber,size,counttype,selectedCircelId,selectedStateId,
-				quterTimePeriod,selectedVendorId,selectedRfpID) {
+				quterTimePeriod,selectedVendorId,selectedRfpID,selectedKioskId,selectedbranchCode) {
 			pageNumber = pageNumber > 0?pageNumber - 1:0;
 	        return  $http({
 	          method: 'GET',
 	          url: 'invoiceCompare/get?page='+pageNumber+
 	     '&size='+size+'&type='+counttype+'&selectedCircelId='+selectedCircelId+'&selectedStateId='+selectedStateId+
 	          '&quterTimePeriod='+quterTimePeriod+'&selectedVendorId='+selectedVendorId+'&selectedRfpID='+selectedRfpID
-	          
+	          +'&selectedKioskId='+selectedKioskId+'&selectedbranchCode='+selectedbranchCode
 	         
 	        });
 	    }

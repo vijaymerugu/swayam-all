@@ -3,6 +3,7 @@ package sbi.kiosk.swayam.common.controller;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,9 +27,14 @@ public class ViewResolverController {
 	
 	
 	@RequestMapping("/")
-	public ModelAndView home() {
-		ModelAndView mav = new ModelAndView("login");
-		return mav;
+	public ModelAndView omsSessionExpires(ModelAndView model, HttpSession session) {
+		//ModelAndView mav = new ModelAndView("login");
+		session.invalidate();
+		   
+		//logger.info("SuccessFully  LogOut:::"+userObj.getPfId());
+		model.setViewName("redirect:https://adfs.sbi.co.in/adfs/ls/?wa=wsignout1.0");
+		
+		return model;
 	}
 	
 	@RequestMapping("km/userkioskmapping")

@@ -45,7 +45,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			where   \r\n" + 
 			"			s4.VENDOR_ID=:selectedVendorId AND \r\n" + 
 			"			s3.FIN_YR=:finacialYear AND \r\n" + 
-			"			s3.QTR_ID=:quterTimePeriod",nativeQuery = true,
+			"			s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch%",nativeQuery = true,
 			countQuery = "select count(s5.PRN_SRN) \r\n" + 
 					"from TBL_INVOICE s3\r\n" + 
 					"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
@@ -59,10 +59,10 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 					" where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s3.FIN_YR=:finacialYear AND\r\n" + 
-					"s3.QTR_ID=:quterTimePeriod")
+					"s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch%")
 	Page<InvoiceCompare> findbyWithoutStateFilterCC(
    @Param("quterTimePeriod") String quterTimePeriod,@Param("finacialYear")String finacialYear,
-    @Param("selectedVendorId") String selectedVendorId,Pageable pageable);
+    @Param("selectedVendorId") String selectedVendorId,Pageable pageable,@Param("selectedKioskId")String selectedKioskId,@Param("selectedBranch")String selectedBranch);
 	
 	
 	
@@ -93,7 +93,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			 where  \r\n" + 
 			"			s4.VENDOR_ID=:selectedVendorId AND \r\n" + 
 			"			s3.FIN_YR=:finacialYear AND \r\n" + 
-			"			s3.QTR_ID=:quterTimePeriod AND \r\n" + 
+			"			s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch% AND \r\n" + 
 			"			s6.RFP_NO=:selectedRfpID",nativeQuery = true,
 			countQuery = "select count(s5.PRN_SRN) \r\n" + 
 					"from TBL_INVOICE s3\r\n" + 
@@ -108,11 +108,11 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 					" where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s3.FIN_YR=:finacialYear AND\r\n" + 
-					"s3.QTR_ID=:quterTimePeriod AND\r\n" + 
+					"s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch% AND\r\n" + 
 					"s6.RFP_NO=:selectedRfpID")
 	Page<InvoiceCompare> findbyFilterRfpWithoutStateCC(
    @Param("quterTimePeriod") String quterTimePeriod,@Param("finacialYear")String finacialYear,
-    @Param("selectedVendorId") String selectedVendorId, @Param("selectedRfpID")String selectedRfpID, Pageable pageable);
+    @Param("selectedVendorId") String selectedVendorId, @Param("selectedRfpID")String selectedRfpID, Pageable pageable,@Param("selectedKioskId")String selectedKioskId,@Param("selectedBranch")String selectedBranch);
 	
 	
 	
@@ -146,7 +146,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			s2.CRCL_CODE=:selectedCircelId AND  \r\n" + 
 			"			s2.STAT_CODE=:selectedStateId AND \r\n" + 
 			"			s3.FIN_YR=:finacialYear AND \r\n" + 
-			"			s3.QTR_ID=:quterTimePeriod",nativeQuery = true,
+			"			s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch%",nativeQuery = true,
 			countQuery = "select count(s5.PRN_SRN) \r\n" + 
 					"from TBL_INVOICE s3\r\n" + 
 					"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
@@ -162,11 +162,11 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
 					"s2.STAT_CODE=:selectedStateId AND\r\n" + 
 					"s3.FIN_YR=:finacialYear AND\r\n" + 
-					"s3.QTR_ID=:quterTimePeriod")
+					"s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch%")
 	Page<InvoiceCompare> findbyFilter(@Param("selectedCircelId")
     String selectedCircelId, @Param("selectedStateId") String selectedStateId,
    @Param("quterTimePeriod") String quterTimePeriod,@Param("finacialYear")String finacialYear,
-    @Param("selectedVendorId") String selectedVendorId,Pageable pageable);
+    @Param("selectedVendorId") String selectedVendorId,Pageable pageable,@Param("selectedKioskId")String selectedKioskId,@Param("selectedBranch")String selectedBranch);
 	
 	
 	
@@ -198,7 +198,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			s4.VENDOR_ID=:selectedVendorId AND \r\n" + 
 			"			s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
 			"			s3.FIN_YR=:finacialYear AND \r\n" + 
-			"			s3.QTR_ID=:quterTimePeriod",nativeQuery = true,
+			"			s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch%",nativeQuery = true,
 			countQuery = "select count(s5.PRN_SRN) \r\n" + 
 					"from TBL_INVOICE s3\r\n" + 
 					"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
@@ -213,11 +213,11 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n" +
 					"s3.FIN_YR=:finacialYear AND\r\n" + 
-					"s3.QTR_ID=:quterTimePeriod")
+					"s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch%")
 	Page<InvoiceCompare> findbyWithoutStateFilter(@Param("selectedCircelId")
     String selectedCircelId,
    @Param("quterTimePeriod") String quterTimePeriod,@Param("finacialYear")String finacialYear,
-    @Param("selectedVendorId") String selectedVendorId,Pageable pageable);
+    @Param("selectedVendorId") String selectedVendorId,Pageable pageable,@Param("selectedKioskId")String selectedKioskId,@Param("selectedBranch")String selectedBranch);
 	
 	
 	@Query(value = "select s6.RFP_NO,s1.VENDOR,  \r\n" + 
@@ -249,7 +249,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
 			"			s2.STAT_CODE=:selectedStateId AND\r\n" + 
 			"			s3.FIN_YR=:finacialYear AND\r\n" + 
-			"			s3.QTR_ID=:quterTimePeriod AND\r\n" + 
+			"			s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch% AND\r\n" + 
 			"			s6.RFP_NO=:selectedRfpID",nativeQuery = true,
 			countQuery = "select count(s5.PRN_SRN) \r\n" + 
 					"from TBL_INVOICE s3\r\n" + 
@@ -266,12 +266,12 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
 					"s2.STAT_CODE=:selectedStateId AND\r\n" + 
 					"s3.FIN_YR=:finacialYear AND\r\n" + 
-					"s3.QTR_ID=:quterTimePeriod AND\r\n" + 
+					"s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch% AND\r\n" + 
 					"s6.RFP_NO=:selectedRfpID")
 	Page<InvoiceCompare> findbyFilterWithRFP(@Param("selectedCircelId")
     String selectedCircelId, @Param("selectedStateId") String selectedStateId,
    @Param("quterTimePeriod") String quterTimePeriod,@Param("finacialYear") String finacialYear,
-    @Param("selectedVendorId") String selectedVendorId, @Param("selectedRfpID") String selectedRfpID, Pageable pageable);
+    @Param("selectedVendorId") String selectedVendorId, @Param("selectedRfpID") String selectedRfpID, Pageable pageable,@Param("selectedKioskId")String selectedKioskId,@Param("selectedBranch")String selectedBranch);
 	
 	@Query(value = "select s6.RFP_NO,s1.VENDOR,  \r\n" + 
 			"			s2.CRCL_NAME, \r\n" + 
@@ -301,7 +301,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			s4.VENDOR_ID=:selectedVendorId AND \r\n" + 
 			"			s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
 			"			s3.FIN_YR=:finacialYear AND \r\n" + 
-			"			s3.QTR_ID=:quterTimePeriod AND \r\n" + 
+			"			s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch% AND \r\n" + 
 			"			s6.RFP_NO=:selectedRfpID",nativeQuery = true,
 			countQuery = "select count(s5.PRN_SRN) \r\n" + 
 					"from TBL_INVOICE s3\r\n" + 
@@ -317,12 +317,12 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n"+
 					"s3.FIN_YR=:finacialYear AND\r\n" + 
-					"s3.QTR_ID=:quterTimePeriod AND\r\n" + 
+					"s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch% AND\r\n" + 
 					"s6.RFP_NO=:selectedRfpID")
 	Page<InvoiceCompare> findbyFilterRfpWithoutState(@Param("selectedCircelId")
     String selectedCircelId,
    @Param("quterTimePeriod") String quterTimePeriod,@Param("finacialYear")String finacialYear,
-    @Param("selectedVendorId") String selectedVendorId, @Param("selectedRfpID")String selectedRfpID, Pageable pageable);
+    @Param("selectedVendorId") String selectedVendorId, @Param("selectedRfpID")String selectedRfpID, Pageable pageable,@Param("selectedKioskId")String selectedKioskId,@Param("selectedBranch")String selectedBranch);
 	
 
 	@Query(value = "select s6.RFP_NO,s1.VENDOR,  \r\n" + 
@@ -354,7 +354,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			s2.CRCL_CODE=:selectedCircelId AND  \r\n" + 
 			"			s2.STAT_CODE=:selectedStateId AND \r\n" + 
 			"			s3.FIN_YR=:finacialYear AND \r\n" + 
-			"			s3.QTR_ID=:quterTimePeriod",nativeQuery = true,
+			"			s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch%",nativeQuery = true,
 			countQuery = "select count(s5.PRN_SRN) \r\n" + 
 					"from TBL_INVOICE s3\r\n" + 
 					"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
@@ -370,11 +370,11 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
 					"s2.STAT_CODE=:selectedStateId AND\r\n" + 
 					"s3.FIN_YR=:finacialYear AND\r\n" + 
-					"s3.QTR_ID=:quterTimePeriod")
+					"s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch%")
 	List<InvoiceCompare> findbyFilterReport(@Param("selectedCircelId")
     String selectedCircelId, @Param("selectedStateId") String selectedStateId,
    @Param("quterTimePeriod") String quterTimePeriod,@Param("finacialYear")String finacialYear,
-    @Param("selectedVendorId") String selectedVendorId);
+    @Param("selectedVendorId") String selectedVendorId,@Param("selectedKioskId")String selectedKioskId,@Param("selectedBranch")String selectedBranch);
 	
 	
 	@Query(value = "select s6.RFP_NO,s1.VENDOR,  \r\n" + 
@@ -405,7 +405,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			s4.VENDOR_ID=:selectedVendorId AND \r\n" + 
 			"			s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
 			"			s3.FIN_YR=:finacialYear AND \r\n" + 
-			"			s3.QTR_ID=:quterTimePeriod",nativeQuery = true,
+			"			s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch%",nativeQuery = true,
 			countQuery = "select count(s5.PRN_SRN) \r\n" + 
 					"from TBL_INVOICE s3\r\n" + 
 					"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
@@ -420,11 +420,11 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n" +
 					"s3.FIN_YR=:finacialYear AND\r\n" + 
-					"s3.QTR_ID=:quterTimePeriod")
+					"s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch%")
 	List<InvoiceCompare> findbyWithoutStateFilterReport(@Param("selectedCircelId")
     String selectedCircelId,
    @Param("quterTimePeriod") String quterTimePeriod,@Param("finacialYear")String finacialYear,
-    @Param("selectedVendorId") String selectedVendorId);
+    @Param("selectedVendorId") String selectedVendorId,@Param("selectedKioskId")String selectedKioskId,@Param("selectedBranch")String selectedBranch);
 	
 	
 	@Query(value = "select s6.RFP_NO,s1.VENDOR,  \r\n" + 
@@ -456,7 +456,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
 			"			s2.STAT_CODE=:selectedStateId AND\r\n" + 
 			"			s3.FIN_YR=:finacialYear AND\r\n" + 
-			"			s3.QTR_ID=:quterTimePeriod AND\r\n" + 
+			"			s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch% AND\r\n" + 
 			"			s6.RFP_NO=:selectedRfpID",nativeQuery = true,
 			countQuery = "select count(s5.PRN_SRN) \r\n" + 
 					"from TBL_INVOICE s3\r\n" + 
@@ -473,12 +473,12 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
 					"s2.STAT_CODE=:selectedStateId AND\r\n" + 
 					"s3.FIN_YR=:finacialYear AND\r\n" + 
-					"s3.QTR_ID=:quterTimePeriod AND\r\n" + 
+					"s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch% AND\r\n" + 
 					"s6.RFP_NO=:selectedRfpID")
 	List<InvoiceCompare> findbyFilterWithRFPReport(@Param("selectedCircelId")
     String selectedCircelId, @Param("selectedStateId") String selectedStateId,
    @Param("quterTimePeriod") String quterTimePeriod,@Param("finacialYear")String finacialYear,
-    @Param("selectedVendorId") String selectedVendorId, @Param("selectedRfpID")String selectedRfpID);
+    @Param("selectedVendorId") String selectedVendorId, @Param("selectedRfpID")String selectedRfpID,@Param("selectedKioskId")String selectedKioskId,@Param("selectedBranch")String selectedBranch);
 	
 	@Query(value = "select s6.RFP_NO,s1.VENDOR,  \r\n" + 
 			"			s2.CRCL_NAME, \r\n" + 
@@ -508,7 +508,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			s4.VENDOR_ID=:selectedVendorId AND \r\n" + 
 			"			s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
 			"			s3.FIN_YR=:finacialYear AND \r\n" + 
-			"			s3.QTR_ID=:quterTimePeriod AND \r\n" + 
+			"			s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch% AND \r\n" + 
 			"			s6.RFP_NO=:selectedRfpID",nativeQuery = true,
 			countQuery = "select count(s5.PRN_SRN) \r\n" + 
 					"from TBL_INVOICE s3\r\n" + 
@@ -524,12 +524,12 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n"+
 					"s3.FIN_YR=:finacialYear AND\r\n" + 
-					"s3.QTR_ID=:quterTimePeriod AND\r\n" + 
+					"s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch% AND\r\n" + 
 					"s6.RFP_NO=:selectedRfpID")
 	List<InvoiceCompare> findbyFilterRfpWithoutStateReport(@Param("selectedCircelId")
     String selectedCircelId,
    @Param("quterTimePeriod") String quterTimePeriod,@Param("finacialYear")String finacialYear,
-    @Param("selectedVendorId") String selectedVendorId, @Param("selectedRfpID")String selectedRfpID);
+    @Param("selectedVendorId") String selectedVendorId, @Param("selectedRfpID")String selectedRfpID,@Param("selectedKioskId")String selectedKioskId,@Param("selectedBranch")String selectedBranch);
 
 
 	
@@ -562,7 +562,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			where   \r\n" + 
 			"			s4.VENDOR_ID=:selectedVendorId AND \r\n" + 
 			"			s3.FIN_YR=:finacialYear AND \r\n" + 
-			"			s3.QTR_ID=:quterTimePeriod",nativeQuery = true,
+			"			s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch%",nativeQuery = true,
 			countQuery = "select count(s5.PRN_SRN) \r\n" + 
 					"from TBL_INVOICE s3\r\n" + 
 					"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
@@ -576,10 +576,10 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 					" where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s3.FIN_YR=:finacialYear AND\r\n" + 
-					"s3.QTR_ID=:quterTimePeriod")
+					"s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch%")
 	List<InvoiceCompare> findbyWithoutStateFilterCCReport(
    @Param("quterTimePeriod") String quterTimePeriod,@Param("finacialYear")String finacialYear,
-    @Param("selectedVendorId") String selectedVendorId);
+    @Param("selectedVendorId") String selectedVendorId,@Param("selectedKioskId")String selectedKioskId,@Param("selectedBranch")String selectedBranch);
 	
 	
 	
@@ -610,7 +610,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			 where  \r\n" + 
 			"			s4.VENDOR_ID=:selectedVendorId AND \r\n" + 
 			"			s3.FIN_YR=:finacialYear AND \r\n" + 
-			"			s3.QTR_ID=:quterTimePeriod AND \r\n" + 
+			"			s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch% AND \r\n" + 
 			"			s6.RFP_NO=:selectedRfpID",nativeQuery = true,
 			countQuery = "select count(s5.PRN_SRN) \r\n" + 
 					"from TBL_INVOICE s3\r\n" + 
@@ -625,11 +625,11 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 					" where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s3.FIN_YR=:finacialYear AND\r\n" + 
-					"s3.QTR_ID=:quterTimePeriod AND\r\n" + 
+					"s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch% AND\r\n" + 
 					"s6.RFP_NO=:selectedRfpID")
 	List<InvoiceCompare> findbyFilterRfpWithoutStateCCReport(
    @Param("quterTimePeriod") String quterTimePeriod,@Param("finacialYear")String finacialYear,
-    @Param("selectedVendorId") String selectedVendorId, @Param("selectedRfpID")String selectedRfpID);
+    @Param("selectedVendorId") String selectedVendorId, @Param("selectedRfpID")String selectedRfpID,@Param("selectedKioskId")String selectedKioskId,@Param("selectedBranch")String selectedBranch);
 	
 	
 	
