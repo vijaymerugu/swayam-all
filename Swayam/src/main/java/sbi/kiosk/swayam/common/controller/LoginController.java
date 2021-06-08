@@ -159,7 +159,7 @@ public class LoginController {
 	
 	
 	@SuppressWarnings({ "finally", "restriction" })
-	@RequestMapping(value = "/SMTSSO", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/SSO", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView createAuthenticationSSO(HttpServletResponse res,HttpServletRequest req,
 			final RedirectAttributes redirectAttributes, HttpSession session, ModelAndView mav)
 			throws Exception {

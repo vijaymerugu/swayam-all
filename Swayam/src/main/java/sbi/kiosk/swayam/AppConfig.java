@@ -39,7 +39,7 @@ public class AppConfig implements WebMvcConfigurer {
 	public FilterRegistrationBean<WSFederationFilter> filterRegistrationBean() {
 	FilterRegistrationBean<WSFederationFilter> registration = new FilterRegistrationBean<WSFederationFilter>();
 	registration.setFilter(new WSFederationFilter());
-	registration.addUrlPatterns("/SMTSSO/*");
+	registration.addUrlPatterns("/SSO/*");
 	//registration.addUrlPatterns("/*");
 	registration.addInitParameter("login-page-url", "login.jsp");
 	registration.addInitParameter("exclude-urls-regex", "/img/|/js/|/css/|/app/|/templates/");
