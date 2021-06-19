@@ -249,16 +249,17 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 				useExternalPagination: true,
 			
 				    columnDefs: [		
-				     { name: 'circle',width:180, displayName: 'Circle'  },	
-				     { name: 'network',width:100, displayName: 'NW'  }, 
-				     { name: 'module',width:180, displayName: 'Mod'  },  
-				     { name: 'branchCode',width:110, displayName: 'Branch Code '  },   
-				     { name: 'kioskId',width:130, displayName: 'Kiosk Id'  },   
-				     { name: 'vendor',width:100, displayName: 'Vendor'  },
-				     { name: 'cmsCmf',width:180,displayName: 'CMS/CMF'},
+				     { name: 'circle', displayName: 'Circle'  },	
+				     { name: 'network', displayName: 'NW'  }, 
+				     { name: 'module', displayName: 'Mod'  },  
+				     { name: 'branchCode', displayName: 'Branch Code '  },   
+				     { name: 'kioskId', displayName: 'Kiosk Id'  },   
+				     { name: 'vendor', displayName: 'Vendor'  },
+				     { name: 'cmsCmf',displayName: 'CMS/CMF'},
 				     { name: 'totalOperatingHours',headerCellTemplate: '<div>Branch Operating <br/>Hours</div>' },  
-				     { name: 'totalDowntime',headerCellTemplate: '<div>Total Downtime in <br/>Hours</div>' }, 	
-				    ],
+				     { name: 'totalDowntime',headerCellTemplate: '<div>Total Downtime<br/> in Hours</div>' }, 	
+	                 { name: 'uptimePercentage',displayName: 'Uptime %'},			   
+	                 ],
 			    onRegisterApi: function(gridApi) {
 			        $scope.gridApi = gridApi;
 			        gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {

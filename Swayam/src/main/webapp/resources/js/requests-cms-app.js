@@ -68,7 +68,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	
     columnDefs: [
 { name: 'id', displayName: 'Case Id', width:150,
-    	  cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.id)">{{ row.entity.id }}</a></div>'  
+    	  cellTemplate: '<div class="ui-grid-cell-contents"><a style="cursor: hand;cursor: pointer;" ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.id)">{{ row.entity.id }}</a></div>'  
       },
     
       { name: 'kioskId', displayName: 'Kiosk Id', width:250  },

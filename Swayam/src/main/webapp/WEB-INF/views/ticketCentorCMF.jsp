@@ -353,7 +353,9 @@
  -->
 				<!-- <div style="border-bottom: 1px solid #eee;"> -->
 					
-					<input class="form-group has-search" ng-model="searchText"	ng-change="refresh()" placeholder=" Enter VendorName,BranchCode,TicketId,KioskID."	id="input" style="width:339px;"> 
+					<input class="form-group has-search" ng-model="searchText"	ng-change="refresh()" placeholder=" Enter BranchCode,KioskId."	id="input" style="width:339px;"> 
+				     <button  id="btnSearchText" ng-click="refresh()">Search</button> 
+		             <button  id="btnClearText" ng-click="clearSearch()">ClearSearch</button>	
 					<span style="float:right">
 					<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
 					<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>
@@ -418,7 +420,7 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 					   });
 		}
 	   
-	   
+	  /*  
 	   $scope.refresh = function()
 	   {  		  	
 		   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
@@ -446,7 +448,86 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 			   paginationOptions.pageSize,counttype).success(function(data){
 		  $scope.gridOptions.data = data.content;
 	 	  $scope.gridOptions.totalItems = data.totalElements;
+	   }); */
+
+
+
+
+	   $scope.refresh = function()
+	   {  
+	  if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){
+	  //  Added for loader------------- START
+	       $("#loading").show();  
+	    // Added for loader------------- END
+	  UserManagementService.getUsers(paginationOptions.pageNumber,
+	   paginationOptions.pageSize,counttype).success(function(data){
+	  $scope.gridOptions.data = data.content;
+	    $scope.gridOptions.totalItems = data.totalElements;
+	  //  Added for loader------------- START
+	       $("#loading").hide();  
+	    // Added for loader------------- END
+	    });  
+	 
+	   }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){debugger;
+	 
+	 /* $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText); */  
+	   
+	    $("#loading").show();
+	 /* UserManagementService.getSearchNext(paginationOptions.pageNumber,
+	  paginationOptions.pageSize,fromDate,toDate,$scope.searchText).success(function(data3){*/
+	  UserManagementService.getSearchNext(0,
+	  paginationOptions.pageSize,counttype,$scope.searchText).success(function(data3){
+	   $scope.gridOptions.data = data3.content;
+	     $scope.gridOptions.totalItems = data3.totalElements;
+	       $("#loading").hide();
+	    });
+	 
+	   }else{
+	  //  Added for loader------------- START
+	       $("#loading").show();  
+	    // Added for loader------------- END
+	    UserManagementService.getUsers(paginationOptions.pageNumber,
+	     paginationOptions.pageSize,counttype).success(function(data){
+	    $scope.gridOptions.data = data.content;
+	      $scope.gridOptions.totalItems = data.totalElements;
+	    //  Added for loader------------- START
+	       $("#loading").hide();  
+	    // Added for loader------------- END
+	      });
+	   }
+	   };
+	   $scope.clearSearch = function()
+	   {   debugger;
+	 
+	    $scope.searchText='';
+	 
+	       $("#loading").show();  
+	   
+	  UserManagementService.getUsers(0,
+	  paginationOptions.pageSize,counttype).success(function(data){
+	   $scope.gridOptions.data = data.content;
+	   $scope.gridOptions.paginationCurrentPage = data.number;
+	   $scope.gridOptions.totalItems = data.totalElements;
+	 
+	       $("#loading").hide();  
+	   
+	    });
+	 
+	 
+	   };
+	//  Added for loader------------- START
+	        $("#loading").show();  
+	     // Added for loader------------- END
+	   UserManagementService.getUsers(paginationOptions.pageNumber,
+	    paginationOptions.pageSize,counttype).success(function(data){
+	 
+	   $scope.gridOptions.data = data.content;
+	   $scope.gridOptions.totalItems = data.totalElements;
+	// Added for loader------------- START
+	   $("#loading").hide();  
+	// Added for loader------------- END
 	   });
+		   
 	   
 	   
 	   $scope.gridOptions = {
@@ -457,7 +538,7 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 								
 			    columnDefs: [
 			      { name: 'vendor', displayName: 'Vendor'  },
-			      { name: 'ticketId', displayName: 'Ticket Id' },
+			      { name: 'ticketId', displayName: 'Ticket Id'  },
 			      { name: 'kisokId', displayName: 'KisokId'  },
 			      { name: 'branchCode', headerCellTemplate: '<div>Branch<br/>Code</div>'  },			      
 			      { name: 'callCategory',headerCellTemplate: '<div>Call<br/>Category</div>'},
@@ -470,19 +551,41 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 			    ],
 			    onRegisterApi: function(gridApi) {
 			        $scope.gridApi = gridApi;
-			        gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
+			        gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
 			          paginationOptions.pageNumber = newPage;
 			          paginationOptions.pageSize = pageSize;
+
+
+			      //  Added for loader------------- START 
+				        $("#loading").show();  
+				     // Added for loader------------- END
+				        if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){
 			          UserManagementService.getUsers(newPage,pageSize,counttype).success(function(data){
-			        	  $scope.gridOptions.data = data.content;
-			         	  $scope.gridOptions.totalItems = data.totalElements;
+				//alert(" On Register ");
+			         $scope.gridOptions.data = data.content;
+			           $scope.gridOptions.totalItems = data.totalElements;
+			       //  Added for loader------------- START 
+				        $("#loading").hide();  
+				     // Added for loader------------- END
 			          });
+			        }else{
+			 	 	   	console.log("Inside else"+$scope.counttype);
+			        	 UserManagementService.getSearchNext(newPage,pageSize,$scope.counttype,$scope.searchText).success(function(data){
+			                  $scope.gridOptions.data = data.content;
+			           	 	  $scope.gridOptions.totalItems = data.totalElements;
+			        
+				 	 		 $("#loading").hide();  
+				 		   
+			        	  });	 
+			        
+			        	   }
 			        });
 			     }
 			  };
-	   
-	   
-	}]);
+			 
+			}]);
+
+
 
 
 
@@ -491,15 +594,28 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 
 app.service('UserManagementService',['$http', function ($http) {
 	function getUsers(pageNumber,size,counttype) {
-		
+		//alert("counttype= getUsers=="+counttype);
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({
           method: 'GET',
           url: 'hm/ticketCentorFilterCMF/get?page='+pageNumber+'&size='+size+'&type='+counttype
         });
     }
+
+    
+	function getSearchNext(pageNumber,size,counttype, searchText) {
+		//alert("counttype= searchText=="+counttype);
+		//alert("13=searchText=="+searchText);
+		pageNumber = pageNumber > 0?pageNumber - 1:0;
+	    return  $http({
+	      method: 'GET',
+	      url: 'hm/ticketCentorFilterCMFSearch/getSearchNext?page='+pageNumber+'&size='+size+'&type='+counttype+'&searchText='+searchText
+	    });
+	}
+    
     return {
-    	getUsers:getUsers
+    	getUsers:getUsers,
+        getSearchNext:getSearchNext
     };
 	
 }]);

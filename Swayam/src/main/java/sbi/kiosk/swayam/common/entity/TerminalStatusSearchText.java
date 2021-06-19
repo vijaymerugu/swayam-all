@@ -41,9 +41,5 @@ public class TerminalStatusSearchText {
 	@Column(name = "USERNAME")
 	private String username;
 
-	public String getCmf() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

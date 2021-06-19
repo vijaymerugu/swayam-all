@@ -22,6 +22,7 @@ import sbi.kiosk.swayam.common.repository.KioskMasterRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.CallTypeRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.TicketCentorAgeingRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.TicketCentorRepository;
+import sbi.kiosk.swayam.healthmonitoring.repository.TicketCentorSearchTextRepository;
 import sbi.kiosk.swayam.kioskmanagement.repository.BranchMasterRepository;
 
 @Service
@@ -41,6 +42,9 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 	KioskMasterRepository kioskMasterRepo;
 	@Autowired
 	BranchMasterRepository branchMasterRepo;
+	
+	@Autowired
+	TicketCentorSearchTextRepository ticketCentorSearchTextRepo;
 	
 	public static HttpSession session() {
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
@@ -77,11 +81,12 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 	 public Page<TicketCentorDto> findPaginatedByCircle(final int page, final int size){
 		 UserDto user = (UserDto) session().getAttribute("userObj");
 		 
+		 logger.info("user.getCircle():::: "+user.getCircle());
 		 Page<TicketCentorDto> entities = ticketCentorRepo.findAllByCircle(user.getCircle(),PageRequest.of(page, size)).map(TicketCentorDto::new);
 		 TicketCentorDto ticketCentorDto= new TicketCentorDto();
 		 String circle=null;
 		 for(TicketCentorDto dto:entities){
-			 
+
 			 String kioskId=dto.getKisokId();
 			 
 			 if(kioskId!=null){
@@ -216,7 +221,9 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 		 }else if(type!=null && type.equals("ThreeDaysLessCount")){
 			 entities=ticketCentorAgeingRepo.findAllTicketCentor3DaysLessByCircle(circle,PageRequest.of(page, size)).map(TicketCentorDto::new);
 	    }else if(type!=null && type.equals("ThreeDayGreaterCount")){
+	    	logger.info("in side ThreeDayGreaterCount::::::Circle:::"+circle);
 	    	entities=ticketCentorAgeingRepo.findAllTicketCentor3DaysGreaterByCircle(circle,PageRequest.of(page, size)).map(TicketCentorDto::new);
+	    	logger.info("in side ThreeDayGreaterCount::::::entities:::"+entities);
 	    } else{
 			  entities =  ticketCentorRepo.findAllByCircle(circle,PageRequest.of(page, size)).map(TicketCentorDto::new);
 		      }		  
@@ -376,7 +383,89 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 	           return mapData;
 			
 	    }
+		 
+		 
+		 // Circle User
+		 
+		    @Override
+		    public Page<TicketCentorDto> findPaginatedCountByCircleSearch(int page, int size,String type,String searchText) {	 
+			 
+			 UserDto user = (UserDto) session().getAttribute("userObj");
+			 String circle =user.getCircle();
+			 Page<TicketCentorDto> entities = null;
+			 
+			 if(type!=null && !type.isEmpty()){
+			 
+			 if(type!=null && type.equals("High")){
+				  entities= ticketCentorSearchTextRepo.findAllByCircleAndType(circle,type,searchText, PageRequest.of(page, size)).map(TicketCentorDto::new);
+			  }else if(type!=null && type.equals("Medium")){
+			     entities= ticketCentorSearchTextRepo.findAllByCircleAndType(circle,type,searchText, PageRequest.of(page, size)).map(TicketCentorDto::new);
+			 }else if(type!=null && type.equals("Low")){
+			     entities= ticketCentorSearchTextRepo.findAllByCircleAndType(circle,type,searchText, PageRequest.of(page, size)).map(TicketCentorDto::new);
+			 }else if(type!=null && type.equals("Total")){
+			     entities =  ticketCentorSearchTextRepo.findAllByRiskByCircle(circle,"High","Medium","Low",searchText,PageRequest.of(page, size)).map(TicketCentorDto::new);
+			  }else if(type!=null && type.equals("TwoToFourHrsCount")){
+				  entities=ticketCentorSearchTextRepo.findAllTicketCentor4HourByCircle(circle,searchText,PageRequest.of(page, size)).map(TicketCentorDto::new);
+			  }else if(type!=null && type.equals("OneDaysCount")){
+				  entities=ticketCentorSearchTextRepo.findAllTicketCentor1DaysByCircle(circle,searchText,PageRequest.of(page, size)).map(TicketCentorDto::new);
+			 }else if(type!=null && type.equals("ThreeDaysLessCount")){
+				 entities=ticketCentorSearchTextRepo.findAllTicketCentor3DaysLessByCircle(circle,searchText,PageRequest.of(page, size)).map(TicketCentorDto::new);
+		    }else if(type!=null && type.equals("ThreeDayGreaterCount")){
+		    	logger.info("in side ThreeDayGreaterCount::::::Circle:::"+circle);
+		    	entities=ticketCentorSearchTextRepo.findAllTicketCentor3DaysGreaterByCircle(circle,searchText,PageRequest.of(page, size)).map(TicketCentorDto::new);
+		    	logger.info("in side ThreeDayGreaterCount::::::entities:::"+entities);
+		    } else{
+				  entities =  ticketCentorSearchTextRepo.findAllByCircle(circle,searchText,PageRequest.of(page, size)).map(TicketCentorDto::new);
+			      }		  
+			 }
+			 else{
+				  entities =  ticketCentorSearchTextRepo.findAllByCircle(circle,searchText,PageRequest.of(page, size)).map(TicketCentorDto::new);
+			      }
+			 for(TicketCentorDto dto:entities){
+				 
+				 String kioskId=dto.getKisokId();
+				 if(kioskId!=null){
+					  String kioskBranchCode= kioskMasterRepo.findKioskByBranchCode(kioskId);
+					  circle= branchMasterRepo.findCircleByBranchCode(kioskBranchCode);
+					  }
+					  dto.setServeriry(circle);
+				 
+				 
+			 }
+			
+		 	return entities;
+	}
 
+		 
+		 
+		    @Override
+			 public Page<TicketCentorDto> findPaginatedByCircleSearch(final int page, final int size,String searchText){
+				 UserDto user = (UserDto) session().getAttribute("userObj");
+				 
+				 logger.info("user.getCircle():::: "+user.getCircle());
+				 logger.info("searchText::: "+searchText);
+				 Page<TicketCentorDto> entities = ticketCentorSearchTextRepo.findAllByCircle(user.getCircle(),searchText,PageRequest.of(page, size)).map(TicketCentorDto::new);
+				 logger.info("entities:::Search "+entities);
+				 TicketCentorDto ticketCentorDto= new TicketCentorDto();
+				 String circle=null;
+				 for(TicketCentorDto dto:entities){
+
+					 String kioskId=dto.getKisokId();
+					 
+					 if(kioskId!=null){
+						  String kioskBranchCode= kioskMasterRepo.findKioskByBranchCode(kioskId);
+						  circle= branchMasterRepo.findCircleByBranchCode(kioskBranchCode);
+						  }
+						  dto.setServeriry(circle);
+					 
+					 
+				 }
+				 return entities;		 
+			 }
+			 
+		    
+		    
+		    
 
 		@Override
 		public Page<TicketCentorDto> findPaginatedCC(int page, int size) {

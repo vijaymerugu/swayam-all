@@ -9,10 +9,10 @@
     <property name="ireport.y" value="0"></property>  
     <property name="net.sf.jasperreports.export.pdf.size.page.to.content" value="true"/>
 	<field name="kioskId" class="java.lang.String"></field> 
-	<field name="kioskSrNo" class="java.lang.String"></field> 
+	<field name="kioskSerialNo" class="java.lang.String"></field> 
 	<field name="branchCode" class="java.lang.String"></field> 
-    <field name="circle" class="java.lang.String"></field>
-    <field name="cmf" class="java.lang.String"></field>
+    <field name="crclName" class="java.lang.String"></field>
+    <field name="username" class="java.lang.String"></field>
       
     <field name="rmmsConnectivity" class="java.lang.String"></field>
 	<field name="pbPrinterStatus" class="java.lang.String"></field>
@@ -453,7 +453,7 @@
 					<font size="8" isItalic="false"></font>
 				</textElement>
 
-                <textFieldExpression><![CDATA[$F{kioskSrNo} == null?"":$F{kioskSrNo}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{kioskSerialNo} == null?"":$F{kioskSerialNo}]]></textFieldExpression>
 
             </textField>
 
@@ -504,7 +504,7 @@
                 <textElement textAlignment="Center">
 					<font size="8" isItalic="false"></font>
 				</textElement>
-                <textFieldExpression><![CDATA[$F{circle}  == null?"":$F{circle}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{crclName}  == null?"":$F{crclName}]]></textFieldExpression>
             </textField>
 			
 			 <textField>
@@ -529,7 +529,7 @@
 					<font size="8" isItalic="false"></font>
 				</textElement>
 
-                <textFieldExpression><![CDATA[$F{cmf} == null?"":$F{cmf}]]></textFieldExpression>
+                <textFieldExpression><![CDATA[$F{username} == null?"":$F{username}]]></textFieldExpression>
 
             </textField>
             
