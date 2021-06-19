@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script	src="resources/js/angular.1.5.6.min.js"></script>
+<!-- <script	src="resources/js/angular.1.5.6.min.js"></script>
 <script src="resources/js/jquery.3.4.1.min.js"></script>
 <script src="resources/js/bootstrap.3.4.1.min.js"></script>
-<!-- <link rel="stylesheet" href="resources/css/ui-grid.4.8.3.min.css"> -->
 
+  
 <script
 	src="resources/js/ui-grid.min.js"></script>
 <script src="resources/js/billing.js"></script>
@@ -23,35 +23,32 @@
 <script src="resources/js/angular.js"></script>
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
-    <script src="resources/js/angular-aria.js"></script>
-
-
-
+    <script src="resources/js/angular-aria.js"></script> -->
     
-   <!-- <link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
+    
+    
+    
+    <link rel="stylesheet" href="resources/css/ui-grid.group.min.css">
 
-
-<script src="resources/js/billing.js"></script>
 <script	src="resources/js/angular.1.5.6.min.js"></script>
+<script src="resources/js/billing.js"></script>
+
 <link rel="stylesheet" href="resources/css/grid-style.css"/>
 <link rel="stylesheet" href="resources/css/body-page.css"/>
 <link rel="stylesheet" href="resources/css/style.css">
 
-<link rel="stylesheet" href="resources/css/font-awesome.min.css"/> 
-
-<script src="resources/js/a076d05399.js"></script>
-
 <script src="resources/js/jquery.3.4.1.min.js"></script>
 <script src="resources/js/bootstrap.3.4.1.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
-	
+<link rel="stylesheet" href="resources/css/font-awesome.min.css">
+<script src="resources/js/a076d05399.js"></script>
 <script src="resources/js/angular.js"></script>
     <script src="resources/js/angular-touch.js"></script>
     <script src="resources/js/angular-animate.js"></script>
     <script src="resources/js/angular-aria.js"></script>
     
-     -->
+  
+    
+
 <style>
         .tb-bk {
             background: #f3f7fa;
@@ -137,7 +134,8 @@ ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
 					<div class="col-sm-5">
 					<input class="form-control" type="file" file-model="uploadedFile"
 							id="uploadedFile" accept=".xlsx, .xls, .csv"></input>
-					
+							 <a href="resources/faq/Circle-wise_Allocation.xlsx" download><i class="fa fa-download">Sample template</i></a>
+					 
 						<%-- <input class="form-control" type="file" file-model="uploadedFile"
 							id="uploadedFile" accept=".xlsx, .xls, .csv"></input> <input type="hidden"
 							ng-init="csrf ='<%=session.getAttribute("csrfToken")%>'"

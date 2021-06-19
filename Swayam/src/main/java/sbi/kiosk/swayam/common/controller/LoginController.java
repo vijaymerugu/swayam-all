@@ -166,6 +166,10 @@ public class LoginController {
 		
 		 logger.info("Inside createAuthenticationSSO");
 		 
+			/* try { */
+			
+		
+		 
 		String pfidOfCurrentUser = String.valueOf(userService.getUserDetailsFromReq(req).getPfId());
 		String username = String.valueOf(userService.getUserDetailsFromReq(req).getUserName());
 		
@@ -195,7 +199,20 @@ public class LoginController {
 		session.setAttribute("pfId", pfidOfCurrentUser);
 		session.setAttribute("username", username);
 		session.setAttribute("userObj", userObj);
+		
+		
+		logger.info("Testing login ---pfid "+ pfidOfCurrentUser + "username"+  username);
+		
+		
+		
 		mav = new ModelAndView("redirect:/home");
+		
+		/*
+		 * } catch (NullPointerException e) { // TODO: handle exception
+		 * 
+		 * return null; }
+		 */
+		
 		return mav;
 	}
 	
@@ -220,7 +237,7 @@ public class LoginController {
 
 	@SuppressWarnings({ "finally", "restriction" })
 	@RequestMapping(value = "authenticateUser", method = { RequestMethod.GET, RequestMethod.POST })
-	@PostAuthorize("hasPermission('login','READ')")
+	//@PostAuthorize("hasPermission('login','READ')")
 	public ModelAndView createAuthentication(@RequestParam("Token") String Token, HttpServletResponse res,
 			final RedirectAttributes redirectAttributes, HttpSession session, AuditLogger auditLogger, ModelAndView mav)
 			throws Exception {
@@ -511,12 +528,24 @@ public class LoginController {
 	 */
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	@PostAuthorize("hasPermission('login','READ')")
+	//@PostAuthorize("hasPermission('login','READ')")
 	public ModelAndView redirect() {
-		UserDto user = (UserDto) httpSession.getAttribute("userObj");
-		ModelAndView mav = new ModelAndView("home");
-		String role = userRepo.findRoleByPfId(user.getPfId());
-		logger.info("Inside redirect");
+		logger.info("Inside redirect ");
+		ModelAndView mav = null;
+		UserDto user = null;
+		String role = null;
+		try {
+			
+			user = (UserDto) httpSession.getAttribute("userObj");
+			role = userRepo.findRoleByPfId(user.getPfId());
+			
+		}catch (NullPointerException e) {
+			logger.info("Inside catch --" + user);
+			return new ModelAndView("redirect:/");
+		}
+		
+		logger.info("Inside redirect " + user);
+		 mav = new ModelAndView("home");
 		// System.out.println("Role " + role);
 
 		if (role.equalsIgnoreCase("BM")) {
@@ -539,6 +568,8 @@ public class LoginController {
 
 		httpSession.setAttribute("csrfToken", UUID.randomUUID().toString());
 		// System.out.println("Inside /home method ---- login..... ");
+		
+		
 
 		// mav.setViewName("billingPenalty");
 		return mav;

@@ -15,6 +15,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.HeaderWriterLogoutHandler;
@@ -60,7 +62,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 			//.and().
 			csrf().disable()
 			.authorizeRequests()
-			.antMatchers("/login*").permitAll()
+			.antMatchers("/*").permitAll()
 			//.antMatchers("/getToken").permitAll().anyRequest().authenticated()
 			.and()
 			.logout()
@@ -71,13 +73,23 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 					  ClearSiteDataHeaderWriter.Directive.STORAGE)))         
             .logoutSuccessUrl("https://adfs.sbi.co.in/adfs/ls/?wa=wsignout1.0")
 //            .deleteCookies("JSESSIONID") 
-//            .invalidateHttpSession(true)        // set invalidation state when logout            
+            .invalidateHttpSession(true)        // set invalidation state when logout            
 				.and()
 				.sessionManagement()
-//				.sessionFixation().migrateSession()
+				.sessionFixation().newSession()
 				.maximumSessions(1)
-//				.maxSessionsPreventsLogin(false)
-				.expiredUrl("/redirect:/logout");
+			//	.maxSessionsPreventsLogin(false)
+				.expiredUrl("/")
+				.sessionRegistry(sessionRegistry());
+		
+		
+				/*.and()
+				.invalidSessionUrl("/");*/
+            
+           
+            
+            
+            
 		http.headers().
 		httpStrictTransportSecurity()
 		.includeSubDomains(true)
@@ -91,6 +103,13 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 		//http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
 	}
+	
+	
+	  @Bean
+	    public SessionRegistry sessionRegistry() {
+	        SessionRegistry sessionRegistry = new SessionRegistryImpl();
+	        return sessionRegistry;
+	    }
 	
    
 	   @Bean

@@ -230,7 +230,19 @@ public class BillingPenaltyController {
 		      @RequestParam("quterTimePeriod") String quterTimePeriod,@RequestParam("selectedVendorId") String selectedVendorId,@RequestParam("selectedRfpID") String selectedRfpID,
 		      @RequestParam("selectedKioskId") String selectedKioskId,
 		      @RequestParam("selectedbranchCode") String selectedBranch) {
-		logger.info("Inside findPaginated"); 
+		logger.info("Inside findPaginated Penalty calculation"); 
+		
+		
+		  logger.info("selectedCircelId--- "+selectedCircelId);
+		  logger.info("selectedStateId---- "+selectedStateId);
+		  logger.info("quterTimePeriod---- "+quterTimePeriod);
+		  logger.info("selectedVendorId--- "+selectedVendorId);
+		  logger.info("selectedRfpID--- "+selectedRfpID);
+		  logger.info("selectedKioskId--- "+selectedKioskId);
+		  logger.info("selectedBranch--- "+selectedBranch);
+		  
+		 
+		
 
 
 		report.setCircle(selectedCircelId);

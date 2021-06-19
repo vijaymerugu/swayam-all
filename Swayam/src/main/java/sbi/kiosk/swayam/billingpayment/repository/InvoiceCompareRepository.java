@@ -30,33 +30,35 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			(s3.PENALTY_AMT - s3.CORRECTION_AMT) AS PENALTY_SBI_AMT , s3.CORRECTION_AMT ,\r\n" + 
 			"			s5.PENALTY_AMT as VENDOR_PENALTY_AMT,\r\n" + 
 			"			ABS((s3.PENALTY_AMT - s3.CORRECTION_AMT) - s5.PENALTY_AMT) as DIFFERENCE  \r\n" + 
-			"			from TBL_INVOICE s3 \r\n" + 
-			"			INNER JOIN TBL_KIOSK_MASTER s1 \r\n" + 
-			"			ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
-			"			INNER JOIN TBL_VENDOR_DETAILS s4 \r\n" + 
-			"			ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
-			"			INNER JOIN TBL_BRANCH_MASTER s2 \r\n" + 
-			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE \r\n" + 
-			"			INNER JOIN TBL_INVOICE_VENDOR s5 \r\n" + 
-			"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
-			"			INNER JOIN TBL_RFP_DETAILS s6 \r\n" + 
-			"			ON s6.RFP_ID=s1.RFP_ID  AND \r\n" + 
-			"			s6.vendor=s1.vendor \r\n" + 
+			"			from TBL_KIOSK_MASTER s1    \r\n" + 
+			"						INNER JOIN TBL_BRANCH_MASTER s2  \r\n" + 
+			"						ON s1.BRANCH_CODE = s2.BRANCH_CODE  \r\n" + 
+			"						INNER JOIN TBL_INVOICE s3\r\n" + 
+			"						ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
+			"						INNER JOIN TBL_INVOICE_VENDOR s5  \r\n" + 
+			"						ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
+			"						INNER JOIN TBL_VENDOR_DETAILS s4  \r\n" + 
+			"						ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
+			"						INNER JOIN TBL_RFP_DETAILS s6  \r\n" + 
+			"						ON s6.RFP_ID=s1.RFP_ID  AND  \r\n" + 
+			"						s6.vendor=s1.vendor" + 
 			"			where   \r\n" + 
 			"			s4.VENDOR_ID=:selectedVendorId AND \r\n" + 
 			"			s3.FIN_YR=:finacialYear AND \r\n" + 
 			"			s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch%",nativeQuery = true,
 			countQuery = "select count(s5.PRN_SRN) \r\n" + 
-					"from TBL_INVOICE s3\r\n" + 
-					"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
-					"ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO\r\n" + 
-					"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
-					"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
-					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-					"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
-					"INNER JOIN TBL_INVOICE_VENDOR s5\r\n" + 
-					"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID  AND s6.vendor=s1.vendor \r\n" + 
-					" where \r\n" + 
+					"			from TBL_KIOSK_MASTER s1    \r\n" + 
+					"						INNER JOIN TBL_BRANCH_MASTER s2  \r\n" + 
+					"						ON s1.BRANCH_CODE = s2.BRANCH_CODE  \r\n" + 
+					"						INNER JOIN TBL_INVOICE s3\r\n" + 
+					"						ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
+					"						INNER JOIN TBL_INVOICE_VENDOR s5  \r\n" + 
+					"						ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
+					"						INNER JOIN TBL_VENDOR_DETAILS s4  \r\n" + 
+					"						ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
+					"						INNER JOIN TBL_RFP_DETAILS s6  \r\n" + 
+					"						ON s6.RFP_ID=s1.RFP_ID  AND  \r\n" + 
+					"						s6.vendor=s1.vendor" + " where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s3.FIN_YR=:finacialYear AND\r\n" + 
 					"s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch%")
@@ -78,34 +80,36 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			(s3.PENALTY_AMT - s3.CORRECTION_AMT) AS PENALTY_SBI_AMT , s3.CORRECTION_AMT ,\r\n" + 
 			"			s5.PENALTY_AMT as VENDOR_PENALTY_AMT,\r\n" + 
 			"			ABS((s3.PENALTY_AMT - s3.CORRECTION_AMT) - s5.PENALTY_AMT) as DIFFERENCE  \r\n" + 
-			"			from TBL_INVOICE s3 \r\n" + 
-			"			INNER JOIN TBL_KIOSK_MASTER s1 \r\n" + 
-			"			ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
-			"			INNER JOIN TBL_VENDOR_DETAILS s4 \r\n" + 
-			"			ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
-			"			INNER JOIN TBL_BRANCH_MASTER s2 \r\n" + 
-			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE \r\n" + 
-			"			INNER JOIN TBL_INVOICE_VENDOR s5 \r\n" + 
-			"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
-			"			INNER JOIN TBL_RFP_DETAILS s6 \r\n" + 
-			"			ON s6.RFP_ID=s1.RFP_ID  AND \r\n" + 
-			"			s6.vendor=s1.vendor \r\n" + 
+			"			from TBL_KIOSK_MASTER s1    \r\n" + 
+			"						INNER JOIN TBL_BRANCH_MASTER s2  \r\n" + 
+			"						ON s1.BRANCH_CODE = s2.BRANCH_CODE  \r\n" + 
+			"						INNER JOIN TBL_INVOICE s3\r\n" + 
+			"						ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
+			"						INNER JOIN TBL_INVOICE_VENDOR s5  \r\n" + 
+			"						ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
+			"						INNER JOIN TBL_VENDOR_DETAILS s4  \r\n" + 
+			"						ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
+			"						INNER JOIN TBL_RFP_DETAILS s6  \r\n" + 
+			"						ON s6.RFP_ID=s1.RFP_ID  AND  \r\n" + 
+			"						s6.vendor=s1.vendor" + 
 			"			 where  \r\n" + 
 			"			s4.VENDOR_ID=:selectedVendorId AND \r\n" + 
 			"			s3.FIN_YR=:finacialYear AND \r\n" + 
 			"			s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch% AND \r\n" + 
 			"			s6.RFP_NO=:selectedRfpID",nativeQuery = true,
 			countQuery = "select count(s5.PRN_SRN) \r\n" + 
-					"from TBL_INVOICE s3\r\n" + 
-					"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
-					"ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO\r\n" + 
-					"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
-					"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
-					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-					"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
-					"INNER JOIN TBL_INVOICE_VENDOR s5\r\n" + 
-					"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID  AND s6.vendor=s1.vendor \r\n" + 
-					" where \r\n" + 
+					"			from TBL_KIOSK_MASTER s1    \r\n" + 
+					"						INNER JOIN TBL_BRANCH_MASTER s2  \r\n" + 
+					"						ON s1.BRANCH_CODE = s2.BRANCH_CODE  \r\n" + 
+					"						INNER JOIN TBL_INVOICE s3\r\n" + 
+					"						ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
+					"						INNER JOIN TBL_INVOICE_VENDOR s5  \r\n" + 
+					"						ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
+					"						INNER JOIN TBL_VENDOR_DETAILS s4  \r\n" + 
+					"						ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
+					"						INNER JOIN TBL_RFP_DETAILS s6  \r\n" + 
+					"						ON s6.RFP_ID=s1.RFP_ID  AND  \r\n" + 
+					"						s6.vendor=s1.vendor" + " where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s3.FIN_YR=:finacialYear AND\r\n" + 
 					"s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch% AND\r\n" + 
@@ -129,18 +133,18 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			(s3.PENALTY_AMT - s3.CORRECTION_AMT) AS PENALTY_SBI_AMT , s3.CORRECTION_AMT ,\r\n" + 
 			"			s5.PENALTY_AMT as VENDOR_PENALTY_AMT,\r\n" + 
 			"			ABS((s3.PENALTY_AMT - s3.CORRECTION_AMT) - s5.PENALTY_AMT) as DIFFERENCE  \r\n" + 
-			"			from TBL_INVOICE s3 \r\n" + 
-			"			INNER JOIN TBL_KIOSK_MASTER s1 \r\n" + 
-			"			ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
-			"			INNER JOIN TBL_VENDOR_DETAILS s4 \r\n" + 
-			"			ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
-			"			INNER JOIN TBL_BRANCH_MASTER s2 \r\n" + 
-			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE \r\n" + 
-			"			INNER JOIN TBL_INVOICE_VENDOR s5 \r\n" + 
-			"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
-			"			INNER JOIN TBL_RFP_DETAILS s6 \r\n" + 
-			"			ON s6.RFP_ID=s1.RFP_ID  AND \r\n" + 
-			"			s6.vendor=s1.vendor \r\n" +  
+			"			from TBL_KIOSK_MASTER s1    \r\n" + 
+			"						INNER JOIN TBL_BRANCH_MASTER s2  \r\n" + 
+			"						ON s1.BRANCH_CODE = s2.BRANCH_CODE  \r\n" + 
+			"						INNER JOIN TBL_INVOICE s3\r\n" + 
+			"						ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
+			"						INNER JOIN TBL_INVOICE_VENDOR s5  \r\n" + 
+			"						ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
+			"						INNER JOIN TBL_VENDOR_DETAILS s4  \r\n" + 
+			"						ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
+			"						INNER JOIN TBL_RFP_DETAILS s6  \r\n" + 
+			"						ON s6.RFP_ID=s1.RFP_ID  AND  \r\n" + 
+			"						s6.vendor=s1.vendor" + 
 			"			where  \r\n" + 
 			"			s4.VENDOR_ID=:selectedVendorId AND \r\n" + 
 			"			s2.CRCL_CODE=:selectedCircelId AND  \r\n" + 
@@ -148,16 +152,18 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			s3.FIN_YR=:finacialYear AND \r\n" + 
 			"			s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch%",nativeQuery = true,
 			countQuery = "select count(s5.PRN_SRN) \r\n" + 
-					"from TBL_INVOICE s3\r\n" + 
-					"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
-					"ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO\r\n" + 
-					"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
-					"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
-					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-					"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
-					"INNER JOIN TBL_INVOICE_VENDOR s5\r\n" + 
-					"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID  AND s6.vendor=s1.vendor \r\n" + 
-					" where \r\n" + 
+					"			from TBL_KIOSK_MASTER s1    \r\n" + 
+					"						INNER JOIN TBL_BRANCH_MASTER s2  \r\n" + 
+					"						ON s1.BRANCH_CODE = s2.BRANCH_CODE  \r\n" + 
+					"						INNER JOIN TBL_INVOICE s3\r\n" + 
+					"						ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
+					"						INNER JOIN TBL_INVOICE_VENDOR s5  \r\n" + 
+					"						ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
+					"						INNER JOIN TBL_VENDOR_DETAILS s4  \r\n" + 
+					"						ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
+					"						INNER JOIN TBL_RFP_DETAILS s6  \r\n" + 
+					"						ON s6.RFP_ID=s1.RFP_ID  AND  \r\n" + 
+					"						s6.vendor=s1.vendor" + " where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
 					"s2.STAT_CODE=:selectedStateId AND\r\n" + 
@@ -182,34 +188,36 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			(s3.PENALTY_AMT - s3.CORRECTION_AMT) AS PENALTY_SBI_AMT , s3.CORRECTION_AMT ,\r\n" + 
 			"			s5.PENALTY_AMT as VENDOR_PENALTY_AMT,\r\n" + 
 			"			ABS((s3.PENALTY_AMT - s3.CORRECTION_AMT) - s5.PENALTY_AMT) as DIFFERENCE  \r\n" + 
-			"			from TBL_INVOICE s3 \r\n" + 
-			"			INNER JOIN TBL_KIOSK_MASTER s1 \r\n" + 
-			"			ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
-			"			INNER JOIN TBL_VENDOR_DETAILS s4 \r\n" + 
-			"			ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
-			"			INNER JOIN TBL_BRANCH_MASTER s2 \r\n" + 
-			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE \r\n" + 
-			"			INNER JOIN TBL_INVOICE_VENDOR s5 \r\n" + 
-			"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
-			"			INNER JOIN TBL_RFP_DETAILS s6 \r\n" + 
-			"			ON s6.RFP_ID=s1.RFP_ID  AND \r\n" + 
-			"			s6.vendor=s1.vendor \r\n" + 
+			"			from TBL_KIOSK_MASTER s1    \r\n" + 
+			"						INNER JOIN TBL_BRANCH_MASTER s2  \r\n" + 
+			"						ON s1.BRANCH_CODE = s2.BRANCH_CODE  \r\n" + 
+			"						INNER JOIN TBL_INVOICE s3\r\n" + 
+			"						ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
+			"						INNER JOIN TBL_INVOICE_VENDOR s5  \r\n" + 
+			"						ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
+			"						INNER JOIN TBL_VENDOR_DETAILS s4  \r\n" + 
+			"						ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
+			"						INNER JOIN TBL_RFP_DETAILS s6  \r\n" + 
+			"						ON s6.RFP_ID=s1.RFP_ID  AND  \r\n" + 
+			"						s6.vendor=s1.vendor" + 
 			"			where  \r\n" + 
 			"			s4.VENDOR_ID=:selectedVendorId AND \r\n" + 
 			"			s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
 			"			s3.FIN_YR=:finacialYear AND \r\n" + 
 			"			s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch%",nativeQuery = true,
 			countQuery = "select count(s5.PRN_SRN) \r\n" + 
-					"from TBL_INVOICE s3\r\n" + 
-					"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
-					"ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO\r\n" + 
-					"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
-					"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
-					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-					"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
-					"INNER JOIN TBL_INVOICE_VENDOR s5\r\n" + 
-					"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID  AND s6.vendor=s1.vendor \r\n" + 
-					" where \r\n" + 
+					"			from TBL_KIOSK_MASTER s1    \r\n" + 
+					"						INNER JOIN TBL_BRANCH_MASTER s2  \r\n" + 
+					"						ON s1.BRANCH_CODE = s2.BRANCH_CODE  \r\n" + 
+					"						INNER JOIN TBL_INVOICE s3\r\n" + 
+					"						ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
+					"						INNER JOIN TBL_INVOICE_VENDOR s5  \r\n" + 
+					"						ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
+					"						INNER JOIN TBL_VENDOR_DETAILS s4  \r\n" + 
+					"						ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
+					"						INNER JOIN TBL_RFP_DETAILS s6  \r\n" + 
+					"						ON s6.RFP_ID=s1.RFP_ID  AND  \r\n" + 
+					"						s6.vendor=s1.vendor" + " where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n" +
 					"s3.FIN_YR=:finacialYear AND\r\n" + 
@@ -232,18 +240,18 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			(s3.PENALTY_AMT - s3.CORRECTION_AMT) AS PENALTY_SBI_AMT , s3.CORRECTION_AMT ,\r\n" + 
 			"			s5.PENALTY_AMT as VENDOR_PENALTY_AMT,\r\n" + 
 			"			ABS((s3.PENALTY_AMT - s3.CORRECTION_AMT) - s5.PENALTY_AMT) as DIFFERENCE  \r\n" + 
-			"			from TBL_INVOICE s3 \r\n" + 
-			"			INNER JOIN TBL_KIOSK_MASTER s1 \r\n" + 
-			"			ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
-			"			INNER JOIN TBL_VENDOR_DETAILS s4 \r\n" + 
-			"			ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
-			"			INNER JOIN TBL_BRANCH_MASTER s2 \r\n" + 
-			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE \r\n" + 
-			"			INNER JOIN TBL_INVOICE_VENDOR s5 \r\n" + 
-			"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
-			"			INNER JOIN TBL_RFP_DETAILS s6 \r\n" + 
-			"			ON s6.RFP_ID=s1.RFP_ID  AND \r\n" + 
-			"			s6.vendor=s1.vendor \r\n" + 
+			"			from TBL_KIOSK_MASTER s1    \r\n" + 
+			"						INNER JOIN TBL_BRANCH_MASTER s2  \r\n" + 
+			"						ON s1.BRANCH_CODE = s2.BRANCH_CODE  \r\n" + 
+			"						INNER JOIN TBL_INVOICE s3\r\n" + 
+			"						ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
+			"						INNER JOIN TBL_INVOICE_VENDOR s5  \r\n" + 
+			"						ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
+			"						INNER JOIN TBL_VENDOR_DETAILS s4  \r\n" + 
+			"						ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
+			"						INNER JOIN TBL_RFP_DETAILS s6  \r\n" + 
+			"						ON s6.RFP_ID=s1.RFP_ID  AND  \r\n" + 
+			"						s6.vendor=s1.vendor" + 
 			"			where \r\n" + 
 			"			s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 			"			s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
@@ -252,16 +260,18 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch% AND\r\n" + 
 			"			s6.RFP_NO=:selectedRfpID",nativeQuery = true,
 			countQuery = "select count(s5.PRN_SRN) \r\n" + 
-					"from TBL_INVOICE s3\r\n" + 
-					"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
-					"ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO\r\n" + 
-					"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
-					"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
-					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-					"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
-					"INNER JOIN TBL_INVOICE_VENDOR s5\r\n" + 
-					"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID  AND s6.vendor=s1.vendor \r\n" + 
-					" where \r\n" + 
+					"			from TBL_KIOSK_MASTER s1    \r\n" + 
+					"						INNER JOIN TBL_BRANCH_MASTER s2  \r\n" + 
+					"						ON s1.BRANCH_CODE = s2.BRANCH_CODE  \r\n" + 
+					"						INNER JOIN TBL_INVOICE s3\r\n" + 
+					"						ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
+					"						INNER JOIN TBL_INVOICE_VENDOR s5  \r\n" + 
+					"						ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
+					"						INNER JOIN TBL_VENDOR_DETAILS s4  \r\n" + 
+					"						ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
+					"						INNER JOIN TBL_RFP_DETAILS s6  \r\n" + 
+					"						ON s6.RFP_ID=s1.RFP_ID  AND  \r\n" + 
+					"						s6.vendor=s1.vendor" + " where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
 					"s2.STAT_CODE=:selectedStateId AND\r\n" + 
@@ -285,18 +295,18 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			(s3.PENALTY_AMT - s3.CORRECTION_AMT) AS PENALTY_SBI_AMT , s3.CORRECTION_AMT ,\r\n" + 
 			"			s5.PENALTY_AMT as VENDOR_PENALTY_AMT,\r\n" + 
 			"			ABS((s3.PENALTY_AMT - s3.CORRECTION_AMT) - s5.PENALTY_AMT) as DIFFERENCE  \r\n" + 
-			"			from TBL_INVOICE s3 \r\n" + 
-			"			INNER JOIN TBL_KIOSK_MASTER s1 \r\n" + 
-			"			ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
-			"			INNER JOIN TBL_VENDOR_DETAILS s4 \r\n" + 
-			"			ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
-			"			INNER JOIN TBL_BRANCH_MASTER s2 \r\n" + 
-			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE \r\n" + 
-			"			INNER JOIN TBL_INVOICE_VENDOR s5 \r\n" + 
-			"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
-			"			INNER JOIN TBL_RFP_DETAILS s6 \r\n" + 
-			"			ON s6.RFP_ID=s1.RFP_ID  AND \r\n" + 
-			"			s6.vendor=s1.vendor \r\n" + 
+			"			from TBL_KIOSK_MASTER s1    \r\n" + 
+			"						INNER JOIN TBL_BRANCH_MASTER s2  \r\n" + 
+			"						ON s1.BRANCH_CODE = s2.BRANCH_CODE  \r\n" + 
+			"						INNER JOIN TBL_INVOICE s3\r\n" + 
+			"						ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
+			"						INNER JOIN TBL_INVOICE_VENDOR s5  \r\n" + 
+			"						ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
+			"						INNER JOIN TBL_VENDOR_DETAILS s4  \r\n" + 
+			"						ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
+			"						INNER JOIN TBL_RFP_DETAILS s6  \r\n" + 
+			"						ON s6.RFP_ID=s1.RFP_ID  AND  \r\n" + 
+			"						s6.vendor=s1.vendor" + 
 			"			where  \r\n" + 
 			"			s4.VENDOR_ID=:selectedVendorId AND \r\n" + 
 			"			s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
@@ -304,16 +314,18 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch% AND \r\n" + 
 			"			s6.RFP_NO=:selectedRfpID",nativeQuery = true,
 			countQuery = "select count(s5.PRN_SRN) \r\n" + 
-					"from TBL_INVOICE s3\r\n" + 
-					"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
-					"ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO\r\n" + 
-					"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
-					"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
-					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-					"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
-					"INNER JOIN TBL_INVOICE_VENDOR s5\r\n" + 
-					"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID  AND s6.vendor=s1.vendor \r\n" + 
-					" where \r\n" + 
+					"			from TBL_KIOSK_MASTER s1    \r\n" + 
+					"						INNER JOIN TBL_BRANCH_MASTER s2  \r\n" + 
+					"						ON s1.BRANCH_CODE = s2.BRANCH_CODE  \r\n" + 
+					"						INNER JOIN TBL_INVOICE s3\r\n" + 
+					"						ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
+					"						INNER JOIN TBL_INVOICE_VENDOR s5  \r\n" + 
+					"						ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
+					"						INNER JOIN TBL_VENDOR_DETAILS s4  \r\n" + 
+					"						ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
+					"						INNER JOIN TBL_RFP_DETAILS s6  \r\n" + 
+					"						ON s6.RFP_ID=s1.RFP_ID  AND  \r\n" + 
+					"						s6.vendor=s1.vendor" + " where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n"+
 					"s3.FIN_YR=:finacialYear AND\r\n" + 
@@ -337,18 +349,18 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			(s3.PENALTY_AMT - s3.CORRECTION_AMT) AS PENALTY_SBI_AMT , s3.CORRECTION_AMT ,\r\n" + 
 			"			s5.PENALTY_AMT as VENDOR_PENALTY_AMT,\r\n" + 
 			"			ABS((s3.PENALTY_AMT - s3.CORRECTION_AMT) - s5.PENALTY_AMT) as DIFFERENCE  \r\n" + 
-			"			from TBL_INVOICE s3 \r\n" + 
-			"			INNER JOIN TBL_KIOSK_MASTER s1 \r\n" + 
-			"			ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
-			"			INNER JOIN TBL_VENDOR_DETAILS s4 \r\n" + 
-			"			ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
-			"			INNER JOIN TBL_BRANCH_MASTER s2 \r\n" + 
-			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE \r\n" + 
-			"			INNER JOIN TBL_INVOICE_VENDOR s5 \r\n" + 
-			"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
-			"			INNER JOIN TBL_RFP_DETAILS s6 \r\n" + 
-			"			ON s6.RFP_ID=s1.RFP_ID  AND \r\n" + 
-			"			s6.vendor=s1.vendor \r\n" + 
+			"			from TBL_KIOSK_MASTER s1    \r\n" + 
+			"						INNER JOIN TBL_BRANCH_MASTER s2  \r\n" + 
+			"						ON s1.BRANCH_CODE = s2.BRANCH_CODE  \r\n" + 
+			"						INNER JOIN TBL_INVOICE s3\r\n" + 
+			"						ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
+			"						INNER JOIN TBL_INVOICE_VENDOR s5  \r\n" + 
+			"						ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
+			"						INNER JOIN TBL_VENDOR_DETAILS s4  \r\n" + 
+			"						ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
+			"						INNER JOIN TBL_RFP_DETAILS s6  \r\n" + 
+			"						ON s6.RFP_ID=s1.RFP_ID  AND  \r\n" + 
+			"						s6.vendor=s1.vendor" + 
 			"			where  \r\n" + 
 			"			s4.VENDOR_ID=:selectedVendorId AND \r\n" + 
 			"			s2.CRCL_CODE=:selectedCircelId AND  \r\n" + 
@@ -356,16 +368,18 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			s3.FIN_YR=:finacialYear AND \r\n" + 
 			"			s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch%",nativeQuery = true,
 			countQuery = "select count(s5.PRN_SRN) \r\n" + 
-					"from TBL_INVOICE s3\r\n" + 
-					"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
-					"ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO\r\n" + 
-					"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
-					"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
-					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-					"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
-					"INNER JOIN TBL_INVOICE_VENDOR s5\r\n" + 
-					"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID  AND s6.vendor=s1.vendor \r\n" + 
-					" where \r\n" + 
+					"			from TBL_KIOSK_MASTER s1    \r\n" + 
+					"						INNER JOIN TBL_BRANCH_MASTER s2  \r\n" + 
+					"						ON s1.BRANCH_CODE = s2.BRANCH_CODE  \r\n" + 
+					"						INNER JOIN TBL_INVOICE s3\r\n" + 
+					"						ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
+					"						INNER JOIN TBL_INVOICE_VENDOR s5  \r\n" + 
+					"						ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
+					"						INNER JOIN TBL_VENDOR_DETAILS s4  \r\n" + 
+					"						ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
+					"						INNER JOIN TBL_RFP_DETAILS s6  \r\n" + 
+					"						ON s6.RFP_ID=s1.RFP_ID  AND  \r\n" + 
+					"						s6.vendor=s1.vendor" + " where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
 					"s2.STAT_CODE=:selectedStateId AND\r\n" + 
@@ -389,34 +403,36 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			(s3.PENALTY_AMT - s3.CORRECTION_AMT) AS PENALTY_SBI_AMT , s3.CORRECTION_AMT ,\r\n" + 
 			"			s5.PENALTY_AMT as VENDOR_PENALTY_AMT,\r\n" + 
 			"			ABS((s3.PENALTY_AMT - s3.CORRECTION_AMT) - s5.PENALTY_AMT) as DIFFERENCE  \r\n" + 
-			"			from TBL_INVOICE s3 \r\n" + 
-			"			INNER JOIN TBL_KIOSK_MASTER s1 \r\n" + 
-			"			ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
-			"			INNER JOIN TBL_VENDOR_DETAILS s4 \r\n" + 
-			"			ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
-			"			INNER JOIN TBL_BRANCH_MASTER s2 \r\n" + 
-			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE \r\n" + 
-			"			INNER JOIN TBL_INVOICE_VENDOR s5 \r\n" + 
-			"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
-			"			INNER JOIN TBL_RFP_DETAILS s6 \r\n" + 
-			"			ON s6.RFP_ID=s1.RFP_ID  AND \r\n" + 
-			"			s6.vendor=s1.vendor \r\n" + 
+			"			from TBL_KIOSK_MASTER s1    \r\n" + 
+			"						INNER JOIN TBL_BRANCH_MASTER s2  \r\n" + 
+			"						ON s1.BRANCH_CODE = s2.BRANCH_CODE  \r\n" + 
+			"						INNER JOIN TBL_INVOICE s3\r\n" + 
+			"						ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
+			"						INNER JOIN TBL_INVOICE_VENDOR s5  \r\n" + 
+			"						ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
+			"						INNER JOIN TBL_VENDOR_DETAILS s4  \r\n" + 
+			"						ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
+			"						INNER JOIN TBL_RFP_DETAILS s6  \r\n" + 
+			"						ON s6.RFP_ID=s1.RFP_ID  AND  \r\n" + 
+			"						s6.vendor=s1.vendor" + 
 			"			where  \r\n" + 
 			"			s4.VENDOR_ID=:selectedVendorId AND \r\n" + 
 			"			s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
 			"			s3.FIN_YR=:finacialYear AND \r\n" + 
 			"			s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch%",nativeQuery = true,
 			countQuery = "select count(s5.PRN_SRN) \r\n" + 
-					"from TBL_INVOICE s3\r\n" + 
-					"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
-					"ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO\r\n" + 
-					"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
-					"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
-					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-					"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
-					"INNER JOIN TBL_INVOICE_VENDOR s5\r\n" + 
-					"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID  AND s6.vendor=s1.vendor \r\n" + 
-					" where \r\n" + 
+					"			from TBL_KIOSK_MASTER s1    \r\n" + 
+					"						INNER JOIN TBL_BRANCH_MASTER s2  \r\n" + 
+					"						ON s1.BRANCH_CODE = s2.BRANCH_CODE  \r\n" + 
+					"						INNER JOIN TBL_INVOICE s3\r\n" + 
+					"						ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
+					"						INNER JOIN TBL_INVOICE_VENDOR s5  \r\n" + 
+					"						ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
+					"						INNER JOIN TBL_VENDOR_DETAILS s4  \r\n" + 
+					"						ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
+					"						INNER JOIN TBL_RFP_DETAILS s6  \r\n" + 
+					"						ON s6.RFP_ID=s1.RFP_ID  AND  \r\n" + 
+					"						s6.vendor=s1.vendor" + " where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n" +
 					"s3.FIN_YR=:finacialYear AND\r\n" + 
@@ -439,18 +455,18 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			(s3.PENALTY_AMT - s3.CORRECTION_AMT) AS PENALTY_SBI_AMT , s3.CORRECTION_AMT ,\r\n" + 
 			"			s5.PENALTY_AMT as VENDOR_PENALTY_AMT,\r\n" + 
 			"			ABS((s3.PENALTY_AMT - s3.CORRECTION_AMT) - s5.PENALTY_AMT) as DIFFERENCE  \r\n" + 
-			"			from TBL_INVOICE s3 \r\n" + 
-			"			INNER JOIN TBL_KIOSK_MASTER s1 \r\n" + 
-			"			ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
-			"			INNER JOIN TBL_VENDOR_DETAILS s4 \r\n" + 
-			"			ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
-			"			INNER JOIN TBL_BRANCH_MASTER s2 \r\n" + 
-			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE \r\n" + 
-			"			INNER JOIN TBL_INVOICE_VENDOR s5 \r\n" + 
-			"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
-			"			INNER JOIN TBL_RFP_DETAILS s6 \r\n" + 
-			"			ON s6.RFP_ID=s1.RFP_ID  AND \r\n" + 
-			"			s6.vendor=s1.vendor \r\n" + 
+			"			from TBL_KIOSK_MASTER s1    \r\n" + 
+			"						INNER JOIN TBL_BRANCH_MASTER s2  \r\n" + 
+			"						ON s1.BRANCH_CODE = s2.BRANCH_CODE  \r\n" + 
+			"						INNER JOIN TBL_INVOICE s3\r\n" + 
+			"						ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
+			"						INNER JOIN TBL_INVOICE_VENDOR s5  \r\n" + 
+			"						ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
+			"						INNER JOIN TBL_VENDOR_DETAILS s4  \r\n" + 
+			"						ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
+			"						INNER JOIN TBL_RFP_DETAILS s6  \r\n" + 
+			"						ON s6.RFP_ID=s1.RFP_ID  AND  \r\n" + 
+			"						s6.vendor=s1.vendor" + 
 					"			where \r\n" + 
 			"			s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 			"			s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
@@ -459,16 +475,18 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch% AND\r\n" + 
 			"			s6.RFP_NO=:selectedRfpID",nativeQuery = true,
 			countQuery = "select count(s5.PRN_SRN) \r\n" + 
-					"from TBL_INVOICE s3\r\n" + 
-					"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
-					"ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO\r\n" + 
-					"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
-					"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
-					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-					"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
-					"INNER JOIN TBL_INVOICE_VENDOR s5\r\n" + 
-					"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID  AND s6.vendor=s1.vendor \r\n" + 
-					" where \r\n" + 
+					"			from TBL_KIOSK_MASTER s1    \r\n" + 
+					"						INNER JOIN TBL_BRANCH_MASTER s2  \r\n" + 
+					"						ON s1.BRANCH_CODE = s2.BRANCH_CODE  \r\n" + 
+					"						INNER JOIN TBL_INVOICE s3\r\n" + 
+					"						ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
+					"						INNER JOIN TBL_INVOICE_VENDOR s5  \r\n" + 
+					"						ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
+					"						INNER JOIN TBL_VENDOR_DETAILS s4  \r\n" + 
+					"						ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
+					"						INNER JOIN TBL_RFP_DETAILS s6  \r\n" + 
+					"						ON s6.RFP_ID=s1.RFP_ID  AND  \r\n" + 
+					"						s6.vendor=s1.vendor" + " where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
 					"s2.STAT_CODE=:selectedStateId AND\r\n" + 
@@ -492,18 +510,18 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			(s3.PENALTY_AMT - s3.CORRECTION_AMT) AS PENALTY_SBI_AMT , s3.CORRECTION_AMT ,\r\n" + 
 			"			s5.PENALTY_AMT as VENDOR_PENALTY_AMT,\r\n" + 
 			"			ABS((s3.PENALTY_AMT - s3.CORRECTION_AMT) - s5.PENALTY_AMT) as DIFFERENCE  \r\n" + 
-			"			from TBL_INVOICE s3 \r\n" + 
-			"			INNER JOIN TBL_KIOSK_MASTER s1 \r\n" + 
-			"			ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
-			"			INNER JOIN TBL_VENDOR_DETAILS s4 \r\n" + 
-			"			ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
-			"			INNER JOIN TBL_BRANCH_MASTER s2 \r\n" + 
-			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE \r\n" + 
-			"			INNER JOIN TBL_INVOICE_VENDOR s5 \r\n" + 
-			"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
-			"			INNER JOIN TBL_RFP_DETAILS s6 \r\n" + 
-			"			ON s6.RFP_ID=s1.RFP_ID  AND \r\n" + 
-			"			s6.vendor=s1.vendor \r\n" + 
+			"			from TBL_KIOSK_MASTER s1    \r\n" + 
+			"						INNER JOIN TBL_BRANCH_MASTER s2  \r\n" + 
+			"						ON s1.BRANCH_CODE = s2.BRANCH_CODE  \r\n" + 
+			"						INNER JOIN TBL_INVOICE s3\r\n" + 
+			"						ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
+			"						INNER JOIN TBL_INVOICE_VENDOR s5  \r\n" + 
+			"						ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
+			"						INNER JOIN TBL_VENDOR_DETAILS s4  \r\n" + 
+			"						ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
+			"						INNER JOIN TBL_RFP_DETAILS s6  \r\n" + 
+			"						ON s6.RFP_ID=s1.RFP_ID  AND  \r\n" + 
+			"						s6.vendor=s1.vendor" + 
 			"			where  \r\n" + 
 			"			s4.VENDOR_ID=:selectedVendorId AND \r\n" + 
 			"			s2.CRCL_CODE=:selectedCircelId AND \r\n" + 
@@ -511,16 +529,18 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch% AND \r\n" + 
 			"			s6.RFP_NO=:selectedRfpID",nativeQuery = true,
 			countQuery = "select count(s5.PRN_SRN) \r\n" + 
-					"from TBL_INVOICE s3\r\n" + 
-					"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
-					"ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO\r\n" + 
-					"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
-					"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
-					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-					"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
-					"INNER JOIN TBL_INVOICE_VENDOR s5\r\n" + 
-					"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID  AND s6.vendor=s1.vendor \r\n" + 
-					" where \r\n" + 
+					"			from TBL_KIOSK_MASTER s1    \r\n" + 
+					"						INNER JOIN TBL_BRANCH_MASTER s2  \r\n" + 
+					"						ON s1.BRANCH_CODE = s2.BRANCH_CODE  \r\n" + 
+					"						INNER JOIN TBL_INVOICE s3\r\n" + 
+					"						ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
+					"						INNER JOIN TBL_INVOICE_VENDOR s5  \r\n" + 
+					"						ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
+					"						INNER JOIN TBL_VENDOR_DETAILS s4  \r\n" + 
+					"						ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
+					"						INNER JOIN TBL_RFP_DETAILS s6  \r\n" + 
+					"						ON s6.RFP_ID=s1.RFP_ID  AND  \r\n" + 
+					"						s6.vendor=s1.vendor" + " where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s2.CRCL_CODE=:selectedCircelId AND \r\n"+
 					"s3.FIN_YR=:finacialYear AND\r\n" + 
@@ -547,33 +567,35 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			(s3.PENALTY_AMT - s3.CORRECTION_AMT) AS PENALTY_SBI_AMT , s3.CORRECTION_AMT ,\r\n" + 
 			"			s5.PENALTY_AMT as VENDOR_PENALTY_AMT,\r\n" + 
 			"			ABS((s3.PENALTY_AMT - s3.CORRECTION_AMT) - s5.PENALTY_AMT) as DIFFERENCE  \r\n" + 
-			"			from TBL_INVOICE s3 \r\n" + 
-			"			INNER JOIN TBL_KIOSK_MASTER s1 \r\n" + 
-			"			ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
-			"			INNER JOIN TBL_VENDOR_DETAILS s4 \r\n" + 
-			"			ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
-			"			INNER JOIN TBL_BRANCH_MASTER s2 \r\n" + 
-			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE \r\n" + 
-			"			INNER JOIN TBL_INVOICE_VENDOR s5 \r\n" + 
-			"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
-			"			INNER JOIN TBL_RFP_DETAILS s6 \r\n" + 
-			"			ON s6.RFP_ID=s1.RFP_ID  AND \r\n" + 
-			"			s6.vendor=s1.vendor \r\n" + 
+			"			from TBL_KIOSK_MASTER s1    \r\n" + 
+			"						INNER JOIN TBL_BRANCH_MASTER s2  \r\n" + 
+			"						ON s1.BRANCH_CODE = s2.BRANCH_CODE  \r\n" + 
+			"						INNER JOIN TBL_INVOICE s3\r\n" + 
+			"						ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
+			"						INNER JOIN TBL_INVOICE_VENDOR s5  \r\n" + 
+			"						ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
+			"						INNER JOIN TBL_VENDOR_DETAILS s4  \r\n" + 
+			"						ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
+			"						INNER JOIN TBL_RFP_DETAILS s6  \r\n" + 
+			"						ON s6.RFP_ID=s1.RFP_ID  AND  \r\n" + 
+			"						s6.vendor=s1.vendor" + 
 			"			where   \r\n" + 
 			"			s4.VENDOR_ID=:selectedVendorId AND \r\n" + 
 			"			s3.FIN_YR=:finacialYear AND \r\n" + 
 			"			s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch%",nativeQuery = true,
 			countQuery = "select count(s5.PRN_SRN) \r\n" + 
-					"from TBL_INVOICE s3\r\n" + 
-					"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
-					"ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO\r\n" + 
-					"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
-					"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
-					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-					"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
-					"INNER JOIN TBL_INVOICE_VENDOR s5\r\n" + 
-					"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID  AND s6.vendor=s1.vendor \r\n" + 
-					" where \r\n" + 
+					"			from TBL_KIOSK_MASTER s1    \r\n" + 
+					"						INNER JOIN TBL_BRANCH_MASTER s2  \r\n" + 
+					"						ON s1.BRANCH_CODE = s2.BRANCH_CODE  \r\n" + 
+					"						INNER JOIN TBL_INVOICE s3\r\n" + 
+					"						ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
+					"						INNER JOIN TBL_INVOICE_VENDOR s5  \r\n" + 
+					"						ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
+					"						INNER JOIN TBL_VENDOR_DETAILS s4  \r\n" + 
+					"						ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
+					"						INNER JOIN TBL_RFP_DETAILS s6  \r\n" + 
+					"						ON s6.RFP_ID=s1.RFP_ID  AND  \r\n" + 
+					"						s6.vendor=s1.vendor" + " where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s3.FIN_YR=:finacialYear AND\r\n" + 
 					"s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch%")
@@ -595,34 +617,36 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			(s3.PENALTY_AMT - s3.CORRECTION_AMT) AS PENALTY_SBI_AMT , s3.CORRECTION_AMT ,\r\n" + 
 			"			s5.PENALTY_AMT as VENDOR_PENALTY_AMT,\r\n" + 
 			"			ABS((s3.PENALTY_AMT - s3.CORRECTION_AMT) - s5.PENALTY_AMT) as DIFFERENCE  \r\n" + 
-			"			from TBL_INVOICE s3 \r\n" + 
-			"			INNER JOIN TBL_KIOSK_MASTER s1 \r\n" + 
-			"			ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
-			"			INNER JOIN TBL_VENDOR_DETAILS s4 \r\n" + 
-			"			ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
-			"			INNER JOIN TBL_BRANCH_MASTER s2 \r\n" + 
-			"			ON s1.BRANCH_CODE = s2.BRANCH_CODE \r\n" + 
-			"			INNER JOIN TBL_INVOICE_VENDOR s5 \r\n" + 
-			"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
-			"			INNER JOIN TBL_RFP_DETAILS s6 \r\n" + 
-			"			ON s6.RFP_ID=s1.RFP_ID  AND \r\n" + 
-			"			s6.vendor=s1.vendor \r\n" + 
+			"			from TBL_KIOSK_MASTER s1    \r\n" + 
+			"						INNER JOIN TBL_BRANCH_MASTER s2  \r\n" + 
+			"						ON s1.BRANCH_CODE = s2.BRANCH_CODE  \r\n" + 
+			"						INNER JOIN TBL_INVOICE s3\r\n" + 
+			"						ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
+			"						INNER JOIN TBL_INVOICE_VENDOR s5  \r\n" + 
+			"						ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
+			"						INNER JOIN TBL_VENDOR_DETAILS s4  \r\n" + 
+			"						ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
+			"						INNER JOIN TBL_RFP_DETAILS s6  \r\n" + 
+			"						ON s6.RFP_ID=s1.RFP_ID  AND  \r\n" + 
+			"						s6.vendor=s1.vendor" + 
 			"			 where  \r\n" + 
 			"			s4.VENDOR_ID=:selectedVendorId AND \r\n" + 
 			"			s3.FIN_YR=:finacialYear AND \r\n" + 
 			"			s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch% AND \r\n" + 
 			"			s6.RFP_NO=:selectedRfpID",nativeQuery = true,
 			countQuery = "select count(s5.PRN_SRN) \r\n" + 
-					"from TBL_INVOICE s3\r\n" + 
-					"INNER JOIN TBL_KIOSK_MASTER s1\r\n" + 
-					"ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO\r\n" + 
-					"INNER JOIN TBL_VENDOR_DETAILS s4\r\n" + 
-					"ON s1.VENDOR=s4.COMPANY_SHORT_NM\r\n" + 
-					"INNER JOIN TBL_BRANCH_MASTER s2\r\n" + 
-					"ON s1.BRANCH_CODE = s2.BRANCH_CODE\r\n" + 
-					"INNER JOIN TBL_INVOICE_VENDOR s5\r\n" + 
-					"			ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO INNER JOIN TBL_RFP_DETAILS s6 ON s6.RFP_ID=s1.RFP_ID  AND s6.vendor=s1.vendor \r\n" + 
-					" where \r\n" + 
+					"			from TBL_KIOSK_MASTER s1    \r\n" + 
+					"						INNER JOIN TBL_BRANCH_MASTER s2  \r\n" + 
+					"						ON s1.BRANCH_CODE = s2.BRANCH_CODE  \r\n" + 
+					"						INNER JOIN TBL_INVOICE s3\r\n" + 
+					"						ON s1.KIOSK_SERIAL_NO=s3.KIOSK_SERIAL_NO \r\n" + 
+					"						INNER JOIN TBL_INVOICE_VENDOR s5  \r\n" + 
+					"						ON s5.PRN_SRN=s3.KIOSK_SERIAL_NO \r\n" + 
+					"						INNER JOIN TBL_VENDOR_DETAILS s4  \r\n" + 
+					"						ON s1.VENDOR=s4.COMPANY_SHORT_NM \r\n" + 
+					"						INNER JOIN TBL_RFP_DETAILS s6  \r\n" + 
+					"						ON s6.RFP_ID=s1.RFP_ID  AND  \r\n" + 
+					"						s6.vendor=s1.vendor" + " where \r\n" + 
 					"s4.VENDOR_ID=:selectedVendorId AND\r\n" + 
 					"s3.FIN_YR=:finacialYear AND\r\n" + 
 					"s3.QTR_ID=:quterTimePeriod AND s3.KIOSK_ID LIKE %:selectedKioskId% AND s1.BRANCH_CODE LIKE %:selectedBranch% AND\r\n" + 

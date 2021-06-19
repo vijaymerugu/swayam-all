@@ -1,5 +1,6 @@
 package sbi.kiosk.swayam.billingpayment.service;
 
+import java.io.InputStream;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -12,7 +13,8 @@ import sbi.kiosk.swayam.common.entity.BillingAllocation;
 
 public interface BillingService {
 	
-	public String upload(String path);
+	//public String upload(String path);
+	public String upload(InputStream is);
 
 	public Page<BillingAllocationDto> findPaginated(final int page, final int size);
 

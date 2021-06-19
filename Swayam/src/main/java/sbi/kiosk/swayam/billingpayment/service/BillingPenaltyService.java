@@ -68,7 +68,10 @@ public class BillingPenaltyService  implements PenaltyServices{
 			String selectedCircelId, String quterTimePeriod, String selectedVendorId, String selectedRfpID,
 			String selectedKioskId,String selectedBranch) {
 		logger.info("Inside findPaginatedWithoutState "); 
-		logger.info("quterTimePeriod-----" + quterTimePeriod); 
+		 logger.info("selectedKioskId--- "+selectedKioskId);
+		  logger.info("selectedBranch--- "+selectedBranch);
+		
+		
 		Page<BillingPenaltyEntity> entities = null;
 		try {
 			

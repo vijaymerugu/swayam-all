@@ -115,11 +115,32 @@
 		    <artifactId>poi</artifactId>
 		    <version>4.1.0</version>
 		</dependency>
-  		<dependency>
+  		 <dependency>
 		    <groupId>org.apache.poi</groupId>
 		    <artifactId>poi-ooxml</artifactId>
 		    <version>4.1.0</version>
 		</dependency>
+	<dependency>
+		<groupId>org.apache.xmlbeans</groupId>
+		<artifactId>xmlbeans</artifactId>
+		<version>3.1.0</version>
+	</dependency>
+		
+		
+		<!-- <dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi-ooxml</artifactId>
+		    <version>5.0.0</version>
+		</dependency> -->
+		
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml-full -->
+<!-- <dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>poi-ooxml-full</artifactId>
+    <version>5.0.0</version>
+</dependency>
+		 -->
+		
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>

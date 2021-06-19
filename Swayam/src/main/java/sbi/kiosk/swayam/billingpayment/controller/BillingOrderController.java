@@ -1,6 +1,7 @@
 package sbi.kiosk.swayam.billingpayment.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -85,15 +86,15 @@ public class BillingOrderController  {
 	@RequestMapping("bp/allocation")
 	public ModelAndView drillDownPage(ModelAndView model, HttpSession session) {
 		
-		try {
+		/* try { */
 			
 			logger.info("billingorder");
 //			model.setViewName("billingorder");
 			model.setViewName("PurchaseAllocation");
 			
-		} catch (Exception e) {
+	/*	} catch (Exception e) {
 			logger.error("Exception "+ExceptionConstants.EXCEPTION);
-		}
+		}*/
 		return model;
 	}
 
@@ -113,123 +114,123 @@ public class BillingOrderController  {
 	      resultPage = allocationRepoistory.findAll(PageRequest.of(page, size));
 	     // logger.info("resultPage"+resultPage);
 	      
-	      
-		    if (page > resultPage.getTotalPages()){
-		            //throw new MyResourceNotFoundException();
-		        }
+			/*
+			 * if (page > resultPage.getTotalPages()){ //throw new
+			 * MyResourceNotFoundException(); }
+			 */
 		  return resultPage;
 	}
 	
-
-	  	@RequestMapping(value = "billingallocation", method = RequestMethod.POST)
-		public ResponseEntity<?> upload(@RequestParam("uploadfile") List<MultipartFile> files) {
-			List<FileInfo> uploadedFiles = new ArrayList<FileInfo>();
-			logger.info("files"+files);
-			
-			
-			if (!files.isEmpty()) {
-				try {
-					for (MultipartFile file : files) {
-						
-					
-						List<String> fileNames = new ArrayList<String>();
-						String fileName = file.getOriginalFilename();
-						fileNames.add(fileName);
-						//logger.info("1.File Name========== "+file.getOriginalFilename());
-						File imageFile = new File(context.getRealPath("/resources/upload"));
-						//logger.info("imageFile path: "+imageFile.getPath());
-						//logger.info("imageFile path1: "+context.getRealPath("/resources/upload"));
-						
-						if (!imageFile.exists())
-						{
-						imageFile.mkdirs();
-						//logger.info("Directory created!!!"+imageFile);
-						}
-						//	imageFile = new File(context.getRealPath("/resources/upload"), fileName);
-						String path = context.getRealPath("/resources/upload") + File.separator + fileName;
-						//logger.info("2.Path============ "+path);
-						File destinationFile = new File(path);	
-						//logger.info("3.name============= "+destinationFile.getName());
-						//logger.info("//////////A.File transfer started!!!!!!!!!!!////////////////");
-						
-					//	file.transferTo(destinationFile);
-						// read and write the file to the selected location-
-						byte[] bytes = file.getBytes();
-						Path path1 = Paths.get(uploadpath + file.getOriginalFilename());
-						//logger.info("File write path: "+path1.toString());
-						Files.write(path1, bytes);
-						
-					//	logger.info("/////////////////File transfer completed: "+path1.toString());
-						//logger.info("4.File Transfer done!!!!!!!!!");
-						path = uploadpath  + file.getOriginalFilename();
-					//	logger.info("5.uploadedFiles path=========== " + path);
-						uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
-						//logger.info("6.uploadedFiles=========== " + uploadedFiles);
-						
-						
-
-					}
-
-				} catch (Exception e) {
-					logger.error("Exception "+ExceptionConstants.EXCEPTION);
-
-				}
-
-			}
-			
-			
-			
-			
-			
-			/*
-			 * if (!files.isEmpty()) { try { for (MultipartFile file : files) {
-			 * 
-			 * String path = uploadpath + File.separator + file.getOriginalFilename();
-			 * System.out.println("First " + path); File destinationFile = new File(path);
-			 * file.transferTo(destinationFile); uploadedFiles.add(new
-			 * FileInfo(destinationFile.getName(), path)); logger.info("uploadedFiles" +
-			 * uploadedFiles); logger.info("name"+destinationFile.getName());
-			 * 
-			 * }
-			 * 
-			 * } catch (Exception e) { logger.error(e.getMessage()); }
-			 * 
-			 * }
-			 */
-
-			ModelAndView modelAndView = new ModelAndView("upload");
-			modelAndView.addObject("files", uploadedFiles);
-			String name1 = uploadedFiles.get(0).getName();
-			//logger.info("6.name1=======" + name1);
-
-			File dir = new File(uploadpath);
-					//new File(rootPath + File.separator + "src\\main\\webapp\\WEB-INF\\uploaded");
-			if (!dir.exists())
-				dir.mkdirs();
-
-			// Create the file on server
-			File serverFile = new File(dir.getAbsolutePath() + File.separator + name1);
-			//logger.info("7.Dir AbsolutePath=============" + dir.getAbsolutePath());
-			
-			String path = serverFile.getAbsolutePath();	
-		//	logger.info("8.Server File Location===========" + path);
-			
-//			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-//			String vendor = gson.toJson(vendorRepository.findAll());
-//			String circle = gson.toJson(circleRepository.findAll());
-			
-			String result = billingService.upload(path);
-		//	logger.info("9.Result part done: " + result);
-			 
-			//ResponseEntity<InvoiceUpdateReposne> entity = ResponseEntity.ok(new InvoiceUpdateReposne("", result));
-			
-			ResponseEntity<String> entity = ResponseEntity.ok(result);
-
-			//logger.info("10.Transfer to entity");
-			
-			return entity;
+	
+	@RequestMapping(value = "billingallocation", method = RequestMethod.POST)
+	public ResponseEntity<?> upload(@RequestParam("uploadfile") MultipartFile file) {
+		List<FileInfo> uploadedFiles = new ArrayList<FileInfo>();
+		logger.info("Inside Upload Allocation");
+		
+		String result = null;
+		try {
+			result = billingService.upload(file.getInputStream());
+		} catch (IOException e) {
+			throw new RuntimeException("fail to store excel data: " + e.getMessage());
 		}
-	  	
+	//	logger.info("9.Result part done: " + result);
+		
+		
+		ResponseEntity<String> entity = ResponseEntity.ok(result);
+
+		//logger.info("10.Transfer to entity");
+		
+		return entity;
+	}
+  	
+	
+	
+	
+	
+	
+	
+
+	/*
+	 * @RequestMapping(value = "billingallocation", method = RequestMethod.POST)
+	 * public ResponseEntity<?> upload(@RequestParam("uploadfile")
+	 * List<MultipartFile> files) { List<FileInfo> uploadedFiles = new
+	 * ArrayList<FileInfo>(); logger.info("files"+files);
+	 * 
+	 * 
+	 * if (!files.isEmpty()) { try { for (MultipartFile file : files) {
+	 * 
+	 * 
+	 * List<String> fileNames = new ArrayList<String>(); String fileName =
+	 * file.getOriginalFilename(); fileNames.add(fileName);
+	 * //logger.info("1.File Name========== "+file.getOriginalFilename()); File
+	 * imageFile = new File(context.getRealPath("/resources/upload"));
+	 * //logger.info("imageFile path: "+imageFile.getPath());
+	 * //logger.info("imageFile path1: "+context.getRealPath("/resources/upload"));
+	 * 
+	 * if (!imageFile.exists()) { imageFile.mkdirs();
+	 * //logger.info("Directory created!!!"+imageFile); } // imageFile = new
+	 * File(context.getRealPath("/resources/upload"), fileName); String path =
+	 * context.getRealPath("/resources/upload") + File.separator + fileName;
+	 * //logger.info("2.Path============ "+path); File destinationFile = new
+	 * File(path); //logger.info("3.name============= "+destinationFile.getName());
+	 * //logger.info("//////////A.File transfer started!!!!!!!!!!!////////////////"
+	 * );
+	 * 
+	 * // file.transferTo(destinationFile); // read and write the file to the
+	 * selected location- byte[] bytes = file.getBytes(); Path path1 =
+	 * Paths.get(uploadpath + file.getOriginalFilename());
+	 * //logger.info("File write path: "+path1.toString()); Files.write(path1,
+	 * bytes);
+	 * 
+	 * //
+	 * logger.info("/////////////////File transfer completed: "+path1.toString());
+	 * //logger.info("4.File Transfer done!!!!!!!!!"); path = uploadpath +
+	 * file.getOriginalFilename(); // logger.info("5.uploadedFiles path=========== "
+	 * + path); uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
+	 * //logger.info("6.uploadedFiles=========== " + uploadedFiles);
+	 * 
+	 * 
+	 * 
+	 * }
+	 * 
+	 * } catch (Exception e) {
+	 * logger.error("Exception "+ExceptionConstants.EXCEPTION);
+	 * 
+	 * }
+	 * 
+	 * }
+	 * 
+	 * 
+	 * ModelAndView modelAndView = new ModelAndView("upload");
+	 * modelAndView.addObject("files", uploadedFiles); String name1 =
+	 * uploadedFiles.get(0).getName(); //logger.info("6.name1=======" + name1);
+	 * 
+	 * File dir = new File(uploadpath); //new File(rootPath + File.separator +
+	 * "src\\main\\webapp\\WEB-INF\\uploaded"); if (!dir.exists()) dir.mkdirs();
+	 * 
+	 * // Create the file on server File serverFile = new File(dir.getAbsolutePath()
+	 * + File.separator + name1); //logger.info("7.Dir AbsolutePath=============" +
+	 * dir.getAbsolutePath());
+	 * 
+	 * String path = serverFile.getAbsolutePath(); //
+	 * logger.info("8.Server File Location===========" + path);
+	 * 
+	 * // Gson gson = new GsonBuilder().setPrettyPrinting().create(); // String
+	 * vendor = gson.toJson(vendorRepository.findAll()); // String circle =
+	 * gson.toJson(circleRepository.findAll());
+	 * 
+	 * String result = billingService.upload(path); //
+	 * logger.info("9.Result part done: " + result);
+	 * 
+	 * //ResponseEntity<InvoiceUpdateReposne> entity = ResponseEntity.ok(new
+	 * InvoiceUpdateReposne("", result));
+	 * 
+	 * ResponseEntity<String> entity = ResponseEntity.ok(result);
+	 * 
+	 * //logger.info("10.Transfer to entity");
+	 * 
+	 * return entity; }
+	 */
 	  	
 	  	@RequestMapping(value = "al/edit",params = { "AllocId" ,"AllocatedQuantity", "PoQuantity", "RemainingQuantity"},
 	  			method = RequestMethod.GET)
