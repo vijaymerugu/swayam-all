@@ -460,11 +460,12 @@ $(document).ready(function(){
 	                  $("#contactPerson").val(respos[index].contactPerson);  
 	                  $("#contactNo").val(respos[index].contactNo); 
 	                  $("#mailId").val(respos[index].mailId);
-	                  if(respos[index].kioskError === "" || respos[index].kioskError === null || respos[index].kioskError === undefined) {
-		                	// alert("111"+respos[index]);
+	                  // comment by satendra 17-06-2021
+	                 /*  if(respos[index].kioskError === "" || respos[index].kioskError === null || respos[index].kioskError === undefined) {
+		                 alert("111"+respos[index].kioskError);
 		                     delete respos[index];
-		                 }
-		               console.log("inside kioskError-----"+respos[index].kioskError);
+		                 } */
+		            //   console.log("inside kioskError-----"+respos[index].kioskError);
 	                 $('#kioskError').append('<option value='+respos[index].kioskError+'>'+respos[index].kioskError+'</option>');
 	                      
 	                  	

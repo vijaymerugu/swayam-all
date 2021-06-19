@@ -20,6 +20,7 @@ public class DownTimeDto {
 		this.cmsCmf = downTime.getCmsCmf();
 		this.totalOperatingHours = downTime.getTotalOperatingHours();
 		this.totalDowntime = downTime.getTotalDowntime();
+		this.uptimePercentage=downTime.getUptimePercentage();
 	}
 	private String  kioskId;
 	private String circle;
@@ -30,5 +31,7 @@ public class DownTimeDto {
 	private String cmsCmf;
 	private Integer totalOperatingHours;
 	private Integer  totalDowntime;
+	private String  uptimePercentage;
+	
 
 }

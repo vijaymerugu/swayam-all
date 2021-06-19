@@ -17,6 +17,7 @@
 	<field name="cmsCmf" class="java.lang.String"></field>
 	<field name="totalOperatingHours" class="java.lang.Integer"></field>
     <field name="totalDowntime" class="java.lang.Integer"></field>
+     <field name="uptimePercentage" class="java.lang.String"></field>
     
     	 
 	   <variable name="branchOperatingHours" class="java.lang.Integer" calculation="Sum">
@@ -26,6 +27,8 @@
      <variable name="totalDowntimeHourse" class="java.lang.Integer" calculation="Sum">
         <variableExpression><![CDATA[$F{totalDowntime}]]></variableExpression>
     </variable>
+    
+      
 	 
 
 
@@ -224,6 +227,35 @@
                 <text><![CDATA[Vendor]]></text>
 
             </staticText>
+            
+            
+              <staticText>
+
+                <reportElement x="1800" y="41" width="200" height="20"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+                </box>
+
+                <textElement textAlignment="Center">
+
+                    <font size="10" isBold="true" isItalic="false"></font>
+
+                </textElement>
+
+                <text><![CDATA[UPTIME %]]></text>
+
+            </staticText>
+            
 			<staticText>
 
                 <reportElement x="1200" y="41" width="200" height="20"></reportElement>
@@ -302,6 +334,10 @@
                 <text><![CDATA[Total Downtime in Hours]]></text>
 
             </staticText>
+            
+            
+            
+           
 			
         </band>
 
@@ -466,6 +502,35 @@
                 <textFieldExpression><![CDATA[$F{vendor} == null?"":$F{vendor}]]></textFieldExpression>
 
             </textField>
+            
+            
+             <textField>
+
+                <reportElement x="1800" y="0" width="200" height="15"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+
+                </box>
+
+                <textElement textAlignment="Center">
+					<font size="8" isItalic="false"></font>
+				</textElement>
+
+                <textFieldExpression><![CDATA[$F{uptimePercentage} == null?"":$F{uptimePercentage}]]></textFieldExpression>
+
+            </textField>
+			
+            
 			 <textField>
 
                 <reportElement x="1200" y="0" width="200" height="15"></reportElement>
@@ -601,6 +666,12 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalDowntimeHourse}]]></textFieldExpression>
 			</textField>
+			
+		
+			
+			
+			
+			
 		</band>
 	</columnFooter>
     

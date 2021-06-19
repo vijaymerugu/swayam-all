@@ -31,7 +31,7 @@ app.controller('UserManagementCtrl1', ['$scope','$filter','UserManagementService
 		}
 	   
 	   
-	   $scope.refresh = function()
+	/*   $scope.refresh = function()
 	   {  	
 		   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
 		 	   UserManagementService.getUsers(paginationOptions.pageNumber,
@@ -60,7 +60,86 @@ app.controller('UserManagementCtrl1', ['$scope','$filter','UserManagementService
 	 	  $scope.gridOptions.totalItems = data.totalElements;
 	   });
 	   
+*/	   
+
+
+
+   
+	   $scope.refresh = function()
+	   {  
+	  if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){
+	  //  Added for loader------------- START
+	       $("#loading").show();  
+	    // Added for loader------------- END
+	  UserManagementService.getUsers(paginationOptions.pageNumber,
+	   paginationOptions.pageSize,counttype).success(function(data){
+	  $scope.gridOptions.data = data.content;
+	    $scope.gridOptions.totalItems = data.totalElements;
+	  //  Added for loader------------- START
+	       $("#loading").hide();  
+	    // Added for loader------------- END
+	    });  
+	 
+	   }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){debugger;
+	 
+	 /* $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText); */  
 	   
+	    $("#loading").show();
+	 /* UserManagementService.getSearchNext(paginationOptions.pageNumber,
+	  paginationOptions.pageSize,fromDate,toDate,$scope.searchText).success(function(data3){*/
+	  UserManagementService.getSearchNext(0,
+	  paginationOptions.pageSize,counttype,$scope.searchText).success(function(data3){
+	   $scope.gridOptions.data = data3.content;
+	     $scope.gridOptions.totalItems = data3.totalElements;
+	       $("#loading").hide();
+	    });
+	 
+	   }else{
+	  //  Added for loader------------- START
+	       $("#loading").show();  
+	    // Added for loader------------- END
+	    UserManagementService.getUsers(paginationOptions.pageNumber,
+	     paginationOptions.pageSize,counttype).success(function(data){
+	    $scope.gridOptions.data = data.content;
+	      $scope.gridOptions.totalItems = data.totalElements;
+	    //  Added for loader------------- START
+	       $("#loading").hide();  
+	    // Added for loader------------- END
+	      });
+	   }
+	   };
+	   $scope.clearSearch = function()
+	   {   debugger;
+	 
+	    $scope.searchText='';
+	 
+	       $("#loading").show();  
+	   
+	  UserManagementService.getUsers(0,
+	  paginationOptions.pageSize,counttype).success(function(data){
+	   $scope.gridOptions.data = data.content;
+	   $scope.gridOptions.paginationCurrentPage = data.number;
+	   $scope.gridOptions.totalItems = data.totalElements;
+	 
+	       $("#loading").hide();  
+	   
+	    });
+	 
+	 
+	   };
+	//  Added for loader------------- START
+	        $("#loading").show();  
+	     // Added for loader------------- END
+	   UserManagementService.getUsers(paginationOptions.pageNumber,
+	    paginationOptions.pageSize,counttype).success(function(data){
+	 
+	   $scope.gridOptions.data = data.content;
+	   $scope.gridOptions.totalItems = data.totalElements;
+	// Added for loader------------- START
+	   $("#loading").hide();  
+	// Added for loader------------- END
+	   });
+	
 	   
 	   
 	   $scope.gridOptions = {
@@ -89,16 +168,36 @@ app.controller('UserManagementCtrl1', ['$scope','$filter','UserManagementService
 			        gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
 			          paginationOptions.pageNumber = newPage;
 			          paginationOptions.pageSize = pageSize;
+
+			          //  Added for loader------------- START 
+				        $("#loading").show();  
+				     // Added for loader------------- END
+				        if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){
 			          UserManagementService.getUsers(newPage,pageSize,$scope.counttype).success(function(data){
-			        	  $scope.gridOptions.data = data.content;
-			         	  $scope.gridOptions.totalItems = data.totalElements;
+			         $scope.gridOptions.data = data.content;
+			           $scope.gridOptions.totalItems = data.totalElements;
+			       //  Added for loader------------- START 
+				        $("#loading").hide();  
+				     // Added for loader------------- END
 			          });
+			        }else{
+			 	 	   	console.log("Inside else"+$scope.counttype);
+			        	 UserManagementService.getSearchNext(newPage,pageSize,$scope.counttype,$scope.searchText).success(function(data){
+			                  $scope.gridOptions.data = data.content;
+			           	 	  $scope.gridOptions.totalItems = data.totalElements;
+			        
+				 	 		 $("#loading").hide();  
+				 		   
+			        	  });	 
+			        
+			        	   }
 			        });
 			     }
 			  };
-	   
-	   
-	}]);
+			 
+			}]);
+
+
 
 
 
@@ -108,15 +207,27 @@ app.controller('UserManagementCtrl1', ['$scope','$filter','UserManagementService
 app.service('UserManagementService',['$http', function ($http) {
 	
 	function getUsers(pageNumber,size,counttype) {
-		
+		//alert("counttype= searchText=="+counttype);
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({
           method: 'GET',
           url: 'hm/ticketCentorByCircle/get?page='+pageNumber+'&size='+size+'&type='+counttype
         });
     }
+    
+    function getSearchNext(pageNumber,size,counttype, searchText) {
+		//alert("counttype= searchText=="+counttype);
+		//alert("13=searchText=="+searchText);
+		pageNumber = pageNumber > 0?pageNumber - 1:0;
+	    return  $http({
+	      method: 'GET',
+	      url: 'hm/ticketCentorFilterCUSearch/getSearchNext?page='+pageNumber+'&size='+size+'&type='+counttype+'&searchText='+searchText
+	    });
+	}
+    
+    
     return {
-    	getUsers:getUsers
+    	getUsers:getUsers, getSearchNext:getSearchNext
     };
 	
 }]);

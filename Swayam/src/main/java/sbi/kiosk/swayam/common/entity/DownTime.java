@@ -19,7 +19,7 @@ public class DownTime implements Serializable{
 	@Id
 	@Column(name="KIOSK_ID")
 	private String  kioskId;
-	@Column(name="circle")
+	@Column(name="crcl_name")
 	private String circle;
 	@Column(name="NETWORK")
 	private String network;
@@ -35,5 +35,7 @@ public class DownTime implements Serializable{
 	private Integer totalOperatingHours;
 	@Column(name="TOTAL_DOWNTIME")
 	private Integer  totalDowntime;
+	@Column(name="UPTIME_PERCENTAGE")
+	private String  uptimePercentage;
 
 }

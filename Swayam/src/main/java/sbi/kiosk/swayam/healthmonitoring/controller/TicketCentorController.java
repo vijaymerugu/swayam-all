@@ -80,6 +80,7 @@ public class TicketCentorController {
 		 Page<TicketCentorDto> resultPage = null;
 		 
 	     
+		 if(type!=null && !type.isEmpty() && !type.equals("undefined")) {
 		    
 			if(type.equals("High")){
 				resultPage= ticketCentorService.findPaginatedCountByCircle(page, size, type);
@@ -109,6 +110,10 @@ public class TicketCentorController {
 			    	//return resultPage;
 			        }
 		    }
+		 }else {
+			 resultPage = ticketCentorService.findPaginatedByCircle(page, size);
+		    }
+			
 		        return resultPage;
 		    }
 
@@ -291,8 +296,166 @@ public class TicketCentorController {
 
 	
 	
+	// Search Text
 	
 	
+	
+	@RequestMapping(value = "hm/ticketCentorFilterCMFSearch/getSearchNext", params = { "page", "size","type","searchText"}, method = RequestMethod.GET, produces = "application/json")
+	public Page<TicketCentorDto> findPaginatedByCategoryCMFSearchText( @RequestParam("type") String type,
+		      @RequestParam("page") int page, @RequestParam("size") int size,@RequestParam("searchText") String searchText) {
+		 
+		logger.info("type==findPaginated===========findPaginatedByCategoryCMFSearchText=====+++TYPE="+type+" AND "+searchText);
+		
+		if(type !=null && type.trim().equals("undefined")){
+			type = "";
+		}
+		if(type !=null && type.trim().equals(">")){
+			type = "";
+		}
+		
+		 Page<TicketCentorDto> resultPage = null;
+		    
+			if(type.equals("High")){
+				logger.info("=========findPaginatedByCategoryCMFSearchText=====+++TYPE="+type);
+				resultPage= ticketCentorFilterService.findPaginatedCountCmfSearchText(page, size, type,searchText);
+			}else if(type.equals("Medium")){
+				logger.info("=========findPaginatedByCategoryCMFSearchText=====+++TYPE="+type);
+				resultPage= ticketCentorFilterService.findPaginatedCountCmfSearchText(page, size, type,searchText);
+			}else if(type.equalsIgnoreCase("Low")){
+				logger.info("=========findPaginatedByCategoryCMFSearchText=====+++TYPE="+type);
+				resultPage= ticketCentorFilterService.findPaginatedCountCmfSearchText(page, size, type,searchText);
+			}else if(type.equals("Total")){
+				logger.info("=========findPaginatedByCategoryCMFSearchText=====+++TYPE="+type);
+				resultPage= ticketCentorFilterService.findPaginatedCountCmfSearchText(page, size, type,searchText);
+				
+			}else if(type.equals("TwoToFourHrsCount")){
+				logger.info("=========findPaginatedByCategoryCMFSearchText=====+++TYPE="+type);
+				resultPage= ticketCentorFilterService.findPaginatedCountCmfSearchText(page, size, type,searchText);
+			}else if(type.equals("OneDaysCount")){
+				logger.info("=========findPaginatedByCategoryCMFSearchText=====+++TYPE="+type);
+			   resultPage= ticketCentorFilterService.findPaginatedCountCmfSearchText(page, size, type,searchText);
+			}else if(type.equals("ThreeDaysLessCount")){
+				logger.info("=========findPaginatedByCategoryCMFSearchText=====+++TYPE="+type);
+				   resultPage= ticketCentorFilterService.findPaginatedCountCmfSearchText(page, size, type,searchText);
+		    }else if(type.equals("ThreeDayGreaterCount")){
+		    	logger.info("=========findPaginatedByCategoryCMFSearchText=====+++TYPE="+type);
+		    	resultPage= ticketCentorFilterService.findPaginatedCountCmfSearchText(page, size, type,searchText);
+		         
+		    }else if(type !=null && type !="" && type !=">"){
+		    	logger.info("=========findPaginatedByCategoryCMFSearchText=====+++ONLY=TYPE="+type);
+		    	resultPage= ticketCentorFilterService.findPaginatedCountCmfSearchText(page, size, type,searchText);
+		         
+		    }else{
+		    	//resultPage= ticketCentorFilterService.findPaginatedCount(page, size, type);
+		    logger.info("=========findPaginatedByCategoryCMFSearchText=====+++");
+			 resultPage = ticketCentorFilterService.findPaginatedCmfSearchText(page, size,searchText);
+			 logger.info("findPaginatedByCategoryCMFSearchText ResultPage::::"+resultPage.getContent());
+			    if (resultPage !=null && resultPage.getSize()>0){
+			    	//return resultPage;
+			        }
+		    }
+		        return resultPage;
+		    }
+	
+	
+	// CMS Search Text
+	
+	
+	@RequestMapping(value = "hm/ticketCentorFilterCMSSearch/getSearchNext", params = { "page", "size","type","searchText"}, method = RequestMethod.GET, produces = "application/json")
+	public Page<TicketCentorDto> findPaginatedByCategoryCMSSearch( @RequestParam("type") String type,
+		      @RequestParam("page") int page, @RequestParam("size") int size ,@RequestParam("searchText") String searchText ) {
+		 
+		
+		if(type !=null && type.trim().equals("undefined")){
+			type = "";
+		}
+		if(type !=null && (type.equals(">") || type ==">")){
+			type = "";
+		}
+		
+		 Page<TicketCentorDto> resultPage = null;
+		 logger.info("findPaginatedByCategoryCMSSearch--Start----searchText----"+searchText); 
+		 logger.info("findPaginatedByCategoryCMSSearch----Start----type----"+type); 
+			if(type.equals("High")){
+				resultPage= ticketCentorFilterService.findPaginatedCountCmsSearchText(page, size, type,searchText);
+			}else if(type.equals("Medium")){
+				resultPage= ticketCentorFilterService.findPaginatedCountCmsSearchText(page, size, type,searchText);
+			}else if(type.equalsIgnoreCase("Low")){
+				resultPage= ticketCentorFilterService.findPaginatedCountCmsSearchText(page, size, type,searchText);
+			}else if(type.equals("Total")){
+				resultPage= ticketCentorFilterService.findPaginatedCountCmsSearchText(page, size, type,searchText);
+				
+			}else if(type.equals("TwoToFourHrsCount")){
+				resultPage= ticketCentorFilterService.findPaginatedCountCmsSearchText(page, size, type,searchText);
+			}else if(type.equals("OneDaysCount")){
+			   resultPage= ticketCentorFilterService.findPaginatedCountCmsSearchText(page, size, type,searchText);
+			}else if(type.equals("ThreeDaysLessCount")){
+				   resultPage= ticketCentorFilterService.findPaginatedCountCmsSearchText(page, size, type,searchText);
+		    }else if(type.equals("ThreeDayGreaterCount")){
+		    	resultPage= ticketCentorFilterService.findPaginatedCountCmsSearchText(page, size, type,searchText);
+		         
+		    }else if(type !=null && type !="" && type !=">"){
+		    	resultPage= ticketCentorFilterService.findPaginatedCountCmsSearchText(page, size, type,searchText);
+		         
+		    }else{
+		    	logger.info("findPaginatedCmsSearchText---------"+searchText);
+		    	//resultPage= ticketCentorFilterService.findPaginatedCount(page, size, type);
+			 resultPage = ticketCentorFilterService.findPaginatedCmsSearchText(page, size,searchText);
+		      
+			    if (resultPage !=null && resultPage.getSize()>0){
+			    	//return resultPage;
+			        }
+		    }
+		        return resultPage;
+		    }	
+	
+	
+	
+	
+	@RequestMapping(value = "hm/ticketCentorFilterCUSearch/getSearchNext", params = { "page", "size","type","searchText"}, method = RequestMethod.GET, produces = "application/json")
+	public Page<TicketCentorDto> findPaginatedByCircleSearch( @RequestParam("type") String type,
+		      @RequestParam("page") int page, @RequestParam("size") int size,@RequestParam("searchText") String searchText) {
+		 
+		
+		 Page<TicketCentorDto> resultPage = null;
+		 logger.info("findPaginatedByCircleSearch-----------searchText"+searchText);
+	     
+		 if(type!=null && !type.isEmpty() && !type.equals("undefined")) {
+		    
+			if(type.equals("High")){
+				resultPage= ticketCentorService.findPaginatedCountByCircleSearch(page, size, type,searchText);
+			}else if(type.equals("Medium")){
+				resultPage= ticketCentorService.findPaginatedCountByCircleSearch(page, size, type,searchText);
+			}else if(type.equalsIgnoreCase("Low")){
+				resultPage= ticketCentorService.findPaginatedCountByCircleSearch(page, size, type,searchText);
+			}else if(type.equals("Total")){
+				resultPage= ticketCentorService.findPaginatedCountByCircleSearch(page, size, type,searchText);
+				
+			}else if(type.equals("TwoToFourHrsCount")){
+				resultPage= ticketCentorService.findPaginatedCountByCircleSearch(page, size, type,searchText);
+			}else if(type.equals("OneDaysCount")){
+			   resultPage= ticketCentorService.findPaginatedCountByCircleSearch(page, size, type,searchText);
+			}else if(type.equals("ThreeDaysLessCount")){
+				   resultPage= ticketCentorService.findPaginatedCountByCircleSearch(page, size, type,searchText);
+		    }else if(type.equals("ThreeDayGreaterCount")){
+		    	resultPage= ticketCentorService.findPaginatedCountByCircleSearch(page, size, type,searchText);
+		         
+		    }else{
+		    	//resultPage= ticketCentorService.findPaginatedCount(page, size, type);
+		    
+			
+			 resultPage = ticketCentorService.findPaginatedByCircleSearch(page, size,searchText);
+		      
+			    if (resultPage !=null && resultPage.getSize()>0){
+			    	//return resultPage;
+			        }
+		    }
+		 }else {
+			 resultPage = ticketCentorService.findPaginatedByCircleSearch(page, size,searchText);
+		    }
+			
+		        return resultPage;
+		    }
 	
 
 }
