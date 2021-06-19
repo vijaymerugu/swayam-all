@@ -21,6 +21,10 @@ public interface TicketCentorService extends IOperations<TicketCentorDto> {
 	
 	public Map<String,Integer> findAllAgeingOfTicketsCountByCircle();
 
+	Page<TicketCentorDto> findPaginatedCountByCircleSearch(int page, int size, String type, String searchText);
+
+	Page<TicketCentorDto> findPaginatedByCircleSearch(int page, int size, String searchText);
+
 	
 		 
 }

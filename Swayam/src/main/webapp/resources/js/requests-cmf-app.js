@@ -100,8 +100,8 @@ console.log("$scope.ddMMyyyy::::::::"+$scope.ddMMyyyy );
 
     columnDefs: [
       { name: 'id', displayName: 'Case Id', width:170,
-    	  //cellTemplate: '<div class="ui-grid-cell-contents"><a href="/hm/viewCaseId?caseId={{ row.entity.id }}">{{ row.entity.id }}</a></div>'
-    	  cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.id)">{{ row.entity.id }}</a></div>'  
+    	  //cellTemplate: '<div class="ui-grid-cell-contents"><a style="cursor: hand;cursor: pointer;" href="/hm/viewCaseId?caseId={{ row.entity.id }}">{{ row.entity.id }}</a></div>'
+    	  cellTemplate: '<div class="ui-grid-cell-contents"><a style="cursor: hand;cursor: pointer;" ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.id)">{{ row.entity.id }}</a></div>'  
       },
       { name: 'kioskId', displayName: 'Kiosk Id', width:200  },
       { name: 'modifiedDate', width:250, displayName: 'Request Date Time',type: 'date',cellFilter: 'date:"dd-MM-yyyy hh:mm:ss a"'

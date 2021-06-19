@@ -15,9 +15,9 @@ public TerminalStatusSearchTextDto(){
 	
 	public TerminalStatusSearchTextDto(TerminalStatusSearchText  terminalStatus) {
 		this.kioskId = terminalStatus.getKioskId();
-		this.kioskSrNo = terminalStatus.getKioskSerialNo();
+		this.kioskSerialNo = terminalStatus.getKioskSerialNo();
 		this.brCode = terminalStatus.getBranchCode();
-		this.cmf = terminalStatus.getUsername();
+		this.username = terminalStatus.getUsername();
 		this.rmmsConnectivity = terminalStatus.getRmmsConnectivity();
 		this.pbPrinterStatus = terminalStatus.getPbPrinterStatus();
 		this.cartridgeStatus = terminalStatus.getCartridgeStatus();
@@ -31,13 +31,13 @@ public TerminalStatusSearchTextDto(){
 		//this.timeDiff = terminalStatus.getTimeDiff();
 		this.lastPrntTxnDttm = terminalStatus.getLastPrntTxnDttm();
 		this.lastPmDttm = terminalStatus.getLastPmDttm();
-		this.circle=terminalStatus.getCrclName();
+		this.crclName=terminalStatus.getCrclName();
 	}
 	private String kioskId;
-	private String kioskSrNo;
+	private String kioskSerialNo;
 	private String branchCode;
-	private String circle;
-	private String cmf;
+	private String crclName;
+	private String username;
 	private String rmmsConnectivity;
 	private String pbPrinterStatus;
 	private String cartridgeStatus;

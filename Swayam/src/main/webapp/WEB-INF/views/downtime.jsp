@@ -295,8 +295,9 @@ ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
 		<span style="float:right">
 		<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
 		<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>
-		&nbsp;&nbsp;&nbsp;
 		</span>		
+		<br/>
+		<br/>
 		<br/>
 		<div class="loading" id="loading" align="center" style="display:none;">
    			 <img src="resources/img/loader.gif"> 

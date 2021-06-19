@@ -194,10 +194,10 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
     
       columnDefs: [
           { name: 'kioskId', headerCellTemplate: '<div>Kiosk<br/>Id</div>' },
-          { name: 'kioskSrNo',headerCellTemplate: '<div>Kiosk<br/>Serial No</div>'},
+          { name: 'kioskSerialNo',headerCellTemplate: '<div>Kiosk<br/>Serial No</div>'},
           { name: 'brCode', displayName: 'BR Code'},
-          {name:'circle',displayName: 'Circle' },
-          { name: 'cmf', displayName: 'CMF' }, 
+          {name:'crclName',displayName: 'Circle' },
+          { name: 'username', displayName: 'CMF' }, 
          // { name: 'rmmsConnectivity',headerCellTemplate: '<div>Ticket<br/>No</div>' ,
          //cellTemplate: '<div ng-if="row.entity.rmmsConnectivity == \'Red\'"><span><img src="resources/img/red.gif"></span></div><div ng-if="row.entity.rmmsConnectivity == \'Green\'"><span><img src="resources/img/green.gif"></span></div><div ng-if="row.entity.rmmsConnectivity == \'Gray\'"><span><img src="resources/img/gray.gif"></span></div>'},
           
@@ -291,8 +291,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	        $("#loading").hide();  
 	     // Added for loader------------- END
           });
-        }
-        else{
+        }else{
  	 	   	console.log("Inside else"+$scope.counttype);
         	 UserManagementService.getSearchNext(newPage,pageSize,$scope.counttype,$scope.searchText).success(function(data){
            	 // alert("$scope.counttype====Serach "+$scope.counttype);

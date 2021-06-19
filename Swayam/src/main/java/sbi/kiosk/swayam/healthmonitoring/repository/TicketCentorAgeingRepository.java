@@ -263,9 +263,12 @@ public Page<TicketCentor> findAllTicketCentor1DaysAndCMFUser(@Param("pfId") Stri
 @Query(value = " SELECT * from TBL_TICKET_CENTRE where  (AGEING>8 and AGEING<=24) AND KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID=:pfId) and STATUS_OF_COMPLAINT='Active' ORDER BY call_log_date DESC", nativeQuery = true)
 public Page<TicketCentor> findAllTicketCentor3DaysLessAndCMFUser(@Param("pfId") String pfId,Pageable pageable);
 
-@Query(value = " SELECT * from TBL_TICKET_CENTRE where  AGEING>24  AND KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID=:pfId) and STATUS_OF_COMPLAINT='Active' ORDER BY call_log_date DESC", nativeQuery = true)
+@Query(value = " SELECT * from TBL_TICKET_CENTRE where  AGEING>24  AND KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID=:pfId) and STATUS_OF_COMPLAINT='Active' ORDER BY call_log_date DESC", nativeQuery = true,
+countQuery="select count(*) from TBL_TICKET_CENTRE where  AGEING>24  AND KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID=:pfId) and STATUS_OF_COMPLAINT='Active' ORDER BY call_log_date DESC ")
 public Page<TicketCentor> findAllTicketCentor3DaysGreaterAndCMFUser(@Param("pfId") String pfId,Pageable pageable);
-@Query(value = " SELECT * from TBL_TICKET_CENTRE where KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID=:pfId) and STATUS_OF_COMPLAINT='Active' ORDER BY call_log_date DESC", nativeQuery = true)
+
+@Query(value = " SELECT * from TBL_TICKET_CENTRE where KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID=:pfId) and STATUS_OF_COMPLAINT='Active' ORDER BY call_log_date DESC", nativeQuery = true,
+countQuery=" SELECT count(*) from TBL_TICKET_CENTRE where KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID=:pfId) and STATUS_OF_COMPLAINT='Active' ORDER BY call_log_date DESC")
 public Page<TicketCentor> findAllTicketTotalListAndCMFUser(@Param("pfId") String pfId,Pageable pageable);
 
 
@@ -299,7 +302,9 @@ public Page<TicketCentor> findAllTicketCentor1DaysByCircle(@Param("circle") Stri
 @Query(value = " SELECT * from TBL_TICKET_CENTRE where (AGEING>8 and AGEING<=24) and KIOSK_ID in (SELECT KIOSK_ID FROM TBL_KIOSK_MASTER WHERE CIRCLE=:circle) and STATUS_OF_COMPLAINT='Active' ORDER BY call_log_date DESC ", nativeQuery = true)
 public Page<TicketCentor> findAllTicketCentor3DaysLessByCircle(@Param("circle") String circle,Pageable pageable);
 
-@Query(value = " SELECT * from TBL_TICKET_CENTRE where  (AGEING>24) and KIOSK_ID in (SELECT KIOSK_ID FROM TBL_KIOSK_MASTER WHERE CIRCLE=:circle) and STATUS_OF_COMPLAINT='Active' ORDER BY call_log_date DESC  ", nativeQuery = true)
+@Query(value = " SELECT * from TBL_TICKET_CENTRE where  AGEING>24 and KIOSK_ID in (SELECT KIOSK_ID FROM TBL_KIOSK_MASTER WHERE CIRCLE=:circle) and STATUS_OF_COMPLAINT='Active' ORDER BY call_log_date DESC  ", 
+countQuery=" SELECT count(*) from TBL_TICKET_CENTRE where  AGEING>24 and KIOSK_ID in (SELECT KIOSK_ID FROM TBL_KIOSK_MASTER WHERE CIRCLE=:circle) and STATUS_OF_COMPLAINT='Active' ORDER BY call_log_date DESC  ",
+nativeQuery = true)
 public Page<TicketCentor> findAllTicketCentor3DaysGreaterByCircle(@Param("circle") String circle,Pageable pageable);
 
 
@@ -338,7 +343,9 @@ public Page<TicketCentor> findAllTicketCentor1DaysAndCMSUser(@Param("pfId") Set<
 @Query(value = " SELECT * from TBL_TICKET_CENTRE where  (AGEING>8 and AGEING<=24) AND KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId))  and STATUS_OF_COMPLAINT='Active' ORDER BY call_log_date DESC ", nativeQuery = true)
 public Page<TicketCentor> findAllTicketCentor3DaysLessAndCMSUser(@Param("pfId") Set<String> pfId,Pageable pageable);
 
-@Query(value = " SELECT * from TBL_TICKET_CENTRE where  (AGEING>24) AND KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId))  and STATUS_OF_COMPLAINT='Active' ORDER BY call_log_date DESC ", nativeQuery = true)
+@Query(value = " SELECT * from TBL_TICKET_CENTRE where  AGEING>24 AND KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId))  and STATUS_OF_COMPLAINT='Active' ORDER BY call_log_date DESC ", nativeQuery = true
+,countQuery=" SELECT count(*) from TBL_TICKET_CENTRE where  AGEING>24 AND KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId))  and STATUS_OF_COMPLAINT='Active' ORDER BY call_log_date DESC "
+		)
 public Page<TicketCentor> findAllTicketCentor3DaysGreaterAndCMSUser(@Param("pfId") Set<String> pfId,Pageable pageable);
 
 
