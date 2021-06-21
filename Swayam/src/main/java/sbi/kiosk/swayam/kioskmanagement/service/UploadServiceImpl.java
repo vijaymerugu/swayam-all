@@ -3,6 +3,7 @@ package sbi.kiosk.swayam.kioskmanagement.service;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -2315,7 +2317,8 @@ public class UploadServiceImpl implements UploadService {
 			workbook = new XSSFWorkbook(inputStream);
 	
 			org.apache.poi.ss.usermodel.Sheet firstSheet = workbook.getSheetAt(0);
-
+			logger.info("checking first sheet!!!!");
+			
 	
 			Iterator<Row> iterator = firstSheet.iterator();
 			List<KioskCMFDto> lidtDto = new ArrayList<>();
@@ -2332,7 +2335,7 @@ public class UploadServiceImpl implements UploadService {
 					
 					if(String.valueOf(cell.getRow().getRowNum()).equals("0")) 
 					{
-						 
+						logger.info("checking first row!!!!");
 						/*
 						 * if(String.valueOf(cell.getColumnIndex()).equals("0")) {
 						 * if(!((String.valueOf(cell.getColumnIndex()).equals("0")) &&
@@ -3147,6 +3150,734 @@ public class UploadServiceImpl implements UploadService {
 		
 			}
 
+		}
+
+		@Override
+		public String uploadKioskCMFInformationNew(InputStream is) {
+			try {
+
+				this.workbook = new XSSFWorkbook(is);
+		         Sheet firstSheet = this.workbook.getSheetAt(0);
+		         Row headerRow = firstSheet.getRow(0);
+		         Iterator<Cell> cells = headerRow.cellIterator();
+		         
+					/*
+					 * inputStream = new FileInputStream(new File(path)); workbook = new
+					 * XSSFWorkbook(inputStream);
+					 * 
+					 * org.apache.poi.ss.usermodel.Sheet firstSheet = workbook.getSheetAt(0);
+					 * logger.info("checking first sheet!!!!");
+					 */
+				
+		
+				Iterator<Row> iterator = firstSheet.iterator();
+				List<KioskCMFDto> lidtDto = new ArrayList<>();
+				int i = 0, j=0;
+				while (iterator.hasNext()) {
+					Row nextRow = iterator.next();
+					Iterator<Cell> cellIterator = nextRow.cellIterator();
+					KioskCMFDto dto = new KioskCMFDto();
+					String [] columns = {"ID","PF_ID","KIOSK_ID"};
+					String [] columnsNew = {};
+					while (cellIterator.hasNext()) {
+
+						Cell cell = cellIterator.next();
+						
+						if(String.valueOf(cell.getRow().getRowNum()).equals("0")) 
+						{
+							logger.info("checking first row!!!!");
+							/*
+							 * if(String.valueOf(cell.getColumnIndex()).equals("0")) {
+							 * if(!((String.valueOf(cell.getColumnIndex()).equals("0")) &&
+							 * (cell.getStringCellValue().equalsIgnoreCase("ID")))) {
+							 * logger.error("Wrong File or Data Sequence or header is missing for upload!!");
+							 * 
+							 * return "Wrong File or Data Sequence or header is missing for upload"; } }
+							 */
+							if((String.valueOf(cell.getColumnIndex()).equals("1")) ||((cell.getRow().getPhysicalNumberOfCells())==1)) {
+							if(!((String.valueOf(cell.getColumnIndex()).equals("1")) && (cell.getStringCellValue().equalsIgnoreCase("PF_ID"))))
+							{
+								logger.error("Wrong File or Data Sequence or header is missing for upload!!");
+								
+								return "Wrong File or Data Sequence or header is missing for upload";
+							} 
+							}
+							if (String.valueOf(cell.getColumnIndex()).equals("1")) {
+								
+								dto.setCmfPfId(cell.getStringCellValue());
+							}
+							if(String.valueOf(cell.getColumnIndex()).equals("2")) {
+							if(!((String.valueOf(cell.getColumnIndex()).equals("2")) && (cell.getStringCellValue().equalsIgnoreCase("KIOSK_ID"))))
+							{
+								logger.error("Wrong File or Data Sequence or header is missing for upload!!");
+								
+								return "Wrong File or Data Sequence or header is missing for upload";
+							} 
+							}
+							if (String.valueOf(cell.getColumnIndex()).equals("2")) {
+								
+								dto.setKioskId(cell.getStringCellValue());
+							}
+						}
+					//	switch (cell.getCellType()) {
+					//	case STRING:
+							if (!(String.valueOf(cell.getRow().getRowNum()).equals("0"))) {
+							
+
+								/*
+								 * if (String.valueOf(cell.getColumnIndex()).equals("1")) {
+								 * dto.setCmfPfId(cell.getStringCellValue()); }
+								 */
+								if (String.valueOf(cell.getColumnIndex()).equals("2")) {
+								
+									dto.setKioskId(cell.getStringCellValue());
+								}
+
+					//		}
+					//		break;
+					//	case NUMERIC:
+					//		if (!(String.valueOf(cell.getRow().getRowNum()).equals("0"))) {
+								if (String.valueOf(cell.getColumnIndex()).equals("1")) {
+								
+									switch (cell.getCellType()) {
+									case NUMERIC:
+									dto.setCmfPfId((String.valueOf((int)cell.getNumericCellValue())));
+									break;
+									case STRING:
+										/*
+										 * if((cell.getStringCellValue().equalsIgnoreCase("NOT ALLOTTED")) ||
+										 * (cell.getStringCellValue().equalsIgnoreCase("#N/A")) ) {
+										 * logger.error("These values are non-acceptable as PF_ID!!"); return
+										 * "These values are non-acceptable as PF_ID"; } else
+										 */
+											dto.setCmfPfId(cell.getStringCellValue());
+									}
+								}
+								/*
+								 * if (String.valueOf(cell.getColumnIndex()).equals("2")) {
+								 * 
+								 * dto.setKioskId((String.valueOf((int)cell.getNumericCellValue()))); }
+								 */
+
+					//			break;
+								
+								/*
+								 * if( (cell.getStringCellValue().equalsIgnoreCase("NOT ALLOTTED")) ||
+								 * (cell.getStringCellValue().equalsIgnoreCase("#N/A")) ) {
+								 * logger.error("These values are non-acceptable as PF_ID!!");
+								 * 
+								 * return "These values are non-acceptable as PF_ID"; }
+								 */
+							}
+
+					//	}
+					//	logger.info(" 1st close while loop- "+i++);
+
+					} // 1st close while loop
+					lidtDto.add(dto);
+					if(lidtDto.get(0).getCmfPfId()==null)
+					{
+						logger.error("Header missing in file!!");
+						
+						return "Header missing in file";
+					}
+					if(lidtDto.get(0).getKioskId() == null)
+					{
+						
+						logger.error("Header missing in file");
+						
+						return "Header missing in file";
+					}
+					//lidtDto.remove(0);
+				//	logger.info("2nd close while loop - "+j++);
+				} // 2nd close while loop
+
+				UserKioskMapping entity = null;
+				List<UserKioskMapping> listEntity = new ArrayList<UserKioskMapping>();
+				List<UserKioskMapping> listEntity1 = new ArrayList<UserKioskMapping>();
+				int count = 0;
+				if( lidtDto.size() == 0)
+				{
+					logger.error("Blank File for upload!!");
+					
+					return "Blank File for upload";
+				}
+				if( lidtDto.size() == 1)
+				{
+					logger.error("Blank File(Fill only Column name) for upload!!");
+					
+					return "Blank File(Fill only Column name) for upload";
+				}
+				for (KioskCMFDto lidtDto1 : lidtDto) {
+					if (count != 0) {
+						entity = new UserKioskMapping();
+						entity.setPfId(lidtDto1.getCmfPfId());
+						entity.setKioskId(lidtDto1.getKioskId());
+						listEntity.add(entity);
+
+					}
+					count++;
+					Optional<String> checkNullCmfPfId = Optional.ofNullable(lidtDto1.getCmfPfId());
+					Optional<String> checkNullgetKioskId = Optional.ofNullable(lidtDto1.getKioskId());
+					if (( lidtDto1.getKioskId() != null )						
+							&& ( lidtDto1.getCmfPfId() != null ) && !( lidtDto1.getCmfPfId().equalsIgnoreCase( "NOT ALLOTTED" ))) {// logger.info("i m inside if clause: "+ count);
+						
+					}else
+					if (checkNullgetKioskId.isPresent() || checkNullCmfPfId.isPresent() || lidtDto1.getCmfPfId() == null || lidtDto1.getKioskId() == null
+							|| checkNullgetKioskId.get().trim().equals("") || checkNullCmfPfId.get().trim().equals("") || (lidtDto1.getCmfPfId().equalsIgnoreCase("NOT ALLOTTED")) || (lidtDto1.getCmfPfId().equalsIgnoreCase("#N/A")) ) { //logger.info("i m inside else-if clause: "+ count);
+						entity = new UserKioskMapping();
+						entity.setPfId(lidtDto1.getCmfPfId());
+						entity.setKioskId(lidtDto1.getKioskId());
+						listEntity1.add(entity);
+						
+						//emptyxlsx(listEntity1);
+
+					}
+				
+				}
+				if(listEntity1 !=null && listEntity1.size() > 0)
+				{	
+					emptyxlsx(listEntity1);
+					logger.info("Kiosk_CMF Data Not Uploaded");
+					return "Data Not Uploaded";
+				}
+				else {
+					List<UserKioskMapping> listEntityDup = new ArrayList<UserKioskMapping>();
+					for (UserKioskMapping listEntityNew : listEntity) {
+					String kioskId=userKioskMappingRepository.findByKioskid(listEntityNew.getKioskId(),listEntityNew.getPfId());
+					if(kioskId!=null  && !kioskId.isEmpty()){
+						entity = new UserKioskMapping();
+						entity.setPfId(listEntityNew.getPfId());
+						entity.setKioskId(listEntityNew.getKioskId());
+						listEntityDup.add(entity);
+						
+						
+					}
+					}
+					if(listEntityDup !=null && listEntityDup.size() > 0)
+					{   
+						emptyxlsx(listEntityDup);
+						logger.info("Kiosk Id is Already Exist");
+						return "Kiosk Id is Already Exist";
+					}
+					else{
+					Iterable<UserKioskMapping> result = kioskCMFRepository.saveAll(listEntity);
+					if (result != null)
+					logger.info("Kiosk_CMF Data Uploaded Successfully");
+						return "Kiosk_CMF";
+					}
+				}
+				
+				
+			}
+
+			catch (Exception e) {
+				logger.error("Exception "+ExceptionConstants.EXCEPTION);
+				return "Due to Error Data Not Uploaded";
+			
+			} finally {
+				try {
+					if (workbook != null) {
+						workbook.close();
+					}
+					if (inputStream != null) {
+						inputStream.close();
+					}
+
+				} catch (Exception e) {
+					logger.error("Exception "+ExceptionConstants.EXCEPTION);
+					return "Due to Error Data Not Uploaded";
+				}
+			}
+			//return "Due to Error Data Not Uploaded";
+			
+		}
+
+		@Override
+		public String uploadInvVendorInformationNew(InputStream is) {
+
+
+
+			try {
+
+				//inputStream = new FileInputStream(new File(path));
+				 this.workbook = new XSSFWorkbook(is);
+			//	workbook = new XSSFWorkbook(inputStream);
+			
+				Sheet firstSheet = workbook.getSheetAt(0);
+		
+				DataFormatter objDefaultFormat = new DataFormatter();
+				FormulaEvaluator objFormulaEvaluator = new XSSFFormulaEvaluator((XSSFWorkbook) workbook);
+
+				Iterator<Row> iterator = firstSheet.iterator();
+				List<InvoiceVendorDto> lidtDto = new ArrayList<>();
+				int i = 0, j=0;
+				while (iterator.hasNext()) {
+					Row nextRow = iterator.next();
+					Iterator<Cell> cellIterator = nextRow.cellIterator();
+					InvoiceVendorDto dto = new InvoiceVendorDto();
+
+					while (cellIterator.hasNext()) {
+
+						Cell cell = cellIterator.next();
+					
+						if(String.valueOf(cell.getRow().getRowNum()).equals("0")) 
+						{
+							if(String.valueOf(cell.getColumnIndex()).equals("0")) {
+								if(!((String.valueOf(cell.getColumnIndex()).equals("0")) && (cell.getStringCellValue().equalsIgnoreCase("FIN_YR"))))
+								{
+									logger.error("Wrong File or Data Sequence or header is missing for upload!!");
+									
+									return "Wrong File or Data Sequence or header is missing for upload";
+								}
+								if (String.valueOf(cell.getColumnIndex()).equals("0")) {
+									
+									dto.setFinYear(cell.getStringCellValue());
+								}
+							}
+							if(String.valueOf(cell.getColumnIndex()).equals("1")) {
+							if(!((String.valueOf(cell.getColumnIndex()).equals("1")) && (cell.getStringCellValue().equalsIgnoreCase("INVO_NO"))))
+							{
+								logger.error("Wrong File or Data Sequence or header is missing for upload!!");
+								
+								return "Wrong File or Data Sequence or header is missing for upload";
+							} 
+							if (String.valueOf(cell.getColumnIndex()).equals("1")) {
+								
+								dto.setInvNo(cell.getStringCellValue().equalsIgnoreCase("INVO_NO") ? 1 : 0);
+								
+							}
+							}
+							if(String.valueOf(cell.getColumnIndex()).equals("2")) {
+							if(!((String.valueOf(cell.getColumnIndex()).equals("2")) && (cell.getStringCellValue().equalsIgnoreCase("INVO_DT"))))
+							{
+								logger.error("Wrong File or Data Sequence or header is missing for upload!!");
+								
+								return "Wrong File or Data Sequence or header is missing for upload";
+							} 
+							if (String.valueOf(cell.getColumnIndex()).equals("2")) {
+								
+								dto.setInvDt(cell.getStringCellValue());
+							}
+							}
+					
+							if(String.valueOf(cell.getColumnIndex()).equals("3")) {
+								if(!((String.valueOf(cell.getColumnIndex()).equals("3")) && (cell.getStringCellValue().equalsIgnoreCase("CUST_NAME"))))
+								{
+									logger.error("Wrong File or Data Sequence or header is missing for upload!!");
+									
+									return "Wrong File or Data Sequence or header is missing for upload";
+								}
+								if (String.valueOf(cell.getColumnIndex()).equals("3")) {
+									
+									dto.setCusName(cell.getStringCellValue());
+								}
+							}
+							if(String.valueOf(cell.getColumnIndex()).equals("4")) {
+							if(!((String.valueOf(cell.getColumnIndex()).equals("4")) && (cell.getStringCellValue().equalsIgnoreCase("PRN_SRN"))))
+							{
+								logger.error("Wrong File or Data Sequence or header is missing for upload!!");
+								
+								return "Wrong File or Data Sequence or header is missing for upload";
+							} 
+							if (String.valueOf(cell.getColumnIndex()).equals("4")) {
+								
+								dto.setPrnSrn(cell.getStringCellValue());
+							}
+							}
+							if(String.valueOf(cell.getColumnIndex()).equals("5")) {
+							if(!((String.valueOf(cell.getColumnIndex()).equals("5")) && (cell.getStringCellValue().equalsIgnoreCase("Product"))))
+							{
+								logger.error("Wrong File or Data Sequence or header is missing for upload!!");
+								
+								return "Wrong File or Data Sequence or header is missing for upload";
+							} 
+							if (String.valueOf(cell.getColumnIndex()).equals("5")) {
+								
+								dto.setProduct(cell.getStringCellValue());
+							}
+							}
+							if(String.valueOf(cell.getColumnIndex()).equals("6")) {
+								if(!((String.valueOf(cell.getColumnIndex()).equals("6")) && (cell.getStringCellValue().equalsIgnoreCase("INVO_FROM"))))
+								{
+									logger.error("Wrong File or Data Sequence or header is missing for upload!!");
+									
+									return "Wrong File or Data Sequence or header is missing for upload";
+								}
+								if (String.valueOf(cell.getColumnIndex()).equals("6")) {
+									
+									dto.setInvoiceFrom(cell.getStringCellValue());
+								}
+							}
+							if(String.valueOf(cell.getColumnIndex()).equals("7")) {
+							if(!((String.valueOf(cell.getColumnIndex()).equals("7")) && (cell.getStringCellValue().equalsIgnoreCase("INVO_UPTO"))))
+							{
+								logger.error("Wrong File or Data Sequence or header is missing for upload!!");
+								
+								return "Wrong File or Data Sequence or header is missing for upload";
+							} 
+							if (String.valueOf(cell.getColumnIndex()).equals("7")) {
+								
+								dto.setInvoiceUpTo(cell.getStringCellValue());
+							}
+							}
+							if(String.valueOf(cell.getColumnIndex()).equals("8")) {
+							if(!((String.valueOf(cell.getColumnIndex()).equals("8")) && (cell.getStringCellValue().equalsIgnoreCase("INVO_AMT"))))
+							{
+								logger.error("Wrong File or Data Sequence or header is missing for upload!!");
+								
+								return "Wrong File or Data Sequence or header is missing for upload";
+							} 
+							if (String.valueOf(cell.getColumnIndex()).equals("8")) {
+								
+							//	dto.setInvoiceAmt((float)cell.getNumericCellValue());
+								dto.setInvoiceAmt((float) (cell.getStringCellValue().equalsIgnoreCase("INVO_AMT") ? 1 : 0));
+							}
+							}
+							if(String.valueOf(cell.getColumnIndex()).equals("9")) {
+								if(!((String.valueOf(cell.getColumnIndex()).equals("9")) && (cell.getStringCellValue().equalsIgnoreCase("SHIP_ADD"))))
+								{
+									logger.error("Wrong File or Data Sequence or header is missing for upload!!");
+									
+									return "Wrong File or Data Sequence or header is missing for upload";
+								} 
+								if (String.valueOf(cell.getColumnIndex()).equals("9")) {
+									
+									dto.setShipAdd(cell.getStringCellValue());
+								}
+								}
+							if(String.valueOf(cell.getColumnIndex()).equals("10")) {
+								if(!((String.valueOf(cell.getColumnIndex()).equals("10")) && (cell.getStringCellValue().equalsIgnoreCase("SHIP_STATE"))))
+								{
+									logger.error("Wrong File or Data Sequence or header is missing for upload!!");
+									
+									return "Wrong File or Data Sequence or header is missing for upload";
+								} 
+								if (String.valueOf(cell.getColumnIndex()).equals("10")) {
+									
+									dto.setShipState(cell.getStringCellValue());
+								}
+								}
+						}
+
+						switch (cell.getCellType()) {
+						case STRING:
+							if (!(String.valueOf(cell.getRow().getRowNum()).equals("0"))) {
+							
+								if (String.valueOf(cell.getColumnIndex()).equals("0")) {
+									dto.setFinYear(cell.getStringCellValue());
+								}
+								
+								if (String.valueOf(cell.getColumnIndex()).equals("3")) {
+								
+									dto.setCusName(cell.getStringCellValue());
+								}
+								if (String.valueOf(cell.getColumnIndex()).equals("4")) {
+									dto.setPrnSrn(cell.getStringCellValue());
+								}
+								if (String.valueOf(cell.getColumnIndex()).equals("5")) {
+								
+									dto.setProduct(cell.getStringCellValue());
+								}
+								
+								if (String.valueOf(cell.getColumnIndex()).equals("9")) {
+									dto.setShipAdd(cell.getStringCellValue());
+								}
+								if (String.valueOf(cell.getColumnIndex()).equals("10")) {
+								
+									dto.setShipState(cell.getStringCellValue());
+								}
+								
+								
+							}
+							break;
+						case NUMERIC:
+							if (!(String.valueOf(cell.getRow().getRowNum()).equals("0"))) {
+								if (String.valueOf(cell.getColumnIndex()).equals("1")) {
+								
+									dto.setInvNo((int)cell.getNumericCellValue());
+								}
+								if (String.valueOf(cell.getColumnIndex()).equals("8")) {
+								
+									dto.setInvoiceAmt((float)cell.getNumericCellValue());
+								}
+								if (String.valueOf(cell.getColumnIndex()).equals("2")) {
+									String cellValueStr = objDefaultFormat.formatCellValue(cell, objFormulaEvaluator);	
+									dto.setInvDt(cellValueStr);
+
+								}
+								if (String.valueOf(cell.getColumnIndex()).equals("6")) {
+									String cellValueStr = objDefaultFormat.formatCellValue(cell, objFormulaEvaluator);	
+									dto.setInvoiceFrom(cellValueStr);
+								}
+								if (String.valueOf(cell.getColumnIndex()).equals("7")) {
+									String cellValueStr = objDefaultFormat.formatCellValue(cell, objFormulaEvaluator);	
+									dto.setInvoiceUpTo(cellValueStr);
+								}
+								break;
+							}
+
+						}
+				//		logger.info(" 1st close while loop- "+i++);
+
+					} // 1st close while loop
+					lidtDto.add(dto);
+					if((lidtDto.get(0).getFinYear()==null) || (lidtDto.get(0).getFinYear()=="FIN_YR")
+							|| (lidtDto.get(0).getInvNo()==null)
+							|| (lidtDto.get(0).getInvDt()==null)
+							|| (lidtDto.get(0).getCusName()==null)
+							|| (lidtDto.get(0).getPrnSrn()==null)
+							|| (lidtDto.get(0).getProduct()==null)
+							|| (lidtDto.get(0).getInvoiceFrom()==null)
+									|| (lidtDto.get(0).getInvoiceUpTo()==null)
+									|| (lidtDto.get(0).getInvoiceAmt()==null)
+									|| (lidtDto.get(0).getShipAdd()==null)
+									|| (lidtDto.get(0).getShipState()==null) ) {
+						logger.error("Header missing in file!!");
+						
+						return "Header missing in file";
+					}
+				//	logger.info("2nd close while loop - "+j++);
+				} // 2nd close while loop
+
+				InvoiceVendor entity = null;
+				List<InvoiceVendor> listEntity = new ArrayList<InvoiceVendor>();
+				List<InvoiceVendor> listEntity1 = new ArrayList<InvoiceVendor>();
+				int count = 0;
+				if( lidtDto.size() == 0)
+				{
+					logger.error("Blank File for upload!!");
+					
+					return "Blank File for upload";
+				}
+				if( lidtDto.size() == 1)
+				{
+					logger.error("Blank File(Fill only Column name) for upload!!");
+					
+					return "Blank File(Fill only Column name) for upload";
+				}
+				for (InvoiceVendorDto lidtDto1 : lidtDto) {
+					if (count != 0) {
+						entity = new InvoiceVendor();
+						entity.setFinYear(lidtDto1.getFinYear());
+						entity.setInvNo(lidtDto1.getInvNo());
+					//	entity.setInvDt(lidtDto1.getInvDt());
+						String invoiceDate = "";
+						try {
+						String sDate1=lidtDto1.getInvDt();
+						  sDate1= sDate1.replaceAll("/", "-")
+							  		.replaceAll("-", "-");
+								  Date date =new Date();
+						
+							  SimpleDateFormat formatter = new SimpleDateFormat("dd-mm-yyyy");
+						
+							  date = formatter.parse(sDate1);
+						  
+							  invoiceDate =  new SimpleDateFormat("dd-mm-yyyy").format(date);
+						  
+					
+						  entity.setInvDt(invoiceDate);//3
+						}
+						catch (Exception e) {
+							logger.error("Exception "+ExceptionConstants.DATE_EXCEPTION);
+							invoiceDate = "";
+							lidtDto1.setInvDt("");
+							 entity.setInvDt(invoiceDate);//3
+						} 
+						entity.setCusName(lidtDto1.getCusName());
+						entity.setPrnSrn(lidtDto1.getPrnSrn());
+						entity.setProduct(lidtDto1.getProduct());
+					//	entity.setInvoiceFrom(lidtDto1.getInvoiceFrom());
+						String invoiceFrom = "";
+						try {
+						String sDate1=lidtDto1.getInvoiceFrom();
+						  sDate1= sDate1.replaceAll("/", "-")
+							  		.replaceAll("-", "-");
+							 				
+							  Date date =new Date();
+						
+							  SimpleDateFormat formatter = new SimpleDateFormat("dd-mm-yyyy");
+						
+							  date = formatter.parse(sDate1);
+						  
+							  invoiceFrom =  new SimpleDateFormat("dd-mm-yyyy").format(date);
+					
+						  entity.setInvoiceFrom(invoiceFrom);//3
+						}
+						catch (Exception e) {
+							logger.error("Exception "+ExceptionConstants.DATE_EXCEPTION);
+							invoiceFrom = "";
+							lidtDto1.setInvoiceFrom("");
+							 entity.setInvoiceFrom(invoiceFrom);//3
+						}
+					//	entity.setInvoiceUpTo(lidtDto1.getInvoiceUpTo());
+						String invoiceUpto = "";
+						try {
+						String sDate1=lidtDto1.getInvoiceUpTo();
+						  
+						  sDate1= sDate1.replaceAll("/", "-")
+							  		.replaceAll("-", "-");
+							 				
+							  Date date =new Date();
+						
+							  SimpleDateFormat formatter = new SimpleDateFormat("dd-mm-yyyy");
+						
+							  date = formatter.parse(sDate1);
+						  
+							  invoiceUpto =  new SimpleDateFormat("dd-mm-yyyy").format(date);
+						  
+						  entity.setInvoiceUpTo(invoiceUpto);//3
+						}
+						catch (Exception e) {
+							logger.error("Exception "+ExceptionConstants.DATE_EXCEPTION);
+							invoiceUpto = "";
+							lidtDto1.setInvoiceUpTo("");
+							 entity.setInvoiceUpTo(invoiceUpto);//3
+						}
+						entity.setInvoiceAmt(lidtDto1.getInvoiceAmt());
+						entity.setShipAdd(lidtDto1.getShipAdd());
+						entity.setShipState(lidtDto1.getShipState());
+						
+						listEntity.add(entity);
+
+					}
+					count++;
+					Optional<String> checkNullFinYear = Optional.ofNullable(lidtDto1.getFinYear());
+					Optional<Integer> checkNullInvNo = Optional.ofNullable(lidtDto1.getInvNo());
+					Optional<String> checkNullInvDt = Optional.ofNullable(lidtDto1.getInvDt());
+					Optional<String> checkNullCusName = Optional.ofNullable(lidtDto1.getCusName());
+					Optional<String> checkNullPrnSrn = Optional.ofNullable(lidtDto1.getPrnSrn());
+					Optional<String> checkNullProduct = Optional.ofNullable(lidtDto1.getProduct());
+					Optional<String> checkNullInvoiceFrom = Optional.ofNullable(lidtDto1.getInvoiceFrom());
+					Optional<String> checkNullInvoiceUpTo = Optional.ofNullable(lidtDto1.getInvoiceUpTo());
+					Optional<Float> checkNullInvoiceAmt = Optional.ofNullable(lidtDto1.getInvoiceAmt());
+					Optional<String> checkNullShipAdd = Optional.ofNullable(lidtDto1.getShipAdd());
+					Optional<String> checkNullShipState = Optional.ofNullable(lidtDto1.getShipState());
+					
+				/*	if ((checkNullFinYear.isPresent() || !checkNullFinYear.get().trim().equals(""))		
+							&& (checkNullInvNo.isPresent() || !checkNullInvNo.get().equals(0))
+							&& (checkNullInvDt.isPresent() || !checkNullInvDt.get().equals(""))
+							&& (checkNullCusName.isPresent() || !checkNullCusName.get().equals(""))
+							&& (checkNullPrnSrn.isPresent() || !checkNullPrnSrn.get().equals(""))
+							&& (checkNullProduct.isPresent() || !checkNullProduct.get().equals(""))
+							&& (checkNullInvoiceFrom.isPresent() || !checkNullInvoiceFrom.get().equals(""))
+							&& (checkNullInvoiceUpTo.isPresent() || !checkNullInvoiceUpTo.get().equals(""))
+							&& (checkNullInvoiceAmt.isPresent() || !checkNullInvoiceAmt.get().equals(0))
+							&& (checkNullShipAdd.isPresent() || !checkNullShipAdd.get().equals(""))
+							&& (checkNullShipState.isPresent() || !checkNullShipState.get().equals(""))) { 
+							logger.info("i m inside if clause: "+ count);*/
+					if (lidtDto1.getFinYear() != null
+							&& lidtDto1.getInvNo() != null
+							&& !checkNullInvDt.get().equals("")
+							&& lidtDto1.getCusName() != null
+							&& lidtDto1.getPrnSrn() != null
+							&& lidtDto1.getProduct() != null
+							&& !checkNullInvoiceFrom.get().equals("")
+							&& !checkNullInvoiceUpTo.get().equals("")
+							&& lidtDto1.getInvoiceAmt() != null
+							&& lidtDto1.getShipAdd() != null
+							&& lidtDto1.getShipState() != null) { //logger.info("i m inside if clause: "+ count);
+						
+					}else
+					if (!checkNullFinYear.isPresent() || checkNullFinYear.get().trim().equals("")	|| 	lidtDto1.getFinYear()== null
+							|| !checkNullInvNo.isPresent() || checkNullInvNo.get().equals(0) || lidtDto1.getInvNo() == null
+							|| !checkNullInvDt.isPresent() || checkNullInvDt.get().equals("") || lidtDto1 .getInvDt().trim() == ""
+							|| !checkNullCusName.isPresent() || checkNullCusName.get().equals("") || lidtDto1.getCusName() == null
+							|| !checkNullPrnSrn.isPresent() || checkNullPrnSrn.get().equals("") || lidtDto1.getPrnSrn() == null
+							|| !checkNullProduct.isPresent() || checkNullProduct.get().equals("") || lidtDto1.getProduct() == null
+							|| !checkNullInvoiceFrom.isPresent() || checkNullInvoiceFrom.get().equals("") || lidtDto1.getInvoiceFrom().trim() == ""
+							|| !checkNullInvoiceUpTo.isPresent() || checkNullInvoiceUpTo.get().equals("") || lidtDto1.getInvoiceUpTo().trim() == ""
+							|| !checkNullInvoiceAmt.isPresent() || checkNullInvoiceAmt.get().equals(0) || lidtDto1.getInvoiceAmt() == null
+							|| !checkNullShipAdd.isPresent() || checkNullShipAdd.get().equals("") || lidtDto1.getShipAdd() == null
+							|| !checkNullShipState.isPresent() || checkNullShipState.get().equals("") || lidtDto1.getShipState() == null) {// logger.info("i m inside else-if clause: "+ count);
+						entity = new InvoiceVendor();
+						entity.setFinYear(lidtDto1.getFinYear());
+						entity.setInvNo(lidtDto1.getInvNo()== null ? 0 : lidtDto1.getInvNo() );
+						entity.setInvDt(lidtDto1.getInvDt());
+						entity.setCusName(lidtDto1.getCusName());
+						entity.setPrnSrn(lidtDto1.getPrnSrn());
+						entity.setProduct(lidtDto1.getProduct());
+						entity.setInvoiceFrom(lidtDto1.getInvoiceFrom());
+						entity.setInvoiceUpTo(lidtDto1.getInvoiceUpTo());
+					//	entity.setInvoiceAmt(lidtDto1.getInvoiceAmt());
+						entity.setInvoiceAmt((float) (lidtDto1.getInvoiceAmt()== null ? 0.0 : lidtDto1.getInvoiceAmt()) );
+						entity.setShipAdd(lidtDto1.getShipAdd());
+						entity.setShipState(lidtDto1.getShipState());
+						
+						listEntity1.add(entity);
+						
+						//emptyxlsx(listEntity1);
+
+					}
+				}
+				if(listEntity1 !=null && listEntity1.size() > 0)
+				{	
+					vendorInvxlsx(listEntity1);
+					logger.info("Vendor Invoice Data Not Uploaded");
+					return "Data Not Uploaded";
+				}
+				else {
+					List<InvoiceVendor> listEntityDup = new ArrayList<InvoiceVendor>();
+				
+					for (InvoiceVendor listEntityNew : listEntity) {
+						
+						
+					String prnSrn=invoiceVendorRepository.findDuplicate(listEntityNew.getPrnSrn(),listEntityNew.getInvoiceFrom(),listEntityNew.getInvoiceUpTo());
+					if(prnSrn!=null  && !prnSrn.isEmpty()){
+						entity = new InvoiceVendor();
+						entity.setFinYear(listEntityNew.getFinYear());
+						entity.setInvNo(listEntityNew.getInvNo()== null ? 0 : listEntityNew.getInvNo() );
+						entity.setInvDt(listEntityNew.getInvDt());
+						entity.setCusName(listEntityNew.getCusName());
+						entity.setPrnSrn(listEntityNew.getPrnSrn());
+						entity.setProduct(listEntityNew.getProduct());
+						entity.setInvoiceFrom(listEntityNew.getInvoiceFrom());
+						entity.setInvoiceUpTo(listEntityNew.getInvoiceUpTo());
+					//	entity.setInvoiceAmt(lidtDto1.getInvoiceAmt());
+						entity.setInvoiceAmt((float) (listEntityNew.getInvoiceAmt()== null ? 0.0 : listEntityNew.getInvoiceAmt()) );
+						entity.setShipAdd(listEntityNew.getShipAdd());
+						entity.setShipState(listEntityNew.getShipState());
+						listEntityDup.add(entity);
+						
+						
+					}
+					}
+					if(listEntityDup !=null && listEntityDup.size() > 0)
+					{   
+						vendorInvxlsx(listEntityDup);
+						logger.info("Invoice No is Already Exist");
+						return "Invoice No is Already Exist";
+					}
+					else{
+					Iterable<InvoiceVendor> result = invoiceVendorRepository.saveAll(listEntity);
+					if (result != null)
+					logger.info("Vendor Invoice Data Uploaded Successfully");
+						return "Vendor_Invoice";
+					}
+				}
+				
+				
+			}
+
+			catch (Exception e) {
+				logger.error("Exception "+ExceptionConstants.EXCEPTION);
+			
+			} finally {
+				try {
+					if (workbook != null) {
+						workbook.close();
+					}
+					if (inputStream != null) {
+						inputStream.close();
+					}
+
+				} catch (Exception e) {
+					logger.error("Exception "+ExceptionConstants.EXCEPTION);
+					
+				}
+			}
+			return "Due to Error Data Not Uploaded";
+		
 		}
 
 }

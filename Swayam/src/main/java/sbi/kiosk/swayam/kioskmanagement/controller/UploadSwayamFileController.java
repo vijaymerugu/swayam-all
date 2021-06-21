@@ -128,71 +128,80 @@ public class UploadSwayamFileController {
 	}
 
 // 2 KioskCMF 
+	/*
+	 * @RequestMapping(value = "uploadKioskDetails", method = RequestMethod.POST)
+	 * // @PreAuthorize("hasPermission('UPDuploadKioskDetails','CREATE')") public
+	 * ResponseEntity<String> uploadKioskDetails(@RequestParam("KioskFile")
+	 * List<MultipartFile> files) { List<FileInfo> uploadedFiles = new
+	 * ArrayList<FileInfo>();
+	 * 
+	 * if (!files.isEmpty()) { try { for (MultipartFile file : files) {
+	 * 
+	 * logger.info("i am inside uploadKioskDetails!!!"); // List<String> fileNames =
+	 * new ArrayList<String>(); String fileName = file.getOriginalFilename();
+	 * logger.info("fileName!!!"+fileName); // fileNames.add(fileName); //
+	 * logger.info("fileName list!!!"+fileNames.size()); File imageFile = new
+	 * File(context.getRealPath("/resources/upload"));
+	 * logger.info("imageFile created!!!"+imageFile.toString()); if
+	 * (!imageFile.exists()) {
+	 * 
+	 * imageFile.mkdirs(); logger.info("imageFile folder created!!!"); }
+	 * 
+	 * String path = context.getRealPath("/resources/upload") + File.separator +
+	 * fileName; logger.info("imageFile folder path:::::"+path); File
+	 * destinationFile = new File(path); // file.transferTo(destinationFile); //
+	 * read and write the file to the selected location-
+	 * logger.info("destinationFile file created!!!"); byte[] bytes =
+	 * file.getBytes(); logger.info("Converted to bytes!!!"); Path path1 =
+	 * Paths.get(uploadpath + file.getOriginalFilename());
+	 * logger.info("path of file !!!"+path1.getFileName()); Files.write(path1,
+	 * bytes); logger.info("File write successfully in path:::::1"); path =
+	 * uploadpath + file.getOriginalFilename();
+	 * logger.info("File write successfully in path:::::2"+path);
+	 * uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
+	 * logger.info("File write successfully in path:::::3");
+	 * 
+	 * 
+	 * }
+	 * 
+	 * } catch (Exception e) {
+	 * 
+	 * }
+	 * 
+	 * } logger.info("Upload File write successfully in path:::::4"); ModelAndView
+	 * modelAndView = new ModelAndView("upload"); modelAndView.addObject("files",
+	 * uploadedFiles); String name1 = uploadedFiles.get(0).getName();
+	 * logger.info("Upload File write successfully in path:::::5"+name1); File dir =
+	 * new File(uploadpath);
+	 * 
+	 * if (!dir.exists()) dir.mkdirs(); File serverFile = new
+	 * File(dir.getAbsolutePath() + File.separator + name1);
+	 * 
+	 * 
+	 * String path = serverFile.getAbsolutePath();
+	 * logger.info("Upload File write successfully in path:::::6"+path); String
+	 * result = uploadService.uploadKioskCMFInformation(path);
+	 * logger.info("Upload File write successfully in path:::::7");
+	 * ResponseEntity<String> entity = ResponseEntity.ok(result);
+	 * logger.info("Upload File write successfully in path:::::8"+entity); return
+	 * entity; }
+	 */
 	@RequestMapping(value = "uploadKioskDetails", method = RequestMethod.POST)
 	// @PreAuthorize("hasPermission('UPDuploadKioskDetails','CREATE')")
-	public ResponseEntity<String> uploadKioskDetails(@RequestParam("KioskFile") List<MultipartFile> files) {
-		List<FileInfo> uploadedFiles = new ArrayList<FileInfo>();
+	public ResponseEntity<String> uploadKioskDetails(@RequestParam("KioskFile") MultipartFile file) { 
+		new ArrayList();
+    this.logger.info("Inside uploadKioskDetails");
+    String result = null;
 
-		if (!files.isEmpty()) {
-			try {
-				for (MultipartFile file : files) {
-					
-				
-					List<String> fileNames = new ArrayList<String>();
-					String fileName = file.getOriginalFilename();
-					fileNames.add(fileName);
-		
-					File imageFile = new File(context.getRealPath("/resources/upload"));
-					
-					if (!imageFile.exists())
-					{
-					imageFile.mkdirs();
-	
-					}
-			
-					String path = context.getRealPath("/resources/upload") + File.separator + fileName;
-		
-					File destinationFile = new File(path);	
-				//	file.transferTo(destinationFile);
-					// read and write the file to the selected location-
-					byte[] bytes = file.getBytes();
-					Path path1 = Paths.get(uploadpath + file.getOriginalFilename());
-	
-					Files.write(path1, bytes);
-			
-					path = uploadpath  + file.getOriginalFilename();
-	
-					uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
-		
-					
+    try {
+       result = this.uploadService.uploadKioskCMFInformationNew(file.getInputStream());
+    } catch (IOException var5) {
+       throw new RuntimeException("fail to store excel data: " + var5.getMessage());
+    }
 
-				}
-
-			} catch (Exception e) {
-		
-			}
-
-		}
-		ModelAndView modelAndView = new ModelAndView("upload");
-		modelAndView.addObject("files", uploadedFiles);
-		String name1 = uploadedFiles.get(0).getName();
-	
-		File dir = new File(uploadpath);
-	
-		if (!dir.exists())
-			dir.mkdirs();
-		File serverFile = new File(dir.getAbsolutePath() + File.separator + name1);
-
-		
-		String path = serverFile.getAbsolutePath();
-
-		String result = uploadService.uploadKioskCMFInformation(path);
-
-		ResponseEntity<String> entity = ResponseEntity.ok(result);
-
-		return entity;
-	}
-
+    ResponseEntity<String> entity = ResponseEntity.ok(result);
+    return entity;
+    }
 // 3 KioskInformation
 	@RequestMapping(value = "uploadKioskCMF", method = RequestMethod.POST)
 //	@PreAuthorize("hasPermission('UPDuploadKioskCMF','CREATE')")
@@ -326,69 +335,82 @@ public class UploadSwayamFileController {
 		return entity;
 	}
 	
+	/*
+	 * // 5 uploadInvVendor
+	 * 
+	 * @RequestMapping(value = "uploadInvVendor", method = RequestMethod.POST)
+	 * 
+	 * public ResponseEntity<String> uploadInvVendor(@RequestParam("InFile")
+	 * List<MultipartFile> files) { List<FileInfo> uploadedFiles = new
+	 * ArrayList<FileInfo>();
+	 * 
+	 * if (!files.isEmpty()) { try { for (MultipartFile file : files) {
+	 * 
+	 * List<String> fileNames = new ArrayList<String>(); String fileName =
+	 * file.getOriginalFilename(); fileNames.add(fileName);
+	 * 
+	 * File imageFile = new File(context.getRealPath("/resources/upload"));
+	 * 
+	 * if (!imageFile.exists()) { imageFile.mkdirs();
+	 * 
+	 * }
+	 * 
+	 * String path = context.getRealPath("/resources/upload") + File.separator +
+	 * fileName;
+	 * 
+	 * File destinationFile = new File(path);
+	 * 
+	 * 
+	 * // file.transferTo(destinationFile); // read and write the file to the
+	 * selected location- byte[] bytes = file.getBytes(); Path path1 =
+	 * Paths.get(uploadpath + file.getOriginalFilename()); Files.write(path1,
+	 * bytes);
+	 * 
+	 * path = uploadpath + file.getOriginalFilename(); uploadedFiles.add(new
+	 * FileInfo(destinationFile.getName(), path));
+	 * 
+	 * }
+	 * 
+	 * } catch (Exception e) {
+	 * 
+	 * }
+	 * 
+	 * }
+	 * 
+	 * ModelAndView modelAndView = new ModelAndView("upload");
+	 * modelAndView.addObject("files", uploadedFiles); String name1 =
+	 * uploadedFiles.get(0).getName();
+	 * 
+	 * File dir = new File(uploadpath);
+	 * 
+	 * if (!dir.exists()) dir.mkdirs();
+	 * 
+	 * 
+	 * // Create the file on server File serverFile = new File(dir.getAbsolutePath()
+	 * + File.separator + name1);
+	 * 
+	 * String path = serverFile.getAbsolutePath(); String result =
+	 * uploadService.uploadInvVendorInformation(path);
+	 * 
+	 * ResponseEntity<String> entity = ResponseEntity.ok(result);
+	 * 
+	 * return entity; }
+	 */
 	// 5 uploadInvVendor
-	@RequestMapping(value = "uploadInvVendor", method = RequestMethod.POST)
-	
-	public ResponseEntity<String> uploadInvVendor(@RequestParam("InFile") List<MultipartFile> files) {
-		List<FileInfo> uploadedFiles = new ArrayList<FileInfo>();
-	
-		if (!files.isEmpty()) {
-			try {
-				for (MultipartFile file : files) {
-					
-					List<String> fileNames = new ArrayList<String>();
-					String fileName = file.getOriginalFilename();
-					fileNames.add(fileName);
-	
-					File imageFile = new File(context.getRealPath("/resources/upload"));
-						
-					if (!imageFile.exists())
-					{
-					imageFile.mkdirs();
+		@RequestMapping(value = "uploadInvVendor", method = RequestMethod.POST)
 		
-					}
-				
-					String path = context.getRealPath("/resources/upload") + File.separator + fileName;
-		
-					File destinationFile = new File(path);	
-		
-					
-				//	file.transferTo(destinationFile);
-					// read and write the file to the selected location-
-					byte[] bytes = file.getBytes();
-					Path path1 = Paths.get(uploadpath + file.getOriginalFilename());
-					Files.write(path1, bytes);
-	
-					path = uploadpath  + file.getOriginalFilename();
-					uploadedFiles.add(new FileInfo(destinationFile.getName(), path));
-		
-				}
+		public ResponseEntity<String> uploadInvVendor(@RequestParam("InFile")  MultipartFile file) { 
+			new ArrayList();
+		    this.logger.info("Inside uploadInvVendor");
+		    String result = null;
 
-			} catch (Exception e) {
-	
-			}
+		    try {
+		       result = this.uploadService.uploadInvVendorInformationNew(file.getInputStream());
+		    } catch (IOException var5) {
+		       throw new RuntimeException("fail to store excel data: " + var5.getMessage());
+		    }
 
-		}
-
-		ModelAndView modelAndView = new ModelAndView("upload");
-		modelAndView.addObject("files", uploadedFiles);
-		String name1 = uploadedFiles.get(0).getName();
-
-		File dir = new File(uploadpath);
-		
-		if (!dir.exists())
-			dir.mkdirs();
-		
-		
-		// Create the file on server
-		File serverFile = new File(dir.getAbsolutePath() + File.separator + name1);
-
-		String path = serverFile.getAbsolutePath();
-		String result = uploadService.uploadInvVendorInformation(path);
-
-		ResponseEntity<String> entity = ResponseEntity.ok(result);
-	
-		return entity;
-	}
-
+		    ResponseEntity<String> entity = ResponseEntity.ok(result);
+		    return entity;
+		    }
 }

@@ -585,6 +585,7 @@ input[type=button], input[type=submit], input[type=reset] {
 	animation-name: animatetop;
 	animation-duration: 0.4s
 }
+
 </style>
 </head>
 <body>
@@ -609,7 +610,15 @@ input[type=button], input[type=submit], input[type=reset] {
 
 			<div class="column">
 				<label>Kiosk CMF</label>
-			</div>
+			<!-- 	<a href="resources\template\User_Kiosk_Mapping.xlsx">Download Sample Template</a> -->
+				
+		 <!-- 	</div>
+			 <div> -->
+			<!-- <a  <i class="fa fa-download"></i> Sample Template href='resources\template\User_Kiosk_Mapping.xlsx' target="_blank">
+			<img src="resources/img/excel.svg" >
+			</a> -->
+			</div>	
+			
 			<div class="columnUpload">
 				<input type="file" id="KioskFile" name="myFile">
 			</div>
@@ -618,7 +627,10 @@ input[type=button], input[type=submit], input[type=reset] {
 				
 				<div class="column">
 				<label>Vendor Invoice</label>
-			</div>
+			 </div>
+		<!-- 	<div> Sample Template
+			<a href='resources\template\Vendor_Invoice.xlsx' target="_blank">
+			<img src="resources/img/excel.svg" ></a></div> -->
 			<div class="columnUpload">
 				<input type="file" id="InFile" name="myFile">
 			</div>
@@ -628,8 +640,15 @@ input[type=button], input[type=submit], input[type=reset] {
 		</div>
 <br>
 <br>	
-<!-- <div class="row">
-			<div class="column">
+	  <div class="row" >
+	   <div class="column"><label> Sample Template </label></div>
+	  <div class="column">
+	<a href="resources\template\User_Kiosk_Mapping.xlsx"> <img src="resources\img\download.JPG">Kiosk CMF File</a></div>	
+<!-- 	</p><div class="column"></div><div class="column"></div><div class="column"></div> -->
+	<div class="column">
+	<a href="resources\template\Vendor_Invoice.xlsx"> <img src="resources\img\download.JPG">Vendor Invoice File</a>
+	</div>	</div>	
+	<!-- 	<div class="column">
 				<label>Kiosk Details</label>
 			</div>
 			<div class="columnUpload">

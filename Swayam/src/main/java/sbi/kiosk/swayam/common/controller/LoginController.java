@@ -53,6 +53,7 @@ import sbi.kiosk.swayam.common.repository.AuditInsertRepository;
 import sbi.kiosk.swayam.common.repository.CommonUrlConfigRepository;
 import sbi.kiosk.swayam.common.repository.UserRepository;
 import sbi.kiosk.swayam.common.service.LoginService;
+import sbi.kiosk.swayam.common.service.UserSSODetailService;
 import sbi.kiosk.swayam.common.utils.CommonUtils;
 
 @RestController
@@ -76,6 +77,9 @@ public class LoginController {
 	CommonUrlConfigRepository commonUrlConfigRepo;
 	// @Autowired
 	// private JwtUtil jwtTokenUtil;
+	
+	@Autowired
+	UserSSODetailService userService;
 
 	static {
 		// this part is needed cause Lebocoin has invalid SSL certificate, that cannot
@@ -152,10 +156,88 @@ public class LoginController {
 	 * mav.addObject("commonError", "Bad Request"); mav.setViewName("error"); }
 	 * return mav; }
 	 */
+	
+	
+	@SuppressWarnings({ "finally", "restriction" })
+	@RequestMapping(value = "/SSO", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView createAuthenticationSSO(HttpServletResponse res,HttpServletRequest req,
+			final RedirectAttributes redirectAttributes, HttpSession session, ModelAndView mav)
+			throws Exception {
+		
+		 logger.info("Inside createAuthenticationSSO");
+		 
+			/* try { */
+			
+		
+		 
+		String pfidOfCurrentUser = String.valueOf(userService.getUserDetailsFromReq(req).getPfId());
+		String username = String.valueOf(userService.getUserDetailsFromReq(req).getUserName());
+		
+		logger.info("PF id User "  +pfidOfCurrentUser );
+		logger.info("Username "  +username );
+		
+		UserDto userObj = null;
+		try {
+			
+			logger.info("Inside try");
+			userObj = loginService.getRoleByUsername(pfidOfCurrentUser);
+		} catch (NullPointerException e) {
+			// TODO: handle exception
+			logger.info("Inside catch");
+			mav = new ModelAndView("redirect:/errorSSO");
+			return mav;
+		}
+		
+		
+		
+		//logger.info("userObj "  + userObj);
+		if(userObj==null) {
+			mav = new ModelAndView("redirect:/errorSSO");
+			return mav;
+		}
+		
+		session.setAttribute("pfId", pfidOfCurrentUser);
+		session.setAttribute("username", username);
+		session.setAttribute("userObj", userObj);
+		
+		
+		logger.info("Testing login ---pfid "+ pfidOfCurrentUser + "username"+  username);
+		
+		
+		
+		mav = new ModelAndView("redirect:/home");
+		
+		/*
+		 * } catch (NullPointerException e) { // TODO: handle exception
+		 * 
+		 * return null; }
+		 */
+		
+		return mav;
+	}
+	
+	
+	@RequestMapping(value = "errorSSO", method = RequestMethod.GET)
+	public ModelAndView redirectSSOError() {
+
+		ModelAndView mav = new ModelAndView("omsError");
+		//mav.addObject("commonError", "Invalid userId");
+		
+		// changes mess 22-03-2021
+	    mav.addObject("commonError", "User not created in Swayam Monitoring Tool - Please Contact System Admin ");
+		return mav;
+
+	}
+	
+	
+	
+	
+	
+	
 
 	@SuppressWarnings({ "finally", "restriction" })
 	@RequestMapping(value = "authenticateUser", method = { RequestMethod.GET, RequestMethod.POST })
-	@PostAuthorize("hasPermission('login','READ')")
+	//@PostAuthorize("hasPermission('login','READ')")
 	public ModelAndView createAuthentication(@RequestParam("Token") String Token, HttpServletResponse res,
 			final RedirectAttributes redirectAttributes, HttpSession session, AuditLogger auditLogger, ModelAndView mav)
 			throws Exception {
@@ -446,12 +528,24 @@ public class LoginController {
 	 */
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	@PostAuthorize("hasPermission('login','READ')")
+	//@PostAuthorize("hasPermission('login','READ')")
 	public ModelAndView redirect() {
-		UserDto user = (UserDto) httpSession.getAttribute("userObj");
-		ModelAndView mav = new ModelAndView("home");
-		String role = userRepo.findRoleByPfId(user.getPfId());
-		logger.info("Inside redirect");
+		logger.info("Inside redirect ");
+		ModelAndView mav = null;
+		UserDto user = null;
+		String role = null;
+		try {
+			
+			user = (UserDto) httpSession.getAttribute("userObj");
+			role = userRepo.findRoleByPfId(user.getPfId());
+			
+		}catch (NullPointerException e) {
+			logger.info("Inside catch --" + user);
+			return new ModelAndView("redirect:/");
+		}
+		
+		logger.info("Inside redirect " + user);
+		 mav = new ModelAndView("home");
 		// System.out.println("Role " + role);
 
 		if (role.equalsIgnoreCase("BM")) {
@@ -474,6 +568,8 @@ public class LoginController {
 
 		httpSession.setAttribute("csrfToken", UUID.randomUUID().toString());
 		// System.out.println("Inside /home method ---- login..... ");
+		
+		
 
 		// mav.setViewName("billingPenalty");
 		return mav;

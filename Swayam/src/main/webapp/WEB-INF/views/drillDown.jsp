@@ -105,6 +105,7 @@
 			.ui-grid-header-canvas {
 			    padding-top: 0px;
 			    padding-bottom: 0px;}
+			    .ui-grid, .ui-grid-viewport,.ui-grid-contents-wrapper, .ui-grid-canvas { height: auto !important; }
 </style>	
 </head>
 <body>

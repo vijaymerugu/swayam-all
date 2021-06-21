@@ -2,6 +2,7 @@ package sbi.kiosk.swayam.billingpayment.service;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
@@ -68,23 +69,24 @@ public class BillingServiceImpl implements BillingService {
 	@Value("${report.path}")
 	private String reportPath1;
 
-	public FileInputStream inputStream;
+	//public FileInputStream inputStream;
 	public Workbook workbook;
 
 	public static ResourceBundle rb;
 
 	@SuppressWarnings("unlikely-arg-type")
 	@Override
-	public String upload(String path) {
+	public String upload(InputStream is) {
 	UserDto user = (UserDto) httpSession.getAttribute("userObj");
 		try {
 			
 			
-			new File(path).getName();
-		inputStream = new FileInputStream(new File(path));
+			/*
+			 * new File(path).getName(); inputStream = new FileInputStream(new File(path));
+			 */
 
-			workbook = new XSSFWorkbook(inputStream);
-			org.apache.poi.ss.usermodel.Sheet firstSheet = workbook.getSheetAt(0);
+			workbook = new XSSFWorkbook(is);
+			org.apache.poi.ss.usermodel.Sheet firstSheet = workbook.getSheet("Sheet1");
 			
 			
 
@@ -325,8 +327,8 @@ public class BillingServiceImpl implements BillingService {
 			if (workbook != null) {
 				workbook.close();
 			}
-			if (inputStream != null) {
-				inputStream.close();
+			if (is != null) {
+				is.close();
 			}
 
 		} catch (Exception e) {

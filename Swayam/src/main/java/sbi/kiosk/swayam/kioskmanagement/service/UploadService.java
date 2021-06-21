@@ -1,5 +1,7 @@
 package sbi.kiosk.swayam.kioskmanagement.service;
 
+import java.io.InputStream;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public interface UploadService {
@@ -13,6 +15,10 @@ public interface UploadService {
 	public String uploadKioskCMFInformation(String path);
 	
 	public String uploadInvVendorInformation(String path);
+
+	public String uploadKioskCMFInformationNew(InputStream inputStream);
+
+	public String uploadInvVendorInformationNew(InputStream inputStream);
 	
 
 }
