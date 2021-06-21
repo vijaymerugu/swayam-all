@@ -62,7 +62,7 @@ public class DownTimeController {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		List<Circle> circleList = circleRepo.findAll();
 		 String json = gson.toJson(circleList);
-		logger.info("circles "+ json);
+	//	logger.info("circles "+ json);
 		 
 		
 		return ResponseEntity.ok(json);
@@ -79,7 +79,7 @@ public class DownTimeController {
 		List<User> cmsCmfList = userRepo.findAllCmfCmsUser();
 		
 		String json = gson.toJson(cmsCmfList);
-		logger.info("cmsCmfList "+ json);
+	//	logger.info("cmsCmfList "+ json);
 		 
 		
 		return ResponseEntity.ok(json);
