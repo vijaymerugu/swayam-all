@@ -26,10 +26,11 @@
     
     <field name="refId" class="java.lang.String"></field>
 	
-	<field name="installationStatus" class="java.lang.String"></field>
+<!--	<field name="installationStatus" class="java.lang.String"></field> -->
 	
 	<field name="username" class="java.lang.String"></field>
-
+	
+	<field name="phoneNo" class="java.lang.String"></field>
     <background>
 
         <band splitType="Stretch"></band>
@@ -334,7 +335,32 @@
                 <text><![CDATA[ASSIGNED CMF]]></text>
 
             </staticText>
+			<staticText>
 
+                <reportElement x="1038" y="41" width="150" height="20"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+                </box>
+
+                <textElement textAlignment="Center">
+
+                    <font size="10" isBold="true" isItalic="false"></font>
+
+                </textElement>
+
+                <text><![CDATA[Assigned CMF Phone No]]></text>
+
+            </staticText>
 
             
         </band>
@@ -546,7 +572,7 @@
                 <textFieldExpression><![CDATA[$F{refId} == null?"":$F{refId}]]></textFieldExpression>
 
             </textField>
-            <textField>
+        <!--    <textField>
 
                 <reportElement x="888" y="0" width="111" height="15"></reportElement>
 
@@ -570,7 +596,7 @@
 
                 <textFieldExpression><![CDATA[$F{installationStatus} == null?"":$F{installationStatus}]]></textFieldExpression>
 
-            </textField>
+            </textField> -->
 			
 			<textField>
 
@@ -595,6 +621,31 @@
 				</textElement>
 
                 <textFieldExpression><![CDATA[$F{username} == null?"":$F{username}]]></textFieldExpression>
+
+            </textField>
+            <textField>
+
+                <reportElement x="1038" y="0" width="150" height="15"></reportElement>
+
+                <box>
+
+                    <pen lineWidth="0.25"></pen>
+
+                    <topPen lineWidth="0.25"></topPen>
+
+                    <leftPen lineWidth="0.25"></leftPen>
+
+                    <bottomPen lineWidth="0.25"></bottomPen>
+
+                    <rightPen lineWidth="0.25"></rightPen>
+
+                </box>
+
+                <textElement textAlignment="Center">
+					<font size="8" isItalic="false"></font>
+				</textElement>
+
+                <textFieldExpression><![CDATA[$F{phoneNo} == null?"":$F{phoneNo}]]></textFieldExpression>
 
             </textField>
 

@@ -132,7 +132,9 @@
 		<div class="submain_kiosk">
 	
 	
-	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Username, First Name, Last Name, Mail Id, Circle etc." style="font-size: 12px" "cursor: hand; cursor: pointer;" size="150" height="80" id="input" class="form-group has-search">
+	<input ng-model="searchText"  placeholder="Enter Username, First Name, Last Name, Mail Id etc." style="font-size: 12px" "cursor: hand; cursor: pointer;" size="150" height="80" id="input" class="form-group has-search">
+	<button  id="btnSearchText" ng-click="refresh()">Search</button> 
+		 <button  id="btnClearText" ng-click="clearSearch()">ClearSearch</button>	
 	<span style="float:right">
 		<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
 		<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>

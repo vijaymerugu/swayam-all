@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.data.domain.Page;
 
 import sbi.kiosk.swayam.common.dto.KioskBranchMasterUserDto;
+import sbi.kiosk.swayam.common.dto.KioskRegistrationDto;
 import sbi.kiosk.swayam.common.dto.UserKioskMappingDeMapperDto;
 import sbi.kiosk.swayam.common.entity.User;
 
@@ -46,4 +47,13 @@ public interface KioskManagementService {
 	Page<KioskBranchMasterUserDto> findAssingedPaginated(int page, int size, String type);
 	
 	Page<KioskBranchMasterUserDto> findTobeAssingedPaginated(int page, int size, String type);
+
+	Page<KioskBranchMasterUserDto> findPaginatedSearchNext(int page, int size, String searchText);
+
+	Page<KioskBranchMasterUserDto> findPaginatedCountSearchNext(int page, int size, String type, String searchText);
+
+	Page<KioskBranchMasterUserDto> findAssingedPaginatedSearchNext(int page, int size, String type, String searchText);
+
+	Page<KioskBranchMasterUserDto> findTobeAssingedPaginatedSearchNext(int page, int size, String type,
+			String searchText);
 }

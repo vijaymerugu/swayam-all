@@ -643,10 +643,12 @@ input[type=button], input[type=submit], input[type=reset] {
 	  <div class="row" >
 	   <div class="column"><label> Sample Template </label></div>
 	  <div class="column">
-	<a href="resources\template\User_Kiosk_Mapping.xlsx"> <img src="resources\img\download.JPG">Kiosk CMF File</a></div>	
+	<!-- <a href="resources\template\User_Kiosk_Mapping.xlsx"> <img src="resources\img\download.JPG">Kiosk CMF File</a></div> -->
+	<a href="resources\template\User_Kiosk_Mapping.xlsx" download><i class="fa fa-download">Kiosk CMF File</i></a></div>	
 <!-- 	</p><div class="column"></div><div class="column"></div><div class="column"></div> -->
 	<div class="column">
-	<a href="resources\template\Vendor_Invoice.xlsx"> <img src="resources\img\download.JPG">Vendor Invoice File</a>
+	<!-- <a href="resources\template\Vendor_Invoice.xlsx"> <img src="resources\img\download.JPG">Vendor Invoice File</a> -->
+	<a href="resources\template\Vendor_Invoice.xlsx"  download><i class="fa fa-download">Vendor Invoice File</i></a>
 	</div>	</div>	
 	<!-- 	<div class="column">
 				<label>Kiosk Details</label>
