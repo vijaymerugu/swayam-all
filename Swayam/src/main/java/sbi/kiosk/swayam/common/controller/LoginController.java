@@ -564,6 +564,8 @@ public class LoginController {
 			mav.addObject("suburl", "ts/terminalStatus");
 		} else if (role.equalsIgnoreCase("C")) {
 			mav.addObject("suburl", "da/cumulativeCircleData");
+		} else if (role.equalsIgnoreCase("ER")) {
+			mav.addObject("suburl", "td/transactionSummary");
 		}
 
 		httpSession.setAttribute("csrfToken", UUID.randomUUID().toString());

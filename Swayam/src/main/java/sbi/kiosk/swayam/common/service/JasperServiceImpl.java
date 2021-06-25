@@ -49,6 +49,7 @@ import sbi.kiosk.swayam.common.dto.InvoiceCompareDto;
 import sbi.kiosk.swayam.common.dto.InvoiceGenerationDto;
 import sbi.kiosk.swayam.common.dto.InvoiceSummaryDto;
 import sbi.kiosk.swayam.common.dto.KioskBranchMasterUserDto;
+import sbi.kiosk.swayam.common.dto.KioskRegistrationDto;
 import sbi.kiosk.swayam.common.dto.RealTimeTransactionDto;
 import sbi.kiosk.swayam.common.dto.TaxCalculationDto;
 import sbi.kiosk.swayam.common.dto.TerminalStatusDto;
@@ -97,6 +98,7 @@ import sbi.kiosk.swayam.healthmonitoring.repository.TerminalStatusSearchTextRepo
 import sbi.kiosk.swayam.healthmonitoring.repository.TicketCentorRepository;
 import sbi.kiosk.swayam.healthmonitoring.repository.TicketHistoryPagingRepository;
 import sbi.kiosk.swayam.kioskmanagement.repository.BranchMasterRepository;
+import sbi.kiosk.swayam.kioskmanagement.repository.KioskRegistrationRepositoryPaging;
 import sbi.kiosk.swayam.kioskmanagement.repository.UserKioskMappingRepository;
 import sbi.kiosk.swayam.transactiondashboard.repository.DrillDownRepository;
 import sbi.kiosk.swayam.transactiondashboard.repository.ErrorReportingRepositoryPaging;
@@ -184,6 +186,9 @@ public class JasperServiceImpl implements JasperService {
 	
 	 @Autowired
 	 InvoiceSummaryRepository isRepository;
+	 
+	 @Autowired
+	 KioskRegistrationRepositoryPaging kioskRegistrationRepositoryPaging;
 
     @Autowired
 	sbi.kiosk.swayam.healthmonitoring.repository.BranchMasterRepository branchMasterRepo;
@@ -295,6 +300,7 @@ public class JasperServiceImpl implements JasperService {
 			}
 			} else if (identifyPage.equals("kiosksAll")) {
 				List<KioskBranchMasterUserDto> list = findAllKiosks();
+			//	List<KioskRegistrationDto> list = findAllKiosksRegistration();
 				 if(list.isEmpty()) {
 						
 						
@@ -1081,6 +1087,8 @@ public class JasperServiceImpl implements JasperService {
 					}
 			} else if (identifyPage.equals("kiosksAll")) {
 				List<KioskBranchMasterUserDto> list = findAllKiosks();
+				//List<KioskRegistrationDto> list = findAllKiosksRegistration();
+			//	System.out.println("List size:::"+list.size());
 				 if(list.isEmpty()) {
 						
 						
@@ -1970,6 +1978,7 @@ public class JasperServiceImpl implements JasperService {
 				User usr = userRepo.findByPfId(us.getPfId());
 				if (usr != null && usr.getUsername() != null && usr.getUsername() != "") {
 					dto.setUsername(usr.getUsername());
+					dto.setPhoneNo(usr.getPhoneNo());
 				}
 			}
 
@@ -1983,7 +1992,15 @@ public class JasperServiceImpl implements JasperService {
 		}
 		return entities;
 	}
+	@Override
+	public List<KioskRegistrationDto> findAllKiosksRegistration() {
+		logger.info("Inside==Jasper====findAllKiosksRegistration===========");
+		List<KioskRegistrationDto> entities = ObjectMapperUtils.mapAll(kioskRegistrationRepositoryPaging.findAllByKiosk(),
+				KioskRegistrationDto.class);
 
+		
+		return entities;
+	}
 	@Override
 	public List<TicketCentorDto> findAllTickets() {
 		logger.info("Inside==Jasper====findAllTickets===========ALL DATA");

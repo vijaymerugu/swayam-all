@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -22,6 +23,7 @@ import sbi.kiosk.swayam.common.dto.UserManagementDto;
 import sbi.kiosk.swayam.common.entity.Supervisor;
 import sbi.kiosk.swayam.common.entity.User;
 import sbi.kiosk.swayam.common.repository.SupervisorRepository;
+import sbi.kiosk.swayam.common.repository.UserRepository;
 import sbi.kiosk.swayam.common.repository.UserRepositoryPaging;
 import sbi.kiosk.swayam.kioskmanagement.repository.UserKioskMappingRepository;
 import sbi.kiosk.swayam.kioskmanagement.repository.UsersRepository;
@@ -76,9 +78,7 @@ public class UserServiceImpl implements UserService {
 	    public Page<UserManagementDto> findPaginated(int page, int size) {
 		// List<UserManagementDto> userManaDTOList=new ArrayList<UserManagementDto>();
 		// Page<User> userList = userRepositoryPagingRepo.findAll(PageRequest.of(page, size));
-		 
-		 
-		 Page<UserManagementDto> entities = 
+			 Page<UserManagementDto> entities = 
 				 userRepositoryPagingRepo.findByEnabled("1",PageRequest.of(page, size))
 				 .map(UserManagementDto::new);
 		 if(entities !=null){
@@ -115,7 +115,64 @@ public class UserServiceImpl implements UserService {
 		 }		 
 		   return entities;
 	    }
-	 
+		@SuppressWarnings("unchecked")
+		@Override
+	    public Page<UserManagementDto> findPaginatedSearchNext(int page, int size, String searchText) {
+			
+			  List<User> userManaDTOList=userRepositoryPagingRepo.findByEnabledSearchText("1",
+			  searchText,PageRequest. of(page, size));
+			  
+			  Page<User> entities1 = new PageImpl<User>(userManaDTOList, PageRequest.of(page, size),
+			  userManaDTOList.size());
+			 	
+			  Page<UserManagementDto> entities = entities1.map(UserManagementDto:: new);
+			/*
+			 * Page<UserManagementDto> entities = (Page<UserManagementDto>)
+			 * userRepositoryPagingRepo.findByEnabledSearchText("1",searchText,PageRequest.
+			 * of(page, size));
+			 */ 
+			//	 Page<User> userList = userRepositoryPagingRepo.findByEnabledSearchText(PageRequest.of(page, size));
+			
+			/*
+			 * Page<UserManagementDto> entities =
+			 * userRepositoryPagingRepo.findByEnabledSearchText("1",searchText,PageRequest.
+			 * of(page, size)) .map(UserManagementDto::new);
+			 */
+			
+		 if(entities !=null){
+			 for(UserManagementDto dto:entities){
+				 if(Constants.SYSTEMADMIN.getCode().equals(dto.getRole())){
+					 dto.setRole(Constants.SYSTEMADMIN.getValue());
+				 }
+				 if(Constants.LOCALADMIN.getCode().equals(dto.getRole())){
+					 dto.setRole(Constants.LOCALADMIN.getValue());
+				 }
+				 if(Constants.CIRCLE.getCode().equals(dto.getRole())){
+					 dto.setRole(Constants.CIRCLE.getValue());
+				 }
+				 if(dto.getPfId() !=null && dto.getPfId() !="" && dto.getRole().equals("CMF")){
+					 int kioskCountCmf = userKioskMappingRepository.findKiosksCountByPfId(dto.getPfId());
+					 dto.setNoOfAssignedKiosks(String.valueOf(kioskCountCmf));
+				 }
+				 else if(dto.getPfId() !=null && dto.getPfId() !="" && dto.getRole().equals("CMS")){
+					 int total = 0;
+					 List<Supervisor> supList =  supervisorRepository.findBySupervisorPfId(dto.getPfId());
+					 
+					 if(supList !=null && supList.size() > 0){
+						 for(Supervisor sup:supList){
+							 int kioskCountCmf = userKioskMappingRepository.findKiosksCountByPfId(sup.getPfId());
+							 total = total + kioskCountCmf;
+						 }
+					 }
+					 if(total !=0){
+						 dto.setNoOfAssignedKiosks(String.valueOf(total));
+					 }				 
+					 						
+				 }
+			 }
+		 }		 
+		   return entities;
+	    }
 	 @Override
 	    public Page<UserManagementDto> findPaginatedByCircle(int page, int size) {
 		// List<UserManagementDto> userManaDTOList=new ArrayList<UserManagementDto>();
@@ -511,5 +568,66 @@ public class UserServiceImpl implements UserService {
 			}
 			return listPfId;
 			
+		}
+
+		@Override
+		public Page<UserManagementDto> findPaginatedCountSearchNext(int page, int size, String type,
+				String searchText) {
+
+			List<User> userManaDTOList=userRepositoryPagingRepo.findByRoleAndEnabledSearchText(type,"1",
+					  searchText, PageRequest. of(page, size));
+					  
+					  Page<User> entities1 = new PageImpl<User>(userManaDTOList, PageRequest.of(page, size),
+					  userManaDTOList.size());
+					 	
+					  Page<UserManagementDto> entities = entities1.map(UserManagementDto:: new);
+			if(entities !=null){
+				 for(UserManagementDto dto:entities){
+					 if(Constants.SYSTEMADMIN.getCode().equals(dto.getRole())){
+						 dto.setRole(Constants.SYSTEMADMIN.getValue());
+					 }
+					 if(Constants.LOCALADMIN.getCode().equals(dto.getRole())){
+						 dto.setRole(Constants.LOCALADMIN.getValue());
+					 }
+					 if(Constants.CIRCLE.getCode().equals(dto.getRole())){
+						 dto.setRole(Constants.CIRCLE.getValue());
+					 }
+					 
+					 // add user
+					 if(Constants.BILLINGMAKER.getCode().equals(dto.getRole())){
+						 dto.setRole(Constants.BILLINGMAKER.getCode());
+					 }
+					 
+					 if(Constants.BILLINGCHECKER.getCode().equals(dto.getRole())){
+						 dto.setRole(Constants.BILLINGCHECKER.getCode());
+					 }
+
+					 
+					 
+					 
+					 if(dto.getPfId() !=null && dto.getPfId() !="" && dto.getRole().equals("CMF")){
+						 int kioskCountCmf = userKioskMappingRepository.findKiosksCountByPfId(dto.getPfId());
+						 dto.setNoOfAssignedKiosks(String.valueOf(kioskCountCmf));
+					 }
+					 else if(dto.getPfId() !=null && dto.getPfId() !="" && dto.getRole().equals("CMS")){
+						 int total = 0;
+						 List<Supervisor> supList =  supervisorRepository.findBySupervisorPfId(dto.getPfId());
+						 
+						 if(supList !=null && supList.size() > 0){
+							 for(Supervisor sup:supList){
+								 int kioskCountCmf = userKioskMappingRepository.findKiosksCountByPfId(sup.getPfId());
+								 total = total + kioskCountCmf;
+							 }
+						 }
+						 if(total !=0){
+							 dto.setNoOfAssignedKiosks(String.valueOf(total));
+						 }				 
+						 						
+					 }
+				 }
+			 }
+			
+			 return entities;
+		    
 		}
 }

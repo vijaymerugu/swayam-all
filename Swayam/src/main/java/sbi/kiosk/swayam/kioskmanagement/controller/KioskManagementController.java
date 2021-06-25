@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import sbi.kiosk.swayam.common.dto.KioskBranchMasterUserDto;
+import sbi.kiosk.swayam.common.dto.KioskRegistrationDto;
 import sbi.kiosk.swayam.common.dto.UserDto;
 import sbi.kiosk.swayam.common.dto.UserKioskMappingDeMapperDto;
 import sbi.kiosk.swayam.common.entity.User;
@@ -162,6 +163,7 @@ public class KioskManagementController {
 		
 
 			 Page<KioskBranchMasterUserDto> resultPage;
+			// Page<KioskRegistrationDto> resultPage1 = null;
 			if(type.equals("InstalledKiosks")){
 			    resultPage= kioskManagementService.findPaginated(page, size);
 			}else if(type.equals("CMS")){
@@ -192,7 +194,42 @@ public class KioskManagementController {
 		        return resultPage;
 		    }
 	
-	
+	@RequestMapping(value = "kiosks/getSearchNext", params = { "page", "size" ,"type","searchText"}, method = RequestMethod.GET, produces = "application/json")
+	public Page<KioskBranchMasterUserDto> findPaginated( 
+		      @RequestParam("page") int page, @RequestParam("size") int size,@RequestParam("type") String type,@RequestParam("searchText") String searchText) {
+		 
+		
+
+			 Page<KioskBranchMasterUserDto> resultPage;
+			if(type.equals("InstalledKiosks")){
+			    resultPage= kioskManagementService.findPaginatedSearchNext(page, size,searchText);
+			}else if(type.equals("CMS")){
+				resultPage= kioskManagementService.findPaginatedCountSearchNext(page, size, type,searchText);
+			}else if(type.equals("LIPI")){
+				resultPage= kioskManagementService.findPaginatedCountSearchNext(page, size, type,searchText);
+			}else if(type.equalsIgnoreCase("InstalledCMSVendor")){
+				resultPage= kioskManagementService.findPaginatedCountSearchNext(page, size, type,searchText);
+			}else if(type.equals("DeleviredCMSVendor")){
+				resultPage= kioskManagementService.findPaginatedCountSearchNext(page, size, type,searchText);
+			}else if(type.equals("InstalledLIPIVendor")){
+				resultPage= kioskManagementService.findPaginatedCountSearchNext(page, size, type,searchText);
+			}else if(type.equals("DeleviredLIPIVendor")){
+			   resultPage= kioskManagementService.findPaginatedCountSearchNext(page, size, type,searchText);
+		    }
+			else if(type.equals("Assigned")){ logger.info("if Assigned!!!!!!!!!!");
+				   resultPage= kioskManagementService.findAssingedPaginatedSearchNext(page, size, type,searchText);
+			}
+			else if(type.equals("ToBeAssigned")){ logger.info("if ToBeAssigned!!!!!!!!!!");
+				   resultPage= kioskManagementService.findTobeAssingedPaginatedSearchNext(page, size, type,searchText);
+			}else{ logger.info("for rest type!!!!!!!!!!!!!!!!!!");;
+		         resultPage = kioskManagementService.findPaginatedSearchNext(page, size,searchText);
+		        if (page > resultPage.getTotalPages()) {
+		            //throw new MyResourceNotFoundException();
+		        }
+		        return resultPage;
+		    }
+		        return resultPage;
+		    }
 	@RequestMapping(value = "kiosksByCircle/get", params = { "page", "size" ,"type"}, method = RequestMethod.GET, produces = "application/json")
 	public Page<KioskBranchMasterUserDto> findPaginatedByCircle( 
 		      @RequestParam("page") int page, @RequestParam("size") int size,@RequestParam("type") String type) {

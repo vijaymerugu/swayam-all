@@ -45,7 +45,15 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	 		   
 	 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
 	 	  
-	 		   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		   
+	 		/*   $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);		 */ 
+	 	    	$("#loading").show(); 
+			 	
+		 	  	 UserManagementService.getSearchNext(0,
+			 	  			paginationOptions.pageSize,$scope.counttype,$scope.searchText).success(function(data3){ 		 
+			 	 	  	  $scope.gridOptions.data = data3.content;
+			 	  	   	  $scope.gridOptions.totalItems = data3.totalElements;
+			 	  	      $("#loading").hide();
+			 	 	     });
 	 		   
 	 	    }else{
 	 	    	UserManagementService.getUsers(paginationOptions.pageNumber,
@@ -55,6 +63,26 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	 	 	   });
 	 	    }
 	    };
+	    
+	    $scope.clearSearch = function()
+	    {  	debugger;
+	 	  
+	    	$scope.searchText='';	
+	 	   
+	 	        $("#loading").show();  
+	 	    
+	 	   	 UserManagementService.getUsers(0,
+	 	   			paginationOptions.pageSize,$scope.counttype).success(function(data){
+	 	  	  $scope.gridOptions.data = data.content;
+	 	  	  $scope.gridOptions.paginationCurrentPage = data.number;
+	 	   	  $scope.gridOptions.totalItems = data.totalElements;
+	 	   	
+	 	        $("#loading").hide();  
+	 	     
+	 	     }); 
+	 	 		   
+	 	 	   
+	 	    };
 
    UserManagementService.getUsers(paginationOptions.pageNumber,
 		   paginationOptions.pageSize,$scope.counttype).success(function(data){
@@ -93,10 +121,26 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
           paginationOptions.pageNumber = newPage;
           paginationOptions.pageSize = pageSize;
+          $("#loading").show();  
+    	    
+	        if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){
           UserManagementService.getUsers(newPage,pageSize,$scope.counttype).success(function(data){
         	  $scope.gridOptions.data = data.content;
          	  $scope.gridOptions.totalItems = data.totalElements;
+         	 $("#loading").hide();  
           });
+        }
+        else{debugger;
+ 	 	   	console.log("Inside else");
+        	 UserManagementService.getSearchNext(newPage,pageSize,$scope.counttype,$scope.searchText).success(function(data){
+           	  $scope.gridOptions.data = data.content;
+           	 	  $scope.gridOptions.totalItems = data.totalElements;
+        
+	 	 		 $("#loading").hide();  
+	 		   
+        	  });	 
+        
+        	   }
         });
      }
   };
@@ -114,9 +158,17 @@ app.service('UserManagementService',['$http', function ($http) {
           url: 'kiosksByCircle/get?page='+pageNumber+'&size='+size+'&type='+counttype
         });
     }
-	
+	function getSearchNext(pageNumber,size,counttype, searchText) {
+		
+		pageNumber = pageNumber > 0?pageNumber - 1:0;
+	    return  $http({
+	      method: 'GET',
+	      url: 'kiosks/getSearchNext?page='+pageNumber+'&size='+size+'&type='+counttype+'&searchText='+searchText
+	    });
+	}
     return {
-    	getUsers:getUsers
+    	getUsers:getUsers,
+   	 getSearchNext:getSearchNext
     };
 	
 }]);

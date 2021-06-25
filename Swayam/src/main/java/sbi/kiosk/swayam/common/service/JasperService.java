@@ -11,7 +11,9 @@ import sbi.kiosk.swayam.common.dto.InvoiceCompareDto;
 import sbi.kiosk.swayam.common.dto.InvoiceGenerationDto;
 import sbi.kiosk.swayam.common.dto.InvoiceSummaryDto;
 import
-  sbi.kiosk.swayam.common.dto.KioskBranchMasterUserDto; import
+  sbi.kiosk.swayam.common.dto.KioskBranchMasterUserDto;
+import sbi.kiosk.swayam.common.dto.KioskRegistrationDto;
+import
   sbi.kiosk.swayam.common.dto.RealTimeTransactionDto;
 import sbi.kiosk.swayam.common.dto.TaxCalculationDto;
 import sbi.kiosk.swayam.common.dto.TerminalStatusDto;
@@ -80,6 +82,8 @@ import sbi.kiosk.swayam.common.entity.TaxSummaryEntity;
 	List<TaxEntity> findTaxCalReport();
 
 	List<DrillDown> findAllDrillDown();
+
+	List<KioskRegistrationDto> findAllKiosksRegistration();
 	
 	
 	

@@ -166,7 +166,41 @@ public class UserManagementController {
 	
 
 	
+	//Added by Manisha for search text
+	@RequestMapping(value = "users/getSearchNext", params = { "page", "size" ,"type", "searchText"}, method = RequestMethod.GET, produces = "application/json")
+	@PreAuthorize("hasPermission('UMfindPaginatedUserGet','CREATE')")
+	public Page<UserManagementDto> findPaginatedSearchNext(
+		      @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("type") String type, @RequestParam("searchText") String searchText) {
+		 Page<UserManagementDto> resultPage = null;
+		if(type.equals("CMF")){
+			resultPage= userService.findPaginatedCountSearchNext(page, size, type,searchText);
+		}else if(type.equals("CMS")){
+			resultPage= userService.findPaginatedCountSearchNext(page, size, type,searchText);
+		}else if(type.equalsIgnoreCase("C")){
+			resultPage= userService.findPaginatedCountSearchNext(page, size, type,searchText);
+		}else if(type.equals("LA")){
+			resultPage= userService.findPaginatedCountSearchNext(page, size, type,searchText);
+		}else if(type.equals("SA")){
+			resultPage= userService.findPaginatedCountSearchNext(page, size, type,searchText);
+		}else if(type.equals("CC")){
+		   resultPage= userService.findPaginatedCountSearchNext(page, size, type,searchText);
+	    }else if(type.equals("BM")){
+		   resultPage= userService.findPaginatedCountSearchNext(page, size, type,searchText);
+		}else if(type.equals("BC")){
+		   resultPage= userService.findPaginatedCountSearchNext(page, size, type,searchText);
+	    }
+		
+		else{
+	      resultPage = userService.findPaginatedSearchNext(page, size,searchText);
+		    if (page > resultPage.getTotalPages()){
+		            //throw new MyResourceNotFoundException();
+		        }
+		}
+		 return resultPage;
+		    }
 	
+	
+
 	@RequestMapping(value = "users/get", params = { "page", "size" ,"type"}, method = RequestMethod.GET, produces = "application/json")
 	@PreAuthorize("hasPermission('UMfindPaginatedUserGet','CREATE')")
 	public Page<UserManagementDto> findPaginated(
@@ -198,7 +232,6 @@ public class UserManagementController {
 		}
 		 return resultPage;
 		    }
-	
 	@RequestMapping(value = "usersByCircle/get", params = { "page", "size" ,"type"}, method = RequestMethod.GET, produces = "application/json")
 	@PreAuthorize("hasPermission('UMfindPaginatedByCircleUserGet','CREATE')")
 	public Page<UserManagementDto> findPaginatedByCircle(
