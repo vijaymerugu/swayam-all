@@ -124,7 +124,7 @@
 
 
 
-	<div class="main" ng-app="app" id="appId" ng-controller="UserManagementCtrlSA">
+	<div class="main_transaction" ng-app="app" id="appId" ng-controller="UserManagementCtrlSA">
 
 		
 
@@ -317,13 +317,16 @@
 
 
 
-			<div
+			<!-- <div
 				style="width: 1036px; height: 346px; position: absolute; top: 648px; bottom: 910px; left: 311px; right: 1036px; margin: auto; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1; border: 1px solid black #eee;padding:7px;">
 
 				<div style="border-bottom: 1px solid #eee;">
 					<span class="fa fa-search form-control-feedback" id="catsandstars"></span>
-					<input class="form-group has-search" ng-model="searchText"	ng-change="refresh()" placeholder=" Enter Vendor Name,Branch Code,Ticket Id,Kiosk ID.."	id="input"> <br />
-
+					<input class="form-group has-search" ng-model="searchText"	ng-change="refresh()" placeholder=" Enter Branch Code,Kiosk ID"	id="input"> <br />
+                     <button  id="btnSearchText" ng-click="refresh()">Search</button> 
+		             <button  id="btnClearText" ng-click="clearSearch()">ClearSearch</button>
+					<span style="float:right">
+					
 					<div
 						style="top: 355px; left: 15px; width: 1336px; height: 519px; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1;"
 						ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter	id="test">
@@ -331,6 +334,35 @@
 					 </div>
 
 				</div>
+
+			</div> -->
+			
+				<div
+				 style="width: 81%;height: 346px;position: absolute;top: 120px;bottom: 910px;left: 311px;right: 1036px;/* margin: auto; */background: #FFFFFF 0% 0% no-repeat padding-box;box-shadow: 0px 3px 6px #8D8D8D29;opacity: 1;border: 1px solid black #eee;padding:7px;">
+ 				<!-- <div style="top: 100px;left: 611px; width: 100%;/* height: 519px; */ height: auto;  background: #FFFFFF 0% 0% no-repeat padding-box;  box-shadow: 0px 3px 6px #8D8D8D29;opacity: 1; padding: 7px;"> -->
+    
+				<!-- <div style="border-bottom: 1px solid #eee;"> -->
+					
+					<input class="form-group has-search" ng-model="searchText"	ng-change="refresh()" placeholder=" Enter Branch Code,Kiosk Id."	id="input" style="width:339px;"> 
+					 <button  id="btnSearchText" ng-click="refresh()">Search</button> 
+		             <button  id="btnClearText" ng-click="clearSearch()">ClearSearch</button>
+					<span style="float:right">
+					<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
+					<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>
+					&nbsp;&nbsp;&nbsp;
+					</span>					
+					<br />
+     				
+     				<div class="loading" id="loading" align="center" style="display:none;">
+   			 			<img src="resources/img/loader.gif"> 
+					</div>
+					
+						<!-- style="top: 355px; left: 15px; width: 1336px; height: 519px; background: #FFFFFF 0% 0% no-repeat padding-box; box-shadow: 0px 3px 6px #8D8D8D29; opacity: 1;" -->
+						<div ui-grid="gridOptions" class="paginategrid" ui-grid-pagination ui-grid-exporter ui-grid-resize-columns id="test">
+						
+					 </div>
+
+			<!-- 	</div> -->
 
 			</div>
 
@@ -378,7 +410,7 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 		}
 	   
 	   
-	   $scope.refresh = function()
+	  /*  $scope.refresh = function()
 	   {    	
 		   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
 		 	   UserManagementService.getUsers(paginationOptions.pageNumber,
@@ -405,7 +437,96 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 			   paginationOptions.pageSize,counttype).success(function(data){
 		  $scope.gridOptions.data = data.content;
 	 	  $scope.gridOptions.totalItems = data.totalElements;
+	   }); */
+
+
+
+	   $scope.refresh = function()
+	   {  
+	  if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){
+	  //  Added for loader------------- START
+	       $("#loading").show();  
+	    // Added for loader------------- END
+	  UserManagementService.getUsers(paginationOptions.pageNumber,
+	   paginationOptions.pageSize,counttype).success(function(data){
+	  $scope.gridOptions.data = data.content;
+	    $scope.gridOptions.totalItems = data.totalElements;
+	  //  Added for loader------------- START
+	       $("#loading").hide();  
+	    // Added for loader------------- END
+	    });  
+	 
+	   }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){debugger;
+	 
+	 /* $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText); */  
+	   
+	    $("#loading").show();
+	 /* UserManagementService.getSearchNext(paginationOptions.pageNumber,
+	  paginationOptions.pageSize,fromDate,toDate,$scope.searchText).success(function(data3){*/
+	  UserManagementService.getSearchNext(0,
+	  paginationOptions.pageSize,counttype,$scope.searchText).success(function(data3){
+	   $scope.gridOptions.data = data3.content;
+	     $scope.gridOptions.totalItems = data3.totalElements;
+	       $("#loading").hide();
+	    });
+	 
+	   }else{
+	  //  Added for loader------------- START
+	       $("#loading").show();  
+	    // Added for loader------------- END
+	    UserManagementService.getUsers(paginationOptions.pageNumber,
+	     paginationOptions.pageSize,counttype).success(function(data){
+	    $scope.gridOptions.data = data.content;
+	      $scope.gridOptions.totalItems = data.totalElements;
+	    //  Added for loader------------- START
+	       $("#loading").hide();  
+	    // Added for loader------------- END
+	      });
+	   }
+	   };
+
+	   
+	   $scope.clearSearch = function()
+	   {   debugger;
+	 
+	    $scope.searchText='';
+	 
+	       $("#loading").show();  
+	   
+	  UserManagementService.getUsers(0,
+	  paginationOptions.pageSize,counttype).success(function(data){
+		 // alert("clearSearch:::::::: "+$scope.searchText)
+	   $scope.gridOptions.data = data.content;
+	   $scope.gridOptions.paginationCurrentPage = data.number;
+	   $scope.gridOptions.totalItems = data.totalElements;
+	 
+	       $("#loading").hide();  
+	   
+	    });
+	 
+	 
+	   };
+	//  Added for loader------------- START
+	        $("#loading").show();  
+	     // Added for loader------------- END
+	   UserManagementService.getUsers(paginationOptions.pageNumber,
+	    paginationOptions.pageSize,counttype).success(function(data){
+	 
+	   $scope.gridOptions.data = data.content;
+	   $scope.gridOptions.totalItems = data.totalElements;
+	// Added for loader------------- START
+	   $("#loading").hide();  
+	// Added for loader------------- END
 	   });
+		   
+	   
+   
+   UserManagementService.getUsers(paginationOptions.pageNumber,
+		   paginationOptions.pageSize,counttype).success(function(data){
+	  $scope.gridOptions.data = data.content;
+ 	  $scope.gridOptions.totalItems = data.totalElements;
+   });
+   
 	   
 	   
 	   $scope.gridOptions = {
@@ -413,7 +534,8 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 			    paginationPageSize: paginationOptions.pageSize,
 			    enableColumnMenus:false,
 				useExternalPagination: true,
-				enableGridMenu: true,
+
+				/* enableGridMenu: true,
 				exporterMenuCsv: false,
 				exporterPdfDefaultStyle: {fontSize: 9},   
 			    exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, color: 'black'},      
@@ -423,12 +545,12 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 			    exporterPdfCustomFormatter: function ( docDefinition ) {        
 			        docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
 			        return docDefinition;
-			      },
+			      }, */
 				
 			    columnDefs: [
 			      { name: 'vendor', displayName: 'Vendor'  },
 			      { name: 'ticketId', displayName: 'Ticket Id' },
-			      { name: 'kisokId', displayName: 'KisokId'  },
+			      { name: 'kisokId', displayName: 'Kisok Id'  },
 			      { name: 'branchCode', displayName: 'Branch Code'  },
 			      { name: 'callCategory', displayName: 'Call Category'},
 			      { name: 'callSubCategory', displayName: 'Call Sub Category'  },
@@ -443,16 +565,37 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 			        gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
 			          paginationOptions.pageNumber = newPage;
 			          paginationOptions.pageSize = pageSize;
-			          UserManagementService.getUsers(newPage,pageSize).success(function(data){
-			        	  $scope.gridOptions.data = data.content;
-			         	  $scope.gridOptions.totalItems = data.totalElements;
+			          
+			      //  Added for loader------------- START 
+				        $("#loading").show();  
+				     // Added for loader------------- END
+				     	//alert("onRegisterApi::::"+searchText);
+				        if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){
+			          UserManagementService.getUsers(newPage,pageSize,counttype,$scope.searchText).success(function(data){
+			         $scope.gridOptions.data = data.content;
+			           $scope.gridOptions.totalItems = data.totalElements;
+			       //  Added for loader------------- START 
+			       // alert("Inside else"+$scope.searchText);
+				        $("#loading").hide();  
+				     // Added for loader------------- END
 			          });
+			        }else{
+			 	 	   	console.log("Inside else"+$scope.counttype);
+			 	 	  //alert("Inside else"+$scope.searchText);
+			        	 UserManagementService.getSearchNext(newPage,pageSize,$scope.counttype,$scope.searchText).success(function(data){
+			                  $scope.gridOptions.data = data.content;
+			           	 	  $scope.gridOptions.totalItems = data.totalElements;
+				 	 		 $("#loading").hide();  
+				 		   
+			        	  });	 
+			        
+			        	   }
 			        });
 			     }
 			  };
-	   
-	   
-	}]);
+			 
+			}]);
+
 
 
 
@@ -461,15 +604,25 @@ app.controller('UserManagementCtrlSA', ['$scope','$filter','UserManagementServic
 
 app.service('UserManagementService',['$http', function ($http) {
 	function getUsers(pageNumber,size,counttype) {
-		
+		//alert("counttype= getUsers=="+counttype);
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
         return  $http({
           method: 'GET',
           url: 'hm/ticketCentorFilter/get?page='+pageNumber+'&size='+size+'&type='+counttype
         });
     }
+	function getSearchNext(pageNumber,size,counttype, searchText) {
+		//alert("counttype= searchText=="+counttype);
+		//alert("13=searchText=="+searchText);
+		pageNumber = pageNumber > 0?pageNumber - 1:0;
+	    return  $http({
+	      method: 'GET',
+	      url: 'hm/ticketCentorFilterSASearch/getSearchNext?page='+pageNumber+'&size='+size+'&type='+counttype+'&searchText='+searchText
+	    });
+	}
     return {
-    	getUsers:getUsers
+    	getUsers:getUsers,
+    	getSearchNext:getSearchNext
     };
 	
 }]);
@@ -487,6 +640,37 @@ $(document).ready(function () {
 	  
 	});
 angular.bootstrap(document.getElementById("appId"), ['app']);
+
+
+$(document).ready(function(){
+
+    $(".openpdfonclick").click(function(){
+    	$("#loading").show();
+        $.ajax({
+            url: 'report?page=ticketCenterSA&type=pdf',
+            type: 'GET',   
+            success: function(data){
+            	console.log(data);
+            	window.open("resources/download/"+data , '_blank');  
+            	$("#loading").hide();
+            }
+        });
+    });
+    $(".openxlonclick").click(function(){    	
+    	$("#loading").show();
+        $.ajax({
+            url: 'report?page=ticketCenterSA&type=excel',
+            type: 'GET',   
+            success: function(data){
+            	console.log(data);
+            	window.open("resources/download/"+data , '_blank');  
+            	$("#loading").hide();
+            }
+        });
+    });
+}); 
+
+
 </script>
 </body>
  

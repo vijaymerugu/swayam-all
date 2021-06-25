@@ -43,6 +43,10 @@ public interface TicketCentorFilterService extends IOperations<TicketCentorDto> 
 	Page<TicketCentorDto> findPaginatedCmsSearchText(int page, int size,String searchText);
 
 	Page<TicketCentorDto> findPaginatedCountCmsSearchText(int page, int size, String type, String searchText);
+
+	Page<TicketCentorDto> findPaginatedSASearch(int page, int size, String searchText);
+
+	Page<TicketCentorDto> findPaginatedCountSearch(int page, int size, String type, String searchText);
 	
 	
 	

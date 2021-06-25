@@ -466,6 +466,78 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 		    
 		    
 		    
+			@Override
+		    public Page<TicketCentorDto> findPaginatedCCUCountSearch(int page, int size,String type,String searchText) {	 
+			 
+			 
+			 Page<TicketCentorDto> entities = null;
+			 
+			 if(type!=null && !type.isEmpty()){
+			 
+			 if(type!=null && type.equals("High")){
+				  entities= ticketCentorSearchTextRepo.findAllCCU(type,searchText, PageRequest.of(page, size)).map(TicketCentorDto::new);
+			  }else if(type!=null && type.equals("Medium")){
+			     entities= ticketCentorSearchTextRepo.findAllCCU(type,searchText, PageRequest.of(page, size)).map(TicketCentorDto::new);
+			 }else if(type!=null && type.equals("Low")){
+			     entities= ticketCentorSearchTextRepo.findAllCCU(type,searchText, PageRequest.of(page, size)).map(TicketCentorDto::new);
+			 }else if(type!=null && type.equals("Total")){
+			     entities =  ticketCentorSearchTextRepo.findAllByRisk("High","Medium","Low",searchText,PageRequest.of(page, size)).map(TicketCentorDto::new);
+			  }else if(type!=null && type.equals("TwoToFourHrsCount")){
+				  entities=ticketCentorSearchTextRepo.findAllTicketCentor4Hour(searchText,PageRequest.of(page, size)).map(TicketCentorDto::new);
+			  }else if(type!=null && type.equals("OneDaysCount")){
+				  entities=ticketCentorSearchTextRepo.findAllTicketCentor1Days(searchText,PageRequest.of(page, size)).map(TicketCentorDto::new);
+			 }else if(type!=null && type.equals("ThreeDaysLessCount")){
+				 entities=ticketCentorSearchTextRepo.findAllTicketCentor3DaysLess(searchText,PageRequest.of(page, size)).map(TicketCentorDto::new);
+				// entities=ticketCentorAgeingRepo.findAllTicketCentor3DaysGreater(PageRequest.of(page, size)).map(TicketCentorDto::new);
+			 }else if(type!=null && type.equals("ThreeDayGreaterCount")){
+		    	entities=ticketCentorSearchTextRepo.findAllTicketCentor3DaysGreater(searchText,PageRequest.of(page, size)).map(TicketCentorDto::new);
+		    } else{
+				  entities =  ticketCentorSearchTextRepo.findAll(searchText,PageRequest.of(page, size)).map(TicketCentorDto::new);
+			      }
+			  
+			 }
+			 else{
+				  entities =  ticketCentorRepo.findAll(searchText,PageRequest.of(page, size)).map(TicketCentorDto::new);
+			      }
+			 String circle=null;
+			 for(TicketCentorDto dto:entities){
+				 
+				 String kioskId=dto.getKisokId();
+				 
+				 if(kioskId!=null){
+					  String kioskBranchCode= kioskMasterRepo.findKioskByBranchCode(kioskId);
+					  circle= branchMasterRepo.findCircleByBranchCode(kioskBranchCode);
+					  }
+					  dto.setServeriry(circle);
+			 }
+
+				 	return entities;
+			 }
+		    
+		    
+			
+			@Override
+			 public Page<TicketCentorDto> findPaginatedCCUSearch(final int page, final int size,String searchText){
+				 logger.info("Inside======findPaginatedCC===========ALL DATA");
+				 //Page<TicketCentorDto> entities = ticketCentorRepo.findAll("Active",PageRequest.of(page, size)).map(TicketCentorDto::new);
+				// changes for status of complaint is active only
+				 Page<TicketCentorDto> entities = ticketCentorSearchTextRepo.findAllByStatus("Active",searchText,PageRequest.of(page, size)).map(TicketCentorDto::new);
+				 String circle=null;
+				 TicketCentorDto ticketCentorDto= new TicketCentorDto();
+				 for(TicketCentorDto dto:entities){
+					
+					  String kioskId=dto.getKisokId();
+					  if(kioskId!=null){
+					  String kioskBranchCode= kioskMasterRepo.findKioskByBranchCode(kioskId);
+					  circle= branchMasterRepo.findCircleByBranchCode(kioskBranchCode);
+					  }
+					  dto.setServeriry(circle);
+					 
+				 }
+				return entities;
+				 }
+			
+		    
 
 		@Override
 		public Page<TicketCentorDto> findPaginatedCC(int page, int size) {
@@ -496,6 +568,12 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 		@Override
 		public Page<TicketCentorDto> findPaginatedCountCms(int page, int size,
 				String type) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Page<TicketCentorDto> findPaginatedCircle(int page, int size) {
 			// TODO Auto-generated method stub
 			return null;
 		}

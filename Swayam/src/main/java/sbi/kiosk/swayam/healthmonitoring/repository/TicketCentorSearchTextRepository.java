@@ -16,17 +16,12 @@ import sbi.kiosk.swayam.common.entity.TicketCentor;
 @Repository("ticketCentorSearchTextRepository")
 public interface TicketCentorSearchTextRepository extends PagingAndSortingRepository<TicketCentor, Long> { 
 	
-    @Query(value = " SELECT * from TBL_TICKET_CENTRE where  STATUS_OF_COMPLAINT in(:type)  ORDER BY call_log_date DESC ", nativeQuery = true,countQuery="SELECT count(*) from TBL_TICKET_CENTRE where  STATUS_OF_COMPLAINT in(:type)  ORDER BY call_log_date DESC")
-	Page<TicketCentor> findAllByStatus(@Param("type") String type, Pageable pageable);
-	
+  
      @Query(value="select * from TBL_TICKET_CENTRE a  ,tbl_CALL_TYPE b  where a.CALL_CATEGORY=b.CATEGORY " + 
               " and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  and  B.RISK IN(:type) and a.STATUS_OF_COMPLAINT='Active' ORDER BY a.call_log_date DESC ", nativeQuery = true)
    Page<TicketCentor> findAll(@Param("type") String type, Pageable pageable);
 
-   @Query(value="select * from TBL_TICKET_CENTRE a  ,tbl_CALL_TYPE b  where a.CALL_CATEGORY=b.CATEGORY " + 
-         " and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  and  B.RISK IN(:high,:medium,:low) and a.STATUS_OF_COMPLAINT='Active' ORDER BY a.call_log_date DESC ", nativeQuery = true)
-   public Page<TicketCentor> findAllByRisk(@Param("high") String high,@Param("medium") String medium,@Param("low") String low, Pageable pageable);
-
+  
 
    @Query(value = "  select CALL_CATEGORY,count(TICKET_ID) from TBL_TICKET_CENTRE GROUP BY CALL_CATEGORY", nativeQuery = true)
    List<Object[]> findAllCategory();
@@ -243,7 +238,6 @@ public interface TicketCentorSearchTextRepository extends PagingAndSortingReposi
 	    
 	    
 	    
-	    
 	    @Query(value = " SELECT *  from TBL_TICKET_CENTRE where AGEING<=4  AND KIOSK_ID IN (SELECT KIOSK_ID FROM TBL_USER_KIOSK_MAPPING WHERE PF_ID in (:pfId))  and STATUS_OF_COMPLAINT='Active' "
 	    		+ " AND  KIOSK_ID=UPPER(:searchText) OR "
 				+ " (KIOSK_ID=:searchText OR BRANCH_CODE=:searchText) "
@@ -276,7 +270,73 @@ public interface TicketCentorSearchTextRepository extends PagingAndSortingReposi
 	    
 	    
 	    
+	    // CC User For Search 
 	    
+	   
+	    
+	    @Query(value="select a.* from TBL_TICKET_CENTRE a INNER JOIN tbl_CALL_TYPE b  on  a.CALL_CATEGORY=b.CATEGORY AND " + 
+	              " a.CALL_SUBCATEGORY=b.SUB_CATEGORY  where  b.RISK IN(:type) and a.STATUS_OF_COMPLAINT='Active' AND "
+	             + " a.KIOSK_ID=UPPER(:searchText) OR "
+	      	     + " (a.KIOSK_ID=:searchText OR a.BRANCH_CODE=:searchText) "
+	              + " ORDER BY a.call_log_date DESC ", nativeQuery = true)
+	   Page<TicketCentor> findAllCCU(@Param("type") String type, @Param("searchText") String searchText,Pageable pageable);
+
+	   
+	    @Query(value="select * from TBL_TICKET_CENTRE a  INNER JOIN tbl_CALL_TYPE b  on a.CALL_CATEGORY=b.CATEGORY " + 
+	             " and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  where B.RISK IN(:high,:medium,:low) and a.STATUS_OF_COMPLAINT='Active' AND "
+	           + " a.KIOSK_ID=UPPER(:searchText) OR "
+	      	   + " (a.KIOSK_ID=:searchText OR a.BRANCH_CODE=:searchText) "
+	           + " ORDER BY a.call_log_date DESC ", nativeQuery = true)
+	      public Page<TicketCentor> findAllByRisk(@Param("high") String high,@Param("medium") String medium,@Param("low") String low,@Param("searchText") String searchText, Pageable pageable);
+
+	    
+	    @Query(value = "SELECT *  from TBL_TICKET_CENTRE where  AGEING<=4  and STATUS_OF_COMPLAINT='Active' AND "
+	    		 + " KIOSK_ID=UPPER(:searchText) OR "
+		      	 + " (KIOSK_ID=:searchText OR BRANCH_CODE=:searchText) "
+	    		 + " ORDER BY call_log_date DESC", 
+	    		nativeQuery = true,countQuery = "  SELECT count(*) from TBL_TICKET_CENTRE where AGEING<=4 and STATUS_OF_COMPLAINT='Active' AND "
+	    		  + " KIOSK_ID=UPPER(:searchText) OR "
+	    		  + " (KIOSK_ID=:searchText OR BRANCH_CODE=:searchText) "
+	    		  + " ORDER BY call_log_date DESC " )
+	    public Page<TicketCentor> findAllTicketCentor4Hour(@Param("searchText") String searchText,Pageable pageable);
+	    
+	    @Query(value = " SELECT * from TBL_TICKET_CENTRE where (AGEING>4 and AGEING<=8) and STATUS_OF_COMPLAINT='Active' AND "
+	    		    + " KIOSK_ID=UPPER(:searchText) OR "
+	    		    + " (KIOSK_ID=:searchText OR BRANCH_CODE=:searchText) "
+	    		    + " ORDER BY call_log_date DESC  ", nativeQuery = true)
+	    public Page<TicketCentor> findAllTicketCentor1Days(@Param("searchText") String searchText,Pageable pageable);
+	    
+	    @Query(value = " SELECT * from TBL_TICKET_CENTRE where (AGEING>8 and AGEING<=24)  and STATUS_OF_COMPLAINT='Active' AND "
+	    		     + " KIOSK_ID=UPPER(:searchText) OR "
+	    		     + " (KIOSK_ID=:searchText OR BRANCH_CODE=:searchText) "
+	    		     + "ORDER BY call_log_date DESC ",
+	    		nativeQuery = true,countQuery = "  SELECT count(*) from TBL_TICKET_CENTRE where (AGEING>8 and AGEING<=24) and STATUS_OF_COMPLAINT='Active' AND "
+	    			  + " KIOSK_ID=UPPER(:searchText) OR "
+	   	    		  + " (KIOSK_ID=:searchText OR BRANCH_CODE=:searchText) "
+	    			  + " ORDER BY call_log_date DESC ")
+	    public Page<TicketCentor> findAllTicketCentor3DaysLess(@Param("searchText") String searchText,Pageable pageable);
+
+
+        @Query(value = " SELECT * from TBL_TICKET_CENTRE where  AGEING>24 and STATUS_OF_COMPLAINT='Active' AND "
+        		 + " KIOSK_ID=UPPER(:searchText) OR "
+	    		 + " (KIOSK_ID=:searchText OR BRANCH_CODE=:searchText) "
+        		 + " ORDER BY call_log_date DESC  ", 
+        		nativeQuery = true,countQuery = "  SELECT count(*) from TBL_TICKET_CENTRE where AGEING>24  and STATUS_OF_COMPLAINT='Active' AND "
+        				 + " KIOSK_ID=UPPER(:searchText) OR "
+       	    		     + " (KIOSK_ID=:searchText OR BRANCH_CODE=:searchText) "
+        				 + "ORDER BY call_log_date DESC  " )
+        public Page<TicketCentor> findAllTicketCentor3DaysGreater(@Param("searchText") String searchText,Pageable pageable);
+
+        @Query(value = " SELECT * from TBL_TICKET_CENTRE where  STATUS_OF_COMPLAINT in(:type)  AND "
+        		 + " KIOSK_ID=UPPER(:searchText) OR "
+	    		 + " (KIOSK_ID=:searchText OR BRANCH_CODE=:searchText) "
+        		+ " ORDER BY call_log_date DESC ",
+        		nativeQuery = true,countQuery="SELECT count(*) from TBL_TICKET_CENTRE where  STATUS_OF_COMPLAINT in(:type) AND "
+        				 + " KIOSK_ID=UPPER(:searchText) OR "
+       	    		     + " (KIOSK_ID=:searchText OR BRANCH_CODE=:searchText) "
+        				 + " ORDER BY call_log_date DESC")
+    	Page<TicketCentor> findAllByStatus(@Param("type") String type,@Param("searchText") String searchText, Pageable pageable);
+    	
 	    
 	    
 	    
@@ -301,5 +361,38 @@ public interface TicketCentorSearchTextRepository extends PagingAndSortingReposi
 	    
 	    @Query(value="select kiosk_id from tbl_ticket_centre tc where tc.kiosk_id=:kiosk_id and tc.CALL_SUBCATEGORY=:subCategory ",nativeQuery=true)
 		public String findByKisokIdAndCallSubCategory(@Param("kiosk_id") String kisokid,@Param("subCategory") String subCategory);
+	  
+	    //SA Search Text
+	    
+	    
+	    @Query(value = " SELECT * from TBL_TICKET_CENTRE where  STATUS_OF_COMPLAINT in('Active')  AND "
+       		   + " KIOSK_ID=UPPER(:searchText) OR "
+	    	   + " (KIOSK_ID=:searchText OR BRANCH_CODE=:searchText and STATUS_OF_COMPLAINT in('Active') ) "
+       		   + " ORDER BY call_log_date DESC ",nativeQuery=true)
+	    Page<TicketCentor> findAllSASearch(@Param("searchText") String searchText, Pageable pageable);
+	    
+	    
+	    @Query(value="select * from TBL_TICKET_CENTRE a INNER JOIN tbl_CALL_TYPE b  on a.CALL_CATEGORY=b.CATEGORY " + 
+	              " and a.CALL_SUBCATEGORY=b.SUB_CATEGORY  where "
+	              + " B.RISK IN(:type) and a.STATUS_OF_COMPLAINT='Active' AND "
+	              
+                  + " a.KIOSK_ID=UPPER(:searchText) OR "
+                  + " (a.KIOSK_ID=:searchText OR a.BRANCH_CODE=:searchText) "
+	              + "ORDER BY a.call_log_date DESC ", nativeQuery = true)
+	   Page<TicketCentor> findAllSearch(@Param("type") String type,@Param("searchText") String searchText, Pageable pageable);
+
+	    
+	    
+	    @Query(value = " SELECT * from TBL_TICKET_CENTRE where  STATUS_OF_COMPLAINT='Active'  AND "
+       		 + " KIOSK_ID=UPPER(:searchText) OR "
+	    		 + " (KIOSK_ID=:searchText OR BRANCH_CODE=:searchText) "
+       		+ " ORDER BY call_log_date DESC ",
+       		nativeQuery = true,countQuery="SELECT count(*) from TBL_TICKET_CENTRE where  STATUS_OF_COMPLAINT ='Active' AND "
+       				 + " KIOSK_ID=UPPER(:searchText) OR "
+      	    		     + " (KIOSK_ID=:searchText OR BRANCH_CODE=:searchText) "
+       				 + " ORDER BY call_log_date DESC")
+   	Page<TicketCentor> findAllByStatusSearch(@Param("searchText") String searchText, Pageable pageable);
+   
+	    
 	    
 }

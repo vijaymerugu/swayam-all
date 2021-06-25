@@ -80,6 +80,8 @@ import sbi.kiosk.swayam.common.entity.TaxSummaryEntity;
 	List<TaxEntity> findTaxCalReport();
 
 	List<DrillDown> findAllDrillDown();
+
+	List<TicketCentorDto> findAllTicketsSA();
 	
 	
 	
