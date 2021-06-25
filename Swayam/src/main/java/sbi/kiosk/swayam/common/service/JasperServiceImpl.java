@@ -317,6 +317,25 @@ public class JasperServiceImpl implements JasperService {
 				
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 			}
+			} else if (identifyPage.equals("ticketCenterSA")) {
+				List<TicketCentorDto> list = findAllTicketsSA();
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
+				File file = ResourceUtils.getFile(jrxmlPath + "ticketCenterCMF.jrxml");
+				InputStream input = new FileInputStream(file);
+				jasperReport = JasperCompileManager.compileReport(input);
+				source = new JRBeanCollectionDataSource(list);
+				Map<String, Object> parameters = new HashMap<>();
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "TicketCenter_" + timeStamp + ".pdf";
+				
+				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
+			}	 
 			} else if (identifyPage.equals("ticketCenterCC")) {
 				List<TicketCentorDto> list = findAllTickets();
 				 if(list.isEmpty()) {
@@ -1104,6 +1123,24 @@ public class JasperServiceImpl implements JasperService {
 				filename = "Kiosks_" + timeStamp + ".xlsx";
 				xlsx(jasperPrint, filename);
 					}
+			} else if (identifyPage.equals("ticketCenterSA")) {
+				List<TicketCentorDto> list = findAllTicketsSA();
+				 if(list.isEmpty()) {
+						
+						
+						return filename;
+					}else {
+				File file = ResourceUtils.getFile(jrxmlPath + "ticketCenterCMF.jrxml");
+				InputStream input = new FileInputStream(file);
+				jasperReport = JasperCompileManager.compileReport(input);
+				source = new JRBeanCollectionDataSource(list);
+				Map<String, Object> parameters = new HashMap<>();
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+				String timeStamp = new SimpleDateFormat("dd_MMM_yyyy").format(Calendar.getInstance().getTime());
+				filename = "TicketCenter_" + timeStamp + ".xlsx";
+				xlsx(jasperPrint, filename);
+					}
+				 
 			} else if (identifyPage.equals("ticketCenterCC")) {
 				List<TicketCentorDto> list = findAllTickets();
 				 if(list.isEmpty()) {
@@ -1992,11 +2029,23 @@ public class JasperServiceImpl implements JasperService {
 		}
 		return entities;
 	}
+
 	@Override
 	public List<KioskRegistrationDto> findAllKiosksRegistration() {
 		logger.info("Inside==Jasper====findAllKiosksRegistration===========");
 		List<KioskRegistrationDto> entities = ObjectMapperUtils.mapAll(kioskRegistrationRepositoryPaging.findAllByKiosk(),
 				KioskRegistrationDto.class);
+
+	
+	
+	@Override
+	public List<TicketCentorDto> findAllTicketsSA() {
+		logger.info("Inside==Jasper====findAllTickets===SA========ALL DATA");
+		List<TicketCentorDto> entities = ObjectMapperUtils.mapAll(ticketCentorRepo.findAll(), TicketCentorDto.class);
+		return entities;
+
+	}
+
 
 		
 		return entities;

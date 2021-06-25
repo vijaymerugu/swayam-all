@@ -25,6 +25,10 @@ public interface TicketCentorService extends IOperations<TicketCentorDto> {
 
 	Page<TicketCentorDto> findPaginatedByCircleSearch(int page, int size, String searchText);
 
+	Page<TicketCentorDto> findPaginatedCCUCountSearch(int page, int size, String type, String searchText);
+
+	Page<TicketCentorDto> findPaginatedCCUSearch(int page, int size,String searchText);
+
 	
 		 
 }

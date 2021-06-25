@@ -99,7 +99,8 @@ Kiosk Assigned to : <c:out value="${kiosksList[0].username}" />
       
       <table>
       <tr>
-      <td><input type="submit" value="Submit" class="openFinalPopup"></td>
+      <td style="padding-right: 10px"><input type="submit" value="Submit" class="openFinalPopup"></td>
+      <td><input type="submit" value="Back" class="openFinalPopupBack"></td>
       </tr>
       </table>
 </div>
@@ -167,6 +168,17 @@ $(document).ready(function(){
 });	
 </script>
 
+
+<script>
+$(document).ready(function(){
+    $('.openFinalPopupBack').on('click',function(){      
+    	$("#contentHomeApp").load('km/userList');    	
+    	$('.modal-backdrop').remove();
+    	$("body").css({"overflow":"visible"});
+    }); 
+    
+});	
+</script>
 
 <script type="text/javascript">
 $('#selectAll').click(function(e){
