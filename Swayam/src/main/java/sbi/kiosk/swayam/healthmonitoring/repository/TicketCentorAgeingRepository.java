@@ -389,7 +389,7 @@ public Page<TicketCentor> findAllTicketCentor3DaysLess(Pageable pageable);
 public Page<TicketCentor> findAllTicketCentor3DaysGreater(Pageable pageable);
 
 //@Query(value = " SELECT  *  from TBL_TICKET_CENTRE where  AGEING between to_date(trunc(sysdate-2/24), 'DD-MM-YY HH24:MI:SS' ) and  to_date(to_char(trunc(sysdate-3),'DD-MM-YY')||' 23:59:59',  'DD-MM-YY HH24:MI:SS') ", nativeQuery = true)
-@Query(value=" SELECT  *  from TBL_TICKET_CENTRE where STATUS_OF_COMPLAINT='Active' ORDER BY call_log_date DESC  ", nativeQuery=true,countQuery = "  SELECT count(*) from TBL_TICKET_CENTRE and STATUS_OF_COMPLAINT='Active' ORDER BY call_log_date DESC  " )
+@Query(value=" SELECT  *  from TBL_TICKET_CENTRE where STATUS_OF_COMPLAINT='Active' ORDER BY call_log_date DESC  ", nativeQuery=true,countQuery = "  SELECT count(*) from TBL_TICKET_CENTRE where STATUS_OF_COMPLAINT='Active' ORDER BY call_log_date DESC  " )
 public Page<TicketCentor> findAllTicketCentorTotal(Pageable pageable);
 
 

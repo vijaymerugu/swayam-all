@@ -163,6 +163,8 @@
 						
 						 
 						<input class="form-group has-search" ng-model="searchText" ng-change="refresh()"	placeholder=" Enter Vendor Name,Branch Code,Ticket Id,Kiosk ID.." id="input">  
+						 <button  id="btnSearchText" ng-click="refresh()">Search</button> 
+		             <button  id="btnClearText" ng-click="clearSearch()">ClearSearch</button>	
 						<span style="float:right">
 						<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
 						<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>

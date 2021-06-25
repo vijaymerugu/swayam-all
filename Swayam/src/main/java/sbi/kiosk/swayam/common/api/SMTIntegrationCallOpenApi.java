@@ -115,6 +115,15 @@ public class SMTIntegrationCallOpenApi {
 			System.setProperty("javax.net.ssl.trustStore", pathCertificate);
 			System.setProperty("javax.net.ssl.trustStorePassword", "123456");
 			String apiUrl = properties.getProperty("cms.url");
+			String crmUserName=properties.getProperty("crmapi.username");
+			String crmPassword=properties.getProperty("crmapi.password");
+			
+			logger.info("makeWebServiceCall:::::crmUserName:::::" + crmUserName);
+			logger.info("makeWebServiceCall:::::crmPassword:::::" + crmPassword);
+			
+			String credentials = crmUserName+":"+crmPassword;
+			logger.info("credentials=====CRM======makeWebServiceCall:::::::" + credentials);
+			
 	         		
 			DateFormat sdf1 = new SimpleDateFormat("d-MMM-yyyy HH:mm:ss");
 			String dateTime1 = sdf1.format(new Date());
@@ -167,6 +176,10 @@ public class SMTIntegrationCallOpenApi {
 			            //set up some things on the connection
 			            urlConnection.setRequestMethod("POST");
 			            urlConnection.setRequestProperty("Content-Type","application/json");
+			            String encoding = Base64.getEncoder().encodeToString(credentials.getBytes());
+						logger.info("makeWebServiceCall::::::encoding::::::::::::"+encoding);
+						urlConnection.setRequestProperty("Authorization","Basic "+encoding);// c3Azc21kb21pbmZvOnNwM3NtNjBAbjUw String.format("Basic " + encoding));
+						// enable output and input
 			            urlConnection.setDoOutput(true); 
 			             //and connect!
 			            try {
