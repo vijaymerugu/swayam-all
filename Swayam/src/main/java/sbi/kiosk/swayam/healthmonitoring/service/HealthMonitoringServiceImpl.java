@@ -125,6 +125,50 @@ public class HealthMonitoringServiceImpl implements HealthMonitoringService {
 		return result;
 	}
 	
+	
+	@Override
+	@Transactional
+	public String saveRequestForCircle(RequestsDto dto){
+		//int reqSeq=requestsRepository.findRequSeq();
+		UserDto user = (UserDto) session().getAttribute("userObj");
+		dto.setReqCategory(Constants.RECOMMENDED.getCode());
+		dto.setUserType(Constants.CHECKER.getCode());
+		dto.setCreatedBy(user.getPfId());
+		dto.setCreatedDate(new Date());
+		dto.setModifiedBy(user.getPfId());
+		dto.setModifiedDate(new Date());
+		
+		String result=null;
+		 
+		logger.info("Before save dto:::"+dto);
+		int kioskIdCount=requestsRepository.findByKioskIdAndUserType(dto.getKioskId(),"C");
+		logger.info("After:::kioskId:::"+kioskIdCount);
+		if(kioskIdCount>0) {	
+			String kioskId=requestsRepository.findKioskId(dto.getKioskId(),"C");
+			//result="Requested: "+kioskId+ " KioskId Already Exist";
+			result= "Request already exist for Kioskid "+kioskId;
+	    }else {
+		
+		Requests requests = new Requests(dto);
+		logger.info("Before save ELSE dto:::"+dto);
+		logger.info("requests=fromdate=="+requests.getFromDate());
+		logger.info("requests=todate=="+requests.getToDate());
+		logger.info("Before save ELSE requests CreatedDate:::"+requests.getCreatedDate());
+		logger.info("Before save ELSE requests ModifiedDate:::"+requests.getModifiedDate());
+		logger.info("Before save ELSE requests:::"+requests);
+		Requests request= requestsRepository.save(requests);
+		logger.info("requests=id=="+request.getId());
+		String resultResp="REQ"+request.getId();
+		result="Request: "+resultResp+ " has been successfully created";
+		if(resultResp!=null && !resultResp.isEmpty()){
+			
+		 requestsRepository.update(resultResp,request.getId());
+		}
+	    }
+		logger.info("result::::"+result);
+		return result;
+	}
+	
 	@Override
     public Page<RequestsDto> findPaginated(int page, int size) {
 		UserDto user = (UserDto) session().getAttribute("userObj");
@@ -140,8 +184,7 @@ public class HealthMonitoringServiceImpl implements HealthMonitoringService {
 	@Override
     public Page<RequestsDto> findPaginatedCC(int page, int size) {
 		
-		Page<RequestsDto> entities = 
-			 requestsRepositoryPaging.findByUserTypeAndReqCategory(Constants.CHECKER.getCode(),Constants.RECOMMENDED.getCode(),PageRequest.of(page, size,Sort.by("id").descending()))
+		Page<RequestsDto> entities =requestsRepositoryPaging.findByUserTypeAndReqCategory(Constants.CHECKER.getCode(),Constants.RECOMMENDED.getCode(),PageRequest.of(page, size,Sort.by("id").descending()))
 			.map(RequestsDto::new);
 	    return entities;
 	  }
@@ -164,6 +207,28 @@ public class HealthMonitoringServiceImpl implements HealthMonitoringService {
 		System.err.println("entities=id=="+entities.getContent());
 	    return entities;
 	  }
+	
+	
+	@Override
+    public Page<RequestsDto> findPaginatedCircle(int page, int size) {
+		
+		UserDto user = (UserDto) session().getAttribute("userObj");
+		String pfId = user.getPfId();
+		
+		Set<String> set = new HashSet<String>();
+		set.add(Constants.APPROVED.getCode());
+		set.add(Constants.REJECTED.getCode());
+		// add by satendra
+		set.add(Constants.CREATED.getCode());
+		set.add(Constants.RECOMMENDED.getCode());
+		
+		Page<RequestsDto> entities = 
+			 requestsRepositoryPaging.findByCreatedByAndReqCategoryIn(pfId, set, PageRequest.of(page, size,Sort.by("id").descending()))
+			.map(RequestsDto::new);
+		System.err.println("entities=id=="+entities.getContent());
+	    return entities;
+	  }
+	
 	
 	@Override
 	@Transactional

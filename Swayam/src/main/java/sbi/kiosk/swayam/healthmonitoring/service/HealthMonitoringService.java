@@ -28,4 +28,6 @@ public interface HealthMonitoringService extends IOperations<RequestsDto>{
 
 	public RequestsManagementDto activateKiosk(int caseId);
 
+	public String saveRequestForCircle(RequestsDto dto);
+
 }

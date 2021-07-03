@@ -205,7 +205,7 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 						
 						AlertDto alertDto=new AlertDto();
 						alertDto.setKioskSrNo(manualEnity.getKioskSrNo());
-						alertDto.setCallLogId(complaintId);
+						//alertDto.setCallLogId(complaintId);
 						logger.info("ContactNo SMS:: "+manualEnity.getContactNo());
 						logger.info("MailId:: "+manualEnity.getMailId());
 						
@@ -279,6 +279,8 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 							  manualEnity.setRespTicketNo(resTicketNumber);
 						      manualEnity=manualTicketCallLogRepo.save(manualEnity);
 						      complaintId = "Your complaint '"+resTicketNumber+"` has been successfully registered";
+						      
+						      alertDto.setCallLogId(resTicketNumber);
 						      String result=SMSSender.sendSmsCall(alertDto, "", "","");
 							  logger.info("------- "+result);
 								
@@ -322,7 +324,7 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 					
 					AlertDto alertDto=new AlertDto();
 					alertDto.setKioskSrNo(manualEnity.getKioskSrNo());
-					alertDto.setCallLogId(complaintId);
+					//alertDto.setCallLogId(complaintId);
 					//logger.info("ContactNo SMS2:: "+manualEnity.getContactNo());
 					//logger.info("mailId SMS2:: "+manualEnity.getMailId());
 					alertDto.setMobileNo(manualEnity.getContactNo());
@@ -400,6 +402,7 @@ public class ManualTicketServiceImpl implements ManualTicketService {
 						  manualEnity.setRespTicketNo(resTicketNumber);
 					      manualEnity=manualTicketCallLogRepo.save(manualEnity);
 					      complaintId = "Your complaint '"+resTicketNumber+"` has been successfully registered";
+					      alertDto.setCallLogId(resTicketNumber);
 					      String result=SMSSender.sendSmsCall(alertDto, "", "","");
 						  logger.info("ELSE Result of SMS::------- "+result);
 							
