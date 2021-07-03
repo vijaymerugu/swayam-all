@@ -571,14 +571,12 @@ public class TicketCentorServiceImpl implements TicketCentorService {
 			// TODO Auto-generated method stub
 			return null;
 		}
-/*
+
 		@Override
 		public Page<TicketCentorDto> findPaginatedCircle(int page, int size) {
 			// TODO Auto-generated method stub
 			return null;
 		}
-		
-		*/
 
 }
 

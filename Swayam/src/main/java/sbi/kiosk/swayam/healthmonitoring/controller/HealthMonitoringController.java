@@ -1,5 +1,6 @@
 package sbi.kiosk.swayam.healthmonitoring.controller;
 
+import java.io.Console;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -57,6 +58,30 @@ public class HealthMonitoringController {
 		ModelAndView mav = new ModelAndView("requestFormGridCmf");
 		return mav;
 	}
+	
+	// Circle Request
+	
+	
+	
+	  @RequestMapping("hm/requestFormCircle")
+	  
+	  @PreAuthorize("hasPermission('requestFormCircle','CREATE')") public
+	  ModelAndView requestFormCircle(ModelAndView mav,@ModelAttribute("requestDto")
+	  RequestsManagementDto requestDto) {
+	  logger.info("Comment "+requestDto.getComments());
+	  mav.setViewName("requestFormCircle");
+	  return mav;
+	  }
+	 	
+	@RequestMapping("hm/requestFormGridCircle")
+	@PreAuthorize("hasPermission('requestFormGridCircle','CREATE')")
+	public ModelAndView requestFormGridCircle() {
+		logger.info("requestFormGridCircle======");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("requestFormGridCircle");
+		return mav;
+	}
+	
 	
 	@RequestMapping("hm/requestFormCms")
 	@PreAuthorize("hasPermission('requestFormCms','CREATE')")
@@ -130,6 +155,51 @@ public class HealthMonitoringController {
 	
 	
 	
+	@PostMapping(value = "hm/addRequestCircle")
+	@PreAuthorize("hasPermission('saveRequestForCircle','CREATE')")
+	public ResponseEntity<String>  saveRequestForCircle(ModelAndView model, HttpServletRequest request,
+			RedirectAttributes redirectAttributes,@ModelAttribute("requestDto") RequestsManagementDto requestDto) {
+		
+		
+		logger.info("saveRequestForCircle==="+requestDto);
+		ResponseEntity<String> entity=null;
+		RequestsDto dto = new RequestsDto();		
+		dto.setBranchCode(ValidationCommon.validateString(request.getParameter("branchCode")));
+		dto.setKioskId(ValidationCommon.validateString(request.getParameter("kioskId")));
+		dto.setVendor(ValidationCommon.validateString(request.getParameter("vendor")));
+		dto.setTypeOfRequest(ValidationCommon.validateString(request.getParameter("typeOfRequest")));
+		//dto.setCategory(ValidationCommon.validateString(request.getParameter("category")));
+		//dto.setSubCategory(ValidationCommon.validateString(request.getParameter("subCategory")));
+		dto.setSubject(ValidationCommon.validateString(request.getParameter("subject")));
+		dto.setComments(ValidationCommon.validateStringChar(request.getParameter("comments")));
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy");
+		Date date;
+		Date date1;
+		try {
+			date = sdf.parse(requestDto.getFromDate());
+			date1 = sdf.parse(requestDto.getToDate());
+			logger.info("date :" + date);  //Mar 2016
+			logger.info("date1 :" + date1);  //Mar 2016
+			 dto.setFromDate(date);
+		      dto.setToDate(date1);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		logger.info("saveRequestForCircle::::::::::dto::::::"+dto);
+		String result=healthMonitoringService.saveRequestForCircle(dto);
+		logger.info("saveRequestForCircle= result=="+result);
+		entity=ResponseEntity.ok(result);
+		
+		logger.info("saveRequestForCircle= entity=="+entity);
+		return entity;
+	}
+	
+	
+	
 	@RequestMapping(value = "hm/requestsCmf/get", params = { "page", "size" }, method = RequestMethod.GET, produces = "application/json")
 	@PreAuthorize("hasPermission('HMfindPaginatedCmf','CREATE')")
 	public Page<RequestsDto> findPaginatedCmf(
@@ -170,6 +240,29 @@ public class HealthMonitoringController {
 		 
 		        return resultPage;
 		    }
+	
+	
+	
+	// Circle User Request
+	
+	
+	@RequestMapping(value = "hm/requestsCircle/get", params = { "page", "size" }, method = RequestMethod.GET, produces = "application/json")
+	@PreAuthorize("hasPermission('HMfindPaginatedCircle','CREATE')")
+	public Page<RequestsDto> findPaginatedCircle(@RequestParam("page") int page, @RequestParam("size") int size) {
+		 
+		        Page<RequestsDto> resultPage = healthMonitoringService.findPaginatedCircle(page, size);
+		        logger.info("findPaginatedCircle:::::resultPage:::"+resultPage.getContent());
+
+		        if (page > resultPage.getTotalPages()) {
+		            //throw new MyResourceNotFoundException();
+		        }
+		 
+		        return resultPage;
+		    }
+	
+	
+	
+	
 	
 	@RequestMapping(value = "hm/saveCheckerCommentsCms" , method = RequestMethod.POST)
 	//public ModelAndView saveCheckerComments(@RequestParam("array") List<CheckerComments> array) {
@@ -249,6 +342,17 @@ public class HealthMonitoringController {
 		return mav;
 	}
 	
+	
+	@RequestMapping(value = "hm/viewCircleCaseId")	
+	@PreAuthorize("hasPermission('HMviewCircleCaseId','READ')")
+	public ModelAndView viewCircleCaseId(@RequestParam("caseId") int caseId) {
+		
+		RequestsManagementDto dto = healthMonitoringService.viewCaseId(caseId);
+		
+		ModelAndView mav = new ModelAndView("requestFormCircleCaseId");
+		mav.addObject("dto", dto);
+		return mav;
+	}
 	
 	///////////
 	

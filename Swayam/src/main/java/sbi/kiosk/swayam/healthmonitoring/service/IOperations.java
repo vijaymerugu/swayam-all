@@ -14,6 +14,6 @@ public interface IOperations<T> {
     public Page<T> findPaginatedCountByCircle(int page, int size,String type);
     public Page<T> findPaginatedCms(final int page, final int size);
     public Page<T> findPaginatedCountCms(int page, int size,String type);
-	//public Page<T> findPaginatedCircle(int page, int size);
+	public Page<T> findPaginatedCircle(int page, int size);
 
 }
