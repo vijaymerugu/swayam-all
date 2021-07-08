@@ -105,12 +105,14 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
         { name: 'kioskMacAddress',  displayName: 'MAC ID'  },
         { name: 'kioskIp',  displayName: 'IP Address'  },
         { name: 'refId', displayName: 'RFP ID'  },
+        { name: 'username', displayName: 'Assigned CMF'  },
+     /*   { name: 'phoneNo', displayName: 'Assigned CMF Phone No'  }*/
      /*   Commented temporarily by Manisha
       * { name: 'installationStatus',  displayName: 'Installation Status'  }, */   
-      { name: 'username',    	  
+ /*     { name: 'username',    	  
     	  displayName: 'Assigned CMF', 	  
     	  cellTemplate: '<div ng-if="row.entity.pfId != undefined">{{ row.entity.username }}</div><div ng-if="row.entity.pfId == undefined"><a style="cursor: hand;cursor: pointer;" ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.kioskId)">Assign CMF</a></div>'
-      },
+      },*/
       { name: 'phoneNo', displayName: 'Assigned CMF Phone No' ,	  
     	  cellTemplate: '<div ng-if="row.entity.pfId != undefined">{{ row.entity.phoneNo }}</div><div ng-if="row.entity.pfId == undefined">NA</a></div>'
     		      }

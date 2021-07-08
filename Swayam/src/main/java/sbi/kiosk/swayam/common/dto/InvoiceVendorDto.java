@@ -33,6 +33,7 @@ public class InvoiceVendorDto {
 	private String invoiceFrom;
 	private String invoiceUpTo;
 	private Float invoiceAmt;
+	private Float penaltyAmt;
 	private String shipAdd;
 	private String shipState ;	
 

@@ -183,30 +183,33 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 	}
 	
 	@Override
-    public Page<KioskBranchMasterUserDto> findPaginated(int page, int size) {	 	 
-	 
+    public Page<KioskRegistrationDto> findPaginatedNew(int page, int size) {	 	 
+		// public Page<KioskBranchMasterUserDto> findPaginated(int page, int size) {	 	 
 		
-		  Page<KioskBranchMasterUserDto> entities =
-		  kioskBranchMasterRepositoryPaging.findAll(PageRequest.of(page, size))
-		  .map(KioskBranchMasterUserDto::new);
-		  
-		  for(KioskBranchMasterUserDto dto:entities){ UserKioskMapping us =
-		  userKioskMappingRepository.findByKioskId(String.valueOf(dto.getKioskId()));
-		  
-		  if(us !=null && us.getPfId() !=null && us.getPfId() !=""){
-		  dto.setPfId(us.getPfId()); User usr =
-		  userRepository.findByPfId(us.getPfId()); if(usr !=null && usr.getUsername()
-		  !=null && usr.getUsername() !=""){ dto.setUsername(usr.getUsername());
-		  dto.setPhoneNo(usr.getPhoneNo()); } }
-		  
-		  
-		  if(dto.getBranchCode() !=null){ BranchMaster branchMaster =
-		  branchMasterRepository.findByBranchCode(dto.getBranchCode()); if(branchMaster
-		  !=null && branchMaster.getCircleName() !=null && branchMaster.getCircleName()
-		  !=""){ dto.setCircle(branchMaster.getCircleName()); } }
-		  
-		  }
-		 
+		/*
+		 * Page<KioskBranchMasterUserDto> entities =
+		 * kioskBranchMasterRepositoryPaging.findAll(PageRequest.of(page, size))
+		 * .map(KioskBranchMasterUserDto::new);
+		 * 
+		 * for(KioskBranchMasterUserDto dto:entities){ UserKioskMapping us =
+		 * userKioskMappingRepository.findByKioskId(String.valueOf(dto.getKioskId()));
+		 * 
+		 * if(us !=null && us.getPfId() !=null && us.getPfId() !=""){
+		 * dto.setPfId(us.getPfId()); User usr =
+		 * userRepository.findByPfId(us.getPfId()); if(usr !=null && usr.getUsername()
+		 * !=null && usr.getUsername() !=""){ dto.setUsername(usr.getUsername());
+		 * dto.setPhoneNo(usr.getPhoneNo()); } }
+		 * 
+		 * 
+		 * if(dto.getBranchCode() !=null){ BranchMaster branchMaster =
+		 * branchMasterRepository.findByBranchCode(dto.getBranchCode()); if(branchMaster
+		 * !=null && branchMaster.getCircleName() !=null && branchMaster.getCircleName()
+		 * !=""){ dto.setCircle(branchMaster.getCircleName()); } }
+		 * 
+		 * }
+		 */
+			Page<KioskRegistrationDto> entities =  kioskRegistrationRepositoryPaging.findAllByKiosk(PageRequest.of(page, size)).map(KioskRegistrationDto::new);
+			 
 		/*
 		 * List<KioskRegistration> kioskList =
 		 * kioskRegistrationRepositoryPaging.findAllByKiosk() ; Page<KioskRegistration>
@@ -775,6 +778,12 @@ public class KioskManagementServiceImpl implements KioskManagementService {
 
 	 	return entities;
    
+	}
+
+	@Override
+	public Page<KioskBranchMasterUserDto> findPaginated(int page, int size) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

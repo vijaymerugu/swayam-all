@@ -282,7 +282,8 @@ public class JasperServiceImpl implements JasperService {
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 			}
 			} else if (identifyPage.equals("kioskManagementByCircle")) {
-				List<KioskBranchMasterUserDto> list = findKiosksPaginatedByCircle();
+				//List<KioskBranchMasterUserDto> list = findKiosksPaginatedByCircle();
+				List<KioskRegistrationDto> list = findAllKiosksRegistrationByCircle();
 				 if(list.isEmpty()) {
 						
 						
@@ -299,8 +300,8 @@ public class JasperServiceImpl implements JasperService {
 				JasperExportManager.exportReportToPdfFile(jasperPrint, reportPath + filename);
 			}
 			} else if (identifyPage.equals("kiosksAll")) {
-				List<KioskBranchMasterUserDto> list = findAllKiosks();
-			//	List<KioskRegistrationDto> list = findAllKiosksRegistration();
+//				List<KioskBranchMasterUserDto> list = findAllKiosks();
+				List<KioskRegistrationDto> list = findAllKiosksRegistration();
 				 if(list.isEmpty()) {
 						
 						
@@ -1088,7 +1089,8 @@ public class JasperServiceImpl implements JasperService {
 						xlsx(jasperPrint, filename);
 							}
 			} else if (identifyPage.equals("kioskManagementByCircle")) {
-				List<KioskBranchMasterUserDto> list = findKiosksPaginatedByCircle();
+				//List<KioskBranchMasterUserDto> list = findKiosksPaginatedByCircle();
+				List<KioskRegistrationDto> list = findAllKiosksRegistrationByCircle();
 				 if(list.isEmpty()) {
 						
 						
@@ -1105,8 +1107,8 @@ public class JasperServiceImpl implements JasperService {
 				xlsx(jasperPrint, filename);
 					}
 			} else if (identifyPage.equals("kiosksAll")) {
-				List<KioskBranchMasterUserDto> list = findAllKiosks();
-				//List<KioskRegistrationDto> list = findAllKiosksRegistration();
+				//	List<KioskBranchMasterUserDto> list = findAllKiosks();
+				List<KioskRegistrationDto> list = findAllKiosksRegistration();
 			//	System.out.println("List size:::"+list.size());
 				 if(list.isEmpty()) {
 						
@@ -2033,11 +2035,19 @@ public class JasperServiceImpl implements JasperService {
 	@Override
 	public List<KioskRegistrationDto> findAllKiosksRegistration() {
 		logger.info("Inside==Jasper====findAllKiosksRegistration===========");
-		List<KioskRegistrationDto> entities = ObjectMapperUtils.mapAll(kioskRegistrationRepositoryPaging.findAllByKiosk(),
+		List<KioskRegistrationDto> entities = ObjectMapperUtils.mapAll(kioskRegistrationRepositoryPaging.findAllKiosk(),
 				KioskRegistrationDto.class);
-
 	
-	
+		return entities;
+	}
+	private List<KioskRegistrationDto> findAllKiosksRegistrationByCircle() {
+		logger.info("Inside==Jasper====findAllKiosksRegistrationByCircle===========");
+		UserDto user = (UserDto) session().getAttribute("userObj");
+		List<KioskRegistrationDto> entities = ObjectMapperUtils.mapAll(kioskRegistrationRepositoryPaging.findAllKioskByCircle(user.getCircle()),
+				KioskRegistrationDto.class);
+		
+		return entities;
+	}
 	@Override
 	public List<TicketCentorDto> findAllTicketsSA() {
 		logger.info("Inside==Jasper====findAllTickets===SA========ALL DATA");
@@ -2048,8 +2058,7 @@ public class JasperServiceImpl implements JasperService {
 
 
 		
-		return entities;
-	}
+	
 	@Override
 	public List<TicketCentorDto> findAllTickets() {
 		logger.info("Inside==Jasper====findAllTickets===========ALL DATA");

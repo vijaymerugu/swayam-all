@@ -162,11 +162,13 @@ public class KioskManagementController {
 		 
 		
 
-			 Page<KioskBranchMasterUserDto> resultPage;
+			 Page<KioskBranchMasterUserDto> resultPage = null;
 			// Page<KioskRegistrationDto> resultPage1 = null;
-			if(type.equals("InstalledKiosks")){
-			    resultPage= kioskManagementService.findPaginated(page, size);
-			}else if(type.equals("CMS")){
+				/*
+				 * if(type.equals("InstalledKiosks")){ resultPage=
+				 * kioskManagementService.findPaginated(page, size); }else
+				 */
+				if(type.equals("CMS")){
 				resultPage= kioskManagementService.findPaginatedCount(page, size, type);
 			}else if(type.equals("LIPI")){
 				resultPage= kioskManagementService.findPaginatedCount(page, size, type);
@@ -184,16 +186,55 @@ public class KioskManagementController {
 			}
 			else if(type.equals("ToBeAssigned")){ logger.info("if ToBeAssigned!!!!!!!!!!");
 				   resultPage= kioskManagementService.findTobeAssingedPaginated(page, size, type);
-			}else{ logger.info("for rest type!!!!!!!!!!!!!!!!!!");;
-		         resultPage = kioskManagementService.findPaginated(page, size);
-		        if (page > resultPage.getTotalPages()) {
-		            //throw new MyResourceNotFoundException();
-		        }
-		        return resultPage;
-		    }
+			}
+			else {
+				/*
+				 * logger.info("for rest type!!!!!!!!!!!!!!!!!!");; resultPage =
+				 * kioskManagementService.findPaginated(page, size); if (page >
+				 * resultPage.getTotalPages()) { //throw new MyResourceNotFoundException(); }
+				 * return resultPage;
+				 */}
 		        return resultPage;
 		    }
 	
+	@RequestMapping(value = "kiosks/getNew", params = { "page", "size" ,"type"}, method = RequestMethod.GET, produces = "application/json")
+	public Page<KioskRegistrationDto> findPaginatedNew( 
+		      @RequestParam("page") int page, @RequestParam("size") int size,@RequestParam("type") String type) {
+		 
+		
+
+			 Page<KioskBranchMasterUserDto> resultPage;
+			 Page<KioskRegistrationDto> resultPage1 = null ;
+			 
+			if(type.equals("InstalledKiosks") || type.equals("undefined") ){
+			    resultPage1= kioskManagementService.findPaginatedNew(page, size);
+			}
+			/*
+			 * else if(type.equals("CMS")){ resultPage=
+			 * kioskManagementService.findPaginatedCount(page, size, type); }else
+			 * if(type.equals("LIPI")){ resultPage=
+			 * kioskManagementService.findPaginatedCount(page, size, type); }else
+			 * if(type.equalsIgnoreCase("InstalledCMSVendor")){ resultPage=
+			 * kioskManagementService.findPaginatedCount(page, size, type); }else
+			 * if(type.equals("DeleviredCMSVendor")){ resultPage=
+			 * kioskManagementService.findPaginatedCount(page, size, type); }else
+			 * if(type.equals("InstalledLIPIVendor")){ resultPage=
+			 * kioskManagementService.findPaginatedCount(page, size, type); }else
+			 * if(type.equals("DeleviredLIPIVendor")){ resultPage=
+			 * kioskManagementService.findPaginatedCount(page, size, type); } else
+			 * if(type.equals("Assigned")){ logger.info("if Assigned!!!!!!!!!!");
+			 * resultPage= kioskManagementService.findAssingedPaginated(page, size, type); }
+			 * else if(type.equals("ToBeAssigned")){
+			 * logger.info("if ToBeAssigned!!!!!!!!!!"); resultPage=
+			 * kioskManagementService.findTobeAssingedPaginated(page, size, type); }
+			 * 
+			 * else{ logger.info("for rest type!!!!!!!!!!!!!!!!!!");; resultPage1 =
+			 * kioskManagementService.findPaginatedNew(page, size); if (page >
+			 * resultPage1.getTotalPages()) { //throw new MyResourceNotFoundException(); }
+			 * return resultPage1; }
+			 */
+		        return resultPage1;
+		    }
 	@RequestMapping(value = "kiosks/getSearchNext", params = { "page", "size" ,"type","searchText"}, method = RequestMethod.GET, produces = "application/json")
 	public Page<KioskBranchMasterUserDto> findPaginated( 
 		      @RequestParam("page") int page, @RequestParam("size") int size,@RequestParam("type") String type,@RequestParam("searchText") String searchText) {

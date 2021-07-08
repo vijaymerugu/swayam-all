@@ -2808,6 +2808,10 @@ public class UploadServiceImpl implements UploadService {
 								
 									dto.setInvoiceAmt((float)cell.getNumericCellValue());
 								}
+								if (String.valueOf(cell.getColumnIndex()).equals("9")) {
+									
+									dto.setPenaltyAmt((float)cell.getNumericCellValue());
+								}
 								if (String.valueOf(cell.getColumnIndex()).equals("2")) {
 									String cellValueStr = objDefaultFormat.formatCellValue(cell, objFormulaEvaluator);	
 									dto.setInvDt(cellValueStr);
@@ -2838,6 +2842,7 @@ public class UploadServiceImpl implements UploadService {
 							|| (lidtDto.get(0).getInvoiceFrom()==null)
 									|| (lidtDto.get(0).getInvoiceUpTo()==null)
 									|| (lidtDto.get(0).getInvoiceAmt()==null)
+									|| (lidtDto.get(0).getPenaltyAmt()==null)
 									|| (lidtDto.get(0).getShipAdd()==null)
 									|| (lidtDto.get(0).getShipState()==null) ) {
 						logger.error("Header missing in file!!");
@@ -2942,6 +2947,7 @@ public class UploadServiceImpl implements UploadService {
 							 entity.setInvoiceUpTo(invoiceUpto);//3
 						}
 						entity.setInvoiceAmt(lidtDto1.getInvoiceAmt());
+						entity.setPenaltyAmt(lidtDto1.getPenaltyAmt());
 						entity.setShipAdd(lidtDto1.getShipAdd());
 						entity.setShipState(lidtDto1.getShipState());
 						
@@ -2958,6 +2964,7 @@ public class UploadServiceImpl implements UploadService {
 					Optional<String> checkNullInvoiceFrom = Optional.ofNullable(lidtDto1.getInvoiceFrom());
 					Optional<String> checkNullInvoiceUpTo = Optional.ofNullable(lidtDto1.getInvoiceUpTo());
 					Optional<Float> checkNullInvoiceAmt = Optional.ofNullable(lidtDto1.getInvoiceAmt());
+					Optional<Float> checkNullPenaltyAmt = Optional.ofNullable(lidtDto1.getPenaltyAmt());
 					Optional<String> checkNullShipAdd = Optional.ofNullable(lidtDto1.getShipAdd());
 					Optional<String> checkNullShipState = Optional.ofNullable(lidtDto1.getShipState());
 					
@@ -2982,6 +2989,7 @@ public class UploadServiceImpl implements UploadService {
 							&& !checkNullInvoiceFrom.get().equals("")
 							&& !checkNullInvoiceUpTo.get().equals("")
 							&& lidtDto1.getInvoiceAmt() != null
+							&& lidtDto1.getPenaltyAmt() != null
 							&& lidtDto1.getShipAdd() != null
 							&& lidtDto1.getShipState() != null) { //logger.info("i m inside if clause: "+ count);
 						
@@ -2995,6 +3003,7 @@ public class UploadServiceImpl implements UploadService {
 							|| !checkNullInvoiceFrom.isPresent() || checkNullInvoiceFrom.get().equals("") || lidtDto1.getInvoiceFrom().trim() == ""
 							|| !checkNullInvoiceUpTo.isPresent() || checkNullInvoiceUpTo.get().equals("") || lidtDto1.getInvoiceUpTo().trim() == ""
 							|| !checkNullInvoiceAmt.isPresent() || checkNullInvoiceAmt.get().equals(0) || lidtDto1.getInvoiceAmt() == null
+							|| !checkNullPenaltyAmt.isPresent() || checkNullPenaltyAmt.get().equals(0) || lidtDto1.getPenaltyAmt() == null
 							|| !checkNullShipAdd.isPresent() || checkNullShipAdd.get().equals("") || lidtDto1.getShipAdd() == null
 							|| !checkNullShipState.isPresent() || checkNullShipState.get().equals("") || lidtDto1.getShipState() == null) {// logger.info("i m inside else-if clause: "+ count);
 						entity = new InvoiceVendor();
@@ -3008,6 +3017,7 @@ public class UploadServiceImpl implements UploadService {
 						entity.setInvoiceUpTo(lidtDto1.getInvoiceUpTo());
 					//	entity.setInvoiceAmt(lidtDto1.getInvoiceAmt());
 						entity.setInvoiceAmt((float) (lidtDto1.getInvoiceAmt()== null ? 0.0 : lidtDto1.getInvoiceAmt()) );
+						entity.setPenaltyAmt((float) (lidtDto1.getPenaltyAmt()== null ? 0.0 : lidtDto1.getPenaltyAmt()) );
 						entity.setShipAdd(lidtDto1.getShipAdd());
 						entity.setShipState(lidtDto1.getShipState());
 						
@@ -3039,6 +3049,8 @@ public class UploadServiceImpl implements UploadService {
 						entity.setInvoiceUpTo(listEntityNew.getInvoiceUpTo());
 					//	entity.setInvoiceAmt(lidtDto1.getInvoiceAmt());
 						entity.setInvoiceAmt((float) (listEntityNew.getInvoiceAmt()== null ? 0.0 : listEntityNew.getInvoiceAmt()) );
+						entity.setPenaltyAmt((float) (listEntityNew.getPenaltyAmt()== null ? 0.0 : listEntityNew.getPenaltyAmt()) );
+						
 						entity.setShipAdd(listEntityNew.getShipAdd());
 						entity.setShipState(listEntityNew.getShipState());
 						listEntityDup.add(entity);
@@ -3089,7 +3101,7 @@ public class UploadServiceImpl implements UploadService {
 			XSSFWorkbook workbook1 = new XSSFWorkbook();
 
 			XSSFSheet sheet = workbook1.createSheet("Vendor_Invoice");
-			String[] columns = {"FIN_YR","INVO_NO","INVO_DT","CUST_NAME","PRN_SRN","Product","INVO_FROM","INVO_UPTO", "INVO_AMT","SHIP_ADD","SHIP_STATE"};
+			String[] columns = {"FIN_YR","INVO_NO","INVO_DT","CUST_NAME","PRN_SRN","Product","INVO_FROM","INVO_UPTO", "INVO_AMT","PENALTY_AMT","SHIP_ADD","SHIP_STATE"};
 		    String filename = "Vendor_Invoice.xlsx";
 		    
 		    
@@ -3133,7 +3145,7 @@ public class UploadServiceImpl implements UploadService {
 		   		 
 		            row.createCell(cellIndex++).setCellValue(entity.getInvoiceUpTo());
 		            row.createCell(cellIndex++).setCellValue(entity.getInvoiceAmt());
-		   		 
+		            row.createCell(cellIndex++).setCellValue(entity.getPenaltyAmt());
 		            row.createCell(cellIndex++).setCellValue(entity.getShipAdd());
 		            row.createCell(cellIndex++).setCellValue(entity.getShipState());
 		        }
@@ -3535,7 +3547,7 @@ public class UploadServiceImpl implements UploadService {
 							}
 							}
 							if(String.valueOf(cell.getColumnIndex()).equals("9")) {
-								if(!((String.valueOf(cell.getColumnIndex()).equals("9")) && (cell.getStringCellValue().equalsIgnoreCase("SHIP_ADD"))))
+								if(!((String.valueOf(cell.getColumnIndex()).equals("9")) && (cell.getStringCellValue().equalsIgnoreCase("PENALTY_AMT"))))
 								{
 									logger.error("Wrong File or Data Sequence or header is missing for upload!!");
 									
@@ -3543,17 +3555,30 @@ public class UploadServiceImpl implements UploadService {
 								} 
 								if (String.valueOf(cell.getColumnIndex()).equals("9")) {
 									
-									dto.setShipAdd(cell.getStringCellValue());
+								//	dto.setInvoiceAmt((float)cell.getNumericCellValue());
+									dto.setPenaltyAmt((float) (cell.getStringCellValue().equalsIgnoreCase("PENALTY_AMT") ? 1 : 0));
 								}
 								}
 							if(String.valueOf(cell.getColumnIndex()).equals("10")) {
-								if(!((String.valueOf(cell.getColumnIndex()).equals("10")) && (cell.getStringCellValue().equalsIgnoreCase("SHIP_STATE"))))
+								if(!((String.valueOf(cell.getColumnIndex()).equals("10")) && (cell.getStringCellValue().equalsIgnoreCase("SHIP_ADD"))))
 								{
 									logger.error("Wrong File or Data Sequence or header is missing for upload!!");
 									
 									return "Wrong File or Data Sequence or header is missing for upload";
 								} 
 								if (String.valueOf(cell.getColumnIndex()).equals("10")) {
+									
+									dto.setShipAdd(cell.getStringCellValue());
+								}
+								}
+							if(String.valueOf(cell.getColumnIndex()).equals("11")) {
+								if(!((String.valueOf(cell.getColumnIndex()).equals("11")) && (cell.getStringCellValue().equalsIgnoreCase("SHIP_STATE"))))
+								{
+									logger.error("Wrong File or Data Sequence or header is missing for upload!!");
+									
+									return "Wrong File or Data Sequence or header is missing for upload";
+								} 
+								if (String.valueOf(cell.getColumnIndex()).equals("11")) {
 									
 									dto.setShipState(cell.getStringCellValue());
 								}
@@ -3580,10 +3605,10 @@ public class UploadServiceImpl implements UploadService {
 									dto.setProduct(cell.getStringCellValue());
 								}
 								
-								if (String.valueOf(cell.getColumnIndex()).equals("9")) {
+								if (String.valueOf(cell.getColumnIndex()).equals("10")) {
 									dto.setShipAdd(cell.getStringCellValue());
 								}
-								if (String.valueOf(cell.getColumnIndex()).equals("10")) {
+								if (String.valueOf(cell.getColumnIndex()).equals("11")) {
 								
 									dto.setShipState(cell.getStringCellValue());
 								}
@@ -3600,6 +3625,10 @@ public class UploadServiceImpl implements UploadService {
 								if (String.valueOf(cell.getColumnIndex()).equals("8")) {
 								
 									dto.setInvoiceAmt((float)cell.getNumericCellValue());
+								}
+								if (String.valueOf(cell.getColumnIndex()).equals("9")) {
+									
+									dto.setPenaltyAmt((float)cell.getNumericCellValue());
 								}
 								if (String.valueOf(cell.getColumnIndex()).equals("2")) {
 									String cellValueStr = objDefaultFormat.formatCellValue(cell, objFormulaEvaluator);	
@@ -3631,6 +3660,7 @@ public class UploadServiceImpl implements UploadService {
 							|| (lidtDto.get(0).getInvoiceFrom()==null)
 									|| (lidtDto.get(0).getInvoiceUpTo()==null)
 									|| (lidtDto.get(0).getInvoiceAmt()==null)
+									|| (lidtDto.get(0).getPenaltyAmt()==null)
 									|| (lidtDto.get(0).getShipAdd()==null)
 									|| (lidtDto.get(0).getShipState()==null) ) {
 						logger.error("Header missing in file!!");
@@ -3735,6 +3765,7 @@ public class UploadServiceImpl implements UploadService {
 							 entity.setInvoiceUpTo(invoiceUpto);//3
 						}
 						entity.setInvoiceAmt(lidtDto1.getInvoiceAmt());
+						entity.setPenaltyAmt(lidtDto1.getPenaltyAmt());
 						entity.setShipAdd(lidtDto1.getShipAdd());
 						entity.setShipState(lidtDto1.getShipState());
 						
@@ -3751,10 +3782,12 @@ public class UploadServiceImpl implements UploadService {
 					Optional<String> checkNullInvoiceFrom = Optional.ofNullable(lidtDto1.getInvoiceFrom());
 					Optional<String> checkNullInvoiceUpTo = Optional.ofNullable(lidtDto1.getInvoiceUpTo());
 					Optional<Float> checkNullInvoiceAmt = Optional.ofNullable(lidtDto1.getInvoiceAmt());
+					Optional<Float> checkNullPenaltyAmt = Optional.ofNullable(lidtDto1.getPenaltyAmt());
 					Optional<String> checkNullShipAdd = Optional.ofNullable(lidtDto1.getShipAdd());
 					Optional<String> checkNullShipState = Optional.ofNullable(lidtDto1.getShipState());
 					
-				/*	if ((checkNullFinYear.isPresent() || !checkNullFinYear.get().trim().equals(""))		
+				
+					/*	if ((checkNullFinYear.isPresent() || !checkNullFinYear.get().trim().equals(""))		
 							&& (checkNullInvNo.isPresent() || !checkNullInvNo.get().equals(0))
 							&& (checkNullInvDt.isPresent() || !checkNullInvDt.get().equals(""))
 							&& (checkNullCusName.isPresent() || !checkNullCusName.get().equals(""))
@@ -3775,6 +3808,7 @@ public class UploadServiceImpl implements UploadService {
 							&& !checkNullInvoiceFrom.get().equals("")
 							&& !checkNullInvoiceUpTo.get().equals("")
 							&& lidtDto1.getInvoiceAmt() != null
+							&& lidtDto1.getPenaltyAmt() != null
 							&& lidtDto1.getShipAdd() != null
 							&& lidtDto1.getShipState() != null) { //logger.info("i m inside if clause: "+ count);
 						
@@ -3788,6 +3822,7 @@ public class UploadServiceImpl implements UploadService {
 							|| !checkNullInvoiceFrom.isPresent() || checkNullInvoiceFrom.get().equals("") || lidtDto1.getInvoiceFrom().trim() == ""
 							|| !checkNullInvoiceUpTo.isPresent() || checkNullInvoiceUpTo.get().equals("") || lidtDto1.getInvoiceUpTo().trim() == ""
 							|| !checkNullInvoiceAmt.isPresent() || checkNullInvoiceAmt.get().equals(0) || lidtDto1.getInvoiceAmt() == null
+							|| !checkNullPenaltyAmt.isPresent() || checkNullPenaltyAmt.get().equals(0) || lidtDto1.getPenaltyAmt() == null
 							|| !checkNullShipAdd.isPresent() || checkNullShipAdd.get().equals("") || lidtDto1.getShipAdd() == null
 							|| !checkNullShipState.isPresent() || checkNullShipState.get().equals("") || lidtDto1.getShipState() == null) {// logger.info("i m inside else-if clause: "+ count);
 						entity = new InvoiceVendor();
@@ -3801,6 +3836,7 @@ public class UploadServiceImpl implements UploadService {
 						entity.setInvoiceUpTo(lidtDto1.getInvoiceUpTo());
 					//	entity.setInvoiceAmt(lidtDto1.getInvoiceAmt());
 						entity.setInvoiceAmt((float) (lidtDto1.getInvoiceAmt()== null ? 0.0 : lidtDto1.getInvoiceAmt()) );
+						entity.setPenaltyAmt((float) (lidtDto1.getPenaltyAmt()== null ? 0.0 : lidtDto1.getPenaltyAmt()) );
 						entity.setShipAdd(lidtDto1.getShipAdd());
 						entity.setShipState(lidtDto1.getShipState());
 						
@@ -3835,6 +3871,7 @@ public class UploadServiceImpl implements UploadService {
 						entity.setInvoiceUpTo(listEntityNew.getInvoiceUpTo());
 					//	entity.setInvoiceAmt(lidtDto1.getInvoiceAmt());
 						entity.setInvoiceAmt((float) (listEntityNew.getInvoiceAmt()== null ? 0.0 : listEntityNew.getInvoiceAmt()) );
+						entity.setPenaltyAmt((float) (listEntityNew.getPenaltyAmt()== null ? 0.0 : listEntityNew.getPenaltyAmt()) );
 						entity.setShipAdd(listEntityNew.getShipAdd());
 						entity.setShipState(listEntityNew.getShipState());
 						listEntityDup.add(entity);

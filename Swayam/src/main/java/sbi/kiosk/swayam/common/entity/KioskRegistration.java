@@ -4,17 +4,34 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 
 import lombok.Data;
+import sbi.kiosk.swayam.common.dto.KioskRegistrationDto;
 
+@SuppressWarnings("serial")
 @Data
 @Entity
+@IdClass(value = KioskRegistrationCompositeId.class)
 public class KioskRegistration implements Serializable {
 
 	public KioskRegistration() {
 		// TODO Auto-generated constructor stub
 	}
-	
+	public KioskRegistration(KioskRegistrationDto dto) {
+		
+		this.circle = dto.getCircle();
+		this.branchCode = dto.getBranchCode();
+		this.vendor = dto.getVendor();
+		this.kioskId = dto.getKioskId();
+		this.kioskIp = dto.getKioskIp();
+		this.kioskMacAddress = dto.getKioskMacAddress();
+		this.kioskSerialNo = dto.getKioskSerialNo();
+		this.refId = dto.getRefId();
+		this.username = dto.getUsername();
+		this.phoneNo = dto.getPhoneNo();
+		// TODO Auto-generated constructor stub
+	}
 	 @Id
 	@Column(name = "CIRCLE")  
     private String circle;  
@@ -41,10 +58,10 @@ public class KioskRegistration implements Serializable {
     @Column(name = "RFP_ID")  
     private String refId;  
     
-    @Column(name = "ASSIGNED_CMF")  
+    @Column(name = "USERNAME")  
     private String username;  
     
-     @Column(name = "ASSIGNED_CMF_PHONE_NO")  
+     @Column(name = "PHONENO")  
     private String phoneNo; 
 
 }

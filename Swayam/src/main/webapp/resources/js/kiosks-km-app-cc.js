@@ -23,24 +23,52 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
    }
 
    $scope.counttype=type;
+   if ($scope.counttype == "CMS" || $scope.counttype == "LIPI" || $scope.counttype == "InstalledCMSVendor" || 
+		   $scope.counttype == "DeleviredCMSVendor" || $scope.counttype == "InstalledLIPIVendor" || $scope.counttype == "DeleviredLIPIVendor" ||
+		   $scope.counttype == "Assigned" || $scope.counttype == "ToBeAssigned" )
+   {
 	   UserManagementService.getUsers(paginationOptions.pageNumber,
-			   paginationOptions.pageSize,$scope.counttype).success(function(data){				   
+			   paginationOptions.pageSize,$scope.counttype).success(function(data){		debugger;		   
+					  $scope.gridOptions.data = data.content;
+					  $scope.gridOptions.paginationCurrentPage = paginationOptions.pageNumber;
+				 	  $scope.gridOptions.totalItems = data.totalElements;
+				   });
+   }
+   else
+   {
+	   UserManagementService.getUsersNew(paginationOptions.pageNumber,
+			   paginationOptions.pageSize,$scope.counttype).success(function(data){		debugger;		   
 					  $scope.gridOptions.data = data.content;
 					  $scope.gridOptions.paginationCurrentPage = paginationOptions.pageNumber;
 				 	  $scope.gridOptions.totalItems = data.totalElements;
 				   });
 	}
    
-   
+   }
    
    $scope.refresh = function()
    {  	
 	   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
-	 	   UserManagementService.getUsers(paginationOptions.pageNumber,
-	 			   paginationOptions.pageSize,$scope.counttype).success(function(data){ debugger;
-	 		  $scope.gridOptions.data = data.content;
-	 	 	  $scope.gridOptions.totalItems = data.totalElements;
-	 	   });	   
+	   	  if ($scope.counttype == "CMS" || $scope.counttype == "LIPI" || $scope.counttype == "InstalledCMSVendor" || 
+	   		   $scope.counttype == "DeleviredCMSVendor" || $scope.counttype == "InstalledLIPIVendor" || $scope.counttype == "DeleviredLIPIVendor" ||
+	   		   $scope.counttype == "Assigned" || $scope.counttype == "ToBeAssigned" )
+	      {
+	   	   UserManagementService.getUsers(paginationOptions.pageNumber,
+	   			   paginationOptions.pageSize,$scope.counttype).success(function(data){		debugger;		   
+	   					  $scope.gridOptions.data = data.content;
+	   					  $scope.gridOptions.paginationCurrentPage = paginationOptions.pageNumber;
+	   				 	  $scope.gridOptions.totalItems = data.totalElements;
+	   				   });
+	      }
+	      else
+	      {
+	   	   UserManagementService.getUsersNew(paginationOptions.pageNumber,
+	   			   paginationOptions.pageSize,$scope.counttype).success(function(data){		debugger;		   
+	   					  $scope.gridOptions.data = data.content;
+	   					  $scope.gridOptions.paginationCurrentPage = paginationOptions.pageNumber;
+	   				 	  $scope.gridOptions.totalItems = data.totalElements;
+	   				   });
+	   	}   
 	 		   
 	 	    }else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
 	 	  
@@ -55,11 +83,26 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 			 	  	      $("#loading").hide();
 			 	 	     });
 	 	    }else{
-	 	    	UserManagementService.getUsers(paginationOptions.pageNumber,
-	 	 			   paginationOptions.pageSize,$scope.counttype).success(function(data){
-	 	 		  $scope.gridOptions.data = data.content;
-	 	 	 	  $scope.gridOptions.totalItems = data.totalElements;
-	 	 	   });
+	 		   	  if ($scope.counttype == "CMS" || $scope.counttype == "LIPI" || $scope.counttype == "InstalledCMSVendor" || 
+	 			   		   $scope.counttype == "DeleviredCMSVendor" || $scope.counttype == "InstalledLIPIVendor" || $scope.counttype == "DeleviredLIPIVendor" ||
+	 			   		   $scope.counttype == "Assigned" || $scope.counttype == "ToBeAssigned" )
+	 			      {
+	 			   	   UserManagementService.getUsers(paginationOptions.pageNumber,
+	 			   			   paginationOptions.pageSize,$scope.counttype).success(function(data){		debugger;		   
+	 			   					  $scope.gridOptions.data = data.content;
+	 			   					  $scope.gridOptions.paginationCurrentPage = paginationOptions.pageNumber;
+	 			   				 	  $scope.gridOptions.totalItems = data.totalElements;
+	 			   				   });
+	 			      }
+	 			      else
+	 			      {
+	 			   	   UserManagementService.getUsersNew(paginationOptions.pageNumber,
+	 			   			   paginationOptions.pageSize,$scope.counttype).success(function(data){		debugger;		   
+	 			   					  $scope.gridOptions.data = data.content;
+	 			   					  $scope.gridOptions.paginationCurrentPage = paginationOptions.pageNumber;
+	 			   				 	  $scope.gridOptions.totalItems = data.totalElements;
+	 			   				   });
+	 			   	}
 	 	    }
 	    };
 	    $scope.clearSearch = function()
@@ -69,7 +112,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	 	   
 	 	        $("#loading").show();  
 	 	    
-	 	   	 UserManagementService.getUsers(0,
+	 	   	 UserManagementService.getUsersNew(0,
 	 	   			paginationOptions.pageSize,$scope.counttype).success(function(data){
 	 	  	  $scope.gridOptions.data = data.content;
 	 	  	  $scope.gridOptions.paginationCurrentPage = data.number;
@@ -82,11 +125,23 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
 	 	 	   
 	 	    };
 
+	 	   if ($scope.counttype == "CMS" || $scope.counttype == "LIPI" || $scope.counttype == "InstalledCMSVendor" || 
+	 			   $scope.counttype == "DeleviredCMSVendor" || $scope.counttype == "InstalledLIPIVendor" || $scope.counttype == "DeleviredLIPIVendor" ||
+	 			   $scope.counttype == "Assigned" || $scope.counttype == "ToBeAssigned" )
+	 	   {
    UserManagementService.getUsers(paginationOptions.pageNumber,
 		   paginationOptions.pageSize,$scope.counttype).success(function(data){ debugger;
 	  $scope.gridOptions.data = data.content;
  	  $scope.gridOptions.totalItems = data.totalElements;
    });
+	 	   }else{
+	 		   
+	 		  UserManagementService.getUsersNew(paginationOptions.pageNumber,
+	 				   paginationOptions.pageSize,$scope.counttype).success(function(data){ debugger;
+	 			  $scope.gridOptions.data = data.content;
+	 		 	  $scope.gridOptions.totalItems = data.totalElements;
+	 				  });
+	 	   }
    
    $scope.gridOptions = {
 	/*paginationPageSizes: [20, 30, 40],*/
@@ -105,13 +160,15 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
       { name: 'refId', displayName: 'RFP ID'  },
  /*   Commented temporarily by Manisha
   *   { name: 'installationStatus',  displayName: 'Installation Status'  },*/
-      { name: 'username',    	  
+      { name: 'username', displayName: 'Assigned CMF'  },
+      { name: 'phoneNo', displayName: 'Assigned CMF Phone No'  },
+  /*    { name: 'username',    	  
     	  displayName: 'Assigned CMF',	  
     	  cellTemplate: '<div ng-if="row.entity.pfId != undefined">{{ row.entity.username }}</div><div ng-if="row.entity.pfId == undefined">Not Assigned</a></div>'
       },
       { name: 'phoneNo', displayName: 'Assigned CMF Phone No' ,	  
     	  cellTemplate: '<div ng-if="row.entity.pfId != undefined">{{ row.entity.phoneNo }}</div><div ng-if="row.entity.pfId == undefined">NA</a></div>'
-    		      }
+    		      }*/
       
     ],
     onRegisterApi: function(gridApi) { debugger;
@@ -122,11 +179,32 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
           $("#loading").show();  
   	    
 	        if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){
-          UserManagementService.getUsers(newPage,pageSize,$scope.counttype).success(function(data){
+      /*    UserManagementService.getUsers(newPage,pageSize,$scope.counttype).success(function(data){
         	  $scope.gridOptions.data = data.content;
          	  $scope.gridOptions.totalItems = data.totalElements;
          	 $("#loading").hide();  
-          });
+          });*/
+          
+	   	  if ($scope.counttype == "CMS" || $scope.counttype == "LIPI" || $scope.counttype == "InstalledCMSVendor" || 
+		   		   $scope.counttype == "DeleviredCMSVendor" || $scope.counttype == "InstalledLIPIVendor" || $scope.counttype == "DeleviredLIPIVendor" ||
+		   		   $scope.counttype == "Assigned" || $scope.counttype == "ToBeAssigned" )
+		      {
+	   		 UserManagementService.getUsers(newPage,pageSize,$scope.counttype).success(function(data){
+	        	  $scope.gridOptions.data = data.content;
+	         	  $scope.gridOptions.totalItems = data.totalElements;
+	         	 $("#loading").hide();  
+	          });
+	          
+		      }
+		      else
+		      {
+		    	  UserManagementService.getUsersNew(newPage,pageSize,$scope.counttype).success(function(data){
+		        	  $scope.gridOptions.data = data.content;
+		         	  $scope.gridOptions.totalItems = data.totalElements;
+		         	 $("#loading").hide();  
+		          });
+		          
+		   	}
 	        }
 	        else{debugger;
 	 	 	   	console.log("Inside else");
@@ -156,6 +234,14 @@ app.service('UserManagementService',['$http', function ($http) {
           url: 'kiosks/get?page='+pageNumber+'&size='+size+'&type='+counttype
         });
     }
+	function getUsersNew(pageNumber,size,counttype) { debugger;
+	
+	pageNumber = pageNumber > 0?pageNumber - 1:0;
+    return  $http({
+      method: 'GET',
+      url: 'kiosks/getNew?page='+pageNumber+'&size='+size+'&type='+counttype
+    });
+}
 	function getSearchNext(pageNumber,size,counttype, searchText) {
 	
 		pageNumber = pageNumber > 0?pageNumber - 1:0;
@@ -166,6 +252,7 @@ app.service('UserManagementService',['$http', function ($http) {
 	}
     return {
     	getUsers:getUsers,
+    	getUsersNew:getUsersNew,
     	 getSearchNext:getSearchNext
     };
 	
