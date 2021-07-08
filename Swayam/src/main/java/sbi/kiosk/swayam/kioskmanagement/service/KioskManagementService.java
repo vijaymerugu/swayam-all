@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import sbi.kiosk.swayam.common.dto.KioskBranchMasterUserDto;
 import sbi.kiosk.swayam.common.dto.KioskRegistrationDto;
 import sbi.kiosk.swayam.common.dto.UserKioskMappingDeMapperDto;
+import sbi.kiosk.swayam.common.entity.KioskRegistration;
 import sbi.kiosk.swayam.common.entity.User;
 
 public interface KioskManagementService {
@@ -29,6 +30,8 @@ public interface KioskManagementService {
 	List<UserKioskMappingDeMapperDto> deleteUserKioskMapping(List<UserKioskMappingDeMapperDto> dto);
 	
 	Page<KioskBranchMasterUserDto> findPaginated(int page, int size);
+	
+	Page<KioskRegistrationDto> findPaginatedNew(int page, int size);
 	
 	KioskBranchMasterUserDto getKiosksFromKioskBranchMasterByKioskId(String kioskId);
 	

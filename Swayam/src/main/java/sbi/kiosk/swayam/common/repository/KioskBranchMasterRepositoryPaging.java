@@ -1,13 +1,17 @@
 package sbi.kiosk.swayam.common.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
 import sbi.kiosk.swayam.common.dto.KioskBranchMasterUserDto;
 import sbi.kiosk.swayam.common.entity.KioskBranchMaster;
+
 
 public interface KioskBranchMasterRepositoryPaging extends PagingAndSortingRepository<KioskBranchMaster, Integer> {
 
@@ -24,4 +28,8 @@ public interface KioskBranchMasterRepositoryPaging extends PagingAndSortingRepos
 
 	
 	public Page<KioskBranchMaster> findAllByKioskId( @Param("kioskId") String kioskId,Pageable pageable);
+
+//	public List<KioskBranchMaster> findAllByKiosk(PageRequest of);
+	
+	 
 }

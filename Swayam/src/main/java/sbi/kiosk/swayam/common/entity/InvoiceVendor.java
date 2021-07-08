@@ -37,6 +37,8 @@ public class InvoiceVendor {
 	private String invoiceUpTo;
 	@Column(name="INVO_AMT")
 	private Float invoiceAmt;
+	@Column(name="PENALTY_AMT")
+	private Float penaltyAmt;
 	@Column(name="SHIP_ADD")
 	private String shipAdd;
 	@Column(name="SHIP_STATE")
