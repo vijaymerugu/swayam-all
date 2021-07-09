@@ -84,7 +84,8 @@ $(document).ready(function(){
      
    <!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
     
-        <style>
+       
+    <style>
         .tb-bk {
             background: #f3f7fa;
         }
@@ -134,17 +135,25 @@ $(document).ready(function(){
         padding:5px 10px;
         }
         
-         option:empty
-          {
-           display:none;
-          }
-             .ui-grid-contents-wrapper {
+        input:invalid {
+  border: 2px dashed red;
+}
+
+input:invalid:required {
+  background-image: linear-gradient(to right, pink, lightgreen);
+}
+
+input:valid {
+  border: 2px solid black;
+}
+/*     .ui-grid-contents-wrapper {
     position: relative;
     height: 100%;
     width: 100%;
-}
-    		.ui-grid, .ui-grid-viewport {
+} */
+    		.ui-grid, .ui-grid-viewport { 
    			  height: auto !important; 
+   			  overflow: hidden;
 			} 
 			.ui-grid-pager-panel {
 		     position: relative;
@@ -153,20 +162,21 @@ $(document).ready(function(){
 			.ui-grid-pager-row-count-picker {
 			display:none;
 			}
-			.ui-grid .ui-grid-render-container-body .ui-grid-viewport {
-			    overflow-x: auto !important;
-			    /* overflow-y: auto !important; */
-			}
-			.ui-grid-header-canvas {
-			    padding-top: 0px;
-			    padding-bottom: 0px;}
+ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
+    overflow: hidden;
+}
+
+    .ui-grid-header-cell {float: left;}
+    .ui-grid-header-canvas {
+    padding-top: 0px;
+    padding-bottom: 0px;}
     </style>
-   
+
 
 </head>
 <body>
 
-<div class="main_transaction" ng-app="app" id="appId">
+<div class="main_terminal" ng-app="app" id="appId">
 <div ng-controller="UserManagementCtrl as vm">
  <div>
  <form name="myForm" id="myForm">
@@ -322,10 +332,10 @@ $(document).ready(function(){
 		</form>
 		</div> 
 <br/>
-		<div class="submain_transaction">
+		<!-- <div class="submain_transaction"> -->
+	<div class="submain_terminal">
 	
-	
-	<!-- <input ng-model="searchText" ng-change="refresh()" placeholder="Enter KioskId,BranchCode,Circle,Vendor etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input"> -->
+<!--  <input ng-model="searchText" ng-change="refresh()" placeholder="Enter KioskId,BranchCode,Circle,Vendor etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">  -->
 		<span style="float:right">
 		<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
 		<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>

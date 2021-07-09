@@ -172,12 +172,13 @@ app.controller('UserManagementCtrl', ['$scope','$filter','$http','$window','User
 		        
 		        var $from=$("#datepickerFromDate").datepicker('getDate');
 		       var $to =$("#datepickerToDate").datepicker('getDate');
-		        if($from>$to)
+		       
+		      /*  if($from>$to)
 		       	{
 		        		alert("from date shouldn't greater than To date");
 		        		$("#datepickerFromDate").focus();
 		        	}
-
+*/
 				UserManagementService
 						.getUsers(paginationOptions.pageNumber,paginationOptions.pageSize, counttype,selectedKioskId,
 						$('#datepickerFromDate').val(),selectedCategoryId,selectedCircelId,$('#datepickerToDate').val(),selectedSubCategoryId,

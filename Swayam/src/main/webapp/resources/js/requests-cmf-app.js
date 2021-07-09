@@ -98,7 +98,7 @@ console.log("$scope.ddMMyyyy::::::::"+$scope.ddMMyyyy );
     enableColumnMenus:false,
 	useExternalPagination: true,
 
-    columnDefs: [
+ /*   columnDefs: [
       { name: 'id', displayName: 'Case Id', width:170,
     	  //cellTemplate: '<div class="ui-grid-cell-contents"><a style="cursor: hand;cursor: pointer;" href="/hm/viewCaseId?caseId={{ row.entity.id }}">{{ row.entity.id }}</a></div>'
     	  cellTemplate: '<div class="ui-grid-cell-contents"><a style="cursor: hand;cursor: pointer;" ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.id)">{{ row.entity.id }}</a></div>'  
@@ -128,7 +128,42 @@ console.log("$scope.ddMMyyyy::::::::"+$scope.ddMMyyyy );
          cellTemplate: '<div ng-show="grid.appScope.activateCheck(row.entity.reqCategory,row.entity.toDate) "><div><input type="button" ng-click="grid.appScope.loadHomeBodyPageFormsUpdate(row.entity.id,row.entity.kioskId)" id="button" class="button" value="Activate" id="active" style=" background-color: #FDD209; border-top: 2px #FDD209;border-bottom-width: 4px #FDD209; left: 579px; width: 97px;  height: 32px;opacity: 1;" /></div> </div>'
      
       },
+    ],*/
+    
+    
+       columnDefs: [
+      { name: 'id', displayName: 'Case Id',
+    	  //cellTemplate: '<div class="ui-grid-cell-contents"><a style="cursor: hand;cursor: pointer;" href="/hm/viewCaseId?caseId={{ row.entity.id }}">{{ row.entity.id }}</a></div>'
+    	  cellTemplate: '<div class="ui-grid-cell-contents"><a style="cursor: hand;cursor: pointer;" ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.id)">{{ row.entity.id }}</a></div>'  
+      },
+      { name: 'kioskId', displayName: 'Kiosk Id' },
+      { name: 'modifiedDate' ,displayName: 'Request Date Time',type: 'date',cellFilter: 'date:"dd-MM-yyyy hh:mm:ss a"'
+    	  //cellTemplate:'<div class="ui-grid-cell-contents">{{grid.appScope.showDate(row.entity.modifiedDate)}}</div>'
+    		  },
+      { name: 'modifiedBy', displayName: 'Request By'  },
+      { name: 'comments', headerCellTemplate: '<div>Comments By <br/> Checker/Approver</div>' },
+      { name: 'reqCategory',
+    	  exporterSuppressExport: true,
+    	  headerCellTemplate: '<div>Status</div>',
+    	cellTemplate: '<div ng-if="row.entity.reqCategory == \'APRD\'">APPROVED</div><div ng-if="row.entity.reqCategory == \'REJ\'">REJECTED</div><div ng-if="row.entity.reqCategory == \'CRTD\'">CREATED</div>'
+      },
+      { name: 'fromDate', type: 'date', cellFilter: 'date:"dd-MM-yy"',
+    	  headerCellTemplate: '<div>From Date</div>',
+      },
+      { name: 'toDate',type: 'date',cellFilter: 'date:"dd-MM-yy"',
+    	  
+    	  headerCellTemplate: '<div>To Date</div>',
+      },
+      {   
+         name: 'Active',
+    	 headerCellTemplate: '<div></div>',
+    	 // cellTemplate: '<div ng-if="row.entity.reqCategory == \'APRD\'  "  ><div><input type="button" ng-click="grid.appScope.loadHomeBodyPageForms1(row.entity.id,row.entity.kioskId,row.entity.toDate)" id="button" class="button" value="Activate" id="active" /></div> </div>'
+         cellTemplate: '<div ng-show="grid.appScope.activateCheck(row.entity.reqCategory,row.entity.toDate) "><div><input type="button" ng-click="grid.appScope.loadHomeBodyPageFormsUpdate(row.entity.id,row.entity.kioskId)" id="button" class="button" value="Activate" id="active" style=" background-color: #FDD209; border-top: 2px #FDD209;border-bottom-width: 4px #FDD209; left: 579px; width: 97px;  height: 32px;opacity: 1;" /></div> </div>'
+     
+      },
     ],
+    
+    
     onRegisterApi: function(gridApi) {
         $scope.gridApi = gridApi;
         gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {

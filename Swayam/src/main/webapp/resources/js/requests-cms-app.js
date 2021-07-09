@@ -65,7 +65,7 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
     paginationPageSize: paginationOptions.pageSize,
     enableColumnMenus:false,
 	useExternalPagination: true,
-	
+	/*
     columnDefs: [
 { name: 'id', displayName: 'Case Id', width:150,
     	  cellTemplate: '<div class="ui-grid-cell-contents"><a style="cursor: hand;cursor: pointer;" ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.id)">{{ row.entity.id }}</a></div>'  
@@ -89,8 +89,35 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
     	  width:200,
     	  headerCellTemplate: '<div>To Date</div>',
       },
+    
+    ],*/
+    
+    
+      columnDefs: [
+      { name: 'id', displayName: 'Case Id',
+    	  cellTemplate: '<div class="ui-grid-cell-contents"><a style="cursor: hand;cursor: pointer;" ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.id)">{{ row.entity.id }}</a></div>'  
+      },
+    
+      { name: 'kioskId', displayName: 'Kiosk Id',   },
+      { name: 'modifiedDate',  displayName: 'Request Date Time',type: 'date',cellFilter: 'date:"dd-MM-yyyy hh:mm:ss a"'
+    	  //cellTemplate:'<div class="ui-grid-cell-contents">{{grid.appScope.showDate(row.entity.modifiedDate)}}</div>'
+    		  },
+      { name: 'modifiedBy', displayName: 'Request By' },
+      { name: 'comments', headerCellTemplate: '<div>Comments By Requestor</div>'},
+      { name: 'remarks',
+    	  exporterSuppressExport: true, width:400,
+    	  headerCellTemplate: '<div>Remarks By Checker</div>',
+    	  cellTemplate: '<div class="addedRows"><input type="text" name="remarks[{{row.entity.id}}]" id="remarks" maxlength="100" /></div>'
+      },
+      { name: 'fromDate',type: 'date', cellFilter: 'date:"dd-MM-yy"',
+    	  headerCellTemplate: '<div>From Date</div>'
+      },
+      { name: 'toDate',type: 'date', cellFilter: 'date:"dd-MM-yy"',
+    	  
+    	  headerCellTemplate: '<div>To Date</div>',
+      },
      /*  { name: 'Active',
-    	  headerCellTemplate: '<div></div>',width:100,
+    	  headerCellTemplate: '<div></div>',
     	  cellTemplate: '<div><input type="button" ng-click="grid.appScope.loadHomeBodyPageForms1(row.entity.id)" id="button" class="button" value="Active" id="active" /></div>'
       },*/
     ],
