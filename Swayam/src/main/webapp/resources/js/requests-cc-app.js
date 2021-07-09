@@ -57,12 +57,12 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
     enableColumnMenus:false,
 	useExternalPagination: true,
 	
-    columnDefs: [
+ /*   columnDefs: [
  { name: 'id', displayName: 'Case Id', width:150,
     	  cellTemplate: '<div class="ui-grid-cell-contents"><a style="cursor: hand;cursor: pointer;" ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.id)">{{ row.entity.id }}</a></div>'  
       },
-     /* { name: 'category', displayName: 'Category', width:250  },
-      { name: 'subCategory', displayName: 'Sub Category', width:200  },*/
+     // { name: 'category', displayName: 'Category', width:250  },
+     // { name: 'subCategory', displayName: 'Sub Category', width:200  },
       { name: 'kioskId', displayName: 'Kiosk Id', width:250  },
       { name: 'modifiedDate', width:250, displayName: 'Request Date Time     ',type: 'date',cellFilter: 'date:"dd-MM-yyyy hh:mm:ss a"'
     	  //cellTemplate:'<div class="ui-grid-cell-contents">{{grid.appScope.showDate(row.entity.modifiedDate)}}</div>'
@@ -79,6 +79,31 @@ app.controller('UserManagementCtrl', ['$scope','$filter','UserManagementService'
       },
       { name: 'toDate',type: 'date', cellFilter: 'date:"dd-MM-yy"',
     	  width:200,
+    	  headerCellTemplate: '<div>To Date</div>',
+      },
+       ]*/
+       
+          columnDefs: [
+ { name: 'id', displayName: 'Case Id',
+    	  cellTemplate: '<div class="ui-grid-cell-contents"><a style="cursor: hand;cursor: pointer;" ng-click="grid.appScope.loadHomeBodyPageForms(row.entity.id)">{{ row.entity.id }}</a></div>'  
+      },
+     // { name: 'category', displayName: 'Category'  },
+     // { name: 'subCategory', displayName: 'Sub Category'  },
+      { name: 'kioskId', displayName: 'Kiosk Id'  },
+      { name: 'modifiedDate', width:180, displayName: 'Request Date Time     ',type: 'date',cellFilter: 'date:"dd-MM-yyyy hh:mm:ss a"'
+    	  //cellTemplate:'<div class="ui-grid-cell-contents">{{grid.appScope.showDate(row.entity.modifiedDate)}}</div>'
+    		  },
+      { name: 'modifiedBy', displayName: 'Request By' },
+      { name: 'comments', headerCellTemplate: '<div>Comments By Requestor</div>' },
+      { name: 'remarks',
+    	  exporterSuppressExport: true,
+    	  headerCellTemplate: '<div>Remarks By Approver</div>',width:250,
+    	  cellTemplate: '<div class="addedRows"><input type="text" name="remarks[{{row.entity.id}}]" id="remarks" maxlength="100" /></div>'
+      },
+      { name: 'fromDate',type: 'date', cellFilter: 'date:"dd-MM-yy"',
+    	  headerCellTemplate: '<div>From Date</div>',
+      },
+      { name: 'toDate',type: 'date', cellFilter: 'date:"dd-MM-yy"',
     	  headerCellTemplate: '<div>To Date</div>',
       },
        ],
