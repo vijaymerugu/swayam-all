@@ -25,7 +25,8 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			s3.KIOSK_SERIAL_NO,\r\n" + 
 			"			s3.QTR_ID,\r\n" + 
 			"			s3.FIN_YR,\r\n" + 
-			"			s3.AMC_COST,\r\n" + 
+			"			s3.AMC_COST,\r\n" +
+			"			s3.SPARE_PARTS_COST,\r\n"+
 			"			s5.AMC_AMT,\r\n" + 
 			"			(s3.PENALTY_AMT - s3.CORRECTION_AMT) AS PENALTY_SBI_AMT , s3.CORRECTION_AMT ,\r\n" + 
 			"			s5.PENALTY_AMT as VENDOR_PENALTY_AMT,\r\n" + 
@@ -76,6 +77,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			s3.QTR_ID,\r\n" + 
 			"			s3.FIN_YR,\r\n" + 
 			"			s3.AMC_COST,\r\n" + 
+			"			s3.SPARE_PARTS_COST,\r\n"+
 			"			s5.AMC_AMT,\r\n" + 
 			"			(s3.PENALTY_AMT - s3.CORRECTION_AMT) AS PENALTY_SBI_AMT , s3.CORRECTION_AMT ,\r\n" + 
 			"			s5.PENALTY_AMT as VENDOR_PENALTY_AMT,\r\n" + 
@@ -129,6 +131,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			s3.QTR_ID,\r\n" + 
 			"			s3.FIN_YR,\r\n" + 
 			"			s3.AMC_COST,\r\n" + 
+			"			s3.SPARE_PARTS_COST,\r\n"+
 			"			s5.AMC_AMT,\r\n" + 
 			"			(s3.PENALTY_AMT - s3.CORRECTION_AMT) AS PENALTY_SBI_AMT , s3.CORRECTION_AMT ,\r\n" + 
 			"			s5.PENALTY_AMT as VENDOR_PENALTY_AMT,\r\n" + 
@@ -184,6 +187,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			s3.QTR_ID,\r\n" + 
 			"			s3.FIN_YR,\r\n" + 
 			"			s3.AMC_COST,\r\n" + 
+			"			s3.SPARE_PARTS_COST,\r\n"+
 			"			s5.AMC_AMT,\r\n" + 
 			"			(s3.PENALTY_AMT - s3.CORRECTION_AMT) AS PENALTY_SBI_AMT , s3.CORRECTION_AMT ,\r\n" + 
 			"			s5.PENALTY_AMT as VENDOR_PENALTY_AMT,\r\n" + 
@@ -236,6 +240,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			s3.QTR_ID,\r\n" + 
 			"			s3.FIN_YR,\r\n" + 
 			"			s3.AMC_COST,\r\n" + 
+			"			s3.SPARE_PARTS_COST,\r\n"+
 			"			s5.AMC_AMT,\r\n" + 
 			"			(s3.PENALTY_AMT - s3.CORRECTION_AMT) AS PENALTY_SBI_AMT , s3.CORRECTION_AMT ,\r\n" + 
 			"			s5.PENALTY_AMT as VENDOR_PENALTY_AMT,\r\n" + 
@@ -291,6 +296,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			s3.QTR_ID,\r\n" + 
 			"			s3.FIN_YR,\r\n" + 
 			"			s3.AMC_COST,\r\n" + 
+			"			s3.SPARE_PARTS_COST,\r\n"+
 			"			s5.AMC_AMT,\r\n" + 
 			"			(s3.PENALTY_AMT - s3.CORRECTION_AMT) AS PENALTY_SBI_AMT , s3.CORRECTION_AMT ,\r\n" + 
 			"			s5.PENALTY_AMT as VENDOR_PENALTY_AMT,\r\n" + 
@@ -345,6 +351,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			s3.QTR_ID,\r\n" + 
 			"			s3.FIN_YR,\r\n" + 
 			"			s3.AMC_COST,\r\n" + 
+			"			s3.SPARE_PARTS_COST,\r\n"+
 			"			s5.AMC_AMT,\r\n" + 
 			"			(s3.PENALTY_AMT - s3.CORRECTION_AMT) AS PENALTY_SBI_AMT , s3.CORRECTION_AMT ,\r\n" + 
 			"			s5.PENALTY_AMT as VENDOR_PENALTY_AMT,\r\n" + 
@@ -399,6 +406,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			s3.QTR_ID,\r\n" + 
 			"			s3.FIN_YR,\r\n" + 
 			"			s3.AMC_COST,\r\n" + 
+			"			s3.SPARE_PARTS_COST,\r\n"+
 			"			s5.AMC_AMT,\r\n" + 
 			"			(s3.PENALTY_AMT - s3.CORRECTION_AMT) AS PENALTY_SBI_AMT , s3.CORRECTION_AMT ,\r\n" + 
 			"			s5.PENALTY_AMT as VENDOR_PENALTY_AMT,\r\n" + 
@@ -451,6 +459,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			s3.QTR_ID,\r\n" + 
 			"			s3.FIN_YR,\r\n" + 
 			"			s3.AMC_COST,\r\n" + 
+			"			s3.SPARE_PARTS_COST,\r\n"+
 			"			s5.AMC_AMT,\r\n" + 
 			"			(s3.PENALTY_AMT - s3.CORRECTION_AMT) AS PENALTY_SBI_AMT , s3.CORRECTION_AMT ,\r\n" + 
 			"			s5.PENALTY_AMT as VENDOR_PENALTY_AMT,\r\n" + 
@@ -506,6 +515,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			s3.QTR_ID,\r\n" + 
 			"			s3.FIN_YR,\r\n" + 
 			"			s3.AMC_COST,\r\n" + 
+			"			s3.SPARE_PARTS_COST,\r\n"+
 			"			s5.AMC_AMT,\r\n" + 
 			"			(s3.PENALTY_AMT - s3.CORRECTION_AMT) AS PENALTY_SBI_AMT , s3.CORRECTION_AMT ,\r\n" + 
 			"			s5.PENALTY_AMT as VENDOR_PENALTY_AMT,\r\n" + 
@@ -563,6 +573,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			s3.QTR_ID,\r\n" + 
 			"			s3.FIN_YR,\r\n" + 
 			"			s3.AMC_COST,\r\n" + 
+			"			s3.SPARE_PARTS_COST,\r\n"+
 			"			s5.AMC_AMT,\r\n" + 
 			"			(s3.PENALTY_AMT - s3.CORRECTION_AMT) AS PENALTY_SBI_AMT , s3.CORRECTION_AMT ,\r\n" + 
 			"			s5.PENALTY_AMT as VENDOR_PENALTY_AMT,\r\n" + 
@@ -613,6 +624,7 @@ public interface InvoiceCompareRepository extends PagingAndSortingRepository<Inv
 			"			s3.QTR_ID,\r\n" + 
 			"			s3.FIN_YR,\r\n" + 
 			"			s3.AMC_COST,\r\n" + 
+			"			s3.SPARE_PARTS_COST,\r\n"+
 			"			s5.AMC_AMT,\r\n" + 
 			"			(s3.PENALTY_AMT - s3.CORRECTION_AMT) AS PENALTY_SBI_AMT , s3.CORRECTION_AMT ,\r\n" + 
 			"			s5.PENALTY_AMT as VENDOR_PENALTY_AMT,\r\n" + 

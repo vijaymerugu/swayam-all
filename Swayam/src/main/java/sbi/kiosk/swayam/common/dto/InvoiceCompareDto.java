@@ -34,6 +34,8 @@ public class InvoiceCompareDto {
 		
 		this.invoiceAmountSBI =invoiceCompare.getInvoiceAmountSBI();
 		
+		this.amcSpareParts = invoiceCompare.getAmcSpareParts();
+		
 		this.invoiceAmountVendor=invoiceCompare.getInvoiceAmountVendor();
 		
 		this.penaltyAmountSBI = invoiceCompare.getPenaltyAmountSBI();
@@ -81,7 +83,11 @@ public class InvoiceCompareDto {
 	 * private Float difference;
 	 */
 	
+	
+	
 	private Double invoiceAmountSBI;
+	
+	private Double amcSpareParts;
 	
 	private Double invoiceAmountVendor;
 	

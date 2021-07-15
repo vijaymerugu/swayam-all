@@ -109,7 +109,7 @@ public class SanctionRequest {
 		UserDto user = (UserDto) httpSession.getAttribute("userObj");
 		
 		Map<String, Integer> mapStatusCount = null;
-		mapStatusCount = sanctionRequestservice.findAllCountRequestStatus();
+		mapStatusCount = sanctionRequestservice.findAllCountRequestStatus(user.getCircle());
 		
 		String role = userRepo.findRoleByPfId(user.getPfId());
 		
@@ -144,24 +144,125 @@ public class SanctionRequest {
 		//logger.info("Inside findPaginated");  
 		Page<BpRequest> resultPage = null;
 		
-		if(type!=null && !type.isEmpty() && !type.equals("undefined")){
+		UserDto user = (UserDto) httpSession.getAttribute("userObj");
+		
+		if(user.getCircle().equalsIgnoreCase("CORPORATE CENTRE")) {
 			
-			// resultPage = bprequest.findAll(PageRequest.of(page, size));
-			if(type.equalsIgnoreCase("Approved") 
-					|| type.equalsIgnoreCase("Rejected") 
-					|| type.equalsIgnoreCase("Submitted")) {
-			
-				resultPage = bprequest.findPageByStatus(type, PageRequest.of(page, size));
+			if(type!=null && !type.isEmpty() && !type.equals("undefined")){
+				
+				// resultPage = bprequest.findAll(PageRequest.of(page, size));
+				if(type.equalsIgnoreCase("Approved") 
+						|| type.equalsIgnoreCase("Rejected") 
+						|| type.equalsIgnoreCase("Submitted")) {
+				
+					resultPage = bprequest.findPageByStatus(type, PageRequest.of(page, size));
+				}else {
+					
+					resultPage = bprequest.findPageType(type, PageRequest.of(page, size));
+				}
 			}else {
 				
-				resultPage = bprequest.findPageType(type, PageRequest.of(page, size));
+				 resultPage = bprequest.findAll(PageRequest.of(page, size));
+				 
+				 
 			}
+			
 		}else {
 			
-			 resultPage = bprequest.findAll(PageRequest.of(page, size));
-			 
-			 
+			
+			if(type!=null && !type.isEmpty() && !type.equals("undefined")){
+				
+				// resultPage = bprequest.findAll(PageRequest.of(page, size));
+				if(type.equalsIgnoreCase("Approved") 
+						|| type.equalsIgnoreCase("Rejected") 
+						|| type.equalsIgnoreCase("Submitted")) {
+				
+					resultPage = bprequest.findPageByStatusAndCircle(type,user.getCircle(),PageRequest.of(page, size));
+				}else {
+					
+					resultPage = bprequest.findPageTypeAndCircle(type,user.getCircle(), PageRequest.of(page, size));
+				}
+			}else {
+				
+				 resultPage = bprequest.findPageByCircle(user.getCircle(), PageRequest.of(page, size));
+				 
+				 
+				 
+				 
+			}
+			
+			
 		}
+		
+		
+		 return resultPage;
+	}
+	
+	
+	@RequestMapping(value = "sannctionRequestRefresh/get", params = { "page", "size" ,"type","serchtext"}, method = RequestMethod.GET)
+	public Page<BpRequest> findPaginatedRefersh(
+		      @RequestParam("page") int page, @RequestParam("size") int size,
+		      @RequestParam("type") String type,
+		      @RequestParam("serchtext") String serchtext) {
+		//logger.info("Inside findPaginated");  
+		Page<BpRequest> resultPage = null;
+		
+		UserDto user = (UserDto) httpSession.getAttribute("userObj");
+		
+		if(user.getCircle().equalsIgnoreCase("CORPORATE CENTRE")) {
+			
+			if(type!=null && !type.isEmpty() && !type.equals("undefined")){
+				
+				// resultPage = bprequest.findAll(PageRequest.of(page, size));
+				if(type.equalsIgnoreCase("Approved") 
+						|| type.equalsIgnoreCase("Rejected") 
+						|| type.equalsIgnoreCase("Submitted")) {
+				
+					resultPage = bprequest.findPageByStatusSearch(type,serchtext,PageRequest.of(page, size));
+				}else {
+					
+					resultPage = bprequest.findPageType(serchtext, PageRequest.of(page, size));
+				}
+			}else {
+				
+				resultPage = bprequest.findPageType(serchtext, PageRequest.of(page, size));
+				
+				// resultPage = bprequest.findAll(PageRequest.of(page, size));
+				 
+				 
+			}
+			
+		}else {
+			
+			
+			if(type!=null && !type.isEmpty() && !type.equals("undefined")){
+				
+				// resultPage = bprequest.findAll(PageRequest.of(page, size));
+				if(type.equalsIgnoreCase("Approved") 
+						|| type.equalsIgnoreCase("Rejected") 
+						|| type.equalsIgnoreCase("Submitted")) {
+				
+					resultPage = bprequest.findPageByStatusAndCircleSearch(type,serchtext,user.getCircle(),PageRequest.of(page, size));
+				}else {
+					
+					resultPage = bprequest.findPageTypeAndCircle(serchtext,user.getCircle(), PageRequest.of(page, size));
+				}
+			}else {
+				
+				resultPage = bprequest.findPageTypeAndCircle(serchtext,user.getCircle(), PageRequest.of(page, size));
+				
+				
+				// resultPage = bprequest.findPageByCircle(user.getCircle(), PageRequest.of(page, size));
+				 
+				 
+				 
+				 
+			}
+			
+			
+		}
+		
+		
 		 return resultPage;
 	}
 	
@@ -183,24 +284,113 @@ public class SanctionRequest {
 	
 	
 	@RequestMapping("bp/getSanctionApprovalForm")
-	public ModelAndView formForViewApproveReject(ModelAndView model, @RequestParam("requestId") int requestId) {
+	public ModelAndView formForViewApproveReject(ModelAndView model, 
+			@RequestParam("requestId") int requestId, @RequestParam("requestType")String requestType) {
 		UserDto user = (UserDto) httpSession.getAttribute("userObj");
 		Map<String, Object> mapFormDetail = null;
-		mapFormDetail = sanctionRequestservice.findSRApprovalForm(requestId);
 		
-		if (mapFormDetail != null && !mapFormDetail.isEmpty()) {
-			model.addObject("mapFormDetail", mapFormDetail);
-		}
-		
-		String role = userRepo.findRoleByPfId(user.getPfId());
+		logger.info("Inside formForViewApproveReject");
+		String role = user.getRole();
 		
 		try {
 			if(role.equalsIgnoreCase("BM")) {
 				
-				model.setViewName("SanctionRequestMakerForm");
+				if(requestType.startsWith("Invoice")) {
+					//logger.info("Inside test " + requestType);
+					mapFormDetail = sanctionRequestservice.findICApprovalForm(requestId);
+					
+					if (mapFormDetail != null && !mapFormDetail.isEmpty()) {
+						model.addObject("mapFormDetail", mapFormDetail);
+					}
+					
+					model.setViewName("invoiceCompareMakerForm");
+					
+					//return model;
+					
+				}else if (requestType.startsWith("Sanction")) {
+					
+					mapFormDetail = sanctionRequestservice.findSRApprovalForm(requestId);
+					
+					if (mapFormDetail != null && !mapFormDetail.isEmpty()) {
+						model.addObject("mapFormDetail", mapFormDetail);
+					}
+					
+					model.setViewName("SanctionRequestMakerForm");
+					
+				}else if (requestType.startsWith("Tax")) {
+					
+					mapFormDetail = sanctionRequestservice.findTaxApprovalForm(requestId);
+					
+					if (mapFormDetail != null && !mapFormDetail.isEmpty()) {
+						model.addObject("mapFormDetail", mapFormDetail);
+					}
+					
+					model.setViewName("TaxRequestMakerForm");
+					
+				}else if (requestType.startsWith("RFP")) {
+					
+					mapFormDetail = sanctionRequestservice.findRFPApprovalForm(requestId);
+					
+					if (mapFormDetail != null && !mapFormDetail.isEmpty()) {
+						model.addObject("mapFormDetail", mapFormDetail);
+					}
+					
+					model.setViewName("RFPRequestMakerForm");
+					
+				}
+				
+				
+				
+				//return model;
 				
 			}else if(role.equalsIgnoreCase("BC")) {
-				model.setViewName("SanctionRequestApprovalForm");
+				
+				//logger.info("Inside BC " + requestType);
+				if(requestType.startsWith("Invoice")) {
+					//logger.info("Inside test " + requestType);
+					mapFormDetail = sanctionRequestservice.findICApprovalForm(requestId);
+					
+					if (mapFormDetail != null && !mapFormDetail.isEmpty()) {
+						model.addObject("mapFormDetail", mapFormDetail);
+					}
+					
+					model.setViewName("invoiceCompareApprovalForm");
+					
+					//return model;
+					
+				}else if (requestType.startsWith("Sanction")) {
+					
+					mapFormDetail = sanctionRequestservice.findSRApprovalForm(requestId);
+					
+					if (mapFormDetail != null && !mapFormDetail.isEmpty()) {
+						model.addObject("mapFormDetail", mapFormDetail);
+					}
+					
+					model.setViewName("SanctionRequestApprovalForm");
+					
+				}else if (requestType.startsWith("Tax")) {
+					
+					mapFormDetail = sanctionRequestservice.findTaxApprovalForm(requestId);
+					
+					if (mapFormDetail != null && !mapFormDetail.isEmpty()) {
+						model.addObject("mapFormDetail", mapFormDetail);
+					}
+					
+					model.setViewName("TaxRequestApprovalForm");
+					
+				}else if (requestType.startsWith("RFP")) {
+					
+					mapFormDetail = sanctionRequestservice.findRFPApprovalForm(requestId);
+					
+					if (mapFormDetail != null && !mapFormDetail.isEmpty()) {
+						model.addObject("mapFormDetail", mapFormDetail);
+					}
+					
+					model.setViewName("RFPRequestApprovalForm");
+					
+				}
+				
+				
 			}
 			
 			
@@ -445,6 +635,7 @@ public class SanctionRequest {
 			request2.setReqDate(new Date());
 			request2.setMakerPfid(user.getPfId());
 			request2.setStatus("Submitted");
+			request2.setUserCircle(user.getCircle());
 			
 			bprequest.save(request2);
         		
@@ -455,57 +646,7 @@ public class SanctionRequest {
     }
 	
 	
-	
-//	@RequestMapping(value = "bp/sanctionInsert", method = RequestMethod.POST)
-//	//@PreAuthorize("hasPermission('AddRFP','CREATE')")
-//    public ResponseEntity<RfpResponse> addSanctionRequest(@Valid @RequestBody SanctionRequestEntity request,
-//    		HttpServletRequest req, BindingResult result) {
-//			System.out.println("Inside addSanctionRequest ");
-//			UserDto user = (UserDto) httpSession.getAttribute("userObj");
-//			
-//			String csrfToken = req.getHeader("X-CSRF-TOKEN");
-//			System.out.println("Inside addSanctionRequest " + csrfToken);
-//			 if (csrfToken ==null || csrfToken.isEmpty()) {
-//				 req.getSession().invalidate();
-//				 return null;
-//				 
-//			 }else  if(req.getSession() !=null && csrfToken.equals(req.getSession().getAttribute("csrfToken"))) {
-//				 httpSession.setAttribute("csrfToken", UUID.randomUUID().toString());
-//			 }else{
-//				 req.getSession().invalidate();
-//				 return null;
-//			 }
-//			 
-//			 String role = userRepo.findRoleByPfId(user.getPfId());
-//			  if(role.equalsIgnoreCase("BM") == false) { 
-//				  return ResponseEntity.ok(new RfpResponse("Authorization Required"));  
-//				  }
-//			  
-//			  if(result.hasErrors()) {
-//      			//System.out.println("Error " + result.getAllErrors());
-//      			logger.error("Validation Failed" + result.getAllErrors());
-//      			return ResponseEntity.ok(new RfpResponse("Server side validation fail"));
-//      			
-//      		}
-//			
-//			requestRepo.save(request);
-//			
-//			BpRequest request2 = new BpRequest();
-//			
-//			request2.setRequestId(request.getRequestId());
-//			request2.setReqType("Sanction Note");
-//			request2.setReqDate(new Date());
-//			request2.setMakerPfid(user.getPfId());
-//			request2.setStatus("Submitted");
-//			
-//			bprequest.save(request2);
-//        		
-//        	
-//        	//logger.info("Request Id "+ request.getRequestId()  +" Added Successfully");
-//        	return ResponseEntity.ok(new 
-//        			RfpResponse("Request Id  "+request2.getRequestId()  +" submitted Successfully"));
-//    }
-//	
+
 	
 	
 	@RequestMapping(value = "generate/sanctionPdf",params = { "requestId"}, method = RequestMethod.GET)

@@ -22,18 +22,20 @@ public class UserSSODetailService {
 		UserEntity user = new UserEntity();
 		List<Claim> claimsSSO = ((FederatedPrincipal) req.getUserPrincipal()).getClaims();
 		for (Claim c : claimsSSO) {
-			if (c.getClaimType().contains("PF_INDEX")) {
-				user.setPfId(Long.valueOf(c.getClaimValue()));
+			/*
+			 * if (c.getClaimType().contains("PF_INDEX")) {
+			 * user.setPfId(Long.valueOf(c.getClaimValue())); } if
+			 * (c.getClaimType().contains("EMP_NAME")) {
+			 * user.setUserName(c.getClaimValue()); } if
+			 * (c.getClaimType().contains("MAIL_ID")) { user.setEmail(c.getClaimValue()); }
+			 * if (c.getClaimType().contains("MOB_NO")) {
+			 * user.setPhoneNumber(c.getClaimValue()); }
+			 */
+			
+			if (c.getClaimType().contains("upn") || c.getClaimType().contains("UPN")) {
+				user.setUpn(c.getClaimValue());
 			}
-			if (c.getClaimType().contains("EMP_NAME")) {
-				user.setUserName(c.getClaimValue());
-			}
-			if (c.getClaimType().contains("MAIL_ID")) {
-				user.setEmail(c.getClaimValue());
-			}
-			if (c.getClaimType().contains("MOB_NO")) {
-				user.setPhoneNumber(c.getClaimValue());
-			}
+			
 		}
 		return user;
 	}

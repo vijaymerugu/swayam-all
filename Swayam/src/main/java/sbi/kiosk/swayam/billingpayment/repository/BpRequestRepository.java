@@ -18,11 +18,11 @@ import sbi.kiosk.swayam.common.entity.BpRequest;
 public interface BpRequestRepository extends CrudRepository<BpRequest, Integer>,
 					PagingAndSortingRepository<BpRequest, Integer>  {
 	
-	@Query(value ="SELECT count(STATUS) FROM TBL_ALLREQUEST_DETAILS where STATUS=:status",nativeQuery=true)
-	int findByStatus(@Param("status") String status);
+	@Query(value ="SELECT count(STATUS) FROM TBL_ALLREQUEST_DETAILS where STATUS=:status AND USER_CIRCLE LIKE %:circle%",nativeQuery=true)
+	int findByStatus(@Param("status") String status,@Param("circle") String circle);
 	
-	@Query(value ="SELECT count(STATUS) FROM TBL_ALLREQUEST_DETAILS where REQ_TYPE=:type",nativeQuery=true)
-	int findCountRequestType(@Param("type") String type);
+	@Query(value ="SELECT count(STATUS) FROM TBL_ALLREQUEST_DETAILS where REQ_TYPE=:type AND USER_CIRCLE LIKE %:circle%",nativeQuery=true)
+	int findCountRequestType(@Param("type") String type,@Param("circle") String circle);
 	
 	/*
 	 * @Query(value ="SELECT count(STATUS) FROM TBL_ALLREQUEST_DETAILS " +
@@ -42,9 +42,27 @@ public interface BpRequestRepository extends CrudRepository<BpRequest, Integer>,
 	@Query(value ="SELECT * FROM TBL_ALLREQUEST_DETAILS where STATUS=:status",nativeQuery=true)
 	Page<BpRequest> findPageByStatus(@Param("status") String status,Pageable pageable);
 	
+	@Query(value ="SELECT * FROM TBL_ALLREQUEST_DETAILS where STATUS=:status AND REQ_TYPE LIKE %:type%",nativeQuery=true)
+	Page<BpRequest> findPageByStatusSearch(@Param("status") String status,@Param("type") String type,Pageable pageable);
 	
-	@Query(value ="SELECT * FROM TBL_ALLREQUEST_DETAILS where REQ_TYPE=:type",nativeQuery=true)
+	
+	
+	@Query(value ="SELECT * FROM TBL_ALLREQUEST_DETAILS where USER_CIRCLE=:circle",nativeQuery=true)
+	Page<BpRequest> findPageByCircle(@Param("circle") String circle,Pageable pageable);
+	
+	@Query(value ="SELECT * FROM TBL_ALLREQUEST_DETAILS where STATUS=:status AND USER_CIRCLE=:circle ",nativeQuery=true)
+	Page<BpRequest> findPageByStatusAndCircle(@Param("status") String status,@Param("circle") String circle,Pageable pageable);
+	
+	@Query(value ="SELECT * FROM TBL_ALLREQUEST_DETAILS where STATUS=:status AND USER_CIRCLE=:circle AND REQ_TYPE LIKE %:type%",nativeQuery=true)
+	Page<BpRequest> findPageByStatusAndCircleSearch(@Param("status") String status,@Param("type") String type,@Param("circle") String circle,Pageable pageable);
+	
+	
+	@Query(value ="SELECT * FROM TBL_ALLREQUEST_DETAILS where REQ_TYPE LIKE %:type%",nativeQuery=true)
 	Page<BpRequest> findPageType(@Param("type") String type,Pageable pageable);
+	
+	@Query(value ="SELECT * FROM TBL_ALLREQUEST_DETAILS where REQ_TYPE LIKE %:type% AND USER_CIRCLE=:circle",nativeQuery=true)
+	Page<BpRequest> findPageTypeAndCircle(@Param("type") String type,@Param("circle") String circle,Pageable pageable);
+	
 	
 	
 	

@@ -21,7 +21,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
     	   
 			 console.log("Inside resetPositions ");
 			 	$scope.SelectedQuarterId='';
-	    	   	$scope.SelectedCircelId =''; 
+	    	   //	$scope.SelectedCircelId =''; 
 	    	   	$scope.SelectedStateId ='';
 	    	   	$scope.SelectedQuarterId='';
 	    	   	$scope.SelectedYearId = $scope.yearOptions[0].value;
@@ -96,8 +96,74 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 			var selectedRfpID="";
 			var selectedkiokId="";
 			var selectedbranchCode="";
-
+			
+			
 			$scope.LoadDropDown = function(type, value) {
+				switch (type) {
+				default:
+//					$scope.SelectedCircleId = 0;
+//					$scope.CircelDefaultLabel = "Loading.....";
+					$scope.Circle = null;
+					break;
+				case "circleId":
+                    $scope.SelectedStateId = 0;
+//                    $scope.StateDefaultLabel = "Loading.....";
+                    $scope.States = null;
+                    break;
+				}
+			/*	$http({
+					method : "GET",
+					url : 'bp/getcircle',
+					dataType : 'json',
+					data : {},
+					headers : {
+						"Content-Type" : "application/json"
+					}
+				}).success(function(data, status) {
+					console.log("Done....." + value)*/
+					switch (type) {
+					default:
+//						$scope.SelectedCircelId = 0;
+//						$scope.CircleDefaultLabel = "Select Circle";
+						//$scope.Circles = data;
+						break;
+					case "circleId":
+						$scope.SelectedStateId = 0;
+						//$scope.StateDefaultLabel = "";
+						if ($scope.SelectedCircelId > 0) {
+							//$scope.StateDefaultLabel = "Select State";
+							$http({
+								method : "get",
+								url : 'bp/getstate',
+								dataType : 'json',
+								data : {},
+								headers : {
+									"Content-Type" : "application/json",
+									"circleId": value
+								}
+							}).success(function(data, status) {
+								console.log("Done Inside comm/getcities .....")
+								$scope.States = data;
+								$scope.SelectedStateId = "";
+							
+								console.log("data...." +data)
+							}).error(function(data, status) {
+								console.log("error....." + value)
+								//$window.alert(data.Message);
+							});
+							
+						}
+						break;
+					
+					}
+		/*		}).error(function(data, status) {
+					console.log("error1....." + value)
+					//$window.alert(data.Message);
+				});*/
+			};    
+			
+
+		/*	$scope.LoadDropDown = function(type, value) {
 				switch (type) {
 				default:
 //					$scope.SelectedCircleId = 0;
@@ -158,7 +224,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 				}).error(function(data, status) {
 					$window.alert(data.Message);
 				});
-			};    
+			}; */   
        $scope.LoadDropDown('', 0);
       // $scope.LoadYear();
        $scope.LoadVendor();
@@ -384,18 +450,12 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		        var check = angular.isNumber(row.Corrections);
 		        console.log("Check for integer " + check);
 		        
+		        console.log("Check for integer " + row);
+		        
 		        
 		        
 		        if(check==true && row.Corrections>=0){
-		        	
-		      
-		        
-		        //Assign the updated value to Customer object
-		    /*    $scope.Invoice.Corrections = row.Corrections;
-		        $scope.Invoice.remarks = row.Remarks;
-		        $scope.Invoice.rpfRefNumber = row.rpfRefNumber;
-		        $scope.Invoice.kioskSerialNumber = row.kioskSerialNumber;
-		        $scope.Invoice.kisokId = row.kisokId;*/
+		       
 		        Corrections = row.Corrections;
 		        remarks = row.Remarks;
 		        rpfRefNumber = row.rpfRefNumber;
@@ -403,24 +463,61 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		        kisokId = row.kisokId;
 		        quarter=row.quarterId;
 		        yearid=row.year;
+		        
 		        console.log("Invoice correction" + Corrections);
 		        console.log("Remarks " + remarks);
-		       // alert('Selected Row: '+ $scope.Invoice.rpfRefNumber);
-
-		        //Call the function to save the data to database
-		        InvoiceCorrectionService.saveCorrection(Corrections,remarks,rpfRefNumber,
-		        		kioskSerialNumber,kisokId,quarter,yearid).then(function (d) {
-		            //Display Successfull message after save
+		      
+		        
+		        var payload = {};
+		        
+		        
+		        payload = {
+		        		rpfRefNumber:row.rpfRefNumber,
+		        		vendor:row.vendor,
+		        		circleName:row.circleName,
+		        		state:row.state,
+		        		kisokId:row.kisokId,
+		        		kioskSerialNumber:row.kioskSerialNumber,
+		        		quarterId:row.quarterId,
+		        		year:row.year,
+		        		invoiceAmountSBI:row.invoiceAmountSBI,
+		        		invoiceAmountVendor:row.invoiceAmountVendor,
+		        		penaltyAmountSBI:row.penaltyAmountSBI,
+		        		penaltyAmountVendor:row.penaltyAmountVendor,
+		        		difference:row.difference,
+		        		lastcorrectionAmount:row.correctionAmount,
+		        		correctionAmount:row.Corrections,
+		        		remarks:row.Remarks,
+		        		amcSpareParts:row.amcSpareParts
+		    	   };
+		        
+		        
+		        var encodedString = btoa(JSON.stringify(payload));
+		        
+		        InvoiceCorrectionService.saveCorrection(encodedString,$scope.csrf).then(function (d) {
+		         
 		        	console.log("Inside Success " + d);
-		        	//alert("Data saved successfully");
-		        	alert(d.data.message);
-		          /*  $scope.alerts.push({
-		                msg: 'Data saved successfully',
-		                type: 'success'
-		            });*/
+		        	
+		        	alert(d.data.status);
+		        
 		        }, function (d) {
 		        	alert("Failed to save");
 		        });
+		        
+		        
+		        
+
+		        //Call the function to save the data to database
+		    /*    InvoiceCorrectionService.saveCorrection(Corrections,remarks,rpfRefNumber,
+		        		kioskSerialNumber,kisokId,quarter,yearid).then(function (d) {
+		         
+		        	console.log("Inside Success " + d);
+		        	
+		        	alert(d.data.message);
+		        
+		        }, function (d) {
+		        	alert("Failed to save");
+		        });*/
 		        
 		        }else{
 		        	
@@ -449,6 +546,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	          { name: 'penaltyAmountVendor', displayName: 'PENALTY AMOUNT VENDOR(D)', width:240 },
 	          { name: 'difference', displayName: 'DIFFERENCE IN PENALTY(C-D)' , width:240},
 	          { name: 'correctionAmount', displayName: 'LAST CORRECTION AMT' , width:200},
+	          { name: 'amcSpareParts', displayName: 'AMC SPARE PARTS' ,visible: false},
 	          {
                   name: "Corrections", displayName: "CORRECTIONS", field: "Corrections",
                   cellTemplate: '<div  ng-if="!row.entity.editrow">{{COL_FIELD}}</div><div '+ 
@@ -514,8 +612,29 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		
 	}]);
 	
-	//Factory
+	
+	
+
 	app.factory('InvoiceCorrectionService', function ($http) {
+	    var res = {};
+
+	    res.saveCorrection = function (payload,header) {
+	    	 return $http({
+		            method: 'POST',
+		            url: 'bp/IcInsert',
+		            data: payload,
+		            headers: 
+	                {
+	                    'X-CSRF-TOKEN': header
+	                }});
+	    }
+	    return res;
+	});
+	
+	
+	
+	//Factory
+	/*app.factory('InvoiceCorrectionService', function ($http) {
 	    var res = {};
 
 	    res.saveCorrection = function (Corrections,remarks,rpfRefNumber,
@@ -529,4 +648,4 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		        });
 	    }
 	    return res;
-	});
+	});*/

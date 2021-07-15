@@ -44,5 +44,8 @@ public class BpRequest {
 	
 	@Column(name="STATUS")
 	private String status;
+	
+	@Column(name="USER_CIRCLE")
+	private String userCircle;
 
 }

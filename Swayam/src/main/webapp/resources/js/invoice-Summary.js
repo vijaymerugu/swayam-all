@@ -16,23 +16,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 	   	    
 	   	    $scope.SelectedYearId = $scope.yearOptions[0].value;
 	   
-	 /*  $scope.LoadYear=function(){
-			var year = new Date().getFullYear();
-			   //var year = "2020"
-		    var range = [];
-		    //range.push(year);
-		    for (var i = 1; i <100; i++) {
-		    	var selectYear = ((year-10) + i);
-		    	
-		    	var second=selectYear+1;
-		    	var modifiedyear = (selectYear)+"-"+(second);
-		    	
-		        range.push(modifiedyear);
-		    }
-		    
-		    console.log("Range "+ range)
-		    $scope.Years = range;
-		   }*/
+	
 	   
 	  		   
 	   var counttype = "";
@@ -45,8 +29,73 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 			var selectedYearId ="";
 			var selectedVendorId="";
 			var selectedRfpID="";
-
+			
+			
 			$scope.LoadDropDown = function(type, value) {
+				switch (type) {
+				default:
+//					$scope.SelectedCircleId = 0;
+//					$scope.CircelDefaultLabel = "Loading.....";
+					$scope.Circle = null;
+					break;
+				case "circleId":
+                    $scope.SelectedStateId = 0;
+//                    $scope.StateDefaultLabel = "Loading.....";
+                    $scope.States = null;
+                    break;
+				}
+			/*	$http({
+					method : "GET",
+					url : 'bp/getcircle',
+					dataType : 'json',
+					data : {},
+					headers : {
+						"Content-Type" : "application/json"
+					}
+				}).success(function(data, status) {
+					console.log("Done....." + value)*/
+					switch (type) {
+					default:
+//						$scope.SelectedCircelId = 0;
+//						$scope.CircleDefaultLabel = "Select Circle";
+						//$scope.Circles = data;
+						break;
+					case "circleId":
+						$scope.SelectedStateId = 0;
+						//$scope.StateDefaultLabel = "";
+						if ($scope.SelectedCircelId > 0) {
+							//$scope.StateDefaultLabel = "Select State";
+							$http({
+								method : "get",
+								url : 'bp/getstate',
+								dataType : 'json',
+								data : {},
+								headers : {
+									"Content-Type" : "application/json",
+									"circleId": value
+								}
+							}).success(function(data, status) {
+								console.log("Done Inside comm/getcities .....")
+								$scope.States = data;
+								$scope.SelectedStateId = "";
+							
+								console.log("data...." +data)
+							}).error(function(data, status) {
+								console.log("error....." + value)
+								//$window.alert(data.Message);
+							});
+							
+						}
+						break;
+					
+					}
+		/*		}).error(function(data, status) {
+					console.log("error1....." + value)
+					//$window.alert(data.Message);
+				});*/
+			};  
+
+			/*$scope.LoadDropDown = function(type, value) {
 				switch (type) {
 				default:
 					//$scope.SelectedCircleId = 0;
@@ -107,8 +156,8 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 					console.log("error2....." + value)
 					//$window.alert(data.Message);
 				});
-			};    
-       $scope.LoadDropDown('', 0);
+			};    */
+    //   $scope.LoadDropDown('', 0);
       // $scope.LoadYear();
       
        
@@ -118,7 +167,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
     	   
 			 console.log("Inside resetPositions ");
 			
-	    	   	$scope.SelectedCircelId =''; 
+	    	   //$scope.SelectedCircelId =''; 
 	    	   	$scope.SelectedStateId ='';
 	    	
 	    	   	$scope.SelectedYearId = $scope.yearOptions[0].value;

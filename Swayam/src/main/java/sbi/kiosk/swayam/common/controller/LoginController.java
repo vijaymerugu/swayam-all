@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Predicate;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -21,6 +22,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,6 +52,7 @@ import sbi.kiosk.swayam.common.dto.UserDto;
 import sbi.kiosk.swayam.common.entity.AuditLogger;
 import sbi.kiosk.swayam.common.entity.CommonUrl;
 import sbi.kiosk.swayam.common.repository.AuditInsertRepository;
+import sbi.kiosk.swayam.common.repository.BillingCircleRepository;
 import sbi.kiosk.swayam.common.repository.CommonUrlConfigRepository;
 import sbi.kiosk.swayam.common.repository.UserRepository;
 import sbi.kiosk.swayam.common.service.LoginService;
@@ -77,9 +80,12 @@ public class LoginController {
 	CommonUrlConfigRepository commonUrlConfigRepo;
 	// @Autowired
 	// private JwtUtil jwtTokenUtil;
-	
+
 	@Autowired
 	UserSSODetailService userService;
+
+	@Autowired
+	BillingCircleRepository circleRepository;
 
 	static {
 		// this part is needed cause Lebocoin has invalid SSL certificate, that cannot
@@ -156,88 +162,98 @@ public class LoginController {
 	 * mav.addObject("commonError", "Bad Request"); mav.setViewName("error"); }
 	 * return mav; }
 	 */
-	
-	
+
 	@SuppressWarnings({ "finally", "restriction" })
 	@RequestMapping(value = "/SSO", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView createAuthenticationSSO(HttpServletResponse res,HttpServletRequest req,
-			final RedirectAttributes redirectAttributes, HttpSession session, ModelAndView mav)
-			throws Exception {
+	public ModelAndView createAuthenticationSSO(HttpServletResponse res, HttpServletRequest req,
+			final RedirectAttributes redirectAttributes, HttpSession session, ModelAndView mav) throws Exception {
+
+//		String pfidOfCurrentUser = String.valueOf(userService.getUserDetailsFromReq(req).getPfId());
+//		String username = String.valueOf(userService.getUserDetailsFromReq(req).getUserName());
 		
-		 logger.info("Inside createAuthenticationSSO");
-		 
-			/* try { */
-			
+		String upn1 = (String.valueOf(userService.getUserDetailsFromReq(req).getUpn()));
 		
-		 
-		String pfidOfCurrentUser = String.valueOf(userService.getUserDetailsFromReq(req).getPfId());
-		String username = String.valueOf(userService.getUserDetailsFromReq(req).getUserName());
+		String upn = upn1.substring(0,upn1.indexOf("@"));
+		/*
+		 * logger.info("PF id User " + pfidOfCurrentUser); logger.info("Username " +
+		 * username);
+		 */
 		
-		logger.info("PF id User "  +pfidOfCurrentUser );
-		logger.info("Username "  +username );
-		
+		logger.info("UPN-- "  +upn);
+
 		UserDto userObj = null;
 		try {
-			
+
 			logger.info("Inside try");
-			userObj = loginService.getRoleByUsername(pfidOfCurrentUser);
+			userObj = loginService.getRoleByUsername(upn);
 		} catch (NullPointerException e) {
 			// TODO: handle exception
 			logger.info("Inside catch");
 			mav = new ModelAndView("redirect:/errorSSO");
 			return mav;
 		}
-		
-		
-		
-		//logger.info("userObj "  + userObj);
-		if(userObj==null) {
+
+		// logger.info("userObj " + userObj);
+		if (userObj == null) {
 			mav = new ModelAndView("redirect:/errorSSO");
 			return mav;
 		}
-		
-		session.setAttribute("pfId", pfidOfCurrentUser);
-		session.setAttribute("username", username);
+
+		String circleID = null;
+		logger.info("circleID -- " + circleID);
+
+//		session.setAttribute("pfId", pfidOfCurrentUser);
+//		session.setAttribute("username", username);
+		session.setAttribute("pfId", upn);
 		session.setAttribute("userObj", userObj);
-		
-		
-		logger.info("Testing login ---pfid "+ pfidOfCurrentUser + "username"+  username);
-		
-		
-		
+		session.setAttribute("authType", "SSO");
+
+		if (!(userObj.getCircle().equalsIgnoreCase("CORPORATE CENTRE"))) {
+			circleID = circleRepository.findCircleId(userObj.getCircle());
+			logger.info("circleID -- " + circleID);
+			session.setAttribute("circelID", circleID);
+		}
+
+		//logger.info("Testing login ---pfid " + pfidOfCurrentUser + "username" + username);
+
 		mav = new ModelAndView("redirect:/home");
-		
+
 		/*
 		 * } catch (NullPointerException e) { // TODO: handle exception
 		 * 
 		 * return null; }
 		 */
-		
+
 		return mav;
 	}
-	
-	
+
 	@RequestMapping(value = "errorSSO", method = RequestMethod.GET)
 	public ModelAndView redirectSSOError() {
 
 		ModelAndView mav = new ModelAndView("omsError");
-		//mav.addObject("commonError", "Invalid userId");
-		
+		// mav.addObject("commonError", "Invalid userId");
+
 		// changes mess 22-03-2021
-	    mav.addObject("commonError", "User not created in Swayam Monitoring Tool - Please Contact System Admin ");
+		mav.addObject("commonError", "User not created in Swayam Monitoring Tool - Please Contact System Admin ");
 		return mav;
 
 	}
-	
-	
-	
-	
-	
-	
+
+	@RequestMapping(value = "errorInternet", method = RequestMethod.GET)
+	public ModelAndView redirectInternetError() {
+
+		ModelAndView mav = new ModelAndView("omsError");
+		// mav.addObject("commonError", "Invalid userId");
+
+		// changes mess 22-03-2021
+		mav.addObject("commonError", "Please login with intranet to access billing module");
+		return mav;
+
+	}
 
 	@SuppressWarnings({ "finally", "restriction" })
 	@RequestMapping(value = "authenticateUser", method = { RequestMethod.GET, RequestMethod.POST })
-	//@PostAuthorize("hasPermission('login','READ')")
+	// @PostAuthorize("hasPermission('login','READ')")
 	public ModelAndView createAuthentication(@RequestParam("Token") String Token, HttpServletResponse res,
 			final RedirectAttributes redirectAttributes, HttpSession session, AuditLogger auditLogger, ModelAndView mav)
 			throws Exception {
@@ -248,6 +264,7 @@ public class LoginController {
 		ResponseDto response = null;
 		String userId = null;
 		String result = null;
+
 		try {
 			String dbOms_url = commonUrlConfigRepo.findOmsUrl();
 			CommonUrl certificatePaths = commonUrlConfigRepo.findURL();
@@ -339,8 +356,16 @@ public class LoginController {
 						if (userId != null && userId.equals(dbPfId)) { // call login method
 							// logger.info("Inside /authenticateUser?token=" + Token + " userId " + userId);
 							UserDto userObj = loginService.getRoleByUsername(userId);
+							String circleID = null;
+							if (!(userObj.getCircle().equalsIgnoreCase("CORPORATE CENTRE"))) {
+								circleID = circleRepository.findCircleId(userObj.getCircle());
+								logger.info("circleID -- " + circleID);
+								session.setAttribute("circelID", circleID);
+							}
+
 							session.setAttribute("pfId", userObj.getPfId());
 							session.setAttribute("userObj", userObj);
+							session.setAttribute("authType", "Token");
 							// logger.info("Session Val"+ session.getAttribute("pfId"));
 							auditLogger.setPath("/authenticateUser");
 							auditLogger.setUser_Id(userId);
@@ -433,8 +458,16 @@ public class LoginController {
 					if (userId != null && userId.equals(dbPfId)) { // call login method
 						// logger.info("Inside /authenticateUser?token=" + Token + " userId " + userId);
 						UserDto userObj = loginService.getRoleByUsername(userId);
+						String circleID = null;
+						if (!(userObj.getCircle().equalsIgnoreCase("CORPORATE CENTRE"))) {
+							circleID = circleRepository.findCircleId(userObj.getCircle());
+							logger.info("circleID -- " + circleID);
+							session.setAttribute("circelID", circleID);
+						}
+
 						session.setAttribute("pfId", userObj.getPfId());
 						session.setAttribute("userObj", userObj);
+						session.setAttribute("authType", "Token");
 						// logger.info("Session Val"+ session.getAttribute("pfId"));
 						auditLogger.setPath("/authenticateUser");
 						auditLogger.setUser_Id(userId);
@@ -480,10 +513,11 @@ public class LoginController {
 	public ModelAndView redirectOmsError() {
 
 		ModelAndView mav = new ModelAndView("omsError");
-		//mav.addObject("commonError", "Invalid userId");
-		
+		// mav.addObject("commonError", "Invalid userId");
+
 		// changes mess 22-03-2021
-	    mav.addObject("commonError", "User not created in Swayam Monitoring Tool - Please contact your Circle/CC Admin");
+		mav.addObject("commonError",
+				"User not created in Swayam Monitoring Tool - Please contact your Circle/CC Admin");
 		return mav;
 
 	}
@@ -528,29 +562,47 @@ public class LoginController {
 	 */
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	//@PostAuthorize("hasPermission('login','READ')")
+	// @PostAuthorize("hasPermission('login','READ')")
 	public ModelAndView redirect() {
 		logger.info("Inside redirect ");
+		String authType = (String) httpSession.getAttribute("authType");
+
 		ModelAndView mav = null;
 		UserDto user = null;
 		String role = null;
 		try {
-			
+
 			user = (UserDto) httpSession.getAttribute("userObj");
-			role = userRepo.findRoleByPfId(user.getPfId());
-			
-		}catch (NullPointerException e) {
+			role = user.getRole();
+
+		} catch (NullPointerException e) {
 			logger.info("Inside catch --" + user);
 			return new ModelAndView("redirect:/");
 		}
-		
+
 		logger.info("Inside redirect " + user);
-		 mav = new ModelAndView("home");
+		mav = new ModelAndView("home");
 		// System.out.println("Role " + role);
 
 		if (role.equalsIgnoreCase("BM")) {
+			
+			/*
+			 * if(authType.equals("Token")) { mav = new
+			 * ModelAndView("redirect:/errorInternet"); }else { mav.addObject("suburl",
+			 * "bp/billingPenalty"); }
+			 */
+			 
+
 			mav.addObject("suburl", "bp/billingPenalty");
+
 		} else if (role.equalsIgnoreCase("BC")) {
+			
+			/*
+			 * if(authType.equals("Token")) { mav = new
+			 * ModelAndView("redirect:/errorInternet"); }else { mav.addObject("suburl",
+			 * "bp/billingPenalty"); }
+			 */
+			 
 			mav.addObject("suburl", "bp/billingPenalty");
 		} else if (role.equalsIgnoreCase("CC")) {
 			mav.addObject("suburl", "da/availability");
@@ -564,12 +616,12 @@ public class LoginController {
 			mav.addObject("suburl", "ts/terminalStatus");
 		} else if (role.equalsIgnoreCase("C")) {
 			mav.addObject("suburl", "da/cumulativeCircleData");
+		}else if (role.equalsIgnoreCase("ER")) {
+			mav.addObject("suburl", "td/transactionSummary");
 		}
-
+		
 		httpSession.setAttribute("csrfToken", UUID.randomUUID().toString());
 		// System.out.println("Inside /home method ---- login..... ");
-		
-		
 
 		// mav.setViewName("billingPenalty");
 		return mav;
@@ -666,10 +718,38 @@ public class LoginController {
 	public List<MenuMasterDto> getMenu(HttpSession session) {
 		UserDto userObj = (UserDto) session.getAttribute("userObj");
 		// session.setAttribute("username", username);
-//		logger.info("Session Val1111::: "+ session.getAttribute("pfId"));
-		return loginService.getMenusByUserRole(userObj.getRole());
-		// ModelAndView mav = new ModelAndView("home");
-		// return mav;
+		String authType = (String) session.getAttribute("authType");
+
+		logger.info("Auth Type " + authType);
+
+		// Changes -23-06-2021
+
+		List<MenuMasterDto> menuList = loginService.getMenusByUserRole(userObj.getRole());
+
+		logger.info("Session Manegemnet  " + menuList);
+
+		if (!((userObj.getRole().equalsIgnoreCase("BM") || userObj.getRole().equalsIgnoreCase("BC"))
+				&& userObj.getCircle().equalsIgnoreCase("CORPORATE CENTRE"))) {
+
+			Predicate<MenuMasterDto> condition = menu -> menu.getMenuId().startsWith("RFP");
+
+			menuList.removeIf(condition);
+			// menuList.removeIf(condition1);
+
+		}
+
+		/*
+		 * if (authType.equals("Token")) { Predicate<MenuMasterDto> condition1 = menu ->
+		 * menu.getMenuId().startsWith("BILLING"); menuList.removeIf(condition1); }
+		 */
+		 
+
+		logger.info("Session Manegemnet " + menuList);
+
+		return menuList;
+
+		// return loginService.getMenusByUserRole(userObj.getRole());
+
 	}
 
 	@RequestMapping("summary")

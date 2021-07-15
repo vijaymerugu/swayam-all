@@ -29,9 +29,10 @@ public class InvoiceCompare  {
 	private String year;
 	@Column(name="RFP_NO")
 	private String rpfRefNumber;
-	
 	@Column(name="AMC_COST")
 	private Double invoiceAmountSBI;
+	@Column(name="SPARE_PARTS_COST")
+	private Double amcSpareParts;
 	@Column(name="AMC_AMT")
 	private Double invoiceAmountVendor;	
 	@Column(name="PENALTY_SBI_AMT")

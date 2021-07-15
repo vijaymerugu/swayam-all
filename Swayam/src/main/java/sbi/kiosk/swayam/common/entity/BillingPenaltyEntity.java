@@ -5,20 +5,27 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 
 import lombok.Data;
+import sbi.kiosk.swayam.common.dto.BpCompoisteID;
+import sbi.kiosk.swayam.common.dto.InvoiceSummaryCompositeId;
 @Data
 @Entity
-public class BillingPenaltyEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
+@IdClass(value = BpCompoisteID.class)
+public class BillingPenaltyEntity  {
+	
 	
 	@Id
 	@Column(name="KIOSK_ID")
 	private String kisokId;
+	@Id
 	@Column(name="VENDOR")
 	private String vendor;
+	@Id
 	@Column(name="CRCL_NAME")
 	private String circleName;
+	@Id
 	@Column(name="STAT_DESC")
 	private String state;
 	@Column(name="KIOSK_SERIAL_NO")

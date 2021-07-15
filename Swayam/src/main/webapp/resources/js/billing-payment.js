@@ -104,7 +104,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
                     $scope.States = null;
                     break;
 				}
-				$http({
+			/*	$http({
 					method : "GET",
 					url : 'bp/getcircle',
 					dataType : 'json',
@@ -113,17 +113,17 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 						"Content-Type" : "application/json"
 					}
 				}).success(function(data, status) {
-					console.log("Done....." + value)
+					console.log("Done....." + value)*/
 					switch (type) {
 					default:
 //						$scope.SelectedCircelId = 0;
 //						$scope.CircleDefaultLabel = "Select Circle";
-						$scope.Circles = data;
+						//$scope.Circles = data;
 						break;
 					case "circleId":
 						$scope.SelectedStateId = 0;
 						//$scope.StateDefaultLabel = "";
-						if (data.length > 0) {
+						if ($scope.SelectedCircelId > 0) {
 							//$scope.StateDefaultLabel = "Select State";
 							$http({
 								method : "get",
@@ -149,10 +149,10 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 						break;
 					
 					}
-				}).error(function(data, status) {
+		/*		}).error(function(data, status) {
 					console.log("error1....." + value)
 					//$window.alert(data.Message);
-				});
+				});*/
 			};    
        $scope.LoadDropDown('', 0);
       // $scope.LoadYear();
@@ -286,7 +286,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		    	   
 				 console.log("Inside resetPositions ");
 				 	$scope.SelectedQuarterId='';
-		    	   	$scope.SelectedCircelId =''; 
+		    	   //	$scope.SelectedCircelId =''; 
 		    	   	$scope.SelectedStateId ='';
 		    	   	$scope.SelectedQuarterId='';
 		    	   	$scope.SelectedYearId = $scope.yearOptions[0].value;

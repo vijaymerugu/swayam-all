@@ -1,5 +1,9 @@
 package sbi.kiosk.swayam.billingpayment.controller;
 
+import java.util.Date;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -16,6 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import sbi.kiosk.swayam.billingpayment.repository.BpRequestRepository;
 import sbi.kiosk.swayam.billingpayment.repository.BranchStateRepository;
 import sbi.kiosk.swayam.billingpayment.repository.InvoiceCorrectionRepository;
 import sbi.kiosk.swayam.billingpayment.repository.RfpDistinctRepoitory;
@@ -25,12 +31,14 @@ import sbi.kiosk.swayam.billingpayment.service.InvoiceCompareServices;
 import sbi.kiosk.swayam.billingpayment.service.InvoiceSummaryServices;
 import sbi.kiosk.swayam.common.constants.ExceptionConstants;
 import sbi.kiosk.swayam.common.dto.InvoiceSummaryDto;
+import sbi.kiosk.swayam.common.dto.UserDto;
 import sbi.kiosk.swayam.common.entity.BillingPenaltyEntity;
 import sbi.kiosk.swayam.common.entity.InvoiceCompare;
 import sbi.kiosk.swayam.common.entity.InvoiceGeneration;
 import sbi.kiosk.swayam.common.repository.BillingCircleRepository;
 import sbi.kiosk.swayam.healthmonitoring.model.BillingPaymentReport;
 import sbi.kiosk.swayam.healthmonitoring.model.InvoiceUpdateReposne;
+import sbi.kiosk.swayam.healthmonitoring.model.RfpResponse;
 
 
 
@@ -57,6 +65,9 @@ public class BillingPenaltyController {
 	@Autowired
 	InvoiceCorrectionRepository invoiceCorrectionRepository;
 	
+	@Autowired
+	BpRequestRepository bprequest;
+	
 	/*
 	 * @Autowired RfpRepository rfpRepository;
 	 */
@@ -65,6 +76,8 @@ public class BillingPenaltyController {
 	RfpDistinctRepoitory rfpRepository;
 	
 	
+	@Autowired
+	HttpSession httpSession;
 	
 	/*
 	 * @Autowired InvoiceSummaryRepository invoiceSummaryRepository;
@@ -78,32 +91,76 @@ public class BillingPenaltyController {
 	BillingPaymentReport report;
 	
 	@RequestMapping("bp/billingPenalty")
-	public ModelAndView billingPenaltyPage(ModelAndView model, HttpSession session) {
+	public ModelAndView billingPenaltyPage(ModelAndView model) {
+		UserDto user = (UserDto) httpSession.getAttribute("userObj");
+		String  circleID = null;
+		String  circle = user.getCircle();
+		String role = user.getRole(); 
 		
+		if(circle.equalsIgnoreCase("CORPORATE CENTRE")) {
+			
+			model.setViewName("billingPenaltyCC");
+			
+		}else {
+		circleID = (String) httpSession.getAttribute("circelID");
+		//String circleID = circleRepository.findCircleId(user.getCircle());
+		logger.debug("Role -- " +role +" Circle -- " +  circle + " Circle ID -- "+ circleID);
 		try {
-			
-			
+			model.addObject("circle", user.getCircle());
+			model.addObject("circleId", circleID);
 			model.setViewName("billingPenalty");
-			
 		} catch (Exception e) {
 			//e.printStackTrace();
 			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
+		
+		}
+		
+		
+		
 		return model;
 	}
 	
 	@RequestMapping("bp/invoiceGenaration")
 	public ModelAndView invoiceGenarationPage(ModelAndView model, HttpSession session) {
 		
+		
+		UserDto user = (UserDto) httpSession.getAttribute("userObj");
+		String  circleID = null;
+		String  circle = user.getCircle();
+		String role = user.getRole(); 
+		
+		if(circle.equalsIgnoreCase("CORPORATE CENTRE")) {
+			
+			model.setViewName("invoiceGenerationCC");
+			
+		}else {
+		circleID = (String) httpSession.getAttribute("circelID");
+		//String circleID = circleRepository.findCircleId(user.getCircle());
+		logger.debug("Role -- " +role +" Circle -- " +  circle + " Circle ID -- "+ circleID);
 		try {
-			
-			
+			model.addObject("circle", user.getCircle());
+			model.addObject("circleId", circleID);
 			model.setViewName("invoiceGeneration");
-			
 		} catch (Exception e) {
-			
+			//e.printStackTrace();
 			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
+		
+		}
+			
+		
+		
+		/*
+		 * try {
+		 * 
+		 * 
+		 * model.setViewName("invoiceGeneration");
+		 * 
+		 * } catch (Exception e) {
+		 * 
+		 * logger.error("Exception "+ExceptionConstants.EXCEPTION); }
+		 */
 		return model;
 	}
 	
@@ -111,30 +168,97 @@ public class BillingPenaltyController {
 	@RequestMapping("bp/invoiceCompare")
 	public ModelAndView invoiceComparePage(ModelAndView model, HttpSession session) {
 		
-		try {
-			
-			
-			model.setViewName("invoiceCompare");
-			
-		} catch (Exception e) {
 		
-			logger.error("Exception "+ExceptionConstants.EXCEPTION);
+		UserDto user = (UserDto) httpSession.getAttribute("userObj");
+		String  circleID = null;
+		String  circle = user.getCircle();
+		String role = user.getRole(); 
+		
+		if(role.equalsIgnoreCase("BM")) {
+			
+			if(circle.equalsIgnoreCase("CORPORATE CENTRE")) {
+				
+				model.setViewName("invoiceCompareCC");
+				
+			}else {
+			circleID = (String) httpSession.getAttribute("circelID");
+//			logger.debug("Role -- " +role +" Circle -- " +  circle + " Circle ID -- "+ circleID);
+			try {
+				model.addObject("circle", user.getCircle());
+				model.addObject("circleId", circleID);
+				model.setViewName("invoiceCompare");
+			} catch (Exception e) {
+				//e.printStackTrace();
+				logger.error("Exception "+ExceptionConstants.EXCEPTION);
+			}
+			
+			}
+			
+		}else {
+			
+			if(circle.equalsIgnoreCase("CORPORATE CENTRE")) {
+				
+				model.setViewName("invoiceCompareBC-CC");
+				
+			}else {
+			circleID = (String) httpSession.getAttribute("circelID");
+//			logger.debug("Role -- " +role +" Circle -- " +  circle + " Circle ID -- "+ circleID);
+			try {
+				model.addObject("circle", user.getCircle());
+				model.addObject("circleId", circleID);
+				model.setViewName("invoiceCompareBC");
+			} catch (Exception e) {
+				//e.printStackTrace();
+				logger.error("Exception "+ExceptionConstants.EXCEPTION);
+			}
+			
+			}
+			
 		}
+		
+	
+		
+		
 		return model;
 	}
 	
 	@RequestMapping("bp/invoiceSummary")
 	public ModelAndView invoiceSummaryPage(ModelAndView model, HttpSession session) {
 		
+		UserDto user = (UserDto) httpSession.getAttribute("userObj");
+		String  circleID = null;
+		String  circle = user.getCircle();
+		String role = user.getRole(); 
+		
+		if(circle.equalsIgnoreCase("CORPORATE CENTRE")) {
+			
+			model.setViewName("invoiceSummaryCC");
+			
+		}else {
+		circleID = (String) httpSession.getAttribute("circelID");
+		//String circleID = circleRepository.findCircleId(user.getCircle());
+		logger.debug("Role -- " +role +" Circle -- " +  circle + " Circle ID -- "+ circleID);
 		try {
-			
-			
+			model.addObject("circle", user.getCircle());
+			model.addObject("circleId", circleID);
 			model.setViewName("invoiceSummary");
-			
 		} catch (Exception e) {
-			
+			//e.printStackTrace();
 			logger.error("Exception "+ExceptionConstants.EXCEPTION);
 		}
+		
+		}
+		
+		/*
+		 * try {
+		 * 
+		 * 
+		 * model.setViewName("invoiceSummary");
+		 * 
+		 * } catch (Exception e) {
+		 * 
+		 * logger.error("Exception "+ExceptionConstants.EXCEPTION); }
+		 */
 		return model;
 	}
 	
@@ -467,6 +591,7 @@ public class BillingPenaltyController {
 			@RequestParam("quarter") String quarter,@RequestParam("yearid") String yearid)
 			throws Exception {
 		
+		
 		logger.info("Inside updateCorrections");
 		if(Corrections>=0) {
 			
@@ -487,19 +612,13 @@ public class BillingPenaltyController {
 			return ResponseEntity.ok(new InvoiceUpdateReposne("Fail","Correction must be positive Integer"));
 		}
 		
-		/*
-		 * int status = invoiceCorrectionRepository.
-		 * updateInvoiceCorrection(Corrections, kisokId,
-		 * kioskSerialNumber,remarks,quarter,yearid); //System.out.println("Status " +
-		 * status); logger.info("Status " + status);
-		 * 
-		 * if(status==1) { return ResponseEntity.ok(new InvoiceUpdateReposne("Sucess",
-		 * "Data Saved Successfully")); }else{ return ResponseEntity.ok(new
-		 * InvoiceUpdateReposne("fail","Data not updated pleae try")); }
-		 */
-		
 
 	}
+	
+	
+	
+	
+	
 	
 	
 }

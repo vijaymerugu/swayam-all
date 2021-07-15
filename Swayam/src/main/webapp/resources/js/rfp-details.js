@@ -431,12 +431,12 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.edit','ui.grid.pag
 	        RfpUpdateService.update(user,$scope.csrf).then(function (d) {
 	        	console.log("Inside Success");
 	            //alert("Updated Successfully");
-	        	alert(d.data.status);
+	        	alert("Request for update successfull sent for approval");
 	            $scope.loadHomeBodyPageForm();
 	          //  $window.location.reload(); 
 	           // location.reload()
 	        }, function (d) {
-	        	alert("Failed to update");
+	        	alert("Request for update failed");
 	        	$scope.loadHomeBodyPageForm();
 	        	//$window.location.reload(); 
 	        });
@@ -555,7 +555,7 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.edit','ui.grid.pag
 	        	console.log("Successfully Added " + d.status);
 	        	console.log("Successfully Added " + d.data.status);
 	        	
-	        	alert(d.data.status);
+	        	alert("Request for add successfully sent for approval");
 	        	$scope.loadHomeBodyPageForm();
 	        	 //$window.location.reload(); 
 	        	//location.reload();
@@ -569,7 +569,7 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.edit','ui.grid.pag
 	     	   });*/
 	       
 	        }, function (d) {
-	        	alert("Failed to Add");
+	        	alert("Request for add failed");
 	        	$scope.loadHomeBodyPageForm();
 	        	// $window.location.reload();
 	        	 
@@ -657,12 +657,86 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.edit','ui.grid.pag
 	    };
 	    
 	    $scope.deleteRow = function(row) {
-	    	  var index = $scope.gridOptions.data.indexOf(row.entity);
+	    	 // var index = $scope.gridOptions.data.indexOf(row.entity);
 	    	  
-	    	  var user={rfpNo:row.rfpNo,rfpId:row.rfpId,vendor:row.vendor,kisokCost:row.kisokCost,amcCost:row.amcCost	
-	    		        ,companyPenaltyHour:row.companyPenaltyHour,companyPermDntmMuHrs:row.companyPermDntmMuHrs,
-	    		        companyPermDntmSrHrs:row.companyPermDntmSrHrs,companyPermDntmPct:row.companyPermDntmPct,
-	    		        maxPenaltyPct:row.maxPenaltyPct};
+	    	/*  var user={rfpNo:row.rfpNo,
+	    			  rfpId:row.rfpId,
+	    			  vendor:row.vendor,
+	    			  kisokCost:row.kisokCost,
+	    			  amcCost:row.amcCost	
+	    		        ,companyPenaltyHour:row.companyPenaltyHour,
+	    		        companyPermDntmMuHrs:row.companyPermDntmMuHrs,
+	    		        companyPermDntmSrHrs:row.companyPermDntmSrHrs,
+	    		        companyPermDntmPct:row.companyPermDntmPct,
+	    		        maxPenaltyPct:row.maxPenaltyPct
+	    		        };*/
+	    	  
+	    	  
+	    	//  var index = $scope.gridOptions.data.indexOf(row);
+		        var  RfpDate= new Date(row.rfpDate);
+		        var  AMCDate= new Date(row.amcStartDate);
+		        var  SLAStartDate= new Date(row.slaStartDate);
+		       
+		        
+		        
+		      //  var dateObj = new Date(row.slaStartDate);
+		        // test date is stored to dateObj
+		      
+		      /*  var month = SLAStartDate.getMonth()+1;
+		        // make date 2 digits
+		        var date = SLAStartDate.getDate();
+		        // get 4 digit year
+		        var year = SLAStartDate.getFullYear()+5;
+		        // concatenate into desired arrangement
+		        var expiryDate = year + '/' + month + '/' + date;*/
+		        
+		        var  SLAExpiryDate= new Date(row.slaExpiryDate);
+		       
+	    	  
+		        var user={};
+	    	  
+	    	  if(row.penaltyType=="Fixed"){
+		        	
+		        	 user={rfpNo:row.rfpNo,
+		 	        		rfpId:row.rfpId,
+		 	        		vendor:row.vendor,
+		 	        		kisokCost:row.kisokCost,
+		 	        		amcCost:row.amcCost,
+		 	        		companyPenaltyHour:row.companyPenaltyHour,
+		 	        		companyPermDntmMuHrs:row.companyPermDntmMuHrs,
+		 	        		companyPermDntmSrHrs:row.companyPermDntmSrHrs,
+		 	        		companyPermDntmPct:row.companyPermDntmPct,
+		 	        		maxPenaltyPct:row.maxPenaltyPct,
+		 	        		penaltyfromRange:0,
+		 	        		penaltyToRange:0,
+		 	        		rfpDate:RfpDate,
+		 	        		amcStartDate:AMCDate,
+		 	        		periodicity:row.periodicity,
+		 	        		penaltyType:row.penaltyType,
+		 	        		slaStartDate:SLAStartDate,
+		 	        		slaExpiryDate:SLAExpiryDate};
+		        	
+		        }else if(row.penaltyType=="Range"){
+		        	 user={rfpNo:row.rfpNo,
+		 	        		rfpId:row.rfpId,
+		 	        		vendor:row.vendor,
+		 	        		kisokCost:row.kisokCost,
+		 	        		amcCost:row.amcCost,
+		 	        		companyPenaltyHour:row.companyPenaltyHour,
+		 	        		companyPermDntmMuHrs:row.companyPermDntmMuHrs,
+		 	        		companyPermDntmSrHrs:row.companyPermDntmSrHrs,
+		 	        		companyPermDntmPct:row.companyPermDntmPct,
+		 	        		maxPenaltyPct:0,
+		 	        		penaltyfromRange:row.penaltyfromRange,
+		 	        		penaltyToRange:row.penaltyToRange,
+		 	        		rfpDate:RfpDate,
+		 	        		amcStartDate:AMCDate,
+		 	        		periodicity:row.periodicity,
+		 	        		penaltyType:row.penaltyType,
+		 	        		slaStartDate:SLAStartDate,
+		 	        		slaExpiryDate:SLAExpiryDate};
+		        	
+		        }
 	    	  
 	    	  console.log("Session CSRF "+ $scope.csrf);
 	    	  
@@ -671,9 +745,9 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.edit','ui.grid.pag
 		        	console.log("Inside Success ");
 		        	
 		        	
-		        	$scope.gridOptions.data.splice(index, 1);
-		        	//alert("Successfully deleted");
-		        	alert(d.data.status);
+		        	//$scope.gridOptions.data.splice(index, 1);
+		        	alert("Request for delete successfully sent for approval");
+		        	//alert(d.data.status);
 		        	$scope.loadHomeBodyPageForm();
 		        	//$route.reload(); 
 		        	//location.reload();
@@ -684,7 +758,7 @@ var app = angular.module('app', ['ngRoute','ui.grid','ui.grid.edit','ui.grid.pag
 		                type: 'success'
 		            });*/
 		        }, function (d) {
-		        	alert("failed to delete row");
+		        	alert("Request for delete failed");
 		        	$scope.loadHomeBodyPageForm();
 		        
 		        });

@@ -205,14 +205,14 @@ display:none;
 						 <a ng-click="getCountType('Sanction Note')" style="cursor: hand;cursor: pointer;"><c:out value="${mapStatusCount['snnote']}"/></a>  					
 						</td>
 						
-						<td id="count1">
-						 <a ng-click="getCountType('RFP Management')" style="cursor: hand;cursor: pointer;"><c:out value="0"/></a>					
+				<td id="count1">
+						 <a ng-click="getCountType('RFP Request')" style="cursor: hand;cursor: pointer;">${mapStatusCount['rfpRequest']}</a>					
 						</td>
 						<td id="count1">
-						 <a ng-click="getCountType('Invoice Submission')" style="cursor: hand;cursor: pointer;"><c:out value="0"/></a>					
+						 <a ng-click="getCountType('Invoice Compare')" style="cursor: hand;cursor: pointer;">${mapStatusCount['invoiceCompare']}</a>					
 						</td>
 						<td id="count1">
-						 <a ng-click="getCountType('Invoice Comparison')" style="cursor: hand;cursor: pointer;"><c:out value="0"/></a>					
+						 <a ng-click="getCountType('Tax Request')" style="cursor: hand;cursor: pointer;">${mapStatusCount['taxRequest']}</a>					
 						</td>
 					</tr>
 					<tr align="center"
@@ -225,9 +225,9 @@ display:none;
 
 						<td id="count2">Sanction Note</td>
 						<td id="count2">RFP Management</td>
-						<td id="count2">Invoice Submission</td>
+						<td id="count2">Invoice Comparison</td>
 						<td id="count2"
-							style="color: black; border-right: solid 1px #0307fc;">Invoice Comparison</td>
+							style="color: black; border-right: solid 1px #0307fc;">Tax Submission</td>
 
 						
 
@@ -266,7 +266,7 @@ display:none;
 		<div class="submain_transaction">
 	
 	
-	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Circle, Vendor, State, Rfp. ref no. etc." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">
+	<input ng-model="searchText" ng-change="refresh()" placeholder="Enter Request Type." style="font-size: 12px" size="150" height="80" class="form-group has-search" id="input">
 		<!-- <span style="float:right">
 		<a class="openpdfonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/pdf.svg"></a>
 		<a class="openxlonclick" style="cursor: hand;cursor: pointer;"><img src="resources/img/excel.svg"></a>

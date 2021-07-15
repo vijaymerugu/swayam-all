@@ -17,10 +17,13 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 			   
 		   };
 		   
-		   $scope.loadRequestForm = function(requestId){	   
+		   $scope.loadRequestForm = function(requestId,reqType){	   
 				if(requestId != undefined){	
 					//var str ='hm/viewCCCaseId?caseId=' + url;
-					 var str ='bp/getSanctionApprovalForm?requestId='+requestId
+					
+					reqType = reqType.replace(/ /g,"");
+					console.log("Request Id " + requestId + "type "+ reqType);
+					 var str ='bp/getSanctionApprovalForm?requestId='+requestId+'&requestType='+reqType
 					$("#contentHomeApp").load(str);
 				}						
 			}
@@ -37,7 +40,7 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 					
 				      columnDefs: [
 				          { name: 'requestId', displayName: 'Request Id' , 
-				        	  cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.loadRequestForm(row.entity.requestId)">{{ row.entity.requestId}}</a></div>'  
+				        	  cellTemplate: '<div class="ui-grid-cell-contents"><a ng-click="grid.appScope.loadRequestForm(row.entity.requestId,row.entity.reqType)">{{ row.entity.requestId}}</a></div>'  
 				          },
 				          { name: 'reqType', displayName: 'Type of Request' },
 				          { name: 'reqDetail', displayName: 'Request Details' , visible: false
@@ -53,9 +56,10 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 				          { name: 'checkerPfid', displayName: 'Approver Details (PF ID)' },
 				          { name: 'checkerCommnet', displayName: 'Commnets by Checker' },
 				          { name: 'status', displayName: 'Prgress Status' },
+				          { name: 'userCircle', displayName: 'Circle User' ,visible: true },
 				          {
 			                  name: 'Actions', field: 'edit', enableFiltering: false, enableSorting: false,
-			                  cellTemplate: '<div><button ng-show="grid.appScope.showorhide(row.entity.status)" class="btn primary" ng-click="grid.appScope.download(row.entity.requestId)"><i class="fa fa-download"></i></button>' +  //Edit Button
+			                  cellTemplate: '<div><button ng-show="grid.appScope.showorhide(row.entity.status,row.entity.reqType)" class="btn primary" ng-click="grid.appScope.download(row.entity.requestId)"><i class="fa fa-download"></i></button>' +  //Edit Button
 			                         
 			                                 '</div>', width: 140
 			              }
@@ -66,13 +70,34 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 				        gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize,counttype) {
 				          paginationOptions.pageNumber = newPage;
 				          paginationOptions.pageSize = pageSize;
-				          SanctionService.getUsers(paginationOptions.pageNumber,
+				          
+				       	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
+						   	
+				       	  SanctionService.getUsers(paginationOptions.pageNumber,
 									paginationOptions.pageSize, counttype).success(function(data) {
 										console.log("data4 " + data);
 								$scope.gridOptions.data = data.content;
 								$scope.gridOptions.totalItems = data.totalElements;
 
 				          });
+				       		
+						 	   
+						   	}else{
+						   		
+						   	  SanctionService.getRefersh(paginationOptions.pageNumber,
+										paginationOptions.pageSize, counttype,$scope.searchText).success(function(data) {
+											//console.log("data4 " + data);
+									$scope.gridOptions.data = data.content;
+									$scope.gridOptions.totalItems = data.totalElements;
+
+					         });
+						   		
+						   	
+						   		
+						   	}
+				          
+				          
+				        
 				        });
 				     }
 				  };
@@ -96,8 +121,8 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		        
 		    };
 		    
-		    $scope.showorhide = function (status){
-		    	if(status=='Approved'){
+		    $scope.showorhide = function (status,reqType){
+		    	if(status=='Approved' && reqType =='Sanction Note'){
 		    		return true;
 		    	}else{
 		    		return false;
@@ -120,23 +145,23 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 		    
 		    $scope.refresh = function()
 			   {  	
+		    	console.log("Inside refresh " + $scope.searchText);
 				   	if($scope.searchText ==null || $scope.searchText ==undefined || $scope.searchText ==''){	   
-				   	  SanctionService.getUsers(paginationOptions.pageNumber,
-								paginationOptions.pageSize, counttype).success(function(data) {
-									console.log("data4 " + data);
+				   	  SanctionService.getRefersh(paginationOptions.pageNumber,
+								paginationOptions.pageSize, counttype,$scope.searchText).success(function(data) {
+									//console.log("data4 " + data);
 							$scope.gridOptions.data = data.content;
 							$scope.gridOptions.totalItems = data.totalElements;
 
 			         });
 				 	   
 				   	}else if($scope.searchText !=null || $scope.searchText !=undefined || $scope.searchText !=''){
-				   	  SanctionService.getUsers(paginationOptions.pageNumber,
-								paginationOptions.pageSize, counttype).success(function(data) {
-									console.log("data4 " + data);
-							$scope.gridOptions.data = data.content;
-							$scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, $scope.searchText);
-							
-							$scope.gridOptions.totalItems = data.totalElements;
+				   		console.log("Inside not Null " + $scope.searchText);
+				   		SanctionService.getRefersh(paginationOptions.pageNumber,
+								paginationOptions.pageSize, counttype,$scope.searchText).success(function(data) {
+									
+									$scope.gridOptions.data = data.content;
+									$scope.gridOptions.totalItems = data.totalElements;
 
 			         });
 				   		
@@ -146,8 +171,8 @@ var app = angular.module('app', ['ui.grid','ui.grid.pagination','ngAnimate', 'ng
 				 		   		   
 				 		   
 				 	    }else{
-				 	    	  SanctionService.getUsers(paginationOptions.pageNumber,
-				 						paginationOptions.pageSize, counttype).success(function(data) {
+				 	    	  SanctionService.getRefersh(paginationOptions.pageNumber,
+				 						paginationOptions.pageSize, counttype,$scope.searchText).success(function(data) {
 				 							console.log("data4 " + data);
 				 					$scope.gridOptions.data = data.content;
 				 					$scope.gridOptions.totalItems = data.totalElements;
@@ -198,6 +223,16 @@ app.service('SanctionService',['$http', function ($http) {
 	        });
 	    }
 		
+		function getRefersh(pageNumber,size,counttype,serchtext) {
+			pageNumber = pageNumber > 0?pageNumber - 1:0;
+	        return  $http({
+	          method: 'GET',
+	          url: 'sannctionRequestRefresh/get?page='+pageNumber+
+	     '&size='+size+'&type='+counttype+'&serchtext='+serchtext
+	         
+	        });
+	    }
+		
 		
 		function generatePdf(requestId) {
 			
@@ -211,6 +246,7 @@ app.service('SanctionService',['$http', function ($http) {
 		
 	    return {
 	    	getUsers:getUsers,
+	    	getRefersh:getRefersh,
 	    	generatePdf:generatePdf
 	    };
 		

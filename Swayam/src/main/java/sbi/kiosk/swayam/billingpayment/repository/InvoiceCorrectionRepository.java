@@ -1,5 +1,7 @@
 package sbi.kiosk.swayam.billingpayment.repository;
 
+import java.util.Date;
+
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -27,6 +29,26 @@ public interface InvoiceCorrectionRepository extends CrudRepository<Invoice, Str
 	int updateInvoiceCorrection(@Param("correction") double correction,
 			@Param("kisokId") String kisokId, @Param("kisokSerialNumber")String kisokSerialNumber, 
 			@Param("remarks")String remarks,@Param("quarter")String quarter,@Param("year")String year); 
+	
+	
+	
+	
+	@Modifying
+	@Transactional
+	@Query(value = "UPDATE 	TBL_INVOICE i SET i.CORRECTION_AMT=:correction,\r\n" + 
+			"							i.FINAL_AMT = (i.AMC_COST) + (i.SPARE_PARTS_COST) - (i.PENALTY_AMT)  + (:correction),\r\n" + 
+			"							i.REMARKS=:remarks, " + 
+			"							i.UPDATED_BY=:pfid," + 
+			"							i.UPDATED_DATE=:date " + 
+			"							WHERE i.KIOSK_ID=:kisokId \r\n" + 
+			"								AND i.KIOSK_SERIAL_NO=:kisokSerialNumber\r\n" + 
+			"								AND i.QTR_ID=:quarter \r\n" + 
+			"								AND i.FIN_YR=:year",nativeQuery = true)
+	int updateInvoiceFormCorrection(@Param("correction") double correction,
+			@Param("kisokId") String kisokId, @Param("kisokSerialNumber")String kisokSerialNumber, 
+			@Param("remarks")String remarks,@Param("quarter")String quarter,@Param("year")String year,
+			@Param("pfid")String pfid,@Param("date")Date date); 
+	
 		
 	
 	/*

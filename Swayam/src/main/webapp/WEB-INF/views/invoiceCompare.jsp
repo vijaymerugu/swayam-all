@@ -163,6 +163,7 @@ ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
 
 <div class="main_transaction" ng-app="app" id="appId">
 <div ng-controller="InvoiceCompareCtrl as vm">
+<input type="hidden" ng-init="csrf ='<%=session.getAttribute("csrfToken")%>'" >
 <div>
  		<form> <!-- ng-submit="searchPositions(SelectedCircelId,SelectedStateId,
 							SelectedQuarterId,SelectedYearId,SelectedVendorId,RfpId)" -->
@@ -176,10 +177,15 @@ ui-grid-render-container-body .ui-grid-viewport.no-horizontal-bar {
                         <span class="pull-right">:</span>
                     </div>
                     <div class="col-xs-6">
-                        <select id="circle" class="form-group" name="Circle" ng-model="SelectedCircelId"
+                       <!--  <select id="circle" class="form-group" name="Circle" ng-model="SelectedCircelId"
 								ng-change="LoadDropDown('circleId',SelectedCircelId)" required>
 									  <option value="" selected>--Select Circle--</option>
 									<option ng-repeat="item in Circles" value="{{item.circleCode}}">{{item.circleName}}</option>
+							</select> -->
+							
+							<select id="circle" class="form-group" name="Circle" ng-init="SelectedCircelId='${circleId}';LoadDropDown('circleId','${circleId}')" ng-model="SelectedCircelId"
+								  style="background: #dddddd;" disabled>
+									<option value="${circleId}" selected>${circle}</option>
 							</select>
                     </div>
                 </div>
